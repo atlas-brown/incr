@@ -9,7 +9,7 @@ from pathlib import Path
 import subprocess
 import sys
 from threading import Thread
-from typing import Any, Optional
+from typing import Any, IO, Optional
 
 CHUNK_SIZE: int = 65536
 CACHE_DIRECTORY: Path = Path("outputs")
@@ -26,7 +26,7 @@ def generate_command_hash(args: list[str], input: Optional[bytes]):
     hash.update(json.dumps(data, sort_keys=True).encode("utf-8"))
     return hash.hexdigest()
 
-def read_stream(stream, destination, record: BytesIO):
+def read_stream(stream: IO[bytes], destination: IO[bytes], record: BytesIO):
     try:
         for chunk in iter(lambda: stream.read(CHUNK_SIZE), b""):
             if chunk:
@@ -39,7 +39,7 @@ def read_stream(stream, destination, record: BytesIO):
         except Exception:
             pass
 
-def write_stream(stream, data: bytes):
+def write_stream(stream: IO[bytes], data: bytes):
     try:
         data_view = memoryview(data)
         total_length = len(data_view)
