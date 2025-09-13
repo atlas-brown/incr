@@ -178,10 +178,10 @@ def main():
     result = run_command(args, stdin)
     with open(cache_file, "w") as file:
         data = {
-            "key_data": key_data,
             "return_code": result.return_code,
             "stdout": encode_bytes(result.stdout),
             "stderr": encode_bytes(result.stderr),
+            "key_data": key_data,
         }
         file.write(json.dumps(data, indent=4))
 
