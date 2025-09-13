@@ -259,7 +259,7 @@ def main():
 
     # Run the command and cache the outputs
     shutil.rmtree(command_directory, ignore_errors=True)
-    command_directory.mkdir(parents=True)
+    command_directory.mkdir(parents=True, exist_ok=True)
     result = run_command(command_directory, args, stdin)
     cache_data = CacheData.from_command(result, key_data)
     with open(command_directory / CACHE_FILE, "w") as file:
