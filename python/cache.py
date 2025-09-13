@@ -85,10 +85,14 @@ class CacheData:
 
 # Constant parameters
 CACHE_ENCODING: CacheEncoding = CacheEncoding.UTF8
+TRY_COMMAND: str = "python/try.sh"
+STRACE_COMMAND: str = "strace"
+
 CACHE_DIRECTORY: Path = Path("cache")
 CACHE_FILE: str = "data.json"
 TRACE_FILE: str = "trace.txt"
 FILE_DIRECTORY: str = "files"
+
 CHUNK_SIZE: int = 65536
 
 def encode_bytes(data: bytes) -> str:
@@ -168,9 +172,9 @@ def check_read_dependencies(dependencies: dict[str, str]) -> bool:
 def run_command(command_directory: Path, args: list[str], stdin: Optional[bytes]) -> CommandOutput:
     """Runs the command in a subprocess and collects the outputs."""
     trace_file = command_directory / TRACE_FILE
-    command_string = " ".join(shlex.quote(arg) for arg in args)
+    command_string = " ".join(args) # TODO: quote? " ".join(shlex.quote(arg) for arg in args)
     trace_command = [
-        "strace", "-y", "-f", "--seccomp-bpf", "--trace=fork,clone,%file",
+        STRACE_COMMAND, "-y", "-f", "--seccomp-bpf", "--trace=fork,clone,%file",
         "-o", str(trace_file), "env", "-i", "bash", "-c", command_string,
     ]
     print(trace_command)
