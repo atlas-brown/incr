@@ -27,12 +27,61 @@ class CacheEncoding(IntEnum):
     UTF8 = 0
     Base64 = 1
 
-@dataclass
+@dataclass(kw_only=True)
 class CommandOutput:
-    """The output of a shell command."""
+    """The output of a shell command not including file modifications."""
     return_code: int
     stdout: bytes
     stderr: bytes
+    read_dependencies: dict[str, str]
+
+@dataclass(kw_only=True)
+class CacheData:
+    """The cached output of a shell command not including file modifications."""
+    return_code: int
+    stdout: bytes
+    stderr: bytes
+    read_dependencies: dict[str, str]
+    key_data: Optional[dict[str, Any]]
+
+    @staticmethod
+    def from_command(command_output: CommandOutput, key_data: dict[str, Any]) -> 'CacheData':
+        return CacheData(
+            return_code=command_output.return_code,
+            stdout=command_output.stdout,
+            stderr=command_output.stderr,
+            read_dependencies=command_output.read_dependencies,
+            key_data=key_data,
+        )
+
+    def serialize(self) -> str:
+        data = {
+            "return_code": self.return_code,
+            "stdout": encode_bytes(self.stdout),
+            "stderr": encode_bytes(self.stderr),
+            "read_dependencies": self.read_dependencies,
+        }
+        if self.key_data is not None:
+            data["key_data"] = self.key_data
+        return json.dumps(data, indent=4)
+
+    @staticmethod
+    def deserialize(string: str) -> Optional['CacheData']:
+        try:
+            data: dict[str, Any] = json.loads(string)
+            for property in ("return_code", "stdout", "stderr", "read_dependencies"):
+                if property not in data:
+                    return None
+            return CacheData(
+                return_code=data["return_code"],
+                stdout=decode_bytes(data["stdout"]),
+                stderr=decode_bytes(data["stderr"]),
+                read_dependencies=data["read_dependencies"],
+                key_data=data.get("key_data"),
+            )
+        except JSONDecodeError:
+            pass
+        return None
 
 # Constant parameters
 CACHE_ENCODING: CacheEncoding = CacheEncoding.UTF8
@@ -103,20 +152,18 @@ def generate_command_hash(
     hash.update(json.dumps(data, sort_keys=True).encode("utf-8"))
     return (hash.hexdigest(), data)
 
-def read_cache_data(command_directory: Path) -> Optional[dict[str, Any]]:
+def read_cache_data(command_directory: Path) -> Optional[CacheData]:
     """Reads and parses the cache file in a command directory if it exists."""
     try:
         with open(command_directory / CACHE_FILE, "r") as file:
-            return json.load(file)
+            return CacheData.deserialize(file.read())
     except FileNotFoundError:
-        pass
-    except JSONDecodeError:
         pass
     return None
 
-def check_file_dependencies(dependencies: dict[str, str]) -> bool:
+def check_read_dependencies(dependencies: dict[str, str]) -> bool:
     """Checks if the content hash of each read dependency matches the cached hash."""
-    return True
+    return False
 
 def run_command(command_directory: Path, args: list[str], stdin: Optional[bytes]) -> CommandOutput:
     """Runs the command in a subprocess and collects the outputs."""
@@ -178,7 +225,12 @@ def run_command(command_directory: Path, args: list[str], stdin: Optional[bytes]
         print(read_set)
         print(write_set)
 
-    return CommandOutput(return_code, stdout.getvalue(), stderr.getvalue())
+    return CommandOutput(
+        return_code=return_code,
+        stdout=stdout.getvalue(),
+        stderr=stderr.getvalue(),
+        read_dependencies={},
+    )
 
 def main():
     if len(sys.argv) == 1:
@@ -194,28 +246,20 @@ def main():
 
     # Output the cached data if it is valid
     cache_data = read_cache_data(command_directory)
-    if cache_data is not None and check_file_dependencies(cache_data):
-        stdout, stderr = (decode_bytes(cache_data["stdout"]), decode_bytes(cache_data["stderr"]))
-        sys.stdout.buffer.write(stdout)
-        sys.stderr.buffer.write(stderr)
+    if cache_data is not None and check_read_dependencies(cache_data.read_dependencies):
+        sys.stdout.buffer.write(cache_data.stdout)
+        sys.stderr.buffer.write(cache_data.stderr)
         sys.stdout.buffer.flush()
         sys.stderr.buffer.flush()
-        sys.exit(cache_data["return_code"])
+        sys.exit(cache_data.return_code)
 
     # Run the command and cache the outputs
-    if command_directory.exists():
-        shutil.rmtree(command_directory)
+    shutil.rmtree(command_directory, ignore_errors=True)
     command_directory.mkdir(parents=True)
     result = run_command(command_directory, args, stdin)
-
+    cache_data = CacheData.from_command(result, key_data)
     with open(command_directory / CACHE_FILE, "w") as file:
-        data = {
-            "return_code": result.return_code,
-            "stdout": encode_bytes(result.stdout),
-            "stderr": encode_bytes(result.stderr),
-            "key_data": key_data,
-        }
-        file.write(json.dumps(data, indent=4))
+        file.write(cache_data.serialize())
 
     sys.exit(result.return_code)
 
