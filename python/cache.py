@@ -14,7 +14,8 @@ import sys
 from threading import Thread
 from typing import Any, IO, Optional
 
-import trace
+import file_trace
+from file_trace import Context
 
 class CacheEncoding(IntEnum):
     """
@@ -149,7 +150,11 @@ def run_command(hash: str, args: list[str], stdin: Optional[bytes]) -> CommandOu
     # Parse file system dependencies from trace
     with open(trace_file, "r") as file:
         data = file.readlines()
-        print(data)
+        context = Context()
+        context.set_dir(os.getcwd())
+        read_set, write_set = file_trace.parse_and_gather_cmd_rw_sets(data, context)
+        print(read_set)
+        print(write_set)
 
     return CommandOutput(return_code, stdout.getvalue(), stderr.getvalue())
 
