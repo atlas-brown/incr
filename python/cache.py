@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import base64
+from dataclasses import dataclass
 from enum import IntEnum
 import hashlib
 from io import BytesIO
@@ -20,6 +21,13 @@ class CacheEncoding(IntEnum):
     """
     UTF8 = 0
     Base64 = 1
+
+@dataclass
+class CommandOutput:
+    """The output of a shell command."""
+    return_code: int
+    stdout: bytes
+    stderr: bytes
 
 # Constant parameters
 CACHE_ENCODING: CacheEncoding = CacheEncoding.UTF8
@@ -87,55 +95,56 @@ def generate_command_hash(
     hash.update(json.dumps(data, sort_keys=True).encode("utf-8"))
     return (hash.hexdigest(), data)
 
-def run_command(args: list[str], input: Optional[bytes]) -> dict[str, Any]:
+def run_command(args: list[str], stdin: Optional[bytes]) -> CommandOutput:
+    """Runs the command in a subprocess and collects the outputs."""
     process = subprocess.Popen(
         args,
-        stdin=subprocess.PIPE if input is not None else None,
+        stdin=subprocess.PIPE if stdin is not None else None,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         bufsize=0,
     )
-    captured_stdout = BytesIO()
-    captured_stderr = BytesIO()
+    stdout = BytesIO()
+    stderr = BytesIO()
 
+    # Write the input data to the process
     stdin_writer = None
-    if input is not None:
+    if stdin is not None:
         stdin_writer = Thread(
             target=write_stream,
-            args=(process.stdin, input),
+            args=(process.stdin, stdin),
             daemon=True,
         )
         stdin_writer.start()
 
+    # Read the output data from the process
     stdout_reader = Thread(
         target=read_stream,
-        args=(process.stdout, sys.stdout.buffer, captured_stdout),
+        args=(process.stdout, sys.stdout.buffer, stdout),
         daemon=True,
     )
     stderr_reader = Thread(
         target=read_stream,
-        args=(process.stderr, sys.stderr.buffer, captured_stderr),
+        args=(process.stderr, sys.stderr.buffer, stderr),
         daemon=True,
     )
     stdout_reader.start()
     stderr_reader.start()
 
+    # Wait for the process to exit
     return_code = process.wait()
     if stdin_writer is not None:
         stdin_writer.join()
     stdout_reader.join()
     stderr_reader.join()
 
-    return {
-        "return_code": return_code,
-        "encoded_stdout": base64.b64encode(captured_stdout.getvalue()).decode("utf-8"),
-        "encoded_stderr": base64.b64encode(captured_stderr.getvalue()).decode("utf-8"),
-    }
+    return CommandOutput(return_code, stdout.getvalue(), stderr.getvalue())
 
 def main():
     if len(sys.argv) == 1:
         sys.exit()
 
+    # Read the inputs and generate the cache key
     args = sys.argv[1:]
     stdin = None
     if not sys.stdin.isatty():
@@ -143,32 +152,40 @@ def main():
     hash, key_data = generate_command_hash(args, stdin, dict(os.environ))
     cache_file = CACHE_DIRECTORY / f"{hash}.json"
 
-    print(hash, cache_file)
-    print(key_data)
-    sys.exit()
-
+    # Read the cached data if it exists
     cache_data = None
     try:
         with open(cache_file, "r") as file:
             cache_data = json.load(file)
+            assert "return_code" in cache_data
+            assert "stdout" in cache_data
+            assert "stderr" in cache_data
     except FileNotFoundError:
         pass
     except JSONDecodeError:
         pass
 
+    # Output the cached data if it exists
     if cache_data is not None:
-        stdout_data = base64.b64decode(cache_data["encoded_stdout"])
-        stderr_data = base64.b64decode(cache_data["encoded_stderr"])
-        sys.stdout.buffer.write(stdout_data)
-        sys.stderr.buffer.write(stderr_data)
+        stdout, stderr = (decode_bytes(cache_data["stdout"]), decode_bytes(cache_data["stderr"]))
+        sys.stdout.buffer.write(stdout)
+        sys.stderr.buffer.write(stderr)
         sys.stdout.buffer.flush()
         sys.stderr.buffer.flush()
         sys.exit(cache_data["return_code"])
 
-    result = run_command(args, input)
+    # Run the command and cache the outputs
+    result = run_command(args, stdin)
     with open(cache_file, "w") as file:
-        file.write(json.dumps(result))
-    sys.exit(result["return_code"])
+        data = {
+            "key_data": key_data,
+            "return_code": result.return_code,
+            "stdout": encode_bytes(result.stdout),
+            "stderr": encode_bytes(result.stderr),
+        }
+        file.write(json.dumps(data, indent=4))
+
+    sys.exit(result.return_code)
 
 if __name__ == "__main__":
     main()
