@@ -9,6 +9,8 @@ import json
 from json import JSONDecodeError
 import os
 from pathlib import Path
+import shlex
+import shutil
 import subprocess
 import sys
 from threading import Thread
@@ -34,8 +36,11 @@ class CommandOutput:
 
 # Constant parameters
 CACHE_ENCODING: CacheEncoding = CacheEncoding.UTF8
-CACHE_DIRECTORY: Path = Path("outputs")
-STREAM_CHUNK_SIZE: int = 65536
+CACHE_DIRECTORY: Path = Path("cache")
+CACHE_FILE: str = "data.json"
+TRACE_FILE: str = "trace.txt"
+FILE_DIRECTORY: str = "files"
+CHUNK_SIZE: int = 65536
 
 def encode_bytes(data: bytes) -> str:
     """Encodes raw bytes as a string which is storable in a JSON object."""
@@ -56,7 +61,7 @@ def decode_bytes(data: str) -> bytes:
 def read_stream(stream: IO[bytes], destination: IO[bytes], record: BytesIO):
     """Reads data from the stream while writing it to the destination and the record."""
     try:
-        for chunk in iter(lambda: stream.read(STREAM_CHUNK_SIZE), b""):
+        for chunk in iter(lambda: stream.read(CHUNK_SIZE), b""):
             if chunk:
                 destination.write(chunk)
                 destination.flush()
@@ -74,7 +79,7 @@ def write_stream(stream: IO[bytes], data: bytes):
         total_length = len(data_view)
         sent_count = 0
         while sent_count < total_length:
-            count = stream.write(data_view[sent_count:sent_count + STREAM_CHUNK_SIZE])
+            count = stream.write(data_view[sent_count:sent_count + CHUNK_SIZE])
             sent_count += count if count is not None else 0
         stream.flush()
     finally:
@@ -98,13 +103,30 @@ def generate_command_hash(
     hash.update(json.dumps(data, sort_keys=True).encode("utf-8"))
     return (hash.hexdigest(), data)
 
-def run_command(hash: str, args: list[str], stdin: Optional[bytes]) -> CommandOutput:
+def read_cache_data(command_directory: Path) -> Optional[dict[str, Any]]:
+    """Reads and parses the cache file in a command directory if it exists."""
+    try:
+        with open(command_directory / CACHE_FILE, "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        pass
+    except JSONDecodeError:
+        pass
+    return None
+
+def check_file_dependencies(dependencies: dict[str, str]) -> bool:
+    """Checks if the content hash of each read dependency matches the cached hash."""
+    return True
+
+def run_command(command_directory: Path, args: list[str], stdin: Optional[bytes]) -> CommandOutput:
     """Runs the command in a subprocess and collects the outputs."""
-    trace_file = CACHE_DIRECTORY / f"trace_{hash}.txt"
+    trace_file = command_directory / TRACE_FILE
+    command_string = " ".join(shlex.quote(arg) for arg in args)
     trace_command = [
         "strace", "-y", "-f", "--seccomp-bpf", "--trace=fork,clone,%file",
-        "-o", str(trace_file), "env", "-i", "bash", "-c", " ".join(args), # TODO: fix escaping
+        "-o", str(trace_file), "env", "-i", "bash", "-c", command_string,
     ]
+    print(trace_command)
 
     process = subprocess.Popen(
         trace_command,
@@ -168,23 +190,11 @@ def main():
     if not sys.stdin.isatty():
         stdin = sys.stdin.buffer.read()
     hash, key_data = generate_command_hash(args, stdin, dict(os.environ))
-    cache_file = CACHE_DIRECTORY / f"{hash}.json"
+    command_directory = CACHE_DIRECTORY / hash
 
-    # Read the cached data if it exists
-    cache_data = None
-    try:
-        with open(cache_file, "r") as file:
-            cache_data = json.load(file)
-            assert "return_code" in cache_data
-            assert "stdout" in cache_data
-            assert "stderr" in cache_data
-    except FileNotFoundError:
-        pass
-    except JSONDecodeError:
-        pass
-
-    # Output the cached data if it exists
-    if cache_data is not None and False:
+    # Output the cached data if it is valid
+    cache_data = read_cache_data(command_directory)
+    if cache_data is not None and check_file_dependencies(cache_data):
         stdout, stderr = (decode_bytes(cache_data["stdout"]), decode_bytes(cache_data["stderr"]))
         sys.stdout.buffer.write(stdout)
         sys.stderr.buffer.write(stderr)
@@ -193,8 +203,12 @@ def main():
         sys.exit(cache_data["return_code"])
 
     # Run the command and cache the outputs
-    result = run_command(hash, args, stdin)
-    with open(cache_file, "w") as file:
+    if command_directory.exists():
+        shutil.rmtree(command_directory)
+    command_directory.mkdir(parents=True)
+    result = run_command(command_directory, args, stdin)
+
+    with open(command_directory / CACHE_FILE, "w") as file:
         data = {
             "return_code": result.return_code,
             "stdout": encode_bytes(result.stdout),

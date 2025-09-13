@@ -1,3 +1,2 @@
-inputs/*
-outputs/*
+cache
 __pycache__
