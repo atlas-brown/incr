@@ -42,6 +42,36 @@ def decode_bytes(data: str) -> bytes:
         return base64.b64decode(data)
     raise RuntimeError("Invalid encoding mode")
 
+def read_stream(stream: IO[bytes], destination: IO[bytes], record: BytesIO):
+    """Reads data from the stream while writing it to the destination and the record."""
+    try:
+        for chunk in iter(lambda: stream.read(STREAM_CHUNK_SIZE), b""):
+            if chunk:
+                destination.write(chunk)
+                destination.flush()
+                record.write(chunk)
+    finally:
+        try:
+            stream.close()
+        except Exception:
+            pass
+
+def write_stream(stream: IO[bytes], data: bytes):
+    """Writes data to the stream while it has capacity."""
+    try:
+        data_view = memoryview(data)
+        total_length = len(data_view)
+        sent_count = 0
+        while sent_count < total_length:
+            count = stream.write(data_view[sent_count:sent_count + STREAM_CHUNK_SIZE])
+            sent_count += count if count is not None else 0
+        stream.flush()
+    finally:
+        try:
+            stream.close()
+        except Exception:
+            pass
+
 def generate_command_hash(
     args: list[str], 
     stdin: Optional[bytes],
@@ -56,34 +86,6 @@ def generate_command_hash(
     hash = hashlib.sha256()
     hash.update(json.dumps(data, sort_keys=True).encode("utf-8"))
     return (hash.hexdigest(), data)
-
-def read_stream(stream: IO[bytes], destination: IO[bytes], record: BytesIO):
-    try:
-        for chunk in iter(lambda: stream.read(STREAM_CHUNK_SIZE), b""):
-            if chunk:
-                destination.write(chunk)
-                destination.flush()
-                record.write(chunk)
-    finally:
-        try:
-            stream.close()
-        except Exception:
-            pass
-
-def write_stream(stream: IO[bytes], data: bytes):
-    try:
-        data_view = memoryview(data)
-        total_length = len(data_view)
-        sent_count = 0
-        while sent_count < total_length:
-            count = stream.write(data_view[sent_count:sent_count + STREAM_CHUNK_SIZE])
-            sent_count += count if count is not None else 0
-        stream.flush()
-    finally:
-        try:
-            stream.close()
-        except Exception:
-            pass
 
 def run_command(args: list[str], input: Optional[bytes]) -> dict[str, Any]:
     process = subprocess.Popen(
