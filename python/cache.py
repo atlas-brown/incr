@@ -14,6 +14,8 @@ import sys
 from threading import Thread
 from typing import Any, IO, Optional
 
+import trace
+
 class CacheEncoding(IntEnum):
     """
     The encoding used to save stdin, stdout, and stderr bytes in cache files. UTF-8 is mainly
@@ -95,10 +97,16 @@ def generate_command_hash(
     hash.update(json.dumps(data, sort_keys=True).encode("utf-8"))
     return (hash.hexdigest(), data)
 
-def run_command(args: list[str], stdin: Optional[bytes]) -> CommandOutput:
+def run_command(hash: str, args: list[str], stdin: Optional[bytes]) -> CommandOutput:
     """Runs the command in a subprocess and collects the outputs."""
+    trace_file = CACHE_DIRECTORY / f"trace_{hash}.txt"
+    trace_command = [
+        "strace", "-y", "-f", "--seccomp-bpf", "--trace=fork,clone,%file",
+        "-o", str(trace_file), "env", "-i", "bash", "-c", " ".join(args), # TODO: fix escaping
+    ]
+
     process = subprocess.Popen(
-        args,
+        trace_command,
         stdin=subprocess.PIPE if stdin is not None else None,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -138,6 +146,11 @@ def run_command(args: list[str], stdin: Optional[bytes]) -> CommandOutput:
     stdout_reader.join()
     stderr_reader.join()
 
+    # Parse file system dependencies from trace
+    with open(trace_file, "r") as file:
+        data = file.readlines()
+        print(data)
+
     return CommandOutput(return_code, stdout.getvalue(), stderr.getvalue())
 
 def main():
@@ -166,7 +179,7 @@ def main():
         pass
 
     # Output the cached data if it exists
-    if cache_data is not None:
+    if cache_data is not None and False:
         stdout, stderr = (decode_bytes(cache_data["stdout"]), decode_bytes(cache_data["stderr"]))
         sys.stdout.buffer.write(stdout)
         sys.stderr.buffer.write(stderr)
@@ -175,7 +188,7 @@ def main():
         sys.exit(cache_data["return_code"])
 
     # Run the command and cache the outputs
-    result = run_command(args, stdin)
+    result = run_command(hash, args, stdin)
     with open(cache_file, "w") as file:
         data = {
             "return_code": result.return_code,
