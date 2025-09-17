@@ -9,7 +9,6 @@ import json
 from json import JSONDecodeError
 import os
 from pathlib import Path
-import shlex
 import shutil
 import subprocess
 import sys
@@ -85,13 +84,14 @@ class CacheData:
 
 # Constant parameters
 CACHE_ENCODING: CacheEncoding = CacheEncoding.UTF8
-TRY_COMMAND: str = "python/try.sh"
 STRACE_COMMAND: str = "strace"
+TRY_COMMAND: str = "python/try.sh"
 
 CACHE_DIRECTORY: Path = Path("cache")
 CACHE_FILE: str = "data.json"
 TRACE_FILE: str = "trace.txt"
-FILE_DIRECTORY: str = "files"
+TRY_DIRECTORY: str = "sandbox"
+OUTPUT_DIRECTORY: str = "output"
 
 CHUNK_SIZE: int = 65536
 
@@ -172,15 +172,17 @@ def check_read_dependencies(dependencies: dict[str, str]) -> bool:
 def run_command(command_directory: Path, args: list[str], stdin: Optional[bytes]) -> CommandOutput:
     """Runs the command in a subprocess and collects the outputs."""
     trace_file = command_directory / TRACE_FILE
-    command_string = " ".join(args) # TODO: quote? " ".join(shlex.quote(arg) for arg in args)
+    try_directory = command_directory / TRY_DIRECTORY
     trace_command = [
         STRACE_COMMAND, "-y", "-f", "--seccomp-bpf", "--trace=fork,clone,%file",
-        "-o", str(trace_file), "env", "-i", "bash", "-c", command_string,
+        "-o", str(trace_file), "env", "-i", "bash", "-c", " ".join(args),
     ]
-    print(trace_command)
+    try_command = [TRY_COMMAND, "-D", str(try_directory)] + trace_command
+    print(try_command)
 
+    try_directory.mkdir(parents=True, exist_ok=True)
     process = subprocess.Popen(
-        trace_command,
+        try_command,
         stdin=subprocess.PIPE if stdin is not None else None,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
