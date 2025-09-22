@@ -1,1 +1,1 @@
-cat test_data/small.txt | tr "[:upper:]" "[:lower:]" | tr -s '[:space:]' '\n' | sort | uniq -c | sort -nr
+cat test_data/war_and_peace.txt | tr "[:upper:]" "[:lower:]" | tr -s "[:space:]" "\n" | sort | uniq -c | sort -nr

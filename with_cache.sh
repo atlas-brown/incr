@@ -1,1 +1,1 @@
-./python/cache.py cat test_data/small.txt | ./python/cache.py tr "[:upper:]" "[:lower:]" | ./python/cache.py tr -s '[:space:]' '\n' | ./python/cache.py sort | ./python/cache.py uniq -c | ./python/cache.py sort -nr
+./python/cache.py cat test_data/war_and_peace.txt | ./python/cache.py tr "[:upper:]" "[:lower:]" | ./python/cache.py 'tr -s "[:space:]" "\n"' | ./python/cache.py sort | ./python/cache.py uniq -c | ./python/cache.py sort -nr
