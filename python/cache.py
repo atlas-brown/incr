@@ -196,7 +196,7 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
     try_directory = command_directory / TRY_DIRECTORY
     trace_command = [
         STRACE_COMMAND, "-y", "-f", "--seccomp-bpf", "--trace=fork,clone,%file",
-        "-o", f"/tmp/{trace_file}", "env", "-i", "bash", "-c", " ".join(args),
+        "-o", f"/tmp/{trace_file}", "env", "-i", " ".join(args),
     ]
     try_command = [TRY_COMMAND, "-D", str(try_directory)] + trace_command
 
