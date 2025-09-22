@@ -13,6 +13,7 @@ import shutil
 import subprocess
 import sys
 from threading import Thread
+import time
 from typing import Any, IO, Optional
 
 import file_trace
@@ -89,7 +90,6 @@ TRY_COMMAND: str = "python/try.sh"
 
 CACHE_DIRECTORY: Path = Path("cache")
 CACHE_FILE: str = "data.json"
-TRACE_FILE: str = "trace.txt"
 TRY_DIRECTORY: str = "sandbox"
 OUTPUT_DIRECTORY: str = "output"
 
@@ -169,16 +169,15 @@ def check_read_dependencies(dependencies: dict[str, str]) -> bool:
     """Checks if the content hash of each read dependency matches the cached hash."""
     return False
 
-def run_command(command_directory: Path, args: list[str], stdin: Optional[bytes]) -> CommandOutput:
+def run_command(hash: str, command_directory: Path, args: list[str], stdin: Optional[bytes]) -> CommandOutput:
     """Runs the command in a subprocess and collects the outputs."""
-    trace_file = command_directory / TRACE_FILE
+    trace_file = f"trace_{hash}_{time.time_ns()}.txt"
     try_directory = command_directory / TRY_DIRECTORY
     trace_command = [
         STRACE_COMMAND, "-y", "-f", "--seccomp-bpf", "--trace=fork,clone,%file",
-        "-o", str(trace_file), "env", "-i", "bash", "-c", " ".join(args),
+        "-o", f"/tmp/{trace_file}", "env", "-i", "bash", "-c", " ".join(args),
     ]
     try_command = [TRY_COMMAND, "-D", str(try_directory)] + trace_command
-    print(try_command)
 
     try_directory.mkdir(parents=True, exist_ok=True)
     process = subprocess.Popen(
@@ -223,13 +222,16 @@ def run_command(command_directory: Path, args: list[str], stdin: Optional[bytes]
     stderr_reader.join()
 
     # Parse file system dependencies from trace
-    with open(trace_file, "r") as file:
+    with open(try_directory / f"upperdir/tmp/{trace_file}", "r") as file:
         data = file.readlines()
         context = Context()
         context.set_dir(os.getcwd())
         read_set, write_set = file_trace.parse_and_gather_cmd_rw_sets(data, context)
         print(read_set)
         print(write_set)
+
+    # Commit file system changes
+    subprocess.run([TRY_COMMAND, "commit", str(try_directory)], check=True)
 
     return CommandOutput(
         return_code=return_code,
@@ -262,7 +264,7 @@ def main():
     # Run the command and cache the outputs
     shutil.rmtree(command_directory, ignore_errors=True)
     command_directory.mkdir(parents=True, exist_ok=True)
-    result = run_command(command_directory, args, stdin)
+    result = run_command(hash, command_directory, args, stdin)
     cache_data = CacheData.from_command(result, key_data)
     with open(command_directory / CACHE_FILE, "w") as file:
         file.write(cache_data.serialize())
