@@ -91,7 +91,6 @@ TRY_COMMAND: str = "python/try.sh"
 CACHE_DIRECTORY: Path = Path("cache")
 CACHE_FILE: str = "data.json"
 TRY_DIRECTORY: str = "sandbox"
-OUTPUT_DIRECTORY: str = "output"
 SUDO_REMOVE: bool = True
 
 CHUNK_SIZE: int = 65536
