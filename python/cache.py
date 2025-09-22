@@ -186,7 +186,6 @@ def read_cache_data(command_directory: Path) -> Optional[CacheData]:
 
 def check_read_dependencies(dependencies: dict[str, str]) -> bool:
     """Checks if the content hash of each read dependency matches the cached hash."""
-    return False
     for path_name in dependencies:
         if compute_file_hash(path_name) != dependencies[path_name]:
             return False
