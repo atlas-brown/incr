@@ -185,7 +185,10 @@ def read_cache_data(command_directory: Path) -> Optional[CacheData]:
 
 def check_read_dependencies(dependencies: dict[str, str]) -> bool:
     """Checks if the content hash of each read dependency matches the cached hash."""
-    return False
+    for path_name in dependencies:
+        if compute_file_hash(path_name) != dependencies[path_name]:
+            return False
+    return True
 
 def run_command(hash: str, command_directory: Path, args: list[str], stdin: Optional[bytes]) -> CommandOutput:
     """Runs the command in a subprocess and collects the outputs."""
@@ -247,7 +250,7 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
         context.set_dir(os.getcwd())
         read_set, write_set = file_trace.parse_and_gather_cmd_rw_sets(data, context)
 
-        for path in read_set:
+        for path in sorted(read_set):
             file_hash = compute_file_hash(path)
             if file_hash is not None:
                 read_dependencies[path] = file_hash
@@ -277,6 +280,7 @@ def main():
     # Output the cached data if it is valid
     cache_data = read_cache_data(command_directory)
     if cache_data is not None and check_read_dependencies(cache_data.read_dependencies):
+        print("[DEBUG] using cached result")
         sys.stdout.buffer.write(cache_data.stdout)
         sys.stderr.buffer.write(cache_data.stderr)
         sys.stdout.buffer.flush()
