@@ -251,6 +251,8 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
         read_set, write_set = file_trace.parse_and_gather_cmd_rw_sets(data, context)
 
         for path in sorted(read_set):
+            if path.startswith("pipe:"):
+                continue
             file_hash = compute_file_hash(path)
             if file_hash is not None:
                 read_dependencies[path] = file_hash
@@ -280,7 +282,6 @@ def main():
     # Output the cached data if it is valid
     cache_data = read_cache_data(command_directory)
     if cache_data is not None and check_read_dependencies(cache_data.read_dependencies):
-        print("[DEBUG] using cached result")
         sys.stdout.buffer.write(cache_data.stdout)
         sys.stderr.buffer.write(cache_data.stderr)
         sys.stdout.buffer.flush()
