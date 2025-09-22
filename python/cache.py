@@ -9,6 +9,7 @@ import json
 from json import JSONDecodeError
 import os
 from pathlib import Path
+import shlex
 import shutil
 import subprocess
 import sys
@@ -185,6 +186,7 @@ def read_cache_data(command_directory: Path) -> Optional[CacheData]:
 
 def check_read_dependencies(dependencies: dict[str, str]) -> bool:
     """Checks if the content hash of each read dependency matches the cached hash."""
+    return False
     for path_name in dependencies:
         if compute_file_hash(path_name) != dependencies[path_name]:
             return False
@@ -196,9 +198,9 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
     try_directory = command_directory / TRY_DIRECTORY
     trace_command = [
         STRACE_COMMAND, "-y", "-f", "--seccomp-bpf", "--trace=fork,clone,%file",
-        "-o", f"/tmp/{trace_file}", "env", "-i", " ".join(args),
+        "-o", f"/tmp/{trace_file}", *args,
     ]
-    try_command = [TRY_COMMAND, "-D", str(try_directory)] + trace_command
+    try_command = [TRY_COMMAND, "-D", str(try_directory), *trace_command]
 
     try_directory.mkdir(parents=True, exist_ok=True)
     process = subprocess.Popen(
