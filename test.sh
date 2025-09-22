@@ -1,1 +1,1 @@
-echo "hello world!" > "out.txt"
+cat test_data/war_and_peace.txt | tr "[:upper:]" "[:lower:]" | tr -s '[:space:]' '\n' | sort | uniq -c | sort -nr
