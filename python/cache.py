@@ -87,13 +87,13 @@ class CacheData:
 CACHE_ENCODING: CacheEncoding = CacheEncoding.UTF8
 STRACE_COMMAND: str = "strace"
 TRY_COMMAND: str = "python/try.sh"
-
 CACHE_DIRECTORY: Path = Path("cache")
 CACHE_FILE: str = "data.json"
 TRY_DIRECTORY: str = "sandbox"
-SUDO_REMOVE: bool = True
 
+PATH_DNE: str = "<PATH_DOES_NOT_EXIST>"
 CHUNK_SIZE: int = 65536
+SUDO_REMOVE: bool = True
 
 def encode_bytes(data: bytes) -> str:
     """Encodes raw bytes as a string which is storable in a JSON object."""
@@ -140,6 +140,24 @@ def write_stream(stream: IO[bytes], data: bytes):
             stream.close()
         except Exception:
             pass
+
+def compute_file_hash(path_name: str) -> Optional[str]:
+    """Computes the SHA256 hash of a file if it exists."""
+    path = Path(path_name)
+    if path.is_dir():
+        return None
+    if not path.exists():
+        return PATH_DNE
+
+    hash = hashlib.sha256()
+    with open(path, "rb") as file:
+        while True:
+            chunk = file.read(CHUNK_SIZE)
+            if not chunk:
+                break
+            hash.update(chunk)
+
+    return hash.hexdigest()
 
 def generate_command_hash(
     args: list[str], 
@@ -189,6 +207,7 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
     )
     stdout = BytesIO()
     stderr = BytesIO()
+    read_dependencies = {}
 
     # Write the input data to the process
     stdin_writer = None
@@ -227,8 +246,11 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
         context = Context()
         context.set_dir(os.getcwd())
         read_set, write_set = file_trace.parse_and_gather_cmd_rw_sets(data, context)
-        print(read_set)
-        print(write_set)
+
+        for path in read_set:
+            file_hash = compute_file_hash(path)
+            if file_hash is not None:
+                read_dependencies[path] = file_hash
 
     # Commit file system changes
     subprocess.run([TRY_COMMAND, "commit", str(try_directory)], check=True)
@@ -237,7 +259,7 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
         return_code=return_code,
         stdout=stdout.getvalue(),
         stderr=stderr.getvalue(),
-        read_dependencies={},
+        read_dependencies=read_dependencies,
     )
 
 def main():
