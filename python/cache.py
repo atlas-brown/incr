@@ -92,6 +92,7 @@ CACHE_DIRECTORY: Path = Path("cache")
 CACHE_FILE: str = "data.json"
 TRY_DIRECTORY: str = "sandbox"
 OUTPUT_DIRECTORY: str = "output"
+SUDO_REMOVE: bool = True
 
 CHUNK_SIZE: int = 65536
 
@@ -261,9 +262,14 @@ def main():
         sys.stderr.buffer.flush()
         sys.exit(cache_data.return_code)
 
-    # Run the command and cache the outputs
-    shutil.rmtree(command_directory, ignore_errors=True)
+    # Set up the cache directory
+    if SUDO_REMOVE:
+        subprocess.run(["sudo", "rm", "-rf", str(command_directory)], check=True)
+    else:
+        shutil.rmtree(command_directory)
     command_directory.mkdir(parents=True, exist_ok=True)
+
+    # Run the command and cache the outputs
     result = run_command(hash, command_directory, args, stdin)
     cache_data = CacheData.from_command(result, key_data)
     with open(command_directory / CACHE_FILE, "w") as file:
