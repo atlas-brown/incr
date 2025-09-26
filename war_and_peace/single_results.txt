@@ -1,0 +1,51 @@
+without_cache.sh:
+
+real    0m3.353s
+user    0m0.005s
+sys     0m0.097s
+
+real    0m3.299s
+user    0m0.004s
+sys     0m0.114s
+
+real    0m4.598s
+user    0m0.060s
+sys     0m1.088s
+
+real    0m5.679s
+user    0m1.461s
+sys     0m1.417s
+
+real    0m1.997s
+user    0m1.293s
+sys     0m0.157s
+
+real    0m2.219s
+user    0m1.392s
+sys     0m0.148s
+
+with_cache.sh:
+
+real    0m5.474s
+user    0m0.218s
+sys     0m0.223s
+
+real    0m4.072s
+user    0m0.418s
+sys     0m0.405s
+
+real    0m5.003s
+user    0m0.333s
+sys     0m0.968s
+
+real    0m6.137s
+user    0m1.726s
+sys     0m0.974s
+
+real    0m1.355s
+user    0m0.592s
+sys     0m0.332s
+
+real    0m1.500s
+user    0m0.714s
+sys     0m0.341s
