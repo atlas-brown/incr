@@ -117,7 +117,8 @@ EXCLUDED_PATHS: set[str] = set([
     "/lib/x86_64",
     "/lib/x86_64-linux-gnu",
     "/proc/cpuinfo",
-    "/proc/self/environ",
+    "/proc/self/cmdline", # Timestamp changes
+    "/proc/self/environ", # Timestamp changes
     "/proc/self/maps",
     "/tmp",
     f"/users/{os.getlogin()}/.local/lib/python3.10",
@@ -349,10 +350,10 @@ def main():
 
     # Output the cached data if it is valid
     if cache_valid:
-        sys.stdout.buffer.write(cache_data.stdout)
         sys.stderr.buffer.write(cache_data.stderr)
-        sys.stdout.buffer.flush()
+        sys.stdout.buffer.write(cache_data.stdout)
         sys.stderr.buffer.flush()
+        sys.stdout.buffer.flush()
         sys.exit(cache_data.return_code)
 
     # Set up the cache directory
