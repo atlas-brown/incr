@@ -1,5 +1,6 @@
 With cache time: 213.306
 Without cache time: 522.073
+Cache size: 4.128 MB
 
 [WITH CACHE]
 
