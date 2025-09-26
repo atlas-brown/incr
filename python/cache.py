@@ -14,6 +14,7 @@ import shutil
 import subprocess
 import sys
 from threading import Thread
+import time
 from typing import Any, IO, Optional
 
 import file_trace
@@ -85,15 +86,15 @@ class CacheData:
 
 # Constant parameters
 CACHE_ENCODING: CacheEncoding = CacheEncoding.UTF8
-TRY_COMMAND: str = "python/try.sh"
 STRACE_COMMAND: str = "strace"
-
+TRY_COMMAND: str = "python/try.sh"
 CACHE_DIRECTORY: Path = Path("cache")
 CACHE_FILE: str = "data.json"
-TRACE_FILE: str = "trace.txt"
-FILE_DIRECTORY: str = "files"
+TRY_DIRECTORY: str = "sandbox"
 
+PATH_DNE: str = "<PATH_DOES_NOT_EXIST>"
 CHUNK_SIZE: int = 65536
+SUDO_REMOVE: bool = True
 
 def encode_bytes(data: bytes) -> str:
     """Encodes raw bytes as a string which is storable in a JSON object."""
@@ -141,6 +142,24 @@ def write_stream(stream: IO[bytes], data: bytes):
         except Exception:
             pass
 
+def compute_file_hash(path_name: str) -> Optional[str]:
+    """Computes the SHA256 hash of a file if it exists."""
+    path = Path(path_name)
+    if path.is_dir():
+        return None
+    if not path.exists():
+        return PATH_DNE
+
+    hash = hashlib.sha256()
+    with open(path, "rb") as file:
+        while True:
+            chunk = file.read(CHUNK_SIZE)
+            if not chunk:
+                break
+            hash.update(chunk)
+
+    return hash.hexdigest()
+
 def generate_command_hash(
     args: list[str], 
     stdin: Optional[bytes],
@@ -167,20 +186,24 @@ def read_cache_data(command_directory: Path) -> Optional[CacheData]:
 
 def check_read_dependencies(dependencies: dict[str, str]) -> bool:
     """Checks if the content hash of each read dependency matches the cached hash."""
-    return False
+    for path_name in dependencies:
+        if compute_file_hash(path_name) != dependencies[path_name]:
+            return False
+    return True
 
-def run_command(command_directory: Path, args: list[str], stdin: Optional[bytes]) -> CommandOutput:
+def run_command(hash: str, command_directory: Path, args: list[str], stdin: Optional[bytes]) -> CommandOutput:
     """Runs the command in a subprocess and collects the outputs."""
-    trace_file = command_directory / TRACE_FILE
-    command_string = " ".join(args) # TODO: quote? " ".join(shlex.quote(arg) for arg in args)
+    trace_file = f"trace_{hash}_{time.time_ns()}.txt"
+    try_directory = command_directory / TRY_DIRECTORY
     trace_command = [
         STRACE_COMMAND, "-y", "-f", "--seccomp-bpf", "--trace=fork,clone,%file",
-        "-o", str(trace_file), "env", "-i", "bash", "-c", command_string,
+        "-o", f"/tmp/{trace_file}", *args,
     ]
-    print(trace_command)
+    try_command = [TRY_COMMAND, "-D", str(try_directory), *trace_command]
 
+    try_directory.mkdir(parents=True, exist_ok=True)
     process = subprocess.Popen(
-        trace_command,
+        try_command,
         stdin=subprocess.PIPE if stdin is not None else None,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -188,6 +211,7 @@ def run_command(command_directory: Path, args: list[str], stdin: Optional[bytes]
     )
     stdout = BytesIO()
     stderr = BytesIO()
+    read_dependencies = {}
 
     # Write the input data to the process
     stdin_writer = None
@@ -221,19 +245,27 @@ def run_command(command_directory: Path, args: list[str], stdin: Optional[bytes]
     stderr_reader.join()
 
     # Parse file system dependencies from trace
-    with open(trace_file, "r") as file:
+    with open(try_directory / f"upperdir/tmp/{trace_file}", "r") as file:
         data = file.readlines()
         context = Context()
         context.set_dir(os.getcwd())
         read_set, write_set = file_trace.parse_and_gather_cmd_rw_sets(data, context)
-        print(read_set)
-        print(write_set)
+
+        for path in sorted(read_set):
+            if path.startswith("pipe:"):
+                continue
+            file_hash = compute_file_hash(path)
+            if file_hash is not None:
+                read_dependencies[path] = file_hash
+
+    # Commit file system changes
+    subprocess.run([TRY_COMMAND, "commit", str(try_directory)], check=True)
 
     return CommandOutput(
         return_code=return_code,
         stdout=stdout.getvalue(),
         stderr=stderr.getvalue(),
-        read_dependencies={},
+        read_dependencies=read_dependencies,
     )
 
 def main():
@@ -257,10 +289,15 @@ def main():
         sys.stderr.buffer.flush()
         sys.exit(cache_data.return_code)
 
-    # Run the command and cache the outputs
-    shutil.rmtree(command_directory, ignore_errors=True)
+    # Set up the cache directory
+    if SUDO_REMOVE:
+        subprocess.run(["sudo", "rm", "-rf", str(command_directory)], check=True)
+    else:
+        shutil.rmtree(command_directory)
     command_directory.mkdir(parents=True, exist_ok=True)
-    result = run_command(command_directory, args, stdin)
+
+    # Run the command and cache the outputs
+    result = run_command(hash, command_directory, args, stdin)
     cache_data = CacheData.from_command(result, key_data)
     with open(command_directory / CACHE_FILE, "w") as file:
         file.write(cache_data.serialize())
