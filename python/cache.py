@@ -96,6 +96,10 @@ PATH_DNE: str = "<PATH_DOES_NOT_EXIST>"
 CHUNK_SIZE: int = 65536
 SUDO_REMOVE: bool = True
 
+LOG_TIMES: bool = False
+LOG_FILE: Path = Path("debug_log.txt")
+START_TIME: float = time.perf_counter()
+
 def encode_bytes(data: bytes) -> str:
     """Encodes raw bytes as a string which is storable in a JSON object."""
     if CACHE_ENCODING == CacheEncoding.UTF8:
@@ -280,9 +284,26 @@ def main():
     hash, key_data = generate_command_hash(args, stdin, dict(os.environ))
     command_directory = CACHE_DIRECTORY / hash
 
-    # Output the cached data if it is valid
+    if LOG_TIMES:
+        with open(LOG_FILE, "a") as file:
+            file.write(f"Generated hash: {time.perf_counter() - START_TIME}\n")
+
+    # Read the data from the cache file
     cache_data = read_cache_data(command_directory)
-    if cache_data is not None and check_read_dependencies(cache_data.read_dependencies):
+
+    if LOG_TIMES:
+        with open(LOG_FILE, "a") as file:
+            file.write(f"Read cache data: {time.perf_counter() - START_TIME}\n")
+
+    # Check if the cached data is valid
+    cache_valid = cache_data is not None and check_read_dependencies(cache_data.read_dependencies)
+
+    if LOG_TIMES:
+        with open(LOG_FILE, "a") as file:
+            file.write(f"Checked cache validity: {time.perf_counter() - START_TIME}\n")
+
+    # Output the cached data if it is valid
+    if cache_valid:
         sys.stdout.buffer.write(cache_data.stdout)
         sys.stderr.buffer.write(cache_data.stderr)
         sys.stdout.buffer.flush()
@@ -295,6 +316,10 @@ def main():
     else:
         shutil.rmtree(command_directory)
     command_directory.mkdir(parents=True, exist_ok=True)
+
+    if LOG_TIMES:
+        with open(LOG_FILE, "a") as file:
+            file.write(f"Set up cache directory: {time.perf_counter() - START_TIME}\n")
 
     # Run the command and cache the outputs
     result = run_command(hash, command_directory, args, stdin)
