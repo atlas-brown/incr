@@ -84,11 +84,12 @@ class CacheData:
             pass
         return None
 
-# Constant parameters
-CACHE_ENCODING: CacheEncoding = CacheEncoding.UTF8
+DIRECTORY: Path = Path(os.path.dirname(os.path.abspath(__file__)))
+
+CACHE_ENCODING: CacheEncoding = CacheEncoding.Base64
 STRACE_COMMAND: str = "strace"
-TRY_COMMAND: str = "python/try.sh"
-CACHE_DIRECTORY: Path = Path("cache")
+TRY_COMMAND: str = str(DIRECTORY / "try.sh")
+CACHE_DIRECTORY: Path = DIRECTORY / "cache"
 CACHE_FILE: str = "data.json"
 TRY_DIRECTORY: str = "sandbox"
 
@@ -96,9 +97,16 @@ PATH_DNE: str = "<PATH_DOES_NOT_EXIST>"
 CHUNK_SIZE: int = 65536
 SUDO_REMOVE: bool = True
 
-LOG_TIMES: bool = False
-LOG_FILE: Path = Path("debug_log.txt")
+DEBUG_LOG: bool = True
+LOG_FILE: Path = DIRECTORY / "debug_log.txt"
 START_TIME: float = time.perf_counter()
+
+def debug_log(data: str):
+    if not DEBUG_LOG:
+        return
+    with open(LOG_FILE, "a") as file:
+        file.write(data)
+        file.write("\n")
 
 def encode_bytes(data: bytes) -> str:
     """Encodes raw bytes as a string which is storable in a JSON object."""
@@ -155,12 +163,15 @@ def compute_file_hash(path_name: str) -> Optional[str]:
         return PATH_DNE
 
     hash = hashlib.sha256()
-    with open(path, "rb") as file:
-        while True:
-            chunk = file.read(CHUNK_SIZE)
-            if not chunk:
-                break
-            hash.update(chunk)
+    try:
+        with open(path, "rb") as file:
+            while True:
+                chunk = file.read(CHUNK_SIZE)
+                if not chunk:
+                    break
+                hash.update(chunk)
+    except PermissionError:
+        return None
 
     return hash.hexdigest()
 
@@ -275,6 +286,7 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
 def main():
     if len(sys.argv) == 1:
         sys.exit()
+    debug_log(f"----- {' '.join(sys.argv)} -----")
 
     # Read the inputs and generate the cache key
     args = sys.argv[1:]
@@ -283,24 +295,13 @@ def main():
         stdin = sys.stdin.buffer.read()
     hash, key_data = generate_command_hash(args, stdin, dict(os.environ))
     command_directory = CACHE_DIRECTORY / hash
-
-    if LOG_TIMES:
-        with open(LOG_FILE, "a") as file:
-            file.write(f"Generated hash: {time.perf_counter() - START_TIME}\n")
-
-    # Read the data from the cache file
-    cache_data = read_cache_data(command_directory)
-
-    if LOG_TIMES:
-        with open(LOG_FILE, "a") as file:
-            file.write(f"Read cache data: {time.perf_counter() - START_TIME}\n")
+    debug_log(f"Generated hash: {time.perf_counter() - START_TIME}")
 
     # Check if the cached data is valid
+    cache_data = read_cache_data(command_directory)
+    debug_log(f"Read cache data: {time.perf_counter() - START_TIME}")
     cache_valid = cache_data is not None and check_read_dependencies(cache_data.read_dependencies)
-
-    if LOG_TIMES:
-        with open(LOG_FILE, "a") as file:
-            file.write(f"Checked cache validity: {time.perf_counter() - START_TIME}\n")
+    debug_log(f"Checked cache validity: {time.perf_counter() - START_TIME}")
 
     # Output the cached data if it is valid
     if cache_valid:
@@ -316,10 +317,7 @@ def main():
     else:
         shutil.rmtree(command_directory)
     command_directory.mkdir(parents=True, exist_ok=True)
-
-    if LOG_TIMES:
-        with open(LOG_FILE, "a") as file:
-            file.write(f"Set up cache directory: {time.perf_counter() - START_TIME}\n")
+    debug_log(f"Set up cache directory: {time.perf_counter() - START_TIME}")
 
     # Run the command and cache the outputs
     result = run_command(hash, command_directory, args, stdin)
