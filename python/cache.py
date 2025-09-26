@@ -93,6 +93,24 @@ CACHE_DIRECTORY: Path = DIRECTORY / "cache"
 CACHE_FILE: str = "data.json"
 TRY_DIRECTORY: str = "sandbox"
 
+EXCLUDED_VARS: set[str] = set([
+    "VSCODE_GIT_ASKPASS_EXTRA_ARGS",
+    "VSCODE_GIT_ASKPASS_MAIN",
+    "VSCODE_GIT_ASKPASS_NODE",
+    "VSCODE_GIT_IPC_HANDLE",
+    "VSCODE_IPC_HOOK_CLI",
+    "VSCODE_PYTHON_AUTOACTIVATE_GUARD",
+])
+EXCLUDED_PATHS: set[str] = set([
+    "pipe:",
+    "/lib/glibc-hwcaps",
+    "/lib/tls",
+    "/lib/x86_64-linux-gnu",
+    f"/users/{os.getlogin()}/.local/lib/python3.10",
+    "/usr/lib/python3",
+    "/usr/lib/python3.10",
+    "/usr/lib/x86_64-linux-gnu",
+])
 PATH_DNE: str = "<PATH_DOES_NOT_EXIST>"
 CHUNK_SIZE: int = 65536
 SUDO_REMOVE: bool = True
@@ -181,13 +199,19 @@ def generate_command_hash(
     env: dict[str, str],
 ) -> tuple[str, dict[str, Any]]:
     """Converts the command input into a hash used as the cache key."""
+    filtered_env = {}
+    for var in env:
+        if var not in EXCLUDED_VARS:
+            filtered_env[var] = env[var]
+
     data = {
         "args": args,
         "stdin": encode_bytes(stdin) if stdin is not None else None,
-        "env": env,
+        "env": filtered_env,
     }
     hash = hashlib.sha256()
     hash.update(json.dumps(data, sort_keys=True).encode("utf-8"))
+
     return (hash.hexdigest(), data)
 
 def read_cache_data(command_directory: Path) -> Optional[CacheData]:
@@ -267,7 +291,7 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
         read_set, write_set = file_trace.parse_and_gather_cmd_rw_sets(data, context)
 
         for path in sorted(read_set):
-            if path.startswith("pipe:"):
+            if any(path.startswith(p) for p in EXCLUDED_PATHS):
                 continue
             file_hash = compute_file_hash(path)
             if file_hash is not None:
