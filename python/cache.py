@@ -310,6 +310,7 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
         context = Context()
         context.set_dir(os.getcwd())
         read_set, write_set = file_trace.parse_and_gather_cmd_rw_sets(data, context)
+        # TODO: figure out bash -c and read sets and write sets
 
         for path in sorted(read_set):
             if any(path.startswith(p) for p in EXCLUDED_PATHS):
