@@ -28,6 +28,14 @@ class CacheEncoding(IntEnum):
     UTF8 = 0
     Base64 = 1
 
+class HashType(IntEnum):
+    """
+    The type of hash used to check if files have changed. Content hashes are guaranteed to be
+    correct, while timestamp hashes are efficient but have a chance of being incorrect.
+    """
+    Content = 0
+    Timestamp = 1
+
 @dataclass(kw_only=True)
 class CommandOutput:
     """The output of a shell command not including file modifications."""
@@ -84,9 +92,10 @@ class CacheData:
             pass
         return None
 
-DIRECTORY: Path = Path(os.path.dirname(os.path.abspath(__file__)))
-
 CACHE_ENCODING: CacheEncoding = CacheEncoding.Base64
+HASH_TYPE: HashType = HashType.Timestamp
+
+DIRECTORY: Path = Path(os.path.dirname(os.path.abspath(__file__)))
 STRACE_COMMAND: str = "strace"
 TRY_COMMAND: str = str(DIRECTORY / "try.sh")
 CACHE_DIRECTORY: Path = DIRECTORY / "cache"
@@ -189,12 +198,15 @@ def compute_file_hash(path_name: str) -> Optional[str]:
 
     hash = hashlib.sha256()
     try:
-        with open(path, "rb") as file:
-            while True:
-                chunk = file.read(CHUNK_SIZE)
-                if not chunk:
-                    break
-                hash.update(chunk)
+        if HASH_TYPE == HashType.Content:
+            with open(path, "rb") as file:
+                while True:
+                    chunk = file.read(CHUNK_SIZE)
+                    if not chunk:
+                        break
+                    hash.update(chunk)
+        elif HASH_TYPE == HashType.Timestamp:
+            return str(os.path.getmtime(path))
     except PermissionError:
         return None
 
