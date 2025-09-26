@@ -28,6 +28,14 @@ class CacheEncoding(IntEnum):
     UTF8 = 0
     Base64 = 1
 
+class HashType(IntEnum):
+    """
+    The type of hash used to check if files have changed. Content hashes are guaranteed to be
+    correct, while timestamp hashes are efficient but have a chance of being incorrect.
+    """
+    Content = 0
+    Timestamp = 1
+
 @dataclass(kw_only=True)
 class CommandOutput:
     """The output of a shell command not including file modifications."""
@@ -84,17 +92,57 @@ class CacheData:
             pass
         return None
 
-# Constant parameters
-CACHE_ENCODING: CacheEncoding = CacheEncoding.UTF8
+CACHE_ENCODING: CacheEncoding = CacheEncoding.Base64
+HASH_TYPE: HashType = HashType.Timestamp
+
+DIRECTORY: Path = Path(os.path.dirname(os.path.abspath(__file__)))
 STRACE_COMMAND: str = "strace"
-TRY_COMMAND: str = "python/try.sh"
-CACHE_DIRECTORY: Path = Path("cache")
+TRY_COMMAND: str = str(DIRECTORY / "try.sh")
+CACHE_DIRECTORY: Path = DIRECTORY / "cache"
 CACHE_FILE: str = "data.json"
 TRY_DIRECTORY: str = "sandbox"
 
+EXCLUDED_VARS: set[str] = set([
+    "VSCODE_GIT_ASKPASS_EXTRA_ARGS",
+    "VSCODE_GIT_ASKPASS_MAIN",
+    "VSCODE_GIT_ASKPASS_NODE",
+    "VSCODE_GIT_IPC_HANDLE",
+    "VSCODE_IPC_HOOK_CLI",
+    "VSCODE_PYTHON_AUTOACTIVATE_GUARD",
+])
+EXCLUDED_PATHS: set[str] = set([
+    "pipe:",
+    "/lib/glibc-hwcaps",
+    "/lib/tls",
+    "/lib/x86_64",
+    "/lib/x86_64-linux-gnu",
+    "/proc/cpuinfo",
+    "/proc/self/cmdline", # Timestamp changes
+    "/proc/self/environ", # Timestamp changes
+    "/proc/self/maps",
+    "/tmp",
+    f"/users/{os.getlogin()}/.local/lib/python3.10",
+    "/usr/lib/glibc-hwcaps",
+    "/usr/lib/python3",
+    "/usr/lib/python3.10",
+    "/usr/lib/tls",
+    "/usr/lib/x86_64",
+    "/usr/lib/x86_64-linux-gnu",
+])
 PATH_DNE: str = "<PATH_DOES_NOT_EXIST>"
 CHUNK_SIZE: int = 65536
 SUDO_REMOVE: bool = True
+
+DEBUG_LOG: bool = True
+LOG_FILE: Path = DIRECTORY / "debug_log.txt"
+START_TIME: float = time.perf_counter()
+
+def debug_log(data: str):
+    if not DEBUG_LOG:
+        return
+    with open(LOG_FILE, "a") as file:
+        file.write(data)
+        file.write("\n")
 
 def encode_bytes(data: bytes) -> str:
     """Encodes raw bytes as a string which is storable in a JSON object."""
@@ -151,12 +199,18 @@ def compute_file_hash(path_name: str) -> Optional[str]:
         return PATH_DNE
 
     hash = hashlib.sha256()
-    with open(path, "rb") as file:
-        while True:
-            chunk = file.read(CHUNK_SIZE)
-            if not chunk:
-                break
-            hash.update(chunk)
+    try:
+        if HASH_TYPE == HashType.Content:
+            with open(path, "rb") as file:
+                while True:
+                    chunk = file.read(CHUNK_SIZE)
+                    if not chunk:
+                        break
+                    hash.update(chunk)
+        elif HASH_TYPE == HashType.Timestamp:
+            return str(os.path.getmtime(path))
+    except PermissionError:
+        return None
 
     return hash.hexdigest()
 
@@ -166,13 +220,19 @@ def generate_command_hash(
     env: dict[str, str],
 ) -> tuple[str, dict[str, Any]]:
     """Converts the command input into a hash used as the cache key."""
+    filtered_env = {}
+    for var in env:
+        if var not in EXCLUDED_VARS:
+            filtered_env[var] = env[var]
+
     data = {
         "args": args,
         "stdin": encode_bytes(stdin) if stdin is not None else None,
-        "env": env,
+        "env": filtered_env,
     }
     hash = hashlib.sha256()
     hash.update(json.dumps(data, sort_keys=True).encode("utf-8"))
+
     return (hash.hexdigest(), data)
 
 def read_cache_data(command_directory: Path) -> Optional[CacheData]:
@@ -250,9 +310,10 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
         context = Context()
         context.set_dir(os.getcwd())
         read_set, write_set = file_trace.parse_and_gather_cmd_rw_sets(data, context)
+        # TODO: figure out bash -c and read sets and write sets
 
         for path in sorted(read_set):
-            if path.startswith("pipe:"):
+            if any(path.startswith(p) for p in EXCLUDED_PATHS):
                 continue
             file_hash = compute_file_hash(path)
             if file_hash is not None:
@@ -271,6 +332,7 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
 def main():
     if len(sys.argv) == 1:
         sys.exit()
+    debug_log(f"----- {' '.join(sys.argv)} -----")
 
     # Read the inputs and generate the cache key
     args = sys.argv[1:]
@@ -279,14 +341,20 @@ def main():
         stdin = sys.stdin.buffer.read()
     hash, key_data = generate_command_hash(args, stdin, dict(os.environ))
     command_directory = CACHE_DIRECTORY / hash
+    debug_log(f"Generated hash: {time.perf_counter() - START_TIME}")
+
+    # Check if the cached data is valid
+    cache_data = read_cache_data(command_directory)
+    debug_log(f"Read cache data: {time.perf_counter() - START_TIME}")
+    cache_valid = cache_data is not None and check_read_dependencies(cache_data.read_dependencies)
+    debug_log(f"Checked cache validity: {time.perf_counter() - START_TIME}")
 
     # Output the cached data if it is valid
-    cache_data = read_cache_data(command_directory)
-    if cache_data is not None and check_read_dependencies(cache_data.read_dependencies):
-        sys.stdout.buffer.write(cache_data.stdout)
+    if cache_valid:
         sys.stderr.buffer.write(cache_data.stderr)
-        sys.stdout.buffer.flush()
+        sys.stdout.buffer.write(cache_data.stdout)
         sys.stderr.buffer.flush()
+        sys.stdout.buffer.flush()
         sys.exit(cache_data.return_code)
 
     # Set up the cache directory
@@ -295,6 +363,7 @@ def main():
     else:
         shutil.rmtree(command_directory)
     command_directory.mkdir(parents=True, exist_ok=True)
+    debug_log(f"Set up cache directory: {time.perf_counter() - START_TIME}")
 
     # Run the command and cache the outputs
     result = run_command(hash, command_directory, args, stdin)

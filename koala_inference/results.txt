@@ -1,0 +1,46 @@
+With cache time: 213.306
+Without cache time: 522.073
+
+[WITH CACHE]
+
+real    0m42.555s
+user    3m55.674s
+sys     1m27.946s
+
+real    0m42.319s
+user    3m52.725s
+sys     1m24.223s
+
+real    0m43.148s
+user    3m55.852s
+sys     1m26.646s
+
+real    0m42.454s
+user    3m54.791s
+sys     1m26.479s
+
+real    0m42.830s
+user    3m51.090s
+sys     1m26.604s
+
+[WITHOUT CACHE]
+
+real    0m34.222s
+user    3m47.779s
+sys     1m20.866s
+
+real    1m9.283s
+user    7m39.206s
+sys     2m42.860s
+
+real    1m44.816s
+user    11m32.117s
+sys     4m8.127s
+
+real    2m19.163s
+user    15m16.161s
+sys     5m31.144s
+
+real    2m54.589s
+user    19m9.510s
+sys     6m57.345s

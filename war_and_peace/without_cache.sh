@@ -1,0 +1,1 @@
+cat war_and_peace.txt | tr "[:upper:]" "[:lower:]" | tr -s "[:space:]" "\n" | sort | uniq -c | sort -nr
