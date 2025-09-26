@@ -117,6 +117,7 @@ EXCLUDED_PATHS: set[str] = set([
     "/lib/x86_64",
     "/lib/x86_64-linux-gnu",
     "/proc/cpuinfo",
+    "/proc/self/environ",
     "/proc/self/maps",
     "/tmp",
     f"/users/{os.getlogin()}/.local/lib/python3.10",
