@@ -105,10 +105,17 @@ EXCLUDED_PATHS: set[str] = set([
     "pipe:",
     "/lib/glibc-hwcaps",
     "/lib/tls",
+    "/lib/x86_64",
     "/lib/x86_64-linux-gnu",
+    "/proc/cpuinfo",
+    "/proc/self/maps",
+    "/tmp",
     f"/users/{os.getlogin()}/.local/lib/python3.10",
+    "/usr/lib/glibc-hwcaps",
     "/usr/lib/python3",
     "/usr/lib/python3.10",
+    "/usr/lib/tls",
+    "/usr/lib/x86_64",
     "/usr/lib/x86_64-linux-gnu",
 ])
 PATH_DNE: str = "<PATH_DOES_NOT_EXIST>"

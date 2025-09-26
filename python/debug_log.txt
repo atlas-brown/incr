@@ -1,25 +1,10 @@
------ ../../python/cache.py ./scripts/sam_segment.py -----
-Generated hash: 0.0005339729996194365
-Read cache data: 0.0005967809993308038
-Checked cache validity: 0.0006206759999258793
-Set up cache directory: 0.010832470999957877
 ----- ../../python/cache.py python3 ./scripts/sam_segment.py -----
-Generated hash: 0.0004704140001194901
-Read cache data: 0.0005374200000005658
-Checked cache validity: 0.0005608940000456641
-Set up cache directory: 0.011030313999981445
+Generated hash: 0.0005079540005681338
+Read cache data: 0.0007047240005704225
+Checked cache validity: 0.02140397700077301
+Set up cache directory: 0.03483450600015203
 ----- ../../python/cache.py python3 ./scripts/sam_segment.py -----
-Generated hash: 0.00048261699976137606
-Read cache data: 0.005197084000428731
-Checked cache validity: 0.036835885999607854
-Set up cache directory: 0.05105126400030713
------ ../../python/cache.py python3 ./scripts/sam_segment.py -----
-Generated hash: 0.0005076830002508359
-Read cache data: 0.005210278999584261
-Checked cache validity: 0.036335494999548246
-Set up cache directory: 0.05007369600025413
------ ../../python/cache.py python3 ./scripts/sam_segment.py -----
-Generated hash: 0.0004930960003548535
-Read cache data: 0.0005799800001113908
-Checked cache validity: 0.0006102260003899573
-Set up cache directory: 0.010996359000273515
+Generated hash: 0.0005130139998072991
+Read cache data: 0.0005747999994127895
+Checked cache validity: 0.0005985339994367678
+Set up cache directory: 0.01050089599993953
