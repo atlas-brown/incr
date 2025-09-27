@@ -356,6 +356,7 @@ def main():
 
     # Output the cached data if it is valid
     if cache_valid:
+        # TODO: ordered stdout and stderr
         sys.stderr.buffer.write(cache_data.stderr)
         sys.stdout.buffer.write(cache_data.stdout)
         sys.stderr.buffer.flush()
