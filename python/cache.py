@@ -120,7 +120,8 @@ EXCLUDED_PATHS: set[str] = set([
     "/proc/cpuinfo",
     "/proc/self/cmdline", # Timestamp changes
     "/proc/self/environ", # Timestamp changes
-    "/proc/self/maps",
+    "/proc/self/maps", # Timestamp changes
+    # TODO: figure out if all of /proc should be ignored
     "/tmp",
     f"/users/{os.getlogin()}/.local/lib/python",
     f"/users/{os.getlogin()}/.vscode-server",
