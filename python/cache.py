@@ -260,9 +260,10 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
     """Runs the command in a subprocess and collects the outputs."""
     trace_file = f"trace_{hash}_{time.time_ns()}.txt"
     try_directory = command_directory / TRY_DIRECTORY
+    command_string = shlex.quote(args[0] if len(args) == 1 else shlex.join(args))
     trace_command = [
         STRACE_COMMAND, "-y", "-f", "--seccomp-bpf", "--trace=fork,clone,%file",
-        "-o", f"/tmp/{trace_file}", "bash", "-c", shlex.quote(shlex.join(args)),
+        "-o", f"/tmp/{trace_file}", "bash", "-c", command_string,
     ]
     try_command = [TRY_COMMAND, "-D", str(try_directory), *trace_command]
 
