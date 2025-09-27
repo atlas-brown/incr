@@ -103,6 +103,7 @@ CACHE_FILE: str = "data.json"
 TRY_DIRECTORY: str = "sandbox"
 
 EXCLUDED_VARS: set[str] = set([
+    "_",
     "VSCODE_GIT_ASKPASS_EXTRA_ARGS",
     "VSCODE_GIT_ASKPASS_MAIN",
     "VSCODE_GIT_ASKPASS_NODE",
