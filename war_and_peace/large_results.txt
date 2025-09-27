@@ -1,51 +1,51 @@
 without_cache.sh:
 
-real    0m33.498s
+real    0m33.534s
 user    0m0.005s
-sys     0m1.059s
+sys     0m1.039s
 
-real    0m33.241s
+real    0m33.375s
 user    0m0.013s
-sys     0m1.104s
+sys     0m1.043s
 
-real    0m46.697s
-user    0m0.671s
-sys     0m10.883s
+real    0m46.115s
+user    0m0.679s
+sys     0m10.992s
 
-real    0m59.643s
-user    0m14.394s
-sys     0m15.061s
+real    0m59.019s
+user    0m14.655s
+sys     0m15.028s
 
-real    0m13.897s
-user    0m13.584s
-sys     0m0.360s
+real    0m13.948s
+user    0m13.617s
+sys     0m0.413s
 
-real    0m14.581s
-user    0m13.686s
-sys     0m0.383s
+real    0m14.427s
+user    0m13.658s
+sys     0m0.373s
 
 with_cache.sh
 
-real    0m33.639s
-user    0m0.374s
-sys     0m1.285s
+real    0m34.027s
+user    0m0.335s
+sys     0m1.281s
 
-real    0m34.737s
-user    0m1.018s
-sys     0m1.877s
+real    0m34.864s
+user    0m0.851s
+sys     0m1.769s
 
-real    0m48.727s
-user    0m1.523s
-sys     0m7.763s
+real    0m48.525s
+user    0m1.352s
+sys     0m8.357s
 
-real    1m1.284s
-user    0m15.527s
-sys     0m8.572s
+real    1m0.499s
+user    0m15.021s
+sys     0m9.106s
 
-real    0m4.121s
-user    0m2.312s
-sys     0m1.592s
+real    0m3.992s
+user    0m1.919s
+sys     0m1.712s
 
-real    0m4.345s
-user    0m2.393s
-sys     0m1.485s
+real    0m3.845s
+user    0m1.847s
+sys     0m1.636s

@@ -104,6 +104,7 @@ TRY_DIRECTORY: str = "sandbox"
 
 EXCLUDED_VARS: set[str] = set([
     "_",
+    "SHLVL",
     "SSH_CLIENT",
     "SSH_CONNECTION",
     "VSCODE_GIT_ASKPASS_EXTRA_ARGS",
