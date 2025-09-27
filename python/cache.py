@@ -122,11 +122,10 @@ EXCLUDED_PATHS: set[str] = set([
     "/proc/self/environ", # Timestamp changes
     "/proc/self/maps",
     "/tmp",
-    f"/users/{os.getlogin()}/.local/lib/python3.10",
+    f"/users/{os.getlogin()}/.local/lib/python",
     f"/users/{os.getlogin()}/.vscode-server",
     "/usr/lib/glibc-hwcaps",
-    "/usr/lib/python3",
-    "/usr/lib/python3.10",
+    "/usr/lib/python",
     "/usr/lib/tls",
     "/usr/lib/x86_64",
     "/usr/lib/x86_64-linux-gnu",
