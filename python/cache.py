@@ -101,6 +101,7 @@ TRY_COMMAND: str = str(DIRECTORY / "try.sh")
 CACHE_DIRECTORY: Path = DIRECTORY / "cache"
 CACHE_FILE: str = "data.json"
 TRY_DIRECTORY: str = "sandbox"
+COMMIT_DIRECTORY: str = "commit"
 
 EXCLUDED_VARS: set[str] = set([
     "_",
@@ -330,7 +331,11 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
 
     # Commit file system changes
     if len(write_set) > 0:
-        subprocess.run([TRY_COMMAND, "commit", str(try_directory)], check=True)
+        commit_directory = command_directory / COMMIT_DIRECTORY
+        shutil.copytree(try_directory / "upperdir", commit_directory / "upperdir")
+        shutil.copy(try_directory / "ignore", commit_directory / "ignore")
+        subprocess.run([TRY_COMMAND, "commit", str(commit_directory)], check=True)
+        shutil.rmtree(commit_directory)
 
     return CommandOutput(
         return_code=return_code,
