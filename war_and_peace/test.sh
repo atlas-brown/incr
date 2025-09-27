@@ -1,1 +1,1 @@
-./python/cache.py cat war_and_peace/war_and_peace_large.txt | ./python/cache.py tr "[:upper:]" "[:lower:]" | ./python/cache.py 'tr -s "[:space:]" "\n"' | ./python/cache.py sort | ./python/cache.py uniq -c | ./python/cache.py sort -nr
+cat ./war_and_peace/war_and_peace.txt | tr "[:upper:]" "[:lower:]" | tr -s "[:space:]" "\n" | sort | uniq -c | sort -nr

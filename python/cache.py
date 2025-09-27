@@ -311,12 +311,14 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
     stderr_reader.join()
 
     # Parse file system dependencies from trace
+    read_set = set()
+    write_set = set()
+
     with open(try_directory / f"upperdir/tmp/{trace_file}", "r") as file:
         data = file.readlines()
         context = Context()
         context.set_dir(os.getcwd())
         read_set, write_set = file_trace.parse_and_gather_cmd_rw_sets(data, context)
-        # TODO: figure out bash -c and read sets and write sets
 
         for path in sorted(read_set):
             if any(path.startswith(p) for p in EXCLUDED_PATHS):
@@ -326,7 +328,8 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
                 read_dependencies[path] = file_hash
 
     # Commit file system changes
-    subprocess.run([TRY_COMMAND, "commit", str(try_directory)], check=True)
+    if len(write_set) > 0:
+        subprocess.run([TRY_COMMAND, "commit", str(try_directory)], check=True)
 
     return CommandOutput(
         return_code=return_code,
