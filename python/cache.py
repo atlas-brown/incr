@@ -197,30 +197,6 @@ def write_stream(stream: IO[bytes], data: bytes):
         except Exception:
             pass
 
-def compute_file_hash(path_name: str) -> Optional[str]:
-    """Computes the SHA256 hash of a file if it exists."""
-    path = Path(path_name)
-    if path.is_dir():
-        return None
-    if not path.exists():
-        return PATH_DNE
-
-    hash = hashlib.sha256()
-    try:
-        if HASH_TYPE == HashType.Content:
-            with open(path, "rb") as file:
-                while True:
-                    chunk = file.read(CHUNK_SIZE)
-                    if not chunk:
-                        break
-                    hash.update(chunk)
-        elif HASH_TYPE == HashType.Timestamp:
-            return str(os.path.getmtime(path))
-    except PermissionError:
-        return None
-
-    return hash.hexdigest()
-
 def generate_command_hash(
     args: list[str], 
     stdin: Optional[bytes],
@@ -251,12 +227,44 @@ def read_cache_data(command_directory: Path) -> Optional[CacheData]:
         pass
     return None
 
+def compute_file_hash(path_name: str) -> Optional[str]:
+    """Computes the SHA256 hash of a file if it exists."""
+    path = Path(path_name)
+    if path.is_dir():
+        return None
+    if not path.exists():
+        return PATH_DNE
+
+    hash = hashlib.sha256()
+    try:
+        if HASH_TYPE == HashType.Content:
+            with open(path, "rb") as file:
+                while True:
+                    chunk = file.read(CHUNK_SIZE)
+                    if not chunk:
+                        break
+                    hash.update(chunk)
+        elif HASH_TYPE == HashType.Timestamp:
+            return str(os.path.getmtime(path))
+    except PermissionError:
+        return None
+
+    return hash.hexdigest()
+
 def check_read_dependencies(dependencies: dict[str, str]) -> bool:
     """Checks if the content hash of each read dependency matches the cached hash."""
     for path_name in dependencies:
         if compute_file_hash(path_name) != dependencies[path_name]:
             return False
     return True
+
+def commit_sandbox(command_directory: Path):
+    """Copies and commits the stashed changes in a try sandbox."""
+    commit_directory = command_directory / COMMIT_DIRECTORY
+    shutil.copytree(command_directory / TRY_DIRECTORY / "upperdir", commit_directory / "upperdir")
+    shutil.copy(command_directory / TRY_DIRECTORY / "ignore", commit_directory / "ignore")
+    subprocess.run([TRY_COMMAND, "commit", str(commit_directory)], check=True)
+    shutil.rmtree(commit_directory)
 
 def run_command(hash: str, command_directory: Path, args: list[str], stdin: Optional[bytes]) -> CommandOutput:
     """Runs the command in a subprocess and collects the outputs."""
@@ -331,11 +339,7 @@ def run_command(hash: str, command_directory: Path, args: list[str], stdin: Opti
 
     # Commit file system changes
     if len(write_set) > 0:
-        commit_directory = command_directory / COMMIT_DIRECTORY
-        shutil.copytree(try_directory / "upperdir", commit_directory / "upperdir")
-        shutil.copy(try_directory / "ignore", commit_directory / "ignore")
-        subprocess.run([TRY_COMMAND, "commit", str(commit_directory)], check=True)
-        shutil.rmtree(commit_directory)
+        commit_sandbox(command_directory)
 
     return CommandOutput(
         return_code=return_code,
