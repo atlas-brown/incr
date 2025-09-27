@@ -139,7 +139,7 @@ PATH_DNE: str = "<PATH_DOES_NOT_EXIST>"
 CHUNK_SIZE: int = 65536
 SUDO_REMOVE: bool = True
 
-DEBUG_LOG: bool = True
+DEBUG_LOG: bool = False
 LOG_FILE: Path = DIRECTORY / "debug_log.txt"
 START_TIME: float = time.perf_counter()
 
