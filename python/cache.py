@@ -122,6 +122,7 @@ EXCLUDED_PATHS: set[str] = set([
     "/proc/self/maps",
     "/tmp",
     f"/users/{os.getlogin()}/.local/lib/python3.10",
+    f"/users/{os.getlogin()}/.vscode-server",
     "/usr/lib/glibc-hwcaps",
     "/usr/lib/python3",
     "/usr/lib/python3.10",
