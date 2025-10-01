@@ -33,7 +33,7 @@ impl<'c> CacheCursor<'c> {
     }
 
     pub fn get_sandbox_directory(&self) -> PathBuf {
-        return self.directory.join(SANDBOX_DIRECTORY);
+        self.directory.join(SANDBOX_DIRECTORY)
     }
 
     pub fn create_directory(&self) -> Result<()> {
@@ -99,7 +99,7 @@ impl<'c> CacheCursor<'c> {
         let commit_directory = self.directory.join(COMMIT_DIRECTORY);
 
         ShellCommand::new("cp")
-            .args(&[
+            .args([
                 "-r",
                 ops::path_to_string(&output_directory)?,
                 ops::path_to_string(&commit_directory)?,
@@ -110,7 +110,7 @@ impl<'c> CacheCursor<'c> {
             .spawn()?
             .wait()?;
         ShellCommand::new(TRY_COMMAND)
-            .args(&["commit", ops::path_to_string(&commit_directory)?])
+            .args(["commit", ops::path_to_string(&commit_directory)?])
             .stdin(Stdio::null())
             .stdout(Stdio::null())
             .stderr(Stdio::null())
@@ -160,14 +160,14 @@ pub enum DependencyKey {
 fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {
     if SUDO_SANDBOX {
         ShellCommand::new("sudo")
-            .args(&["rm", "-rf", ops::path_to_string(&sandbox_directory)?])
+            .args(["rm", "-rf", ops::path_to_string(sandbox_directory)?])
             .stdin(Stdio::null())
             .stdout(Stdio::null())
             .stderr(Stdio::null())
             .spawn()?
             .wait()?;
     } else {
-        ops::ignore_not_found(fs::remove_dir_all(&sandbox_directory))?;
+        ops::ignore_not_found(fs::remove_dir_all(sandbox_directory))?;
     }
     Ok(())
 }
@@ -214,7 +214,7 @@ mod serialize_byte_vec {
             let encoded = String::deserialize(deserializer)?;
             BASE64_STANDARD
                 .decode(encoded)
-                .map_err(|e| DeserializeError::custom(e))
+                .map_err(DeserializeError::custom)
         } else {
             Vec::<u8>::deserialize(deserializer)
         }

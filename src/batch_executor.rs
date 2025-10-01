@@ -15,10 +15,10 @@ pub fn run(command: Command) -> Result<ExitCode> {
 
     let cache = CacheCursor::new(&command, &stdin)?;
     cache.create_directory()?;
-    if let Some(cached_data) = cache.load_data()? {
-        if command::check_read_dependencies(&cached_data.read_dependencies)? {
-            return output_cached_data(&cache, &cached_data);
-        }
+    if let Some(cached_data) = cache.load_data()?
+        && command::check_read_dependencies(&cached_data.read_dependencies)?
+    {
+        return output_cached_data(&cache, &cached_data);
     }
 
     cache.clean()?;
@@ -47,7 +47,7 @@ fn output_cached_data(cache: &CacheCursor<'_>, data: &CacheData) -> Result<ExitC
 
 fn run_command(command: &Command, cache: &CacheCursor<'_>, stdin: &[u8]) -> Result<CacheData> {
     let sandbox_directory = cache.get_sandbox_directory();
-    let mut child = command::spawn_command(&command, &sandbox_directory)?;
+    let mut child = command::spawn_command(command, &sandbox_directory)?;
 
     let child_stdout = child.stdout.take().unwrap();
     let child_stderr = child.stderr.take().unwrap();
@@ -56,7 +56,7 @@ fn run_command(command: &Command, cache: &CacheCursor<'_>, stdin: &[u8]) -> Resu
 
     {
         let mut child_stdin = child.stdin.take().unwrap();
-        child_stdin.write_all(&stdin)?;
+        child_stdin.write_all(stdin)?;
         child_stdin.flush()?;
     }
 

@@ -61,7 +61,7 @@ pub fn spawn_command(command: &Command, sandbox_directory: &Path) -> Result<Chil
 
     let arguments = &[
         "-D",
-        ops::path_to_string(&sandbox_directory)?,
+        ops::path_to_string(sandbox_directory)?,
         STRACE_COMMAND,
         "-yf",
         "--seccomp-bpf",
@@ -73,7 +73,7 @@ pub fn spawn_command(command: &Command, sandbox_directory: &Path) -> Result<Chil
         &shlex::try_quote(&command_string)?,
     ];
 
-    fs::create_dir_all(&sandbox_directory)?;
+    fs::create_dir_all(sandbox_directory)?;
     ShellCommand::new(TRY_COMMAND)
         .args(arguments)
         .stdin(Stdio::piped())
@@ -115,7 +115,7 @@ pub fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSe
         .join("tmp")
         .join(TRACE_FILE);
     let output = ShellCommand::new("python3")
-        .args(&["-c", PARSE_TRACE_SCRIPT, ops::path_to_string(&trace_file)?])
+        .args(["-c", PARSE_TRACE_SCRIPT, ops::path_to_string(&trace_file)?])
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
         .stderr(Stdio::null())
@@ -171,14 +171,12 @@ pub fn get_read_dependencies(
             continue;
         }
 
-        if !write_set.contains(&path) {
-            if let Some(timestamp) = get_modified_timestamp(&path)? {
-                dependencies.insert(path, DependencyKey::Timestamp(timestamp));
-            }
-        } else {
-            if let Some(hash) = get_file_hash(&path)? {
-                dependencies.insert(path, DependencyKey::Hash(hash));
-            }
+        if !write_set.contains(&path)
+            && let Some(timestamp) = get_modified_timestamp(&path)?
+        {
+            dependencies.insert(path, DependencyKey::Timestamp(timestamp));
+        } else if let Some(hash) = get_file_hash(&path)? {
+            dependencies.insert(path, DependencyKey::Hash(hash));
         }
     }
 
