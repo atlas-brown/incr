@@ -64,6 +64,10 @@ impl<'c> InvocationCursor<'c> {
         Ok(Self { info, directory })
     }
 
+    pub fn get_directory(&self) -> &Path {
+        return &self.directory;
+    }
+
     pub fn create_directory(&self) -> Result<()> {
         create_cache_directory(&self.directory, &self.info)
     }
