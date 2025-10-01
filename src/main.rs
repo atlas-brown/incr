@@ -10,14 +10,14 @@ fn main() -> ExitCode {
         Ok(Some(command)) => command,
         Ok(None) => return ExitCode::SUCCESS,
         Err(error) => {
-            eprintln!("{error}");
+            eprintln!("Error: {error}");
             return ExitCode::FAILURE;
         }
     };
     match batch_executor::run(command) {
         Ok(exit_code) => exit_code,
         Err(error) => {
-            eprintln!("{error}");
+            eprintln!("Error: {error}");
             ExitCode::FAILURE
         }
     }
