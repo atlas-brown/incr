@@ -1,5 +1,7 @@
 use anyhow::Result;
+use bincode::{Decode, Encode};
 use serde::{Deserialize, Serialize};
+use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::{BufReader, BufWriter, ErrorKind, Write};
@@ -27,8 +29,12 @@ impl<'c> CacheCursor<'c> {
             environment: &command.environment,
             stdin,
         };
-        let info_string = serde_json::to_string(&info)?;
-        let directory = Path::new(CACHE_DIRECTORY).join(ops::hash_string(&info_string));
+
+        let mut hasher = Sha256::new();
+        hasher.update(ops::encode_to_vec(&info)?);
+        let hash = format!("{:x}", hasher.finalize());
+        let directory = Path::new(CACHE_DIRECTORY).join(hash);
+
         Ok(Self { info, directory })
     }
 
@@ -130,21 +136,21 @@ impl<'c> CacheCursor<'c> {
     }
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Encode, Serialize)]
 struct CacheInfo<'c> {
     name: &'c str,
     arguments: &'c [String],
     environment: &'c BTreeMap<String, String>,
-    #[serde(with = "serialize_byte_slice")]
+    #[serde(with = "ops::serialize_byte_slice")]
     stdin: &'c [u8],
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct CacheData {
     pub exit_code: i32,
-    #[serde(with = "serialize_byte_vec")]
+    #[serde(with = "ops::serialize_byte_vec")]
     pub stdout: Vec<u8>,
-    #[serde(with = "serialize_byte_vec")]
+    #[serde(with = "ops::serialize_byte_vec")]
     pub stderr: Vec<u8>,
     pub read_dependencies: HashMap<PathBuf, DependencyKey>,
     pub write_outputs: HashSet<PathBuf>,
@@ -170,53 +176,4 @@ fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {
         ops::ignore_not_found(fs::remove_dir_all(sandbox_directory))?;
     }
     Ok(())
-}
-
-mod serialize_byte_slice {
-    use base64::prelude::*;
-    use serde::{Serialize, Serializer};
-
-    pub fn serialize<S>(bytes: &[u8], serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: Serializer,
-    {
-        if serializer.is_human_readable() {
-            let encoded = BASE64_STANDARD.encode(bytes);
-            encoded.serialize(serializer)
-        } else {
-            bytes.serialize(serializer)
-        }
-    }
-}
-
-mod serialize_byte_vec {
-    use base64::prelude::*;
-    use serde::de::Error as DeserializeError;
-    use serde::{Deserialize, Deserializer, Serialize, Serializer};
-
-    pub fn serialize<S>(bytes: &Vec<u8>, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: Serializer,
-    {
-        if serializer.is_human_readable() {
-            let encoded = BASE64_STANDARD.encode(bytes);
-            encoded.serialize(serializer)
-        } else {
-            bytes.serialize(serializer)
-        }
-    }
-
-    pub fn deserialize<'de, D>(deserializer: D) -> Result<Vec<u8>, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        if deserializer.is_human_readable() {
-            let encoded = String::deserialize(deserializer)?;
-            BASE64_STANDARD
-                .decode(encoded)
-                .map_err(DeserializeError::custom)
-        } else {
-            Vec::<u8>::deserialize(deserializer)
-        }
-    }
 }
