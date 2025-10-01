@@ -156,6 +156,10 @@ pub fn get_read_dependencies(
     Ok(dependencies)
 }
 
+pub fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> bool {
+    true
+}
+
 fn get_modified_timestamp(file_path: &Path) -> Result<Option<u128>> {
     let metadata = match fs::metadata(file_path) {
         Ok(metadata) => metadata,

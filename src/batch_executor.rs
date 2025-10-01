@@ -7,8 +7,6 @@ use crate::cache::{CacheCursor, InvocationCursor, InvocationData};
 use crate::command::{self, Command};
 
 pub fn run(command: Command) -> Result<ExitCode> {
-    println!("running: {command:?}");
-
     let mut stdin = Vec::new();
     let mut process_stdin = io::stdin();
     if !process_stdin.is_terminal() {
@@ -20,12 +18,34 @@ pub fn run(command: Command) -> Result<ExitCode> {
     let cache = command_cache.get_invocation(&command, &stdin)?;
     cache.create_directory()?;
 
-    // TODO: logic checking cache validity
+    if let Some(cached_data) = cache.load_data()? {
+        if command::check_read_dependencies(&cached_data.read_dependencies) {
+            return output_cached_data(&cache, &cached_data);
+        }
+    }
+
     cache.clean()?;
     let data = run_command(&command, &cache, &stdin)?;
     cache.save_data(&data)?;
 
     Ok(ExitCode::SUCCESS)
+}
+
+fn output_cached_data(cache: &InvocationCursor<'_>, data: &InvocationData) -> Result<ExitCode> {
+    {
+        let mut stdout = io::stdout().lock();
+        stdout.write_all(&data.stdout)?;
+        stdout.flush()?;
+    }
+    {
+        let mut stderr = io::stderr().lock();
+        stderr.write_all(&data.stderr)?;
+        stderr.flush()?;
+    }
+    if !data.write_outputs.is_empty() {
+        cache.commit_output()?;
+    }
+    Ok(ExitCode::from(data.exit_code as u8))
 }
 
 fn run_command(

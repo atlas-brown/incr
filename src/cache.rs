@@ -1,7 +1,8 @@
-use anyhow::{Result, anyhow};
+use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs::{self, File};
+use std::io::ErrorKind;
 use std::path::{Path, PathBuf};
 use std::process::{Command as ShellCommand, Stdio};
 
@@ -74,6 +75,18 @@ impl<'c> InvocationCursor<'c> {
 
     pub fn create_directory(&self) -> Result<()> {
         create_cache_directory(&self.directory, &self.info)
+    }
+
+    pub fn load_data(&self) -> Result<Option<InvocationData>> {
+        let file = match File::open(self.directory.join(DATA_FILE)) {
+            Ok(file) => file,
+            Err(error) => match error.kind() {
+                ErrorKind::NotFound => return Ok(None),
+                _ => return Err(error.into()),
+            },
+        };
+        let data = serde_json::from_reader(file)?;
+        Ok(Some(data))
     }
 
     pub fn clean(&self) -> Result<()> {
@@ -156,7 +169,6 @@ pub struct InvocationData {
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-#[serde(untagged)]
 pub enum DependencyKey {
     DoesNotExist,
     Timestamp(u128),
