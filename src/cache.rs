@@ -1,12 +1,17 @@
-use anyhow::Result;
+use anyhow::{Result, anyhow};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, HashMap};
 use std::fs::{self, File};
+use std::io::{Error as IoError, ErrorKind};
 use std::path::{Path, PathBuf};
+use std::process::{Command as ShellCommand, Stdio};
 
 use crate::command_io::Command;
-use crate::config::{CACHE_DIRECTORY, DEBUG, DEBUG_FILE};
+use crate::config::{
+    CACHE_DIRECTORY, COMMIT_DIRECTORY, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY,
+    SANDBOX_DIRECTORY, SUDO_SANDBOX,
+};
 
 #[derive(Debug)]
 pub struct CacheCursor {
@@ -64,12 +69,39 @@ impl<'c> InvocationCursor<'c> {
         Ok(Self { info, directory })
     }
 
-    pub fn get_directory(&self) -> &Path {
-        return &self.directory;
+    pub fn get_sandbox_directory(&self) -> PathBuf {
+        return self.directory.join(SANDBOX_DIRECTORY);
     }
 
     pub fn create_directory(&self) -> Result<()> {
         create_cache_directory(&self.directory, &self.info)
+    }
+
+    pub fn clean(&self) -> Result<()> {
+        let sandbox_directory = self.directory.join(SANDBOX_DIRECTORY);
+        if SUDO_SANDBOX {
+            ShellCommand::new("sudo")
+                .args(&[
+                    "rm",
+                    "-rf",
+                    sandbox_directory
+                        .to_str()
+                        .ok_or(anyhow!("Could not format sandbox directory"))?,
+                ])
+                .stdin(Stdio::null())
+                .stdout(Stdio::null())
+                .stderr(Stdio::null())
+                .spawn()?
+                .wait()?;
+        } else {
+            ignore_not_found(fs::remove_dir_all(&sandbox_directory))?;
+        }
+
+        ignore_not_found(fs::remove_dir_all(&self.directory.join(OUTPUT_DIRECTORY)))?;
+        ignore_not_found(fs::remove_dir_all(&self.directory.join(COMMIT_DIRECTORY)))?;
+        ignore_not_found(fs::remove_file(&self.directory.join(DATA_FILE)))?;
+
+        Ok(())
     }
 }
 
@@ -120,6 +152,16 @@ fn hash_string(string: &str) -> String {
     let mut hasher = Sha256::new();
     hasher.update(string);
     format!("{:x}", hasher.finalize())
+}
+
+fn ignore_not_found(result: Result<(), IoError>) -> Result<()> {
+    match result {
+        Ok(()) => Ok(()),
+        Err(error) => match error.kind() {
+            ErrorKind::NotFound => Ok(()),
+            _ => Err(error.into()),
+        },
+    }
 }
 
 mod serialize_bytes {
