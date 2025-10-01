@@ -2,13 +2,13 @@ use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs::{self, File};
-use std::io::ErrorKind;
+use std::io::{BufReader, BufWriter, ErrorKind, Write};
 use std::path::{Path, PathBuf};
 use std::process::{Command as ShellCommand, Stdio};
 
 use crate::command::Command;
 use crate::config::{
-    CACHE_DIRECTORY, COMMIT_DIRECTORY, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY,
+    CACHE_DIRECTORY, CHUNK_SIZE, COMMIT_DIRECTORY, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY,
     SANDBOX_DIRECTORY, SUDO_SANDBOX, TRY_COMMAND,
 };
 use crate::ops;
@@ -85,7 +85,8 @@ impl<'c> InvocationCursor<'c> {
                 _ => return Err(error.into()),
             },
         };
-        let data = serde_json::from_reader(file)?;
+        let file_reader = BufReader::with_capacity(CHUNK_SIZE, file);
+        let data = serde_json::from_reader(file_reader)?;
         Ok(Some(data))
     }
 
@@ -144,7 +145,9 @@ impl<'c> InvocationCursor<'c> {
 
     pub fn save_data(&self, data: &InvocationData) -> Result<()> {
         let file = File::create(self.directory.join(DATA_FILE))?;
-        serde_json::to_writer_pretty(file, data)?;
+        let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
+        serde_json::to_writer_pretty(&mut file_writer, data)?;
+        file_writer.flush()?;
         Ok(())
     }
 }
@@ -188,8 +191,10 @@ where
 
     fs::create_dir_all(directory)?;
     if DEBUG {
-        let debug_file = directory.join(DEBUG_FILE);
-        serde_json::to_writer_pretty(File::create(&debug_file)?, info)?;
+        let file = File::create(directory.join(DEBUG_FILE))?;
+        let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
+        serde_json::to_writer_pretty(&mut file_writer, info)?;
+        file_writer.flush()?;
     }
 
     Ok(())
