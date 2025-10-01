@@ -165,12 +165,18 @@ pub fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -
                 }
             }
             DependencyKey::Timestamp(timestamp) => {
+                if !path.is_file() {
+                    return Ok(false);
+                }
                 let current_timestamp = get_modified_timestamp(path)?;
                 if current_timestamp != Some(*timestamp) {
                     return Ok(false);
                 }
             }
             DependencyKey::Hash(hash) => {
+                if !path.is_file() {
+                    return Ok(false);
+                }
                 let current_hash = get_file_hash(path)?;
                 if current_hash.as_ref() != Some(hash) {
                     return Ok(false);
