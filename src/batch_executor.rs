@@ -52,11 +52,11 @@ fn run_command(
     let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let (read_set, write_set) = command::parse_trace(&sandbox_directory)?;
 
+    let read_dependencies = command::get_read_dependencies(read_set, &write_set)?;
     cache.extract_sandbox_output()?;
     if !write_set.is_empty() {
         cache.commit_output()?;
     }
-    let read_dependencies = command::get_read_dependencies(read_set, &write_set)?;
 
     Ok(InvocationData {
         exit_code,

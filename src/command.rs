@@ -141,16 +141,32 @@ pub fn get_read_dependencies(
             continue;
         }
 
-        let metadata = match fs::metadata(&path) {
-            Ok(metadata) => metadata,
-            Err(error) => match error.kind() {
-                ErrorKind::PermissionDenied => continue,
-                _ => return Err(error.into()),
-            },
-        };
-        let timestamp = metadata.modified()?.duration_since(UNIX_EPOCH)?.as_micros();
-        dependencies.insert(path, DependencyKey::Timestamp(timestamp));
+        if !write_set.contains(&path) {
+            if let Some(timestamp) = get_modified_timestamp(&path)? {
+                dependencies.insert(path, DependencyKey::Timestamp(timestamp));
+            }
+        } else {
+            if let Some(hash) = get_file_hash(&path)? {
+                dependencies.insert(path, DependencyKey::Hash(hash));
+            }
+        }
     }
 
     Ok(dependencies)
+}
+
+fn get_modified_timestamp(file_path: &Path) -> Result<Option<u128>> {
+    let metadata = match fs::metadata(file_path) {
+        Ok(metadata) => metadata,
+        Err(error) => match error.kind() {
+            ErrorKind::PermissionDenied => return Ok(None),
+            _ => return Err(error.into()),
+        },
+    };
+    let timestamp = metadata.modified()?.duration_since(UNIX_EPOCH)?.as_micros();
+    Ok(Some(timestamp))
+}
+
+fn get_file_hash(file_path: &Path) -> Result<Option<String>> {
+    unimplemented!()
 }
