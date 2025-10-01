@@ -1,13 +1,15 @@
-use anyhow::{Result, anyhow};
-use std::collections::BTreeMap;
+use anyhow::{Result, anyhow, ensure};
+use std::collections::{BTreeMap, HashSet};
 use std::env;
 use std::fs;
 use std::io::{Read, Write};
 use std::mem;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::process::{Child, Command as ShellCommand, Stdio};
 
 use crate::config::{CHUNK_SIZE, STRACE_COMMAND, TRACE_FILE, TRY_COMMAND};
+
+const PARSE_TRACE_SCRIPT: &str = include_str!("parse_trace.py");
 
 #[derive(Debug)]
 pub struct Command {
@@ -86,4 +88,45 @@ where
         data.extend_from_slice(&chunk[..count]);
     }
     Ok(data)
+}
+
+pub fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
+    let trace_file = sandbox_directory
+        .join("upperdir")
+        .join("tmp")
+        .join(TRACE_FILE);
+    let output = ShellCommand::new("python3")
+        .args(&[
+            "-c",
+            PARSE_TRACE_SCRIPT,
+            trace_file
+                .to_str()
+                .ok_or(anyhow!("Could not format trace file path"))?,
+        ])
+        .stdin(Stdio::null())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::null())
+        .spawn()?
+        .wait_with_output()?;
+
+    let mut read_set = HashSet::new();
+    let mut write_set = HashSet::new();
+    let mut parse_state = 0;
+    for line in String::from_utf8(output.stdout)?.lines() {
+        if parse_state == 0 {
+            ensure!(line == "<read_set>");
+            parse_state = 1;
+        } else if parse_state == 1 {
+            if line == "<write_set>" {
+                parse_state = 2;
+                continue;
+            }
+            read_set.insert(PathBuf::from(line));
+        } else if parse_state == 2 {
+            write_set.insert(PathBuf::from(line));
+        }
+    }
+    ensure!(parse_state == 2);
+
+    Ok((read_set, write_set))
 }
