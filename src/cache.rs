@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs::{self, File};
-use std::io::{BufReader, BufWriter, ErrorKind, Write};
+use std::io::{BufWriter, Write};
 use std::path::{Path, PathBuf};
 use std::process::{Command as ShellCommand, Stdio};
 
@@ -61,20 +61,7 @@ impl<'c> CacheCursor<'c> {
         Ok(())
     }
 
-    pub fn load_data(&self) -> Result<Option<CacheData>> {
-        let file = match File::open(self.directory.join(DATA_FILE)) {
-            Ok(file) => file,
-            Err(error) => match error.kind() {
-                ErrorKind::NotFound => return Ok(None),
-                _ => return Err(error.into()),
-            },
-        };
-        let file_reader = BufReader::with_capacity(CHUNK_SIZE, file);
-        let data = serde_json::from_reader(file_reader)?;
-        Ok(Some(data))
-    }
-
-    pub fn clean(&self) -> Result<()> {
+    pub fn clean_directory(&self) -> Result<()> {
         remove_sandbox(&self.directory.join(SANDBOX_DIRECTORY))?;
         ops::ignore_not_found(fs::remove_dir_all(self.directory.join(OUTPUT_DIRECTORY)))?;
         ops::ignore_not_found(fs::remove_dir_all(self.directory.join(COMMIT_DIRECTORY)))?;
@@ -127,6 +114,10 @@ impl<'c> CacheCursor<'c> {
         Ok(())
     }
 
+    pub fn load_data(&self) -> Result<Option<CacheData>> {
+        ops::decode_from_file(&self.directory, DATA_FILE.to_owned())
+    }
+
     pub fn save_data(&self, data: &CacheData) -> Result<()> {
         ops::encode_to_file(data, &self.directory, DATA_FILE.to_owned())
     }
@@ -141,7 +132,7 @@ struct CacheInfo<'c> {
     stdin: &'c [u8],
 }
 
-#[derive(Debug, Deserialize, Encode, Serialize)]
+#[derive(Debug, Decode, Deserialize, Encode, Serialize)]
 pub struct CacheData {
     pub exit_code: i32,
     #[serde(with = "ops::serialize_byte_vec")]
@@ -152,7 +143,7 @@ pub struct CacheData {
     pub write_outputs: HashSet<PathBuf>,
 }
 
-#[derive(Debug, Deserialize, Encode, Serialize)]
+#[derive(Debug, Decode, Deserialize, Encode, Serialize)]
 pub enum DependencyKey {
     DoesNotExist,
     Timestamp(u128),

@@ -21,7 +21,7 @@ pub fn run(command: Command) -> Result<ExitCode> {
         return output_cached_data(&cache, &cached_data);
     }
 
-    cache.clean()?;
+    cache.clean_directory()?;
     let data = run_command(&command, &cache, &stdin)?;
     cache.save_data(&data)?;
 
