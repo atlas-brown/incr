@@ -94,7 +94,6 @@ pub fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSe
         .join("upperdir")
         .join("tmp")
         .join(TRACE_FILE);
-
     let output = ShellCommand::new("python3")
         .args(&["-c", PARSE_TRACE_SCRIPT, ops::path_to_string(&trace_file)?])
         .stdin(Stdio::null())

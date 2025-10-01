@@ -117,7 +117,6 @@ impl<'c> InvocationCursor<'c> {
             .stderr(Stdio::null())
             .spawn()?
             .wait()?;
-
         ShellCommand::new(TRY_COMMAND)
             .args(&["commit", ops::path_to_string(&commit_directory)?])
             .stdin(Stdio::null())
@@ -125,6 +124,7 @@ impl<'c> InvocationCursor<'c> {
             .stderr(Stdio::null())
             .spawn()?
             .wait()?;
+        fs::remove_dir_all(&commit_directory)?;
 
         Ok(())
     }
