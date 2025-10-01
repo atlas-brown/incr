@@ -1,4 +1,4 @@
-use anyhow::{Result, bail};
+use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, HashMap};
@@ -8,6 +8,7 @@ use std::path::PathBuf;
 use crate::command_io::Command;
 use crate::config::{CACHE_DIRECTORY, DEBUG, DEBUG_FILE};
 
+#[derive(Debug)]
 pub struct CacheCursor {
     info: CacheInfo,
     directory: PathBuf,
@@ -17,7 +18,7 @@ impl CacheCursor {
     pub fn new(command_name: String) -> Self {
         let mut directory = PathBuf::from(CACHE_DIRECTORY);
         if !DEBUG {
-            directory.push(hash_path(&command_name));
+            directory.push(hash_string(&command_name));
         } else {
             directory.push(&command_name);
         }
@@ -43,6 +44,14 @@ impl CacheCursor {
 
         Ok(())
     }
+
+    pub fn get_cursor<'c>(
+        &self,
+        command: &'c Command,
+        stdin: &'c [u8],
+    ) -> Result<InvocationCursor<'c>> {
+        InvocationCursor::new(self.directory.clone(), command, stdin)
+    }
 }
 
 #[derive(Debug, Serialize)]
@@ -50,21 +59,22 @@ struct CacheInfo {
     command_name: String,
 }
 
+#[derive(Debug)]
 pub struct InvocationCursor<'c> {
     info: InvocationInfo<'c>,
     directory: PathBuf,
 }
 
 impl<'c> InvocationCursor<'c> {
-    pub fn new(command: &'c Command, stdin: &'c [u8]) -> Self {
-        Self {
-            info: InvocationInfo {
-                arguments: &command.arguments[1..],
-                environment: &command.environment,
-                stdin,
-            },
-            directory: PathBuf::new(),
-        }
+    pub fn new(mut directory: PathBuf, command: &'c Command, stdin: &'c [u8]) -> Result<Self> {
+        let info = InvocationInfo {
+            arguments: &command.arguments[1..],
+            environment: &command.environment,
+            stdin,
+        };
+        let info_string = serde_json::to_string(&info)?;
+        directory.push(hash_string(&info_string));
+        Ok(Self { info, directory })
     }
 }
 
@@ -72,6 +82,7 @@ impl<'c> InvocationCursor<'c> {
 struct InvocationInfo<'c> {
     arguments: &'c [String],
     environment: &'c BTreeMap<String, String>,
+    #[serde(with = "serialize_bytes")]
     stdin: &'c [u8],
 }
 
@@ -90,8 +101,21 @@ pub enum FileKey {
     Hash(String),
 }
 
-fn hash_path(name: &str) -> String {
+fn hash_string(string: &str) -> String {
     let mut hasher = Sha256::new();
-    hasher.update(name);
+    hasher.update(string);
     format!("{:x}", hasher.finalize())
+}
+
+mod serialize_bytes {
+    use base64::prelude::*;
+    use serde::{Serialize, Serializer};
+
+    pub fn serialize<S>(bytes: &[u8], serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        let encoded = BASE64_STANDARD.encode(bytes);
+        String::serialize(&encoded, serializer)
+    }
 }
