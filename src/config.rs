@@ -9,4 +9,5 @@ pub const OUTPUT_DIRECTORY: &str = "outputs";
 pub const COMMIT_DIRECTORY: &str = "commit";
 pub const DEBUG_FILE: &str = "debug_info.json";
 
+pub const SUDO_SANDBOX: bool = true;
 pub const DEBUG: bool = true;
