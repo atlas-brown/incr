@@ -29,7 +29,6 @@ impl<'c> CacheCursor<'c> {
         };
         let info_string = serde_json::to_string(&info)?;
         let directory = Path::new(CACHE_DIRECTORY).join(ops::hash_string(&info_string));
-
         Ok(Self { info, directory })
     }
 
