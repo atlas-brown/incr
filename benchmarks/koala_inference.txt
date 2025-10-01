@@ -1,29 +1,29 @@
 With cache time: 212.929
 Without cache time: 524.736
 Savings: 2.464x
-Cache size: 70.7 MB
+Cache size: 11.1 MB
 
 [WITH CACHE]
 
-real    0m42.337s
-user    3m53.408s
-sys     1m24.357s
+real    0m42.615s
+user    3m55.546s
+sys     1m26.009s
 
-real    0m42.805s
-user    3m52.305s
-sys     1m26.725s
+real    0m42.769s
+user    3m52.621s
+sys     1m25.754s
 
-real    0m43.047s
-user    3m52.904s
-sys     1m27.126s
+real    0m42.980s
+user    3m55.326s
+sys     1m24.164s
 
-real    0m42.708s
-user    3m55.895s
-sys     1m24.783s
+real    0m42.995s
+user    3m54.506s
+sys     1m28.145s
 
-real    0m43.107s
-user    3m52.680s
-sys     1m27.608s
+real    0m43.006s
+user    3m52.900s
+sys     1m25.915s
 
 [WITHOUT CACHE]
 
