@@ -114,7 +114,7 @@ struct InvocationInfo<'c> {
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct InvocationData {
+pub struct InvocationResult {
     pub exit_code: i32,
     pub stdout: Vec<u8>,
     pub stderr: Vec<u8>,

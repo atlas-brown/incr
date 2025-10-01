@@ -1,4 +1,4 @@
-use anyhow::Result;
+use anyhow::{Result, anyhow};
 use std::io::{self, IsTerminal, Read, Write};
 use std::process::ExitCode;
 use std::thread;
@@ -35,11 +35,11 @@ pub fn run(command: Command) -> Result<ExitCode> {
         child_stdin.flush()?;
     }
 
-    let exit_status = child.wait()?;
-    let x = stdout_thread.join();
-    let y = stderr_thread.join();
-    println!("exit_status: {exit_status:?}");
-    println!("{x:?} {y:?}");
+    let exit_code = child.wait()?.code().unwrap();
+    let stdout = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    println!("exit code: {exit_code:?}");
+    println!("stdout: {stdout:?} stderr: {stderr:?}");
 
     Ok(ExitCode::SUCCESS)
 }
