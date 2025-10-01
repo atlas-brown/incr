@@ -1,8 +1,12 @@
 use anyhow::{Result, anyhow};
 use bincode::config::{Configuration, Fixint, LittleEndian, NoLimit};
 use bincode::{Decode, Encode};
-use std::io::{Error as IoError, ErrorKind};
+use serde::{Deserialize, Serialize};
+use std::fs::File;
+use std::io::{BufReader, BufWriter, Error as IoError, ErrorKind, Write};
 use std::path::Path;
+
+use crate::config::{CHUNK_SIZE, DEBUG};
 
 pub fn path_to_string(path: &Path) -> Result<&str> {
     path.to_str().ok_or(anyhow!("Could not format path"))
@@ -18,12 +22,43 @@ pub fn ignore_not_found(result: Result<(), IoError>) -> Result<()> {
     }
 }
 
-pub fn encode_to_vec<T>(value: T) -> Result<Vec<u8>>
+pub fn encode_to_vec<T>(value: &T) -> Result<Vec<u8>>
 where
     T: Encode,
 {
     bincode::encode_to_vec(value, get_bincode_config()).map_err(|e| e.into())
 }
+
+pub fn encode_to_file<T>(value: &T, directory: &Path, mut file_name: String) -> Result<()>
+where
+    T: Encode + Serialize,
+{
+    if !DEBUG {
+        file_name.push_str(".dat");
+    } else {
+        file_name.push_str(".incr");
+    }
+
+    let file = File::create(directory.join(file_name))?;
+    let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
+    if !DEBUG {
+        bincode::encode_into_std_write(value, &mut file_writer, get_bincode_config())?;
+    } else {
+        serde_json::to_writer_pretty(&mut file_writer, value)?;
+    }
+    file_writer.flush()?;
+
+    Ok(())
+}
+
+/*
+pub fn decode_from_file<T>(file_path: &Path) -> Result<T>
+where
+    T: Decode,
+{
+    unimplemented!()
+}
+*/
 
 fn get_bincode_config() -> Configuration<LittleEndian, Fixint, NoLimit> {
     bincode::config::standard()

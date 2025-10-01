@@ -128,11 +128,7 @@ impl<'c> CacheCursor<'c> {
     }
 
     pub fn save_data(&self, data: &CacheData) -> Result<()> {
-        let file = File::create(self.directory.join(DATA_FILE))?;
-        let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
-        serde_json::to_writer_pretty(&mut file_writer, data)?;
-        file_writer.flush()?;
-        Ok(())
+        ops::encode_to_file(data, &self.directory, DATA_FILE.to_owned())
     }
 }
 
@@ -145,7 +141,7 @@ struct CacheInfo<'c> {
     stdin: &'c [u8],
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Encode, Serialize)]
 pub struct CacheData {
     pub exit_code: i32,
     #[serde(with = "ops::serialize_byte_vec")]
@@ -156,7 +152,7 @@ pub struct CacheData {
     pub write_outputs: HashSet<PathBuf>,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Encode, Serialize)]
 pub enum DependencyKey {
     DoesNotExist,
     Timestamp(u128),
