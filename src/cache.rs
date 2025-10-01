@@ -180,8 +180,12 @@ mod serialize_byte_slice {
     where
         S: Serializer,
     {
-        let encoded = BASE64_STANDARD.encode(bytes);
-        String::serialize(&encoded, serializer)
+        if serializer.is_human_readable() {
+            let encoded = BASE64_STANDARD.encode(bytes);
+            encoded.serialize(serializer)
+        } else {
+            bytes.serialize(serializer)
+        }
     }
 }
 
@@ -194,14 +198,25 @@ mod serialize_byte_vec {
     where
         S: Serializer,
     {
-        let encoded = BASE64_STANDARD.encode(bytes);
-        String::serialize(&encoded, serializer)
+        if serializer.is_human_readable() {
+            let encoded = BASE64_STANDARD.encode(bytes);
+            encoded.serialize(serializer)
+        } else {
+            bytes.serialize(serializer)
+        }
     }
 
-    pub fn deserialize<'de, D: Deserializer<'de>>(d: D) -> Result<Vec<u8>, D::Error> {
-        let encoded = String::deserialize(d)?;
-        BASE64_STANDARD
-            .decode(encoded)
-            .map_err(|e| DeserializeError::custom(e))
+    pub fn deserialize<'de, D>(deserializer: D) -> Result<Vec<u8>, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        if deserializer.is_human_readable() {
+            let encoded = String::deserialize(deserializer)?;
+            BASE64_STANDARD
+                .decode(encoded)
+                .map_err(|e| DeserializeError::custom(e))
+        } else {
+            Vec::<u8>::deserialize(deserializer)
+        }
     }
 }
