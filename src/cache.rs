@@ -14,58 +14,22 @@ use crate::config::{
 use crate::ops;
 
 #[derive(Debug)]
-pub struct CacheCursor {
-    info: CacheInfo,
+pub struct CacheCursor<'c> {
+    info: CacheInfo<'c>,
     directory: PathBuf,
 }
 
-impl CacheCursor {
-    pub fn new(command_name: String) -> Self {
-        let mut directory = PathBuf::from(CACHE_DIRECTORY);
-        if !DEBUG {
-            directory.push(ops::hash_string(&command_name));
-        } else {
-            directory.push(format!("<{command_name}>"));
-        }
-        Self {
-            info: CacheInfo { command_name },
-            directory,
-        }
-    }
-
-    pub fn create_directory(&self) -> Result<()> {
-        create_cache_directory(&self.directory, &self.info)
-    }
-
-    pub fn get_invocation<'c>(
-        &self,
-        command: &'c Command,
-        stdin: &'c [u8],
-    ) -> Result<InvocationCursor<'c>> {
-        InvocationCursor::new(self.directory.clone(), command, stdin)
-    }
-}
-
-#[derive(Debug, Serialize)]
-struct CacheInfo {
-    command_name: String,
-}
-
-#[derive(Debug)]
-pub struct InvocationCursor<'c> {
-    info: InvocationInfo<'c>,
-    directory: PathBuf,
-}
-
-impl<'c> InvocationCursor<'c> {
-    pub fn new(mut directory: PathBuf, command: &'c Command, stdin: &'c [u8]) -> Result<Self> {
-        let info = InvocationInfo {
+impl<'c> CacheCursor<'c> {
+    pub fn new(command: &'c Command, stdin: &'c [u8]) -> Result<Self> {
+        let info = CacheInfo {
+            name: &command.name,
             arguments: &command.arguments,
             environment: &command.environment,
             stdin,
         };
         let info_string = serde_json::to_string(&info)?;
-        directory.push(ops::hash_string(&info_string));
+        let directory = Path::new(CACHE_DIRECTORY).join(ops::hash_string(&info_string));
+
         Ok(Self { info, directory })
     }
 
@@ -74,10 +38,25 @@ impl<'c> InvocationCursor<'c> {
     }
 
     pub fn create_directory(&self) -> Result<()> {
-        create_cache_directory(&self.directory, &self.info)
+        if self.directory.is_dir() {
+            return Ok(());
+        }
+        if self.directory.exists() {
+            fs::remove_file(&self.directory)?;
+        }
+
+        fs::create_dir_all(&self.directory)?;
+        if DEBUG {
+            let file = File::create(self.directory.join(DEBUG_FILE))?;
+            let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
+            serde_json::to_writer_pretty(&mut file_writer, &self.info)?;
+            file_writer.flush()?;
+        }
+
+        Ok(())
     }
 
-    pub fn load_data(&self) -> Result<Option<InvocationData>> {
+    pub fn load_data(&self) -> Result<Option<CacheData>> {
         let file = match File::open(self.directory.join(DATA_FILE)) {
             Ok(file) => file,
             Err(error) => match error.kind() {
@@ -143,7 +122,7 @@ impl<'c> InvocationCursor<'c> {
         Ok(())
     }
 
-    pub fn save_data(&self, data: &InvocationData) -> Result<()> {
+    pub fn save_data(&self, data: &CacheData) -> Result<()> {
         let file = File::create(self.directory.join(DATA_FILE))?;
         let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
         serde_json::to_writer_pretty(&mut file_writer, data)?;
@@ -153,7 +132,8 @@ impl<'c> InvocationCursor<'c> {
 }
 
 #[derive(Debug, Serialize)]
-struct InvocationInfo<'c> {
+struct CacheInfo<'c> {
+    name: &'c str,
     arguments: &'c [String],
     environment: &'c BTreeMap<String, String>,
     #[serde(with = "serialize_byte_slice")]
@@ -161,7 +141,7 @@ struct InvocationInfo<'c> {
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct InvocationData {
+pub struct CacheData {
     pub exit_code: i32,
     #[serde(with = "serialize_byte_vec")]
     pub stdout: Vec<u8>,
@@ -176,28 +156,6 @@ pub enum DependencyKey {
     DoesNotExist,
     Timestamp(u128),
     Hash(String),
-}
-
-fn create_cache_directory<I>(directory: &Path, info: &I) -> Result<()>
-where
-    I: Serialize,
-{
-    if directory.exists() {
-        if directory.is_dir() {
-            return Ok(());
-        }
-        fs::remove_file(directory)?;
-    }
-
-    fs::create_dir_all(directory)?;
-    if DEBUG {
-        let file = File::create(directory.join(DEBUG_FILE))?;
-        let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
-        serde_json::to_writer_pretty(&mut file_writer, info)?;
-        file_writer.flush()?;
-    }
-
-    Ok(())
 }
 
 fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {

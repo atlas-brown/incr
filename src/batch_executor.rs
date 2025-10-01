@@ -3,7 +3,7 @@ use std::io::{self, IsTerminal, Read, Write};
 use std::process::ExitCode;
 use std::thread;
 
-use crate::cache::{CacheCursor, InvocationCursor, InvocationData};
+use crate::cache::{CacheCursor, CacheData};
 use crate::command::{self, Command};
 
 pub fn run(command: Command) -> Result<ExitCode> {
@@ -13,11 +13,8 @@ pub fn run(command: Command) -> Result<ExitCode> {
         process_stdin.read_to_end(&mut stdin)?;
     }
 
-    let command_cache = CacheCursor::new(command.name.clone());
-    command_cache.create_directory()?;
-    let cache = command_cache.get_invocation(&command, &stdin)?;
+    let cache = CacheCursor::new(&command, &stdin)?;
     cache.create_directory()?;
-
     if let Some(cached_data) = cache.load_data()? {
         if command::check_read_dependencies(&cached_data.read_dependencies)? {
             return output_cached_data(&cache, &cached_data);
@@ -31,7 +28,7 @@ pub fn run(command: Command) -> Result<ExitCode> {
     Ok(ExitCode::SUCCESS)
 }
 
-fn output_cached_data(cache: &InvocationCursor<'_>, data: &InvocationData) -> Result<ExitCode> {
+fn output_cached_data(cache: &CacheCursor<'_>, data: &CacheData) -> Result<ExitCode> {
     {
         let mut stdout = io::stdout().lock();
         stdout.write_all(&data.stdout)?;
@@ -48,11 +45,7 @@ fn output_cached_data(cache: &InvocationCursor<'_>, data: &InvocationData) -> Re
     Ok(ExitCode::from(data.exit_code as u8))
 }
 
-fn run_command(
-    command: &Command,
-    cache: &InvocationCursor<'_>,
-    stdin: &[u8],
-) -> Result<InvocationData> {
+fn run_command(command: &Command, cache: &CacheCursor<'_>, stdin: &[u8]) -> Result<CacheData> {
     let sandbox_directory = cache.get_sandbox_directory();
     let mut child = command::spawn_command(&command, &sandbox_directory)?;
 
@@ -78,7 +71,7 @@ fn run_command(
         cache.commit_output()?;
     }
 
-    Ok(InvocationData {
+    Ok(CacheData {
         exit_code,
         stdout,
         stderr,
