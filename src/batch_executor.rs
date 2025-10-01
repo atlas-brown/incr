@@ -19,7 +19,7 @@ pub fn run(command: Command) -> Result<ExitCode> {
     cache.create_directory()?;
 
     if let Some(cached_data) = cache.load_data()? {
-        if command::check_read_dependencies(&cached_data.read_dependencies) {
+        if command::check_read_dependencies(&cached_data.read_dependencies)? {
             return output_cached_data(&cache, &cached_data);
         }
     }

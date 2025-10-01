@@ -156,8 +156,29 @@ pub fn get_read_dependencies(
     Ok(dependencies)
 }
 
-pub fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> bool {
-    true
+pub fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Result<bool> {
+    for (path, key) in dependencies {
+        match key {
+            DependencyKey::DoesNotExist => {
+                if path.exists() {
+                    return Ok(false);
+                }
+            }
+            DependencyKey::Timestamp(timestamp) => {
+                let current_timestamp = get_modified_timestamp(path)?;
+                if current_timestamp != Some(*timestamp) {
+                    return Ok(false);
+                }
+            }
+            DependencyKey::Hash(hash) => {
+                let current_hash = get_file_hash(path)?;
+                if current_hash.as_ref() != Some(hash) {
+                    return Ok(false);
+                }
+            }
+        }
+    }
+    Ok(true)
 }
 
 fn get_modified_timestamp(file_path: &Path) -> Result<Option<u128>> {
