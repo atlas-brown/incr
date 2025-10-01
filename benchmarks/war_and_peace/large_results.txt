@@ -26,26 +26,26 @@ sys     0m0.388s
 
 with_cache.sh
 
-real    0m34.111s
-user    0m0.247s
+real    0m33.985s
+user    0m0.180s
 sys     0m1.237s
 
-real    0m34.407s
-user    0m0.484s
-sys     0m1.502s
+real    0m34.280s
+user    0m0.219s
+sys     0m1.375s
 
-real    0m48.386s
-user    0m0.794s
-sys     0m7.965s
+real    0m47.040s
+user    0m0.396s
+sys     0m7.545s
 
-real    1m0.177s
-user    0m14.439s
-sys     0m7.553s
+real    0m59.051s
+user    0m13.929s
+sys     0m8.543s
 
-real    0m2.844s
-user    0m1.132s
-sys     0m0.869s
+real    0m1.429s
+user    0m0.383s
+sys     0m0.559s
 
-real    0m2.816s
-user    0m1.151s
-sys     0m0.772s
+real    0m1.607s
+user    0m0.376s
+sys     0m0.476s
