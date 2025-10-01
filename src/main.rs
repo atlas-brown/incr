@@ -2,6 +2,7 @@ mod batch_executor;
 mod cache;
 mod command;
 mod config;
+mod ops;
 
 use std::process::ExitCode;
 

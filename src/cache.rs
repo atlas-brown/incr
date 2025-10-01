@@ -1,17 +1,16 @@
 use anyhow::{Result, anyhow};
 use serde::{Deserialize, Serialize};
-use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs::{self, File};
-use std::io::{Error as IoError, ErrorKind};
 use std::path::{Path, PathBuf};
 use std::process::{Command as ShellCommand, Stdio};
 
 use crate::command::Command;
 use crate::config::{
     CACHE_DIRECTORY, COMMIT_DIRECTORY, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY,
-    SANDBOX_DIRECTORY, SUDO_SANDBOX,
+    SANDBOX_DIRECTORY, SUDO_SANDBOX, TRY_COMMAND,
 };
+use crate::ops;
 
 #[derive(Debug)]
 pub struct CacheCursor {
@@ -23,7 +22,7 @@ impl CacheCursor {
     pub fn new(command_name: String) -> Self {
         let mut directory = PathBuf::from(CACHE_DIRECTORY);
         if !DEBUG {
-            directory.push(hash_string(&command_name));
+            directory.push(ops::hash_string(&command_name));
         } else {
             directory.push(&command_name);
         }
@@ -65,7 +64,7 @@ impl<'c> InvocationCursor<'c> {
             stdin,
         };
         let info_string = serde_json::to_string(&info)?;
-        directory.push(hash_string(&info_string));
+        directory.push(ops::hash_string(&info_string));
         Ok(Self { info, directory })
     }
 
@@ -79,9 +78,9 @@ impl<'c> InvocationCursor<'c> {
 
     pub fn clean(&self) -> Result<()> {
         remove_sandbox(&self.directory.join(SANDBOX_DIRECTORY))?;
-        ignore_not_found(fs::remove_dir_all(self.directory.join(OUTPUT_DIRECTORY)))?;
-        ignore_not_found(fs::remove_dir_all(self.directory.join(COMMIT_DIRECTORY)))?;
-        ignore_not_found(fs::remove_file(self.directory.join(DATA_FILE)))?;
+        ops::ignore_not_found(fs::remove_dir_all(self.directory.join(OUTPUT_DIRECTORY)))?;
+        ops::ignore_not_found(fs::remove_dir_all(self.directory.join(COMMIT_DIRECTORY)))?;
+        ops::ignore_not_found(fs::remove_file(self.directory.join(DATA_FILE)))?;
         Ok(())
     }
 
@@ -104,7 +103,30 @@ impl<'c> InvocationCursor<'c> {
     }
 
     pub fn commit_output(&self) -> Result<()> {
-        unimplemented!()
+        let output_directory = self.directory.join(OUTPUT_DIRECTORY);
+        let commit_directory = self.directory.join(COMMIT_DIRECTORY);
+
+        ShellCommand::new("cp")
+            .args(&[
+                "-r",
+                ops::path_to_string(&output_directory)?,
+                ops::path_to_string(&commit_directory)?,
+            ])
+            .stdin(Stdio::null())
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .spawn()?
+            .wait()?;
+
+        ShellCommand::new(TRY_COMMAND)
+            .args(&["commit", ops::path_to_string(&commit_directory)?])
+            .stdin(Stdio::null())
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .spawn()?
+            .wait()?;
+
+        Ok(())
     }
 }
 
@@ -154,38 +176,16 @@ where
 fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {
     if SUDO_SANDBOX {
         ShellCommand::new("sudo")
-            .args(&[
-                "rm",
-                "-rf",
-                sandbox_directory
-                    .to_str()
-                    .ok_or(anyhow!("Could not format sandbox directory"))?,
-            ])
+            .args(&["rm", "-rf", ops::path_to_string(&sandbox_directory)?])
             .stdin(Stdio::null())
             .stdout(Stdio::null())
             .stderr(Stdio::null())
             .spawn()?
             .wait()?;
     } else {
-        ignore_not_found(fs::remove_dir_all(&sandbox_directory))?;
+        ops::ignore_not_found(fs::remove_dir_all(&sandbox_directory))?;
     }
     Ok(())
-}
-
-fn hash_string(string: &str) -> String {
-    let mut hasher = Sha256::new();
-    hasher.update(string);
-    format!("{:x}", hasher.finalize())
-}
-
-fn ignore_not_found(result: Result<(), IoError>) -> Result<()> {
-    match result {
-        Ok(()) => Ok(()),
-        Err(error) => match error.kind() {
-            ErrorKind::NotFound => Ok(()),
-            _ => Err(error.into()),
-        },
-    }
 }
 
 mod serialize_bytes {

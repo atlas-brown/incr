@@ -8,6 +8,7 @@ use std::path::{Path, PathBuf};
 use std::process::{Child, Command as ShellCommand, Stdio};
 
 use crate::config::{CHUNK_SIZE, STRACE_COMMAND, TRACE_FILE, TRY_COMMAND};
+use crate::ops;
 
 const PARSE_TRACE_SCRIPT: &str = include_str!("parse_trace.py");
 
@@ -47,9 +48,7 @@ pub fn spawn_command(command: &Command, sandbox_directory: &Path) -> Result<Chil
 
     let arguments = &[
         "-D",
-        sandbox_directory
-            .to_str()
-            .ok_or(anyhow!("Could not format sandbox directory"))?,
+        ops::path_to_string(&sandbox_directory)?,
         STRACE_COMMAND,
         "-yf",
         "--seccomp-bpf",
@@ -95,14 +94,9 @@ pub fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSe
         .join("upperdir")
         .join("tmp")
         .join(TRACE_FILE);
+
     let output = ShellCommand::new("python3")
-        .args(&[
-            "-c",
-            PARSE_TRACE_SCRIPT,
-            trace_file
-                .to_str()
-                .ok_or(anyhow!("Could not format trace file path"))?,
-        ])
+        .args(&["-c", PARSE_TRACE_SCRIPT, ops::path_to_string(&trace_file)?])
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
         .stderr(Stdio::null())

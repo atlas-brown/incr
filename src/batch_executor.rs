@@ -44,6 +44,7 @@ pub fn run(command: Command) -> Result<ExitCode> {
 
     let (read_set, write_set) = command::parse_trace(&sandbox_directory)?;
     cache.extract_sandbox_output()?;
+    cache.commit_output()?;
     //println!("read: {read_set:?}");
     //println!("write: {write_set:?}");
 
