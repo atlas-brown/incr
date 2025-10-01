@@ -3,12 +3,57 @@ use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::HashMap;
 use std::fs::{self, File};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
+use crate::command_io::Command;
 use crate::config::{CACHE_DIRECTORY, DEBUG, DEBUG_FILE};
 
+pub struct CacheCursor {
+    command: Command,
+    directory: PathBuf,
+}
+
+impl CacheCursor {
+    pub fn new(command: Command) -> Self {
+        let mut directory = PathBuf::from(CACHE_DIRECTORY);
+        if !DEBUG {
+            directory.push(hash_path(&command.name));
+        } else {
+            directory.push(&command.name);
+        }
+        Self { command, directory }
+    }
+
+    pub fn create_directory(&self) -> Result<()> {
+        if self.directory.exists() {
+            if self.directory.is_dir() {
+                return Ok(());
+            }
+            fs::remove_file(&self.directory)?;
+        }
+
+        fs::create_dir_all(&self.directory)?;
+        if DEBUG {
+            let debug_file = self.directory.join(DEBUG_FILE);
+            serde_json::to_writer_pretty(
+                File::create(&debug_file)?,
+                &CacheInfo {
+                    name: self.command.name.to_owned(),
+                },
+            )?;
+        }
+
+        Ok(())
+    }
+}
+
+pub struct InvocationCursor {
+    info: InvocationInfo,
+    directory: PathBuf,
+}
+
 #[derive(Debug, Deserialize, Serialize)]
-pub struct CacheData {
+pub struct InvocationData {
     pub exit_code: i32,
     pub stdout: Vec<u8>,
     pub stderr: Vec<u8>,
@@ -23,7 +68,7 @@ pub enum FileKey {
 }
 
 #[derive(Debug, Serialize)]
-struct CommandInfo {
+struct CacheInfo {
     name: String,
 }
 
@@ -32,35 +77,6 @@ struct InvocationInfo {
     arguments: Vec<String>,
     environment: HashMap<String, String>,
     stdin: Vec<u8>,
-}
-
-pub fn create_command_directory(command_name: &str) -> Result<()> {
-    let mut path = PathBuf::from(CACHE_DIRECTORY);
-    if !DEBUG {
-        path.push(hash_path(command_name));
-    } else {
-        path.push(command_name);
-    }
-
-    if path.exists() {
-        if path.is_dir() {
-            return Ok(());
-        }
-        fs::remove_file(&path)?;
-    }
-
-    fs::create_dir_all(&path)?;
-    if DEBUG {
-        path.push(DEBUG_FILE);
-        serde_json::to_writer_pretty(
-            File::create(&path)?,
-            &CommandInfo {
-                name: command_name.to_owned(),
-            },
-        )?;
-    }
-
-    Ok(())
 }
 
 fn hash_path(name: &str) -> String {
