@@ -10,4 +10,5 @@ pub const COMMIT_DIRECTORY: &str = "commit";
 pub const DEBUG_FILE: &str = "debug_info.json";
 
 pub const SUDO_SANDBOX: bool = true;
+pub const CHUNK_SIZE: usize = 65536;
 pub const DEBUG: bool = true;

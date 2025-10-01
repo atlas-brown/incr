@@ -1,12 +1,12 @@
 mod batch_executor;
 mod cache;
-mod command_io;
+mod command;
 mod config;
 
 use std::process::ExitCode;
 
 fn main() -> ExitCode {
-    let command = match command_io::get_command() {
+    let command = match command::get_command() {
         Ok(Some(command)) => command,
         Ok(None) => return ExitCode::SUCCESS,
         Err(error) => {

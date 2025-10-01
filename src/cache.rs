@@ -7,7 +7,7 @@ use std::io::{Error as IoError, ErrorKind};
 use std::path::{Path, PathBuf};
 use std::process::{Command as ShellCommand, Stdio};
 
-use crate::command_io::Command;
+use crate::command::Command;
 use crate::config::{
     CACHE_DIRECTORY, COMMIT_DIRECTORY, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY,
     SANDBOX_DIRECTORY, SUDO_SANDBOX,
