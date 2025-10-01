@@ -43,10 +43,10 @@ pub fn create_command_directory(command_name: &str) -> Result<()> {
     }
 
     if path.exists() {
-        if !path.is_dir() {
-            bail!("Command cache is not a directory");
+        if path.is_dir() {
+            return Ok(());
         }
-        return Ok(());
+        fs::remove_file(&path)?;
     }
 
     fs::create_dir_all(&path)?;
