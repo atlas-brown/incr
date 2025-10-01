@@ -16,8 +16,8 @@ pub fn run(command: Command) -> Result<ExitCode> {
         process_stdin.read_to_end(&mut stdin)?;
     }
 
-    let invocation_cache = command_cache.get_cursor(&command, &stdin)?;
-    println!("{invocation_cache:?}");
+    let cache = command_cache.get_invocation(&command, &stdin)?;
+    println!("{cache:?}");
 
     Ok(ExitCode::SUCCESS)
 }

@@ -45,7 +45,7 @@ impl CacheCursor {
         Ok(())
     }
 
-    pub fn get_cursor<'c>(
+    pub fn get_invocation<'c>(
         &self,
         command: &'c Command,
         stdin: &'c [u8],
