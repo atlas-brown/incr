@@ -1,10 +1,11 @@
 use anyhow::{Result, bail};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::fs::{self, File};
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
+use crate::command_io::Command;
 use crate::config::{CACHE_DIRECTORY, DEBUG, DEBUG_FILE};
 
 pub struct CacheCursor {
@@ -49,16 +50,29 @@ struct CacheInfo {
     command_name: String,
 }
 
-pub struct InvocationCursor {
-    info: InvocationInfo,
+pub struct InvocationCursor<'c> {
+    info: InvocationInfo<'c>,
     directory: PathBuf,
 }
 
+impl<'c> InvocationCursor<'c> {
+    pub fn new(command: &'c Command, stdin: &'c [u8]) -> Self {
+        Self {
+            info: InvocationInfo {
+                arguments: &command.arguments[1..],
+                environment: &command.environment,
+                stdin,
+            },
+            directory: PathBuf::new(),
+        }
+    }
+}
+
 #[derive(Debug, Serialize)]
-struct InvocationInfo {
-    arguments: Vec<String>,
-    environment: HashMap<String, String>,
-    stdin: Vec<u8>,
+struct InvocationInfo<'c> {
+    arguments: &'c [String],
+    environment: &'c BTreeMap<String, String>,
+    stdin: &'c [u8],
 }
 
 #[derive(Debug, Deserialize, Serialize)]

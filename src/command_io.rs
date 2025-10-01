@@ -1,5 +1,5 @@
 use anyhow::{Result, anyhow};
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::env;
 use std::mem;
 
@@ -7,7 +7,7 @@ use std::mem;
 pub struct Command {
     pub name: String,
     pub arguments: Vec<String>,
-    pub environment: HashMap<String, String>,
+    pub environment: BTreeMap<String, String>,
 }
 
 pub fn get_command() -> Result<Option<Command>> {
@@ -27,6 +27,6 @@ pub fn get_command() -> Result<Option<Command>> {
     Ok(Some(Command {
         name,
         arguments,
-        environment: HashMap::new(), //env::vars().collect(),
+        environment: BTreeMap::new(), //env::vars().collect(),
     }))
 }
