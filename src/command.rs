@@ -103,6 +103,13 @@ where
 }
 
 pub fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
+    #[derive(Debug, PartialEq)]
+    enum ParseState {
+        Start,
+        ReadSet,
+        WriteSet,
+    }
+
     let trace_file = sandbox_directory
         .join("upperdir")
         .join("tmp")
@@ -117,22 +124,33 @@ pub fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSe
 
     let mut read_set = HashSet::new();
     let mut write_set = HashSet::new();
-    let mut parse_state = 0;
+    let mut parse_state = ParseState::Start;
+    let check_excluded = |path: &str| EXCLUDED_PATHS.iter().any(|e| path.starts_with(e));
+
     for line in String::from_utf8(output.stdout)?.lines() {
-        if parse_state == 0 {
-            ensure!(line == "<read_set>");
-            parse_state = 1;
-        } else if parse_state == 1 {
-            if line == "<write_set>" {
-                parse_state = 2;
-                continue;
+        let line = line.trim();
+        match parse_state {
+            ParseState::Start => {
+                ensure!(line == "<read_set>");
+                parse_state = ParseState::ReadSet;
             }
-            read_set.insert(PathBuf::from(line));
-        } else if parse_state == 2 {
-            write_set.insert(PathBuf::from(line));
+            ParseState::ReadSet => {
+                if line == "<write_set>" {
+                    parse_state = ParseState::WriteSet;
+                    continue;
+                }
+                if !check_excluded(line) {
+                    read_set.insert(PathBuf::from(line));
+                }
+            }
+            ParseState::WriteSet => {
+                if !check_excluded(line) {
+                    write_set.insert(PathBuf::from(line));
+                }
+            }
         }
     }
-    ensure!(parse_state == 2);
+    ensure!(parse_state == ParseState::WriteSet);
 
     Ok((read_set, write_set))
 }
