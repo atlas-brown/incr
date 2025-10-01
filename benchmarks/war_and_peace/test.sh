@@ -1,0 +1,1 @@
+./target/release/incr cat ./benchmarks/war_and_peace/war_and_peace_large.txt | ./target/release/incr tr "[:upper:]" "[:lower:]" | ./target/release/incr tr -s "[:space:]" "\n" | ./target/release/incr sort | ./target/release/incr uniq -c | ./target/release/incr sort -nr

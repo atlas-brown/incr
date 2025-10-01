@@ -1,4 +1,3 @@
 koala
 cache
-debug_log.txt
-__pycache__
+/target

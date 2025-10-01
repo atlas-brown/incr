@@ -1,29 +1,29 @@
 With cache time: 212.929
 Without cache time: 524.736
 Savings: 2.464x
-Cache size: 67.936 MB (possible to optimize by an order of magnitude by only retaining upperdir)
+Cache size: 11.1 MB
 
 [WITH CACHE]
 
-real    0m41.617s
-user    3m54.474s
-sys     1m21.516s
+real    0m42.615s
+user    3m55.546s
+sys     1m26.009s
 
-real    0m42.664s
-user    3m55.206s
-sys     1m25.170s
+real    0m42.769s
+user    3m52.621s
+sys     1m25.754s
 
-real    0m42.945s
-user    3m55.527s
-sys     1m26.523s
+real    0m42.980s
+user    3m55.326s
+sys     1m24.164s
 
-real    0m42.713s
-user    3m55.404s
-sys     1m26.245s
+real    0m42.995s
+user    3m54.506s
+sys     1m28.145s
 
-real    0m42.990s
-user    3m54.876s
-sys     1m28.007s
+real    0m43.006s
+user    3m52.900s
+sys     1m25.915s
 
 [WITHOUT CACHE]
 
