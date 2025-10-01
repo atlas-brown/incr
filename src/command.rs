@@ -121,6 +121,7 @@ pub fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSe
         .stderr(Stdio::null())
         .spawn()?
         .wait_with_output()?;
+    fs::remove_file(trace_file)?;
 
     let mut read_set = HashSet::new();
     let mut write_set = HashSet::new();
