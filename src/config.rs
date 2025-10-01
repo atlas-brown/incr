@@ -1,4 +1,4 @@
-pub const TRY_COMMAND: &str = "./python/try.sh";
+pub const TRY_COMMAND: &str = "./src/try.sh";
 pub const STRACE_COMMAND: &str = "strace";
 pub const TRACE_FILE: &str = "trace.txt";
 
