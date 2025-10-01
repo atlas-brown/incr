@@ -1,3 +1,5 @@
+#![deny(rust_2018_idioms)]
+
 mod batch_executor;
 mod cache;
 mod command;

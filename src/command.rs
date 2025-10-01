@@ -1,5 +1,5 @@
 use anyhow::{Result, anyhow, ensure};
-use std::collections::{BTreeMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::env;
 use std::fs;
 use std::io::{Read, Write};
@@ -7,6 +7,7 @@ use std::mem;
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command as ShellCommand, Stdio};
 
+use crate::cache::FileKey;
 use crate::config::{CHUNK_SIZE, STRACE_COMMAND, TRACE_FILE, TRY_COMMAND};
 use crate::ops;
 
@@ -122,4 +123,9 @@ pub fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSe
     ensure!(parse_state == 2);
 
     Ok((read_set, write_set))
+}
+
+pub fn get_read_dependencies(read_set: &HashSet<PathBuf>) -> Result<HashMap<PathBuf, FileKey>> {
+    println!("getting read set: {read_set:?}");
+    unimplemented!()
 }

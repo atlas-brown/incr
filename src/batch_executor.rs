@@ -3,7 +3,7 @@ use std::io::{self, IsTerminal, Read, Write};
 use std::process::ExitCode;
 use std::thread;
 
-use crate::cache::CacheCursor;
+use crate::cache::{CacheCursor, InvocationCursor, InvocationData};
 use crate::command::{self, Command};
 
 pub fn run(command: Command) -> Result<ExitCode> {
@@ -22,7 +22,16 @@ pub fn run(command: Command) -> Result<ExitCode> {
 
     // TODO: logic checking cache validity
     cache.clean()?;
+    let data = run_command(&command, &cache, &stdin)?;
 
+    Ok(ExitCode::SUCCESS)
+}
+
+fn run_command(
+    command: &Command,
+    cache: &InvocationCursor<'_>,
+    stdin: &[u8],
+) -> Result<InvocationData> {
     let sandbox_directory = cache.get_sandbox_directory();
     let mut child = command::spawn_command(&command, &sandbox_directory)?;
     let child_stdout = child.stdout.take().unwrap();
@@ -39,14 +48,19 @@ pub fn run(command: Command) -> Result<ExitCode> {
     let exit_code = child.wait()?.code().unwrap();
     let stdout = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
-    println!("exit code: {exit_code:?}");
-    println!("stdout: {stdout:?} stderr: {stderr:?}");
-
     let (read_set, write_set) = command::parse_trace(&sandbox_directory)?;
-    cache.extract_sandbox_output()?;
-    cache.commit_output()?;
-    //println!("read: {read_set:?}");
-    //println!("write: {write_set:?}");
 
-    Ok(ExitCode::SUCCESS)
+    cache.extract_sandbox_output()?;
+    if !write_set.is_empty() {
+        cache.commit_output()?;
+    }
+    let read_dependencies = command::get_read_dependencies(&read_set)?;
+
+    Ok(InvocationData {
+        exit_code,
+        stdout,
+        stderr,
+        read_dependencies,
+        write_outputs: write_set,
+    })
 }
