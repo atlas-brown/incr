@@ -1,7 +1,7 @@
 use anyhow::{Result, anyhow};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
-use std::collections::{BTreeMap, HashMap};
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::{Error as IoError, ErrorKind};
 use std::path::{Path, PathBuf};
@@ -119,7 +119,7 @@ pub struct InvocationResult {
     pub stdout: Vec<u8>,
     pub stderr: Vec<u8>,
     pub read_dependencies: HashMap<PathBuf, FileKey>,
-    pub write_outputs: Vec<PathBuf>,
+    pub write_outputs: HashSet<PathBuf>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
