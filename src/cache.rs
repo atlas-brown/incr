@@ -4,7 +4,7 @@ use std::path::PathBuf;
 
 use crate::config::{DEBUG_INFO, HASH_COMMANDS};
 
-#[derive(Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct CacheData {
     pub exit_code: i32,
     pub stdout: Vec<u8>,
@@ -13,18 +13,18 @@ pub struct CacheData {
     pub write_outputs: Vec<PathBuf>,
 }
 
-#[derive(Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub enum FileKey {
     Timestamp(u128),
     Hash(String),
 }
 
-#[derive(Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct CommandInfo {
-    command: String,
+    name: String,
 }
 
-#[derive(Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct InvocationInfo {
     arguments: Vec<String>,
     environment: HashMap<String, String>,
