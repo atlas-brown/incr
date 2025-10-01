@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, HashMap};
 use std::fs::{self, File};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use crate::command_io::Command;
 use crate::config::{CACHE_DIRECTORY, DEBUG, DEBUG_FILE};
@@ -29,20 +29,7 @@ impl CacheCursor {
     }
 
     pub fn create_directory(&self) -> Result<()> {
-        if self.directory.exists() {
-            if self.directory.is_dir() {
-                return Ok(());
-            }
-            fs::remove_file(&self.directory)?;
-        }
-
-        fs::create_dir_all(&self.directory)?;
-        if DEBUG {
-            let debug_file = self.directory.join(DEBUG_FILE);
-            serde_json::to_writer_pretty(File::create(&debug_file)?, &self.info)?;
-        }
-
-        Ok(())
+        create_cache_directory(&self.directory, &self.info)
     }
 
     pub fn get_invocation<'c>(
@@ -68,13 +55,17 @@ pub struct InvocationCursor<'c> {
 impl<'c> InvocationCursor<'c> {
     pub fn new(mut directory: PathBuf, command: &'c Command, stdin: &'c [u8]) -> Result<Self> {
         let info = InvocationInfo {
-            arguments: &command.arguments[1..],
+            arguments: &command.arguments,
             environment: &command.environment,
             stdin,
         };
         let info_string = serde_json::to_string(&info)?;
         directory.push(hash_string(&info_string));
         Ok(Self { info, directory })
+    }
+
+    pub fn create_directory(&self) -> Result<()> {
+        create_cache_directory(&self.directory, &self.info)
     }
 }
 
@@ -99,6 +90,26 @@ pub struct InvocationData {
 pub enum FileKey {
     Timestamp(u128),
     Hash(String),
+}
+
+fn create_cache_directory<I>(directory: &Path, info: &I) -> Result<()>
+where
+    I: Serialize,
+{
+    if directory.exists() {
+        if directory.is_dir() {
+            return Ok(());
+        }
+        fs::remove_file(directory)?;
+    }
+
+    fs::create_dir_all(directory)?;
+    if DEBUG {
+        let debug_file = directory.join(DEBUG_FILE);
+        serde_json::to_writer_pretty(File::create(&debug_file)?, info)?;
+    }
+
+    Ok(())
 }
 
 fn hash_string(string: &str) -> String {
