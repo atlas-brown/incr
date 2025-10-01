@@ -78,30 +78,45 @@ impl<'c> InvocationCursor<'c> {
     }
 
     pub fn clean(&self) -> Result<()> {
-        let sandbox_directory = self.directory.join(SANDBOX_DIRECTORY);
-        if SUDO_SANDBOX {
-            ShellCommand::new("sudo")
-                .args(&[
-                    "rm",
-                    "-rf",
-                    sandbox_directory
-                        .to_str()
-                        .ok_or(anyhow!("Could not format sandbox directory"))?,
-                ])
-                .stdin(Stdio::null())
-                .stdout(Stdio::null())
-                .stderr(Stdio::null())
-                .spawn()?
-                .wait()?;
-        } else {
-            ignore_not_found(fs::remove_dir_all(&sandbox_directory))?;
-        }
-
+        remove_sandbox(&self.directory.join(SANDBOX_DIRECTORY))?;
         ignore_not_found(fs::remove_dir_all(&self.directory.join(OUTPUT_DIRECTORY)))?;
         ignore_not_found(fs::remove_dir_all(&self.directory.join(COMMIT_DIRECTORY)))?;
         ignore_not_found(fs::remove_file(&self.directory.join(DATA_FILE)))?;
+        Ok(())
+    }
+
+    pub fn extract_sandbox_output(&self) -> Result<()> {
+        let sandbox_directory = self.directory.join(SANDBOX_DIRECTORY);
+        let output_directory = self.directory.join(OUTPUT_DIRECTORY);
+
+        fs::create_dir_all(&output_directory)?;
+        ShellCommand::new("cp")
+            .args(&[
+                "-r",
+                sandbox_directory
+                    .join("upperdir")
+                    .to_str()
+                    .ok_or(anyhow!("Could not format sandbox upperdir"))?,
+                output_directory
+                    .to_str()
+                    .ok_or(anyhow!("Could not format output directory"))?,
+            ])
+            .stdin(Stdio::null())
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .spawn()?
+            .wait()?;
+        fs::copy(
+            &sandbox_directory.join("ignore"),
+            &output_directory.join("ignore"),
+        )?;
+        remove_sandbox(&sandbox_directory)?;
 
         Ok(())
+    }
+
+    pub fn commit_output(&self) -> Result<()> {
+        unimplemented!()
     }
 }
 
@@ -145,6 +160,27 @@ where
         serde_json::to_writer_pretty(File::create(&debug_file)?, info)?;
     }
 
+    Ok(())
+}
+
+fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {
+    if SUDO_SANDBOX {
+        ShellCommand::new("sudo")
+            .args(&[
+                "rm",
+                "-rf",
+                sandbox_directory
+                    .to_str()
+                    .ok_or(anyhow!("Could not format sandbox directory"))?,
+            ])
+            .stdin(Stdio::null())
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .spawn()?
+            .wait()?;
+    } else {
+        ignore_not_found(fs::remove_dir_all(&sandbox_directory))?;
+    }
     Ok(())
 }
 

@@ -43,8 +43,9 @@ pub fn run(command: Command) -> Result<ExitCode> {
     println!("stdout: {stdout:?} stderr: {stderr:?}");
 
     let (read_set, write_set) = command::parse_trace(&sandbox_directory)?;
-    println!("read: {read_set:?}");
-    println!("write: {write_set:?}");
+    cache.extract_sandbox_output()?;
+    //println!("read: {read_set:?}");
+    //println!("write: {write_set:?}");
 
     Ok(ExitCode::SUCCESS)
 }
