@@ -14,8 +14,11 @@ fn main() -> ExitCode {
             return ExitCode::FAILURE;
         }
     };
-
-    println!("{command:?}");
-
-    ExitCode::SUCCESS
+    match batch_executor::run(command) {
+        Ok(exit_code) => exit_code,
+        Err(error) => {
+            eprintln!("{error}");
+            ExitCode::FAILURE
+        }
+    }
 }
