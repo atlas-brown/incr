@@ -23,6 +23,7 @@ pub fn run(command: Command) -> Result<ExitCode> {
     // TODO: logic checking cache validity
     cache.clean()?;
     let data = run_command(&command, &cache, &stdin)?;
+    println!("{data:?}");
 
     Ok(ExitCode::SUCCESS)
 }
@@ -34,6 +35,7 @@ fn run_command(
 ) -> Result<InvocationData> {
     let sandbox_directory = cache.get_sandbox_directory();
     let mut child = command::spawn_command(&command, &sandbox_directory)?;
+
     let child_stdout = child.stdout.take().unwrap();
     let child_stderr = child.stderr.take().unwrap();
     let stdout_thread = thread::spawn(move || command::capture_stream(child_stdout, io::stdout()));
@@ -54,7 +56,7 @@ fn run_command(
     if !write_set.is_empty() {
         cache.commit_output()?;
     }
-    let read_dependencies = command::get_read_dependencies(&read_set)?;
+    let read_dependencies = command::get_read_dependencies(read_set, &write_set)?;
 
     Ok(InvocationData {
         exit_code,

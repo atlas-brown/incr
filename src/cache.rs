@@ -143,12 +143,13 @@ pub struct InvocationData {
     pub exit_code: i32,
     pub stdout: Vec<u8>,
     pub stderr: Vec<u8>,
-    pub read_dependencies: HashMap<PathBuf, FileKey>,
+    pub read_dependencies: HashMap<PathBuf, DependencyKey>,
     pub write_outputs: HashSet<PathBuf>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-pub enum FileKey {
+pub enum DependencyKey {
+    DoesNotExist,
     Timestamp(u128),
     Hash(String),
 }

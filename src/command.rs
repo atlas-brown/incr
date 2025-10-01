@@ -2,12 +2,13 @@ use anyhow::{Result, anyhow, ensure};
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::env;
 use std::fs;
-use std::io::{Read, Write};
+use std::io::{ErrorKind, Read, Write};
 use std::mem;
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command as ShellCommand, Stdio};
+use std::time::UNIX_EPOCH;
 
-use crate::cache::FileKey;
+use crate::cache::DependencyKey;
 use crate::config::{CHUNK_SIZE, STRACE_COMMAND, TRACE_FILE, TRY_COMMAND};
 use crate::ops;
 
@@ -125,7 +126,31 @@ pub fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSe
     Ok((read_set, write_set))
 }
 
-pub fn get_read_dependencies(read_set: &HashSet<PathBuf>) -> Result<HashMap<PathBuf, FileKey>> {
-    println!("getting read set: {read_set:?}");
-    unimplemented!()
+pub fn get_read_dependencies(
+    read_set: HashSet<PathBuf>,
+    write_set: &HashSet<PathBuf>,
+) -> Result<HashMap<PathBuf, DependencyKey>> {
+    let mut dependencies = HashMap::with_capacity(read_set.len());
+
+    for path in read_set {
+        if !path.exists() {
+            dependencies.insert(path, DependencyKey::DoesNotExist);
+            continue;
+        }
+        if !path.is_file() {
+            continue;
+        }
+
+        let metadata = match fs::metadata(&path) {
+            Ok(metadata) => metadata,
+            Err(error) => match error.kind() {
+                ErrorKind::PermissionDenied => continue,
+                _ => return Err(error.into()),
+            },
+        };
+        let timestamp = metadata.modified()?.duration_since(UNIX_EPOCH)?.as_micros();
+        dependencies.insert(path, DependencyKey::Timestamp(timestamp));
+    }
+
+    Ok(dependencies)
 }
