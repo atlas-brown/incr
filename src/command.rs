@@ -1,8 +1,9 @@
 use anyhow::{Result, anyhow, ensure};
+use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::env;
-use std::fs;
-use std::io::{ErrorKind, Read, Write};
+use std::fs::{self, File};
+use std::io::{self, ErrorKind, Read, Write};
 use std::mem;
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command as ShellCommand, Stdio};
@@ -168,5 +169,17 @@ fn get_modified_timestamp(file_path: &Path) -> Result<Option<u128>> {
 }
 
 fn get_file_hash(file_path: &Path) -> Result<Option<String>> {
-    unimplemented!()
+    let mut file = match File::open(file_path) {
+        Ok(file) => file,
+        Err(error) => match error.kind() {
+            ErrorKind::PermissionDenied => return Ok(None),
+            _ => return Err(error.into()),
+        },
+    };
+
+    let mut hasher = Sha256::new();
+    io::copy(&mut file, &mut hasher)?;
+    let hash = format!("{:x}", hasher.finalize());
+
+    Ok(Some(hash))
 }
