@@ -10,7 +10,9 @@ use std::process::{Child, Command as ShellCommand, Stdio};
 use std::time::UNIX_EPOCH;
 
 use crate::cache::DependencyKey;
-use crate::config::{CHUNK_SIZE, STRACE_COMMAND, TRACE_FILE, TRY_COMMAND};
+use crate::config::{
+    CHUNK_SIZE, EXCLUDED_PATHS, EXCLUDED_VARS, STRACE_COMMAND, TRACE_FILE, TRY_COMMAND,
+};
 use crate::ops;
 
 const PARSE_TRACE_SCRIPT: &str = include_str!("parse_trace.py");
@@ -36,10 +38,18 @@ pub fn get_command() -> Result<Option<Command>> {
     };
     let name = arguments.remove(0);
 
+    let excluded_vars = EXCLUDED_VARS.iter().copied().collect::<HashSet<_>>();
+    let mut environment = BTreeMap::new();
+    for (var, value) in env::vars() {
+        if !excluded_vars.contains(var.as_str()) {
+            environment.insert(var, value);
+        }
+    }
+
     Ok(Some(Command {
         name,
         arguments,
-        environment: BTreeMap::new(), //env::vars().collect(),
+        environment,
     }))
 }
 
