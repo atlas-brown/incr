@@ -1,1 +1,1 @@
-./python/cache.py cat ./benchmarks/war_and_peace/war_and_peace.txt | ./python/cache.py tr "[:upper:]" "[:lower:]" | ./python/cache.py tr -s "[:space:]" "\n" | ./python/cache.py sort | ./python/cache.py uniq -c | ./python/cache.py sort -nr
+./target/release/incr cat ./benchmarks/war_and_peace/war_and_peace.txt | ./target/release/incr tr "[:upper:]" "[:lower:]" | ./target/release/incr tr -s "[:space:]" "\n" | ./target/release/incr sort | ./target/release/incr uniq -c | ./target/release/incr sort -nr
