@@ -5,23 +5,25 @@ use std::collections::HashMap;
 use std::fs::{self, File};
 use std::path::{Path, PathBuf};
 
-use crate::command_io::Command;
 use crate::config::{CACHE_DIRECTORY, DEBUG, DEBUG_FILE};
 
 pub struct CacheCursor {
-    command: Command,
+    info: CacheInfo,
     directory: PathBuf,
 }
 
 impl CacheCursor {
-    pub fn new(command: Command) -> Self {
+    pub fn new(command_name: String) -> Self {
         let mut directory = PathBuf::from(CACHE_DIRECTORY);
         if !DEBUG {
-            directory.push(hash_path(&command.name));
+            directory.push(hash_path(&command_name));
         } else {
-            directory.push(&command.name);
+            directory.push(&command_name);
         }
-        Self { command, directory }
+        Self {
+            info: CacheInfo { command_name },
+            directory,
+        }
     }
 
     pub fn create_directory(&self) -> Result<()> {
@@ -35,21 +37,28 @@ impl CacheCursor {
         fs::create_dir_all(&self.directory)?;
         if DEBUG {
             let debug_file = self.directory.join(DEBUG_FILE);
-            serde_json::to_writer_pretty(
-                File::create(&debug_file)?,
-                &CacheInfo {
-                    name: self.command.name.to_owned(),
-                },
-            )?;
+            serde_json::to_writer_pretty(File::create(&debug_file)?, &self.info)?;
         }
 
         Ok(())
     }
 }
 
+#[derive(Debug, Serialize)]
+struct CacheInfo {
+    command_name: String,
+}
+
 pub struct InvocationCursor {
     info: InvocationInfo,
     directory: PathBuf,
+}
+
+#[derive(Debug, Serialize)]
+struct InvocationInfo {
+    arguments: Vec<String>,
+    environment: HashMap<String, String>,
+    stdin: Vec<u8>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -65,18 +74,6 @@ pub struct InvocationData {
 pub enum FileKey {
     Timestamp(u128),
     Hash(String),
-}
-
-#[derive(Debug, Serialize)]
-struct CacheInfo {
-    name: String,
-}
-
-#[derive(Debug, Serialize)]
-struct InvocationInfo {
-    arguments: Vec<String>,
-    environment: HashMap<String, String>,
-    stdin: Vec<u8>,
 }
 
 fn hash_path(name: &str) -> String {
