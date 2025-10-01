@@ -23,7 +23,7 @@ pub fn run(command: Command) -> Result<ExitCode> {
     // TODO: logic checking cache validity
     cache.clean()?;
     let data = run_command(&command, &cache, &stdin)?;
-    println!("{data:?}");
+    cache.save_data(&data)?;
 
     Ok(ExitCode::SUCCESS)
 }

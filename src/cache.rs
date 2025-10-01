@@ -24,7 +24,7 @@ impl CacheCursor {
         if !DEBUG {
             directory.push(ops::hash_string(&command_name));
         } else {
-            directory.push(&command_name);
+            directory.push(format!("<{command_name}>"));
         }
         Self {
             info: CacheInfo { command_name },
@@ -128,26 +128,35 @@ impl<'c> InvocationCursor<'c> {
 
         Ok(())
     }
+
+    pub fn save_data(&self, data: &InvocationData) -> Result<()> {
+        let file = File::create(self.directory.join(DATA_FILE))?;
+        serde_json::to_writer_pretty(file, data)?;
+        Ok(())
+    }
 }
 
 #[derive(Debug, Serialize)]
 struct InvocationInfo<'c> {
     arguments: &'c [String],
     environment: &'c BTreeMap<String, String>,
-    #[serde(with = "serialize_bytes")]
+    #[serde(with = "serialize_byte_slice")]
     stdin: &'c [u8],
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct InvocationData {
     pub exit_code: i32,
+    #[serde(with = "serialize_byte_vec")]
     pub stdout: Vec<u8>,
+    #[serde(with = "serialize_byte_vec")]
     pub stderr: Vec<u8>,
     pub read_dependencies: HashMap<PathBuf, DependencyKey>,
     pub write_outputs: HashSet<PathBuf>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
+#[serde(untagged)]
 pub enum DependencyKey {
     DoesNotExist,
     Timestamp(u128),
@@ -189,7 +198,7 @@ fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {
     Ok(())
 }
 
-mod serialize_bytes {
+mod serialize_byte_slice {
     use base64::prelude::*;
     use serde::{Serialize, Serializer};
 
@@ -199,5 +208,26 @@ mod serialize_bytes {
     {
         let encoded = BASE64_STANDARD.encode(bytes);
         String::serialize(&encoded, serializer)
+    }
+}
+
+mod serialize_byte_vec {
+    use base64::prelude::*;
+    use serde::de::Error as DeserializeError;
+    use serde::{Deserialize, Deserializer, Serialize, Serializer};
+
+    pub fn serialize<S>(bytes: &Vec<u8>, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        let encoded = BASE64_STANDARD.encode(bytes);
+        String::serialize(&encoded, serializer)
+    }
+
+    pub fn deserialize<'de, D: Deserializer<'de>>(d: D) -> Result<Vec<u8>, D::Error> {
+        let encoded = String::deserialize(d)?;
+        BASE64_STANDARD
+            .decode(encoded)
+            .map_err(|e| DeserializeError::custom(e))
     }
 }
