@@ -1,7 +1,8 @@
 use anyhow::{Result, anyhow};
 use bincode::config::{Configuration, Fixint, LittleEndian, NoLimit};
 use bincode::{Decode, Encode};
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
+use serde::de::DeserializeOwned;
 use std::fs::File;
 use std::io::{BufReader, BufWriter, Error as IoError, ErrorKind, Write};
 use std::path::Path;
@@ -34,9 +35,9 @@ where
     T: Encode + Serialize,
 {
     if !DEBUG {
-        file_name.push_str(".dat");
-    } else {
         file_name.push_str(".incr");
+    } else {
+        file_name.push_str(".json");
     }
 
     let file = File::create(directory.join(file_name))?;
@@ -51,14 +52,39 @@ where
     Ok(())
 }
 
-/*
-pub fn decode_from_file<T>(file_path: &Path) -> Result<T>
+pub fn decode_from_file<T>(directory: &Path, mut file_name: String) -> Result<Option<T>>
 where
-    T: Decode,
+    T: Decode<()> + DeserializeOwned,
 {
-    unimplemented!()
+    if !DEBUG {
+        file_name.push_str(".incr");
+    } else {
+        file_name.push_str(".json");
+    }
+
+    let file = match File::open(directory.join(file_name)) {
+        Ok(file) => file,
+        Err(error) => match error.kind() {
+            ErrorKind::NotFound => return Ok(None),
+            _ => return Err(error.into()),
+        },
+    };
+
+    let mut file_reader = BufReader::with_capacity(CHUNK_SIZE, file);
+    let value = if !DEBUG {
+        match bincode::decode_from_std_read(&mut file_reader, get_bincode_config()) {
+            Ok(value) => value,
+            Err(_) => return Ok(None),
+        }
+    } else {
+        match serde_json::from_reader(file_reader) {
+            Ok(value) => value,
+            Err(_) => return Ok(None),
+        }
+    };
+
+    Ok(Some(value))
 }
-*/
 
 fn get_bincode_config() -> Configuration<LittleEndian, Fixint, NoLimit> {
     bincode::config::standard()
