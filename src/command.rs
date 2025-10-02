@@ -17,7 +17,7 @@ use crate::ops;
 
 const PARSE_TRACE_SCRIPT: &str = include_str!("parse_trace.py");
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct Command {
     pub name: String,
     pub arguments: Vec<String>,
@@ -103,7 +103,7 @@ where
 }
 
 pub fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
-    #[derive(Debug, PartialEq)]
+    #[derive(Clone, Copy, Debug, PartialEq)]
     enum ParseState {
         Start,
         ReadSet,

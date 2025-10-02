@@ -15,7 +15,7 @@ use crate::config::{
 };
 use crate::ops;
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct CacheCursor<'c> {
     info: CacheInfo<'c>,
     directory: PathBuf,
@@ -123,7 +123,7 @@ impl<'c> CacheCursor<'c> {
     }
 }
 
-#[derive(Debug, Encode, Serialize)]
+#[derive(Clone, Debug, Encode, Serialize)]
 struct CacheInfo<'c> {
     name: &'c str,
     arguments: &'c [String],
@@ -132,7 +132,7 @@ struct CacheInfo<'c> {
     stdin: &'c [u8],
 }
 
-#[derive(Debug, Decode, Deserialize, Encode, Serialize)]
+#[derive(Clone, Debug, Decode, Deserialize, Encode, Serialize)]
 pub struct CacheData {
     pub exit_code: i32,
     #[serde(with = "ops::serialize_byte_vec")]
@@ -143,7 +143,7 @@ pub struct CacheData {
     pub write_outputs: HashSet<PathBuf>,
 }
 
-#[derive(Debug, Decode, Deserialize, Encode, Serialize)]
+#[derive(Clone, Debug, Decode, Deserialize, Encode, Serialize)]
 pub enum DependencyKey {
     DoesNotExist,
     Timestamp(u128),

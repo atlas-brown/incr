@@ -5,8 +5,18 @@ mod cache;
 mod command;
 mod config;
 mod ops;
+mod stream_executor;
 
 use std::process::ExitCode;
+
+const EXECUTOR: Executor = Executor::Batch;
+
+#[allow(unused)]
+#[derive(Clone, Copy, Debug)]
+enum Executor {
+    Batch,
+    Stream,
+}
 
 fn main() -> ExitCode {
     let command = match command::get_command() {
@@ -17,7 +27,13 @@ fn main() -> ExitCode {
             return ExitCode::FAILURE;
         }
     };
-    match batch_executor::run(command) {
+
+    let result = match EXECUTOR {
+        Executor::Batch => batch_executor::run(command),
+        Executor::Stream => stream_executor::run(command),
+    };
+
+    match result {
         Ok(exit_code) => exit_code,
         Err(error) => {
             eprintln!("Error: {error}");
