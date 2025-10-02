@@ -1,2 +1,2 @@
-sleep 5
+sleep 6
 cat

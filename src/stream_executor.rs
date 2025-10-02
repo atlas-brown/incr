@@ -1,7 +1,7 @@
 use anyhow::{Result, anyhow};
 use sha2::{Digest, Sha256};
 use std::fs;
-use std::io::{self, IsTerminal, Read, Write};
+use std::io;
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 use std::thread;
@@ -34,9 +34,11 @@ pub fn run(command: Command) -> Result<ExitCode> {
         .map(|d| command::check_read_dependencies(&d.read_dependencies))
         .transpose()?
         .unwrap_or(false);
+    let cache_valid = true;
+    println!("checked cache valid: {cache_valid:?}");
 
     let exit_code = if cache_valid {
-        println!("kill result: {:?}", child.kill());
+        command::kill_child(&child)?;
         None
     } else {
         child.wait()?.code()

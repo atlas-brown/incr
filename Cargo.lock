@@ -95,6 +95,7 @@ dependencies = [
  "anyhow",
  "base64",
  "bincode",
+ "libc",
  "serde",
  "serde_json",
  "sha2",

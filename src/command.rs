@@ -4,8 +4,9 @@ use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::env;
 use std::fs::{self, File};
-use std::io::{self, ErrorKind, Read, Write};
+use std::io::{self, Error as IoError, ErrorKind, Read, Write};
 use std::mem;
+use std::os::unix::process::CommandExt;
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command as ShellCommand, Stdio};
 use std::time::UNIX_EPOCH;
@@ -74,14 +75,34 @@ pub fn spawn_command(command: &Command, sandbox_directory: &Path) -> Result<Chil
         &shlex::try_quote(&command_string)?,
     ];
 
-    fs::create_dir_all(sandbox_directory)?;
-    ShellCommand::new(TRY_COMMAND)
+    let mut child = ShellCommand::new(TRY_COMMAND);
+    child
         .args(arguments)
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
-        .stderr(Stdio::piped())
-        .spawn()
-        .map_err(|e| e.into())
+        .stderr(Stdio::piped());
+    unsafe {
+        child.pre_exec(|| {
+            if libc::setsid() == -1 {
+                Err(IoError::last_os_error())
+            } else {
+                Ok(())
+            }
+        });
+    }
+
+    fs::create_dir_all(sandbox_directory)?;
+    child.spawn().map_err(|e| e.into())
+}
+
+pub fn kill_child(child: &Child) -> Result<()> {
+    let group_id = child.id() as i32;
+    let kill_result = unsafe { libc::kill(-group_id, libc::SIGKILL) };
+    if kill_result == -1 {
+        Err(IoError::last_os_error().into())
+    } else {
+        Ok(())
+    }
 }
 
 pub fn capture_stream<S, D>(mut source: S, mut destination: D) -> Result<Vec<u8>>
