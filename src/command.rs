@@ -1,4 +1,5 @@
 use anyhow::{Result, anyhow, ensure};
+use bincode::Encode;
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::env;
@@ -17,7 +18,7 @@ use crate::ops;
 
 const PARSE_TRACE_SCRIPT: &str = include_str!("parse_trace.py");
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Encode)]
 pub struct Command {
     pub name: String,
     pub arguments: Vec<String>,

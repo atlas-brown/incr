@@ -32,8 +32,8 @@ impl<'c> CacheCursor<'c> {
 
         let mut hasher = Sha256::new();
         hasher.update(ops::encode_to_vec(&info)?);
-        let hash = format!("{:x}", hasher.finalize());
-        let directory = Path::new(CACHE_DIRECTORY).join(hash);
+        let directory_name = format!("cache_{:x}", hasher.finalize());
+        let directory = Path::new(CACHE_DIRECTORY).join(directory_name);
 
         Ok(Self { info, directory })
     }
