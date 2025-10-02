@@ -1,7 +1,7 @@
 use anyhow::{Result, anyhow, ensure};
 use sha2::{Digest, Sha256};
 use std::fs;
-use std::io::{self, Write};
+use std::io::{self, IsTerminal, Write};
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 use std::thread;
@@ -23,7 +23,11 @@ pub fn run(command: Command) -> Result<ExitCode> {
     let stdin = {
         let child_stdin = child.stdin.take().unwrap();
         let process_stdin = io::stdin().lock();
-        command::capture_stream(process_stdin, child_stdin)?
+        if !process_stdin.is_terminal() {
+            command::capture_stream(process_stdin, child_stdin)?
+        } else {
+            Vec::new()
+        }
     };
 
     let cache = CacheCursor::new(&command, &stdin)?;
@@ -43,6 +47,7 @@ pub fn run(command: Command) -> Result<ExitCode> {
         Some(_) => {
             if child.try_wait()? == None {
                 command::kill_child(&child)?;
+                child.wait()?;
             }
             None
         }
