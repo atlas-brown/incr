@@ -8,9 +8,11 @@ use crate::command::{self, Command};
 
 pub fn run(command: Command) -> Result<ExitCode> {
     let mut stdin = Vec::new();
-    let mut process_stdin = io::stdin();
-    if !process_stdin.is_terminal() {
-        process_stdin.read_to_end(&mut stdin)?;
+    {
+        let mut process_stdin = io::stdin().lock();
+        if !process_stdin.is_terminal() {
+            process_stdin.read_to_end(&mut stdin)?;
+        }
     }
 
     let cache = CacheCursor::new(&command, &stdin)?;

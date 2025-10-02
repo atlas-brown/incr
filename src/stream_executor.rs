@@ -13,8 +13,20 @@ use crate::ops;
 
 pub fn run(command: Command) -> Result<ExitCode> {
     let sandbox_directory = create_sandbox_directory(&command)?;
+    let mut child = command::spawn_command(&command, &sandbox_directory)?;
 
-    println!("running: {command:?} {sandbox_directory:?}");
+    let child_stdout = child.stdout.take().unwrap();
+    let child_stderr = child.stderr.take().unwrap();
+    let stdout_thread = thread::spawn(move || command::capture_stream(child_stdout, io::stdout()));
+    let stderr_thread = thread::spawn(move || command::capture_stream(child_stderr, io::stderr()));
+
+    let stdin = {
+        let child_stdin = child.stdin.take().unwrap();
+        let process_stdin = io::stdin().lock();
+        command::capture_stream(process_stdin, child_stdin)?
+    };
+    println!("got stdin: {stdin:?}");
+
     unimplemented!()
 }
 
