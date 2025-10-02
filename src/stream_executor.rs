@@ -1,4 +1,4 @@
-use anyhow::{Error, Result, anyhow, ensure};
+use anyhow::{Result, anyhow, ensure};
 use sha2::{Digest, Sha256};
 use std::fs;
 use std::io::{self, ErrorKind, IsTerminal, Read, Write};
@@ -37,7 +37,7 @@ pub fn run(command: Command) -> Result<ExitCode> {
 
     let exit_code = match cached_data {
         Some(_) => {
-            if child.try_wait()? == None {
+            if child.try_wait()?.is_none() {
                 command::kill_child(&child)?;
                 child.wait()?;
             }
