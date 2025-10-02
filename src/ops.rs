@@ -16,10 +16,8 @@ pub fn path_to_string(path: &Path) -> Result<&str> {
 pub fn ignore_not_found(result: Result<(), IoError>) -> Result<()> {
     match result {
         Ok(()) => Ok(()),
-        Err(error) => match error.kind() {
-            ErrorKind::NotFound => Ok(()),
-            _ => Err(error.into()),
-        },
+        Err(error) if error.kind() == ErrorKind::NotFound => Ok(()),
+        Err(error) => Err(error.into()),
     }
 }
 
@@ -64,10 +62,8 @@ where
 
     let file = match File::open(directory.join(file_name)) {
         Ok(file) => file,
-        Err(error) => match error.kind() {
-            ErrorKind::NotFound => return Ok(None),
-            _ => return Err(error.into()),
-        },
+        Err(error) if error.kind() == ErrorKind::NotFound => return Ok(None),
+        Err(error) => return Err(error.into()),
     };
 
     let mut file_reader = BufReader::with_capacity(CHUNK_SIZE, file);

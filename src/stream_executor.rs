@@ -1,14 +1,15 @@
-use anyhow::{Result, anyhow, ensure};
+use anyhow::{Error, Result, anyhow, ensure};
 use sha2::{Digest, Sha256};
 use std::fs;
-use std::io::{self, IsTerminal, Write};
+use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 use std::path::{Path, PathBuf};
 use std::process::{ChildStdin, ExitCode};
+use std::sync::mpsc;
 use std::thread;
 
 use crate::cache::{self, CacheCursor, CacheData};
 use crate::command::{self, Command};
-use crate::config::{CACHE_DIRECTORY, DEBUG};
+use crate::config::{CACHE_DIRECTORY, CHUNK_SIZE, DEBUG};
 use crate::ops;
 
 pub fn run(command: Command) -> Result<ExitCode> {
@@ -90,13 +91,35 @@ fn create_sandbox_directory(command: &Command) -> Result<PathBuf> {
     Ok(directory)
 }
 
-fn forward_stdin(child_stdin: ChildStdin) -> Result<Vec<u8>> {
-    let process_stdin = io::stdin().lock();
+fn forward_stdin(mut child_stdin: ChildStdin) -> Result<Vec<u8>> {
+    let mut process_stdin = io::stdin().lock();
     if !process_stdin.is_terminal() {
-        command::capture_stream(process_stdin, child_stdin)
-    } else {
-        Ok(Vec::new())
+        return Ok(Vec::new());
     }
+
+    let (send_channel, receive_channel) = mpsc::channel::<Vec<_>>();
+    thread::spawn(move || {
+        for chunk in receive_channel {
+            child_stdin.write_all(&chunk)?;
+            child_stdin.flush()?;
+        }
+        Ok::<_, Error>(())
+    });
+
+    let mut stdin = Vec::new();
+    let mut chunk = [0; CHUNK_SIZE];
+    loop {
+        let count = match process_stdin.read(&mut chunk) {
+            Ok(0) => break,
+            Ok(count) => count,
+            Err(error) if error.kind() == ErrorKind::Interrupted => continue,
+            Err(error) => return Err(error.into()),
+        };
+        send_channel.send(chunk[..count].to_vec())?;
+        stdin.extend_from_slice(&chunk[..count]);
+    }
+
+    Ok(stdin)
 }
 
 fn output_cached_data(

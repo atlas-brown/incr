@@ -113,10 +113,12 @@ where
     let mut data = Vec::new();
     let mut chunk = [0; CHUNK_SIZE];
     loop {
-        let count = source.read(&mut chunk)?;
-        if count == 0 {
-            break;
-        }
+        let count = match source.read(&mut chunk) {
+            Ok(0) => break,
+            Ok(count) => count,
+            Err(error) if error.kind() == ErrorKind::Interrupted => continue,
+            Err(error) => return Err(error.into()),
+        };
         destination.write_all(&chunk[..count])?;
         destination.flush()?;
         data.extend_from_slice(&chunk[..count]);
@@ -239,10 +241,8 @@ pub fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -
 fn get_modified_timestamp(file_path: &Path) -> Result<Option<u128>> {
     let metadata = match fs::metadata(file_path) {
         Ok(metadata) => metadata,
-        Err(error) => match error.kind() {
-            ErrorKind::PermissionDenied => return Ok(None),
-            _ => return Err(error.into()),
-        },
+        Err(error) if error.kind() == ErrorKind::PermissionDenied => return Ok(None),
+        Err(error) => return Err(error.into()),
     };
     let timestamp = metadata.modified()?.duration_since(UNIX_EPOCH)?.as_micros();
     Ok(Some(timestamp))
@@ -251,10 +251,8 @@ fn get_modified_timestamp(file_path: &Path) -> Result<Option<u128>> {
 fn get_file_hash(file_path: &Path) -> Result<Option<String>> {
     let mut file = match File::open(file_path) {
         Ok(file) => file,
-        Err(error) => match error.kind() {
-            ErrorKind::PermissionDenied => return Ok(None),
-            _ => return Err(error.into()),
-        },
+        Err(error) if error.kind() == ErrorKind::PermissionDenied => return Ok(None),
+        Err(error) => return Err(error.into()),
     };
 
     let mut hasher = Sha256::new();
