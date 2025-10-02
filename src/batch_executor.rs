@@ -23,8 +23,7 @@ pub fn run(command: Command) -> Result<ExitCode> {
         return output_cached_data(&cache, &cached_data);
     }
 
-    cache.remove_sandbox_directory()?;
-    cache.remove_cache_data()?;
+    cache.clean_data()?;
     let data = run_command(&command, &cache, &stdin)?;
     cache.save_data(&data)?;
 

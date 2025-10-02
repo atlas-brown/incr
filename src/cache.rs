@@ -61,15 +61,8 @@ impl<'c> CacheCursor<'c> {
         Ok(())
     }
 
-    pub fn remove_sandbox_directory(&self) -> Result<()> {
-        let sandbox_directory = self.directory.join(SANDBOX_DIRECTORY);
-        if !sandbox_directory.exists() {
-            return Ok(());
-        }
-        remove_sandbox(&sandbox_directory)
-    }
-
-    pub fn remove_cache_data(&self) -> Result<()> {
+    pub fn clean_data(&self) -> Result<()> {
+        remove_sandbox(&self.directory.join(SANDBOX_DIRECTORY))?;
         ops::ignore_not_found(fs::remove_dir_all(self.directory.join(OUTPUT_DIRECTORY)))?;
         ops::ignore_not_found(fs::remove_dir_all(self.directory.join(COMMIT_DIRECTORY)))?;
         ops::ignore_not_found(fs::remove_file(self.directory.join(DATA_FILE)))?;
@@ -159,6 +152,9 @@ pub enum DependencyKey {
 
 pub fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {
     if SUDO_SANDBOX {
+        if !sandbox_directory.exists() {
+            return Ok(());
+        }
         ShellCommand::new("sudo")
             .args(["rm", "-rf", ops::path_to_string(sandbox_directory)?])
             .stdin(Stdio::null())
