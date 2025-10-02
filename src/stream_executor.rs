@@ -41,7 +41,9 @@ pub fn run(command: Command) -> Result<ExitCode> {
 
     let exit_code = match cached_data {
         Some(_) => {
-            command::kill_child(&child)?;
+            if child.try_wait()? == None {
+                command::kill_child(&child)?;
+            }
             None
         }
         None => child.wait()?.code(),
@@ -50,6 +52,7 @@ pub fn run(command: Command) -> Result<ExitCode> {
     let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
 
     if let Some(cached_data) = cached_data {
+        ensure!(exit_code == None);
         cache::remove_sandbox(&sandbox_directory)?;
         return output_cached_data(&cache, &cached_data, &stdout, &stderr);
     }

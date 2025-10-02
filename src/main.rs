@@ -9,7 +9,7 @@ mod stream_executor;
 
 use std::process::ExitCode;
 
-const EXECUTOR: Executor = Executor::Batch;
+const EXECUTOR: Executor = Executor::Stream;
 
 #[allow(unused)]
 #[derive(Clone, Copy, Debug)]
