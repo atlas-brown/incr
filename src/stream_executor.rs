@@ -73,7 +73,7 @@ pub fn run(command: Command) -> Result<ExitCode> {
         stderr,
         read_dependencies,
         write_outputs: write_set,
-    });
+    })?;
 
     Ok(ExitCode::from(exit_code as u8))
 }
