@@ -93,7 +93,7 @@ fn create_sandbox_directory(command: &Command) -> Result<PathBuf> {
 
 fn forward_stdin(mut child_stdin: ChildStdin) -> Result<Vec<u8>> {
     let mut process_stdin = io::stdin().lock();
-    if !process_stdin.is_terminal() {
+    if process_stdin.is_terminal() {
         return Ok(Vec::new());
     }
 
