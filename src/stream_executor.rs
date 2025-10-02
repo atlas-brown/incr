@@ -3,7 +3,7 @@ use sha2::{Digest, Sha256};
 use std::fs;
 use std::io::{self, IsTerminal, Write};
 use std::path::{Path, PathBuf};
-use std::process::ExitCode;
+use std::process::{ChildStdin, ExitCode};
 use std::thread;
 
 use crate::cache::{self, CacheCursor, CacheData};
@@ -20,16 +20,7 @@ pub fn run(command: Command) -> Result<ExitCode> {
     let stdout_thread = thread::spawn(move || command::capture_stream(child_stdout, io::stdout()));
     let stderr_thread = thread::spawn(move || command::capture_stream(child_stderr, io::stderr()));
 
-    let stdin = {
-        let child_stdin = child.stdin.take().unwrap();
-        let process_stdin = io::stdin().lock();
-        if !process_stdin.is_terminal() {
-            command::capture_stream(process_stdin, child_stdin)?
-        } else {
-            Vec::new()
-        }
-    };
-
+    let stdin = forward_stdin(child.stdin.take().unwrap())?;
     let cache = CacheCursor::new(&command, &stdin)?;
     cache.create_directory()?;
     let cached_data = match cache.load_data()? {
@@ -97,6 +88,15 @@ fn create_sandbox_directory(command: &Command) -> Result<PathBuf> {
     fs::create_dir_all(&directory)?;
 
     Ok(directory)
+}
+
+fn forward_stdin(child_stdin: ChildStdin) -> Result<Vec<u8>> {
+    let process_stdin = io::stdin().lock();
+    if !process_stdin.is_terminal() {
+        command::capture_stream(process_stdin, child_stdin)
+    } else {
+        Ok(Vec::new())
+    }
 }
 
 fn output_cached_data(
