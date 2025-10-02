@@ -8,7 +8,7 @@ use std::thread;
 
 use crate::cache::{CacheCursor, CacheData};
 use crate::command::{self, Command};
-use crate::config::CACHE_DIRECTORY;
+use crate::config::{CACHE_DIRECTORY, DEBUG};
 use crate::ops;
 
 pub fn run(command: Command) -> Result<ExitCode> {
@@ -25,7 +25,28 @@ pub fn run(command: Command) -> Result<ExitCode> {
         let process_stdin = io::stdin().lock();
         command::capture_stream(process_stdin, child_stdin)?
     };
-    println!("got stdin: {stdin:?}");
+
+    let cache = CacheCursor::new(&command, &stdin)?;
+    cache.create_directory()?;
+    let cached_data = cache.load_data()?;
+    let cache_valid = cached_data
+        .as_ref()
+        .map(|d| command::check_read_dependencies(&d.read_dependencies))
+        .transpose()?
+        .unwrap_or(false);
+
+    let exit_code = if cache_valid {
+        println!("kill result: {:?}", child.kill());
+        None
+    } else {
+        child.wait()?.code()
+    };
+    let stdout = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+
+    println!("exit code: {exit_code:?}");
+    println!("stdout: {stdout:?}");
+    println!("stderr: {stderr:?}");
 
     unimplemented!()
 }
