@@ -31,23 +31,6 @@ pub fn run(command: Command) -> Result<ExitCode> {
     Ok(ExitCode::SUCCESS)
 }
 
-fn output_cached_data(cache: &CacheCursor<'_>, data: &CacheData) -> Result<ExitCode> {
-    {
-        let mut process_stdout = io::stdout().lock();
-        process_stdout.write_all(&data.stdout)?;
-        process_stdout.flush()?;
-    }
-    {
-        let mut process_stderr = io::stderr().lock();
-        process_stderr.write_all(&data.stderr)?;
-        process_stderr.flush()?;
-    }
-    if !data.write_outputs.is_empty() {
-        cache.commit_output()?;
-    }
-    Ok(ExitCode::from(data.exit_code as u8))
-}
-
 fn run_command(command: &Command, cache: &CacheCursor<'_>, stdin: &[u8]) -> Result<CacheData> {
     let sandbox_directory = cache.get_sandbox_directory();
     let mut child = command::spawn_command(command, &sandbox_directory)?;
@@ -81,4 +64,21 @@ fn run_command(command: &Command, cache: &CacheCursor<'_>, stdin: &[u8]) -> Resu
         read_dependencies,
         write_outputs: write_set,
     })
+}
+
+fn output_cached_data(cache: &CacheCursor<'_>, data: &CacheData) -> Result<ExitCode> {
+    {
+        let mut process_stdout = io::stdout().lock();
+        process_stdout.write_all(&data.stdout)?;
+        process_stdout.flush()?;
+    }
+    {
+        let mut process_stderr = io::stderr().lock();
+        process_stderr.write_all(&data.stderr)?;
+        process_stderr.flush()?;
+    }
+    if !data.write_outputs.is_empty() {
+        cache.commit_output()?;
+    }
+    Ok(ExitCode::from(data.exit_code as u8))
 }

@@ -41,18 +41,25 @@ pub fn run(command: Command) -> Result<ExitCode> {
 
     let exit_code = match cached_data {
         Some(_) => {
+            cache::remove_sandbox(&sandbox_directory)?;
             command::kill_child(&child)?;
             None
         }
-        None => child.wait()?.code(),
+        None => {
+            cache.remove_sandbox_directory()?;
+            cache.remove_cache_data()?;
+            child.wait()?.code()
+        }
     };
     let stdout = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
 
     if let Some(cached_data) = cached_data {
-        cache::remove_sandbox(&sandbox_directory)?;
         return output_cached_data(&cache, &cached_data, &stdout, &stderr);
     }
+    let (read_set, write_set) = command::parse_trace(&sandbox_directory)?;
+
+    println!("CACHING DATA");
 
     unimplemented!()
 }
