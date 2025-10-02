@@ -33,14 +33,14 @@ pub fn run(command: Command) -> Result<ExitCode> {
 
 fn output_cached_data(cache: &CacheCursor<'_>, data: &CacheData) -> Result<ExitCode> {
     {
-        let mut stdout = io::stdout().lock();
-        stdout.write_all(&data.stdout)?;
-        stdout.flush()?;
+        let mut process_stdout = io::stdout().lock();
+        process_stdout.write_all(&data.stdout)?;
+        process_stdout.flush()?;
     }
     {
-        let mut stderr = io::stderr().lock();
-        stderr.write_all(&data.stderr)?;
-        stderr.flush()?;
+        let mut process_stderr = io::stderr().lock();
+        process_stderr.write_all(&data.stderr)?;
+        process_stderr.flush()?;
     }
     if !data.write_outputs.is_empty() {
         cache.commit_output()?;

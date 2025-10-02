@@ -157,7 +157,7 @@ pub enum DependencyKey {
     Hash(String),
 }
 
-fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {
+pub fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {
     if SUDO_SANDBOX {
         ShellCommand::new("sudo")
             .args(["rm", "-rf", ops::path_to_string(sandbox_directory)?])
