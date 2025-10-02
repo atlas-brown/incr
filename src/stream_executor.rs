@@ -100,9 +100,7 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<Vec<u8>> {
     let (send_channel, receive_channel) = mpsc::channel::<Vec<_>>();
     thread::spawn(move || {
         for chunk in receive_channel {
-            if let Err(error) = child_stdin.write_all(&chunk)
-                && error.kind() != ErrorKind::Interrupted
-            {
+            if let Err(_) = child_stdin.write_all(&chunk) {
                 break;
             }
         }
