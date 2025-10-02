@@ -57,11 +57,25 @@ pub fn run(command: Command) -> Result<ExitCode> {
     if let Some(cached_data) = cached_data {
         return output_cached_data(&cache, &cached_data, &stdout, &stderr);
     }
+    let exit_code = exit_code.unwrap();
     let (read_set, write_set) = command::parse_trace(&sandbox_directory)?;
 
-    println!("CACHING DATA");
+    let read_dependencies = command::get_read_dependencies(read_set, &write_set)?;
+    fs::rename(sandbox_directory, cache.get_sandbox_directory())?;
+    cache.extract_sandbox_output()?;
+    if !write_set.is_empty() {
+        cache.commit_output()?;
+    }
 
-    unimplemented!()
+    cache.save_data(&CacheData {
+        exit_code,
+        stdout,
+        stderr,
+        read_dependencies,
+        write_outputs: write_set,
+    });
+
+    Ok(ExitCode::from(exit_code as u8))
 }
 
 fn create_sandbox_directory(command: &Command) -> Result<PathBuf> {

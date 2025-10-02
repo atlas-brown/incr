@@ -28,7 +28,7 @@ pub fn run(command: Command) -> Result<ExitCode> {
     let data = run_command(&command, &cache, &stdin)?;
     cache.save_data(&data)?;
 
-    Ok(ExitCode::SUCCESS)
+    Ok(ExitCode::from(data.exit_code as u8))
 }
 
 fn run_command(command: &Command, cache: &CacheCursor<'_>, stdin: &[u8]) -> Result<CacheData> {
