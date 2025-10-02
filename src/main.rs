@@ -27,12 +27,10 @@ fn main() -> ExitCode {
             return ExitCode::FAILURE;
         }
     };
-
     let result = match EXECUTOR {
         Executor::Batch => batch_executor::run(command),
         Executor::Stream => stream_executor::run(command),
     };
-
     match result {
         Ok(exit_code) => exit_code,
         Err(error) => {

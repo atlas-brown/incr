@@ -7,5 +7,6 @@ use crate::cache::{CacheCursor, CacheData};
 use crate::command::{self, Command};
 
 pub fn run(command: Command) -> Result<ExitCode> {
+    println!("running: {command:?}");
     unimplemented!()
 }

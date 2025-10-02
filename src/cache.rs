@@ -46,7 +46,7 @@ impl<'c> CacheCursor<'c> {
         if self.directory.is_dir() {
             return Ok(());
         }
-        if self.directory.exists() {
+        if self.directory.is_file() {
             fs::remove_file(&self.directory)?;
         }
 
@@ -61,8 +61,15 @@ impl<'c> CacheCursor<'c> {
         Ok(())
     }
 
-    pub fn clean_directory(&self) -> Result<()> {
-        remove_sandbox(&self.directory.join(SANDBOX_DIRECTORY))?;
+    pub fn remove_sandbox_directory(&self) -> Result<()> {
+        let sandbox_directory = self.directory.join(SANDBOX_DIRECTORY);
+        if !sandbox_directory.exists() {
+            return Ok(());
+        }
+        remove_sandbox(&sandbox_directory)
+    }
+
+    pub fn remove_cache_data(&self) -> Result<()> {
         ops::ignore_not_found(fs::remove_dir_all(self.directory.join(OUTPUT_DIRECTORY)))?;
         ops::ignore_not_found(fs::remove_dir_all(self.directory.join(COMMIT_DIRECTORY)))?;
         ops::ignore_not_found(fs::remove_file(self.directory.join(DATA_FILE)))?;
