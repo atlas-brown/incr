@@ -13,7 +13,7 @@ use crate::config::{CACHE_DIRECTORY, CHUNK_SIZE, Config, DEBUG};
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode};
 
 pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    let sandbox_directory = create_sandbox_directory(&command)?;
+    let sandbox_directory = create_sandbox_directory(command)?;
     let ChildContext {
         mut child,
         stdout_thread,
@@ -21,7 +21,7 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     } = command::spawn_command(config, command, &sandbox_directory)?;
 
     let stdin = forward_stdin(child.stdin.take().unwrap())?;
-    let cache = CacheCursor::new(&command, &stdin)?;
+    let cache = CacheCursor::new(command, &stdin)?;
     cache.create_directory()?;
     let cached_data = match cache.load_data()? {
         Some(cached_data) => {
@@ -104,7 +104,7 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<Vec<u8>> {
     let (send_channel, receive_channel) = mpsc::channel::<Vec<_>>();
     thread::spawn(move || {
         for chunk in receive_channel {
-            if let Err(_) = child_stdin.write_all(&chunk) {
+            if child_stdin.write_all(&chunk).is_err() {
                 break;
             }
         }

@@ -21,7 +21,7 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         }
     }
 
-    let cache = CacheCursor::new(&command, &stdin)?;
+    let cache = CacheCursor::new(command, &stdin)?;
     cache.create_directory()?;
     if let Some(cached_data) = cache.load_data()?
         && command::check_read_dependencies(&cached_data.read_dependencies)?
