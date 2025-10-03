@@ -9,11 +9,12 @@ use std::mem;
 use std::os::unix::process::CommandExt;
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command as ShellCommand, Stdio};
+use std::thread::{self, JoinHandle};
 use std::time::UNIX_EPOCH;
 
 use crate::cache::DependencyKey;
 use crate::config::{
-    CHUNK_SIZE, EXCLUDED_PATHS, EXCLUDED_VARS, STRACE_COMMAND, TRACE_FILE, TRY_COMMAND,
+    CHUNK_SIZE, Config, EXCLUDED_PATHS, EXCLUDED_VARS, STRACE_COMMAND, TRACE_FILE, TRY_COMMAND,
 };
 use crate::ops;
 
@@ -24,6 +25,13 @@ pub struct Command {
     pub name: String,
     pub arguments: Vec<String>,
     pub environment: BTreeMap<String, String>,
+}
+
+#[derive(Debug)]
+pub struct ChildContext {
+    pub child: Child,
+    pub stdout_thread: JoinHandle<Result<CommandOutput>>,
+    pub stderr_thread: JoinHandle<Result<CommandOutput>>,
 }
 
 #[derive(Clone, Debug)]
@@ -61,7 +69,33 @@ pub fn get_command() -> Result<Option<Command>> {
     }))
 }
 
-pub fn spawn_command(command: &Command, sandbox_directory: &Path) -> Result<Child> {
+pub fn spawn_command(
+    config: &Config,
+    command: &Command,
+    sandbox_directory: &Path,
+) -> Result<ChildContext> {
+    fs::create_dir_all(sandbox_directory)?;
+    let mut child = spawn_child(command, sandbox_directory)?;
+
+    let child_stdout = child.stdout.take().unwrap();
+    let child_stderr = child.stderr.take().unwrap();
+    let stdout_thread = thread::spawn({
+        let config = config.clone();
+        move || capture_stream(&config, child_stdout, io::stdout())
+    });
+    let stderr_thread = thread::spawn({
+        let config = config.clone();
+        move || capture_stream(&config, child_stderr, io::stderr())
+    });
+
+    Ok(ChildContext {
+        child,
+        stdout_thread,
+        stderr_thread,
+    })
+}
+
+fn spawn_child(command: &Command, sandbox_directory: &Path) -> Result<Child> {
     let mut command_parts = Vec::with_capacity(command.arguments.len() + 1);
     command_parts.push(command.name.as_str());
     command_parts.extend(command.arguments.iter().map(|a| a.as_str()));
@@ -97,21 +131,10 @@ pub fn spawn_command(command: &Command, sandbox_directory: &Path) -> Result<Chil
         });
     }
 
-    fs::create_dir_all(sandbox_directory)?;
     child.spawn().map_err(|e| e.into())
 }
 
-pub fn kill_child(child: &Child) -> Result<()> {
-    let group_id = child.id() as i32;
-    let kill_result = unsafe { libc::kill(-group_id, libc::SIGKILL) };
-    if kill_result == -1 {
-        Err(IoError::last_os_error().into())
-    } else {
-        Ok(())
-    }
-}
-
-pub fn capture_stream<S, D>(mut source: S, mut destination: D) -> Result<Vec<u8>>
+fn capture_stream<S, D>(config: &Config, mut source: S, mut destination: D) -> Result<CommandOutput>
 where
     S: Read,
     D: Write,
@@ -129,7 +152,17 @@ where
         destination.flush()?;
         data.extend_from_slice(&chunk[..count]);
     }
-    Ok(data)
+    Ok(CommandOutput::Completed(data))
+}
+
+pub fn kill_child(child: &Child) -> Result<()> {
+    let group_id = child.id() as i32;
+    let kill_result = unsafe { libc::kill(-group_id, libc::SIGKILL) };
+    if kill_result == -1 {
+        Err(IoError::last_os_error().into())
+    } else {
+        Ok(())
+    }
 }
 
 pub fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {

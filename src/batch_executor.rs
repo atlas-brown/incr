@@ -3,7 +3,7 @@ use std::io::{self, IsTerminal, Read, Write};
 use std::thread;
 
 use crate::cache::{CacheCursor, CacheData};
-use crate::command::{self, Command};
+use crate::command::{self, ChildContext, Command};
 use crate::config::Config;
 use crate::ops::ExitCode;
 
@@ -38,12 +38,11 @@ fn run_command(
     stdin: &[u8],
 ) -> Result<CacheData> {
     let sandbox_directory = cache.get_sandbox_directory();
-    let mut child = command::spawn_command(command, &sandbox_directory)?;
-
-    let child_stdout = child.stdout.take().unwrap();
-    let child_stderr = child.stderr.take().unwrap();
-    let stdout_thread = thread::spawn(move || command::capture_stream(child_stdout, io::stdout()));
-    let stderr_thread = thread::spawn(move || command::capture_stream(child_stderr, io::stderr()));
+    let ChildContext {
+        child,
+        stdout_thread,
+        stderr_thread,
+    } = command::spawn_command(config, command, &sandbox_directory)?;
 
     {
         let mut child_stdin = child.stdin.take().unwrap();
