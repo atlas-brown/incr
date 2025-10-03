@@ -9,6 +9,8 @@ use std::path::Path;
 
 use crate::config::{CHUNK_SIZE, DEBUG};
 
+pub struct ExitCode(pub i32);
+
 pub fn path_to_string(path: &Path) -> Result<&str> {
     path.to_str().ok_or(anyhow!("Could not format path"))
 }

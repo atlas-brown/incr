@@ -7,9 +7,12 @@ mod config;
 mod ops;
 mod stream_executor;
 
-use std::process::ExitCode;
+use anyhow::Result;
+use std::process;
 
-const EXECUTOR: Executor = Executor::Stream;
+use crate::ops::ExitCode;
+
+const EXECUTOR: Executor = Executor::Batch;
 
 #[allow(unused)]
 #[derive(Clone, Copy, Debug)]
@@ -18,24 +21,23 @@ enum Executor {
     Stream,
 }
 
-fn main() -> ExitCode {
-    let command = match command::get_command() {
-        Ok(Some(command)) => command,
-        Ok(None) => return ExitCode::SUCCESS,
+fn main() {
+    match run() {
+        Ok(exit_code) => process::exit(exit_code.0),
         Err(error) => {
             eprintln!("Error: {error}");
-            return ExitCode::FAILURE;
+            process::exit(1);
         }
+    }
+}
+
+fn run() -> Result<ExitCode> {
+    let command = match command::get_command()? {
+        Some(command) => command,
+        None => return Ok(ExitCode(0)),
     };
-    let result = match EXECUTOR {
+    match EXECUTOR {
         Executor::Batch => batch_executor::run(command),
         Executor::Stream => stream_executor::run(command),
-    };
-    match result {
-        Ok(exit_code) => exit_code,
-        Err(error) => {
-            eprintln!("Error: {error}");
-            ExitCode::FAILURE
-        }
     }
 }

@@ -3,14 +3,14 @@ use sha2::{Digest, Sha256};
 use std::fs;
 use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 use std::path::{Path, PathBuf};
-use std::process::{ChildStdin, ExitCode};
+use std::process::ChildStdin;
 use std::sync::mpsc;
 use std::thread;
 
 use crate::cache::{self, CacheCursor, CacheData};
 use crate::command::{self, Command};
 use crate::config::{CACHE_DIRECTORY, CHUNK_SIZE, DEBUG};
-use crate::ops;
+use crate::ops::{self, ExitCode};
 
 pub fn run(command: Command) -> Result<ExitCode> {
     let sandbox_directory = create_sandbox_directory(&command)?;
@@ -72,7 +72,7 @@ pub fn run(command: Command) -> Result<ExitCode> {
         write_outputs: write_set,
     })?;
 
-    Ok(ExitCode::from(exit_code as u8))
+    Ok(ExitCode(exit_code))
 }
 
 fn create_sandbox_directory(command: &Command) -> Result<PathBuf> {
@@ -149,5 +149,5 @@ fn output_cached_data(
         cache.commit_output()?;
     }
 
-    Ok(ExitCode::from(data.exit_code as u8))
+    Ok(ExitCode(data.exit_code))
 }

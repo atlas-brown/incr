@@ -1,10 +1,10 @@
 use anyhow::{Result, anyhow};
 use std::io::{self, IsTerminal, Read, Write};
-use std::process::ExitCode;
 use std::thread;
 
 use crate::cache::{CacheCursor, CacheData};
 use crate::command::{self, Command};
+use crate::ops::ExitCode;
 
 pub fn run(command: Command) -> Result<ExitCode> {
     let mut stdin = Vec::new();
@@ -27,7 +27,7 @@ pub fn run(command: Command) -> Result<ExitCode> {
     let data = run_command(&command, &cache, &stdin)?;
     cache.save_data(&data)?;
 
-    Ok(ExitCode::from(data.exit_code as u8))
+    Ok(ExitCode(data.exit_code))
 }
 
 fn run_command(command: &Command, cache: &CacheCursor<'_>, stdin: &[u8]) -> Result<CacheData> {
@@ -79,5 +79,5 @@ fn output_cached_data(cache: &CacheCursor<'_>, data: &CacheData) -> Result<ExitC
     if !data.write_outputs.is_empty() {
         cache.commit_output()?;
     }
-    Ok(ExitCode::from(data.exit_code as u8))
+    Ok(ExitCode(data.exit_code))
 }
