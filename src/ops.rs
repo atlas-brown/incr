@@ -9,10 +9,20 @@ use std::path::Path;
 
 use crate::config::{CHUNK_SIZE, DEBUG};
 
+#[derive(Clone, Copy, Debug)]
 pub struct ExitCode(pub i32);
 
 pub fn path_to_string(path: &Path) -> Result<&str> {
     path.to_str().ok_or(anyhow!("Could not format path"))
+}
+
+pub fn add_data_extension(mut file_name: String) -> String {
+    if !DEBUG {
+        file_name.push_str(".incr");
+    } else {
+        file_name.push_str(".json");
+    }
+    file_name
 }
 
 pub fn ignore_not_found(result: Result<(), IoError>) -> Result<()> {
@@ -30,16 +40,11 @@ where
     bincode::encode_to_vec(value, get_bincode_config()).map_err(|e| e.into())
 }
 
-pub fn encode_to_file<T>(value: &T, directory: &Path, mut file_name: String) -> Result<()>
+pub fn encode_to_file<T>(value: &T, directory: &Path, file_name: String) -> Result<()>
 where
     T: Encode + Serialize,
 {
-    if !DEBUG {
-        file_name.push_str(".incr");
-    } else {
-        file_name.push_str(".json");
-    }
-
+    let file_name = add_data_extension(file_name);
     let file = File::create(directory.join(file_name))?;
     let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
     if !DEBUG {
@@ -48,20 +53,14 @@ where
         serde_json::to_writer_pretty(&mut file_writer, value)?;
     }
     file_writer.flush()?;
-
     Ok(())
 }
 
-pub fn decode_from_file<T>(directory: &Path, mut file_name: String) -> Result<Option<T>>
+pub fn decode_from_file<T>(directory: &Path, file_name: String) -> Result<Option<T>>
 where
     T: Decode<()> + DeserializeOwned,
 {
-    if !DEBUG {
-        file_name.push_str(".incr");
-    } else {
-        file_name.push_str(".json");
-    }
-
+    let file_name = add_data_extension(file_name);
     let file = match File::open(directory.join(file_name)) {
         Ok(file) => file,
         Err(error) if error.kind() == ErrorKind::NotFound => return Ok(None),

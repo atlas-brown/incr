@@ -62,18 +62,11 @@ impl<'c> CacheCursor<'c> {
     }
 
     pub fn clean_data(&self) -> Result<()> {
-        let mut data_file = PathBuf::from(DATA_FILE);
-        if !DEBUG {
-            data_file.push(".incr");
-        } else {
-            data_file.push(".json");
-        }
-
+        let data_file = ops::add_data_extension(DATA_FILE.to_owned());
         remove_sandbox(&self.directory.join(SANDBOX_DIRECTORY))?;
         ops::ignore_not_found(fs::remove_dir_all(self.directory.join(OUTPUT_DIRECTORY)))?;
         ops::ignore_not_found(fs::remove_dir_all(self.directory.join(COMMIT_DIRECTORY)))?;
         ops::ignore_not_found(fs::remove_file(data_file))?;
-
         Ok(())
     }
 
