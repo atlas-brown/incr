@@ -63,11 +63,7 @@ fn run_command(
     let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let (stdout, stderr) = match (stdout, stderr) {
         (Output::Completed(stdout), Output::Completed(stderr)) => (stdout, stderr),
-        (Output::Completed(_), Output::Broken(_))
-        | (Output::Broken(_), Output::Completed(_))
-        | (Output::Broken(_), Output::Broken(_)) => {
-            return Ok(CommandResult::Broken);
-        }
+        _ => return Ok(CommandResult::Broken),
     };
 
     let (read_set, write_set) = command::parse_trace(&sandbox_directory)?;

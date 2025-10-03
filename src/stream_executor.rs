@@ -8,18 +8,17 @@ use std::sync::mpsc;
 use std::thread;
 
 use crate::cache::{self, CacheCursor, CacheData};
-use crate::command::{self, Command};
-use crate::config::{CACHE_DIRECTORY, CHUNK_SIZE, DEBUG};
-use crate::ops::{self, ExitCode};
+use crate::command::{self, ChildContext, Command, Output};
+use crate::config::{CACHE_DIRECTORY, CHUNK_SIZE, Config, DEBUG};
+use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode};
 
-pub fn run(command: Command) -> Result<ExitCode> {
+pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     let sandbox_directory = create_sandbox_directory(&command)?;
-    let mut child = command::spawn_command(&command, &sandbox_directory)?;
-
-    let child_stdout = child.stdout.take().unwrap();
-    let child_stderr = child.stderr.take().unwrap();
-    let stdout_thread = thread::spawn(move || command::capture_stream(child_stdout, io::stdout()));
-    let stderr_thread = thread::spawn(move || command::capture_stream(child_stderr, io::stderr()));
+    let ChildContext {
+        mut child,
+        stdout_thread,
+        stderr_thread,
+    } = command::spawn_command(config, command, &sandbox_directory)?;
 
     let stdin = forward_stdin(child.stdin.take().unwrap())?;
     let cache = CacheCursor::new(&command, &stdin)?;
@@ -35,29 +34,34 @@ pub fn run(command: Command) -> Result<ExitCode> {
         None => None,
     };
 
-    let exit_code = match cached_data {
-        Some(_) => {
-            if child.try_wait()?.is_none() {
-                command::kill_child(&child)?;
-                child.wait()?;
-            }
-            None
+    let exit_code = if cached_data.is_some() {
+        if child.try_wait()?.is_none() {
+            command::kill_child(&child)?;
+            child.wait()?;
         }
-        None => child.wait()?.code(),
+        cache::remove_sandbox(&sandbox_directory)?;
+        None
+    } else {
+        let exit_code = child.wait()?.code();
+        cache.clean_data()?;
+        exit_code
     };
+
     let stdout = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    let (stdout, stderr) = match (stdout, stderr) {
+        (Output::Completed(stdout), Output::Completed(stderr)) => (stdout, stderr),
+        _ => return Ok(BROKEN_PIPE_CODE),
+    };
 
     if let Some(cached_data) = cached_data {
-        ensure!(exit_code == None);
-        cache::remove_sandbox(&sandbox_directory)?;
+        ensure!(exit_code.is_none());
         return output_cached_data(&cache, &cached_data, &stdout, &stderr);
     }
     let exit_code = exit_code.unwrap();
-    let (read_set, write_set) = command::parse_trace(&sandbox_directory)?;
 
+    let (read_set, write_set) = command::parse_trace(&sandbox_directory)?;
     let read_dependencies = command::get_read_dependencies(read_set, &write_set)?;
-    cache.clean_data()?;
     fs::rename(sandbox_directory, cache.get_sandbox_directory())?;
     cache.extract_sandbox_output()?;
     if !write_set.is_empty() {

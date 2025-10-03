@@ -42,6 +42,6 @@ fn run(config: &Config) -> Result<ExitCode> {
     };
     match EXECUTOR {
         Executor::Batch => batch_executor::run(config, &command),
-        Executor::Stream => stream_executor::run(command),
+        Executor::Stream => stream_executor::run(config, &command),
     }
 }
