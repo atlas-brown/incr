@@ -37,7 +37,7 @@ pub struct ChildContext {
 #[derive(Clone, Debug)]
 pub enum Output {
     Completed(Vec<u8>),
-    Broken(Vec<u8>),
+    BrokenPipe,
 }
 
 pub fn get_command() -> Result<Option<Command>> {
@@ -141,6 +141,7 @@ where
 {
     let mut data = Vec::new();
     let mut chunk = [0; CHUNK_SIZE];
+
     loop {
         let count = match source.read(&mut chunk) {
             Ok(0) => break,
@@ -148,10 +149,25 @@ where
             Err(error) if error.kind() == ErrorKind::Interrupted => continue,
             Err(error) => return Err(error.into()),
         };
-        destination.write_all(&chunk[..count])?;
-        destination.flush()?;
+
+        if let Err(error) = destination.write_all(&chunk[..count]) {
+            if error.kind() == ErrorKind::BrokenPipe {
+                data.extend_from_slice(&chunk[..count]);
+                return Ok(Output::BrokenPipe);
+            }
+            return Err(error.into());
+        }
+        if let Err(error) = destination.flush() {
+            if error.kind() == ErrorKind::BrokenPipe {
+                data.extend_from_slice(&chunk[..count]);
+                return Ok(Output::BrokenPipe);
+            }
+            return Err(error.into());
+        }
+
         data.extend_from_slice(&chunk[..count]);
     }
+
     Ok(Output::Completed(data))
 }
 
