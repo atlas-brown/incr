@@ -30,12 +30,12 @@ pub struct Command {
 #[derive(Debug)]
 pub struct ChildContext {
     pub child: Child,
-    pub stdout_thread: JoinHandle<Result<CommandOutput>>,
-    pub stderr_thread: JoinHandle<Result<CommandOutput>>,
+    pub stdout_thread: JoinHandle<Result<Output>>,
+    pub stderr_thread: JoinHandle<Result<Output>>,
 }
 
 #[derive(Clone, Debug)]
-pub enum CommandOutput {
+pub enum Output {
     Completed(Vec<u8>),
     Broken(Vec<u8>),
 }
@@ -134,7 +134,7 @@ fn spawn_child(command: &Command, sandbox_directory: &Path) -> Result<Child> {
     child.spawn().map_err(|e| e.into())
 }
 
-fn capture_stream<S, D>(config: &Config, mut source: S, mut destination: D) -> Result<CommandOutput>
+fn capture_stream<S, D>(config: &Config, mut source: S, mut destination: D) -> Result<Output>
 where
     S: Read,
     D: Write,
@@ -152,7 +152,7 @@ where
         destination.flush()?;
         data.extend_from_slice(&chunk[..count]);
     }
-    Ok(CommandOutput::Completed(data))
+    Ok(Output::Completed(data))
 }
 
 pub fn kill_child(child: &Child) -> Result<()> {

@@ -1,11 +1,16 @@
 use anyhow::{Result, anyhow};
 use std::io::{self, IsTerminal, Read, Write};
-use std::thread;
 
 use crate::cache::{CacheCursor, CacheData};
-use crate::command::{self, ChildContext, Command};
+use crate::command::{self, ChildContext, Command, Output};
 use crate::config::Config;
-use crate::ops::ExitCode;
+use crate::ops::{BROKEN_PIPE_CODE, ExitCode};
+
+#[derive(Clone, Debug)]
+enum CommandResult {
+    Completed(CacheData),
+    Broken,
+}
 
 pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     let mut stdin = Vec::new();
@@ -25,7 +30,10 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     }
 
     cache.clean_data()?;
-    let data = run_command(config, command, &cache, &stdin)?;
+    let data = match run_command(config, command, &cache, &stdin)? {
+        CommandResult::Completed(data) => data,
+        CommandResult::Broken => return Ok(BROKEN_PIPE_CODE),
+    };
     cache.save_data(&data)?;
 
     Ok(ExitCode(data.exit_code))
@@ -36,10 +44,10 @@ fn run_command(
     command: &Command,
     cache: &CacheCursor<'_>,
     stdin: &[u8],
-) -> Result<CacheData> {
+) -> Result<CommandResult> {
     let sandbox_directory = cache.get_sandbox_directory();
     let ChildContext {
-        child,
+        mut child,
         stdout_thread,
         stderr_thread,
     } = command::spawn_command(config, command, &sandbox_directory)?;
@@ -53,21 +61,29 @@ fn run_command(
     let exit_code = child.wait()?.code().unwrap();
     let stdout = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
-    let (read_set, write_set) = command::parse_trace(&sandbox_directory)?;
+    let (stdout, stderr) = match (stdout, stderr) {
+        (Output::Completed(stdout), Output::Completed(stderr)) => (stdout, stderr),
+        (Output::Completed(_), Output::Broken(_))
+        | (Output::Broken(_), Output::Completed(_))
+        | (Output::Broken(_), Output::Broken(_)) => {
+            return Ok(CommandResult::Broken);
+        }
+    };
 
+    let (read_set, write_set) = command::parse_trace(&sandbox_directory)?;
     let read_dependencies = command::get_read_dependencies(read_set, &write_set)?;
     cache.extract_sandbox_output()?;
     if !write_set.is_empty() {
         cache.commit_output()?;
     }
 
-    Ok(CacheData {
+    Ok(CommandResult::Completed(CacheData {
         exit_code,
         stdout,
         stderr,
         read_dependencies,
         write_outputs: write_set,
-    })
+    }))
 }
 
 fn output_cached_data(cache: &CacheCursor<'_>, data: &CacheData) -> Result<ExitCode> {
