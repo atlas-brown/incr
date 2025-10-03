@@ -29,6 +29,7 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         return output_cached_data(&cache, &cached_data);
     }
 
+    cache.clean_sandbox_directory()?;
     cache.clean_data()?;
     let data = match run_command(config, command, &cache, &stdin)? {
         CommandResult::Completed(data) => data,
@@ -63,7 +64,10 @@ fn run_command(
     let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let (stdout, stderr) = match (stdout, stderr) {
         (Output::Completed(stdout), Output::Completed(stderr)) => (stdout, stderr),
-        _ => return Ok(CommandResult::Broken),
+        (Output::BrokenPipe, _) | (_, Output::BrokenPipe) => {
+            cache.clean_sandbox_directory()?;
+            return Ok(CommandResult::Broken);
+        }
     };
 
     let (read_set, write_set) = command::parse_trace(&sandbox_directory)?;

@@ -61,9 +61,12 @@ impl<'c> CacheCursor<'c> {
         Ok(())
     }
 
+    pub fn clean_sandbox_directory(&self) -> Result<()> {
+        remove_sandbox(&self.directory.join(SANDBOX_DIRECTORY))
+    }
+
     pub fn clean_data(&self) -> Result<()> {
         let data_file = ops::add_data_extension(DATA_FILE.to_owned());
-        remove_sandbox(&self.directory.join(SANDBOX_DIRECTORY))?;
         ops::ignore_not_found(fs::remove_dir_all(self.directory.join(OUTPUT_DIRECTORY)))?;
         ops::ignore_not_found(fs::remove_dir_all(self.directory.join(COMMIT_DIRECTORY)))?;
         ops::ignore_not_found(fs::remove_file(data_file))?;

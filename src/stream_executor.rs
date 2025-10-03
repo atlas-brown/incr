@@ -43,6 +43,7 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         None
     } else {
         let exit_code = child.wait()?.code();
+        cache.clean_sandbox_directory()?;
         cache.clean_data()?;
         exit_code
     };
@@ -51,7 +52,7 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let (stdout, stderr) = match (stdout, stderr) {
         (Output::Completed(stdout), Output::Completed(stderr)) => (stdout, stderr),
-        _ => return Ok(BROKEN_PIPE_CODE),
+        (Output::BrokenPipe, _) | (_, Output::BrokenPipe) => return Ok(BROKEN_PIPE_CODE),
     };
 
     if let Some(cached_data) = cached_data {
