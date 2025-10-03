@@ -1,3 +1,8 @@
+#[derive(Clone, Debug)]
+pub struct Config {
+    pub complete_after_downstream_failure: bool,
+}
+
 pub const TRY_COMMAND: &str = "./src/try.sh";
 pub const STRACE_COMMAND: &str = "strace";
 pub const TRACE_FILE: &str = "trace.txt";

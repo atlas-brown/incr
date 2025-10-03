@@ -4,9 +4,10 @@ use std::thread;
 
 use crate::cache::{CacheCursor, CacheData};
 use crate::command::{self, Command};
+use crate::config::Config;
 use crate::ops::ExitCode;
 
-pub fn run(command: Command) -> Result<ExitCode> {
+pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     let mut stdin = Vec::new();
     {
         let mut process_stdin = io::stdin().lock();
@@ -24,13 +25,18 @@ pub fn run(command: Command) -> Result<ExitCode> {
     }
 
     cache.clean_data()?;
-    let data = run_command(&command, &cache, &stdin)?;
+    let data = run_command(config, command, &cache, &stdin)?;
     cache.save_data(&data)?;
 
     Ok(ExitCode(data.exit_code))
 }
 
-fn run_command(command: &Command, cache: &CacheCursor<'_>, stdin: &[u8]) -> Result<CacheData> {
+fn run_command(
+    config: &Config,
+    command: &Command,
+    cache: &CacheCursor<'_>,
+    stdin: &[u8],
+) -> Result<CacheData> {
     let sandbox_directory = cache.get_sandbox_directory();
     let mut child = command::spawn_command(command, &sandbox_directory)?;
 

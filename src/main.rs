@@ -10,7 +10,8 @@ mod stream_executor;
 use anyhow::Result;
 use std::process;
 
-use crate::ops::ExitCode;
+use crate::config::Config;
+use crate::ops::{ExitCode, FAILURE_CODE, SUCCESS_CODE};
 
 const EXECUTOR: Executor = Executor::Batch;
 
@@ -22,22 +23,25 @@ enum Executor {
 }
 
 fn main() {
-    match run() {
+    let config = Config {
+        complete_after_downstream_failure: true,
+    };
+    match run(&config) {
         Ok(exit_code) => process::exit(exit_code.0),
         Err(error) => {
             eprintln!("Error: {error}");
-            process::exit(1);
+            process::exit(FAILURE_CODE.0);
         }
     }
 }
 
-fn run() -> Result<ExitCode> {
+fn run(config: &Config) -> Result<ExitCode> {
     let command = match command::get_command()? {
         Some(command) => command,
-        None => return Ok(ExitCode(0)),
+        None => return Ok(SUCCESS_CODE),
     };
     match EXECUTOR {
-        Executor::Batch => batch_executor::run(command),
+        Executor::Batch => batch_executor::run(config, &command),
         Executor::Stream => stream_executor::run(command),
     }
 }

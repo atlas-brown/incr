@@ -9,6 +9,10 @@ use std::path::Path;
 
 use crate::config::{CHUNK_SIZE, DEBUG};
 
+pub const SUCCESS_CODE: ExitCode = ExitCode(0);
+pub const FAILURE_CODE: ExitCode = ExitCode(1);
+pub const BROKEN_PIPE_CODE: ExitCode = ExitCode(141);
+
 #[derive(Clone, Copy, Debug)]
 pub struct ExitCode(pub i32);
 

@@ -26,6 +26,12 @@ pub struct Command {
     pub environment: BTreeMap<String, String>,
 }
 
+#[derive(Clone, Debug)]
+pub enum CommandOutput {
+    Completed(Vec<u8>),
+    Broken(Vec<u8>),
+}
+
 pub fn get_command() -> Result<Option<Command>> {
     let mut arguments = env::args().collect::<Vec<String>>();
     if arguments.len() <= 1 {
