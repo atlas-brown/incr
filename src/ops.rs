@@ -37,6 +37,26 @@ pub fn ignore_not_found(result: Result<(), IoError>) -> Result<()> {
     }
 }
 
+pub fn output_data<D>(data: &[u8], mut destination: D) -> bool
+where
+    D: Write,
+{
+    if data.is_empty() {
+        return false;
+    }
+    if let Err(error) = destination.write_all(data)
+        && error.kind() == ErrorKind::BrokenPipe
+    {
+        return true;
+    }
+    if let Err(error) = destination.flush()
+        && error.kind() == ErrorKind::BrokenPipe
+    {
+        return true;
+    }
+    false
+}
+
 pub fn encode_to_vec<T>(value: &T) -> Result<Vec<u8>>
 where
     T: Encode,

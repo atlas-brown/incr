@@ -1,15 +1,15 @@
 use anyhow::{Result, anyhow};
-use std::io::{self, IsTerminal, Read, Write};
+use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 
 use crate::cache::{CacheCursor, CacheData};
 use crate::command::{self, ChildContext, Command, Output};
 use crate::config::Config;
-use crate::ops::{BROKEN_PIPE_CODE, ExitCode};
+use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode};
 
 #[derive(Clone, Debug)]
 enum CommandResult {
     Completed(CacheData),
-    Broken,
+    BrokenPipe,
 }
 
 pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
@@ -26,14 +26,14 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     if let Some(cached_data) = cache.load_data()?
         && command::check_read_dependencies(&cached_data.read_dependencies)?
     {
-        return output_cached_data(&cache, &cached_data);
+        return output_cached_data(config, &cache, &cached_data);
     }
 
     cache.clean_sandbox_directory()?;
     cache.clean_data()?;
     let data = match run_command(config, command, &cache, &stdin)? {
         CommandResult::Completed(data) => data,
-        CommandResult::Broken => return Ok(BROKEN_PIPE_CODE),
+        CommandResult::BrokenPipe => return Ok(BROKEN_PIPE_CODE),
     };
     cache.save_data(&data)?;
 
@@ -66,7 +66,7 @@ fn run_command(
         (Output::Completed(stdout), Output::Completed(stderr)) => (stdout, stderr),
         (Output::BrokenPipe, _) | (_, Output::BrokenPipe) => {
             cache.clean_sandbox_directory()?;
-            return Ok(CommandResult::Broken);
+            return Ok(CommandResult::BrokenPipe);
         }
     };
 
@@ -86,16 +86,15 @@ fn run_command(
     }))
 }
 
-fn output_cached_data(cache: &CacheCursor<'_>, data: &CacheData) -> Result<ExitCode> {
-    {
-        let mut process_stdout = io::stdout().lock();
-        process_stdout.write_all(&data.stdout)?;
-        process_stdout.flush()?;
-    }
-    {
-        let mut process_stderr = io::stderr().lock();
-        process_stderr.write_all(&data.stderr)?;
-        process_stderr.flush()?;
+fn output_cached_data(
+    config: &Config,
+    cache: &CacheCursor<'_>,
+    data: &CacheData,
+) -> Result<ExitCode> {
+    let stdout_broken = ops::output_data(&data.stdout, io::stdout().lock());
+    let stderr_broken = ops::output_data(&data.stderr, io::stderr().lock());
+    if !config.complete_after_downstream_failure && (stdout_broken || stderr_broken) {
+        return Ok(BROKEN_PIPE_CODE);
     }
     if !data.write_outputs.is_empty() {
         cache.commit_output()?;
