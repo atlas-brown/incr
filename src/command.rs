@@ -148,20 +148,10 @@ where
         };
 
         if !destination_broken {
-            if let Err(error) = destination.write_all(&chunk[..count]) {
-                if error.kind() != ErrorKind::BrokenPipe {
-                    return Err(error.into());
-                }
-                destination_broken = true;
-                if !config.complete_after_downstream_failure {
-                    data.extend_from_slice(&chunk[..count]);
-                    return Ok(Output::BrokenPipe);
-                }
-            }
-        }
-
-        if !destination_broken {
-            if let Err(error) = destination.flush() {
+            let write_result = destination
+                .write_all(&chunk[..count])
+                .and_then(|_| destination.flush());
+            if let Err(error) = write_result {
                 if error.kind() != ErrorKind::BrokenPipe {
                     return Err(error.into());
                 }

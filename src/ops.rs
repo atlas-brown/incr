@@ -44,19 +44,12 @@ where
     if data.is_empty() {
         return Ok(true);
     }
-    if let Err(error) = destination.write_all(data) {
-        if error.kind() == ErrorKind::BrokenPipe {
-            return Ok(false);
-        }
-        return Err(error.into());
+    let write_result = destination.write_all(data).and_then(|_| destination.flush());
+    match write_result {
+        Ok(()) => Ok(true),
+        Err(error) if error.kind() == ErrorKind::BrokenPipe => Ok(false),
+        Err(error) => Err(error.into()),
     }
-    if let Err(error) = destination.flush() {
-        if error.kind() == ErrorKind::BrokenPipe {
-            return Ok(false);
-        }
-        return Err(error.into());
-    }
-    Ok(true)
 }
 
 pub fn encode_to_vec<T>(value: &T) -> Result<Vec<u8>>
