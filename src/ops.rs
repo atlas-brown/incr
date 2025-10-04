@@ -44,15 +44,17 @@ where
     if data.is_empty() {
         return Ok(true);
     }
-    if let Err(error) = destination.write_all(data)
-        && error.kind() == ErrorKind::BrokenPipe
-    {
-        return Ok(false);
+    if let Err(error) = destination.write_all(data) {
+        if error.kind() == ErrorKind::BrokenPipe {
+            return Ok(false);
+        }
+        return Err(error.into());
     }
-    if let Err(error) = destination.flush()
-        && error.kind() == ErrorKind::BrokenPipe
-    {
-        return Ok(false);
+    if let Err(error) = destination.flush() {
+        if error.kind() == ErrorKind::BrokenPipe {
+            return Ok(false);
+        }
+        return Err(error.into());
     }
     Ok(true)
 }

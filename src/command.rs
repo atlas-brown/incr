@@ -137,6 +137,7 @@ where
 {
     let mut data = Vec::new();
     let mut chunk = [0; CHUNK_SIZE];
+    let mut destination_broken = false;
 
     loop {
         let count = match source.read(&mut chunk) {
@@ -146,19 +147,30 @@ where
             Err(error) => return Err(error.into()),
         };
 
-        if let Err(error) = destination.write_all(&chunk[..count]) {
-            if error.kind() == ErrorKind::BrokenPipe {
-                data.extend_from_slice(&chunk[..count]);
-                return Ok(Output::BrokenPipe);
+        if !destination_broken {
+            if let Err(error) = destination.write_all(&chunk[..count]) {
+                if error.kind() != ErrorKind::BrokenPipe {
+                    return Err(error.into());
+                }
+                destination_broken = true;
+                if !config.complete_after_downstream_failure {
+                    data.extend_from_slice(&chunk[..count]);
+                    return Ok(Output::BrokenPipe);
+                }
             }
-            return Err(error.into());
         }
-        if let Err(error) = destination.flush() {
-            if error.kind() == ErrorKind::BrokenPipe {
-                data.extend_from_slice(&chunk[..count]);
-                return Ok(Output::BrokenPipe);
+
+        if !destination_broken {
+            if let Err(error) = destination.flush() {
+                if error.kind() != ErrorKind::BrokenPipe {
+                    return Err(error.into());
+                }
+                destination_broken = true;
+                if !config.complete_after_downstream_failure {
+                    data.extend_from_slice(&chunk[..count]);
+                    return Ok(Output::BrokenPipe);
+                }
             }
-            return Err(error.into());
         }
 
         data.extend_from_slice(&chunk[..count]);

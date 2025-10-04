@@ -13,7 +13,7 @@ use std::process;
 use crate::config::Config;
 use crate::ops::{ExitCode, FAILURE_CODE, SUCCESS_CODE};
 
-const EXECUTOR: Executor = Executor::Batch;
+const EXECUTOR: Executor = Executor::Stream;
 
 #[allow(unused)]
 #[derive(Clone, Copy, Debug)]
