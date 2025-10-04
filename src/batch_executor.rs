@@ -1,5 +1,5 @@
 use anyhow::{Result, anyhow};
-use std::io::{self, ErrorKind, IsTerminal, Read, Write};
+use std::io::{self, IsTerminal, Read, Write};
 
 use crate::cache::{CacheCursor, CacheData};
 use crate::command::{self, ChildContext, Command, Output};
@@ -86,14 +86,10 @@ fn run_command(
     }))
 }
 
-fn output_cached_data(
-    config: &Config,
-    cache: &CacheCursor<'_>,
-    data: &CacheData,
-) -> Result<ExitCode> {
-    let stdout_broken = ops::output_data(&data.stdout, io::stdout().lock());
-    let stderr_broken = ops::output_data(&data.stderr, io::stderr().lock());
-    if !config.complete_after_downstream_failure && (stdout_broken || stderr_broken) {
+fn output_cached_data(config: &Config, cache: &CacheCursor<'_>, data: &CacheData) -> Result<ExitCode> {
+    let stdout_completed = ops::output_data(&data.stdout, io::stdout().lock())?;
+    let stderr_completed = ops::output_data(&data.stderr, io::stderr().lock())?;
+    if !config.complete_after_downstream_failure && (!stdout_completed || !stderr_completed) {
         return Ok(BROKEN_PIPE_CODE);
     }
     if !data.write_outputs.is_empty() {

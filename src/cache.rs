@@ -82,10 +82,7 @@ impl<'c> CacheCursor<'c> {
             sandbox_directory.join("upperdir"),
             output_directory.join("upperdir"),
         )?;
-        fs::rename(
-            sandbox_directory.join("ignore"),
-            output_directory.join("ignore"),
-        )?;
+        fs::rename(sandbox_directory.join("ignore"), output_directory.join("ignore"))?;
         remove_sandbox(&sandbox_directory)?;
 
         Ok(())

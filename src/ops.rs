@@ -37,24 +37,24 @@ pub fn ignore_not_found(result: Result<(), IoError>) -> Result<()> {
     }
 }
 
-pub fn output_data<D>(data: &[u8], mut destination: D) -> bool
+pub fn output_data<D>(data: &[u8], mut destination: D) -> Result<bool>
 where
     D: Write,
 {
     if data.is_empty() {
-        return false;
+        return Ok(true);
     }
     if let Err(error) = destination.write_all(data)
         && error.kind() == ErrorKind::BrokenPipe
     {
-        return true;
+        return Ok(false);
     }
     if let Err(error) = destination.flush()
         && error.kind() == ErrorKind::BrokenPipe
     {
-        return true;
+        return Ok(false);
     }
-    false
+    Ok(true)
 }
 
 pub fn encode_to_vec<T>(value: &T) -> Result<Vec<u8>>
@@ -153,9 +153,7 @@ pub mod serialize_byte_vec {
     {
         if deserializer.is_human_readable() {
             let encoded = String::deserialize(deserializer)?;
-            BASE64_STANDARD
-                .decode(encoded)
-                .map_err(DeserializeError::custom)
+            BASE64_STANDARD.decode(encoded).map_err(DeserializeError::custom)
         } else {
             Vec::<u8>::deserialize(deserializer)
         }

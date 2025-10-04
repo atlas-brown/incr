@@ -57,7 +57,7 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 
     if let Some(cached_data) = cached_data {
         ensure!(exit_code.is_none());
-        return output_cached_data(&cache, &cached_data, &stdout, &stderr);
+        return output_cached_data(config, &cache, &cached_data, &stdout, &stderr);
     }
     let exit_code = exit_code.unwrap();
 
@@ -128,6 +128,7 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<Vec<u8>> {
 }
 
 fn output_cached_data(
+    config: &Config,
     cache: &CacheCursor<'_>,
     data: &CacheData,
     stdout: &[u8],
@@ -140,15 +141,10 @@ fn output_cached_data(
         ensure!(stderr == &data.stderr[..stderr.len()]);
     }
 
-    if stdout.len() < data.stdout.len() {
-        let mut process_stdout = io::stdout().lock();
-        process_stdout.write_all(&data.stdout[stdout.len()..])?;
-        process_stdout.flush()?;
-    }
-    if stderr.len() < data.stderr.len() {
-        let mut process_stderr = io::stderr().lock();
-        process_stderr.write_all(&data.stderr[stderr.len()..])?;
-        process_stderr.flush()?;
+    let stdout_completed = ops::output_data(&data.stdout[stdout.len()..], io::stdout().lock())?;
+    let stderr_completed = ops::output_data(&data.stderr[stderr.len()..], io::stderr().lock())?;
+    if !config.complete_after_downstream_failure && (!stdout_completed || !stderr_completed) {
+        return Ok(BROKEN_PIPE_CODE);
     }
     if !data.write_outputs.is_empty() {
         cache.commit_output()?;

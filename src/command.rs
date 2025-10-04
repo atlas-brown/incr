@@ -69,11 +69,7 @@ pub fn get_command() -> Result<Option<Command>> {
     }))
 }
 
-pub fn spawn_command(
-    config: &Config,
-    command: &Command,
-    sandbox_directory: &Path,
-) -> Result<ChildContext> {
+pub fn spawn_command(config: &Config, command: &Command, sandbox_directory: &Path) -> Result<ChildContext> {
     fs::create_dir_all(sandbox_directory)?;
     let mut child = spawn_child(command, sandbox_directory)?;
 
@@ -189,10 +185,7 @@ pub fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSe
         WriteSet,
     }
 
-    let trace_file = sandbox_directory
-        .join("upperdir")
-        .join("tmp")
-        .join(TRACE_FILE);
+    let trace_file = sandbox_directory.join("upperdir").join("tmp").join(TRACE_FILE);
     let output = ShellCommand::new("python3")
         .args(["-c", PARSE_TRACE_SCRIPT, ops::path_to_string(&trace_file)?])
         .stdin(Stdio::null())
