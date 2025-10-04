@@ -5,7 +5,7 @@ use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 use std::path::{Path, PathBuf};
 use std::process::ChildStdin;
 use std::sync::mpsc;
-use std::thread;
+use std::thread::{self, JoinHandle};
 
 use crate::cache::{self, CacheCursor, CacheData};
 use crate::command::{self, ChildContext, Command, Output};
@@ -20,7 +20,7 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         stderr_thread,
     } = command::spawn_command(config, command, &sandbox_directory)?;
 
-    let stdin = forward_stdin(child.stdin.take().unwrap())?;
+    let (stdin, stdin_thread) = forward_stdin(child.stdin.take().unwrap())?;
     let cache = CacheCursor::new(command, &stdin)?;
     cache.create_directory()?;
     let cached_data = match cache.load_data()? {
@@ -42,6 +42,9 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         cache::remove_sandbox(&sandbox_directory)?;
         None
     } else {
+        if let Some(stdin_thread) = stdin_thread {
+            stdin_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+        }
         let exit_code = child.wait()?.code();
         cache.clean_sandbox_directory()?;
         cache.clean_data()?;
@@ -96,19 +99,18 @@ fn create_sandbox_directory(command: &Command) -> Result<PathBuf> {
     Ok(directory)
 }
 
-fn forward_stdin(mut child_stdin: ChildStdin) -> Result<Vec<u8>> {
+fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(Vec<u8>, Option<JoinHandle<Result<()>>>)> {
     let mut process_stdin = io::stdin().lock();
     if process_stdin.is_terminal() {
-        return Ok(Vec::new());
+        return Ok((Vec::new(), None));
     }
 
     let (send_channel, receive_channel) = mpsc::channel::<Vec<_>>();
-    thread::spawn(move || {
+    let stdin_thread = thread::spawn(move || {
         for chunk in receive_channel {
-            if child_stdin.write_all(&chunk).is_err() {
-                break;
-            }
+            child_stdin.write_all(&chunk)?;
         }
+        Ok(())
     });
 
     let mut stdin = Vec::new();
@@ -124,7 +126,7 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<Vec<u8>> {
         stdin.extend_from_slice(&chunk[..count]);
     }
 
-    Ok(stdin)
+    Ok((stdin, Some(stdin_thread)))
 }
 
 fn output_cached_data(
