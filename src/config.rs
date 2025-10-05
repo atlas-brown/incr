@@ -6,6 +6,7 @@ pub struct Config {
 pub const TRY_COMMAND: &str = "./src/try.sh";
 pub const STRACE_COMMAND: &str = "strace";
 pub const TRACE_FILE: &str = "trace.txt";
+pub const DEBUG_LOG_FILE: &str = "debug_log.txt";
 
 pub const CACHE_DIRECTORY: &str = "cache";
 pub const DATA_FILE: &str = "data";
@@ -16,7 +17,7 @@ pub const DEBUG_FILE: &str = "debug_info.json";
 
 pub const CHUNK_SIZE: usize = 65536;
 pub const SUDO_SANDBOX: bool = true;
-pub const DEBUG: bool = false;
+pub const DEBUG: bool = true;
 
 pub const EXCLUDED_VARS: &[&str] = &[
     "SHLVL",

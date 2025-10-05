@@ -3,18 +3,50 @@ use bincode::config::{Configuration, Fixint, LittleEndian, NoLimit};
 use bincode::{Decode, Encode};
 use serde::Serialize;
 use serde::de::DeserializeOwned;
-use std::fs::File;
+use std::fs::{File, OpenOptions};
 use std::io::{BufReader, BufWriter, Error as IoError, ErrorKind, Write};
 use std::path::Path;
+use std::sync::{Mutex, OnceLock};
 
-use crate::config::{CHUNK_SIZE, DEBUG};
+use crate::config::{CHUNK_SIZE, DEBUG, DEBUG_LOG_FILE};
 
 pub const SUCCESS_CODE: ExitCode = ExitCode(0);
 pub const FAILURE_CODE: ExitCode = ExitCode(1);
 pub const BROKEN_PIPE_CODE: ExitCode = ExitCode(141);
 
+macro_rules! debug_log {
+    ($($arg:tt)*) => {
+        if $crate::config::DEBUG {
+            let line = format!($($arg)*);
+            $crate::ops::log_line(&line);
+        }
+    };
+}
+
+pub(crate) use debug_log;
+
+static LOG_FILE: OnceLock<Mutex<File>> = OnceLock::new();
+
 #[derive(Clone, Copy, Debug)]
 pub struct ExitCode(pub i32);
+
+pub fn initialize_log_file() {
+    if DEBUG {
+        LOG_FILE.get_or_init(|| {
+            let file = OpenOptions::new()
+                .append(true)
+                .create(true)
+                .open(DEBUG_LOG_FILE)
+                .unwrap();
+            Mutex::new(file)
+        });
+    }
+}
+
+pub fn log_line(line: &str) {
+    let mut file = LOG_FILE.get().unwrap().lock().unwrap();
+    writeln!(file, "{line}").unwrap();
+}
 
 pub fn path_to_string(path: &Path) -> Result<&str> {
     path.to_str().ok_or(anyhow!("Could not format path"))
