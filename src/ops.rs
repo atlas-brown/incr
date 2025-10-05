@@ -11,7 +11,7 @@ use time::format_description::FormatItem;
 use time::macros::format_description;
 use time::{OffsetDateTime, UtcOffset};
 
-use crate::config::{CHUNK_SIZE, DEBUG, DEBUG_LOG_FILE};
+use crate::config::{CHUNK_SIZE, DEBUG, DEBUG_LOG_FILE, DEBUG_LOGS};
 
 pub const SUCCESS_CODE: ExitCode = ExitCode(0);
 pub const FAILURE_CODE: ExitCode = ExitCode(1);
@@ -19,7 +19,7 @@ pub const BROKEN_PIPE_CODE: ExitCode = ExitCode(141);
 
 macro_rules! debug_log {
     ($($arg:tt)*) => {
-        if $crate::config::DEBUG {
+        if $crate::config::DEBUG_LOGS {
             let line = format!($($arg)*);
             $crate::ops::log_line(&line);
         }
@@ -34,7 +34,7 @@ static LOG_FILE: OnceLock<Mutex<File>> = OnceLock::new();
 pub struct ExitCode(pub i32);
 
 pub fn initialize_log_file() {
-    if DEBUG {
+    if DEBUG_LOGS {
         LOG_FILE.get_or_init(|| {
             let file = OpenOptions::new()
                 .append(true)

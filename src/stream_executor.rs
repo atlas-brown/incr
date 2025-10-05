@@ -20,6 +20,16 @@ enum CacheStatus {
     Invalid(ExitCode),
 }
 
+#[derive(Clone, Debug)]
+struct CacheContext<'c> {
+    config: &'c Config,
+    command: &'c Command,
+    cache: CacheCursor<'c>,
+    cached_data: CacheData,
+    completed_stdout: Vec<u8>,
+    completed_stderr: Vec<u8>,
+}
+
 pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     debug_log!("[{}] Starting stream command", command.name);
 
@@ -47,7 +57,14 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 
     let exit_code = match cache_status {
         CacheStatus::Valid(cached_data) => {
-            return output_cached_data(config, command, &cache, &cached_data, &stdout, &stderr);
+            return output_cached_data(&CacheContext {
+                config,
+                command,
+                cache,
+                cached_data,
+                completed_stdout: stdout,
+                completed_stderr: stderr,
+            });
         }
         CacheStatus::Invalid(exit_code) => exit_code,
     };
@@ -156,30 +173,35 @@ fn load_cache_data(
     }
 }
 
-fn output_cached_data(
-    config: &Config,
-    command: &Command,
-    cache: &CacheCursor<'_>,
-    data: &CacheData,
-    stdout: &[u8],
-    stderr: &[u8],
-) -> Result<ExitCode> {
-    ensure!(stdout.len() <= data.stdout.len());
-    ensure!(stderr.len() <= data.stderr.len());
+fn output_cached_data(context: &CacheContext<'_>) -> Result<ExitCode> {
+    let CacheContext {
+        config,
+        command,
+        cache,
+        cached_data,
+        completed_stdout,
+        completed_stderr,
+    } = context;
+
+    ensure!(completed_stdout.len() <= cached_data.stdout.len());
+    ensure!(completed_stderr.len() <= cached_data.stderr.len());
     if DEBUG {
-        ensure!(stdout == &data.stdout[..stdout.len()]);
-        ensure!(stderr == &data.stderr[..stderr.len()]);
+        ensure!(completed_stdout.as_slice() == &cached_data.stdout[..completed_stdout.len()]);
+        ensure!(completed_stderr.as_slice() == &cached_data.stderr[..completed_stdout.len()]);
     }
 
-    let stdout_completed = ops::output_data(&data.stdout[stdout.len()..], io::stdout().lock())?;
-    let stderr_completed = ops::output_data(&data.stderr[stderr.len()..], io::stderr().lock())?;
+    let remaining_stdout = &cached_data.stdout[completed_stdout.len()..];
+    let remaining_stderr = &cached_data.stderr[completed_stderr.len()..];
+    let stdout_completed = ops::output_data(remaining_stdout, io::stdout().lock())?;
+    let stderr_completed = ops::output_data(remaining_stderr, io::stderr().lock())?;
+
     if !config.complete_after_downstream_failure && (!stdout_completed || !stderr_completed) {
         return Ok(BROKEN_PIPE_CODE);
     }
-    if !data.write_outputs.is_empty() {
+    if !cached_data.write_outputs.is_empty() {
         cache.commit_output()?;
     }
     debug_log!("[{}] Outputted cached data and committed files", command.name);
 
-    Ok(ExitCode(data.exit_code))
+    Ok(ExitCode(cached_data.exit_code))
 }
