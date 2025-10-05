@@ -3,7 +3,7 @@ use sha2::{Digest, Sha256};
 use std::fs;
 use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 use std::path::{Path, PathBuf};
-use std::process::ChildStdin;
+use std::process::{Child, ChildStdin};
 use std::sync::mpsc;
 use std::thread::{self, JoinHandle};
 
@@ -11,6 +11,14 @@ use crate::cache::{self, CacheCursor, CacheData};
 use crate::command::{self, ChildContext, Command, Output};
 use crate::config::{CACHE_DIRECTORY, CHUNK_SIZE, Config, DEBUG};
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode};
+
+type StdinThread = Option<JoinHandle<Result<()>>>;
+
+#[derive(Clone, Debug)]
+enum CacheStatus {
+    Valid(CacheData),
+    Invalid(ExitCode),
+}
 
 pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     let sandbox_directory = create_sandbox_directory(command)?;
@@ -23,34 +31,8 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     let (stdin, stdin_thread) = forward_stdin(child.stdin.take().unwrap())?;
     let cache = CacheCursor::new(command, &stdin)?;
     cache.create_directory()?;
-    let cached_data = match cache.load_data()? {
-        Some(cached_data) => {
-            if command::check_read_dependencies(&cached_data.read_dependencies)? {
-                Some(cached_data)
-            } else {
-                None
-            }
-        }
-        None => None,
-    };
 
-    let exit_code = if cached_data.is_some() {
-        if child.try_wait()?.is_none() {
-            command::kill_child(&child)?;
-            child.wait()?;
-        }
-        cache::remove_sandbox(&sandbox_directory)?;
-        None
-    } else {
-        if let Some(stdin_thread) = stdin_thread {
-            stdin_thread.join().map_err(|e| anyhow!("{e:?}"))??;
-        }
-        let exit_code = child.wait()?.code();
-        cache.clean_sandbox_directory()?;
-        cache.clean_data()?;
-        exit_code
-    };
-
+    let cache_status = load_cache_data(&sandbox_directory, &cache, child, stdin_thread)?;
     let stdout = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let (stdout, stderr) = match (stdout, stderr) {
@@ -58,11 +40,12 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         (Output::BrokenPipe, _) | (_, Output::BrokenPipe) => return Ok(BROKEN_PIPE_CODE),
     };
 
-    if let Some(cached_data) = cached_data {
-        ensure!(exit_code.is_none());
-        return output_cached_data(config, &cache, &cached_data, &stdout, &stderr);
-    }
-    let exit_code = exit_code.unwrap();
+    let exit_code = match cache_status {
+        CacheStatus::Valid(cached_data) => {
+            return output_cached_data(config, &cache, &cached_data, &stdout, &stderr);
+        }
+        CacheStatus::Invalid(exit_code) => exit_code,
+    };
 
     let (read_set, write_set) = command::parse_trace(&sandbox_directory)?;
     let read_dependencies = command::get_read_dependencies(read_set, &write_set)?;
@@ -73,14 +56,14 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     }
 
     cache.save_data(&CacheData {
-        exit_code,
+        exit_code: exit_code.0,
         stdout,
         stderr,
         read_dependencies,
         write_outputs: write_set,
     })?;
 
-    Ok(ExitCode(exit_code))
+    Ok(exit_code)
 }
 
 fn create_sandbox_directory(command: &Command) -> Result<PathBuf> {
@@ -99,7 +82,7 @@ fn create_sandbox_directory(command: &Command) -> Result<PathBuf> {
     Ok(directory)
 }
 
-fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(Vec<u8>, Option<JoinHandle<Result<()>>>)> {
+fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(Vec<u8>, StdinThread)> {
     let mut process_stdin = io::stdin().lock();
     if process_stdin.is_terminal() {
         return Ok((Vec::new(), None));
@@ -127,6 +110,44 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(Vec<u8>, Option<JoinHan
     }
 
     Ok((stdin, Some(stdin_thread)))
+}
+
+fn load_cache_data(
+    sandbox_directory: &Path,
+    cache: &CacheCursor<'_>,
+    mut child: Child,
+    stdin_thread: StdinThread,
+) -> Result<CacheStatus> {
+    let cached_data = match cache.load_data()? {
+        Some(cached_data) => {
+            if command::check_read_dependencies(&cached_data.read_dependencies)? {
+                Some(cached_data)
+            } else {
+                None
+            }
+        }
+        None => None,
+    };
+
+    match cached_data {
+        Some(cached_data) => {
+            if child.try_wait()?.is_none() {
+                command::kill_child(&child)?;
+                child.wait()?;
+            }
+            cache::remove_sandbox(sandbox_directory)?;
+            Ok(CacheStatus::Valid(cached_data))
+        }
+        None => {
+            if let Some(stdin_thread) = stdin_thread {
+                stdin_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+            }
+            let exit_code = child.wait()?.code().unwrap();
+            cache.clean_sandbox_directory()?;
+            cache.clean_data()?;
+            Ok(CacheStatus::Invalid(ExitCode(exit_code)))
+        }
+    }
 }
 
 fn output_cached_data(
