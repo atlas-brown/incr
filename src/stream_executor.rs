@@ -10,7 +10,7 @@ use std::thread::{self, JoinHandle};
 use crate::cache::{self, CacheCursor, CacheData};
 use crate::command::{self, ChildContext, Command, Output};
 use crate::config::{CACHE_DIRECTORY, CHUNK_SIZE, Config, DEBUG};
-use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode};
+use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
 type StdinThread = Option<JoinHandle<Result<()>>>;
 
@@ -21,16 +21,20 @@ enum CacheStatus {
 }
 
 pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
+    debug_log!("[{}] Starting stream command", command.name);
+
     let sandbox_directory = create_sandbox_directory(command)?;
     let ChildContext {
         mut child,
         stdout_thread,
         stderr_thread,
     } = command::spawn_command(config, command, &sandbox_directory)?;
+    debug_log!("[{}] Spawned stream child", command.name);
 
     let (stdin, stdin_thread) = forward_stdin(child.stdin.take().unwrap())?;
     let cache = CacheCursor::new(command, &stdin)?;
     cache.create_directory()?;
+    debug_log!("[{}] Loaded cache directory", command.name);
 
     let cache_status = load_cache_data(&sandbox_directory, &cache, child, stdin_thread)?;
     let stdout = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
@@ -39,10 +43,11 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         (Output::Completed(stdout), Output::Completed(stderr)) => (stdout, stderr),
         (Output::BrokenPipe, _) | (_, Output::BrokenPipe) => return Ok(BROKEN_PIPE_CODE),
     };
+    debug_log!("[{}] Loaded cache data and child outputs", command.name);
 
     let exit_code = match cache_status {
         CacheStatus::Valid(cached_data) => {
-            return output_cached_data(config, &cache, &cached_data, &stdout, &stderr);
+            return output_cached_data(config, command, &cache, &cached_data, &stdout, &stderr);
         }
         CacheStatus::Invalid(exit_code) => exit_code,
     };
@@ -54,6 +59,7 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     if !write_set.is_empty() {
         cache.commit_output()?;
     }
+    debug_log!("[{}] Extracted dependencies and committed files", command.name);
 
     cache.save_data(&CacheData {
         exit_code: exit_code.0,
@@ -152,6 +158,7 @@ fn load_cache_data(
 
 fn output_cached_data(
     config: &Config,
+    command: &Command,
     cache: &CacheCursor<'_>,
     data: &CacheData,
     stdout: &[u8],
@@ -172,6 +179,7 @@ fn output_cached_data(
     if !data.write_outputs.is_empty() {
         cache.commit_output()?;
     }
+    debug_log!("[{}] Outputted cached data and committed files", command.name);
 
     Ok(ExitCode(data.exit_code))
 }

@@ -24,8 +24,6 @@ enum Executor {
 
 fn main() {
     ops::initialize_log_file();
-    ops::debug_log!("--------------------------------------------------");
-
     let config = Config {
         complete_after_downstream_failure: true,
     };
