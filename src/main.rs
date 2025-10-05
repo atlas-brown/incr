@@ -24,10 +24,12 @@ enum Executor {
 
 fn main() {
     ops::initialize_log_file();
-    ops::debug_log!("hello");
+    ops::debug_log!("--------------------------------------------------");
+
     let config = Config {
         complete_after_downstream_failure: true,
     };
+
     match run(&config) {
         Ok(exit_code) => process::exit(exit_code.0),
         Err(error) => {

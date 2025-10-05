@@ -7,6 +7,9 @@ use std::fs::{File, OpenOptions};
 use std::io::{BufReader, BufWriter, Error as IoError, ErrorKind, Write};
 use std::path::Path;
 use std::sync::{Mutex, OnceLock};
+use time::format_description::FormatItem;
+use time::macros::format_description;
+use time::{OffsetDateTime, UtcOffset};
 
 use crate::config::{CHUNK_SIZE, DEBUG, DEBUG_LOG_FILE};
 
@@ -44,8 +47,14 @@ pub fn initialize_log_file() {
 }
 
 pub fn log_line(line: &str) {
+    const FORMAT: &[FormatItem<'_>] = format_description!("[hour]:[minute]:[second].[subsecond digits:3]");
+    let offset = UtcOffset::current_local_offset().unwrap_or(UtcOffset::UTC);
+    let timestamp = OffsetDateTime::now_utc()
+        .to_offset(offset)
+        .format(&FORMAT)
+        .unwrap();
     let mut file = LOG_FILE.get().unwrap().lock().unwrap();
-    writeln!(file, "{line}").unwrap();
+    writeln!(file, "[{timestamp}] {line}").unwrap();
 }
 
 pub fn path_to_string(path: &Path) -> Result<&str> {
