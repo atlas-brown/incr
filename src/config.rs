@@ -17,8 +17,8 @@ pub const DEBUG_FILE: &str = "debug_info.json";
 
 pub const CHUNK_SIZE: usize = 65536;
 pub const SUDO_SANDBOX: bool = true;
-pub const DEBUG: bool = true;
-pub const DEBUG_LOGS: bool = DEBUG && true;
+pub const DEBUG: bool = false;
+pub const DEBUG_LOGS: bool = DEBUG && false;
 
 pub const EXCLUDED_VARS: &[&str] = &[
     "SHLVL",
