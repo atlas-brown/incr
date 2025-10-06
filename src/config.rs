@@ -3,12 +3,12 @@ pub struct Config {
     pub complete_after_downstream_failure: bool,
 }
 
-pub const TRY_COMMAND: &str = "./src/try.sh";
+pub const TRY_COMMAND: &str = "/users/jxia3/incr/src/try.sh";
 pub const STRACE_COMMAND: &str = "strace";
 pub const TRACE_FILE: &str = "trace.txt";
 pub const DEBUG_LOG_FILE: &str = "debug_log.txt";
 
-pub const CACHE_DIRECTORY: &str = "cache";
+pub const CACHE_DIRECTORY: &str = "/users/jxia3/incr/cache";
 pub const DATA_FILE: &str = "data";
 pub const SANDBOX_DIRECTORY: &str = "sandbox";
 pub const OUTPUT_DIRECTORY: &str = "outputs";
