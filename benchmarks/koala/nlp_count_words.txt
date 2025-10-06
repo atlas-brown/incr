@@ -1,0 +1,25 @@
+[WITHOUT INCR]
+
+real    0m1.972s
+user    0m1.051s
+sys     0m1.032s
+
+real    0m3.060s
+user    0m2.084s
+sys     0m2.220s
+
+real    0m33.882s
+user    0m33.604s
+sys     0m2.837s
+
+real    1m37.171s
+user    1m38.500s
+sys     0m5.538s
+
+real    1m38.651s
+user    1m43.940s
+sys     0m6.482s
+
+[WITH INCR BATCH]
+
+[WITH INCR STREAM]
