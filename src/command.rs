@@ -6,7 +6,7 @@ use std::fs;
 use std::io::{self, Error as IoError, ErrorKind, Read, Write};
 use std::mem;
 use std::os::unix::process::CommandExt;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::process::{Child, Command as ShellCommand, Stdio};
 use std::thread::{self, JoinHandle};
 
@@ -18,6 +18,12 @@ pub(crate) struct Command {
     pub(crate) name: String,
     pub(crate) arguments: Vec<String>,
     pub(crate) environment: BTreeMap<String, String>,
+}
+
+#[derive(Clone, Debug)]
+pub(crate) enum ChildEnv {
+    Sandbox(PathBuf),
+    TraceFile(PathBuf),
 }
 
 #[derive(Debug)]
@@ -62,13 +68,11 @@ pub(crate) fn get_command() -> Result<Option<Command>> {
     }))
 }
 
-pub(crate) fn spawn_command(
-    config: &Config,
-    command: &Command,
-    sandbox_directory: &Path,
-) -> Result<ChildContext> {
-    fs::create_dir_all(sandbox_directory)?;
-    let mut child = spawn_child(command, sandbox_directory)?;
+pub(crate) fn spawn_command(config: &Config, command: &Command, env: &ChildEnv) -> Result<ChildContext> {
+    if let ChildEnv::Sandbox(directory) = env {
+        fs::create_dir_all(directory)?;
+    }
+    let mut child = spawn_child(command, env)?;
 
     let child_stdout = child.stdout.take().unwrap();
     let child_stderr = child.stderr.take().unwrap();
@@ -88,7 +92,7 @@ pub(crate) fn spawn_command(
     })
 }
 
-fn spawn_child(command: &Command, sandbox_directory: &Path) -> Result<Child> {
+fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
     let mut command_parts = Vec::with_capacity(command.arguments.len() + 1);
     command_parts.push(command.name.as_str());
     command_parts.extend(command.arguments.iter().map(|a| a.as_str()));

@@ -8,7 +8,7 @@ use std::sync::mpsc;
 use std::thread::{self, JoinHandle};
 
 use crate::cache::{self, CacheCursor, CacheData};
-use crate::command::{self, ChildContext, Command, Output};
+use crate::command::{self, ChildContext, ChildEnv, Command, Output};
 use crate::config::{CACHE_DIRECTORY, CHUNK_SIZE, Config, DEBUG};
 use crate::execution;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
@@ -35,11 +35,12 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     debug_log!("[{}] Starting stream command", command.name);
 
     let sandbox_directory = create_sandbox_directory(command)?;
+    let child_env = ChildEnv::Sandbox(sandbox_directory.clone());
     let ChildContext {
         mut child,
         stdout_thread,
         stderr_thread,
-    } = command::spawn_command(config, command, &sandbox_directory)?;
+    } = command::spawn_command(config, command, &child_env)?;
     debug_log!("[{}] Spawned stream child", command.name);
 
     let (stdin, stdin_thread) = forward_stdin(child.stdin.take().unwrap())?;
@@ -70,7 +71,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         CacheStatus::Invalid(exit_code) => exit_code,
     };
 
-    let (read_set, write_set) = execution::parse_trace(&sandbox_directory)?;
+    let (read_set, write_set) = execution::parse_trace(&child_env)?;
     let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
     fs::rename(sandbox_directory, cache.get_sandbox_directory())?;
     cache.extract_sandbox_output()?;

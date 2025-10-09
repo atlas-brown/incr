@@ -11,7 +11,7 @@ use std::process::{Command as ShellCommand, Stdio};
 use crate::command::Command;
 use crate::config::{
     CACHE_DIRECTORY, CHUNK_SIZE, COMMIT_DIRECTORY, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY,
-    SANDBOX_DIRECTORY, SUDO_SANDBOX, TRY_COMMAND,
+    SANDBOX_DIRECTORY, SUDO_SANDBOX, TRACE_FILE, TRY_COMMAND,
 };
 use crate::ops;
 
@@ -40,6 +40,10 @@ impl<'c> CacheCursor<'c> {
 
     pub(crate) fn get_sandbox_directory(&self) -> PathBuf {
         self.directory.join(SANDBOX_DIRECTORY)
+    }
+
+    pub(crate) fn get_trace_file(&self) -> PathBuf {
+        self.directory.join(TRACE_FILE)
     }
 
     pub(crate) fn create_directory(&self) -> Result<()> {

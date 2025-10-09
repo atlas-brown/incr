@@ -2,7 +2,7 @@ use anyhow::{Result, anyhow};
 use std::io::{self, IsTerminal, Read, Write};
 
 use crate::cache::{CacheCursor, CacheData};
-use crate::command::{self, ChildContext, Command, Output};
+use crate::command::{self, ChildContext, ChildEnv, Command, Output};
 use crate::config::Config;
 use crate::execution;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
@@ -54,12 +54,16 @@ fn run_command(
     cache: &CacheCursor<'_>,
     stdin: &[u8],
 ) -> Result<CommandResult> {
-    let sandbox_directory = cache.get_sandbox_directory();
+    let child_env = if !config.skip_sandbox {
+        ChildEnv::Sandbox(cache.get_sandbox_directory())
+    } else {
+        ChildEnv::TraceFile(cache.get_trace_file())
+    };
     let ChildContext {
         mut child,
         stdout_thread,
         stderr_thread,
-    } = command::spawn_command(config, command, &sandbox_directory)?;
+    } = command::spawn_command(config, command, &child_env)?;
     debug_log!("[{}] Spawned batch child", command.name);
 
     {
@@ -75,17 +79,21 @@ fn run_command(
     let (stdout, stderr) = match (stdout, stderr) {
         (Output::Completed(stdout), Output::Completed(stderr)) => (stdout, stderr),
         (Output::BrokenPipe, _) | (_, Output::BrokenPipe) => {
-            cache.clean_sandbox_directory()?;
+            if !config.skip_sandbox {
+                cache.clean_sandbox_directory()?;
+            }
             return Ok(CommandResult::BrokenPipe);
         }
     };
     debug_log!("[{}] Loaded child outputs", command.name);
 
-    let (read_set, write_set) = execution::parse_trace(&sandbox_directory)?;
+    let (read_set, write_set) = execution::parse_trace(&child_env)?;
     let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
-    cache.extract_sandbox_output()?;
-    if !write_set.is_empty() {
-        cache.commit_output()?;
+    if !config.skip_sandbox {
+        cache.extract_sandbox_output()?;
+        if !write_set.is_empty() {
+            cache.commit_output()?;
+        }
     }
     debug_log!("[{}] Extracted dependencies and committed files", command.name);
 
