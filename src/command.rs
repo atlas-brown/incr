@@ -124,7 +124,7 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
             ops::path_to_string(file)?,
             "bash",
             "-c",
-            &shlex::try_quote(&command_string)?,
+            &command_string,
         ],
     };
 
