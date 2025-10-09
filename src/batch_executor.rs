@@ -14,7 +14,12 @@ enum CommandResult {
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    debug_log!("[{}] Starting batch command", command.name);
+    let skip_sandbox = execution::skip_sandbox(config, command);
+    debug_log!(
+        "[{}] Starting batch command (skip_sandbox={})",
+        command.name,
+        skip_sandbox,
+    );
 
     let mut stdin = Vec::new();
     {
