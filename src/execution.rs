@@ -59,7 +59,7 @@ pub(crate) fn parse_trace(env: &ChildEnv) -> Result<(HashSet<PathBuf>, HashSet<P
         ChildEnv::TraceFile(file) => file,
     };
     let output = ShellCommand::new("python3")
-        .args(["-c", PARSE_TRACE_SCRIPT, ops::path_to_string(&trace_file)?])
+        .args(["-c", PARSE_TRACE_SCRIPT, ops::path_to_string(trace_file)?])
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
         .stderr(Stdio::null())
