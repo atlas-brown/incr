@@ -144,7 +144,7 @@ fn load_cache_data(
 ) -> Result<CacheStatus> {
     let cached_data = match cache.load_data()? {
         Some(cached_data) => {
-            if execution::check_cache_valid(&cached_data)? {
+            if execution::check_cache_valid(&cache, &cached_data)? {
                 Some(cached_data)
             } else {
                 None

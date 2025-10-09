@@ -61,18 +61,6 @@ impl<'c> CacheCursor<'c> {
         Ok(())
     }
 
-    pub(crate) fn clean_sandbox_directory(&self) -> Result<()> {
-        remove_sandbox(&self.directory.join(SANDBOX_DIRECTORY))
-    }
-
-    pub(crate) fn clean_data(&self) -> Result<()> {
-        let data_file = ops::add_data_extension(DATA_FILE.to_owned());
-        ops::ignore_not_found(fs::remove_dir_all(self.directory.join(OUTPUT_DIRECTORY)))?;
-        ops::ignore_not_found(fs::remove_dir_all(self.directory.join(COMMIT_DIRECTORY)))?;
-        ops::ignore_not_found(fs::remove_file(data_file))?;
-        Ok(())
-    }
-
     pub(crate) fn extract_sandbox_output(&self) -> Result<()> {
         let sandbox_directory = self.directory.join(SANDBOX_DIRECTORY);
         let output_directory = self.directory.join(OUTPUT_DIRECTORY);
@@ -112,6 +100,23 @@ impl<'c> CacheCursor<'c> {
             .wait()?;
         fs::remove_dir_all(&commit_directory)?;
 
+        Ok(())
+    }
+
+    pub(crate) fn check_output_exists(&self) -> bool {
+        let output_directory = self.directory.join(OUTPUT_DIRECTORY);
+        output_directory.is_dir()
+    }
+
+    pub(crate) fn clean_sandbox_directory(&self) -> Result<()> {
+        remove_sandbox(&self.directory.join(SANDBOX_DIRECTORY))
+    }
+
+    pub(crate) fn clean_data(&self) -> Result<()> {
+        let data_file = ops::add_data_extension(DATA_FILE.to_owned());
+        ops::ignore_not_found(fs::remove_dir_all(self.directory.join(OUTPUT_DIRECTORY)))?;
+        ops::ignore_not_found(fs::remove_dir_all(self.directory.join(COMMIT_DIRECTORY)))?;
+        ops::ignore_not_found(fs::remove_file(data_file))?;
         Ok(())
     }
 

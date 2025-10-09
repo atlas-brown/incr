@@ -33,7 +33,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     let cache = CacheCursor::new(command, &stdin)?;
     cache.create_directory()?;
     if let Some(cached_data) = cache.load_data()?
-        && execution::check_cache_valid(&cached_data)?
+        && execution::check_cache_valid(&cache, &cached_data)?
     {
         return output_cached_data(config, command, &cache, &cached_data);
     }

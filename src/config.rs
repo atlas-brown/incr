@@ -40,8 +40,8 @@ pub(crate) const DEBUG_FILE: &str = "debug_info.json";
 
 pub(crate) const CHUNK_SIZE: usize = 65536;
 pub(crate) const SUDO_SANDBOX: bool = true;
-pub(crate) const DEBUG: bool = false;
-pub(crate) const DEBUG_LOGS: bool = DEBUG && false;
+pub(crate) const DEBUG: bool = true;
+pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
 
 pub(crate) const SKIP_COMMANDS: &[&str] = &["cat", "cd", "ls", "mkdir", "mv", "rm"];
 pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
