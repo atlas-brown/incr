@@ -13,9 +13,12 @@ Toggle the `DEBUG` and `DEBUG_LOGS` flag in `src/config.rs` to enable debug info
 
 ## Benchmark Setup
 
-The `benchmarks/war_and_peace` directory contains a basic benchmark that counts the number of words in War and Peace. Run the scripts `./benchmarks/war_and_peace/with_cache.sh` and `./benchmarks/war_and_peace/without_cache.sh` from the directory above `src` where the relative path accesses are correct.
+The `benchmarks/war_and_peace` directory contains a basic benchmark that counts the number of words in War and Peace.
+Run the scripts `./benchmarks/war_and_peace/with_cache.sh` and `./benchmarks/war_and_peace/without_cache.sh` from the directory above `src` where the relative path accesses are correct.
 
-Install the Koala benchmarks by cloning the repository https://github.com/kbensh/koala. The benchmark scripts need to be manually edited to insert invocations of `target/release/incr`. An example edited script from the NLP benchmark is:
+Install the Koala benchmarks by cloning the repository https://github.com/kbensh/koala.
+The benchmark scripts need to be manually edited to insert invocations of `target/release/incr`.
+An example edited script from the NLP benchmark is:
 
 ```sh
 #!/bin/bash
