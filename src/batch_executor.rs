@@ -4,6 +4,7 @@ use std::io::{self, IsTerminal, Read, Write};
 use crate::cache::{CacheCursor, CacheData};
 use crate::command::{self, ChildContext, Command, Output};
 use crate::config::Config;
+use crate::execution;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
 #[derive(Clone, Debug)]
@@ -27,7 +28,7 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     let cache = CacheCursor::new(command, &stdin)?;
     cache.create_directory()?;
     if let Some(cached_data) = cache.load_data()?
-        && command::check_read_dependencies(&cached_data.read_dependencies)?
+        && execution::check_cache_valid(&cached_data)?
     {
         return output_cached_data(config, command, &cache, &cached_data);
     }
@@ -76,8 +77,8 @@ fn run_command(
     };
     debug_log!("[{}] Loaded child outputs", command.name);
 
-    let (read_set, write_set) = command::parse_trace(&sandbox_directory)?;
-    let read_dependencies = command::get_read_dependencies(read_set, &write_set)?;
+    let (read_set, write_set) = execution::parse_trace(&sandbox_directory)?;
+    let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
     cache.extract_sandbox_output()?;
     if !write_set.is_empty() {
         cache.commit_output()?;

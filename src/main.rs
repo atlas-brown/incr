@@ -4,6 +4,7 @@ mod batch_executor;
 mod cache;
 mod command;
 mod config;
+mod execution;
 mod ops;
 mod stream_executor;
 

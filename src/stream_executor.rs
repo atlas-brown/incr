@@ -10,6 +10,7 @@ use std::thread::{self, JoinHandle};
 use crate::cache::{self, CacheCursor, CacheData};
 use crate::command::{self, ChildContext, Command, Output};
 use crate::config::{CACHE_DIRECTORY, CHUNK_SIZE, Config, DEBUG};
+use crate::execution;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
 type StdinThread = Option<JoinHandle<Result<()>>>;
@@ -69,8 +70,8 @@ pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         CacheStatus::Invalid(exit_code) => exit_code,
     };
 
-    let (read_set, write_set) = command::parse_trace(&sandbox_directory)?;
-    let read_dependencies = command::get_read_dependencies(read_set, &write_set)?;
+    let (read_set, write_set) = execution::parse_trace(&sandbox_directory)?;
+    let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
     fs::rename(sandbox_directory, cache.get_sandbox_directory())?;
     cache.extract_sandbox_output()?;
     if !write_set.is_empty() {
@@ -143,7 +144,7 @@ fn load_cache_data(
 ) -> Result<CacheStatus> {
     let cached_data = match cache.load_data()? {
         Some(cached_data) => {
-            if command::check_read_dependencies(&cached_data.read_dependencies)? {
+            if execution::check_cache_valid(&cached_data)? {
                 Some(cached_data)
             } else {
                 None
