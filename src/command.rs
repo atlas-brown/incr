@@ -153,7 +153,7 @@ where
                     return Err(error.into());
                 }
                 destination_broken = true;
-                if !config.complete_after_downstream_failure {
+                if !config.complete_execution {
                     data.extend_from_slice(&chunk[..count]);
                     return Ok(Output::BrokenPipe);
                 }

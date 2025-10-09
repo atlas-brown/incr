@@ -14,11 +14,10 @@ enum CommandResult {
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    let skip_sandbox = execution::skip_sandbox(config, command);
     debug_log!(
         "[{}] Starting batch command (skip_sandbox={})",
         command.name,
-        skip_sandbox,
+        config.skip_sandbox,
     );
 
     let mut stdin = Vec::new();
@@ -108,7 +107,7 @@ fn output_cached_data(
     let stdout_completed = ops::output_data(&data.stdout, io::stdout().lock())?;
     let stderr_completed = ops::output_data(&data.stderr, io::stderr().lock())?;
 
-    if !config.complete_after_downstream_failure && (!stdout_completed || !stderr_completed) {
+    if !config.complete_execution && (!stdout_completed || !stderr_completed) {
         return Ok(BROKEN_PIPE_CODE);
     }
     if !data.write_outputs.is_empty() {

@@ -1,7 +1,7 @@
 #[derive(Clone, Debug)]
 pub(crate) struct Config {
-    pub(crate) enable_sandbox_skipping: bool,
-    pub(crate) complete_after_downstream_failure: bool,
+    pub(crate) skip_sandbox: bool,       // Do not use a try sandbox
+    pub(crate) complete_execution: bool, // Complete after a downstream failure
 }
 
 #[derive(Clone, Debug)]

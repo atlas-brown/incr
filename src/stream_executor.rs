@@ -196,7 +196,7 @@ fn output_cached_data(context: &CacheContext<'_>) -> Result<ExitCode> {
     let stdout_completed = ops::output_data(remaining_stdout, io::stdout().lock())?;
     let stderr_completed = ops::output_data(remaining_stderr, io::stderr().lock())?;
 
-    if !config.complete_after_downstream_failure && (!stdout_completed || !stderr_completed) {
+    if !config.complete_execution && (!stdout_completed || !stderr_completed) {
         return Ok(BROKEN_PIPE_CODE);
     }
     if !cached_data.write_outputs.is_empty() {
