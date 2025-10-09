@@ -9,13 +9,28 @@ use std::time::UNIX_EPOCH;
 
 use crate::cache::{CacheData, DependencyKey};
 use crate::command::Command;
-use crate::config::{EXCLUDED_PATHS, SKIP_COMMANDS, SKIP_SANDBOX_COMMANDS, TRACE_FILE};
+use crate::config::{EXCLUDED_PATHS, SKIP_COMMANDS, SKIP_SANDBOX_CONDITIONS, TRACE_FILE};
 use crate::ops;
 
 const PARSE_TRACE_SCRIPT: &str = include_str!("parse_trace.py");
 
 pub fn skip_sandbox(command: &Command) -> bool {
     if SKIP_COMMANDS.contains(&command.name.as_str()) {
+        return true;
+    }
+    for condition in SKIP_SANDBOX_CONDITIONS {
+        if condition.name != command.name {
+            continue;
+        }
+        for flag in condition.disallowed_flags {
+            if command
+                .arguments
+                .iter()
+                .any(|a| a == flag || a.starts_with(&format!("{flag}=")))
+            {
+                return false;
+            }
+        }
         return true;
     }
     false
