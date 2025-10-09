@@ -6,7 +6,7 @@ use std::fs;
 use std::io::{self, Error as IoError, ErrorKind, Read, Write};
 use std::mem;
 use std::os::unix::process::CommandExt;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 use std::process::{Child, Command as ShellCommand, Stdio};
 use std::thread::{self, JoinHandle};
 
@@ -98,21 +98,37 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
     command_parts.extend(command.arguments.iter().map(|a| a.as_str()));
     let command_string = shlex::try_join(command_parts)?;
 
-    let arguments = &[
-        "-D",
-        ops::path_to_string(sandbox_directory)?,
-        STRACE_COMMAND,
-        "-yf",
-        "--seccomp-bpf",
-        "--trace=fork,clone,%file",
-        "-o",
-        &format!("/tmp/{TRACE_FILE}"),
-        "bash",
-        "-c",
-        &shlex::try_quote(&command_string)?,
-    ];
+    let child_command = match env {
+        ChildEnv::Sandbox(_) => TRY_COMMAND,
+        ChildEnv::TraceFile(_) => STRACE_COMMAND,
+    };
+    let arguments = match env {
+        ChildEnv::Sandbox(directory) => &[
+            "-D",
+            ops::path_to_string(directory)?,
+            STRACE_COMMAND,
+            "-yf",
+            "--seccomp-bpf",
+            "--trace=fork,clone,%file",
+            "-o",
+            &format!("/tmp/{TRACE_FILE}"),
+            "bash",
+            "-c",
+            &shlex::try_quote(&command_string)?,
+        ] as &[&str],
+        ChildEnv::TraceFile(file) => &[
+            "-yf",
+            "--seccomp-bpf",
+            "--trace=fork,clone,%file",
+            "-o",
+            ops::path_to_string(file)?,
+            "bash",
+            "-c",
+            &shlex::try_quote(&command_string)?,
+        ],
+    };
 
-    let mut child = ShellCommand::new(TRY_COMMAND);
+    let mut child = ShellCommand::new(child_command);
     child
         .args(arguments)
         .stdin(Stdio::piped())
