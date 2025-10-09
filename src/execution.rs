@@ -8,10 +8,18 @@ use std::process::{Command as ShellCommand, Stdio};
 use std::time::UNIX_EPOCH;
 
 use crate::cache::{CacheData, DependencyKey};
-use crate::config::{EXCLUDED_PATHS, TRACE_FILE};
+use crate::command::Command;
+use crate::config::{EXCLUDED_PATHS, SKIP_COMMANDS, SKIP_SANDBOX_COMMANDS, TRACE_FILE};
 use crate::ops;
 
 const PARSE_TRACE_SCRIPT: &str = include_str!("parse_trace.py");
+
+pub fn skip_sandbox(command: &Command) -> bool {
+    if SKIP_COMMANDS.contains(&command.name.as_str()) {
+        return true;
+    }
+    false
+}
 
 pub fn check_cache_valid(data: &CacheData) -> Result<bool> {
     check_read_dependencies(&data.read_dependencies)

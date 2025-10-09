@@ -10,7 +10,7 @@ use std::path::Path;
 use std::process::{Child, Command as ShellCommand, Stdio};
 use std::thread::{self, JoinHandle};
 
-use crate::config::{CHUNK_SIZE, Config, EXCLUDED_VARS, STRACE_COMMAND, TRACE_FILE, TRY_COMMAND};
+use crate::config::{CHUNK_SIZE, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRACE_FILE, TRY_COMMAND};
 use crate::ops;
 
 #[derive(Clone, Debug, Encode)]
@@ -47,7 +47,7 @@ pub fn get_command() -> Result<Option<Command>> {
     };
     let name = arguments.remove(0);
 
-    let excluded_vars = EXCLUDED_VARS.iter().copied().collect::<HashSet<_>>();
+    let excluded_vars = EXCLUDED_VARIABLES.iter().copied().collect::<HashSet<_>>();
     let mut environment = BTreeMap::new();
     for (var, value) in env::vars() {
         if !excluded_vars.contains(var.as_str()) {
