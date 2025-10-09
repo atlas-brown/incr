@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
 
 COPY . /app
 WORKDIR /app
+RUN pip3 install --no-cache-dir -r requirements.txt
 RUN chmod +x setup.sh && ./setup.sh
 
 CMD ["/bin/bash"]
