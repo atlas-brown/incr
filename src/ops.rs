@@ -13,9 +13,9 @@ use time::{OffsetDateTime, UtcOffset};
 
 use crate::config::{CHUNK_SIZE, DEBUG, DEBUG_LOG_FILE, DEBUG_LOGS};
 
-pub const SUCCESS_CODE: ExitCode = ExitCode(0);
-pub const FAILURE_CODE: ExitCode = ExitCode(1);
-pub const BROKEN_PIPE_CODE: ExitCode = ExitCode(141);
+pub(crate) const SUCCESS_CODE: ExitCode = ExitCode(0);
+pub(crate) const FAILURE_CODE: ExitCode = ExitCode(1);
+pub(crate) const BROKEN_PIPE_CODE: ExitCode = ExitCode(141);
 
 macro_rules! debug_log {
     ($($arg:tt)*) => {
@@ -31,9 +31,9 @@ pub(crate) use debug_log;
 static LOG_FILE: OnceLock<Mutex<File>> = OnceLock::new();
 
 #[derive(Clone, Copy, Debug)]
-pub struct ExitCode(pub i32);
+pub(crate) struct ExitCode(pub(crate) i32);
 
-pub fn initialize_log_file() {
+pub(crate) fn initialize_log_file() {
     if DEBUG_LOGS {
         LOG_FILE.get_or_init(|| {
             let file = OpenOptions::new()
@@ -46,7 +46,7 @@ pub fn initialize_log_file() {
     }
 }
 
-pub fn log_line(line: &str) {
+pub(crate) fn log_line(line: &str) {
     const FORMAT: &[FormatItem<'_>] = format_description!("[hour]:[minute]:[second].[subsecond digits:3]");
     let offset = UtcOffset::current_local_offset().unwrap_or(UtcOffset::UTC);
     let timestamp = OffsetDateTime::now_utc()
@@ -57,11 +57,11 @@ pub fn log_line(line: &str) {
     writeln!(file, "[{timestamp}] {line}").unwrap();
 }
 
-pub fn path_to_string(path: &Path) -> Result<&str> {
+pub(crate) fn path_to_string(path: &Path) -> Result<&str> {
     path.to_str().ok_or(anyhow!("Could not format path"))
 }
 
-pub fn add_data_extension(mut file_name: String) -> String {
+pub(crate) fn add_data_extension(mut file_name: String) -> String {
     if !DEBUG {
         file_name.push_str(".incr");
     } else {
@@ -70,7 +70,7 @@ pub fn add_data_extension(mut file_name: String) -> String {
     file_name
 }
 
-pub fn ignore_not_found(result: Result<(), IoError>) -> Result<()> {
+pub(crate) fn ignore_not_found(result: Result<(), IoError>) -> Result<()> {
     match result {
         Ok(()) => Ok(()),
         Err(error) if error.kind() == ErrorKind::NotFound => Ok(()),
@@ -78,7 +78,7 @@ pub fn ignore_not_found(result: Result<(), IoError>) -> Result<()> {
     }
 }
 
-pub fn output_data<D>(data: &[u8], mut destination: D) -> Result<bool>
+pub(crate) fn output_data<D>(data: &[u8], mut destination: D) -> Result<bool>
 where
     D: Write,
 {
@@ -93,14 +93,14 @@ where
     }
 }
 
-pub fn encode_to_vec<T>(value: &T) -> Result<Vec<u8>>
+pub(crate) fn encode_to_vec<T>(value: &T) -> Result<Vec<u8>>
 where
     T: Encode,
 {
     bincode::encode_to_vec(value, get_bincode_config()).map_err(|e| e.into())
 }
 
-pub fn encode_to_file<T>(value: &T, directory: &Path, file_name: String) -> Result<()>
+pub(crate) fn encode_to_file<T>(value: &T, directory: &Path, file_name: String) -> Result<()>
 where
     T: Encode + Serialize,
 {
@@ -116,7 +116,7 @@ where
     Ok(())
 }
 
-pub fn decode_from_file<T>(directory: &Path, file_name: String) -> Result<Option<T>>
+pub(crate) fn decode_from_file<T>(directory: &Path, file_name: String) -> Result<Option<T>>
 where
     T: Decode<()> + DeserializeOwned,
 {
@@ -149,11 +149,11 @@ fn get_bincode_config() -> Configuration<LittleEndian, Fixint, NoLimit> {
         .with_fixed_int_encoding()
 }
 
-pub mod serialize_byte_slice {
+pub(crate) mod serialize_byte_slice {
     use base64::prelude::*;
     use serde::{Serialize, Serializer};
 
-    pub fn serialize<S>(bytes: &[u8], serializer: S) -> Result<S::Ok, S::Error>
+    pub(crate) fn serialize<S>(bytes: &[u8], serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
     {
@@ -166,12 +166,12 @@ pub mod serialize_byte_slice {
     }
 }
 
-pub mod serialize_byte_vec {
+pub(crate) mod serialize_byte_vec {
     use base64::prelude::*;
     use serde::de::Error as DeserializeError;
     use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
-    pub fn serialize<S>(bytes: &Vec<u8>, serializer: S) -> Result<S::Ok, S::Error>
+    pub(crate) fn serialize<S>(bytes: &Vec<u8>, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
     {
@@ -183,7 +183,7 @@ pub mod serialize_byte_vec {
         }
     }
 
-    pub fn deserialize<'de, D>(deserializer: D) -> Result<Vec<u8>, D::Error>
+    pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Vec<u8>, D::Error>
     where
         D: Deserializer<'de>,
     {

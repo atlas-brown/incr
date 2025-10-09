@@ -31,7 +31,7 @@ struct CacheContext<'c> {
     completed_stderr: Vec<u8>,
 }
 
-pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
+pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     debug_log!("[{}] Starting stream command", command.name);
 
     let sandbox_directory = create_sandbox_directory(command)?;

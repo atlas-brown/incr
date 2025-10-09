@@ -14,26 +14,26 @@ use crate::config::{CHUNK_SIZE, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRAC
 use crate::ops;
 
 #[derive(Clone, Debug, Encode)]
-pub struct Command {
-    pub name: String,
-    pub arguments: Vec<String>,
-    pub environment: BTreeMap<String, String>,
+pub(crate) struct Command {
+    pub(crate) name: String,
+    pub(crate) arguments: Vec<String>,
+    pub(crate) environment: BTreeMap<String, String>,
 }
 
 #[derive(Debug)]
-pub struct ChildContext {
-    pub child: Child,
-    pub stdout_thread: JoinHandle<Result<Output>>,
-    pub stderr_thread: JoinHandle<Result<Output>>,
+pub(crate) struct ChildContext {
+    pub(crate) child: Child,
+    pub(crate) stdout_thread: JoinHandle<Result<Output>>,
+    pub(crate) stderr_thread: JoinHandle<Result<Output>>,
 }
 
 #[derive(Clone, Debug)]
-pub enum Output {
+pub(crate) enum Output {
     Completed(Vec<u8>),
     BrokenPipe,
 }
 
-pub fn get_command() -> Result<Option<Command>> {
+pub(crate) fn get_command() -> Result<Option<Command>> {
     let mut arguments = env::args().collect::<Vec<String>>();
     if arguments.len() <= 1 {
         return Ok(None);
@@ -62,7 +62,11 @@ pub fn get_command() -> Result<Option<Command>> {
     }))
 }
 
-pub fn spawn_command(config: &Config, command: &Command, sandbox_directory: &Path) -> Result<ChildContext> {
+pub(crate) fn spawn_command(
+    config: &Config,
+    command: &Command,
+    sandbox_directory: &Path,
+) -> Result<ChildContext> {
     fs::create_dir_all(sandbox_directory)?;
     let mut child = spawn_child(command, sandbox_directory)?;
 
@@ -162,7 +166,7 @@ where
     Ok(Output::Completed(data))
 }
 
-pub fn kill_child(child: &Child) -> Result<()> {
+pub(crate) fn kill_child(child: &Child) -> Result<()> {
     let group_id = child.id() as i32;
     let kill_result = unsafe { libc::kill(-group_id, libc::SIGKILL) };
     if kill_result == -1 {

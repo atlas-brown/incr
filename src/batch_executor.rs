@@ -13,7 +13,7 @@ enum CommandResult {
     BrokenPipe,
 }
 
-pub fn run(config: &Config, command: &Command) -> Result<ExitCode> {
+pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     debug_log!("[{}] Starting batch command", command.name);
 
     let mut stdin = Vec::new();

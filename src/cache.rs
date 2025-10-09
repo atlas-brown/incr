@@ -16,13 +16,13 @@ use crate::config::{
 use crate::ops;
 
 #[derive(Clone, Debug)]
-pub struct CacheCursor<'c> {
+pub(crate) struct CacheCursor<'c> {
     info: CacheInfo<'c>,
     directory: PathBuf,
 }
 
 impl<'c> CacheCursor<'c> {
-    pub fn new(command: &'c Command, stdin: &'c [u8]) -> Result<Self> {
+    pub(crate) fn new(command: &'c Command, stdin: &'c [u8]) -> Result<Self> {
         let info = CacheInfo {
             name: &command.name,
             arguments: &command.arguments,
@@ -38,11 +38,11 @@ impl<'c> CacheCursor<'c> {
         Ok(Self { info, directory })
     }
 
-    pub fn get_sandbox_directory(&self) -> PathBuf {
+    pub(crate) fn get_sandbox_directory(&self) -> PathBuf {
         self.directory.join(SANDBOX_DIRECTORY)
     }
 
-    pub fn create_directory(&self) -> Result<()> {
+    pub(crate) fn create_directory(&self) -> Result<()> {
         if self.directory.is_dir() {
             return Ok(());
         }
@@ -61,11 +61,11 @@ impl<'c> CacheCursor<'c> {
         Ok(())
     }
 
-    pub fn clean_sandbox_directory(&self) -> Result<()> {
+    pub(crate) fn clean_sandbox_directory(&self) -> Result<()> {
         remove_sandbox(&self.directory.join(SANDBOX_DIRECTORY))
     }
 
-    pub fn clean_data(&self) -> Result<()> {
+    pub(crate) fn clean_data(&self) -> Result<()> {
         let data_file = ops::add_data_extension(DATA_FILE.to_owned());
         ops::ignore_not_found(fs::remove_dir_all(self.directory.join(OUTPUT_DIRECTORY)))?;
         ops::ignore_not_found(fs::remove_dir_all(self.directory.join(COMMIT_DIRECTORY)))?;
@@ -73,7 +73,7 @@ impl<'c> CacheCursor<'c> {
         Ok(())
     }
 
-    pub fn extract_sandbox_output(&self) -> Result<()> {
+    pub(crate) fn extract_sandbox_output(&self) -> Result<()> {
         let sandbox_directory = self.directory.join(SANDBOX_DIRECTORY);
         let output_directory = self.directory.join(OUTPUT_DIRECTORY);
 
@@ -88,7 +88,7 @@ impl<'c> CacheCursor<'c> {
         Ok(())
     }
 
-    pub fn commit_output(&self) -> Result<()> {
+    pub(crate) fn commit_output(&self) -> Result<()> {
         let output_directory = self.directory.join(OUTPUT_DIRECTORY);
         let commit_directory = self.directory.join(COMMIT_DIRECTORY);
 
@@ -115,11 +115,11 @@ impl<'c> CacheCursor<'c> {
         Ok(())
     }
 
-    pub fn load_data(&self) -> Result<Option<CacheData>> {
+    pub(crate) fn load_data(&self) -> Result<Option<CacheData>> {
         ops::decode_from_file(&self.directory, DATA_FILE.to_owned())
     }
 
-    pub fn save_data(&self, data: &CacheData) -> Result<()> {
+    pub(crate) fn save_data(&self, data: &CacheData) -> Result<()> {
         ops::encode_to_file(data, &self.directory, DATA_FILE.to_owned())
     }
 }
@@ -134,24 +134,24 @@ struct CacheInfo<'c> {
 }
 
 #[derive(Clone, Debug, Decode, Deserialize, Encode, Serialize)]
-pub struct CacheData {
-    pub exit_code: i32,
+pub(crate) struct CacheData {
+    pub(crate) exit_code: i32,
     #[serde(with = "ops::serialize_byte_vec")]
-    pub stdout: Vec<u8>,
+    pub(crate) stdout: Vec<u8>,
     #[serde(with = "ops::serialize_byte_vec")]
-    pub stderr: Vec<u8>,
-    pub read_dependencies: HashMap<PathBuf, DependencyKey>,
-    pub write_outputs: HashSet<PathBuf>,
+    pub(crate) stderr: Vec<u8>,
+    pub(crate) read_dependencies: HashMap<PathBuf, DependencyKey>,
+    pub(crate) write_outputs: HashSet<PathBuf>,
 }
 
 #[derive(Clone, Debug, Decode, Deserialize, Encode, Serialize)]
-pub enum DependencyKey {
+pub(crate) enum DependencyKey {
     DoesNotExist,
     Timestamp(u128),
     Hash(String),
 }
 
-pub fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {
+pub(crate) fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {
     if SUDO_SANDBOX {
         if !sandbox_directory.exists() {
             return Ok(());

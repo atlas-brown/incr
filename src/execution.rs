@@ -14,7 +14,7 @@ use crate::ops;
 
 const PARSE_TRACE_SCRIPT: &str = include_str!("parse_trace.py");
 
-pub fn skip_sandbox(command: &Command) -> bool {
+pub(crate) fn skip_sandbox(command: &Command) -> bool {
     if SKIP_COMMANDS.contains(&command.name.as_str()) {
         return true;
     }
@@ -36,11 +36,11 @@ pub fn skip_sandbox(command: &Command) -> bool {
     false
 }
 
-pub fn check_cache_valid(data: &CacheData) -> Result<bool> {
+pub(crate) fn check_cache_valid(data: &CacheData) -> Result<bool> {
     check_read_dependencies(&data.read_dependencies)
 }
 
-pub fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
+pub(crate) fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
     #[derive(Clone, Copy, Debug, PartialEq)]
     enum ParseState {
         Start,
@@ -91,7 +91,7 @@ pub fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSe
     Ok((read_set, write_set))
 }
 
-pub fn get_read_dependencies(
+pub(crate) fn get_read_dependencies(
     read_set: HashSet<PathBuf>,
     write_set: &HashSet<PathBuf>,
 ) -> Result<HashMap<PathBuf, DependencyKey>> {

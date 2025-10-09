@@ -42,8 +42,8 @@ pub(crate) const SUDO_SANDBOX: bool = true;
 pub(crate) const DEBUG: bool = false;
 pub(crate) const DEBUG_LOGS: bool = DEBUG && false;
 
-pub const SKIP_COMMANDS: &[&str] = &["cat", "cd", "ls", "mkdir", "mv", "rm"];
-pub const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
+pub(crate) const SKIP_COMMANDS: &[&str] = &["cat", "cd", "ls", "mkdir", "mv", "rm"];
+pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
     SkipCondition::without_flags("echo"),
     SkipCondition::without_flags("grep"),
     SkipCondition::with_flags("sort", &["-o", "--output"]),
