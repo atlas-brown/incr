@@ -1,5 +1,5 @@
 use anyhow::{Result, anyhow};
-use std::io::{self, IsTerminal, Read, Write};
+use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 
 use crate::cache::{CacheCursor, CacheData};
 use crate::command::{self, ChildContext, ChildEnv, Command, Output};
@@ -68,8 +68,11 @@ fn run_command(
 
     {
         let mut child_stdin = child.stdin.take().unwrap();
-        child_stdin.write_all(stdin)?;
-        child_stdin.flush()?;
+        if let Err(error) = child_stdin.write_all(stdin)
+            && error.kind() != ErrorKind::BrokenPipe
+        {
+            return Err(error.into());
+        }
     }
     debug_log!("[{}] Finished sending stdin to child", command.name);
 
