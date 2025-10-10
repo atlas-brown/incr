@@ -16,30 +16,40 @@ use crate::ops;
 
 #[derive(Clone, Debug)]
 pub(crate) struct CacheCursor<'c> {
-    info: CacheInfo<'c>,
     directory: PathBuf,
+    info: Option<CacheInfo<'c>>,
 }
 
 impl<'c> CacheCursor<'c> {
     pub(crate) fn from_stdin(command: &'c Command, stdin: &'c [u8]) -> Result<Self> {
-        let info = CacheInfo {
-            name: &command.name,
-            arguments: &command.arguments,
-            environment: &command.environment,
-            stdin: Some(stdin),
+        let stdin_hash = ops::hash_bytes(stdin);
+        let info = if DEBUG {
+            Some(CacheInfo {
+                name: &command.name,
+                arguments: &command.arguments,
+                environment: &command.environment,
+                stdin,
+            })
+        } else {
+            None
         };
-        Self::from_hash(command, ops::hash_bytes(&ops::encode_to_vec(&info)?))
+        Self::with_info(command, stdin_hash, info)
     }
 
-    pub(crate) fn from_hash(command: &'c Command, hash: u64) -> Result<Self> {
-        let info = CacheInfo {
+    pub(crate) fn from_hash(command: &Command, stdin_hash: u64) -> Result<Self> {
+        Self::with_info(command, stdin_hash, None)
+    }
+
+    fn with_info(command: &Command, stdin_hash: u64, info: Option<CacheInfo<'c>>) -> Result<Self> {
+        let key_data = CacheKey {
             name: &command.name,
             arguments: &command.arguments,
             environment: &command.environment,
-            stdin: None,
+            stdin_hash,
         };
+        let hash = ops::hash_bytes(&ops::encode_to_vec(&key_data)?);
         let directory = Path::new(CACHE_DIRECTORY).join(format!("cache_{hash}"));
-        Ok(Self { info, directory })
+        Ok(Self { directory, info })
     }
 
     pub(crate) fn get_sandbox_directory(&self) -> PathBuf {
@@ -59,10 +69,10 @@ impl<'c> CacheCursor<'c> {
         }
 
         fs::create_dir_all(&self.directory)?;
-        if DEBUG {
+        if let Some(info) = &self.info {
             let file = File::create(self.directory.join(DEBUG_FILE))?;
             let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
-            serde_json::to_writer_pretty(&mut file_writer, &self.info)?;
+            serde_json::to_writer_pretty(&mut file_writer, info)?;
             file_writer.flush()?;
         }
 
@@ -143,7 +153,15 @@ struct CacheInfo<'c> {
     arguments: &'c [String],
     environment: &'c BTreeMap<String, String>,
     #[serde(with = "ops::serialize_byte_slice")]
-    stdin: Option<&'c [u8]>,
+    stdin: &'c [u8],
+}
+
+#[derive(Clone, Debug, Encode)]
+struct CacheKey<'c> {
+    name: &'c str,
+    arguments: &'c [String],
+    environment: &'c BTreeMap<String, String>,
+    stdin_hash: u64,
 }
 
 #[derive(Clone, Debug, Decode, Deserialize, Encode, Serialize)]

@@ -1,3 +1,7 @@
+No incr time:
+Incr stream time:
+Cache size: 940 MB
+
 [NO INCR]
 
 real    0m1.068s
