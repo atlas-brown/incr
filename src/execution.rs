@@ -1,11 +1,11 @@
 use anyhow::{Result, ensure};
-use sha2::{Digest, Sha256};
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::{self, ErrorKind};
 use std::path::{Path, PathBuf};
 use std::process::{Command as ShellCommand, Stdio};
 use std::time::UNIX_EPOCH;
+use xxhash_rust::xxh3::Xxh3;
 
 use crate::cache::{CacheCursor, CacheData, DependencyKey};
 use crate::command::{ChildEnv, Command};
@@ -175,9 +175,9 @@ fn get_file_hash(file_path: &Path) -> Result<Option<String>> {
         Err(error) => return Err(error.into()),
     };
 
-    let mut hasher = Sha256::new();
+    let mut hasher = Box::new(Xxh3::new());
     io::copy(&mut file, &mut hasher)?;
-    let hash = format!("{:x}", hasher.finalize());
+    let hash = format!("{}", hasher.digest());
 
     Ok(Some(hash))
 }

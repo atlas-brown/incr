@@ -1,11 +1,11 @@
 use anyhow::{Result, anyhow, ensure};
-use sha2::{Digest, Sha256};
 use std::fs;
 use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 use std::path::Path;
 use std::process::{Child, ChildStdin};
 use std::sync::mpsc;
 use std::thread::{self, JoinHandle};
+use xxhash_rust::xxh3::Xxh3;
 
 use crate::cache::{self, CacheCursor, CacheData};
 use crate::command::{self, ChildContext, ChildEnv, Command, Output};
@@ -97,9 +97,9 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 }
 
 fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
-    let mut hasher = Sha256::new();
-    hasher.update(ops::encode_to_vec(command)?);
-    let hash = format!("{:x}", hasher.finalize());
+    let mut hasher = Box::new(Xxh3::new());
+    hasher.update(&ops::encode_to_vec(command)?);
+    let hash = format!("{}", hasher.digest());
 
     if config.skip_sandbox {
         let trace_file = Path::new(CACHE_DIRECTORY).join(format!("trace_{hash}.txt"));
