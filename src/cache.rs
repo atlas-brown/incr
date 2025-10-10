@@ -27,6 +27,7 @@ impl<'c> CacheCursor<'c> {
             name: &command.name,
             arguments: &command.arguments,
             environment: &command.environment,
+            stdin_hash,
             stdin: Some(stdin),
         };
         Self::with_info(command, stdin_hash, info)
@@ -37,6 +38,7 @@ impl<'c> CacheCursor<'c> {
             name: &command.name,
             arguments: &command.arguments,
             environment: &command.environment,
+            stdin_hash,
             stdin: None,
         };
         Self::with_info(command, stdin_hash, info)
@@ -154,6 +156,7 @@ struct CacheInfo<'c> {
     name: &'c str,
     arguments: &'c [String],
     environment: &'c BTreeMap<String, String>,
+    stdin_hash: u64,
     #[serde(with = "ops::serialize_byte_slice")]
     stdin: Option<&'c [u8]>,
 }
