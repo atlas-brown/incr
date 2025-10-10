@@ -6,7 +6,6 @@ use std::fs::{self, File};
 use std::io::{BufWriter, Write};
 use std::path::{Path, PathBuf};
 use std::process::{Command as ShellCommand, Stdio};
-use xxhash_rust::xxh3::Xxh3;
 
 use crate::command::Command;
 use crate::config::{
@@ -29,9 +28,7 @@ impl<'c> CacheCursor<'c> {
             environment: &command.environment,
             stdin: Some(stdin),
         };
-        let mut hasher = Box::new(Xxh3::new());
-        hasher.update(&ops::encode_to_vec(&info)?);
-        Self::from_hash(command, hasher.digest())
+        Self::from_hash(command, ops::hash_bytes(&ops::encode_to_vec(&info)?))
     }
 
     pub(crate) fn from_hash(command: &'c Command, hash: u64) -> Result<Self> {

@@ -46,8 +46,8 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     } = command::spawn_command(config, command, &child_env)?;
     debug_log!("[{}] Spawned stream child", command.name);
 
-    let (stdin, stdin_thread) = forward_stdin(child.stdin.take().unwrap())?;
-    let cache = CacheCursor::from_stdin(command, &stdin)?;
+    let (stdin_hash, stdin_thread) = forward_stdin(child.stdin.take().unwrap())?;
+    let cache = CacheCursor::from_hash(command, stdin_hash)?;
     cache.create_directory()?;
     debug_log!("[{}] Loaded cache directory", command.name);
 
@@ -97,10 +97,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 }
 
 fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
-    let mut hasher = Box::new(Xxh3::new());
-    hasher.update(&ops::encode_to_vec(command)?);
-    let hash = format!("{}", hasher.digest());
-
+    let hash = ops::hash_bytes(&ops::encode_to_vec(command)?);
     if config.skip_sandbox {
         let trace_file = Path::new(CACHE_DIRECTORY).join(format!("trace_{hash}.txt"));
         return Ok(ChildEnv::TraceFile(trace_file));
@@ -117,10 +114,10 @@ fn create_child_environment(config: &Config, command: &Command) -> Result<ChildE
     Ok(ChildEnv::Sandbox(sandbox_directory))
 }
 
-fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(Vec<u8>, StdinThread)> {
+fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(u64, StdinThread)> {
     let mut process_stdin = io::stdin().lock();
     if process_stdin.is_terminal() {
-        return Ok((Vec::new(), None));
+        return Ok((ops::hash_bytes(&[]), None));
     }
 
     let (send_channel, receive_channel) = mpsc::channel::<Vec<_>>();
@@ -140,8 +137,8 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(Vec<u8>, StdinThread)> 
         Ok(())
     });
 
-    let mut stdin = Vec::new();
     let mut chunk = [0; CHUNK_SIZE];
+    let mut hasher = Xxh3::new();
     loop {
         let count = match process_stdin.read(&mut chunk) {
             Ok(0) => break,
@@ -150,10 +147,10 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(Vec<u8>, StdinThread)> 
             Err(error) => return Err(error.into()),
         };
         send_channel.send(chunk[..count].to_vec())?;
-        stdin.extend_from_slice(&chunk[..count]);
+        hasher.update(&chunk[..count]);
     }
 
-    Ok((stdin, Some(stdin_thread)))
+    Ok((hasher.digest(), Some(stdin_thread)))
 }
 
 fn load_cache_data(
