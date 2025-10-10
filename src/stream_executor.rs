@@ -172,7 +172,7 @@ fn load_cache_data(
             }
             match child_env {
                 ChildEnv::Sandbox(directory) => cache::remove_sandbox(directory)?,
-                ChildEnv::TraceFile(file) => fs::remove_file(file)?,
+                ChildEnv::TraceFile(file) => ops::ignore_not_found(fs::remove_file(file))?,
             }
             Ok(CacheStatus::Valid(cached_data))
         }
