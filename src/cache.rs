@@ -1,12 +1,12 @@
 use anyhow::Result;
 use bincode::{Decode, Encode};
 use serde::{Deserialize, Serialize};
-use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::{BufWriter, Write};
 use std::path::{Path, PathBuf};
 use std::process::{Command as ShellCommand, Stdio};
+use xxhash_rust::xxh3::Xxh3;
 
 use crate::command::Command;
 use crate::config::{
@@ -30,9 +30,9 @@ impl<'c> CacheCursor<'c> {
             stdin,
         };
 
-        let mut hasher = Sha256::new();
-        hasher.update(ops::encode_to_vec(&info)?);
-        let directory_name = format!("cache_{:x}", hasher.finalize());
+        let mut hasher = Box::new(Xxh3::new());
+        hasher.update(&ops::encode_to_vec(&info)?);
+        let directory_name = format!("cache_{}", hasher.digest());
         let directory = Path::new(CACHE_DIRECTORY).join(directory_name);
 
         Ok(Self { info, directory })
