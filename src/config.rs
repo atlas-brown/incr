@@ -1,6 +1,7 @@
 #[derive(Clone, Debug)]
 pub(crate) struct Config {
-    pub(crate) complete_after_downstream_failure: bool,
+    pub(crate) skip_sandbox: bool,       // Do not use a try sandbox
+    pub(crate) complete_execution: bool, // Complete after a downstream failure
 }
 
 #[derive(Clone, Debug)]
@@ -40,12 +41,14 @@ pub(crate) const DEBUG_FILE: &str = "debug_info.json";
 pub(crate) const CHUNK_SIZE: usize = 65536;
 pub(crate) const SUDO_SANDBOX: bool = true;
 pub(crate) const DEBUG: bool = false;
-pub(crate) const DEBUG_LOGS: bool = DEBUG && false;
+pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
 
-pub(crate) const SKIP_COMMANDS: &[&str] = &["cat", "cd", "ls", "mkdir", "mv", "rm"];
+pub(crate) const SKIP_COMMANDS: &[&str] = &["cat", "cd", "echo", "ls", "mkdir", "mv", "rm"];
 pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
-    SkipCondition::without_flags("echo"),
+    SkipCondition::without_flags("awk"),
+    SkipCondition::without_flags("cut"),
     SkipCondition::without_flags("grep"),
+    SkipCondition::without_flags("head"),
     SkipCondition::with_flags("sort", &["-o", "--output"]),
     SkipCondition::without_flags("tr"),
     SkipCondition::with_flags("uniq", &["-o", "--output"]),

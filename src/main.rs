@@ -14,7 +14,7 @@ use std::process;
 use crate::config::Config;
 use crate::ops::{ExitCode, FAILURE_CODE, SUCCESS_CODE};
 
-const EXECUTOR: Executor = Executor::Batch;
+const EXECUTOR: Executor = Executor::Stream;
 
 #[allow(unused)]
 #[derive(Clone, Copy, Debug)]
@@ -25,11 +25,7 @@ enum Executor {
 
 fn main() {
     ops::initialize_log_file();
-    let config = Config {
-        complete_after_downstream_failure: true,
-    };
-
-    match run(&config) {
+    match run() {
         Ok(exit_code) => process::exit(exit_code.0),
         Err(error) => {
             eprintln!("Error: {error}");
@@ -38,13 +34,17 @@ fn main() {
     }
 }
 
-fn run(config: &Config) -> Result<ExitCode> {
+fn run() -> Result<ExitCode> {
     let command = match command::get_command()? {
         Some(command) => command,
         None => return Ok(SUCCESS_CODE),
     };
+    let config = Config {
+        skip_sandbox: execution::skip_sandbox(&command),
+        complete_execution: true,
+    };
     match EXECUTOR {
-        Executor::Batch => batch_executor::run(config, &command),
-        Executor::Stream => stream_executor::run(config, &command),
+        Executor::Batch => batch_executor::run(&config, &command),
+        Executor::Stream => stream_executor::run(&config, &command),
     }
 }

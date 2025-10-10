@@ -7,8 +7,8 @@ use std::path::{Path, PathBuf};
 use std::process::{Command as ShellCommand, Stdio};
 use std::time::UNIX_EPOCH;
 
-use crate::cache::{CacheData, DependencyKey};
-use crate::command::Command;
+use crate::cache::{CacheCursor, CacheData, DependencyKey};
+use crate::command::{ChildEnv, Command};
 use crate::config::{EXCLUDED_PATHS, SKIP_COMMANDS, SKIP_SANDBOX_CONDITIONS, TRACE_FILE};
 use crate::ops;
 
@@ -36,11 +36,17 @@ pub(crate) fn skip_sandbox(command: &Command) -> bool {
     false
 }
 
-pub(crate) fn check_cache_valid(data: &CacheData) -> Result<bool> {
-    check_read_dependencies(&data.read_dependencies)
+pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {
+    if !check_read_dependencies(&data.read_dependencies)? {
+        return Ok(false);
+    }
+    if !data.write_outputs.is_empty() && !cache.check_output_exists() {
+        return Ok(false);
+    }
+    Ok(true)
 }
 
-pub(crate) fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
+pub(crate) fn parse_trace(env: &ChildEnv) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
     #[derive(Clone, Copy, Debug, PartialEq)]
     enum ParseState {
         Start,
@@ -48,9 +54,12 @@ pub(crate) fn parse_trace(sandbox_directory: &Path) -> Result<(HashSet<PathBuf>,
         WriteSet,
     }
 
-    let trace_file = sandbox_directory.join("upperdir").join("tmp").join(TRACE_FILE);
+    let trace_file = match env {
+        ChildEnv::Sandbox(directory) => &directory.join("upperdir").join("tmp").join(TRACE_FILE),
+        ChildEnv::TraceFile(file) => file,
+    };
     let output = ShellCommand::new("python3")
-        .args(["-c", PARSE_TRACE_SCRIPT, ops::path_to_string(&trace_file)?])
+        .args(["-c", PARSE_TRACE_SCRIPT, ops::path_to_string(trace_file)?])
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
         .stderr(Stdio::null())

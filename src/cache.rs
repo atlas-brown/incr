@@ -11,7 +11,7 @@ use std::process::{Command as ShellCommand, Stdio};
 use crate::command::Command;
 use crate::config::{
     CACHE_DIRECTORY, CHUNK_SIZE, COMMIT_DIRECTORY, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY,
-    SANDBOX_DIRECTORY, SUDO_SANDBOX, TRY_COMMAND,
+    SANDBOX_DIRECTORY, SUDO_SANDBOX, TRACE_FILE, TRY_COMMAND,
 };
 use crate::ops;
 
@@ -42,6 +42,10 @@ impl<'c> CacheCursor<'c> {
         self.directory.join(SANDBOX_DIRECTORY)
     }
 
+    pub(crate) fn get_trace_file(&self) -> PathBuf {
+        self.directory.join(TRACE_FILE)
+    }
+
     pub(crate) fn create_directory(&self) -> Result<()> {
         if self.directory.is_dir() {
             return Ok(());
@@ -58,18 +62,6 @@ impl<'c> CacheCursor<'c> {
             file_writer.flush()?;
         }
 
-        Ok(())
-    }
-
-    pub(crate) fn clean_sandbox_directory(&self) -> Result<()> {
-        remove_sandbox(&self.directory.join(SANDBOX_DIRECTORY))
-    }
-
-    pub(crate) fn clean_data(&self) -> Result<()> {
-        let data_file = ops::add_data_extension(DATA_FILE.to_owned());
-        ops::ignore_not_found(fs::remove_dir_all(self.directory.join(OUTPUT_DIRECTORY)))?;
-        ops::ignore_not_found(fs::remove_dir_all(self.directory.join(COMMIT_DIRECTORY)))?;
-        ops::ignore_not_found(fs::remove_file(data_file))?;
         Ok(())
     }
 
@@ -112,6 +104,23 @@ impl<'c> CacheCursor<'c> {
             .wait()?;
         fs::remove_dir_all(&commit_directory)?;
 
+        Ok(())
+    }
+
+    pub(crate) fn check_output_exists(&self) -> bool {
+        let output_directory = self.directory.join(OUTPUT_DIRECTORY);
+        output_directory.is_dir()
+    }
+
+    pub(crate) fn clean_sandbox_directory(&self) -> Result<()> {
+        remove_sandbox(&self.directory.join(SANDBOX_DIRECTORY))
+    }
+
+    pub(crate) fn clean_data(&self) -> Result<()> {
+        let data_file = ops::add_data_extension(DATA_FILE.to_owned());
+        ops::ignore_not_found(fs::remove_dir_all(self.directory.join(OUTPUT_DIRECTORY)))?;
+        ops::ignore_not_found(fs::remove_dir_all(self.directory.join(COMMIT_DIRECTORY)))?;
+        ops::ignore_not_found(fs::remove_file(data_file))?;
         Ok(())
     }
 
