@@ -79,7 +79,7 @@ fn run_command(
     let (stdout, stderr) = match (stdout, stderr) {
         (Output::Completed(stdout), Output::Completed(stderr)) => (stdout, stderr),
         (Output::BrokenPipe, _) | (_, Output::BrokenPipe) => {
-            if !config.skip_sandbox {
+            if let ChildEnv::Sandbox(_) = child_env {
                 cache.clean_sandbox_directory()?;
             }
             return Ok(CommandResult::BrokenPipe);
@@ -89,7 +89,7 @@ fn run_command(
 
     let (read_set, write_set) = execution::parse_trace(&child_env)?;
     let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
-    if !config.skip_sandbox {
+    if let ChildEnv::Sandbox(_) = child_env {
         cache.extract_sandbox_output()?;
         if !write_set.is_empty() {
             cache.commit_output()?;

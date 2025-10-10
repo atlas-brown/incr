@@ -2,7 +2,7 @@ use anyhow::{Result, anyhow, ensure};
 use sha2::{Digest, Sha256};
 use std::fs;
 use std::io::{self, ErrorKind, IsTerminal, Read, Write};
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::process::{Child, ChildStdin};
 use std::sync::mpsc;
 use std::thread::{self, JoinHandle};
@@ -32,10 +32,13 @@ struct CacheContext<'c> {
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    debug_log!("[{}] Starting stream command", command.name);
+    debug_log!(
+        "[{}] Starting stream command (skip_sandbox={})",
+        command.name,
+        config.skip_sandbox,
+    );
 
-    let sandbox_directory = create_sandbox_directory(command)?;
-    let child_env = ChildEnv::Sandbox(sandbox_directory.clone());
+    let child_env = create_child_environment(config, command)?;
     let ChildContext {
         mut child,
         stdout_thread,
@@ -48,7 +51,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     cache.create_directory()?;
     debug_log!("[{}] Loaded cache directory", command.name);
 
-    let cache_status = load_cache_data(&sandbox_directory, &cache, child, stdin_thread)?;
+    let cache_status = load_cache_data(&cache, child, &child_env, stdin_thread)?;
     let stdout = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let (stdout, stderr) = match (stdout, stderr) {
@@ -73,10 +76,12 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 
     let (read_set, write_set) = execution::parse_trace(&child_env)?;
     let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
-    fs::rename(sandbox_directory, cache.get_sandbox_directory())?;
-    cache.extract_sandbox_output()?;
-    if !write_set.is_empty() {
-        cache.commit_output()?;
+    if let ChildEnv::Sandbox(directory) = child_env {
+        fs::rename(directory, cache.get_sandbox_directory())?;
+        cache.extract_sandbox_output()?;
+        if !write_set.is_empty() {
+            cache.commit_output()?;
+        }
     }
     debug_log!("[{}] Extracted dependencies and committed files", command.name);
 
@@ -91,20 +96,25 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     Ok(exit_code)
 }
 
-fn create_sandbox_directory(command: &Command) -> Result<PathBuf> {
+fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
     let mut hasher = Sha256::new();
     hasher.update(ops::encode_to_vec(command)?);
-    let directory_name = format!("sandbox_{:x}", hasher.finalize());
-    let directory = Path::new(CACHE_DIRECTORY).join(directory_name);
+    let hash = format!("{:x}", hasher.finalize());
 
-    if directory.is_dir() {
-        fs::remove_dir_all(&directory)?;
-    } else if directory.is_file() {
-        fs::remove_file(&directory)?;
+    if config.skip_sandbox {
+        let trace_file = Path::new(CACHE_DIRECTORY).join(format!("trace_{hash}.txt"));
+        return Ok(ChildEnv::TraceFile(trace_file));
     }
-    fs::create_dir_all(&directory)?;
 
-    Ok(directory)
+    let sandbox_directory = Path::new(CACHE_DIRECTORY).join(format!("sandbox_{hash}"));
+    if sandbox_directory.is_dir() {
+        fs::remove_dir_all(&sandbox_directory)?;
+    } else if sandbox_directory.is_file() {
+        fs::remove_file(&sandbox_directory)?;
+    }
+    fs::create_dir_all(&sandbox_directory)?;
+
+    Ok(ChildEnv::Sandbox(sandbox_directory))
 }
 
 fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(Vec<u8>, StdinThread)> {
@@ -138,9 +148,9 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(Vec<u8>, StdinThread)> 
 }
 
 fn load_cache_data(
-    sandbox_directory: &Path,
     cache: &CacheCursor<'_>,
     mut child: Child,
+    child_env: &ChildEnv,
     stdin_thread: StdinThread,
 ) -> Result<CacheStatus> {
     let cached_data = match cache.load_data()? {
@@ -160,7 +170,9 @@ fn load_cache_data(
                 command::kill_child(&child)?;
                 child.wait()?;
             }
-            cache::remove_sandbox(sandbox_directory)?;
+            if let ChildEnv::Sandbox(directory) = child_env {
+                cache::remove_sandbox(directory)?;
+            }
             Ok(CacheStatus::Valid(cached_data))
         }
         None => {
