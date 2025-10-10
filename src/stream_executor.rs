@@ -170,8 +170,9 @@ fn load_cache_data(
                 command::kill_child(&child)?;
                 child.wait()?;
             }
-            if let ChildEnv::Sandbox(directory) = child_env {
-                cache::remove_sandbox(directory)?;
+            match child_env {
+                ChildEnv::Sandbox(directory) => cache::remove_sandbox(directory)?,
+                ChildEnv::TraceFile(file) => fs::remove_file(file)?,
             }
             Ok(CacheStatus::Valid(cached_data))
         }
