@@ -58,58 +58,58 @@ sys     0m6.216s
 
 [INCR STREAM]
 
-real    0m2.947s
-user    0m0.252s
-sys     0m3.470s
+real    0m3.206s
+user    0m0.318s
+sys     0m3.655s
 
-real    0m3.653s
-user    0m3.915s
-sys     0m4.911s
+real    0m3.669s
+user    0m3.473s
+sys     0m4.578s
 
-real    0m2.884s
-user    0m2.188s
-sys     0m4.356s
+real    0m1.622s
+user    0m1.095s
+sys     0m3.083s
 
-real    0m4.381s
-user    0m5.744s
-sys     0m4.672s
+real    0m4.136s
+user    0m4.500s
+sys     0m3.121s
 
-real    0m2.879s
-user    0m2.259s
-sys     0m4.252s
+real    0m1.560s
+user    0m0.706s
+sys     0m3.060s
 
-real    0m4.237s
-user    0m2.132s
-sys     0m6.743s
+real    0m2.794s
+user    0m0.849s
+sys     0m4.663s
 
-real    0m5.402s
-user    0m2.836s
-sys     0m8.773s
+real    0m3.210s
+user    0m1.325s
+sys     0m6.182s
 
-real    0m5.198s
-user    0m3.604s
-sys     0m8.720s
+real    0m2.949s
+user    0m1.219s
+sys     0m5.913s
 
-real    0m6.752s
-user    0m7.140s
-sys     0m8.980s
+real    0m3.100s
+user    0m1.386s
+sys     0m6.319s
 
-real    0m5.351s
-user    0m2.555s
-sys     0m8.174s
+real    0m2.974s
+user    0m1.273s
+sys     0m6.314s
 
-real    0m7.293s
-user    0m4.445s
-sys     0m11.492s
+real    0m4.419s
+user    0m1.500s
+sys     0m8.038s
 
-real    0m8.369s
-user    0m5.157s
-sys     0m13.548s
+real    0m4.511s
+user    0m1.835s
+sys     0m8.914s
 
-real    0m8.166s
-user    0m6.086s
-sys     0m13.976s
+real    0m4.559s
+user    0m1.993s
+sys     0m9.219s
 
-real    0m8.585s
-user    0m8.873s
-sys     0m13.504s
+real    0m4.433s
+user    0m1.933s
+sys     0m9.360s
