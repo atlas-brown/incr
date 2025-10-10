@@ -48,6 +48,7 @@ pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
     SkipCondition::without_flags("awk"),
     SkipCondition::without_flags("cut"),
     SkipCondition::without_flags("grep"),
+    SkipCondition::without_flags("head"),
     SkipCondition::with_flags("sort", &["-o", "--output"]),
     SkipCondition::without_flags("tr"),
     SkipCondition::with_flags("uniq", &["-o", "--output"]),
