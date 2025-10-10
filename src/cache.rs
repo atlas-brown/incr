@@ -17,30 +17,32 @@ use crate::ops;
 #[derive(Clone, Debug)]
 pub(crate) struct CacheCursor<'c> {
     directory: PathBuf,
-    info: Option<CacheInfo<'c>>,
+    info: CacheInfo<'c>,
 }
 
 impl<'c> CacheCursor<'c> {
     pub(crate) fn from_stdin(command: &'c Command, stdin: &'c [u8]) -> Result<Self> {
         let stdin_hash = ops::hash_bytes(stdin);
-        let info = if DEBUG {
-            Some(CacheInfo {
-                name: &command.name,
-                arguments: &command.arguments,
-                environment: &command.environment,
-                stdin,
-            })
-        } else {
-            None
+        let info = CacheInfo {
+            name: &command.name,
+            arguments: &command.arguments,
+            environment: &command.environment,
+            stdin: Some(stdin),
         };
         Self::with_info(command, stdin_hash, info)
     }
 
-    pub(crate) fn from_hash(command: &Command, stdin_hash: u64) -> Result<Self> {
-        Self::with_info(command, stdin_hash, None)
+    pub(crate) fn from_hash(command: &'c Command, stdin_hash: u64) -> Result<Self> {
+        let info = CacheInfo {
+            name: &command.name,
+            arguments: &command.arguments,
+            environment: &command.environment,
+            stdin: None,
+        };
+        Self::with_info(command, stdin_hash, info)
     }
 
-    fn with_info(command: &Command, stdin_hash: u64, info: Option<CacheInfo<'c>>) -> Result<Self> {
+    fn with_info(command: &Command, stdin_hash: u64, info: CacheInfo<'c>) -> Result<Self> {
         let key_data = CacheKey {
             name: &command.name,
             arguments: &command.arguments,
@@ -69,10 +71,10 @@ impl<'c> CacheCursor<'c> {
         }
 
         fs::create_dir_all(&self.directory)?;
-        if let Some(info) = &self.info {
+        if DEBUG {
             let file = File::create(self.directory.join(DEBUG_FILE))?;
             let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
-            serde_json::to_writer_pretty(&mut file_writer, info)?;
+            serde_json::to_writer_pretty(&mut file_writer, &self.info)?;
             file_writer.flush()?;
         }
 
@@ -153,7 +155,7 @@ struct CacheInfo<'c> {
     arguments: &'c [String],
     environment: &'c BTreeMap<String, String>,
     #[serde(with = "ops::serialize_byte_slice")]
-    stdin: &'c [u8],
+    stdin: Option<&'c [u8]>,
 }
 
 #[derive(Clone, Debug, Encode)]
