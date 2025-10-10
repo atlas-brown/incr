@@ -108,7 +108,7 @@ fn create_child_environment(config: &Config, command: &Command) -> Result<ChildE
 
     let sandbox_directory = Path::new(CACHE_DIRECTORY).join(format!("sandbox_{hash}"));
     if sandbox_directory.is_dir() {
-        fs::remove_dir_all(&sandbox_directory)?;
+        cache::remove_sandbox(&sandbox_directory)?;
     } else if sandbox_directory.is_file() {
         fs::remove_file(&sandbox_directory)?;
     }
