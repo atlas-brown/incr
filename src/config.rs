@@ -45,6 +45,7 @@ pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
 
 pub(crate) const SKIP_COMMANDS: &[&str] = &["cat", "cd", "echo", "ls", "mkdir", "mv", "rm"];
 pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
+    SkipCondition::without_flags("awk"),
     SkipCondition::without_flags("cut"),
     SkipCondition::without_flags("grep"),
     SkipCondition::with_flags("sort", &["-o", "--output"]),
