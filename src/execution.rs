@@ -149,7 +149,7 @@ fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Re
                     return Ok(false);
                 }
                 let current_hash = get_file_hash(path)?;
-                if current_hash.as_ref() != Some(hash) {
+                if current_hash != Some(*hash) {
                     return Ok(false);
                 }
             }
@@ -168,16 +168,13 @@ fn get_modified_timestamp(file_path: &Path) -> Result<Option<u128>> {
     Ok(Some(timestamp))
 }
 
-fn get_file_hash(file_path: &Path) -> Result<Option<String>> {
+fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
     let mut file = match File::open(file_path) {
         Ok(file) => file,
         Err(error) if error.kind() == ErrorKind::PermissionDenied => return Ok(None),
         Err(error) => return Err(error.into()),
     };
-
     let mut hasher = Box::new(Xxh3::new());
     io::copy(&mut file, &mut hasher)?;
-    let hash = format!("{}", hasher.digest());
-
-    Ok(Some(hash))
+    Ok(Some(hasher.digest()))
 }

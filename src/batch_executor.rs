@@ -29,7 +29,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     }
     debug_log!("[{}] Collected all stdin", command.name);
 
-    let cache = CacheCursor::new(command, &stdin)?;
+    let cache = CacheCursor::from_stdin(command, &stdin)?;
     cache.create_directory()?;
     if let Some(cached_data) = cache.load_data()?
         && execution::check_cache_valid(&cache, &cached_data)?

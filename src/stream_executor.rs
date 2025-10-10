@@ -47,7 +47,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     debug_log!("[{}] Spawned stream child", command.name);
 
     let (stdin, stdin_thread) = forward_stdin(child.stdin.take().unwrap())?;
-    let cache = CacheCursor::new(command, &stdin)?;
+    let cache = CacheCursor::from_stdin(command, &stdin)?;
     cache.create_directory()?;
     debug_log!("[{}] Loaded cache directory", command.name);
 
