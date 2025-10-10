@@ -6,7 +6,6 @@ use std::fs::{self, File};
 use std::io::{BufWriter, Write};
 use std::path::{Path, PathBuf};
 use std::process::{Command as ShellCommand, Stdio};
-use xxhash_rust::xxh3::Xxh3;
 
 use crate::command::Command;
 use crate::config::{
@@ -17,25 +16,44 @@ use crate::ops;
 
 #[derive(Clone, Debug)]
 pub(crate) struct CacheCursor<'c> {
-    info: CacheInfo<'c>,
     directory: PathBuf,
+    info: CacheInfo<'c>,
 }
 
 impl<'c> CacheCursor<'c> {
-    pub(crate) fn new(command: &'c Command, stdin: &'c [u8]) -> Result<Self> {
+    pub(crate) fn from_stdin(command: &'c Command, stdin: &'c [u8]) -> Result<Self> {
+        let stdin_hash = ops::hash_bytes(stdin);
         let info = CacheInfo {
             name: &command.name,
             arguments: &command.arguments,
             environment: &command.environment,
-            stdin,
+            stdin_hash,
+            stdin: Some(stdin),
         };
+        Self::with_info(command, stdin_hash, info)
+    }
 
-        let mut hasher = Box::new(Xxh3::new());
-        hasher.update(&ops::encode_to_vec(&info)?);
-        let directory_name = format!("cache_{}", hasher.digest());
-        let directory = Path::new(CACHE_DIRECTORY).join(directory_name);
+    pub(crate) fn from_hash(command: &'c Command, stdin_hash: u64) -> Result<Self> {
+        let info = CacheInfo {
+            name: &command.name,
+            arguments: &command.arguments,
+            environment: &command.environment,
+            stdin_hash,
+            stdin: None,
+        };
+        Self::with_info(command, stdin_hash, info)
+    }
 
-        Ok(Self { info, directory })
+    fn with_info(command: &Command, stdin_hash: u64, info: CacheInfo<'c>) -> Result<Self> {
+        let key_data = CacheKey {
+            name: &command.name,
+            arguments: &command.arguments,
+            environment: &command.environment,
+            stdin_hash,
+        };
+        let hash = ops::hash_bytes(&ops::encode_to_vec(&key_data)?);
+        let directory = Path::new(CACHE_DIRECTORY).join(format!("cache_{hash}"));
+        Ok(Self { directory, info })
     }
 
     pub(crate) fn get_sandbox_directory(&self) -> PathBuf {
@@ -138,8 +156,17 @@ struct CacheInfo<'c> {
     name: &'c str,
     arguments: &'c [String],
     environment: &'c BTreeMap<String, String>,
+    stdin_hash: u64,
     #[serde(with = "ops::serialize_byte_slice")]
-    stdin: &'c [u8],
+    stdin: Option<&'c [u8]>,
+}
+
+#[derive(Clone, Debug, Encode)]
+struct CacheKey<'c> {
+    name: &'c str,
+    arguments: &'c [String],
+    environment: &'c BTreeMap<String, String>,
+    stdin_hash: u64,
 }
 
 #[derive(Clone, Debug, Decode, Deserialize, Encode, Serialize)]
@@ -157,7 +184,7 @@ pub(crate) struct CacheData {
 pub(crate) enum DependencyKey {
     DoesNotExist,
     Timestamp(u128),
-    Hash(String),
+    Hash(u64),
 }
 
 pub(crate) fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {

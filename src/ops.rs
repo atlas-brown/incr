@@ -4,12 +4,13 @@ use bincode::{Decode, Encode};
 use serde::Serialize;
 use serde::de::DeserializeOwned;
 use std::fs::{File, OpenOptions};
-use std::io::{BufReader, BufWriter, Error as IoError, ErrorKind, Write};
+use std::io::{self, BufReader, BufWriter, Error as IoError, ErrorKind, Read, Write};
 use std::path::Path;
 use std::sync::{Mutex, OnceLock};
 use time::format_description::FormatItem;
 use time::macros::format_description;
 use time::{OffsetDateTime, UtcOffset};
+use xxhash_rust::xxh3::Xxh3;
 
 use crate::config::{CHUNK_SIZE, DEBUG, DEBUG_LOG_FILE, DEBUG_LOGS};
 
@@ -33,28 +34,19 @@ static LOG_FILE: OnceLock<Mutex<File>> = OnceLock::new();
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct ExitCode(pub(crate) i32);
 
-pub(crate) fn initialize_log_file() {
-    if DEBUG_LOGS {
-        LOG_FILE.get_or_init(|| {
-            let file = OpenOptions::new()
-                .append(true)
-                .create(true)
-                .open(DEBUG_LOG_FILE)
-                .unwrap();
-            Mutex::new(file)
-        });
-    }
+pub(crate) fn hash_bytes(bytes: &[u8]) -> u64 {
+    let mut hasher = Box::new(Xxh3::new());
+    hasher.update(bytes);
+    hasher.digest()
 }
 
-pub(crate) fn log_line(line: &str) {
-    const FORMAT: &[FormatItem<'_>] = format_description!("[hour]:[minute]:[second].[subsecond digits:3]");
-    let offset = UtcOffset::current_local_offset().unwrap_or(UtcOffset::UTC);
-    let timestamp = OffsetDateTime::now_utc()
-        .to_offset(offset)
-        .format(&FORMAT)
-        .unwrap();
-    let mut file = LOG_FILE.get().unwrap().lock().unwrap();
-    writeln!(file, "[{timestamp}] {line}").unwrap();
+pub(crate) fn hash_stream<S>(stream: &mut S) -> Result<u64>
+where
+    S: Read,
+{
+    let mut hasher = Box::new(Xxh3::new());
+    io::copy(stream, &mut hasher)?;
+    Ok(hasher.digest())
 }
 
 pub(crate) fn path_to_string(path: &Path) -> Result<&str> {
@@ -149,15 +141,41 @@ fn get_bincode_config() -> Configuration<LittleEndian, Fixint, NoLimit> {
         .with_fixed_int_encoding()
 }
 
+pub(crate) fn initialize_log_file() {
+    if DEBUG_LOGS {
+        LOG_FILE.get_or_init(|| {
+            let file = OpenOptions::new()
+                .append(true)
+                .create(true)
+                .open(DEBUG_LOG_FILE)
+                .unwrap();
+            Mutex::new(file)
+        });
+    }
+}
+
+pub(crate) fn log_line(line: &str) {
+    const FORMAT: &[FormatItem<'_>] = format_description!("[hour]:[minute]:[second].[subsecond digits:3]");
+    let offset = UtcOffset::current_local_offset().unwrap_or(UtcOffset::UTC);
+    let timestamp = OffsetDateTime::now_utc()
+        .to_offset(offset)
+        .format(&FORMAT)
+        .unwrap();
+    let mut file = LOG_FILE.get().unwrap().lock().unwrap();
+    writeln!(file, "[{timestamp}] {line}").unwrap();
+}
+
 pub(crate) mod serialize_byte_slice {
     use base64::prelude::*;
     use serde::{Serialize, Serializer};
 
-    pub(crate) fn serialize<S>(bytes: &[u8], serializer: S) -> Result<S::Ok, S::Error>
+    pub(crate) fn serialize<S>(bytes: &Option<&[u8]>, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
     {
-        if serializer.is_human_readable() {
+        if let Some(bytes) = bytes
+            && serializer.is_human_readable()
+        {
             let encoded = BASE64_STANDARD.encode(bytes);
             encoded.serialize(serializer)
         } else {

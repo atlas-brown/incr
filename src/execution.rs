@@ -1,15 +1,14 @@
 use anyhow::{Result, ensure};
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
-use std::io::{self, ErrorKind};
+use std::io::{BufReader, ErrorKind};
 use std::path::{Path, PathBuf};
 use std::process::{Command as ShellCommand, Stdio};
 use std::time::UNIX_EPOCH;
-use xxhash_rust::xxh3::Xxh3;
 
 use crate::cache::{CacheCursor, CacheData, DependencyKey};
 use crate::command::{ChildEnv, Command};
-use crate::config::{EXCLUDED_PATHS, SKIP_COMMANDS, SKIP_SANDBOX_CONDITIONS, TRACE_FILE};
+use crate::config::{CHUNK_SIZE, EXCLUDED_PATHS, SKIP_COMMANDS, SKIP_SANDBOX_CONDITIONS, TRACE_FILE};
 use crate::ops;
 
 const PARSE_TRACE_SCRIPT: &str = include_str!("parse_trace.py");
@@ -149,7 +148,7 @@ fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Re
                     return Ok(false);
                 }
                 let current_hash = get_file_hash(path)?;
-                if current_hash.as_ref() != Some(hash) {
+                if current_hash != Some(*hash) {
                     return Ok(false);
                 }
             }
@@ -168,16 +167,12 @@ fn get_modified_timestamp(file_path: &Path) -> Result<Option<u128>> {
     Ok(Some(timestamp))
 }
 
-fn get_file_hash(file_path: &Path) -> Result<Option<String>> {
-    let mut file = match File::open(file_path) {
+fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
+    let file = match File::open(file_path) {
         Ok(file) => file,
         Err(error) if error.kind() == ErrorKind::PermissionDenied => return Ok(None),
         Err(error) => return Err(error.into()),
     };
-
-    let mut hasher = Box::new(Xxh3::new());
-    io::copy(&mut file, &mut hasher)?;
-    let hash = format!("{}", hasher.digest());
-
-    Ok(Some(hash))
+    let mut file_reader = BufReader::with_capacity(CHUNK_SIZE, file);
+    Ok(Some(ops::hash_stream(&mut file_reader)?))
 }
