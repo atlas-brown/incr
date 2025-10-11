@@ -35,6 +35,7 @@ def str_to_ast(s : str):
     return [AST.CArgChar(char=ord(c)) for c in s]
 
 def transform_node(node, sys_path):
+    logging.debug(f"Transforming node: {type(node)} {node}")
     match node:
         case AST.PipeNode():
             return AST.PipeNode(
@@ -42,11 +43,22 @@ def transform_node(node, sys_path):
             **{k: v for k, v in vars(node).items() if k != "items"}
             )
         case AST.CommandNode():
+            if not node.arguments and not node.assignments:
+                return node
+            # Check for assignemnts
+            assignments = [transform_node(ass, sys_path) for ass in node.assignments]
             arguments = [transform_node(arg, sys_path) for arg in node.arguments]
-            arguments = [str_to_ast(sys_path)] + arguments
+            if arguments: # Don't append sys to assignments
+                arguments = [str_to_ast(sys_path)] + arguments
             return AST.CommandNode(
                     arguments=arguments,
-                    **{k: v for k, v in vars(node).items() if k != "arguments"})
+                    assignments=assignments,
+                    **{k: v for k, v in vars(node).items() if k not in ("arguments", "assignments")})
+        case AST.AssignNode():
+            val = [transform_node(v, sys_path) for v in node.val]
+            return AST.AssignNode(
+                    val=val,
+                    **{k: v for k, v in vars(node).items() if k != "val"})
         case AST.BArgChar():
             return AST.BArgChar(
                     node=transform_node(node.node, sys_path),
@@ -55,13 +67,36 @@ def transform_node(node, sys_path):
             return AST.QArgChar(
                     arg=[transform_node(n, sys_path) for n in node.arg],
                     **{k: v for k, v in vars(node).items() if k != "arg"})
+        case AST.DefunNode():
+            return AST.DefunNode(
+                body=transform_node(node.body, sys_path),
+                **{k: v for k, v in vars(node).items() if k != "body"}
+            )
+        case AST.ForNode():
+            return AST.ForNode(
+                body=transform_node(node.body, sys_path),
+                argument=[transform_node(n, sys_path) for n in node.argument],
+                **{k: v for k, v in vars(node).items() if k not in ("body", "argument")}
+            )
+        case AST.WhileNode():
+            return AST.WhileNode(
+                    test=transform_node(node.test, sys_path),
+                    body=transform_node(node.body, sys_path),
+                    **{k: v for k, v in vars(node).items() if k not in ("test", "body")})
+        case AST.SemiNode():
+            return AST.SemiNode(
+                    left_operand=transform_node(node.left_operand, sys_path),
+                    right_operand=transform_node(node.right_operand, sys_path),
+                    **{k: v for k, v in vars(node).items() if k not in ("left_operand", "right_operand")})
+
         case list() if all(isinstance(x, AST.ArgChar) for x in node):
             return [transform_node(n, sys_path) for n in node]
         case _:
-            logging.debug(f"No transformation for node: {node}")
+            logging.debug(f"Leaving node unchanged: {type(node)} {node}")
             return node
 
 def transform_ast(ast, sys_path):
+    logging.debug(f"Transforming {ast=}")
     return [transform_node(node, sys_path) for node, _, _, _ in ast]
 
 def ast_to_code(ast):
@@ -79,11 +114,12 @@ def main():
     arg_parser.add_argument("-d", "--debug", action="store_true", help="Enable debug logging")
     args = arg_parser.parse_args()
     
+    logging.basicConfig(level=logging.DEBUG if args.debug else logging.INFO)
     sys_path = args.sys_path
     original_ast = parse_shell_to_asts(args.path)
     transformed_ast = transform_ast(original_ast, sys_path)
     transformed_code = ast_to_code(transformed_ast)
-    logging.basicConfig(level=logging.DEBUG if args.debug else logging.ERROR)
+
     if args.output:
         with open(args.output, "w") as f:
             f.write(transformed_code)
