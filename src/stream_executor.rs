@@ -62,7 +62,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 
     let exit_code = match cache_status {
         CacheStatus::Valid(cached_data) => {
-            return output_cached_data(&CacheContext {
+            return output_cached_data(CacheContext {
                 config,
                 command,
                 cache,
@@ -194,7 +194,7 @@ fn load_cache_data(
     }
 }
 
-fn output_cached_data(context: &CacheContext<'_>) -> Result<ExitCode> {
+fn output_cached_data(context: CacheContext<'_>) -> Result<ExitCode> {
     let CacheContext {
         config,
         command,
@@ -208,7 +208,7 @@ fn output_cached_data(context: &CacheContext<'_>) -> Result<ExitCode> {
     ensure!(completed_stderr.len() <= cached_data.stderr.len());
     if DEBUG {
         ensure!(completed_stdout.as_slice() == &cached_data.stdout[..completed_stdout.len()]);
-        ensure!(completed_stderr.as_slice() == &cached_data.stderr[..completed_stdout.len()]);
+        ensure!(completed_stderr.as_slice() == &cached_data.stderr[..completed_stderr.len()]);
     }
 
     let remaining_stdout = &cached_data.stdout[completed_stdout.len()..];

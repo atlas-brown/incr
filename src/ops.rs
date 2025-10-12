@@ -161,8 +161,9 @@ pub(crate) fn log_line(line: &str) {
         .to_offset(offset)
         .format(&FORMAT)
         .unwrap();
+    let line = format!("[{timestamp}] {line}\n");
     let mut file = LOG_FILE.get().unwrap().lock().unwrap();
-    writeln!(file, "[{timestamp}] {line}").unwrap();
+    file.write_all(line.as_bytes()).unwrap();
 }
 
 pub(crate) mod serialize_byte_slice {
