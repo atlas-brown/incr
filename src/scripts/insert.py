@@ -45,7 +45,6 @@ def transform_node(node, sys_path):
         case AST.CommandNode():
             if not node.arguments and not node.assignments:
                 return node
-            # Check for assignemnts
             assignments = [transform_node(ass, sys_path) for ass in node.assignments]
             arguments = [transform_node(arg, sys_path) for arg in node.arguments]
             if arguments: # Don't append sys to assignments
@@ -88,7 +87,6 @@ def transform_node(node, sys_path):
                     left_operand=transform_node(node.left_operand, sys_path),
                     right_operand=transform_node(node.right_operand, sys_path),
                     **{k: v for k, v in vars(node).items() if k not in ("left_operand", "right_operand")})
-
         case list() if all(isinstance(x, AST.ArgChar) for x in node):
             return [transform_node(n, sys_path) for n in node]
         case _:
