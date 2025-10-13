@@ -2,118 +2,118 @@ No incr time:
 Incr stream time:
 Cache size:
 
-[NO INCR (OLD)]
+[NO INCR]
 
-real    0m1.068s
-user    0m0.015s
-sys     0m1.053s
+real    0m1.189s
+user    0m0.005s
+sys     0m1.184s
 
-real    0m3.289s
-user    0m2.678s
-sys     0m1.888s
+real    0m3.253s
+user    0m2.650s
+sys     0m1.869s
 
-real    0m2.989s
-user    0m3.202s
-sys     0m1.928s
+real    0m3.051s
+user    0m3.323s
+sys     0m1.878s
 
-real    0m9.404s
-user    0m10.318s
-sys     0m2.179s
+real    0m9.411s
+user    0m10.294s
+sys     0m2.253s
 
-real    0m8.722s
-user    0m9.786s
-sys     0m2.182s
+real    0m7.309s
+user    0m8.258s
+sys     0m2.055s
 
-real    0m10.373s
-user    0m10.062s
-sys     0m3.402s
+real    0m9.254s
+user    0m9.230s
+sys     0m3.057s
 
-real    0m12.625s
-user    0m12.838s
-sys     0m4.162s
+real    0m11.426s
+user    0m11.797s
+sys     0m3.984s
 
-real    0m11.811s
-user    0m12.723s
-sys     0m4.232s
+real    0m11.369s
+user    0m12.399s
+sys     0m4.052s
 
-real    0m17.585s
-user    0m19.429s
-sys     0m4.386s
+real    0m17.549s
+user    0m19.374s
+sys     0m4.519s
 
-real    0m17.505s
-user    0m19.634s
-sys     0m4.247s
+real    0m17.820s
+user    0m19.601s
+sys     0m4.395s
 
-real    0m18.981s
-user    0m19.696s
-sys     0m5.412s
+real    0m18.189s
+user    0m18.956s
+sys     0m5.421s
 
-real    0m20.503s
-user    0m21.626s
-sys     0m6.356s
+real    0m21.303s
+user    0m22.568s
+sys     0m6.177s
 
-real    0m20.514s
-user    0m22.841s
-sys     0m6.377s
+real    0m19.800s
+user    0m21.857s
+sys     0m6.148s
 
-real    0m21.020s
-user    0m25.151s
-sys     0m6.216s
+real    0m20.812s
+user    0m25.265s
+sys     0m5.910s
 
-[INCR STREAM (OLD)]
+[INCR STREAM]
 
-real    0m3.063s
-user    0m0.279s
-sys     0m3.551s
+real    0m1.071s
+user    0m0.019s
+sys     0m1.052s
 
-real    0m3.750s
-user    0m3.447s
-sys     0m4.446s
+real    0m3.235s
+user    0m2.598s
+sys     0m1.893s
 
-real    0m1.776s
-user    0m1.331s
-sys     0m3.450s
+real    0m3.356s
+user    0m3.874s
+sys     0m2.369s
 
-real    0m4.305s
-user    0m4.617s
-sys     0m3.163s
+real    0m4.414s
+user    0m7.994s
+sys     0m2.365s
 
-real    0m1.615s
-user    0m0.591s
-sys     0m3.247s
+real    0m3.152s
+user    0m3.717s
+sys     0m2.330s
 
-real    0m2.992s
-user    0m0.642s
-sys     0m4.986s
+real    0m4.349s
+user    0m4.085s
+sys     0m3.480s
 
-real    0m3.062s
-user    0m1.157s
-sys     0m6.044s
+real    0m6.596s
+user    0m6.481s
+sys     0m4.248s
 
-real    0m2.941s
-user    0m1.226s
-sys     0m6.013s
+real    0m6.504s
+user    0m7.511s
+sys     0m4.917s
 
-real    0m5.656s
-user    0m5.027s
-sys     0m6.170s
+real    0m7.362s
+user    0m11.438s
+sys     0m4.867s
 
-real    0m2.921s
-user    0m1.371s
-sys     0m5.664s
+real    0m6.527s
+user    0m7.863s
+sys     0m4.708s
 
-real    0m4.320s
-user    0m1.436s
-sys     0m7.687s
+real    0m7.582s
+user    0m7.552s
+sys     0m5.941s
 
-real    0m4.696s
-user    0m1.825s
-sys     0m9.453s
+real    0m10.021s
+user    0m10.666s
+sys     0m6.462s
 
-real    0m4.507s
-user    0m2.020s
-sys     0m9.268s
+real    0m9.594s
+user    0m11.273s
+sys     0m7.227s
 
-real    0m5.730s
-user    0m4.440s
-sys     0m9.290s
+real    0m9.898s
+user    0m14.283s
+sys     0m7.181s
