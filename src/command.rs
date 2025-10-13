@@ -144,6 +144,11 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
         });
     }
 
+    if let ChildEnv::TraceFile(file) = env
+        && let Some(parent) = file.parent()
+    {
+        fs::create_dir_all(parent)?;
+    }
     child.spawn().map_err(|e| e.into())
 }
 
