@@ -55,9 +55,14 @@ pub(crate) const SKIP_COMMANDS: &[&str] = &[
 ];
 pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
     SkipCondition::without_flags("awk"),
+    SkipCondition::without_flags("comm"),
+    SkipCondition::without_flags("cmp"),
+    SkipCondition::without_flags("diff"),
     SkipCondition::without_flags("grep"),
+    SkipCondition::without_flags("join"),
     SkipCondition::with_flags("sort", &["-o", "--output"]),
     SkipCondition::with_flags("uniq", &["-o", "--output"]),
+    SkipCondition::without_flags("wc"),
 ];
 
 pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
