@@ -136,7 +136,7 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
         .stderr(Stdio::piped());
     unsafe {
         child.pre_exec(|| {
-            if libc::setsid() == -1 {
+            if libc::setpgid(0, 0) == -1 {
                 Err(IoError::last_os_error())
             } else {
                 Ok(())
