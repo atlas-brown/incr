@@ -11,14 +11,14 @@ pub(crate) struct SkipCondition {
 }
 
 impl SkipCondition {
-    const fn without_flags(name: &'static str) -> Self {
+    const fn from_command(name: &'static str) -> Self {
         Self {
             name,
             disallowed_flags: &[],
         }
     }
 
-    const fn with_flags(name: &'static str, disallowed_flags: &'static [&'static str]) -> Self {
+    const fn with_disallowed_flags(name: &'static str, disallowed_flags: &'static [&'static str]) -> Self {
         Self {
             name,
             disallowed_flags,
@@ -44,25 +44,25 @@ pub(crate) const DEBUG: bool = false;
 pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
 
 pub(crate) const IGNORE_COMMANDS: &[&str] = &[
-    "alias", "cd", "chgrp", "chmod", "chown", "date", "df", "du", "env", "export", "free", "hash",
-    "hostname", "id", "ln", "mkdir", "mktmp", "mv", "printenv", "ps", "read", "rm", "rmdir", "set", "sleep",
-    "stty", "sync", "time", "top", "touch", "tput", "umask", "uname", "unalias", "uptime", "w", "who",
-    "whoami", "yes",
+    "alias", "cd", "chgrp", "chmod", "chown", "cp", "date", "df", "du", "env", "export", "free", "hash",
+    "hostname", "id", "install", "ln", "ls", "mkdir", "mktmp", "mv", "printenv", "ps", "pwd", "read", "rm",
+    "rmdir", "set", "sleep", "stty", "sync", "time", "top", "touch", "tput", "type", "umask", "uname",
+    "unalias", "uptime", "w", "which", "who", "whoami", "yes",
 ];
 pub(crate) const SKIP_COMMANDS: &[&str] = &[
-    "basename", "cat", "cut", "dirname", "echo", "false", "head", "ls", "paste", "printf", "pwd", "rev",
-    "seq", "stat", "tail", "tee", "test", "tr", "true", "type", "which", "xargs",
+    "basename", "cat", "cut", "dirname", "echo", "false", "head", "paste", "printf", "rev", "seq", "stat",
+    "tail", "tee", "test", "tr", "true", "xargs",
 ];
 pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
-    SkipCondition::without_flags("awk"),
-    SkipCondition::without_flags("comm"),
-    SkipCondition::without_flags("cmp"),
-    SkipCondition::without_flags("diff"),
-    SkipCondition::without_flags("grep"),
-    SkipCondition::without_flags("join"),
-    SkipCondition::with_flags("sort", &["-o", "--output"]),
-    SkipCondition::with_flags("uniq", &["-o", "--output"]),
-    SkipCondition::without_flags("wc"),
+    SkipCondition::from_command("awk"),
+    SkipCondition::from_command("comm"),
+    SkipCondition::from_command("cmp"),
+    SkipCondition::from_command("diff"),
+    SkipCondition::from_command("grep"),
+    SkipCondition::from_command("join"),
+    SkipCondition::with_disallowed_flags("sort", &["-o", "--output"]),
+    SkipCondition::with_disallowed_flags("uniq", &["-o", "--output"]),
+    SkipCondition::from_command("wc"),
 ];
 
 pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
