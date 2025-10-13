@@ -30,15 +30,25 @@ pub(crate) fn skip_sandbox(command: &Command) -> bool {
             continue;
         }
         for flag in condition.disallowed_flags {
-            if command
-                .arguments
-                .iter()
-                .any(|a| a == flag || a.starts_with(&format!("{flag}=")))
-            {
+            if command.arguments.iter().any(|a| check_flag_included(a, flag)) {
                 return false;
             }
         }
         return true;
+    }
+    false
+}
+
+fn check_flag_included(argument: &str, flag: &str) -> bool {
+    if argument == flag || argument.starts_with(&format!("{flag}=")) {
+        return true;
+    }
+    if flag.starts_with("-")
+        && !flag.starts_with("--")
+        && argument.starts_with("-")
+        && !argument.starts_with("--")
+    {
+        return argument[1..].contains(&flag[1..]);
     }
     false
 }
