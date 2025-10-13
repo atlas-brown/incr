@@ -50,13 +50,14 @@ pub(crate) const IGNORE_COMMANDS: &[&str] = &[
     "uname", "uptime", "w", "which", "who", "whoami", "yes",
 ];
 pub(crate) const SKIP_COMMANDS: &[&str] = &[
-    "basename", "cat", "cut", "dirname", "echo", "false", "head", "paste", "printf", "rev", "seq", "stat",
-    "tail", "tee", "test", "tr", "true", "xargs",
+    "basename", "cat", "dirname", "echo", "false", "head", "paste", "printf", "rev", "seq", "stat", "tail",
+    "tee", "test", "tr", "true", "xargs",
 ];
 pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
     SkipCondition::from_command("awk"),
     SkipCondition::from_command("cmp"),
     SkipCondition::from_command("comm"),
+    SkipCondition::from_command("cut"),
     SkipCondition::from_command("diff"),
     SkipCondition::from_command("grep"),
     SkipCondition::from_command("join"),
