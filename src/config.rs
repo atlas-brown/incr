@@ -57,7 +57,7 @@ pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
     SkipCondition::from_command("awk"),
     SkipCondition::from_command("cmp"),
     SkipCondition::from_command("comm"),
-    SkipCondition::from_command("cut"),
+    SkipCondition::from_command("cut"), // TODO: investigate if this effect exists on rev, tail
     SkipCondition::from_command("diff"),
     SkipCondition::from_command("grep"),
     SkipCondition::from_command("join"),
