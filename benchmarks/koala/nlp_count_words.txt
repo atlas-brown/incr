@@ -2,7 +2,7 @@ No incr time:
 Incr stream time:
 Cache size: 98 MB
 
-[NO INCR]
+[NO INCR (OLD)]
 
 real    0m0.256s
 user    0m0.095s
@@ -24,7 +24,7 @@ real    0m14.344s
 user    0m15.189s
 sys     0m0.763s
 
-[INCR STREAM]
+[INCR STREAM (OLD)]
 
 real    0m4.717s
 user    0m3.721s
