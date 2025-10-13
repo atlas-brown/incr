@@ -45,13 +45,13 @@ pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
 
 pub(crate) const IGNORE_COMMANDS: &[&str] = &[
     "alias", "cd", "chgrp", "chmod", "chown", "date", "df", "du", "env", "export", "free", "hash",
-    "hostname", "id", "ln", "mkdir", "mv", "printenv", "ps", "read", "rm", "rmdir", "set", "sleep", "stty",
-    "sync", "time", "top", "touch", "tput", "umask", "uname", "unalias", "uptime", "w", "who", "whoami",
-    "yes",
+    "hostname", "id", "ln", "mkdir", "mktmp", "mv", "printenv", "ps", "read", "rm", "rmdir", "set", "sleep",
+    "stty", "sync", "time", "top", "touch", "tput", "umask", "uname", "unalias", "uptime", "w", "who",
+    "whoami", "yes",
 ];
 pub(crate) const SKIP_COMMANDS: &[&str] = &[
-    "basename", "cat", "cut", "dirname", "echo", "false", "head", "ls", "paste", "printf", "pwd", "seq",
-    "stat", "tail", "tee", "test", "tr", "true", "type", "which",
+    "basename", "cat", "cut", "dirname", "echo", "false", "head", "ls", "paste", "printf", "pwd", "rev",
+    "seq", "stat", "tail", "tee", "test", "tr", "true", "type", "which", "xargs",
 ];
 pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
     SkipCondition::without_flags("awk"),
