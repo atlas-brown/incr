@@ -46,8 +46,8 @@ pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
 pub(crate) const IGNORE_COMMANDS: &[&str] = &[
     "alias", "cd", "chgrp", "chmod", "chown", "cp", "date", "df", "du", "env", "export", "free", "hash",
     "hostname", "id", "install", "ln", "ls", "mkdir", "mktmp", "mv", "printenv", "ps", "pwd", "read", "rm",
-    "rmdir", "set", "sleep", "stty", "sync", "time", "top", "touch", "tput", "type", "umask", "uname",
-    "unalias", "uptime", "w", "which", "who", "whoami", "yes",
+    "rmdir", "set", "sleep", "stty", "sync", "time", "top", "touch", "tput", "type", "umask", "unalias",
+    "uname", "uptime", "w", "which", "who", "whoami", "yes",
 ];
 pub(crate) const SKIP_COMMANDS: &[&str] = &[
     "basename", "cat", "cut", "dirname", "echo", "false", "head", "paste", "printf", "rev", "seq", "stat",
@@ -55,8 +55,8 @@ pub(crate) const SKIP_COMMANDS: &[&str] = &[
 ];
 pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
     SkipCondition::from_command("awk"),
-    SkipCondition::from_command("comm"),
     SkipCondition::from_command("cmp"),
+    SkipCondition::from_command("comm"),
     SkipCondition::from_command("diff"),
     SkipCondition::from_command("grep"),
     SkipCondition::from_command("join"),
