@@ -26,26 +26,26 @@ sys     0m0.344s
 
 [INCR STREAM]
 
-real    0m0.062s
-user    0m0.009s
-sys     0m0.053s
+real    0m0.059s
+user    0m0.005s
+sys     0m0.055s
 
-real    0m0.255s
-user    0m0.115s
-sys     0m0.300s
+real    0m0.117s
+user    0m0.055s
+sys     0m0.100s
 
-real    0m0.511s
-user    0m0.450s
-sys     0m0.552s
+real    0m0.260s
+user    0m0.230s
+sys     0m0.170s
 
-real    0m21.067s
-user    0m20.950s
-sys     0m0.910s
+real    0m21.134s
+user    0m21.233s
+sys     0m0.729s
 
-real    0m0.611s
-user    0m0.612s
-sys     0m0.462s
+real    0m0.684s
+user    0m0.700s
+sys     0m0.405s
 
-real    0m0.582s
-user    0m0.401s
-sys     0m0.573s
+real    0m0.591s
+user    0m0.574s
+sys     0m0.332s
