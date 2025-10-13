@@ -17,6 +17,10 @@ use crate::ops;
 
 const PARSE_TRACE_SCRIPT: &str = include_str!("../scripts/parse_trace.py");
 
+pub(crate) fn skip_command(command: &Command) -> bool {
+    SKIP_COMMANDS.contains(&command.name.as_str())
+}
+
 pub(crate) fn skip_sandbox(command: &Command) -> bool {
     if SKIP_COMMANDS.contains(&command.name.as_str()) {
         return true;
@@ -39,7 +43,7 @@ pub(crate) fn skip_sandbox(command: &Command) -> bool {
     false
 }
 
-pub(in crate::execution) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {
+pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {
     if !check_read_dependencies(&data.read_dependencies)? {
         return Ok(false);
     }
@@ -49,7 +53,7 @@ pub(in crate::execution) fn check_cache_valid(cache: &CacheCursor<'_>, data: &Ca
     Ok(true)
 }
 
-pub(in crate::execution) fn parse_trace(env: &ChildEnv) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
+pub(crate) fn parse_trace(env: &ChildEnv) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
     #[derive(Clone, Copy, Debug, PartialEq)]
     enum ParseState {
         Start,
@@ -103,7 +107,7 @@ pub(in crate::execution) fn parse_trace(env: &ChildEnv) -> Result<(HashSet<PathB
     Ok((read_set, write_set))
 }
 
-pub(in crate::execution) fn get_read_dependencies(
+pub(crate) fn get_read_dependencies(
     read_set: HashSet<PathBuf>,
     write_set: &HashSet<PathBuf>,
 ) -> Result<HashMap<PathBuf, DependencyKey>> {

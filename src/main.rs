@@ -38,6 +38,10 @@ fn run() -> Result<ExitCode> {
         Some(command) => command,
         None => return Ok(SUCCESS_CODE),
     };
+    if execution::skip_command(&command) {
+        return Err(skip_executor::run(&command));
+    }
+
     let config = Config {
         skip_sandbox: execution::skip_sandbox(&command),
         complete_execution: true,
