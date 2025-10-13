@@ -1,5 +1,5 @@
-No incr time: 171.735
-Incr stream time: 41.025
+No incr time: 171.735 s
+Incr stream time: 41.025 s
 Cache size: 69 MB
 
 [NO INCR]
