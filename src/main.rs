@@ -1,17 +1,16 @@
 #![deny(rust_2018_idioms)]
 
-mod batch_executor;
 mod cache;
 mod command;
 mod config;
 mod execution;
 mod ops;
-mod stream_executor;
 
 use anyhow::Result;
 use std::process;
 
 use crate::config::Config;
+use crate::execution::{batch_executor, skip_executor, stream_executor};
 use crate::ops::{ExitCode, FAILURE_CODE, SUCCESS_CODE};
 
 const EXECUTOR: Executor = Executor::Stream;

@@ -1,3 +1,7 @@
+pub(crate) mod batch_executor;
+pub(crate) mod skip_executor;
+pub(crate) mod stream_executor;
+
 use anyhow::{Result, ensure};
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
@@ -11,7 +15,7 @@ use crate::command::{ChildEnv, Command};
 use crate::config::{CHUNK_SIZE, EXCLUDED_PATHS, SKIP_COMMANDS, SKIP_SANDBOX_CONDITIONS, TRACE_FILE};
 use crate::ops;
 
-const PARSE_TRACE_SCRIPT: &str = include_str!("parse_trace.py");
+const PARSE_TRACE_SCRIPT: &str = include_str!("../scripts/parse_trace.py");
 
 pub(crate) fn skip_sandbox(command: &Command) -> bool {
     if SKIP_COMMANDS.contains(&command.name.as_str()) {
@@ -35,7 +39,7 @@ pub(crate) fn skip_sandbox(command: &Command) -> bool {
     false
 }
 
-pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {
+pub(in crate::execution) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {
     if !check_read_dependencies(&data.read_dependencies)? {
         return Ok(false);
     }
@@ -45,7 +49,7 @@ pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Re
     Ok(true)
 }
 
-pub(crate) fn parse_trace(env: &ChildEnv) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
+pub(in crate::execution) fn parse_trace(env: &ChildEnv) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
     #[derive(Clone, Copy, Debug, PartialEq)]
     enum ParseState {
         Start,
@@ -99,7 +103,7 @@ pub(crate) fn parse_trace(env: &ChildEnv) -> Result<(HashSet<PathBuf>, HashSet<P
     Ok((read_set, write_set))
 }
 
-pub(crate) fn get_read_dependencies(
+pub(in crate::execution) fn get_read_dependencies(
     read_set: HashSet<PathBuf>,
     write_set: &HashSet<PathBuf>,
 ) -> Result<HashMap<PathBuf, DependencyKey>> {

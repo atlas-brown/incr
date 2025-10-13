@@ -26,7 +26,7 @@ impl SkipCondition {
     }
 }
 
-pub(crate) const TRY_COMMAND: &str = "/users/jxia3/incr/src/try.sh";
+pub(crate) const TRY_COMMAND: &str = "/users/jxia3/incr/src/scripts/try.sh";
 pub(crate) const STRACE_COMMAND: &str = "strace";
 pub(crate) const TRACE_FILE: &str = "trace.txt";
 pub(crate) const DEBUG_LOG_FILE: &str = "debug_log.txt";
