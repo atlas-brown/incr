@@ -1,6 +1,6 @@
 No incr time:
 Incr stream time:
-Cache size:
+Cache size: 69 MB
 
 [NO INCR]
 
@@ -62,58 +62,58 @@ sys     0m5.910s
 
 [INCR STREAM]
 
-real    0m1.071s
-user    0m0.019s
-sys     0m1.052s
+real    0m1.191s
+user    0m0.010s
+sys     0m1.181s
 
-real    0m3.235s
-user    0m2.598s
-sys     0m1.893s
+real    0m3.489s
+user    0m3.078s
+sys     0m3.462s
 
-real    0m3.356s
-user    0m3.874s
-sys     0m2.369s
+real    0m1.405s
+user    0m0.926s
+sys     0m2.167s
 
-real    0m4.414s
-user    0m7.994s
-sys     0m2.365s
+real    0m3.924s
+user    0m3.996s
+sys     0m2.380s
 
-real    0m3.152s
-user    0m3.717s
-sys     0m2.330s
+real    0m1.077s
+user    0m0.461s
+sys     0m2.020s
 
-real    0m4.349s
-user    0m4.085s
-sys     0m3.480s
+real    0m2.427s
+user    0m0.527s
+sys     0m3.281s
 
-real    0m6.596s
-user    0m6.481s
-sys     0m4.248s
+real    0m2.447s
+user    0m0.843s
+sys     0m4.199s
 
-real    0m6.504s
-user    0m7.511s
-sys     0m4.917s
+real    0m2.311s
+user    0m0.857s
+sys     0m4.243s
 
-real    0m7.362s
-user    0m11.438s
-sys     0m4.867s
+real    0m4.958s
+user    0m4.440s
+sys     0m3.972s
 
-real    0m6.527s
-user    0m7.863s
-sys     0m4.708s
+real    0m2.268s
+user    0m0.812s
+sys     0m4.048s
 
-real    0m7.582s
-user    0m7.552s
-sys     0m5.941s
+real    0m3.507s
+user    0m0.858s
+sys     0m5.260s
 
-real    0m10.021s
-user    0m10.666s
-sys     0m6.462s
+real    0m3.756s
+user    0m1.308s
+sys     0m6.454s
 
-real    0m9.594s
-user    0m11.273s
-sys     0m7.227s
+real    0m3.402s
+user    0m1.396s
+sys     0m6.034s
 
-real    0m9.898s
-user    0m14.283s
-sys     0m7.181s
+real    0m4.863s
+user    0m3.711s
+sys     0m6.263s
