@@ -12,17 +12,19 @@ use std::time::UNIX_EPOCH;
 
 use crate::cache::{CacheCursor, CacheData, DependencyKey};
 use crate::command::{ChildEnv, Command};
-use crate::config::{CHUNK_SIZE, EXCLUDED_PATHS, SKIP_COMMANDS, SKIP_SANDBOX_CONDITIONS, TRACE_FILE};
+use crate::config::{
+    CHUNK_SIZE, EXCLUDED_PATHS, IGNORE_COMMANDS, SKIP_COMMANDS, SKIP_SANDBOX_CONDITIONS, TRACE_FILE,
+};
 use crate::ops;
 
 const PARSE_TRACE_SCRIPT: &str = include_str!("../scripts/parse_trace.py");
 
 pub(crate) fn skip_command(command: &Command) -> bool {
-    SKIP_COMMANDS.contains(&command.name.as_str())
+    IGNORE_COMMANDS.contains(&command.name.as_str()) || SKIP_COMMANDS.contains(&command.name.as_str())
 }
 
 pub(crate) fn skip_sandbox(command: &Command) -> bool {
-    if SKIP_COMMANDS.contains(&command.name.as_str()) {
+    if skip_command(command) {
         return true;
     }
     for condition in SKIP_SANDBOX_CONDITIONS {
