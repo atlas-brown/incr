@@ -1,8 +1,9 @@
-import shasta.ast_node as AST
 import argparse
 import libdash
-from shasta.json_to_ast import to_ast_node
 import logging
+import os
+import shasta.ast_node as AST
+from shasta.json_to_ast import to_ast_node
 
 # Monkey patch
 # TODO: Fix this in libdash
@@ -108,6 +109,7 @@ def main():
     )
     arg_parser.add_argument("path", help="Path to the script")
     arg_parser.add_argument("-o", "--output", help="Path to save the transformed script (stdout if empty)", default=None)
+    arg_parser.add_argument("-e", "--execute", action="store_true", help="Execute the transformed script")
     arg_parser.add_argument("--sys-path", help=f"Path to the {sys_name} executable", default=sys_path)
     arg_parser.add_argument("-d", "--debug", action="store_true", help="Enable debug logging")
     args = arg_parser.parse_args()
@@ -123,6 +125,8 @@ def main():
             f.write(transformed_code)
     else:
         print(transformed_code)
+    if args.execute and args.output is not None:
+        os.system(f"bash {args.output}")
 
 if __name__ == "__main__":
     main()
