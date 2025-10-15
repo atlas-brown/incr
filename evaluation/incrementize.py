@@ -1,11 +1,11 @@
-import shasta.ast_node as AST
 import argparse
-import libdash
-from shasta.json_to_ast import to_ast_node
-import logging
-from typing import Iterable, List
 import copy
+import libdash
+import logging
 import pathlib
+import shasta.ast_node as AST
+from shasta.json_to_ast import to_ast_node
+from typing import Iterable, List
 
 # Monkey patch
 # TODO: Fix this in libdash
