@@ -102,7 +102,7 @@ def ast_to_code(ast):
 
 def main():
     sys_name = "incr"
-    sys_path = "path/to/incr"
+    sys_path = "/users/jxia3/incr/target/release/incr"
     arg_parser = argparse.ArgumentParser(
         description=f"Inserts {sys_name} into a shell script and outputs the modified script"
     )
