@@ -1,1 +1,0 @@
-/users/jxia3/incr/target/release/incr echo "hello world!"
