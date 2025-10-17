@@ -51,7 +51,7 @@ struct Arguments {
     try_command: String,
     #[arg(short = 'c', long = "cache", default_value = DEFAULT_CACHE_DIRECTORY)]
     cache_directory: String,
-    #[arg()]
+    #[arg(trailing_var_arg = true)]
     command: Vec<String>,
 }
 
