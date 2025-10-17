@@ -1,7 +1,7 @@
 ## Incremental Development Details
 
-`max.sh`: calculate the maximum temperatures.
+`temp-analytics-1.sh`: calculate the maximum temperatures.
 
-`min.sh`: calculate the minimum temperatures.
+`temp-analytics-2.sh`: calculate the minimum temperatures.
 
-`average.sh`: calculate the average temperatures.
+`temp-analytics-3.sh`: calculate the average temperatures.
