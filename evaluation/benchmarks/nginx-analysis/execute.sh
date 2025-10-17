@@ -33,7 +33,8 @@ measure_time() {
     local cmd
 
     if [[ "$mode" == "incr" ]]; then
-        cache_dir="${BENCHMARK_DIR}/cache"
+        cache_dir="/tmp/incr"
+        #cache_dir="${BENCHMARK_DIR}/cache"
         cmd="${TOP}/incr.sh ${SCRIPT_DIR}/${script} ${cache_dir}"
     else
         cmd="bash ${SCRIPT_DIR}/${script}"
@@ -50,10 +51,10 @@ measure_time() {
 }
 
 # Baseline: bash
-for script in "${SCRIPTS[@]}"; do
-    echo "Running ${script} with bash..."
-    measure_time "bash" $script
-done
+#for script in "${SCRIPTS[@]}"; do
+#    echo "Running ${script} with bash..."
+#    measure_time "bash" $script
+#done
 
 # Incremental run: incr
 for script in "${SCRIPTS[@]}"; do
