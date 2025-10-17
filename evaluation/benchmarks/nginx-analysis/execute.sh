@@ -1,12 +1,13 @@
-#!/usr/bin/env bash
-
+#!/bin/bash
 cd "$(dirname "$0")" || exit 1
 
 TOP=$(git rev-parse --show-toplevel)
 EVAL_DIR="${TOP}/evaluation"
-BENCHMARK="nginx"
-SCRIPT_DIR="${EVAL_DIR}/benchmarks/${BENCHMARK}/scripts"
-OUTPUT_DIR="${EVAL_DIR}/benchmarks/${BENCHMARK}/outputs"
+BENCHMARK="nginx-analysis"
+BENCHMARK_DIR="${EVAL_DIR}/benchmarks/${BENCHMARK}"
+SCRIPT_DIR="${BENCHMARK_DIR}/scripts"
+OUTPUT_DIR="${BENCHMARK_DIR}/outputs"
+mkdir -p "$OUTPUT_DIR"
 
 size=full
 for arg in "$@"; do
@@ -15,24 +16,29 @@ for arg in "$@"; do
     --min) size=min ;;
     esac
 done
-INPUT="${EVAL_DIR}/benchmarks/${BENCHMARK}/inputs/nginx-logs_${size}"
+INPUT="${BENCHMARK_DIR}/inputs/nginx-logs_${size}"
 
 SCRIPTS=("nginx-1.sh" "nginx-2.sh" "nginx-3.sh")
 
-TIME_FILE="${EVAL_DIR}/results/${BENCHMARK}-timings.csv"
-mkdir -p "$(dirname "$TIME_FILE")"
+TIME_FILE="${OUTPUT_DIR}/timing.csv"
 echo "mode,script,time_sec" > "$TIME_FILE"
 
 measure_time() {
-    local mode="$1"
-    local script="$2"
-    mkdir -p "$outdir"
+    local mode=$1
+    local script=$2
 
-    local out_file="${OUTPUT_DIR}/${script}.${mode}.out"
-    local err_file="${OUTPUT_DIR}/${script}.${mode}.err"
-
+    local out_file="${OUTPUT_DIR}/${script_name}.${mode}.out"
+    local err_file="${OUTPUT_DIR}/${script_name}.${mode}.err"
     local time_output
-    time_output=$({ time "$@" >"$out_file" 2>"$err_file"; } 2>&1) || true
+    local cmd
+
+    if [[ "$mode" == "incr" ]]; then
+        cmd="${TOP}/incr.sh ${SCRIPT_DIR}/${script}"
+    else
+        cmd="bash ${SCRIPT_DIR}/${script}"
+    fi
+
+    time_output=$({ time INPUT=$INPUT $cmd >"$out_file" 2>"$err_file"; } 2>&1)
 
     # Extract the real time and convert to seconds
     local elapsed
@@ -44,12 +50,12 @@ measure_time() {
 
 # Baseline: bash
 for script in "${SCRIPTS[@]}"; do
-    echo "Running $script with bash..."
-    measure_time "bash" "$script" bash "${SCRIPT_DIR}/${script}" "$INPUT"
+    echo "Running ${script} with bash..."
+    measure_time "bash" $script
 done
 
 # Incremental run: incr
-for script in "${SCRIPTS[@]}"; do
-    echo "Running $script with incr..."
-    measure_time "incr" "$script" "${EVAL_DIR}/incr.sh ${SCRIPT_DIR}/${script}" "$INPUT"
-done
+# for script in "${SCRIPTS[@]}"; do
+#     echo "Running $script with incr..."
+#     measure_time "incr" "${script}"
+# done

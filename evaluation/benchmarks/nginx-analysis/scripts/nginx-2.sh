@@ -2,7 +2,6 @@
 # tag: nginx logs
 # IN=${IN:-/dependency_untangling/log_data}
 # OUT=${OUT:-$PASH_TOP/evaluation/distr_benchmarks/dependency_untangling/input/output/nginx-logs}
-mkdir -p $2
 
 pure_func() {
     tempfile=$(mktemp)
@@ -26,7 +25,6 @@ pure_func() {
 }
 export -f pure_func
 
-for log in $1/*; do
-    logname=$2/$(basename $log)
-    cat $log | pure_func > $logname
+for log in $INPUT/*; do
+    cat $log | pure_func
 done
