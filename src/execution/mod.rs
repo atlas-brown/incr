@@ -19,12 +19,14 @@ use crate::ops;
 
 const PARSE_TRACE_SCRIPT: &str = include_str!("../scripts/parse_trace.py");
 
-pub(crate) fn skip_command(command: &Command) -> bool {
-    IGNORE_COMMANDS.contains(&command.name.as_str()) || SKIP_COMMANDS.contains(&command.name.as_str())
+pub(crate) fn skip_command(command: &Command, environment: &HashMap<String, String>) -> bool {
+    IGNORE_COMMANDS.contains(&command.name.as_str())
+        || SKIP_COMMANDS.contains(&command.name.as_str())
+        || environment.contains_key(&format!("BASH_FUNC_{}%%", command.name))
 }
 
 pub(crate) fn skip_sandbox(command: &Command) -> bool {
-    if skip_command(command) {
+    if IGNORE_COMMANDS.contains(&command.name.as_str()) || SKIP_COMMANDS.contains(&command.name.as_str()) {
         return true;
     }
     for condition in SKIP_SANDBOX_CONDITIONS {

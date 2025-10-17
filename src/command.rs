@@ -1,7 +1,6 @@
 use anyhow::{Result, anyhow, ensure};
 use bincode::Encode;
-use std::collections::{BTreeMap, HashSet};
-use std::env;
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs;
 use std::io::{self, Error as IoError, ErrorKind, Read, Write};
 use std::os::unix::process::CommandExt;
@@ -53,6 +52,7 @@ pub(crate) fn get_command(
     try_command: String,
     cache_directory: String,
     mut arguments: Vec<String>,
+    environment: &HashMap<String, String>,
 ) -> Result<Command> {
     ensure!(!arguments.is_empty());
     if arguments.len() == 1 {
@@ -62,8 +62,15 @@ pub(crate) fn get_command(
     let name = arguments.remove(0);
 
     let excluded_variables = EXCLUDED_VARIABLES.iter().copied().collect::<HashSet<_>>();
-    let environment = env::vars()
-        .filter(|(v, _)| !excluded_variables.contains(v.as_str()))
+    let environment = environment
+        .iter()
+        .filter_map(|(variable, value)| {
+            if !excluded_variables.contains(variable.as_str()) {
+                Some((variable.clone(), value.clone()))
+            } else {
+                None
+            }
+        })
         .collect::<BTreeMap<_, _>>();
 
     Ok(Command {

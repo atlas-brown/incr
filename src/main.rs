@@ -8,6 +8,7 @@ mod ops;
 
 use anyhow::{Result, anyhow};
 use clap::Parser;
+use std::collections::HashMap;
 use std::env;
 use std::process;
 
@@ -18,6 +19,13 @@ use crate::execution::{batch_executor, skip_executor, stream_executor};
 use crate::ops::{ExitCode, FAILURE_CODE, SUCCESS_CODE};
 
 const EXECUTOR: Executor = Executor::Batch;
+
+#[allow(unused)]
+#[derive(Clone, Copy, Debug)]
+enum Executor {
+    Batch,
+    Stream,
+}
 
 #[derive(Clone, Debug, Parser)]
 struct Arguments {
@@ -31,11 +39,11 @@ struct Arguments {
     command: Vec<String>,
 }
 
-#[allow(unused)]
-#[derive(Clone, Copy, Debug)]
-enum Executor {
-    Batch,
-    Stream,
+#[derive(Clone, Debug)]
+struct Input {
+    config: Config,
+    command: Command,
+    environment: HashMap<String, String>,
 }
 
 fn main() {
@@ -50,11 +58,11 @@ fn main() {
 }
 
 fn run() -> Result<ExitCode> {
-    let (config, command) = match parse_arguments()? {
-        Some((config, command)) => (config, command),
+    let (config, command, environment) = match parse_input()? {
+        Some(input) => (input.config, input.command, input.environment),
         None => return Ok(SUCCESS_CODE),
     };
-    if !config.force_cache && execution::skip_command(&command) {
+    if !config.force_cache && execution::skip_command(&command, &environment) {
         return Err(skip_executor::run(&command));
     }
     match EXECUTOR {
@@ -63,7 +71,7 @@ fn run() -> Result<ExitCode> {
     }
 }
 
-fn parse_arguments() -> Result<Option<(Config, Command)>> {
+fn parse_input() -> Result<Option<Input>> {
     let arguments = Arguments::parse();
     if arguments.command.is_empty() {
         return Ok(None);
@@ -81,12 +89,17 @@ fn parse_arguments() -> Result<Option<(Config, Command)>> {
         }
     };
 
-    let command = command::get_command(try_command, cache_directory, arguments.command)?;
+    let environment = env::vars().collect::<HashMap<_, _>>();
+    let command = command::get_command(try_command, cache_directory, arguments.command, &environment)?;
     let config = Config {
         force_cache: arguments.force_cache,
         skip_sandbox: execution::skip_sandbox(&command),
         complete_execution: true, // TODO: add a flag
     };
 
-    Ok(Some((config, command)))
+    Ok(Some(Input {
+        config,
+        command,
+        environment,
+    }))
 }
