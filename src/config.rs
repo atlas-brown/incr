@@ -43,12 +43,12 @@ pub(crate) const COMMIT_DIRECTORY: &str = "commit";
 
 pub(crate) const CHUNK_SIZE: usize = 65536;
 pub(crate) const SUDO_SANDBOX: bool = true;
-pub(crate) const DEBUG: bool = true;
+pub(crate) const DEBUG: bool = false;
 pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
 
 pub(crate) const IGNORE_COMMANDS: &[&str] = &[
     "alias", "cd", "chgrp", "chmod", "chown", "cp", "date", "df", "du", "env", "export", "free", "hash",
-    "hostname", "id", "install", "ln", "ls", "mkdir", "mktmp", "mv", "printenv", "ps", "pwd", "read", "rm",
+    "hostname", "id", "install", "ln", "ls", "mkdir", "mktemp", "mv", "printenv", "ps", "pwd", "read", "rm",
     "rmdir", "set", "sleep", "stty", "sync", "time", "top", "touch", "tput", "type", "umask", "unalias",
     "uname", "uptime", "w", "which", "who", "whoami", "yes",
 ];
