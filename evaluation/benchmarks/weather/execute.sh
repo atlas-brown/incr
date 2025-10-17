@@ -18,7 +18,11 @@ for arg in "$@"; do
 done
 INPUT="${BENCHMARK_DIR}/inputs/temperatures.${size}.txt"
 
-SCRIPTS=("temp-analytics-1.sh" "temp-analytics-2.sh" "temp-analytics-3.sh")
+if [[ "$1" == "tuft-weather" ]]; then
+    SCRIPTS=("tuft-weather-1.sh" "tuft-weather-2.sh" "tuft-weather-3.sh")
+else
+    SCRIPTS=("temp-analytics-1.sh" "temp-analytics-2.sh" "temp-analytics-3.sh")
+fi
 
 TIME_FILE="${OUTPUT_DIR}/timing.csv"
 echo "mode,script,time_sec" > "$TIME_FILE"
@@ -39,9 +43,13 @@ measure_time() {
         cmd="bash ${SCRIPT_DIR}/${script}"
     fi
 
-    export input_file="$INPUT"
-    export statistics_dir="$OUTPUT_DIR/statistics.$mode.$size"
-    mkdir -p "$statistics_dir"
+    if [[ "$1" == "tuft-weather" ]]; then
+        export input_file="$INPUT"
+        export statistics_dir="$OUTPUT_DIR/statistics.$mode.$size"
+        mkdir -p "$statistics_dir"
+    else
+        mkdir -p "$OUTPUT_DIR/$mode.$size"
+    fi
 
     time_output=$({ time INPUT=$INPUT $cmd >"$out_file" 2>"$err_file"; } 2>&1)
 
