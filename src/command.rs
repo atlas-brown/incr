@@ -5,7 +5,6 @@ use std::collections::{BTreeMap, HashSet};
 use std::env;
 use std::fs;
 use std::io::{self, Error as IoError, ErrorKind, Read, Write};
-use std::mem;
 use std::os::unix::process::CommandExt;
 use std::path::PathBuf;
 use std::process::{Child, Command as ShellCommand, Stdio};
@@ -56,15 +55,14 @@ struct Arguments {
 }
 
 pub(crate) fn get_command() -> Result<Option<Command>> {
-    let args = Arguments::parse();
-    if args.command.is_empty() {
+    let params = Arguments::parse();
+    if params.command.is_empty() {
         return Ok(None);
     }
-    println!("{args:?}");
 
-    let mut arguments = args.command.clone();
+    let mut arguments = params.command.clone();
     if arguments.len() == 1 {
-        let command_string = mem::take(&mut arguments[0]);
+        let command_string = arguments.pop().unwrap();
         arguments = shlex::split(&command_string).ok_or(anyhow!("Could not split command"))?
     }
     let name = arguments.remove(0);
@@ -78,8 +76,8 @@ pub(crate) fn get_command() -> Result<Option<Command>> {
     }
 
     Ok(Some(Command {
-        try_command: args.try_command,
-        cache_directory: args.cache_directory,
+        try_command: params.try_command,
+        cache_directory: params.cache_directory,
         name,
         arguments,
         environment,
