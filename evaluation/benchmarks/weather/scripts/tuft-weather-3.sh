@@ -60,7 +60,7 @@ while IFS= read -r city; do
         join -1 1 -2 1 -e "NA" "$processed" "$j2" \
             | grep -v 'NA' | sed 's/-99/NaN/g' \
             | python3 "$scripts_dir/plot.py" "$year" "$city" \
-            > "plots/$safe/$year.png"
+            > "$plot_dir/$safe/$year.png"
 
         rm -f "$yr_txt" "$max_y" "$min_y" "$j1" "$j2"
     done

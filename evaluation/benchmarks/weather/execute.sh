@@ -48,7 +48,8 @@ measure_time() {
 
     if [[ "$IS_TUFT_WEATHER" == 1 ]]; then
         export input_file="$INPUT"
-        export plot_dir="plots/$mode"
+        export plot_dir="$BENCHMARK_DIR/plots/$mode"
+        export scripts_dir="$SCRIPT_DIR"
         mkdir -p "$OUTPUT_DIR/$mode.$size"
     else
         export input_file="$INPUT"
