@@ -44,11 +44,11 @@ measure_time() {
     fi
 
     if [[ "$1" == "tuft-weather" ]]; then
+        mkdir -p "$OUTPUT_DIR/$mode.$size"
+    else
         export input_file="$INPUT"
         export statistics_dir="$OUTPUT_DIR/statistics.$mode.$size"
         mkdir -p "$statistics_dir"
-    else
-        mkdir -p "$OUTPUT_DIR/$mode.$size"
     fi
 
     time_output=$({ time INPUT=$INPUT $cmd >"$out_file" 2>"$err_file"; } 2>&1)
@@ -68,7 +68,7 @@ for script in "${SCRIPTS[@]}"; do
 done
 
 # Incremental run: incr
-for script in "${SCRIPTS[@]}"; do
-    echo "Running $script with incr..."
-    measure_time "incr" $script
-done
+#for script in "${SCRIPTS[@]}"; do
+#    echo "Running $script with incr..."
+#    measure_time "incr" $script
+#done

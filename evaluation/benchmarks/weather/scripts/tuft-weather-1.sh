@@ -1,9 +1,6 @@
 #!/bin/bash
 
 input="$1"
-TOP=$(git rev-parse --show-toplevel)
-eval_dir="$TOP/weather"
-scripts_dir="$eval_dir/scripts"
 
 awk -F '\t' '{print $6}' "$input" | sort -u |
 while IFS= read -r city; do
