@@ -9,8 +9,8 @@ use std::process::{Command as ShellCommand, Stdio};
 
 use crate::command::Command;
 use crate::config::{
-    CACHE_DIRECTORY, CHUNK_SIZE, COMMIT_DIRECTORY, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY,
-    SANDBOX_DIRECTORY, SUDO_SANDBOX, TRACE_FILE, TRY_COMMAND,
+    CHUNK_SIZE, COMMIT_DIRECTORY, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY,
+    SANDBOX_DIRECTORY, SUDO_SANDBOX, TRACE_FILE,
 };
 use crate::ops;
 
@@ -18,6 +18,7 @@ use crate::ops;
 pub(crate) struct CacheCursor<'c> {
     directory: PathBuf,
     info: CacheInfo<'c>,
+    try_cmd: String,
 }
 
 impl<'c> CacheCursor<'c> {
@@ -27,6 +28,7 @@ impl<'c> CacheCursor<'c> {
             name: &command.name,
             arguments: &command.arguments,
             environment: &command.environment,
+            cache_dir: &command.cache_dir,
             stdin_hash,
             stdin: Some(stdin),
         };
@@ -38,6 +40,7 @@ impl<'c> CacheCursor<'c> {
             name: &command.name,
             arguments: &command.arguments,
             environment: &command.environment,
+            cache_dir: &command.cache_dir,
             stdin_hash,
             stdin: None,
         };
@@ -52,8 +55,8 @@ impl<'c> CacheCursor<'c> {
             stdin_hash,
         };
         let hash = ops::hash_bytes(&ops::encode_to_vec(&key_data)?);
-        let directory = Path::new(CACHE_DIRECTORY).join(format!("cache_{hash}"));
-        Ok(Self { directory, info })
+        let directory = Path::new(command.cache_dir.as_str()).join(format!("cache_{hash}"));
+        Ok(Self { directory, info, try_cmd: command.try_cmd.clone() })
     }
 
     pub(crate) fn get_sandbox_directory(&self) -> PathBuf {
@@ -113,7 +116,7 @@ impl<'c> CacheCursor<'c> {
             .stderr(Stdio::null())
             .spawn()?
             .wait()?;
-        ShellCommand::new(TRY_COMMAND)
+        ShellCommand::new(self.try_cmd.as_str())
             .args(["commit", ops::path_to_string(&commit_directory)?])
             .stdin(Stdio::null())
             .stdout(Stdio::null())
@@ -159,6 +162,7 @@ struct CacheInfo<'c> {
     stdin_hash: u64,
     #[serde(with = "ops::serialize_byte_slice")]
     stdin: Option<&'c [u8]>,
+    cache_dir: &'c str,
 }
 
 #[derive(Clone, Debug, Encode)]

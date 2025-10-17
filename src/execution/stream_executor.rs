@@ -9,7 +9,7 @@ use xxhash_rust::xxh3::Xxh3;
 
 use crate::cache::{self, CacheCursor, CacheData};
 use crate::command::{self, ChildContext, ChildEnv, Command, Output};
-use crate::config::{CACHE_DIRECTORY, CHUNK_SIZE, Config, DEBUG};
+use crate::config::{CHUNK_SIZE, Config, DEBUG};
 use crate::execution;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
@@ -99,11 +99,11 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
     let hash = ops::hash_bytes(&ops::encode_to_vec(command)?);
     if config.skip_sandbox {
-        let trace_file = Path::new(CACHE_DIRECTORY).join(format!("trace_{hash}.txt"));
+        let trace_file = Path::new(command.cache_dir.as_str()).join(format!("trace_{hash}.txt"));
         return Ok(ChildEnv::TraceFile(trace_file));
     }
 
-    let sandbox_directory = Path::new(CACHE_DIRECTORY).join(format!("sandbox_{hash}"));
+    let sandbox_directory = Path::new(command.cache_dir.as_str()).join(format!("sandbox_{hash}"));
     if sandbox_directory.is_dir() {
         cache::remove_sandbox(&sandbox_directory)?;
     } else if sandbox_directory.is_file() {

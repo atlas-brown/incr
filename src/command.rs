@@ -9,8 +9,9 @@ use std::os::unix::process::CommandExt;
 use std::path::PathBuf;
 use std::process::{Child, Command as ShellCommand, Stdio};
 use std::thread::{self, JoinHandle};
+use clap::Parser;
 
-use crate::config::{CHUNK_SIZE, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRACE_FILE, TRY_COMMAND};
+use crate::config::{CHUNK_SIZE, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRACE_FILE};
 use crate::ops;
 
 #[derive(Clone, Debug, Encode)]
@@ -18,6 +19,8 @@ pub(crate) struct Command {
     pub(crate) name: String,
     pub(crate) arguments: Vec<String>,
     pub(crate) environment: BTreeMap<String, String>,
+    pub(crate) try_cmd: String,
+    pub(crate) cache_dir: String,
 }
 
 #[derive(Clone, Debug)]
@@ -39,18 +42,28 @@ pub(crate) enum Output {
     BrokenPipe,
 }
 
+#[derive(Parser, Debug)]
+struct Args {
+    #[arg(short, long)]
+    try_path: String,
+
+    #[arg(short, long)]
+    cache_dir: String,
+
+    #[arg()]
+    arguments: Vec<String>,
+}
+
 pub(crate) fn get_command() -> Result<Option<Command>> {
-    let mut arguments = env::args().collect::<Vec<String>>();
-    if arguments.len() <= 1 {
+    let args = Args::parse();
+    if args.arguments.is_empty() {
         return Ok(None);
     }
-
-    if arguments.len() == 2 {
-        let command_string = mem::take(&mut arguments[1]);
+    let mut arguments = args.arguments.clone();
+    if arguments.len() == 1 {
+        let command_string = mem::take(&mut arguments[0]);
         arguments = shlex::split(&command_string).ok_or(anyhow!("Could not split command"))?
-    } else {
-        arguments.remove(0);
-    };
+    }
     let name = arguments.remove(0);
 
     let excluded_vars = EXCLUDED_VARIABLES.iter().copied().collect::<HashSet<_>>();
@@ -65,6 +78,8 @@ pub(crate) fn get_command() -> Result<Option<Command>> {
         name,
         arguments,
         environment,
+        try_cmd: args.try_path,
+        cache_dir: args.cache_dir,
     }))
 }
 
@@ -99,7 +114,7 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
     let command_string = shlex::try_join(command_parts)?;
 
     let child_command = match env {
-        ChildEnv::Sandbox(_) => TRY_COMMAND,
+        ChildEnv::Sandbox(_) => command.try_cmd.as_str(),
         ChildEnv::TraceFile(_) => STRACE_COMMAND,
     };
     let arguments = match env {
