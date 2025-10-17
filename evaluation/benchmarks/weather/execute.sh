@@ -48,13 +48,12 @@ measure_time() {
 
     if [[ "$IS_TUFT_WEATHER" == 1 ]]; then
         export input_file="$INPUT"
+        export plot_dir="plots/$mode"
         mkdir -p "$OUTPUT_DIR/$mode.$size"
-        echo "in tuft weather"
     else
         export input_file="$INPUT"
         export statistics_dir="$OUTPUT_DIR/statistics.$mode.$size"
         mkdir -p "$statistics_dir"
-        echo "in other"
     fi
 
     time_output=$({ time INPUT=$INPUT $cmd >"$out_file" 2>"$err_file"; } 2>&1)

@@ -6,8 +6,8 @@ input="$input_file"
 awk -F '\t' '{print $6}' "$input" | sort -u |
 while IFS= read -r city; do
     safe=$(printf '%s' "$city" | tr ' /' '__') 
-    tmp_dir="plots/tmp/$safe"
-    mkdir -p "plots/$safe" "$tmp_dir"
+    tmp_dir="$plot_dir/tmp/$safe"
+    mkdir -p "$plot_dir/$safe" "$tmp_dir"
 
     formatted="$tmp_dir/formatted.txt"
     processed="$tmp_dir/processed.txt"
