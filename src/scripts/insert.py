@@ -12,6 +12,11 @@ IGNORE_COMMANDS = [
     "rmdir", "set", "sleep", "stty", "sync", "time", "top", "touch", "tput", "type", "umask", "unalias",
     "uname", "uptime", "w", "which", "who", "whoami", "yes",
 ]
+SKIP_COMMANDS = [
+    "basename", "cat", "dirname", "echo", "false", "head", "paste", "printf", "rev", "seq", "stat", "tail",
+    "tee", "test", "tr", "true", "xargs",
+]
+AVOID_SET = set(IGNORE_COMMANDS + SKIP_COMMANDS)
 
 # Monkey patch
 # TODO: Fix this in libdash
@@ -58,7 +63,7 @@ def transform_node(node, sys_path):
             arguments = [transform_node(arg, sys_path) for arg in node.arguments]
             if arguments: # Don't append sys to assignments
                 command_name = "".join(chr(c.char) for c in arguments[0])
-                if command_name not in IGNORE_COMMANDS: # Don't append sys to unreasonable commands
+                if command_name not in AVOID_SET: # Don't append sys to unreasonable commands
                     arguments = [str_to_ast(sys_path)] + arguments
             return AST.CommandNode(
                     arguments=arguments,
