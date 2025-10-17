@@ -55,7 +55,6 @@ fn run() -> Result<ExitCode> {
         None => return Ok(SUCCESS_CODE),
     };
     if !config.force_cache && execution::skip_command(&command) {
-        eprintln!("skipping");
         return Err(skip_executor::run(&command));
     }
     match EXECUTOR {

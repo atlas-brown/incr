@@ -134,7 +134,6 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
             &command_string,
         ],
     };
-    //eprintln!("{arguments:?}");
 
     let mut child = ShellCommand::new(child_command);
     child
