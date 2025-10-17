@@ -18,9 +18,11 @@ for arg in "$@"; do
 done
 
 if [[ "$1" == "tuft-weather" ]]; then
+    IS_TUFT_WEATHER=1
     INPUT="${BENCHMARK_DIR}/inputs/tuft_weather.${size}.txt"
-    SCRIPTS=("tuft-weather-1.sh")
+    SCRIPTS=("tuft-weather-1.sh" "tuft-weather-2.sh" "tuft-weather-3.sh")
 else
+    IS_TUFT_WEATHER=0
     INPUT="${BENCHMARK_DIR}/inputs/temperatures.${size}.txt"
     SCRIPTS=("temp-analytics-1.sh" "temp-analytics-2.sh" "temp-analytics-3.sh")
 fi
@@ -44,13 +46,15 @@ measure_time() {
         cmd="bash ${SCRIPT_DIR}/${script}"
     fi
 
-    if [[ "$1" == "tuft-weather" ]]; then
+    if [[ "$IS_TUFT_WEATHER" == 1 ]]; then
         export input_file="$INPUT"
         mkdir -p "$OUTPUT_DIR/$mode.$size"
+        echo "in tuft weather"
     else
         export input_file="$INPUT"
         export statistics_dir="$OUTPUT_DIR/statistics.$mode.$size"
         mkdir -p "$statistics_dir"
+        echo "in other"
     fi
 
     time_output=$({ time INPUT=$INPUT $cmd >"$out_file" 2>"$err_file"; } 2>&1)
@@ -70,7 +74,7 @@ for script in "${SCRIPTS[@]}"; do
 done
 
 # Incremental run: incr
-#for script in "${SCRIPTS[@]}"; do
-#    echo "Running $script with incr..."
-#    measure_time "incr" $script
-#done
+for script in "${SCRIPTS[@]}"; do
+    echo "Running $script with incr..."
+    measure_time "incr" $script
+done
