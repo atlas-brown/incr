@@ -11,8 +11,8 @@ use std::process::{Child, Command as ShellCommand, Stdio};
 use std::thread::{self, JoinHandle};
 
 use crate::config::{
-    CHUNK_SIZE, Config, DEFAULT_CACHE_DIRECTORY, DEFAULT_TRY_COMMAND, EXCLUDED_VARIABLES, STRACE_COMMAND,
-    TRACE_FILE,
+    BASH_COMMAND, CHUNK_SIZE, Config, DEFAULT_CACHE_PATH, DEFAULT_TRY_PATH, EXCLUDED_VARIABLES,
+    STRACE_COMMAND, TRACE_FILE,
 };
 use crate::ops;
 
@@ -23,6 +23,15 @@ pub(crate) struct Command {
     pub(crate) name: String,
     pub(crate) arguments: Vec<String>,
     pub(crate) environment: BTreeMap<String, String>,
+}
+
+impl Command {
+    pub(crate) fn format_bash(&self) -> Result<String> {
+        let mut parts = Vec::with_capacity(self.arguments.len() + 1);
+        parts.push(self.name.as_str());
+        parts.extend(self.arguments.iter().map(|a| a.as_str()));
+        Ok(shlex::try_join(parts)?)
+    }
 }
 
 #[derive(Clone, Debug)]
@@ -45,20 +54,37 @@ pub(crate) enum Output {
 }
 
 #[derive(Clone, Debug, Parser)]
-struct Arguments {
-    #[arg(short = 't', long = "try", default_value = DEFAULT_TRY_COMMAND)]
-    try_command: String,
-    #[arg(short = 'c', long = "cache", default_value = DEFAULT_CACHE_DIRECTORY)]
-    cache_directory: String,
+struct ScriptArguments {
+    #[arg(short = 't', long = "try")]
+    try_command: Option<String>,
+    #[arg(short = 'c', long = "cache")]
+    cache_directory: Option<String>,
     #[arg(trailing_var_arg = true)]
     command: Vec<String>,
 }
 
 pub(crate) fn get_command() -> Result<Option<Command>> {
-    let params = Arguments::parse();
+    let params = ScriptArguments::parse();
     if params.command.is_empty() {
         return Ok(None);
     }
+
+    let try_command = match params.try_command {
+        Some(command) => command,
+        None => {
+            let home_directory = env::home_dir().ok_or(anyhow!("Could not resolve home directory"))?;
+            let home_directory = ops::path_to_string(&home_directory)?;
+            format!("{home_directory}/{DEFAULT_TRY_PATH}")
+        }
+    };
+    let cache_directory = match params.cache_directory {
+        Some(directory) => directory,
+        None => {
+            let home_directory = env::home_dir().ok_or(anyhow!("Could not resolve home directory"))?;
+            let home_directory = ops::path_to_string(&home_directory)?;
+            format!("{home_directory}/{DEFAULT_CACHE_PATH}")
+        }
+    };
 
     let mut arguments = params.command.clone();
     if arguments.len() == 1 {
@@ -76,8 +102,8 @@ pub(crate) fn get_command() -> Result<Option<Command>> {
     }
 
     Ok(Some(Command {
-        try_command: params.try_command,
-        cache_directory: params.cache_directory,
+        try_command,
+        cache_directory,
         name,
         arguments,
         environment,
@@ -128,7 +154,7 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
             "--trace=fork,clone,%file",
             "-o",
             &format!("/tmp/{TRACE_FILE}"),
-            "bash",
+            BASH_COMMAND,
             "-c",
             &shlex::try_quote(&command_string)?,
         ] as &[&str],
@@ -138,11 +164,12 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
             "--trace=fork,clone,%file",
             "-o",
             ops::path_to_string(file)?,
-            "bash",
+            BASH_COMMAND,
             "-c",
             &command_string,
         ],
     };
+    //eprintln!("{arguments:?}");
 
     let mut child = ShellCommand::new(child_command);
     child
@@ -165,7 +192,8 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
     {
         fs::create_dir_all(parent)?;
     }
-    child.spawn().map_err(|e| e.into())
+
+    Ok(child.spawn()?)
 }
 
 fn capture_stream<S, D>(config: &Config, mut source: S, mut destination: D) -> Result<Output>

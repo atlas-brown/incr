@@ -26,17 +26,19 @@ impl SkipCondition {
     }
 }
 
-pub(crate) const DEFAULT_TRY_COMMAND: &str = "/users/jxia3/incr/src/scripts/try.sh";
+pub(crate) const DEFAULT_TRY_PATH: &str = "incr/src/scripts/try.sh";
+pub(crate) const DEFAULT_CACHE_PATH: &str = "cache";
+
+pub(crate) const BASH_COMMAND: &str = "bash";
 pub(crate) const STRACE_COMMAND: &str = "strace";
 pub(crate) const TRACE_FILE: &str = "trace.txt";
+pub(crate) const DEBUG_FILE: &str = "debug_info.json";
 pub(crate) const DEBUG_LOG_FILE: &str = "debug_log.txt";
 
-pub(crate) const DEFAULT_CACHE_DIRECTORY: &str = "/users/jxia3/incr/cache";
 pub(crate) const DATA_FILE: &str = "data";
 pub(crate) const SANDBOX_DIRECTORY: &str = "sandbox";
 pub(crate) const OUTPUT_DIRECTORY: &str = "outputs";
 pub(crate) const COMMIT_DIRECTORY: &str = "commit";
-pub(crate) const DEBUG_FILE: &str = "debug_info.json";
 
 pub(crate) const CHUNK_SIZE: usize = 65536;
 pub(crate) const SUDO_SANDBOX: bool = true;

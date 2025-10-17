@@ -89,7 +89,7 @@ pub(crate) fn encode_to_vec<T>(value: &T) -> Result<Vec<u8>>
 where
     T: Encode,
 {
-    bincode::encode_to_vec(value, get_bincode_config()).map_err(|e| e.into())
+    Ok(bincode::encode_to_vec(value, get_bincode_config())?)
 }
 
 pub(crate) fn encode_to_file<T>(value: &T, directory: &Path, file_name: String) -> Result<()>
