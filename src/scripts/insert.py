@@ -5,6 +5,14 @@ import os
 import shasta.ast_node as AST
 from shasta.json_to_ast import to_ast_node
 
+# Ensure these match config.rs
+IGNORE_COMMANDS = [
+    "alias", "cd", "chgrp", "chmod", "chown", "cp", "date", "df", "du", "env", "export", "free", "hash",
+    "hostname", "id", "install", "ln", "ls", "mkdir", "mktmp", "mv", "printenv", "ps", "pwd", "read", "rm",
+    "rmdir", "set", "sleep", "stty", "sync", "time", "top", "touch", "tput", "type", "umask", "unalias",
+    "uname", "uptime", "w", "which", "who", "whoami", "yes",
+]
+
 # Monkey patch
 # TODO: Fix this in libdash
 old_pretty = AST.CommandNode.pretty
@@ -49,7 +57,9 @@ def transform_node(node, sys_path):
             assignments = [transform_node(ass, sys_path) for ass in node.assignments]
             arguments = [transform_node(arg, sys_path) for arg in node.arguments]
             if arguments: # Don't append sys to assignments
-                arguments = [str_to_ast(sys_path)] + arguments
+                command_name = "".join(chr(c.char) for c in arguments[0])
+                if command_name not in IGNORE_COMMANDS: # Don't append sys to unreasonable commands
+                    arguments = [str_to_ast(sys_path)] + arguments
             return AST.CommandNode(
                     arguments=arguments,
                     assignments=assignments,
@@ -103,7 +113,7 @@ def ast_to_code(ast):
 
 def main():
     sys_name = "incr"
-    sys_path = "/users/jxia3/incr/target/release/incr"
+    sys_path = "~/incr/target/release/incr"
     arg_parser = argparse.ArgumentParser(
         description=f"Inserts {sys_name} into a shell script and outputs the modified script"
     )
