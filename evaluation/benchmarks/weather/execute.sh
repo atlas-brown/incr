@@ -20,6 +20,7 @@ INPUT="${BENCHMARK_DIR}/inputs/temperatures.${size}.txt"
 
 export input_file="$INPUT"
 export statistics_dir="$OUTPUT_DIR/statistics.$size"
+mkdir -p "$statistics_dir"
 
 SCRIPTS=("temp-analytics-1.sh" "temp-analytics-2.sh" "temp-analytics-3.sh")
 
