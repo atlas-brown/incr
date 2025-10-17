@@ -1,6 +1,6 @@
 #!/bin/bash
-
 cd "$(dirname "$0")" || exit 1
+
 TOP=$(git rev-parse --show-toplevel)
 BENCHMARK="word-freq"
 INPUT_DIR="${TOP}/evaluation/benchmarks/${BENCHMARK}/inputs"

@@ -1,9 +1,8 @@
 #!/bin/bash
-
 cd "$(dirname "$0")" || exit 1
+
 TOP=$(git rev-parse --show-toplevel)
 BENCHMARK="weather"
-
 eval_dir="${TOP}/evaluation/benchmarks/${BENCHMARK}"
 input_dir="${TOP}/evaluation/benchmarks/${BENCHMARK}/inputs"
 

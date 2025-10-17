@@ -1,6 +1,6 @@
 #!/bin/bash
-
 cd "$(dirname "$0")" || exit 1
+
 TOP=$(git rev-parse --show-toplevel)
 BENCHMARK="nginx-analysis"
 INPUT_DIR="${TOP}/evaluation/benchmarks/${BENCHMARK}/inputs"
