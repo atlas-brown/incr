@@ -111,11 +111,13 @@ def main():
     arg_parser.add_argument("-o", "--output", help="Path to save the transformed script (stdout if empty)", default=None)
     arg_parser.add_argument("-e", "--execute", action="store_true", help="Execute the transformed script")
     arg_parser.add_argument("--sys-path", help=f"Path to the {sys_name} executable", default=sys_path)
+    arg_parser.add_argument("--try-path", help=f"Path to the try.sh script", default=None)
+    arg_parser.add_argument("--cache-path", help="Path to the cache directory", default=None)
     arg_parser.add_argument("-d", "--debug", action="store_true", help="Enable debug logging")
     args = arg_parser.parse_args()
     
     logging.basicConfig(level=logging.DEBUG if args.debug else logging.INFO)
-    sys_path = args.sys_path
+    sys_path = f"{args.sys_path} --try-path {args.try_path} --cache-dir {args.cache_path}" if args.try_path and args.cache_path else args.sys_path
     original_ast = parse_shell_to_asts(args.path)
     transformed_ast = transform_ast(original_ast, sys_path)
     transformed_code = ast_to_code(transformed_ast)

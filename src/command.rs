@@ -50,7 +50,7 @@ struct Args {
     #[arg(short, long)]
     cache_dir: String,
 
-    #[arg()]
+    #[arg(trailing_var_arg = true)]
     arguments: Vec<String>,
 }
 

@@ -27,13 +27,14 @@ measure_time() {
     local mode=$1
     local script=$2
 
-    local out_file="${OUTPUT_DIR}/${script_name}.${mode}.out"
-    local err_file="${OUTPUT_DIR}/${script_name}.${mode}.err"
+    local out_file="${OUTPUT_DIR}/${script}.${mode}.out"
+    local err_file="${OUTPUT_DIR}/${script}.${mode}.err"
     local time_output
     local cmd
 
     if [[ "$mode" == "incr" ]]; then
-        cmd="${TOP}/incr.sh ${SCRIPT_DIR}/${script}"
+        cache_dir="${BENCHMARK_DIR}/cache"
+        cmd="${TOP}/incr.sh ${SCRIPT_DIR}/${script} ${cache_dir}"
     else
         cmd="bash ${SCRIPT_DIR}/${script}"
     fi
@@ -55,7 +56,7 @@ for script in "${SCRIPTS[@]}"; do
 done
 
 # Incremental run: incr
-# for script in "${SCRIPTS[@]}"; do
-#     echo "Running $script with incr..."
-#     measure_time "incr" "${script}"
-# done
+for script in "${SCRIPTS[@]}"; do
+    echo "Running $script with incr..."
+    measure_time "incr" $script
+done
