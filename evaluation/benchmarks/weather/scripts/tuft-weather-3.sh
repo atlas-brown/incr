@@ -1,6 +1,7 @@
 #!/bin/bash
+cd "$(dirname "$0")/.." || exit 1
 
-input="$1"
+input="$input_file"
 
 awk -F '\t' '{print $6}' "$input" | sort -u |
 while IFS= read -r city; do

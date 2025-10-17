@@ -16,11 +16,12 @@ for arg in "$@"; do
     --min) size=min ;;
     esac
 done
-INPUT="${BENCHMARK_DIR}/inputs/temperatures.${size}.txt"
 
 if [[ "$1" == "tuft-weather" ]]; then
-    SCRIPTS=("tuft-weather-1.sh" "tuft-weather-2.sh" "tuft-weather-3.sh")
+    INPUT="${BENCHMARK_DIR}/inputs/tuft_weather.${size}.txt"
+    SCRIPTS=("tuft-weather-1.sh")
 else
+    INPUT="${BENCHMARK_DIR}/inputs/temperatures.${size}.txt"
     SCRIPTS=("temp-analytics-1.sh" "temp-analytics-2.sh" "temp-analytics-3.sh")
 fi
 
@@ -44,6 +45,7 @@ measure_time() {
     fi
 
     if [[ "$1" == "tuft-weather" ]]; then
+        export input_file="$INPUT"
         mkdir -p "$OUTPUT_DIR/$mode.$size"
     else
         export input_file="$INPUT"
