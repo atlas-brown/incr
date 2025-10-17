@@ -1,6 +1,5 @@
-use anyhow::{Result, anyhow};
+use anyhow::{Result, anyhow, ensure};
 use bincode::Encode;
-use clap::Parser;
 use std::collections::{BTreeMap, HashSet};
 use std::env;
 use std::fs;
@@ -10,10 +9,7 @@ use std::path::PathBuf;
 use std::process::{Child, Command as ShellCommand, Stdio};
 use std::thread::{self, JoinHandle};
 
-use crate::config::{
-    BASH_COMMAND, CHUNK_SIZE, Config, DEFAULT_CACHE_PATH, DEFAULT_TRY_PATH, EXCLUDED_VARIABLES,
-    STRACE_COMMAND, TRACE_FILE,
-};
+use crate::config::{BASH_COMMAND, CHUNK_SIZE, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRACE_FILE};
 use crate::ops;
 
 #[derive(Clone, Debug, Encode)]
@@ -53,40 +49,12 @@ pub(crate) enum Output {
     BrokenPipe,
 }
 
-#[derive(Clone, Debug, Parser)]
-struct ScriptArguments {
-    #[arg(short = 't', long = "try")]
-    try_command: Option<String>,
-    #[arg(short = 'c', long = "cache")]
-    cache_directory: Option<String>,
-    #[arg(trailing_var_arg = true)]
-    command: Vec<String>,
-}
-
-pub(crate) fn get_command() -> Result<Option<Command>> {
-    let params = ScriptArguments::parse();
-    if params.command.is_empty() {
-        return Ok(None);
-    }
-
-    let try_command = match params.try_command {
-        Some(command) => command,
-        None => {
-            let home_directory = env::home_dir().ok_or(anyhow!("Could not resolve home directory"))?;
-            let home_directory = ops::path_to_string(&home_directory)?;
-            format!("{home_directory}/{DEFAULT_TRY_PATH}")
-        }
-    };
-    let cache_directory = match params.cache_directory {
-        Some(directory) => directory,
-        None => {
-            let home_directory = env::home_dir().ok_or(anyhow!("Could not resolve home directory"))?;
-            let home_directory = ops::path_to_string(&home_directory)?;
-            format!("{home_directory}/{DEFAULT_CACHE_PATH}")
-        }
-    };
-
-    let mut arguments = params.command.clone();
+pub(crate) fn get_command(
+    try_command: String,
+    cache_directory: String,
+    mut arguments: Vec<String>,
+) -> Result<Command> {
+    ensure!(!arguments.is_empty());
     if arguments.len() == 1 {
         let command_string = arguments.pop().unwrap();
         arguments = shlex::split(&command_string).ok_or(anyhow!("Could not split command"))?
@@ -98,13 +66,13 @@ pub(crate) fn get_command() -> Result<Option<Command>> {
         .filter(|(v, _)| !excluded_variables.contains(v.as_str()))
         .collect::<BTreeMap<_, _>>();
 
-    Ok(Some(Command {
+    Ok(Command {
         try_command,
         cache_directory,
         name,
         arguments,
         environment,
-    }))
+    })
 }
 
 pub(crate) fn spawn_command(config: &Config, command: &Command, env: &ChildEnv) -> Result<ChildContext> {

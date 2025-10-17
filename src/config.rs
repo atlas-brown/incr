@@ -1,5 +1,6 @@
 #[derive(Clone, Debug)]
 pub(crate) struct Config {
+    pub(crate) force_cache: bool,        // Do not skip the command
     pub(crate) skip_sandbox: bool,       // Do not use a try sandbox
     pub(crate) complete_execution: bool, // Complete after a downstream failure
 }
