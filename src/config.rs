@@ -1,5 +1,6 @@
 #[derive(Clone, Debug)]
 pub(crate) struct Config {
+    pub(crate) force_cache: bool,        // Do not skip the command
     pub(crate) skip_sandbox: bool,       // Do not use a try sandbox
     pub(crate) complete_execution: bool, // Complete after a downstream failure
 }
@@ -27,7 +28,7 @@ impl SkipCondition {
 }
 
 pub(crate) const DEFAULT_TRY_PATH: &str = "incr/src/scripts/try.sh";
-pub(crate) const DEFAULT_CACHE_PATH: &str = "cache";
+pub(crate) const DEFAULT_CACHE_PATH: &str = "incr/cache";
 
 pub(crate) const BASH_COMMAND: &str = "bash";
 pub(crate) const STRACE_COMMAND: &str = "strace";
