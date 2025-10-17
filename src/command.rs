@@ -93,13 +93,10 @@ pub(crate) fn get_command() -> Result<Option<Command>> {
     }
     let name = arguments.remove(0);
 
-    let excluded_vars = EXCLUDED_VARIABLES.iter().copied().collect::<HashSet<_>>();
-    let mut environment = BTreeMap::new();
-    for (var, value) in env::vars() {
-        if !excluded_vars.contains(var.as_str()) {
-            environment.insert(var, value);
-        }
-    }
+    let excluded_variables = EXCLUDED_VARIABLES.iter().copied().collect::<HashSet<_>>();
+    let environment = env::vars()
+        .filter(|(v, _)| !excluded_variables.contains(v.as_str()))
+        .collect::<BTreeMap<_, _>>();
 
     Ok(Some(Command {
         try_command,
