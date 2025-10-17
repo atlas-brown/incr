@@ -33,8 +33,7 @@ measure_time() {
     local cmd
 
     if [[ "$mode" == "incr" ]]; then
-        cache_dir="/tmp/incr"
-        #cache_dir="${BENCHMARK_DIR}/cache"
+        cache_dir="${BENCHMARK_DIR}/cache"
         cmd="${TOP}/incr.sh ${SCRIPT_DIR}/${script} ${cache_dir}"
     else
         cmd="bash ${SCRIPT_DIR}/${script}"
