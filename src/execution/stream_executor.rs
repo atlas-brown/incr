@@ -99,11 +99,11 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
     let hash = ops::hash_bytes(&ops::encode_to_vec(command)?);
     if config.skip_sandbox {
-        let trace_file = Path::new(command.cache_dir.as_str()).join(format!("trace_{hash}.txt"));
+        let trace_file = Path::new(&command.cache_directory).join(format!("trace_{hash}.txt"));
         return Ok(ChildEnv::TraceFile(trace_file));
     }
 
-    let sandbox_directory = Path::new(command.cache_dir.as_str()).join(format!("sandbox_{hash}"));
+    let sandbox_directory = Path::new(&command.cache_directory).join(format!("sandbox_{hash}"));
     if sandbox_directory.is_dir() {
         cache::remove_sandbox(&sandbox_directory)?;
     } else if sandbox_directory.is_file() {

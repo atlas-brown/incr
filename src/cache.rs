@@ -53,10 +53,10 @@ impl<'c> CacheCursor<'c> {
             stdin_hash,
         };
         let hash = ops::hash_bytes(&ops::encode_to_vec(&key_data)?);
-        let directory = Path::new(command.cache_dir.as_str()).join(format!("cache_{hash}"));
+        let directory = Path::new(&command.cache_directory).join(format!("cache_{hash}"));
         Ok(Self {
             directory,
-            try_command: command.try_cmd.clone(),
+            try_command: command.try_command.clone(),
             debug_info,
         })
     }
@@ -118,7 +118,7 @@ impl<'c> CacheCursor<'c> {
             .stderr(Stdio::null())
             .spawn()?
             .wait()?;
-        ShellCommand::new(self.try_command.as_str())
+        ShellCommand::new(&self.try_command)
             .args(["commit", ops::path_to_string(&commit_directory)?])
             .stdin(Stdio::null())
             .stdout(Stdio::null())
