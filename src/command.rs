@@ -1,26 +1,28 @@
 use anyhow::{Result, anyhow};
 use bincode::Encode;
+use clap::Parser;
 use std::collections::{BTreeMap, HashSet};
 use std::env;
 use std::fs;
 use std::io::{self, Error as IoError, ErrorKind, Read, Write};
-use std::mem;
 use std::os::unix::process::CommandExt;
 use std::path::PathBuf;
 use std::process::{Child, Command as ShellCommand, Stdio};
 use std::thread::{self, JoinHandle};
-use clap::Parser;
 
-use crate::config::{CHUNK_SIZE, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRACE_FILE};
+use crate::config::{
+    CHUNK_SIZE, Config, DEFAULT_CACHE_DIRECTORY, DEFAULT_TRY_COMMAND, EXCLUDED_VARIABLES, STRACE_COMMAND,
+    TRACE_FILE,
+};
 use crate::ops;
 
 #[derive(Clone, Debug, Encode)]
 pub(crate) struct Command {
+    pub(crate) try_command: String,
+    pub(crate) cache_directory: String,
     pub(crate) name: String,
     pub(crate) arguments: Vec<String>,
     pub(crate) environment: BTreeMap<String, String>,
-    pub(crate) try_cmd: String,
-    pub(crate) cache_dir: String,
 }
 
 #[derive(Clone, Debug)]
@@ -42,26 +44,25 @@ pub(crate) enum Output {
     BrokenPipe,
 }
 
-#[derive(Parser, Debug)]
-struct Args {
-    #[arg(short, long)]
-    try_path: String,
-
-    #[arg(short, long)]
-    cache_dir: String,
-
+#[derive(Clone, Debug, Parser)]
+struct Arguments {
+    #[arg(short = 't', long = "try", default_value = DEFAULT_TRY_COMMAND)]
+    try_command: String,
+    #[arg(short = 'c', long = "cache", default_value = DEFAULT_CACHE_DIRECTORY)]
+    cache_directory: String,
     #[arg(trailing_var_arg = true)]
-    arguments: Vec<String>,
+    command: Vec<String>,
 }
 
 pub(crate) fn get_command() -> Result<Option<Command>> {
-    let args = Args::parse();
-    if args.arguments.is_empty() {
+    let params = Arguments::parse();
+    if params.command.is_empty() {
         return Ok(None);
     }
-    let mut arguments = args.arguments.clone();
+
+    let mut arguments = params.command.clone();
     if arguments.len() == 1 {
-        let command_string = mem::take(&mut arguments[0]);
+        let command_string = arguments.pop().unwrap();
         arguments = shlex::split(&command_string).ok_or(anyhow!("Could not split command"))?
     }
     let name = arguments.remove(0);
@@ -75,11 +76,11 @@ pub(crate) fn get_command() -> Result<Option<Command>> {
     }
 
     Ok(Some(Command {
+        try_command: params.try_command,
+        cache_directory: params.cache_directory,
         name,
         arguments,
         environment,
-        try_cmd: args.try_path,
-        cache_dir: args.cache_dir,
     }))
 }
 
@@ -114,7 +115,7 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
     let command_string = shlex::try_join(command_parts)?;
 
     let child_command = match env {
-        ChildEnv::Sandbox(_) => command.try_cmd.as_str(),
+        ChildEnv::Sandbox(_) => &command.try_command,
         ChildEnv::TraceFile(_) => STRACE_COMMAND,
     };
     let arguments = match env {

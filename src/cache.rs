@@ -9,45 +9,43 @@ use std::process::{Command as ShellCommand, Stdio};
 
 use crate::command::Command;
 use crate::config::{
-    CHUNK_SIZE, COMMIT_DIRECTORY, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY,
-    SANDBOX_DIRECTORY, SUDO_SANDBOX, TRACE_FILE,
+    CHUNK_SIZE, COMMIT_DIRECTORY, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY, SANDBOX_DIRECTORY,
+    SUDO_SANDBOX, TRACE_FILE,
 };
 use crate::ops;
 
 #[derive(Clone, Debug)]
 pub(crate) struct CacheCursor<'c> {
     directory: PathBuf,
-    info: CacheInfo<'c>,
-    try_cmd: String,
+    try_command: String,
+    debug_info: CacheInfo<'c>,
 }
 
 impl<'c> CacheCursor<'c> {
     pub(crate) fn from_stdin(command: &'c Command, stdin: &'c [u8]) -> Result<Self> {
         let stdin_hash = ops::hash_bytes(stdin);
-        let info = CacheInfo {
+        let debug_info = CacheInfo {
             name: &command.name,
             arguments: &command.arguments,
             environment: &command.environment,
-            cache_dir: &command.cache_dir,
             stdin_hash,
             stdin: Some(stdin),
         };
-        Self::with_info(command, stdin_hash, info)
+        Self::with_info(command, stdin_hash, debug_info)
     }
 
     pub(crate) fn from_hash(command: &'c Command, stdin_hash: u64) -> Result<Self> {
-        let info = CacheInfo {
+        let debug_info = CacheInfo {
             name: &command.name,
             arguments: &command.arguments,
             environment: &command.environment,
-            cache_dir: &command.cache_dir,
             stdin_hash,
             stdin: None,
         };
-        Self::with_info(command, stdin_hash, info)
+        Self::with_info(command, stdin_hash, debug_info)
     }
 
-    fn with_info(command: &Command, stdin_hash: u64, info: CacheInfo<'c>) -> Result<Self> {
+    fn with_info(command: &Command, stdin_hash: u64, debug_info: CacheInfo<'c>) -> Result<Self> {
         let key_data = CacheKey {
             name: &command.name,
             arguments: &command.arguments,
@@ -55,8 +53,12 @@ impl<'c> CacheCursor<'c> {
             stdin_hash,
         };
         let hash = ops::hash_bytes(&ops::encode_to_vec(&key_data)?);
-        let directory = Path::new(command.cache_dir.as_str()).join(format!("cache_{hash}"));
-        Ok(Self { directory, info, try_cmd: command.try_cmd.clone() })
+        let directory = Path::new(&command.cache_directory).join(format!("cache_{hash}"));
+        Ok(Self {
+            directory,
+            try_command: command.try_command.clone(),
+            debug_info,
+        })
     }
 
     pub(crate) fn get_sandbox_directory(&self) -> PathBuf {
@@ -79,7 +81,7 @@ impl<'c> CacheCursor<'c> {
         if DEBUG {
             let file = File::create(self.directory.join(DEBUG_FILE))?;
             let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
-            serde_json::to_writer_pretty(&mut file_writer, &self.info)?;
+            serde_json::to_writer_pretty(&mut file_writer, &self.debug_info)?;
             file_writer.flush()?;
         }
 
@@ -116,7 +118,7 @@ impl<'c> CacheCursor<'c> {
             .stderr(Stdio::null())
             .spawn()?
             .wait()?;
-        ShellCommand::new(self.try_cmd.as_str())
+        ShellCommand::new(&self.try_command)
             .args(["commit", ops::path_to_string(&commit_directory)?])
             .stdin(Stdio::null())
             .stdout(Stdio::null())
@@ -162,7 +164,6 @@ struct CacheInfo<'c> {
     stdin_hash: u64,
     #[serde(with = "ops::serialize_byte_slice")]
     stdin: Option<&'c [u8]>,
-    cache_dir: &'c str,
 }
 
 #[derive(Clone, Debug, Encode)]
