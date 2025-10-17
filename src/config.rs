@@ -70,6 +70,7 @@ pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
 ];
 
 pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
+    "GIT_ASKPASS",
     "SHLVL",
     "SSH_CLIENT",
     "SSH_CONNECTION",

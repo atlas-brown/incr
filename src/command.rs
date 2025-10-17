@@ -65,7 +65,9 @@ pub(crate) fn get_command(
     let environment = environment
         .iter()
         .filter_map(|(variable, value)| {
-            if !excluded_variables.contains(variable.as_str()) {
+            if !excluded_variables.contains(variable.as_str())
+                && (!variable.starts_with("BASH_FUNC_") || !variable.ends_with("%%"))
+            {
                 Some((variable.clone(), value.clone()))
             } else {
                 None
