@@ -8,7 +8,7 @@ from shasta.json_to_ast import to_ast_node
 # Ensure these match config.rs
 IGNORE_COMMANDS = [
     "alias", "cd", "chgrp", "chmod", "chown", "cp", "date", "df", "du", "env", "export", "free", "hash",
-    "hostname", "id", "install", "ln", "ls", "mkdir", "mktmp", "mv", "printenv", "ps", "pwd", "read", "rm",
+    "hostname", "id", "install", "ln", "ls", "mkdir", "mktemp", "mv", "printenv", "ps", "pwd", "read", "rm",
     "rmdir", "set", "sleep", "stty", "sync", "time", "top", "touch", "tput", "type", "umask", "unalias",
     "uname", "uptime", "w", "which", "who", "whoami", "yes",
 ]
