@@ -5,8 +5,8 @@ BENCHMARKS=("covid" "nginx-analysis" "ngrams" "unixfun" "weather" "weather" "wor
 MODES=("" "" "" "" "" "tuft-weather" "")
 SIZES=("small" "small" "small" "small" "small" "small" "small")
 
-rm -rf ../evaluation/results
-mkdir -p ../evaluation/results
+rm -rf ../results
+mkdir -p ../results
 
 for i in "${!BENCHMARKS[@]}"; do
     benchmark="${BENCHMARKS[$i]}"
@@ -17,13 +17,14 @@ for i in "${!BENCHMARKS[@]}"; do
     bash "$benchmark/clean.sh"
     sleep 0.01
 
+    cd "$benchmark"
     if [[ "$mode" == "" ]]; then
-        bash "$benchmark/execute.sh" "--$size"
+        bash execute.sh "--$size"
     else
-        bash "$benchmark/execute.sh" "$mode" "--$size"
+        bash execute.sh "$mode" "--$size"
     fi
+    cd "$(dirname "$0")"
     sleep 0.01
 
-    break
-    #cp "$benchmark/outputs/timing.csv" "../evaluation/results/$benchmark-timing.csv"
+    cp "$benchmark/outputs/timing.csv" "../results/$benchmark-timing.csv"
 done
