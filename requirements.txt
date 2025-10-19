@@ -1,5 +1,0 @@
-shasta>=0.2.2
-libdash>=0.3.1
-
-# Platform-specific dependency (macOS only)
-libdash @ git+https://github.com/binpash/libdash ; sys_platform == "darwin"

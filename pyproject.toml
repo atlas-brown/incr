@@ -1,0 +1,18 @@
+[project]
+name = "incr"
+version = "0.1.0"
+description = ""
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10"
+
+dependencies = [
+    "shasta>=0.2.2",
+    "libdash>=0.3.1",
+]
+
+[build-system]
+requires = ["uv_build>=0.8.15,<0.9.0"]
+build-backend = "uv_build"
+
+[tool.uv.sources]
+libdash = { git = "https://github.com/binpash/libdash", marker = "sys_platform == 'darwin'" }
