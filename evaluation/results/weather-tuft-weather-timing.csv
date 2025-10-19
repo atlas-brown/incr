@@ -1,0 +1,7 @@
+mode,script,time_sec
+bash,tuft-weather-1.sh,1.744
+bash,tuft-weather-2.sh,2.269
+bash,tuft-weather-3.sh,24.56
+incr,tuft-weather-1.sh,11.478
+incr,tuft-weather-2.sh,6.673
+incr,tuft-weather-3.sh,18.813
