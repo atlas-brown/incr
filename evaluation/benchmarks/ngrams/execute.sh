@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-
 cd "$(dirname "$0")" || exit 1
-TOP=$(git rev-parse --show-toplevel)
 
+TOP=$(git rev-parse --show-toplevel)
 KOALA_SHELL=${KOALA_SHELL:-bash}
 export BENCHMARK_CATEGORY="web-search"
 
