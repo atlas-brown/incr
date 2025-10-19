@@ -1,11 +1,8 @@
 #!/bin/bash
-# sort_genesis.sh
 # Generate frequency, alphabetical, and rhyming word lists from the file "genesis"
 
-# Input file
 INPUT="genesis"
 
-# Output files
 FREQ_OUT="genesis.hist"
 ALPHA_OUT="genesis.alpha"
 RHYME_OUT="genesis.rhyme"
