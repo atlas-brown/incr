@@ -68,7 +68,6 @@ pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Re
 }
 
 pub(crate) fn parse_trace(env: &ChildEnv) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
-    let start = std::time::Instant::now();
     #[derive(Clone, Copy, Debug, PartialEq)]
     enum ParseState {
         Start,
@@ -83,7 +82,6 @@ pub(crate) fn parse_trace(env: &ChildEnv) -> Result<(HashSet<PathBuf>, HashSet<P
 
     let (read_set, write_set) = crate::scripts::parse_trace::parse_trace(&trace_file).unwrap();
     fs::remove_file(trace_file)?;
-    eprintln!("after all: {:?}", start.elapsed());
     return Ok((read_set, write_set));
 
     let output = ShellCommand::new("python3")
