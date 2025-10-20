@@ -13,7 +13,7 @@ use crate::cache::{CacheCursor, CacheData, DependencyKey};
 use crate::command::{ChildEnv, Command};
 use crate::config::{
     CHUNK_SIZE, EXCLUDED_PATHS, IGNORE_COMMANDS, SKIP_CACHE_CONDITIONS, SKIP_COMMANDS,
-    SKIP_SANDBOX_CONDITIONS, SKIP_TRACE_CONDITIONS, TRACE_FILE, TraceType,
+    SKIP_SANDBOX_CONDITIONS, SKIP_TRACE_CONDITIONS, SkipCondition, TRACE_FILE, TraceType,
 };
 use crate::ops;
 use crate::scripts;
@@ -30,21 +30,17 @@ pub(crate) fn get_trace_type(command: &Command) -> TraceType {
     }
 
     let (flags, values) = parse_arguments(&command.arguments);
-    for condition in SKIP_TRACE_CONDITIONS {
-        if condition.name == command.name
-            && !condition.disallowed_flags.iter().any(|&f| flags.contains(f))
-            && values.len() <= condition.max_arguments
-        {
-            return TraceType::Nothing;
-        }
+    if SKIP_TRACE_CONDITIONS
+        .iter()
+        .any(|c| check_condition(c, command, &flags, &values, 0))
+    {
+        return TraceType::Nothing;
     }
-    for condition in SKIP_SANDBOX_CONDITIONS {
-        if condition.name == command.name
-            && !condition.disallowed_flags.iter().any(|&f| flags.contains(f))
-            && values.len() <= condition.max_arguments
-        {
-            return TraceType::TraceFile;
-        }
+    if SKIP_SANDBOX_CONDITIONS
+        .iter()
+        .any(|c| check_condition(c, command, &flags, &values, 0))
+    {
+        return TraceType::TraceFile;
     }
 
     TraceType::Sandbox
@@ -52,16 +48,9 @@ pub(crate) fn get_trace_type(command: &Command) -> TraceType {
 
 pub(crate) fn skip_cache(command: &Command, stdin_length: usize) -> bool {
     let (flags, values) = parse_arguments(&command.arguments);
-    for condition in SKIP_CACHE_CONDITIONS {
-        if condition.name == command.name
-            && !condition.disallowed_flags.iter().any(|&f| flags.contains(f))
-            && values.len() <= condition.max_arguments
-            && stdin_length <= condition.max_input
-        {
-            return true;
-        }
-    }
-    false
+    SKIP_CACHE_CONDITIONS
+        .iter()
+        .any(|c| check_condition(c, command, &flags, &values, stdin_length))
 }
 
 fn parse_arguments(arguments: &[String]) -> (HashSet<String>, Vec<String>) {
@@ -86,6 +75,19 @@ fn parse_arguments(arguments: &[String]) -> (HashSet<String>, Vec<String>) {
         }
     }
     (flags, values)
+}
+
+fn check_condition(
+    condition: &SkipCondition,
+    command: &Command,
+    flags: &HashSet<String>,
+    values: &[String],
+    stdin_length: usize,
+) -> bool {
+    condition.name == command.name
+        && !condition.disallowed_flags.iter().any(|&f| flags.contains(f))
+        && values.len() <= condition.max_arguments
+        && stdin_length <= condition.max_input
 }
 
 pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {

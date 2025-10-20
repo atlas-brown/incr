@@ -95,6 +95,12 @@ pub(crate) const SKIP_COMMANDS: &[&str] = &[
     "basename", "cat", "dirname", "echo", "false", "head", "paste", "printf", "rev", "seq", "stat", "tail",
     "tee", "test", "tr", "true", "xargs",
 ];
+
+pub(crate) const SKIP_CACHE_CONDITIONS: &[SkipCondition] = &[];
+pub(crate) const SKIP_TRACE_CONDITIONS: &[SkipCondition] = &[
+    SkipCondition::with_conditions("sort", &["o", "output"], 0, usize::MAX),
+    SkipCondition::with_conditions("uniq", &["o", "output"], 0, usize::MAX),
+];
 pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
     SkipCondition::with_name("awk"),
     SkipCondition::with_name("cmp"),
@@ -106,11 +112,6 @@ pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
     SkipCondition::with_disallowed_flags("sort", &["o", "output"]),
     SkipCondition::with_disallowed_flags("uniq", &["o", "output"]),
     SkipCondition::with_name("wc"),
-];
-pub(crate) const SKIP_TRACE_CONDITIONS: &[SkipCondition] = &[];
-pub(crate) const SKIP_CACHE_CONDITIONS: &[SkipCondition] = &[
-    SkipCondition::with_conditions("sort", &[], 0, 100),
-    SkipCondition::with_conditions("uniq", &[], 0, 100),
 ];
 
 pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[

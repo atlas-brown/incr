@@ -63,6 +63,10 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 
     let stdin_context = forward_stdin(child.stdin.take().unwrap())?;
     if execution::skip_cache(command, stdin_context.length) {
+        eprintln!(
+            "skip: {} {:?} {}",
+            command.name, command.arguments, stdin_context.length,
+        );
         join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)?;
         let exit_code = child.wait()?.code().unwrap();
         clean_environment(&child_env)?;
