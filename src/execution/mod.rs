@@ -107,6 +107,7 @@ pub(crate) fn parse_trace(env: &ChildEnv) -> Result<(HashSet<PathBuf>, HashSet<P
     let trace_file = match env {
         ChildEnv::Sandbox(directory) => &directory.join("upperdir").join("tmp").join(TRACE_FILE),
         ChildEnv::TraceFile(file) => file,
+        ChildEnv::Nothing => return Ok((HashSet::new(), HashSet::new())),
     };
     let (mut read_set, mut write_set) = scripts::parse_trace(trace_file).unwrap();
     fs::remove_file(trace_file)?;

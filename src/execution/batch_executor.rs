@@ -57,7 +57,7 @@ fn run_command(
     let child_env = match config.trace_type {
         TraceType::Sandbox => ChildEnv::Sandbox(cache.get_sandbox_directory()),
         TraceType::TraceFile => ChildEnv::TraceFile(cache.get_trace_file()),
-        TraceType::Nothing => panic!(),
+        TraceType::Nothing => ChildEnv::Nothing,
     };
     let ChildContext {
         mut child,

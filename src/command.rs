@@ -33,6 +33,7 @@ impl Command {
 pub(crate) enum ChildEnv {
     Sandbox(PathBuf),
     TraceFile(PathBuf),
+    Nothing,
 }
 
 #[derive(Debug)]
@@ -114,9 +115,10 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
     command_parts.extend(command.arguments.iter().map(|a| a.as_str()));
     let command_string = shlex::try_join(command_parts)?;
 
-    let child_command = match env {
+    let shell_command = match env {
         ChildEnv::Sandbox(_) => &command.try_command,
         ChildEnv::TraceFile(_) => STRACE_COMMAND,
+        ChildEnv::Nothing => BASH_COMMAND,
     };
     let arguments = match env {
         ChildEnv::Sandbox(directory) => &[
@@ -142,9 +144,10 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
             "-c",
             &command_string,
         ],
+        ChildEnv::Nothing => &["-c", &command_string],
     };
 
-    let mut child = ShellCommand::new(child_command);
+    let mut child = ShellCommand::new(shell_command);
     child
         .args(arguments)
         .stdin(Stdio::piped())
