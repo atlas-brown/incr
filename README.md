@@ -14,6 +14,15 @@ Bolt-on incremental execution for the shell.
 4. Edit the `src/config.rs` to contain absolute paths to the `try.sh` script and directory you want cached results to be saved into.
 5. Build binaries with `cargo build` and `cargo build --release`.
 
+### Using Docker
+
+To build and run the Docker container, use the following commands:
+
+```sh
+docker build -t incr .
+docker run -it --rm -v $(pwd):/app --privileged incr
+```
+
 Toggle the `DEBUG` and `DEBUG_LOGS` flag in `src/config.rs` to enable debug information to be saved in the cache directory and a log file to be generated.
 
 ## Benchmark Setup
