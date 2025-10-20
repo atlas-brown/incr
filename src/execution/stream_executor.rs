@@ -74,7 +74,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         CacheStatus::Invalid(exit_code) => exit_code,
     };
 
-    /*let (read_set, write_set) = execution::parse_trace(&child_env)?;
+    let (read_set, write_set) = execution::parse_trace(&child_env)?;
     let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
     if let ChildEnv::Sandbox(directory) = child_env {
         fs::rename(directory, cache.get_sandbox_directory())?;
@@ -82,16 +82,16 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         if !write_set.is_empty() {
             cache.commit_output()?;
         }
-    }*/
+    }
     debug_log!("[{}] Extracted dependencies and committed files", command.name);
 
-    /*cache.save_data(&CacheData {
+    cache.save_data(&CacheData {
         exit_code: exit_code.0,
         stdout,
         stderr,
         read_dependencies,
         write_outputs: write_set,
-    })?;*/
+    })?;
 
     Ok(exit_code)
 }
