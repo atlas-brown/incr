@@ -5,6 +5,7 @@ mod command;
 mod config;
 mod execution;
 mod ops;
+mod scripts;
 
 use anyhow::{Result, anyhow};
 use clap::Parser;
