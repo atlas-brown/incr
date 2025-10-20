@@ -26,7 +26,7 @@ pub(crate) fn skip_command(command: &Command, environment: &HashMap<String, Stri
 
 pub(crate) fn get_trace_type(command: &Command) -> TraceType {
     if IGNORE_COMMANDS.contains(&command.name.as_str()) || SKIP_COMMANDS.contains(&command.name.as_str()) {
-        return TraceType::TraceFile;
+        return TraceType::Nothing;
     }
 
     let (flags, values) = parse_arguments(&command.arguments);
@@ -47,6 +47,9 @@ pub(crate) fn get_trace_type(command: &Command) -> TraceType {
 }
 
 pub(crate) fn skip_cache(command: &Command, stdin_length: usize) -> bool {
+    if IGNORE_COMMANDS.contains(&command.name.as_str()) || SKIP_COMMANDS.contains(&command.name.as_str()) {
+        return true;
+    }
     let (flags, values) = parse_arguments(&command.arguments);
     SKIP_CACHE_CONDITIONS
         .iter()
