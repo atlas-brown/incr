@@ -7,7 +7,6 @@ BENCHMARKS = [
     "nginx-analysis",
     "unixfun",
     "weather",
-    "weather-tuft-weather",
     "word-freq",
 ]
 
@@ -35,7 +34,7 @@ axes.set_title("Benchmark Runtimes")
 axes.set_xticks(locations)
 axes.set_xticklabels(BENCHMARKS, rotation=30, ha="right")
 axes.set_ylabel("Total Time (s)")
-axes.set_ylim(0, 75)
+axes.set_ylim(0, 55)
 axes.bar_label(bash_bars, padding=3, fmt="%.1f")
 axes.bar_label(incr_bars, padding=3, fmt="%.1f")
 axes.legend()
