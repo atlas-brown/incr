@@ -46,7 +46,22 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     } = command::spawn_command(config, command, &child_env)?;
     debug_log!("[{}] Spawned stream child", command.name);
 
-    let (stdin_hash, stdin_thread) = forward_stdin(child.stdin.take().unwrap())?;
+    let (stdin_hash, stdin_size, stdin_thread) = forward_stdin(child.stdin.take().unwrap())?;
+
+    if true {
+        eprintln!(
+            "stdin size: {} {} {:?}",
+            stdin_size, command.name, command.arguments,
+        );
+        if let Some(stdin_thread) = stdin_thread {
+            stdin_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+        }
+        stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+        stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+        let exit_code = child.wait()?.code().unwrap();
+        return Ok(ExitCode(exit_code));
+    }
+
     let cache = CacheCursor::from_hash(command, stdin_hash)?;
     cache.create_directory()?;
     debug_log!("[{}] Loaded cache directory", command.name);
@@ -114,10 +129,10 @@ fn create_child_environment(config: &Config, command: &Command) -> Result<ChildE
     Ok(ChildEnv::Sandbox(sandbox_directory))
 }
 
-fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(u64, StdinThread)> {
+fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(u64, usize, StdinThread)> {
     let mut process_stdin = io::stdin().lock();
     if process_stdin.is_terminal() {
-        return Ok((ops::hash_bytes(&[]), None));
+        return Ok((ops::hash_bytes(&[]), 0, None));
     }
 
     let (send_channel, receive_channel) = mpsc::channel::<Vec<_>>();
@@ -139,6 +154,7 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(u64, StdinThread)> {
 
     let mut chunk = [0; CHUNK_SIZE];
     let mut hasher = Xxh3::new();
+    let mut size = 0;
     loop {
         let count = match process_stdin.read(&mut chunk) {
             Ok(0) => break,
@@ -148,9 +164,10 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(u64, StdinThread)> {
         };
         send_channel.send(chunk[..count].to_vec())?;
         hasher.update(&chunk[..count]);
+        size += count;
     }
 
-    Ok((hasher.digest(), Some(stdin_thread)))
+    Ok((hasher.digest(), size, Some(stdin_thread)))
 }
 
 fn load_cache_data(

@@ -13,7 +13,7 @@ BENCHMARKS = [
 
 times = {}
 for benchmark in BENCHMARKS:
-    data = pd.read_csv(f"results/{benchmark}-timing.csv")
+    data = pd.read_csv(f"../results/{benchmark}-timing.csv")
     bash_time = sum(data[data["mode"] == "bash"]["time_sec"])
     incr_time = sum(data[data["mode"] == "incr"]["time_sec"])
     times[benchmark] = {
