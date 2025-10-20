@@ -17,7 +17,7 @@ use crate::ops;
 #[derive(Clone, Debug)]
 pub(crate) struct CacheCursor<'c> {
     directory: PathBuf,
-    try_command: String,
+    try_command: &'c str,
     debug_info: CacheInfo<'c>,
 }
 
@@ -45,7 +45,7 @@ impl<'c> CacheCursor<'c> {
         Self::with_info(command, stdin_hash, debug_info)
     }
 
-    fn with_info(command: &Command, stdin_hash: u64, debug_info: CacheInfo<'c>) -> Result<Self> {
+    fn with_info(command: &'c Command, stdin_hash: u64, debug_info: CacheInfo<'c>) -> Result<Self> {
         let key_data = CacheKey {
             name: &command.name,
             arguments: &command.arguments,
@@ -56,7 +56,7 @@ impl<'c> CacheCursor<'c> {
         let directory = Path::new(&command.cache_directory).join(format!("cache_{hash}"));
         Ok(Self {
             directory,
-            try_command: command.try_command.clone(),
+            try_command: &command.try_command,
             debug_info,
         })
     }
@@ -118,7 +118,7 @@ impl<'c> CacheCursor<'c> {
             .stderr(Stdio::null())
             .spawn()?
             .wait()?;
-        ShellCommand::new(&self.try_command)
+        ShellCommand::new(self.try_command)
             .args(["commit", ops::path_to_string(&commit_directory)?])
             .stdin(Stdio::null())
             .stdout(Stdio::null())
