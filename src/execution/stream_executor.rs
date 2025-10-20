@@ -13,7 +13,12 @@ use crate::config::{CHUNK_SIZE, Config, DEBUG};
 use crate::execution;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
-type StdinThread = Option<JoinHandle<Result<()>>>;
+#[derive(Debug)]
+struct StdinContext {
+    hash: u64,
+    length: usize,
+    thread: Option<JoinHandle<Result<()>>>,
+}
 
 #[derive(Clone, Debug)]
 enum CacheStatus {
@@ -46,12 +51,12 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     } = command::spawn_command(config, command, &child_env)?;
     debug_log!("[{}] Spawned stream child", command.name);
 
-    let (stdin_hash, stdin_thread) = forward_stdin(child.stdin.take().unwrap())?;
-    let cache = CacheCursor::from_hash(command, stdin_hash)?;
+    let stdin_context = forward_stdin(child.stdin.take().unwrap())?;
+    let cache = CacheCursor::from_hash(command, stdin_context.hash)?;
     cache.create_directory()?;
     debug_log!("[{}] Loaded cache directory", command.name);
 
-    let cache_status = load_cache_data(&cache, child, &child_env, stdin_thread)?;
+    let cache_status = load_cache_data(&cache, child, &child_env, stdin_context.thread)?;
     let stdout = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let (stdout, stderr) = match (stdout, stderr) {
@@ -114,10 +119,14 @@ fn create_child_environment(config: &Config, command: &Command) -> Result<ChildE
     Ok(ChildEnv::Sandbox(sandbox_directory))
 }
 
-fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(u64, StdinThread)> {
+fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
     let mut process_stdin = io::stdin().lock();
     if process_stdin.is_terminal() {
-        return Ok((ops::hash_bytes(&[]), None));
+        return Ok(StdinContext {
+            hash: ops::hash_bytes(&[]),
+            length: 0,
+            thread: None,
+        });
     }
 
     let (send_channel, receive_channel) = mpsc::channel::<Vec<_>>();
@@ -150,14 +159,18 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(u64, StdinThread)> {
         hasher.update(&chunk[..count]);
     }
 
-    Ok((hasher.digest(), Some(stdin_thread)))
+    Ok(StdinContext {
+        hash: hasher.digest(),
+        length: 0,
+        thread: Some(stdin_thread),
+    })
 }
 
 fn load_cache_data(
     cache: &CacheCursor<'_>,
     mut child: Child,
     child_env: &ChildEnv,
-    stdin_thread: StdinThread,
+    stdin_thread: Option<JoinHandle<Result<()>>>,
 ) -> Result<CacheStatus> {
     let cached_data = match cache.load_data()? {
         Some(cached_data) => {
