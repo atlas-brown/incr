@@ -1,21 +1,44 @@
+use std::fmt::{Display, Error as FormatError, Formatter};
+
 #[derive(Clone, Debug)]
 pub(crate) struct Config {
     pub(crate) force_cache: bool,        // Do not skip the command
-    pub(crate) skip_sandbox: bool,       // Do not use a try sandbox
+    pub(crate) trace_type: TraceType,    // Type of tracing to use
     pub(crate) complete_execution: bool, // Complete after a downstream failure
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(crate) enum TraceType {
+    Sandbox,
+    TraceFile,
+    Nothing,
+}
+
+impl Display for TraceType {
+    fn fmt(&self, formatter: &mut Formatter<'_>) -> Result<(), FormatError> {
+        match self {
+            Self::Sandbox => write!(formatter, "Sandbox"),
+            Self::TraceFile => write!(formatter, "TraceFile"),
+            Self::Nothing => write!(formatter, "Nothing"),
+        }
+    }
 }
 
 #[derive(Clone, Debug)]
 pub(crate) struct SkipCondition {
     pub(crate) name: &'static str,
     pub(crate) disallowed_flags: &'static [&'static str],
+    pub(crate) max_arguments: usize,
+    pub(crate) max_input: usize,
 }
 
 impl SkipCondition {
-    const fn from_command(name: &'static str) -> Self {
+    const fn with_name(name: &'static str) -> Self {
         Self {
             name,
             disallowed_flags: &[],
+            max_arguments: usize::MAX,
+            max_input: usize::MAX,
         }
     }
 
@@ -23,6 +46,22 @@ impl SkipCondition {
         Self {
             name,
             disallowed_flags,
+            max_arguments: usize::MAX,
+            max_input: usize::MAX,
+        }
+    }
+
+    const fn with_conditions(
+        name: &'static str,
+        disallowed_flags: &'static [&'static str],
+        max_arguments: usize,
+        max_input: usize,
+    ) -> Self {
+        Self {
+            name,
+            disallowed_flags,
+            max_arguments,
+            max_input,
         }
     }
 }
@@ -42,7 +81,7 @@ pub(crate) const COMMIT_DIRECTORY: &str = "commit";
 
 pub(crate) const CHUNK_SIZE: usize = 65536;
 pub(crate) const SUDO_SANDBOX: bool = true;
-pub(crate) const DEBUG: bool = true;
+pub(crate) const DEBUG: bool = false;
 pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
 pub(crate) const DEBUG_LOG_FILE: &str = "debug_log.txt";
 
@@ -56,17 +95,20 @@ pub(crate) const SKIP_COMMANDS: &[&str] = &[
     "basename", "cat", "dirname", "echo", "false", "head", "paste", "printf", "rev", "seq", "stat", "tail",
     "tee", "test", "tr", "true", "xargs",
 ];
+
+pub(crate) const SKIP_CACHE_CONDITIONS: &[SkipCondition] = &[];
+pub(crate) const SKIP_TRACE_CONDITIONS: &[SkipCondition] = &[];
 pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
-    SkipCondition::from_command("awk"),
-    SkipCondition::from_command("cmp"),
-    SkipCondition::from_command("comm"),
-    SkipCondition::from_command("cut"), // TODO: investigate if this effect exists on rev, tail
-    SkipCondition::from_command("diff"),
-    SkipCondition::from_command("grep"),
-    SkipCondition::from_command("join"),
-    SkipCondition::with_disallowed_flags("sort", &["-o", "--output"]),
-    SkipCondition::with_disallowed_flags("uniq", &["-o", "--output"]),
-    SkipCondition::from_command("wc"),
+    SkipCondition::with_name("awk"),
+    SkipCondition::with_name("cmp"),
+    SkipCondition::with_name("comm"),
+    SkipCondition::with_name("cut"),
+    SkipCondition::with_name("diff"),
+    SkipCondition::with_name("grep"),
+    SkipCondition::with_name("join"),
+    SkipCondition::with_disallowed_flags("sort", &["o", "output"]),
+    SkipCondition::with_disallowed_flags("uniq", &["o", "output"]),
+    SkipCondition::with_name("wc"),
 ];
 
 pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[

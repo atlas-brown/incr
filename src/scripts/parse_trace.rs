@@ -1,3 +1,6 @@
+#![allow(warnings)]
+#![allow(clippy::all)]
+
 // src/trace_rw.rs
 use std::collections::{HashMap, HashSet};
 use std::fs;

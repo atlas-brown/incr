@@ -9,11 +9,16 @@ use xxhash_rust::xxh3::Xxh3;
 
 use crate::cache::{self, CacheCursor, CacheData};
 use crate::command::{self, ChildContext, ChildEnv, Command, Output};
-use crate::config::{CHUNK_SIZE, Config, DEBUG};
+use crate::config::{CHUNK_SIZE, Config, DEBUG, TraceType};
 use crate::execution;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
-type StdinThread = Option<JoinHandle<Result<()>>>;
+#[derive(Debug)]
+struct StdinContext {
+    hash: u64,
+    length: usize,
+    thread: Option<JoinHandle<Result<()>>>,
+}
 
 #[derive(Clone, Debug)]
 enum CacheStatus {
@@ -31,11 +36,21 @@ struct CacheContext<'c> {
     completed_stderr: Vec<u8>,
 }
 
+#[derive(Clone, Debug)]
+struct CommandContext<'c> {
+    command: &'c Command,
+    cache: CacheCursor<'c>,
+    child_env: ChildEnv,
+    exit_code: ExitCode,
+    stdout: Vec<u8>,
+    stderr: Vec<u8>,
+}
+
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     debug_log!(
-        "[{}] Starting stream command (skip_sandbox={})",
+        "[{}] Starting stream command (trace_type={})",
         command.name,
-        config.skip_sandbox,
+        config.trace_type,
     );
 
     let child_env = create_child_environment(config, command)?;
@@ -46,17 +61,23 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     } = command::spawn_command(config, command, &child_env)?;
     debug_log!("[{}] Spawned stream child", command.name);
 
-    let (stdin_hash, stdin_thread) = forward_stdin(child.stdin.take().unwrap())?;
-    let cache = CacheCursor::from_hash(command, stdin_hash)?;
+    let stdin_context = forward_stdin(child.stdin.take().unwrap())?;
+    if execution::skip_cache(command, stdin_context.length) {
+        join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)?;
+        let exit_code = child.wait()?.code().unwrap();
+        clean_environment(&child_env)?;
+        debug_log!("[{}] Skipped caching", command.name);
+        return Ok(ExitCode(exit_code));
+    }
+
+    let cache = CacheCursor::from_hash(command, stdin_context.hash)?;
     cache.create_directory()?;
     debug_log!("[{}] Loaded cache directory", command.name);
 
-    let cache_status = load_cache_data(&cache, child, &child_env, stdin_thread)?;
-    let stdout = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
-    let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
-    let (stdout, stderr) = match (stdout, stderr) {
-        (Output::Completed(stdout), Output::Completed(stderr)) => (stdout, stderr),
-        (Output::BrokenPipe, _) | (_, Output::BrokenPipe) => return Ok(BROKEN_PIPE_CODE),
+    let cache_status = load_cache_data(&cache, child, &child_env)?;
+    let (stdout, stderr) = match join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
+        Some((stdout, stderr)) => (stdout, stderr),
+        None => return Ok(BROKEN_PIPE_CODE),
     };
     debug_log!("[{}] Loaded cache data and child outputs", command.name);
 
@@ -74,31 +95,23 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         CacheStatus::Invalid(exit_code) => exit_code,
     };
 
-    let (read_set, write_set) = execution::parse_trace(&child_env)?;
-    let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
-    if let ChildEnv::Sandbox(directory) = child_env {
-        fs::rename(directory, cache.get_sandbox_directory())?;
-        cache.extract_sandbox_output()?;
-        if !write_set.is_empty() {
-            cache.commit_output()?;
-        }
-    }
-    debug_log!("[{}] Extracted dependencies and committed files", command.name);
-
-    cache.save_data(&CacheData {
-        exit_code: exit_code.0,
+    save_command_data(CommandContext {
+        command,
+        cache,
+        child_env,
+        exit_code,
         stdout,
         stderr,
-        read_dependencies,
-        write_outputs: write_set,
-    })?;
-
-    Ok(exit_code)
+    })
 }
 
 fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
+    if config.trace_type == TraceType::Nothing {
+        panic!();
+    }
+
     let hash = ops::hash_bytes(&ops::encode_to_vec(command)?);
-    if config.skip_sandbox {
+    if config.trace_type == TraceType::TraceFile {
         let trace_file = Path::new(&command.cache_directory).join(format!("trace_{hash}.txt"));
         return Ok(ChildEnv::TraceFile(trace_file));
     }
@@ -114,10 +127,14 @@ fn create_child_environment(config: &Config, command: &Command) -> Result<ChildE
     Ok(ChildEnv::Sandbox(sandbox_directory))
 }
 
-fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(u64, StdinThread)> {
+fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
     let mut process_stdin = io::stdin().lock();
     if process_stdin.is_terminal() {
-        return Ok((ops::hash_bytes(&[]), None));
+        return Ok(StdinContext {
+            hash: ops::hash_bytes(&[]),
+            length: 0,
+            thread: None,
+        });
     }
 
     let (send_channel, receive_channel) = mpsc::channel::<Vec<_>>();
@@ -150,15 +167,14 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<(u64, StdinThread)> {
         hasher.update(&chunk[..count]);
     }
 
-    Ok((hasher.digest(), Some(stdin_thread)))
+    Ok(StdinContext {
+        hash: hasher.digest(),
+        length: 0,
+        thread: Some(stdin_thread),
+    })
 }
 
-fn load_cache_data(
-    cache: &CacheCursor<'_>,
-    mut child: Child,
-    child_env: &ChildEnv,
-    stdin_thread: StdinThread,
-) -> Result<CacheStatus> {
+fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, child_env: &ChildEnv) -> Result<CacheStatus> {
     let cached_data = match cache.load_data()? {
         Some(cached_data) => {
             if execution::check_cache_valid(cache, &cached_data)? {
@@ -176,21 +192,38 @@ fn load_cache_data(
                 command::kill_child(&child)?;
                 child.wait()?;
             }
-            match child_env {
-                ChildEnv::Sandbox(directory) => cache::remove_sandbox(directory)?,
-                ChildEnv::TraceFile(file) => ops::ignore_not_found(fs::remove_file(file))?,
-            }
+            clean_environment(child_env)?;
             Ok(CacheStatus::Valid(cached_data))
         }
         None => {
-            if let Some(stdin_thread) = stdin_thread {
-                stdin_thread.join().map_err(|e| anyhow!("{e:?}"))??;
-            }
             let exit_code = child.wait()?.code().unwrap();
             cache.clean_sandbox_directory()?;
             cache.clean_data()?;
             Ok(CacheStatus::Invalid(ExitCode(exit_code)))
         }
+    }
+}
+
+fn join_stream_threads(
+    stdin_thread: Option<JoinHandle<Result<()>>>,
+    stdout_thread: JoinHandle<Result<Output>>,
+    stderr_thread: JoinHandle<Result<Output>>,
+) -> Result<Option<(Vec<u8>, Vec<u8>)>> {
+    if let Some(stdin_thread) = stdin_thread {
+        stdin_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    }
+    let stdout = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    match (stdout, stderr) {
+        (Output::Completed(stdout), Output::Completed(stderr)) => Ok(Some((stdout, stderr))),
+        (Output::BrokenPipe, _) | (_, Output::BrokenPipe) => Ok(None),
+    }
+}
+
+fn clean_environment(child_env: &ChildEnv) -> Result<()> {
+    match child_env {
+        ChildEnv::Sandbox(directory) => cache::remove_sandbox(directory),
+        ChildEnv::TraceFile(file) => ops::ignore_not_found(fs::remove_file(file)),
     }
 }
 
@@ -225,4 +258,37 @@ fn output_cached_data(context: CacheContext<'_>) -> Result<ExitCode> {
     debug_log!("[{}] Outputted cached data and committed files", command.name);
 
     Ok(ExitCode(cached_data.exit_code))
+}
+
+fn save_command_data(context: CommandContext<'_>) -> Result<ExitCode> {
+    let CommandContext {
+        command,
+        cache,
+        child_env,
+        exit_code,
+        stdout,
+        stderr,
+    } = context;
+
+    let (read_set, write_set) = execution::parse_trace(&child_env)?;
+    let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
+    if let ChildEnv::Sandbox(directory) = child_env {
+        fs::rename(directory, cache.get_sandbox_directory())?;
+        cache.extract_sandbox_output()?;
+        if !write_set.is_empty() {
+            cache.commit_output()?;
+        }
+    }
+    debug_log!("[{}] Extracted dependencies and committed files", command.name);
+
+    cache.save_data(&CacheData {
+        exit_code: exit_code.0,
+        stdout,
+        stderr,
+        read_dependencies,
+        write_outputs: write_set,
+    })?;
+    debug_log!("[{}] Saved command data", command.name);
+
+    Ok(exit_code)
 }
