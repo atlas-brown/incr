@@ -36,6 +36,16 @@ struct CacheContext<'c> {
     completed_stderr: Vec<u8>,
 }
 
+#[derive(Clone, Debug)]
+struct CommandContext<'c> {
+    command: &'c Command,
+    child_env: ChildEnv,
+    cache: CacheCursor<'c>,
+    exit_code: ExitCode,
+    stdout: Vec<u8>,
+    stderr: Vec<u8>,
+}
+
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     debug_log!(
         "[{}] Starting stream command (trace_type={})",
@@ -52,6 +62,10 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     debug_log!("[{}] Spawned stream child", command.name);
 
     let stdin_context = forward_stdin(child.stdin.take().unwrap())?;
+    if execution::skip_cache(command, stdin_context.length) {
+        eprintln!("skipping cache: {} {:?}", command.name, command.arguments);
+    }
+
     let cache = CacheCursor::from_hash(command, stdin_context.hash)?;
     cache.create_directory()?;
     debug_log!("[{}] Loaded cache directory", command.name);
@@ -79,26 +93,14 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         CacheStatus::Invalid(exit_code) => exit_code,
     };
 
-    let (read_set, write_set) = execution::parse_trace(&child_env)?;
-    let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
-    if let ChildEnv::Sandbox(directory) = child_env {
-        fs::rename(directory, cache.get_sandbox_directory())?;
-        cache.extract_sandbox_output()?;
-        if !write_set.is_empty() {
-            cache.commit_output()?;
-        }
-    }
-    debug_log!("[{}] Extracted dependencies and committed files", command.name);
-
-    cache.save_data(&CacheData {
-        exit_code: exit_code.0,
+    save_command_data(CommandContext {
+        command,
+        child_env,
+        cache,
+        exit_code,
         stdout,
         stderr,
-        read_dependencies,
-        write_outputs: write_set,
-    })?;
-
-    Ok(exit_code)
+    })
 }
 
 fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
@@ -242,4 +244,37 @@ fn output_cached_data(context: CacheContext<'_>) -> Result<ExitCode> {
     debug_log!("[{}] Outputted cached data and committed files", command.name);
 
     Ok(ExitCode(cached_data.exit_code))
+}
+
+fn save_command_data(context: CommandContext<'_>) -> Result<ExitCode> {
+    let CommandContext {
+        command,
+        child_env,
+        cache,
+        exit_code,
+        stdout,
+        stderr,
+    } = context;
+
+    let (read_set, write_set) = execution::parse_trace(&child_env)?;
+    let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
+    if let ChildEnv::Sandbox(directory) = child_env {
+        fs::rename(directory, cache.get_sandbox_directory())?;
+        cache.extract_sandbox_output()?;
+        if !write_set.is_empty() {
+            cache.commit_output()?;
+        }
+    }
+    debug_log!("[{}] Extracted dependencies and committed files", command.name);
+
+    cache.save_data(&CacheData {
+        exit_code: exit_code.0,
+        stdout,
+        stderr,
+        read_dependencies,
+        write_outputs: write_set,
+    })?;
+    debug_log!("[{}] Saved command data", command.name);
+
+    Ok(exit_code)
 }
