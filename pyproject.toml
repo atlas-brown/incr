@@ -6,8 +6,11 @@ authors = [{ name = "Your Name", email = "you@example.com" }]
 requires-python = ">=3.10"
 
 dependencies = [
-    "shasta>=0.2.2",
     "libdash>=0.3.1",
+    "matplotlib>=3.10.7",
+    "numpy>=2.2.6",
+    "pandas>=2.3.3",
+    "shasta>=0.2.2",
 ]
 
 [build-system]
