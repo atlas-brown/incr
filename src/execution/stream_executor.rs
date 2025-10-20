@@ -156,6 +156,7 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
 
     let mut chunk = [0; CHUNK_SIZE];
     let mut hasher = Xxh3::new();
+    let mut length = 0;
     loop {
         let count = match process_stdin.read(&mut chunk) {
             Ok(0) => break,
@@ -165,11 +166,12 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
         };
         send_channel.send(chunk[..count].to_vec())?;
         hasher.update(&chunk[..count]);
+        length += count;
     }
 
     Ok(StdinContext {
         hash: hasher.digest(),
-        length: 0,
+        length,
         thread: Some(stdin_thread),
     })
 }

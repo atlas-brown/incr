@@ -96,7 +96,10 @@ pub(crate) const SKIP_COMMANDS: &[&str] = &[
     "tee", "test", "tr", "true", "xargs",
 ];
 
-pub(crate) const SKIP_CACHE_CONDITIONS: &[SkipCondition] = &[];
+pub(crate) const SKIP_CACHE_CONDITIONS: &[SkipCondition] = &[
+    SkipCondition::with_conditions("sort", &[], 0, 200),
+    SkipCondition::with_conditions("uniq", &[], 0, 200),
+];
 pub(crate) const SKIP_TRACE_CONDITIONS: &[SkipCondition] = &[];
 pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
     SkipCondition::with_name("awk"),
