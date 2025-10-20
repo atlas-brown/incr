@@ -76,12 +76,12 @@ pub(crate) fn parse_trace(env: &ChildEnv) -> Result<(HashSet<PathBuf>, HashSet<P
     read_set.retain(|p| {
         !EXCLUDED_PATHS
             .iter()
-            .any(|e| ops::path_to_string(p).map(|p| p.starts_with(e)).unwrap_or(false))
+            .any(|e| ops::path_to_string(p).map(|p| p.starts_with(e)).unwrap_or(true))
     });
     write_set.retain(|p| {
         !EXCLUDED_PATHS
             .iter()
-            .any(|e| ops::path_to_string(p).map(|p| p.starts_with(e)).unwrap_or(false))
+            .any(|e| ops::path_to_string(p).map(|p| p.starts_with(e)).unwrap_or(true))
     });
 
     return Ok((read_set, write_set));
