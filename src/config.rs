@@ -44,7 +44,7 @@ pub(crate) const CHUNK_SIZE: usize = 65536;
 pub(crate) const SUDO_SANDBOX: bool = true;
 pub(crate) const DEBUG: bool = true;
 pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
-pub(crate) const DEBUG_LOG_FILE: &str = "/users/jxia3/incr/debug_log.txt";
+pub(crate) const DEBUG_LOG_FILE: &str = "debug_log.txt";
 
 pub(crate) const IGNORE_COMMANDS: &[&str] = &[
     "alias", "cd", "chgrp", "chmod", "chown", "cp", "date", "df", "du", "env", "export", "free", "hash",
