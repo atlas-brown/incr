@@ -48,7 +48,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 
     let (stdin_hash, stdin_size, stdin_thread) = forward_stdin(child.stdin.take().unwrap())?;
 
-    if true {
+    /*if true {
         eprintln!(
             "stdin size: {} {} {:?}",
             stdin_size, command.name, command.arguments,
@@ -60,7 +60,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
         let exit_code = child.wait()?.code().unwrap();
         return Ok(ExitCode(exit_code));
-    }
+    }*/
 
     let cache = CacheCursor::from_hash(command, stdin_hash)?;
     cache.create_directory()?;
