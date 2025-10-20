@@ -1,1 +1,3 @@
-pub(crate) mod parse_trace;
+mod parse_trace;
+
+pub(crate) use parse_trace::parse_trace;
