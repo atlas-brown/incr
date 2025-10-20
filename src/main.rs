@@ -94,7 +94,7 @@ fn parse_input() -> Result<Option<Input>> {
     let command = command::get_command(try_command, cache_directory, arguments.command, &environment)?;
     let config = Config {
         force_cache: arguments.force_cache,
-        skip_sandbox: execution::skip_sandbox(&command),
+        trace_type: execution::get_trace_type(&command),
         complete_execution: true, // TODO: add a flag
     };
 

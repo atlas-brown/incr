@@ -9,7 +9,7 @@ use xxhash_rust::xxh3::Xxh3;
 
 use crate::cache::{self, CacheCursor, CacheData};
 use crate::command::{self, ChildContext, ChildEnv, Command, Output};
-use crate::config::{CHUNK_SIZE, Config, DEBUG};
+use crate::config::{CHUNK_SIZE, Config, DEBUG, TraceType};
 use crate::execution;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
@@ -38,9 +38,9 @@ struct CacheContext<'c> {
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     debug_log!(
-        "[{}] Starting stream command (skip_sandbox={})",
+        "[{}] Starting stream command (trace_type={})",
         command.name,
-        config.skip_sandbox,
+        config.trace_type,
     );
 
     let child_env = create_child_environment(config, command)?;
@@ -102,8 +102,12 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 }
 
 fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
+    if config.trace_type == TraceType::Nothing {
+        panic!();
+    }
+
     let hash = ops::hash_bytes(&ops::encode_to_vec(command)?);
-    if config.skip_sandbox {
+    if config.trace_type == TraceType::TraceFile {
         let trace_file = Path::new(&command.cache_directory).join(format!("trace_{hash}.txt"));
         return Ok(ChildEnv::TraceFile(trace_file));
     }

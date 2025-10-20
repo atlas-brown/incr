@@ -3,7 +3,7 @@ use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 
 use crate::cache::{CacheCursor, CacheData};
 use crate::command::{self, ChildContext, ChildEnv, Command, Output};
-use crate::config::Config;
+use crate::config::{Config, TraceType};
 use crate::execution;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
@@ -15,9 +15,9 @@ enum CommandResult {
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     debug_log!(
-        "[{}] Starting batch command (skip_sandbox={})",
+        "[{}] Starting batch command (trace_type={})",
         command.name,
-        config.skip_sandbox,
+        config.trace_type,
     );
 
     let mut stdin = Vec::new();
@@ -54,10 +54,10 @@ fn run_command(
     cache: &CacheCursor<'_>,
     stdin: &[u8],
 ) -> Result<CommandResult> {
-    let child_env = if !config.skip_sandbox {
-        ChildEnv::Sandbox(cache.get_sandbox_directory())
-    } else {
-        ChildEnv::TraceFile(cache.get_trace_file())
+    let child_env = match config.trace_type {
+        TraceType::Sandbox => ChildEnv::Sandbox(cache.get_sandbox_directory()),
+        TraceType::TraceFile => ChildEnv::TraceFile(cache.get_trace_file()),
+        TraceType::Nothing => panic!(),
     };
     let ChildContext {
         mut child,
