@@ -39,8 +39,8 @@ struct CacheContext<'c> {
 #[derive(Clone, Debug)]
 struct CommandContext<'c> {
     command: &'c Command,
-    child_env: ChildEnv,
     cache: CacheCursor<'c>,
+    child_env: ChildEnv,
     exit_code: ExitCode,
     stdout: Vec<u8>,
     stderr: Vec<u8>,
@@ -63,19 +63,21 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 
     let stdin_context = forward_stdin(child.stdin.take().unwrap())?;
     if execution::skip_cache(command, stdin_context.length) {
-        eprintln!("skipping cache: {} {:?}", command.name, command.arguments);
+        join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)?;
+        let exit_code = child.wait()?.code().unwrap();
+        clean_environment(&child_env)?;
+        debug_log!("[{}] Skipped caching", command.name);
+        return Ok(ExitCode(exit_code));
     }
 
     let cache = CacheCursor::from_hash(command, stdin_context.hash)?;
     cache.create_directory()?;
     debug_log!("[{}] Loaded cache directory", command.name);
 
-    let cache_status = load_cache_data(&cache, child, &child_env, stdin_context.thread)?;
-    let stdout = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
-    let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
-    let (stdout, stderr) = match (stdout, stderr) {
-        (Output::Completed(stdout), Output::Completed(stderr)) => (stdout, stderr),
-        (Output::BrokenPipe, _) | (_, Output::BrokenPipe) => return Ok(BROKEN_PIPE_CODE),
+    let cache_status = load_cache_data(&cache, child, &child_env)?;
+    let (stdout, stderr) = match join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
+        Some((stdout, stderr)) => (stdout, stderr),
+        None => return Ok(BROKEN_PIPE_CODE),
     };
     debug_log!("[{}] Loaded cache data and child outputs", command.name);
 
@@ -95,8 +97,8 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 
     save_command_data(CommandContext {
         command,
-        child_env,
         cache,
+        child_env,
         exit_code,
         stdout,
         stderr,
@@ -172,12 +174,7 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
     })
 }
 
-fn load_cache_data(
-    cache: &CacheCursor<'_>,
-    mut child: Child,
-    child_env: &ChildEnv,
-    stdin_thread: Option<JoinHandle<Result<()>>>,
-) -> Result<CacheStatus> {
+fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, child_env: &ChildEnv) -> Result<CacheStatus> {
     let cached_data = match cache.load_data()? {
         Some(cached_data) => {
             if execution::check_cache_valid(cache, &cached_data)? {
@@ -195,21 +192,38 @@ fn load_cache_data(
                 command::kill_child(&child)?;
                 child.wait()?;
             }
-            match child_env {
-                ChildEnv::Sandbox(directory) => cache::remove_sandbox(directory)?,
-                ChildEnv::TraceFile(file) => ops::ignore_not_found(fs::remove_file(file))?,
-            }
+            clean_environment(child_env)?;
             Ok(CacheStatus::Valid(cached_data))
         }
         None => {
-            if let Some(stdin_thread) = stdin_thread {
-                stdin_thread.join().map_err(|e| anyhow!("{e:?}"))??;
-            }
             let exit_code = child.wait()?.code().unwrap();
             cache.clean_sandbox_directory()?;
             cache.clean_data()?;
             Ok(CacheStatus::Invalid(ExitCode(exit_code)))
         }
+    }
+}
+
+fn join_stream_threads(
+    stdin_thread: Option<JoinHandle<Result<()>>>,
+    stdout_thread: JoinHandle<Result<Output>>,
+    stderr_thread: JoinHandle<Result<Output>>,
+) -> Result<Option<(Vec<u8>, Vec<u8>)>> {
+    if let Some(stdin_thread) = stdin_thread {
+        stdin_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    }
+    let stdout = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    match (stdout, stderr) {
+        (Output::Completed(stdout), Output::Completed(stderr)) => Ok(Some((stdout, stderr))),
+        (Output::BrokenPipe, _) | (_, Output::BrokenPipe) => Ok(None),
+    }
+}
+
+fn clean_environment(child_env: &ChildEnv) -> Result<()> {
+    match child_env {
+        ChildEnv::Sandbox(directory) => cache::remove_sandbox(directory),
+        ChildEnv::TraceFile(file) => ops::ignore_not_found(fs::remove_file(file)),
     }
 }
 
@@ -249,8 +263,8 @@ fn output_cached_data(context: CacheContext<'_>) -> Result<ExitCode> {
 fn save_command_data(context: CommandContext<'_>) -> Result<ExitCode> {
     let CommandContext {
         command,
-        child_env,
         cache,
+        child_env,
         exit_code,
         stdout,
         stderr,

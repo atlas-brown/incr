@@ -109,8 +109,8 @@ pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
 ];
 pub(crate) const SKIP_TRACE_CONDITIONS: &[SkipCondition] = &[];
 pub(crate) const SKIP_CACHE_CONDITIONS: &[SkipCondition] = &[
-    SkipCondition::with_conditions("sort", &[], 0, 200),
-    SkipCondition::with_conditions("uniq", &[], 0, 200),
+    SkipCondition::with_conditions("sort", &[], 0, 100),
+    SkipCondition::with_conditions("uniq", &[], 0, 100),
 ];
 
 pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
