@@ -79,6 +79,11 @@ pub(crate) fn parse_trace(env: &ChildEnv) -> Result<(HashSet<PathBuf>, HashSet<P
         ChildEnv::Sandbox(directory) => &directory.join("upperdir").join("tmp").join(TRACE_FILE),
         ChildEnv::TraceFile(file) => file,
     };
+
+    let (read_set, write_set) = crate::scripts::parse_trace::parse_trace(&trace_file).unwrap();
+    fs::remove_file(trace_file)?;
+    return Ok((read_set, write_set));
+
     let output = ShellCommand::new("python3")
         .args(["-c", PARSE_TRACE_SCRIPT, ops::path_to_string(trace_file)?])
         .stdin(Stdio::null())

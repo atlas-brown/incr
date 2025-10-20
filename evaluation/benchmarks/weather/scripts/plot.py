@@ -12,12 +12,13 @@ from pathlib import Path
 import warnings
 warnings.filterwarnings("ignore", message="No artists with labels found to put in legend.*")
 
+plot_dir = os.getenv("plot_dir")
 cntr = 0
 def save_sofar(plt, filename):
     global cntr
     plt.legend(loc='upper left')
-    plt.savefig(f"plots/tmp/{cntr}_{filename}.png", bbox_inches='tight')
-    out_dir = Path("plots/tmp")
+    plt.savefig(f"{plot_dir}/tmp/{cntr}_{filename}.png", bbox_inches='tight')
+    out_dir = Path(f"{plot_dir}/tmp")
     out_dir.mkdir(parents=True, exist_ok=True)
 
     plt.legend(loc="upper left")
