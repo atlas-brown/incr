@@ -672,7 +672,7 @@ fn parse_syscall(
             .into_iter()
             .collect()),
         s if is_ignored(s) => Ok(vec![]),
-        other => Err(format!("Unclassified syscall {other}")),
+        other => Ok(vec![]),
     }
 }
 
@@ -696,6 +696,7 @@ fn parse_line(l: &str, ctx: &mut Context) -> Result<Option<Vec<FileRecord>>> {
             line = total;
         }
     }
+    line = line.trim().to_owned();
 
     let lparen = match line.find('(') {
         Some(i) => i,
@@ -756,6 +757,11 @@ fn parse_and_gather_cmd_rw_sets(
             }
         }
     }
+
+    for entry in &write_set {
+        read_set.insert(entry.to_owned());
+    }
+
     Ok((read_set, write_set))
 }
 

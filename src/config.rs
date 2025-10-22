@@ -91,10 +91,7 @@ pub(crate) const IGNORE_COMMANDS: &[&str] = &[
     "rmdir", "set", "sleep", "stty", "sync", "time", "top", "touch", "tput", "type", "umask", "unalias",
     "uname", "uptime", "w", "which", "who", "whoami", "yes",
 ];
-pub(crate) const SKIP_COMMANDS: &[&str] = &[
-    "basename", "cat", "dirname", "echo", "false", "head", "paste", "printf", "rev", "seq", "stat", "tail",
-    "tee", "test", "tr", "true", "xargs",
-];
+pub(crate) const SKIP_COMMANDS: &[&str] = &[];
 
 pub(crate) const SKIP_CACHE_CONDITIONS: &[SkipCondition] = &[];
 pub(crate) const SKIP_TRACE_CONDITIONS: &[SkipCondition] = &[];
@@ -117,17 +114,4 @@ pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
     "XDG_SESSION_TYPE",
     "_",
 ];
-pub(crate) const EXCLUDED_PATHS: &[&str] = &[
-    "/lib/glibc-hwcaps",
-    "/lib/tls",
-    "/lib/x86_64",
-    "/lib/x86_64-linux-gnu",
-    "/proc",
-    "/tmp",
-    "/usr/lib/glibc-hwcaps",
-    "/usr/lib/python",
-    "/usr/lib/tls",
-    "/usr/lib/x86_64",
-    "/usr/lib/x86_64-linux-gnu",
-    "pipe:",
-];
+pub(crate) const EXCLUDED_PATHS: &[&str] = &["/proc", "pipe:"];
