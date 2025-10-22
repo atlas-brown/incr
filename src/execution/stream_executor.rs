@@ -107,7 +107,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 
 fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
     if config.trace_type == TraceType::Nothing {
-        panic!();
+        return Ok(ChildEnv::Nothing);
     }
 
     let hash = ops::hash_bytes(&ops::encode_to_vec(command)?);
@@ -226,6 +226,7 @@ fn clean_environment(child_env: &ChildEnv) -> Result<()> {
     match child_env {
         ChildEnv::Sandbox(directory) => cache::remove_sandbox(directory),
         ChildEnv::TraceFile(file) => ops::ignore_not_found(fs::remove_file(file)),
+        ChildEnv::Nothing => Ok(()),
     }
 }
 
