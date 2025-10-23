@@ -27,6 +27,10 @@ else
     SCRIPTS=("temp-analytics-1.sh" "temp-analytics-2.sh" "temp-analytics-3.sh")
 fi
 
+if [[ "$size" == "full" && "$1" == "mydata" ]]; then
+    INPUT="/mydata/inputs/temperatures.${size}.txt"
+fi
+
 TIME_FILE="${OUTPUT_DIR}/timing.csv"
 echo "mode,script,time_sec" > "$TIME_FILE"
 

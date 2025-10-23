@@ -33,6 +33,7 @@ pub(crate) struct SkipCondition {
 }
 
 impl SkipCondition {
+    #[allow(unused)]
     const fn with_name(name: &'static str) -> Self {
         Self {
             name,
@@ -42,6 +43,7 @@ impl SkipCondition {
         }
     }
 
+    #[allow(unused)]
     const fn with_disallowed_flags(name: &'static str, disallowed_flags: &'static [&'static str]) -> Self {
         Self {
             name,
@@ -51,6 +53,7 @@ impl SkipCondition {
         }
     }
 
+    #[allow(unused)]
     const fn with_conditions(
         name: &'static str,
         disallowed_flags: &'static [&'static str],
@@ -81,7 +84,7 @@ pub(crate) const COMMIT_DIRECTORY: &str = "commit";
 
 pub(crate) const CHUNK_SIZE: usize = 65536;
 pub(crate) const SUDO_SANDBOX: bool = true;
-pub(crate) const DEBUG: bool = false;
+pub(crate) const DEBUG: bool = true;
 pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
 pub(crate) const DEBUG_LOG_FILE: &str = "debug_log.txt";
 
@@ -91,31 +94,11 @@ pub(crate) const IGNORE_COMMANDS: &[&str] = &[
     "rmdir", "set", "sleep", "stty", "sync", "time", "top", "touch", "tput", "type", "umask", "unalias",
     "uname", "uptime", "w", "which", "who", "whoami", "yes",
 ];
-pub(crate) const SKIP_COMMANDS: &[&str] = &[
-    "basename", "cat", "dirname", "echo", "false", "head", "paste", "printf", "rev", "seq", "stat", "tail",
-    "tee", "test", "tr", "true", "xargs",
-];
+pub(crate) const SKIP_COMMANDS: &[&str] = &[];
 
-pub(crate) const SKIP_CACHE_CONDITIONS: &[SkipCondition] = &[
-    SkipCondition::with_conditions("sort", &[], 0, 200),
-    SkipCondition::with_conditions("uniq", &[], 0, 200),
-];
-pub(crate) const SKIP_TRACE_CONDITIONS: &[SkipCondition] = &[
-    SkipCondition::with_conditions("sort", &["o", "output"], 0, usize::MAX),
-    SkipCondition::with_conditions("uniq", &["o", "output"], 0, usize::MAX),
-];
-pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[
-    SkipCondition::with_name("awk"),
-    SkipCondition::with_name("cmp"),
-    SkipCondition::with_name("comm"),
-    SkipCondition::with_name("cut"),
-    SkipCondition::with_name("diff"),
-    SkipCondition::with_name("grep"),
-    SkipCondition::with_name("join"),
-    SkipCondition::with_disallowed_flags("sort", &["o", "output"]),
-    SkipCondition::with_disallowed_flags("uniq", &["o", "output"]),
-    SkipCondition::with_name("wc"),
-];
+pub(crate) const SKIP_CACHE_CONDITIONS: &[SkipCondition] = &[];
+pub(crate) const SKIP_TRACE_CONDITIONS: &[SkipCondition] = &[];
+pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[];
 
 pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
     "GIT_ASKPASS",
@@ -134,17 +117,4 @@ pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
     "XDG_SESSION_TYPE",
     "_",
 ];
-pub(crate) const EXCLUDED_PATHS: &[&str] = &[
-    "/lib/glibc-hwcaps",
-    "/lib/tls",
-    "/lib/x86_64",
-    "/lib/x86_64-linux-gnu",
-    "/proc",
-    "/tmp",
-    "/usr/lib/glibc-hwcaps",
-    "/usr/lib/python",
-    "/usr/lib/tls",
-    "/usr/lib/x86_64",
-    "/usr/lib/x86_64-linux-gnu",
-    "pipe:",
-];
+pub(crate) const EXCLUDED_PATHS: &[&str] = &["/proc", "pipe:"];
