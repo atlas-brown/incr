@@ -33,6 +33,7 @@ pub(crate) struct SkipCondition {
 }
 
 impl SkipCondition {
+    #[allow(unused)]
     const fn with_name(name: &'static str) -> Self {
         Self {
             name,
@@ -42,6 +43,7 @@ impl SkipCondition {
         }
     }
 
+    #[allow(unused)]
     const fn with_disallowed_flags(name: &'static str, disallowed_flags: &'static [&'static str]) -> Self {
         Self {
             name,
@@ -51,6 +53,7 @@ impl SkipCondition {
         }
     }
 
+    #[allow(unused)]
     const fn with_conditions(
         name: &'static str,
         disallowed_flags: &'static [&'static str],
