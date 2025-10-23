@@ -12,10 +12,7 @@ IGNORE_COMMANDS = [
     "rmdir", "set", "sleep", "stty", "sync", "time", "top", "touch", "tput", "type", "umask", "unalias",
     "uname", "uptime", "w", "which", "who", "whoami", "yes",
 ]
-SKIP_COMMANDS = [
-    "basename", "cat", "dirname", "echo", "false", "head", "paste", "printf", "rev", "seq", "stat", "tail",
-    "tee", "test", "tr", "true", "xargs",
-]
+SKIP_COMMANDS = []
 AVOID_SET = set(IGNORE_COMMANDS + SKIP_COMMANDS)
 
 # Monkey patch
