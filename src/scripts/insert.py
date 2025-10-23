@@ -7,8 +7,8 @@ from shasta.json_to_ast import to_ast_node
 
 # Ensure these match config.rs
 IGNORE_COMMANDS = [
-    "alias", "cd", "chgrp", "chmod", "chown", "env", "export", "printenv", "pwd", "set", "sleep", "stty",
-    "sync", "tput", "umask", "unalias", "yes",
+    "alias", "cd", "chgrp", "chmod", "chown", "env", "export", "ln", "printenv", "pwd", "set", "sleep",
+    "stty", "sync", "tput", "umask", "unalias", "yes",
 ]
 SKIP_COMMANDS = []
 AVOID_SET = set(IGNORE_COMMANDS + SKIP_COMMANDS)
