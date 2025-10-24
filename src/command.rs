@@ -1,10 +1,10 @@
 use anyhow::{Result, anyhow, ensure};
 use bincode::Encode;
 use std::collections::{BTreeMap, HashMap, HashSet};
-use std::fs;
-use std::io::{self, Error as IoError, ErrorKind, Read, Write};
+use std::fs::{self, File};
+use std::io::{self, BufWriter, Error as IoError, ErrorKind, Read, Write};
 use std::os::unix::process::CommandExt;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::process::{Child, Command as ShellCommand, Stdio};
 use std::thread::{self, JoinHandle};
 
@@ -30,7 +30,14 @@ impl Command {
 }
 
 #[derive(Clone, Debug)]
-pub(crate) enum ChildEnv {
+pub(crate) struct ChildEnv {
+    pub(crate) typ: EnvType,
+    pub(crate) stdout_file: PathBuf,
+    pub(crate) stderr_file: PathBuf,
+}
+
+#[derive(Clone, Debug)]
+pub(crate) enum EnvType {
     Sandbox(PathBuf),
     TraceFile(PathBuf),
     Nothing,
@@ -39,13 +46,13 @@ pub(crate) enum ChildEnv {
 #[derive(Debug)]
 pub(crate) struct ChildContext {
     pub(crate) child: Child,
-    pub(crate) stdout_thread: JoinHandle<Result<Output>>,
-    pub(crate) stderr_thread: JoinHandle<Result<Output>>,
+    pub(crate) stdout_thread: JoinHandle<Result<ChildOutput>>,
+    pub(crate) stderr_thread: JoinHandle<Result<ChildOutput>>,
 }
 
-#[derive(Clone, Debug)]
-pub(crate) enum Output {
-    Completed(Vec<u8>),
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(crate) enum ChildOutput {
+    Completed(usize),
     BrokenPipe,
 }
 
@@ -86,20 +93,22 @@ pub(crate) fn get_command(
 }
 
 pub(crate) fn spawn_command(config: &Config, command: &Command, env: &ChildEnv) -> Result<ChildContext> {
-    if let ChildEnv::Sandbox(directory) = env {
+    if let EnvType::Sandbox(directory) = &env.typ {
         fs::create_dir_all(directory)?;
     }
     let mut child = spawn_child(command, env)?;
+    let mut child_stdout = child.stdout.take().unwrap();
+    let mut child_stderr = child.stderr.take().unwrap();
 
-    let child_stdout = child.stdout.take().unwrap();
-    let child_stderr = child.stderr.take().unwrap();
     let stdout_thread = thread::spawn({
         let config = config.clone();
-        move || capture_stream(&config, child_stdout, io::stdout())
+        let stdout_file = env.stdout_file.clone();
+        move || capture_stream(&config, &mut child_stdout, &mut io::stdout(), &stdout_file)
     });
     let stderr_thread = thread::spawn({
         let config = config.clone();
-        move || capture_stream(&config, child_stderr, io::stderr())
+        let stderr_file = env.stderr_file.clone();
+        move || capture_stream(&config, &mut child_stderr, &mut io::stderr(), &stderr_file)
     });
 
     Ok(ChildContext {
@@ -115,13 +124,13 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
     command_parts.extend(command.arguments.iter().map(|a| a.as_str()));
     let command_string = shlex::try_join(command_parts)?;
 
-    let shell_command = match env {
-        ChildEnv::Sandbox(_) => &command.try_command,
-        ChildEnv::TraceFile(_) => STRACE_COMMAND,
-        ChildEnv::Nothing => BASH_COMMAND,
+    let shell_command = match &env.typ {
+        EnvType::Sandbox(_) => &command.try_command,
+        EnvType::TraceFile(_) => STRACE_COMMAND,
+        EnvType::Nothing => BASH_COMMAND,
     };
-    let arguments = match env {
-        ChildEnv::Sandbox(directory) => &[
+    let arguments = match &env.typ {
+        EnvType::Sandbox(directory) => &[
             "-D",
             ops::path_to_string(directory)?,
             STRACE_COMMAND,
@@ -134,7 +143,7 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
             "-c",
             &shlex::try_quote(&command_string)?,
         ] as &[&str],
-        ChildEnv::TraceFile(file) => &[
+        EnvType::TraceFile(file) => &[
             "-yf",
             "--seccomp-bpf",
             "--trace=fork,clone,%file",
@@ -144,7 +153,7 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
             "-c",
             &command_string,
         ],
-        ChildEnv::Nothing => &["-c", &command_string],
+        EnvType::Nothing => &["-c", &command_string],
     };
 
     let mut child = ShellCommand::new(shell_command);
@@ -163,7 +172,7 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
         });
     }
 
-    if let ChildEnv::TraceFile(file) = env
+    if let EnvType::TraceFile(file) = &env.typ
         && let Some(parent) = file.parent()
     {
         fs::create_dir_all(parent)?;
@@ -172,14 +181,21 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
     Ok(child.spawn()?)
 }
 
-fn capture_stream<S, D>(config: &Config, mut source: S, mut destination: D) -> Result<Output>
+fn capture_stream<S, D>(
+    config: &Config,
+    source: &mut S,
+    destination: &mut D,
+    capture_file: &Path,
+) -> Result<ChildOutput>
 where
     S: Read,
     D: Write,
 {
-    let mut data = Vec::new();
+    let file = File::create(capture_file)?;
+    let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
     let mut chunk = [0; CHUNK_SIZE];
     let mut destination_broken = false;
+    let mut length = 0;
 
     loop {
         let count = match source.read(&mut chunk) {
@@ -189,26 +205,28 @@ where
             Err(error) => return Err(error.into()),
         };
 
-        if !destination_broken {
-            let write_result = destination
-                .write_all(&chunk[..count])
-                .and_then(|_| destination.flush());
-            if let Err(error) = write_result {
-                if error.kind() != ErrorKind::BrokenPipe {
-                    return Err(error.into());
-                }
-                destination_broken = true;
-                if !config.complete_execution {
-                    data.extend_from_slice(&chunk[..count]);
-                    return Ok(Output::BrokenPipe);
-                }
+        if !destination_broken && let Err(error) = destination.write_all(&chunk[..count]) {
+            if error.kind() != ErrorKind::BrokenPipe {
+                return Err(error.into());
+            }
+            destination_broken = true;
+            if !config.complete_execution {
+                file_writer.write_all(&chunk[..count])?;
+                file_writer.flush()?;
+                return Ok(ChildOutput::BrokenPipe);
             }
         }
 
-        data.extend_from_slice(&chunk[..count]);
+        file_writer.write_all(&chunk[..count])?;
+        length += count;
     }
 
-    Ok(Output::Completed(data))
+    if !destination_broken {
+        destination.flush()?;
+    }
+    file_writer.flush()?;
+
+    Ok(ChildOutput::Completed(length))
 }
 
 pub(crate) fn kill_child(child: &Child) -> Result<()> {

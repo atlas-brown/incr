@@ -8,7 +8,7 @@ use std::thread::{self, JoinHandle};
 use xxhash_rust::xxh3::Xxh3;
 
 use crate::cache::{self, CacheCursor, CacheData};
-use crate::command::{self, ChildContext, ChildEnv, Command, Output};
+use crate::command::{self, ChildContext, ChildEnv, ChildOutput, Command, EnvType};
 use crate::config::{CHUNK_SIZE, Config, DEBUG, TraceType};
 use crate::execution;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
@@ -32,18 +32,7 @@ struct CacheContext<'c> {
     command: &'c Command,
     cache: CacheCursor<'c>,
     cached_data: CacheData,
-    completed_stdout: Vec<u8>,
-    completed_stderr: Vec<u8>,
-}
-
-#[derive(Clone, Debug)]
-struct CommandContext<'c> {
-    command: &'c Command,
-    cache: CacheCursor<'c>,
-    child_env: ChildEnv,
-    exit_code: ExitCode,
-    stdout: Vec<u8>,
-    stderr: Vec<u8>,
+    output_lengths: (usize, usize),
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
@@ -65,7 +54,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     if execution::skip_cache(command, stdin_context.length) {
         join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)?;
         let exit_code = child.wait()?.code().unwrap();
-        clean_environment(&child_env)?;
+        clean_child_environment(&child_env)?;
         debug_log!("[{}] Skipped caching", command.name);
         return Ok(ExitCode(exit_code));
     }
@@ -75,11 +64,11 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     debug_log!("[{}] Loaded cache directory", command.name);
 
     let cache_status = load_cache_data(&cache, child, &child_env)?;
-    let (stdout, stderr) = match join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
-        Some((stdout, stderr)) => (stdout, stderr),
+    let output_lengths = match join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
+        Some(lengths) => lengths,
         None => return Ok(BROKEN_PIPE_CODE),
     };
-    debug_log!("[{}] Loaded cache data and child outputs", command.name);
+    debug_log!("[{}] Loaded cache data and saved outputs", command.name);
 
     let exit_code = match cache_status {
         CacheStatus::Valid(cached_data) => {
@@ -88,35 +77,38 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
                 command,
                 cache,
                 cached_data,
-                completed_stdout: stdout,
-                completed_stderr: stderr,
+                output_lengths,
             });
         }
         CacheStatus::Invalid(exit_code) => exit_code,
     };
 
-    save_command_data(CommandContext {
-        command,
-        cache,
-        child_env,
-        exit_code,
-        stdout,
-        stderr,
-    })
+    save_command_data(command, cache, &child_env, exit_code)
 }
 
 fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
-    if config.trace_type == TraceType::Nothing {
-        return Ok(ChildEnv::Nothing);
-    }
-
     let hash = ops::hash_bytes(&ops::encode_to_vec(command)?);
+    let cache_directory = Path::new(&command.cache_directory);
+    let stdout_file = cache_directory.join(format!("stdout_{hash}.incr"));
+    let stderr_file = cache_directory.join(format!("stderr_{hash}.incr"));
+
+    if config.trace_type == TraceType::Nothing {
+        return Ok(ChildEnv {
+            typ: EnvType::Nothing,
+            stdout_file,
+            stderr_file,
+        });
+    }
     if config.trace_type == TraceType::TraceFile {
-        let trace_file = Path::new(&command.cache_directory).join(format!("trace_{hash}.txt"));
-        return Ok(ChildEnv::TraceFile(trace_file));
+        let trace_file = cache_directory.join(format!("trace_{hash}.txt"));
+        return Ok(ChildEnv {
+            typ: EnvType::TraceFile(trace_file),
+            stdout_file,
+            stderr_file,
+        });
     }
 
-    let sandbox_directory = Path::new(&command.cache_directory).join(format!("sandbox_{hash}"));
+    let sandbox_directory = cache_directory.join(format!("sandbox_{hash}"));
     if sandbox_directory.is_dir() {
         cache::remove_sandbox(&sandbox_directory)?;
     } else if sandbox_directory.is_file() {
@@ -124,7 +116,22 @@ fn create_child_environment(config: &Config, command: &Command) -> Result<ChildE
     }
     fs::create_dir_all(&sandbox_directory)?;
 
-    Ok(ChildEnv::Sandbox(sandbox_directory))
+    Ok(ChildEnv {
+        typ: EnvType::Sandbox(sandbox_directory),
+        stdout_file,
+        stderr_file,
+    })
+}
+
+fn clean_child_environment(child_env: &ChildEnv) -> Result<()> {
+    ops::ignore_not_found(fs::remove_file(&child_env.stdout_file))?;
+    ops::ignore_not_found(fs::remove_file(&child_env.stderr_file))?;
+    match &child_env.typ {
+        EnvType::Sandbox(directory) => cache::remove_sandbox(directory)?,
+        EnvType::TraceFile(file) => ops::ignore_not_found(fs::remove_file(file))?,
+        EnvType::Nothing => (),
+    }
+    Ok(())
 }
 
 fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
@@ -194,13 +201,13 @@ fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, child_env: &ChildE
                 command::kill_child(&child)?;
                 child.wait()?;
             }
-            clean_environment(child_env)?;
+            clean_child_environment(child_env)?;
             Ok(CacheStatus::Valid(cached_data))
         }
         None => {
             let exit_code = child.wait()?.code().unwrap();
             cache.clean_sandbox_directory()?;
-            cache.clean_data()?;
+            cache.clean_data_files()?;
             Ok(CacheStatus::Invalid(ExitCode(exit_code)))
         }
     }
@@ -208,25 +215,19 @@ fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, child_env: &ChildE
 
 fn join_stream_threads(
     stdin_thread: Option<JoinHandle<Result<()>>>,
-    stdout_thread: JoinHandle<Result<Output>>,
-    stderr_thread: JoinHandle<Result<Output>>,
-) -> Result<Option<(Vec<u8>, Vec<u8>)>> {
+    stdout_thread: JoinHandle<Result<ChildOutput>>,
+    stderr_thread: JoinHandle<Result<ChildOutput>>,
+) -> Result<Option<(usize, usize)>> {
     if let Some(stdin_thread) = stdin_thread {
         stdin_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     }
-    let stdout = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
-    let stderr = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
-    match (stdout, stderr) {
-        (Output::Completed(stdout), Output::Completed(stderr)) => Ok(Some((stdout, stderr))),
-        (Output::BrokenPipe, _) | (_, Output::BrokenPipe) => Ok(None),
-    }
-}
-
-fn clean_environment(child_env: &ChildEnv) -> Result<()> {
-    match child_env {
-        ChildEnv::Sandbox(directory) => cache::remove_sandbox(directory),
-        ChildEnv::TraceFile(file) => ops::ignore_not_found(fs::remove_file(file)),
-        ChildEnv::Nothing => Ok(()),
+    let stdout_result = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    let stderr_result = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    match (stdout_result, stderr_result) {
+        (ChildOutput::Completed(stdout_length), ChildOutput::Completed(stderr_length)) => {
+            Ok(Some((stdout_length, stderr_length)))
+        }
+        (ChildOutput::BrokenPipe, _) | (_, ChildOutput::BrokenPipe) => Ok(None),
     }
 }
 
@@ -236,22 +237,22 @@ fn output_cached_data(context: CacheContext<'_>) -> Result<ExitCode> {
         command,
         cache,
         cached_data,
-        completed_stdout,
-        completed_stderr,
+        output_lengths,
     } = context;
 
-    ensure!(completed_stdout.len() <= cached_data.stdout.len());
-    ensure!(completed_stderr.len() <= cached_data.stderr.len());
+    let (completed_stdout, completed_stderr) = output_lengths;
+    let stdout_file = cache.get_stdout_file();
+    let stderr_file = cache.get_stderr_file();
+
     if DEBUG {
-        ensure!(completed_stdout.as_slice() == &cached_data.stdout[..completed_stdout.len()]);
-        ensure!(completed_stderr.as_slice() == &cached_data.stderr[..completed_stderr.len()]);
+        let stdout_length = fs::metadata(&stdout_file)?.len() as usize;
+        let stderr_length = fs::metadata(&stderr_file)?.len() as usize;
+        ensure!(completed_stdout <= stdout_length);
+        ensure!(completed_stderr <= stderr_length);
     }
 
-    let remaining_stdout = &cached_data.stdout[completed_stdout.len()..];
-    let remaining_stderr = &cached_data.stderr[completed_stderr.len()..];
-    let stdout_completed = ops::output_data(remaining_stdout, io::stdout().lock())?;
-    let stderr_completed = ops::output_data(remaining_stderr, io::stderr().lock())?;
-
+    let stdout_completed = execution::output_data(&stdout_file, completed_stdout, &mut io::stdout().lock())?;
+    let stderr_completed = execution::output_data(&stderr_file, completed_stderr, &mut io::stderr().lock())?;
     if !config.complete_execution && (!stdout_completed || !stderr_completed) {
         return Ok(BROKEN_PIPE_CODE);
     }
@@ -263,19 +264,15 @@ fn output_cached_data(context: CacheContext<'_>) -> Result<ExitCode> {
     Ok(ExitCode(cached_data.exit_code))
 }
 
-fn save_command_data(context: CommandContext<'_>) -> Result<ExitCode> {
-    let CommandContext {
-        command,
-        cache,
-        child_env,
-        exit_code,
-        stdout,
-        stderr,
-    } = context;
-
-    let (read_set, write_set) = execution::parse_trace(&child_env)?;
+fn save_command_data(
+    command: &Command,
+    cache: CacheCursor<'_>,
+    child_env: &ChildEnv,
+    exit_code: ExitCode,
+) -> Result<ExitCode> {
+    let (read_set, write_set) = execution::parse_trace(child_env)?;
     let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
-    if let ChildEnv::Sandbox(directory) = child_env {
+    if let EnvType::Sandbox(directory) = &child_env.typ {
         fs::rename(directory, cache.get_sandbox_directory())?;
         cache.extract_sandbox_output()?;
         if !write_set.is_empty() {
@@ -284,10 +281,10 @@ fn save_command_data(context: CommandContext<'_>) -> Result<ExitCode> {
     }
     debug_log!("[{}] Extracted dependencies and committed files", command.name);
 
+    fs::rename(&child_env.stdout_file, cache.get_stdout_file())?;
+    fs::rename(&child_env.stderr_file, cache.get_stderr_file())?;
     cache.save_data(&CacheData {
         exit_code: exit_code.0,
-        stdout,
-        stderr,
         read_dependencies,
         write_outputs: write_set,
     })?;
