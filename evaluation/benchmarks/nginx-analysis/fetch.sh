@@ -18,7 +18,7 @@ done
 if [[ "$size" == "min" ]]; then
     if [[ ! -d "$INPUT_DIR/nginx-logs_$size" ]]; then
         mkdir -p "$INPUT_DIR/nginx-logs_$size"
-        cp "${eval_dir}/min_inputs/nginx-logs/"* "$INPUT_DIR/nginx-logs_$size"
+        cp "${INPUT_DIR}/../min_inputs/nginx-logs/"* "$INPUT_DIR/nginx-logs_$size"
     fi
     exit 0
 elif [[ "$size" == "small" ]]; then
