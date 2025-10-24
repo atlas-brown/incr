@@ -50,10 +50,10 @@ measure_time() {
 }
 
 # Baseline: bash
-for script in "${SCRIPTS[@]}"; do
-    echo "Running ${script} with bash..."
-    measure_time "bash" $script
-done
+#for script in "${SCRIPTS[@]}"; do
+#    echo "Running ${script} with bash..."
+#    measure_time "bash" $script
+#done
 
 # Incremental run: incr
 for script in "${SCRIPTS[@]}"; do

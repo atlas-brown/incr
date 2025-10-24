@@ -21,6 +21,13 @@ pub(crate) struct Command {
     pub(crate) environment: BTreeMap<String, String>,
 }
 
+impl Command {
+    pub(crate) fn join(&self) -> Result<String> {
+        let parts = iter::once(self.name.as_str()).chain(self.arguments.iter().map(|a| a.as_str()));
+        Ok(shlex::try_join(parts)?)
+    }
+}
+
 #[derive(Clone, Debug)]
 pub(crate) struct ChildEnv {
     pub(crate) typ: EnvType,
@@ -111,40 +118,43 @@ pub(crate) fn spawn_command(config: &Config, command: &Command, env: &ChildEnv) 
 }
 
 fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
-    let arguments = command.arguments.iter().map(|a| a.as_str()).collect::<Vec<_>>();
-    let command_string = shlex::try_join(iter::once(command.name.as_str()).chain(arguments.iter().copied()))?;
-
     let shell_command = match &env.typ {
         EnvType::Sandbox(_) => &command.try_command,
         EnvType::TraceFile(_) => STRACE_COMMAND,
         EnvType::Nothing => &command.name,
     };
-    let arguments = match &env.typ {
-        EnvType::Sandbox(directory) => &[
-            "-D",
-            ops::path_to_string(directory)?,
-            STRACE_COMMAND,
-            "-yf",
-            "--seccomp-bpf",
-            "--trace=fork,clone,%file",
-            "-o",
-            &format!("/tmp/{TRACE_FILE}"),
-            &command_string,
-        ] as &[&str],
-        EnvType::TraceFile(file) => &[
-            "-yf",
-            "--seccomp-bpf",
-            "--trace=fork,clone,%file",
-            "-o",
-            ops::path_to_string(file)?,
-            &command_string,
-        ],
-        EnvType::Nothing => &arguments,
+    let mut child = ShellCommand::new(shell_command);
+
+    match &env.typ {
+        EnvType::Sandbox(directory) => {
+            child.args([
+                "-D",
+                ops::path_to_string(directory)?,
+                STRACE_COMMAND,
+                "-yf",
+                "--seccomp-bpf",
+                "--trace=fork,clone,%file",
+                "-o",
+                &format!("/tmp/{TRACE_FILE}"),
+                &command.join()?,
+            ]);
+        }
+        EnvType::TraceFile(file) => {
+            child.args([
+                "-yf",
+                "--seccomp-bpf",
+                "--trace=fork,clone,%file",
+                "-o",
+                ops::path_to_string(file)?,
+                &command.join()?,
+            ]);
+        }
+        EnvType::Nothing => {
+            child.args(&command.arguments);
+        }
     };
 
-    let mut child = ShellCommand::new(shell_command);
     child
-        .args(arguments)
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped());
