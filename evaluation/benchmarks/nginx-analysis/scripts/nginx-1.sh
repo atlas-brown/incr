@@ -4,7 +4,7 @@
 # OUT=${OUT:-$PASH_TOP/evaluation/distr_benchmarks/dependency_untangling/input/output/nginx-logs}
 
 pure_func() {
-    tempfile=$(mktemp)
+    tempfile=$1
 
     tee $tempfile | cut -d "\"" -f3 | cut -d ' ' -f2 | sort | uniq -c | sort -rn   
     # awk alternative, too slow
@@ -23,5 +23,5 @@ pure_func() {
 }
 export -f pure_func
 for log in $INPUT/*; do
-    cat $log | pure_func
+    cat $log | pure_func $(mktemp)
 done
