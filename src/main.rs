@@ -63,7 +63,6 @@ fn run() -> Result<ExitCode> {
         Some(input) => (input.config, input.command, input.environment),
         None => return Ok(SUCCESS_CODE),
     };
-    eprintln!("parsed: {} {:?}", command.name, command.arguments);
     if !config.force_cache && execution::skip_command(&command, &environment) {
         return Err(skip_executor::run(&command));
     }
@@ -71,7 +70,6 @@ fn run() -> Result<ExitCode> {
         Executor::Batch => batch_executor::run(&config, &command),
         Executor::Stream => stream_executor::run(&config, &command),
     };
-    eprintln!("ran: {} {:?}", command.name, command.arguments);
     result.map_err(|e| anyhow!("({} {}) {}", command.name, command.arguments.join(" "), e))
 }
 
