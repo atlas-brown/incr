@@ -21,7 +21,7 @@ export -f pure_func
 for input in $(ls ${IN} | head -n ${ENTRIES} | xargs -I arg1 basename arg1)
 do
     TEMPDIR=$(mktemp -d)
-    cat $IN/$input |  tr -c 'A-Za-z' '[\n*]' | grep -v "^\s*$"| pure_func $input $TEMPDIR | sort | uniq -c > ${OUT}/${input}.input.bigrams.${mode}.out
+    cat $IN/$input |  tr -c 'A-Za-z' '[\n*]' | grep -v "^\s*$" | pure_func $input $TEMPDIR | sort | uniq -c > ${OUT}/${input}.input.bigrams.${mode}.out
 done
 
 echo 'done';
