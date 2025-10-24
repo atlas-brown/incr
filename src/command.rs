@@ -3,12 +3,13 @@ use bincode::Encode;
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::{self, BufWriter, Error as IoError, ErrorKind, Read, Write};
+use std::iter;
 use std::os::unix::process::CommandExt;
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command as ShellCommand, Stdio};
 use std::thread::{self, JoinHandle};
 
-use crate::config::{BASH_COMMAND, CHUNK_SIZE, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRACE_FILE};
+use crate::config::{CHUNK_SIZE, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRACE_FILE};
 use crate::ops;
 
 #[derive(Clone, Debug, Encode)]
@@ -18,15 +19,6 @@ pub(crate) struct Command {
     pub(crate) name: String,
     pub(crate) arguments: Vec<String>,
     pub(crate) environment: BTreeMap<String, String>,
-}
-
-impl Command {
-    pub(crate) fn format_bash(&self) -> Result<String> {
-        let mut parts = Vec::with_capacity(self.arguments.len() + 1);
-        parts.push(self.name.as_str());
-        parts.extend(self.arguments.iter().map(|a| a.as_str()));
-        Ok(shlex::try_join(parts)?)
-    }
 }
 
 #[derive(Clone, Debug)]
@@ -119,15 +111,13 @@ pub(crate) fn spawn_command(config: &Config, command: &Command, env: &ChildEnv) 
 }
 
 fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
-    let mut command_parts = Vec::with_capacity(command.arguments.len() + 1);
-    command_parts.push(command.name.as_str());
-    command_parts.extend(command.arguments.iter().map(|a| a.as_str()));
-    let command_string = shlex::try_join(command_parts)?;
+    let arguments = command.arguments.iter().map(|a| a.as_str()).collect::<Vec<_>>();
+    let command_string = shlex::try_join(iter::once(command.name.as_str()).chain(arguments.iter().copied()))?;
 
     let shell_command = match &env.typ {
         EnvType::Sandbox(_) => &command.try_command,
         EnvType::TraceFile(_) => STRACE_COMMAND,
-        EnvType::Nothing => BASH_COMMAND,
+        EnvType::Nothing => &command.name,
     };
     let arguments = match &env.typ {
         EnvType::Sandbox(directory) => &[
@@ -149,7 +139,7 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
             ops::path_to_string(file)?,
             &command_string,
         ],
-        EnvType::Nothing => &["-c", &command_string],
+        EnvType::Nothing => &arguments,
     };
 
     let mut child = ShellCommand::new(shell_command);

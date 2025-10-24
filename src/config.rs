@@ -71,15 +71,14 @@ impl SkipCondition {
 
 pub(crate) const DEFAULT_TRY_PATH: &str = "incr/src/scripts/try.sh";
 pub(crate) const DEFAULT_CACHE_PATH: &str = "incr/cache";
-
-pub(crate) const BASH_COMMAND: &str = "bash";
 pub(crate) const STRACE_COMMAND: &str = "strace";
-pub(crate) const TRACE_FILE: &str = "trace.txt";
-pub(crate) const DEBUG_FILE: &str = "debug_info.json";
 
 pub(crate) const DATA_FILE: &str = "data";
 pub(crate) const STDOUT_FILE: &str = "stdout.incr";
 pub(crate) const STDERR_FILE: &str = "stderr.incr";
+pub(crate) const DEBUG_FILE: &str = "debug_info.json";
+
+pub(crate) const TRACE_FILE: &str = "trace.txt";
 pub(crate) const SANDBOX_DIRECTORY: &str = "sandbox";
 pub(crate) const OUTPUT_DIRECTORY: &str = "outputs";
 pub(crate) const COMMIT_DIRECTORY: &str = "commit";
