@@ -70,8 +70,8 @@ impl SkipCondition {
 }
 
 pub(crate) const DEFAULT_TRY_PATH: &str = "incr/src/scripts/try.sh";
-pub(crate) const DEFAULT_CACHE_PATH: &str = "incr/cache";
 pub(crate) const STRACE_COMMAND: &str = "strace";
+pub(crate) const DEFAULT_CACHE_PATH: &str = "incr/cache";
 
 pub(crate) const DATA_FILE: &str = "data";
 pub(crate) const STDOUT_FILE: &str = "stdout.incr";
