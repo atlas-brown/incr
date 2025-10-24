@@ -25,5 +25,4 @@ export -f pure_func
 for log in $INPUT/*; do
     tempfile=$(mktemp)
     cat $log | pure_func $tempfile
-    break
 done
