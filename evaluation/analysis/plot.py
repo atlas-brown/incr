@@ -4,7 +4,10 @@ import pandas as pd
 
 BENCHMARKS = [
     "covid",
+    "inference",
     "nginx-analysis",
+    "nlp-bigrams",
+    "nlp-uppercase",
     "unixfun",
     "weather",
     "word-freq",

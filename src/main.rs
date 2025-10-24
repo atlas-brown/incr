@@ -66,10 +66,11 @@ fn run() -> Result<ExitCode> {
     if !config.force_cache && execution::skip_command(&command, &environment) {
         return Err(skip_executor::run(&command));
     }
-    match EXECUTOR {
+    let result = match EXECUTOR {
         Executor::Batch => batch_executor::run(&config, &command),
         Executor::Stream => stream_executor::run(&config, &command),
-    }
+    };
+    result.map_err(|e| anyhow!("({} {}) {}", command.name, command.arguments.join(" "), e))
 }
 
 fn parse_input() -> Result<Option<Input>> {

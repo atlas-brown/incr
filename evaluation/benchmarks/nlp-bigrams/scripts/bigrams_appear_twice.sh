@@ -10,7 +10,7 @@ mkdir -p "$OUT"
 
 pure_func() {
     input=$1
-    TEMPDIR=$(mktemp -d)
+    TEMPDIR=$2
     cat > ${TEMPDIR}/${input}.input.words
     tail +2 ${TEMPDIR}/${input}.input.words > ${TEMPDIR}/${input}.input.nextwords
     paste ${TEMPDIR}/${input}.input.words ${TEMPDIR}/${input}.input.nextwords | sort | uniq -c > ${TEMPDIR}/${input}.input.bigrams
@@ -21,7 +21,8 @@ pure_func() {
 export -f pure_func
 for input in $(ls ${IN} | head -n ${ENTRIES} | xargs -I arg1 basename arg1)
 do
-    cat $IN/$input | tr -c 'A-Za-z' '[\n*]' | grep -v "^\s*$" | pure_func $input > ${OUT}/${input}.out
+    TEMPDIR=$(mktemp -d)
+    cat $IN/$input | tr -c 'A-Za-z' '[\n*]' | grep -v "^\s*$" | pure_func $input $TEMPDIR > ${OUT}/${input}.${mode}.out
 done
 
 echo 'done';

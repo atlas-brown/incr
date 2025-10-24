@@ -8,7 +8,7 @@ use crate::ops::debug_log;
 
 pub(crate) fn run(command: &Command) -> Error {
     debug_log!("[{}] Skipping command", command.name);
-    let command_string = match command.format_bash() {
+    let command_string = match command.join() {
         Ok(string) => string,
         Err(error) => return error,
     };
