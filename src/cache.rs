@@ -10,7 +10,7 @@ use std::process::{Command as ShellCommand, Stdio};
 use crate::command::Command;
 use crate::config::{
     CHUNK_SIZE, COMMIT_DIRECTORY, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY, SANDBOX_DIRECTORY,
-    SUDO_SANDBOX, TRACE_FILE,
+    STDERR_FILE, STDOUT_FILE, SUDO_SANDBOX, TRACE_FILE,
 };
 use crate::ops;
 
@@ -59,6 +59,14 @@ impl<'c> CacheCursor<'c> {
             try_command: &command.try_command,
             debug_info,
         })
+    }
+
+    pub(crate) fn get_stdout_file(&self) -> PathBuf {
+        self.directory.join(STDOUT_FILE)
+    }
+
+    pub(crate) fn get_stderr_file(&self) -> PathBuf {
+        self.directory.join(STDERR_FILE)
     }
 
     pub(crate) fn get_sandbox_directory(&self) -> PathBuf {
@@ -130,20 +138,34 @@ impl<'c> CacheCursor<'c> {
         Ok(())
     }
 
-    pub(crate) fn check_output_exists(&self) -> bool {
+    pub(crate) fn data_outputs_exist(&self) -> bool {
+        self.get_stdout_file().is_file() && self.get_stderr_file().is_file()
+    }
+
+    pub(crate) fn file_outputs_exist(&self) -> bool {
         let output_directory = self.directory.join(OUTPUT_DIRECTORY);
         output_directory.is_dir()
     }
 
-    pub(crate) fn clean_sandbox_directory(&self) -> Result<()> {
-        remove_sandbox(&self.directory.join(SANDBOX_DIRECTORY))
+    pub(crate) fn clean_output_files(&self) -> Result<()> {
+        ops::ignore_not_found(fs::remove_file(self.get_stdout_file()))?;
+        ops::ignore_not_found(fs::remove_file(self.get_stderr_file()))?;
+        Ok(())
     }
 
-    pub(crate) fn clean_data(&self) -> Result<()> {
+    pub(crate) fn clean_sandbox_directory(&self) -> Result<()> {
+        remove_sandbox(&self.get_sandbox_directory())
+    }
+
+    pub(crate) fn clean_trace_file(&self) -> Result<()> {
+        ops::ignore_not_found(fs::remove_file(self.get_trace_file()))
+    }
+
+    pub(crate) fn clean_data_files(&self) -> Result<()> {
         let data_file = ops::add_data_extension(DATA_FILE.to_owned());
+        ops::ignore_not_found(fs::remove_file(data_file))?;
         ops::ignore_not_found(fs::remove_dir_all(self.directory.join(OUTPUT_DIRECTORY)))?;
         ops::ignore_not_found(fs::remove_dir_all(self.directory.join(COMMIT_DIRECTORY)))?;
-        ops::ignore_not_found(fs::remove_file(data_file))?;
         Ok(())
     }
 
@@ -162,7 +184,7 @@ struct CacheInfo<'c> {
     arguments: &'c [String],
     environment: &'c BTreeMap<String, String>,
     stdin_hash: u64,
-    #[serde(with = "ops::serialize_byte_slice")]
+    #[serde(with = "ops::serialize_bytes")]
     stdin: Option<&'c [u8]>,
 }
 
@@ -177,10 +199,6 @@ struct CacheKey<'c> {
 #[derive(Clone, Debug, Decode, Deserialize, Encode, Serialize)]
 pub(crate) struct CacheData {
     pub(crate) exit_code: i32,
-    #[serde(with = "ops::serialize_byte_vec")]
-    pub(crate) stdout: Vec<u8>,
-    #[serde(with = "ops::serialize_byte_vec")]
-    pub(crate) stderr: Vec<u8>,
     pub(crate) read_dependencies: HashMap<PathBuf, DependencyKey>,
     pub(crate) write_outputs: HashSet<PathBuf>,
 }

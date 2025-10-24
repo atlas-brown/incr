@@ -34,6 +34,31 @@ static LOG_FILE: OnceLock<Mutex<File>> = OnceLock::new();
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct ExitCode(pub(crate) i32);
 
+pub(crate) fn initialize_log_file() {
+    if DEBUG_LOGS {
+        LOG_FILE.get_or_init(|| {
+            let file = OpenOptions::new()
+                .append(true)
+                .create(true)
+                .open(DEBUG_LOG_FILE)
+                .unwrap();
+            Mutex::new(file)
+        });
+    }
+}
+
+pub(crate) fn log_line(line: &str) {
+    const FORMAT: &[FormatItem<'_>] = format_description!("[hour]:[minute]:[second].[subsecond digits:3]");
+    let offset = UtcOffset::current_local_offset().unwrap_or(UtcOffset::UTC);
+    let timestamp = OffsetDateTime::now_utc()
+        .to_offset(offset)
+        .format(&FORMAT)
+        .unwrap();
+    let line = format!("[{timestamp}] {line}\n");
+    let mut file = LOG_FILE.get().unwrap().lock().unwrap();
+    file.write_all(line.as_bytes()).unwrap();
+}
+
 pub(crate) fn hash_bytes(bytes: &[u8]) -> u64 {
     let mut hasher = Box::new(Xxh3::new());
     hasher.update(bytes);
@@ -66,21 +91,6 @@ pub(crate) fn ignore_not_found(result: Result<(), IoError>) -> Result<()> {
     match result {
         Ok(()) => Ok(()),
         Err(error) if error.kind() == ErrorKind::NotFound => Ok(()),
-        Err(error) => Err(error.into()),
-    }
-}
-
-pub(crate) fn output_data<D>(data: &[u8], mut destination: D) -> Result<bool>
-where
-    D: Write,
-{
-    if data.is_empty() {
-        return Ok(true);
-    }
-    let write_result = destination.write_all(data).and_then(|_| destination.flush());
-    match write_result {
-        Ok(()) => Ok(true),
-        Err(error) if error.kind() == ErrorKind::BrokenPipe => Ok(false),
         Err(error) => Err(error.into()),
     }
 }
@@ -141,32 +151,7 @@ fn get_bincode_config() -> Configuration<LittleEndian, Fixint, NoLimit> {
         .with_fixed_int_encoding()
 }
 
-pub(crate) fn initialize_log_file() {
-    if DEBUG_LOGS {
-        LOG_FILE.get_or_init(|| {
-            let file = OpenOptions::new()
-                .append(true)
-                .create(true)
-                .open(DEBUG_LOG_FILE)
-                .unwrap();
-            Mutex::new(file)
-        });
-    }
-}
-
-pub(crate) fn log_line(line: &str) {
-    const FORMAT: &[FormatItem<'_>] = format_description!("[hour]:[minute]:[second].[subsecond digits:3]");
-    let offset = UtcOffset::current_local_offset().unwrap_or(UtcOffset::UTC);
-    let timestamp = OffsetDateTime::now_utc()
-        .to_offset(offset)
-        .format(&FORMAT)
-        .unwrap();
-    let line = format!("[{timestamp}] {line}\n");
-    let mut file = LOG_FILE.get().unwrap().lock().unwrap();
-    file.write_all(line.as_bytes()).unwrap();
-}
-
-pub(crate) mod serialize_byte_slice {
+pub(crate) mod serialize_bytes {
     use base64::prelude::*;
     use serde::{Serialize, Serializer};
 
@@ -181,36 +166,6 @@ pub(crate) mod serialize_byte_slice {
             encoded.serialize(serializer)
         } else {
             bytes.serialize(serializer)
-        }
-    }
-}
-
-pub(crate) mod serialize_byte_vec {
-    use base64::prelude::*;
-    use serde::de::Error as DeserializeError;
-    use serde::{Deserialize, Deserializer, Serialize, Serializer};
-
-    pub(crate) fn serialize<S>(bytes: &Vec<u8>, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: Serializer,
-    {
-        if serializer.is_human_readable() {
-            let encoded = BASE64_STANDARD.encode(bytes);
-            encoded.serialize(serializer)
-        } else {
-            bytes.serialize(serializer)
-        }
-    }
-
-    pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Vec<u8>, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        if deserializer.is_human_readable() {
-            let encoded = String::deserialize(deserializer)?;
-            BASE64_STANDARD.decode(encoded).map_err(DeserializeError::custom)
-        } else {
-            Vec::<u8>::deserialize(deserializer)
         }
     }
 }

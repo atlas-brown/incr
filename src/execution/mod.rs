@@ -2,15 +2,15 @@ pub(crate) mod batch_executor;
 pub(crate) mod skip_executor;
 pub(crate) mod stream_executor;
 
-use anyhow::Result;
+use anyhow::{Result, ensure};
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
-use std::io::{BufReader, ErrorKind};
+use std::io::{self, BufReader, ErrorKind, Seek, SeekFrom, Write};
 use std::path::{Path, PathBuf};
 use std::time::UNIX_EPOCH;
 
 use crate::cache::{CacheCursor, CacheData, DependencyKey};
-use crate::command::{ChildEnv, Command};
+use crate::command::{ChildEnv, Command, EnvType};
 use crate::config::{
     CHUNK_SIZE, EXCLUDED_PATHS, IGNORE_COMMANDS, SKIP_CACHE_CONDITIONS, SKIP_COMMANDS,
     SKIP_SANDBOX_CONDITIONS, SKIP_TRACE_CONDITIONS, SkipCondition, TRACE_FILE, TraceType,
@@ -94,20 +94,20 @@ fn check_condition(
 }
 
 pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {
-    if !check_read_dependencies(&data.read_dependencies)? {
+    if !check_read_dependencies(&data.read_dependencies)? || !cache.data_outputs_exist() {
         return Ok(false);
     }
-    if !data.write_outputs.is_empty() && !cache.check_output_exists() {
+    if !data.write_outputs.is_empty() && !cache.file_outputs_exist() {
         return Ok(false);
     }
     Ok(true)
 }
 
-pub(crate) fn parse_trace(env: &ChildEnv) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
-    let trace_file = match env {
-        ChildEnv::Sandbox(directory) => &directory.join("upperdir").join("tmp").join(TRACE_FILE),
-        ChildEnv::TraceFile(file) => file,
-        ChildEnv::Nothing => return Ok((HashSet::new(), HashSet::new())),
+pub(crate) fn parse_trace(child_env: &ChildEnv) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
+    let trace_file = match &child_env.typ {
+        EnvType::Sandbox(directory) => &directory.join("upperdir").join("tmp").join(TRACE_FILE),
+        EnvType::TraceFile(file) => file,
+        EnvType::Nothing => return Ok((HashSet::new(), HashSet::new())),
     };
     let (mut read_set, mut write_set) = scripts::parse_trace(trace_file).unwrap();
     fs::remove_file(trace_file)?;
@@ -202,4 +202,28 @@ fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
     };
     let mut file_reader = BufReader::with_capacity(CHUNK_SIZE, file);
     Ok(Some(ops::hash_stream(&mut file_reader)?))
+}
+
+pub(crate) fn output_data<D>(data_file: &Path, start: usize, destination: &mut D) -> Result<bool>
+where
+    D: Write,
+{
+    let mut file = File::open(data_file)?;
+    let length = file.metadata()?.len() as usize;
+    ensure!(start <= length);
+    if start == length {
+        return Ok(true);
+    }
+
+    file.seek(SeekFrom::Start(start as u64))?;
+    let mut file_reader = BufReader::with_capacity(CHUNK_SIZE, file);
+    match io::copy(&mut file_reader, destination) {
+        Ok(count) => {
+            ensure!(count as usize == length - start);
+            destination.flush()?;
+            Ok(true)
+        }
+        Err(error) if error.kind() == ErrorKind::BrokenPipe => Ok(false),
+        Err(error) => Err(error.into()),
+    }
 }
