@@ -283,9 +283,14 @@ fn save_command_data(
     cache: CacheCursor<'_>,
     child_env: &ChildEnv,
     exit_code: ExitCode,
-    read_set: std::collections::HashSet<String>,
-    write_set: std::collections::HashMap<String, PreWrite>,
+    mut read_set: std::collections::HashSet<String>,
+    mut write_set: std::collections::HashMap<String, PreWrite>,
 ) -> Result<ExitCode> {
+    use crate::config::EXCLUDED_PATHS;
+
+    read_set.retain(|p| !EXCLUDED_PATHS.iter().any(|e| p.starts_with(e)));
+    write_set.retain(|p, _| !EXCLUDED_PATHS.iter().any(|e| p.starts_with(e)));
+
     let read_dependencies = execution::get_read_dependencies_2(read_set, &write_set)?;
     let write_set = write_set
         .into_iter()

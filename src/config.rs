@@ -116,4 +116,4 @@ pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
     "XDG_SESSION_TYPE",
     "_",
 ];
-pub(crate) const EXCLUDED_PATHS: &[&str] = &["/proc", "pipe:"];
+pub(crate) const EXCLUDED_PATHS: &[&str] = &["/proc", "/tmp", "pipe:"];
