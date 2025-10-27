@@ -13,7 +13,7 @@ use crate::command::{self, ChildContext, ChildEnv, ChildOutput, Command, EnvType
 use crate::config::{CHUNK_SIZE, Config, DEBUG, TraceType};
 use crate::execution;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
-use crate::scripts;
+use crate::scripts::{self, PreWrite};
 
 #[derive(Debug)]
 struct StdinContext {
@@ -99,8 +99,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         CacheStatus::Invalid(exit_code) => exit_code,
     };
 
-    panic!();
-    save_command_data(command, cache, &child_env, exit_code)
+    save_command_data(command, cache, &child_env, exit_code, result.0, result.1)
 }
 
 fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
@@ -287,9 +286,15 @@ fn save_command_data(
     cache: CacheCursor<'_>,
     child_env: &ChildEnv,
     exit_code: ExitCode,
+    read_set: std::collections::HashSet<String>,
+    write_set: std::collections::HashMap<String, PreWrite>,
 ) -> Result<ExitCode> {
-    let (read_set, write_set) = execution::parse_trace(child_env)?;
-    let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
+    let read_dependencies = execution::get_read_dependencies_2(read_set, &write_set)?;
+    let write_set = write_set
+        .into_iter()
+        .map(|(k, v)| std::path::PathBuf::from(k))
+        .collect::<std::collections::HashSet<_>>();
+
     if let EnvType::Sandbox(directory) = &child_env.typ {
         fs::rename(directory, cache.get_sandbox_directory())?;
         cache.extract_sandbox_output()?;

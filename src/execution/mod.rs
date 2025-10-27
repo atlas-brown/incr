@@ -16,7 +16,7 @@ use crate::config::{
     SKIP_SANDBOX_CONDITIONS, SKIP_TRACE_CONDITIONS, SkipCondition, TRACE_FILE, TraceType,
 };
 use crate::ops;
-use crate::scripts;
+use crate::scripts::{self, PreWrite};
 
 pub(crate) fn skip_command(command: &Command, environment: &HashMap<String, String>) -> bool {
     IGNORE_COMMANDS.contains(&command.name.as_str())
@@ -147,6 +147,45 @@ pub(crate) fn get_read_dependencies(
             dependencies.insert(path, DependencyKey::Timestamp(timestamp));
         } else if let Some(hash) = get_file_hash(&path)? {
             dependencies.insert(path, DependencyKey::Hash(hash));
+        }
+    }
+
+    Ok(dependencies)
+}
+
+pub(crate) fn get_read_dependencies_2(
+    read_set: HashSet<String>,
+    write_set: &HashMap<String, PreWrite>,
+) -> Result<HashMap<PathBuf, DependencyKey>> {
+    let mut dependencies = HashMap::with_capacity(read_set.len());
+    let paths = read_set
+        .into_iter()
+        .chain(write_set.iter().map(|(k, v)| k).cloned())
+        .collect::<Vec<_>>();
+
+    for path_str in paths {
+        let path = PathBuf::from(path_str.clone());
+        if !path.exists() {
+            dependencies.insert(path, DependencyKey::DoesNotExist);
+            continue;
+        }
+        if !path.is_file() {
+            continue;
+        }
+
+        match write_set.get(&path_str) {
+            Some(&prewrite) => {
+                if let PreWrite::Hash(hash) = prewrite {
+                    dependencies.insert(path, DependencyKey::Hash(hash));
+                } else {
+                    dependencies.insert(path, DependencyKey::DoesNotExist);
+                }
+            }
+            None => {
+                if let Some(timestamp) = get_modified_timestamp(&path)? {
+                    dependencies.insert(path, DependencyKey::Timestamp(timestamp));
+                }
+            }
         }
     }
 

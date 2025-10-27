@@ -4,7 +4,6 @@ use nix::sys::ptrace;
 use nix::sys::signal::{Signal, raise};
 use nix::sys::wait::{WaitPidFlag, WaitStatus, waitpid};
 use nix::unistd::{ForkResult, Pid, execvp, fork};
-use sha2::{Digest, Sha256};
 use std::collections::{HashMap, HashSet};
 use std::ffi::CString;
 use std::fs;
@@ -12,11 +11,16 @@ use std::io::{self, Read};
 use std::os::unix::fs::MetadataExt;
 use std::os::unix::io::AsRawFd;
 use std::path::{Path, PathBuf};
+use xxhash_rust::xxh3::Xxh3;
 
 type FileId = (u64, u64); // (st_dev, st_ino)
 
-const PRE_WRITE_NONEXISTENT: &str = "<nonexistent>";
-const PRE_WRITE_UNREADABLE: &str = "<unreadable>";
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum PreWrite {
+    Nonexistent,
+    Unreadable,
+    Hash(u64),
+}
 
 // ---- FIX: close_range syscall number (x86_64 Linux) ----
 #[allow(dead_code)]
@@ -36,7 +40,7 @@ fn main() -> Result<()> {
             unreachable!()
         }
         ForkResult::Parent { child } => {
-            run_tracer(child);
+            run_tracer(child)?;
         }
     }
 
@@ -44,7 +48,7 @@ fn main() -> Result<()> {
 }
 
 // ---------------- Tracer core ----------------
-pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, String>, i32)> {
+pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, PreWrite>, i32)> {
     let st = waitpid(init, None)?;
     // Expect exec trap
     assert!(matches!(st, WaitStatus::Stopped(_, Signal::SIGTRAP)));
@@ -71,8 +75,8 @@ pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, 
 
     // Final results
     let mut read_paths: HashSet<String> = HashSet::new();
-    // path -> pre-write hash (or marker)
-    let mut write_paths: HashMap<String, String> = HashMap::new();
+    // path -> pre-write info (Nonexistent/Unreadable/Hash(u64))
+    let mut write_paths: HashMap<String, PreWrite> = HashMap::new();
 
     ptrace::syscall(init, None)?;
 
@@ -193,7 +197,7 @@ fn handle_pre_write_and_read_sets_entry(
     fd_cache: &mut HashMap<(Pid, i32), String>,
     prehashed: &mut HashSet<FileId>,
     read_paths: &mut HashSet<String>,
-    write_paths: &mut HashMap<String, String>,
+    write_paths: &mut HashMap<String, PreWrite>,
 ) {
     let nr = se.nr;
 
@@ -241,14 +245,12 @@ fn handle_pre_write_and_read_sets_entry(
             if is_regular_file_proc_path(&proc_fd_path) {
                 if !prehashed.contains(&fid) {
                     let hash = hash_via_proc_fd(pid, fd)
-                        .ok()
-                        .unwrap_or_else(|| PRE_WRITE_UNREADABLE.to_string());
+                        .map(PreWrite::Hash)
+                        .unwrap_or(PreWrite::Unreadable);
                     write_paths.entry(path.clone()).or_insert(hash);
                     prehashed.insert(fid);
                 } else {
-                    write_paths
-                        .entry(path)
-                        .or_insert_with(|| PRE_WRITE_UNREADABLE.to_string());
+                    write_paths.entry(path).or_insert(PreWrite::Unreadable);
                 }
             }
         }
@@ -319,14 +321,12 @@ fn handle_pre_write_and_read_sets_entry(
                 ) {
                     if !prehashed.contains(&fid) {
                         let hash = hash_via_host_path(&host_path)
-                            .ok()
-                            .unwrap_or_else(|| PRE_WRITE_UNREADABLE.to_string());
+                            .map(PreWrite::Hash)
+                            .unwrap_or(PreWrite::Unreadable);
                         write_paths.entry(real_path.clone()).or_insert(hash);
                         prehashed.insert(fid);
                     } else {
-                        write_paths
-                            .entry(real_path)
-                            .or_insert_with(|| PRE_WRITE_UNREADABLE.to_string());
+                        write_paths.entry(real_path).or_insert(PreWrite::Unreadable);
                     }
                 }
             }
@@ -401,14 +401,12 @@ fn handle_pre_write_and_read_sets_entry(
             if is_regular_file_proc_path(&out_proc) {
                 if !prehashed.contains(&fid) {
                     let hash = hash_via_proc_fd(pid, out_fd)
-                        .ok()
-                        .unwrap_or_else(|| PRE_WRITE_UNREADABLE.to_string());
+                        .map(PreWrite::Hash)
+                        .unwrap_or(PreWrite::Unreadable);
                     write_paths.entry(p.clone()).or_insert(hash);
                     prehashed.insert(fid);
                 } else {
-                    write_paths
-                        .entry(p)
-                        .or_insert_with(|| PRE_WRITE_UNREADABLE.to_string());
+                    write_paths.entry(p).or_insert(PreWrite::Unreadable);
                 }
             }
         }
@@ -433,14 +431,12 @@ fn handle_pre_write_and_read_sets_entry(
             if is_regular_file_proc_path(&out_proc) {
                 if !prehashed.contains(&fid) {
                     let hash = hash_via_proc_fd(pid, out_fd)
-                        .ok()
-                        .unwrap_or_else(|| PRE_WRITE_UNREADABLE.to_string());
+                        .map(PreWrite::Hash)
+                        .unwrap_or(PreWrite::Unreadable);
                     write_paths.entry(p.clone()).or_insert(hash);
                     prehashed.insert(fid);
                 } else {
-                    write_paths
-                        .entry(p)
-                        .or_insert_with(|| PRE_WRITE_UNREADABLE.to_string());
+                    write_paths.entry(p).or_insert(PreWrite::Unreadable);
                 }
             }
         }
@@ -453,7 +449,7 @@ fn handle_exit_updates(
     ret: i64,
     fd_cache: &mut HashMap<(Pid, i32), String>,
     _read_paths: &mut HashSet<String>,
-    write_paths: &mut HashMap<String, String>,
+    write_paths: &mut HashMap<String, PreWrite>,
     prehashed: &mut HashSet<FileId>,
 ) {
     // Handle close_range cache invalidation first (best-effort)
@@ -573,16 +569,14 @@ fn handle_exit_updates(
                         .map(|f| (f as i32 & libc::O_CREAT) != 0)
                         .unwrap_or(false);
                 let marker = if created {
-                    PRE_WRITE_NONEXISTENT
+                    PreWrite::Nonexistent
                 } else {
-                    PRE_WRITE_UNREADABLE
+                    PreWrite::Unreadable
                 };
-                write_paths.entry(p.clone()).or_insert_with(|| marker.to_string());
+                write_paths.entry(p.clone()).or_insert(marker);
                 prehashed.insert(fid);
             } else {
-                write_paths
-                    .entry(p)
-                    .or_insert_with(|| PRE_WRITE_UNREADABLE.to_string());
+                write_paths.entry(p).or_insert(PreWrite::Unreadable);
             }
         }
     }
@@ -748,35 +742,22 @@ fn file_id_from_host_path(host_path: &str) -> Option<FileId> {
 }
 
 // Hash via /proc/<pid>/fd/<fd>
-fn hash_via_proc_fd(pid: Pid, fd: i32) -> io::Result<String> {
+fn hash_via_proc_fd(pid: Pid, fd: i32) -> io::Result<u64> {
     let p = format!("/proc/{}/fd/{}", pid, fd);
     let f = fs::File::open(p)?;
-    sha256_reader(f)
+    xxh3_reader_u64(f)
 }
 // Hash via host-openable proc path
-fn hash_via_host_path(host_path: &str) -> io::Result<String> {
+fn hash_via_host_path(host_path: &str) -> io::Result<u64> {
     let f = fs::File::open(host_path)?;
-    sha256_reader(f)
+    xxh3_reader_u64(f)
 }
 
-// Robust hex encoding
-fn sha256_reader<R: Read>(mut r: R) -> io::Result<String> {
-    let mut hasher = Sha256::new();
-    let mut buf = [0u8; 1 << 16];
-    loop {
-        let n = r.read(&mut buf)?;
-        if n == 0 {
-            break;
-        }
-        hasher.update(&buf[..n]);
-    }
-    let digest = hasher.finalize();
-    let mut s = String::with_capacity(digest.len() * 2);
-    for b in digest {
-        use std::fmt::Write as _; // only the trait
-        let _ = write!(&mut s, "{:x}", b);
-    }
-    Ok(s)
+// Stream xxh3 to a u64
+fn xxh3_reader_u64<R: Read>(mut r: R) -> io::Result<u64> {
+    let mut hasher = Xxh3::new();
+    io::copy(&mut r, &mut hasher)?;
+    Ok(hasher.digest())
 }
 
 // ---------------- Syscall register plumbing ----------------
@@ -856,7 +837,7 @@ fn handle_open_like_path(
     openat2_flags: Option<u64>,
     prehashed: &mut HashSet<FileId>,
     read_paths: &mut HashSet<String>,
-    write_paths: &mut HashMap<String, String>,
+    write_paths: &mut HashMap<String, PreWrite>,
 ) {
     // Determine write intent from either legacy flags or openat2 flags
     let writey = if let Some(f2) = openat2_flags {
@@ -875,14 +856,12 @@ fn handle_open_like_path(
             if writey {
                 if !prehashed.contains(&fid) {
                     let hash = hash_via_host_path(&host_path)
-                        .ok()
-                        .unwrap_or_else(|| PRE_WRITE_UNREADABLE.to_string());
+                        .map(PreWrite::Hash)
+                        .unwrap_or(PreWrite::Unreadable);
                     write_paths.entry(real.clone()).or_insert(hash);
                     prehashed.insert(fid);
                 } else {
-                    write_paths
-                        .entry(real)
-                        .or_insert_with(|| PRE_WRITE_UNREADABLE.to_string());
+                    write_paths.entry(real).or_insert(PreWrite::Unreadable);
                 }
                 return;
             }
@@ -904,7 +883,7 @@ fn maybe_prehash_truncating_open(
     legacy_flags: u64,
     openat2_flags: Option<u64>,
     prehashed: &mut HashSet<FileId>,
-    write_paths: &mut HashMap<String, String>,
+    write_paths: &mut HashMap<String, PreWrite>,
 ) {
     let f_legacy = legacy_flags as i32;
     let f_open2 = openat2_flags.map(|x| x as i32).unwrap_or(0);
@@ -920,14 +899,12 @@ fn maybe_prehash_truncating_open(
             ) {
                 if !prehashed.contains(&fid) {
                     let hash = hash_via_host_path(&host_path)
-                        .ok()
-                        .unwrap_or_else(|| PRE_WRITE_UNREADABLE.to_string());
+                        .map(PreWrite::Hash)
+                        .unwrap_or(PreWrite::Unreadable);
                     write_paths.entry(real.clone()).or_insert(hash);
                     prehashed.insert(fid);
                 } else {
-                    write_paths
-                        .entry(real)
-                        .or_insert_with(|| PRE_WRITE_UNREADABLE.to_string());
+                    write_paths.entry(real).or_insert(PreWrite::Unreadable);
                 }
             }
         }
@@ -939,22 +916,18 @@ fn mark_path_like_write(
     pid: Pid,
     dirfd: Option<i32>,
     tracee_path: &str,
-    write_paths: &mut HashMap<String, String>,
+    write_paths: &mut HashMap<String, PreWrite>,
 ) {
     // Prefer a resolution that doesn't require opening the path (works after unlink)
     if let Some(real) = best_effort_real_path_without_open(pid, dirfd, tracee_path) {
-        write_paths
-            .entry(real)
-            .or_insert_with(|| PRE_WRITE_UNREADABLE.to_string());
+        write_paths.entry(real).or_insert(PreWrite::Unreadable);
         return;
     }
 
     // Fallback: try opening the path (original behavior)
     if let Some(host_path) = host_openable_path_for_tracee(pid, dirfd, tracee_path) {
         if let Some(real) = real_fs_path_from_host_openable(&host_path) {
-            write_paths
-                .entry(real)
-                .or_insert_with(|| PRE_WRITE_UNREADABLE.to_string());
+            write_paths.entry(real).or_insert(PreWrite::Unreadable);
         }
     }
 }
