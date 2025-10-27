@@ -1,4 +1,5 @@
 use anyhow::{Result, anyhow, ensure};
+use nix::unistd::Pid;
 use std::fs;
 use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 use std::path::Path;
@@ -12,6 +13,7 @@ use crate::command::{self, ChildContext, ChildEnv, ChildOutput, Command, EnvType
 use crate::config::{CHUNK_SIZE, Config, DEBUG, TraceType};
 use crate::execution;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
+use crate::scripts;
 
 #[derive(Debug)]
 struct StdinContext {
@@ -43,12 +45,18 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     );
 
     let child_env = create_child_environment(config, command)?;
+    eprintln!("spawning child");
     let ChildContext {
         mut child,
         stdout_thread,
         stderr_thread,
     } = command::spawn_command(config, command, &child_env)?;
+    eprintln!("spawned child {}", child.id());
     debug_log!("[{}] Spawned stream child", command.name);
+
+    let child_pid = child.id() as i32;
+    let trace_thread = thread::spawn(move || scripts::run_tracer(Pid::from_raw(child_pid)));
+    eprintln!("spawned trace thread");
 
     let stdin_context = forward_stdin(child.stdin.take().unwrap())?;
     if execution::skip_cache(command, stdin_context.length) {
@@ -62,6 +70,10 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     let cache = CacheCursor::from_hash(command, stdin_context.hash)?;
     cache.create_directory()?;
     debug_log!("[{}] Loaded cache directory", command.name);
+
+    eprintln!("joining trace thread");
+    let result = trace_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    eprintln!("{result:?}");
 
     let cache_status = load_cache_data(&cache, child, &child_env)?;
     let output_lengths = match join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
@@ -83,6 +95,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         CacheStatus::Invalid(exit_code) => exit_code,
     };
 
+    panic!();
     save_command_data(command, cache, &child_env, exit_code)
 }
 
@@ -137,6 +150,7 @@ fn clean_child_environment(child_env: &ChildEnv) -> Result<()> {
 fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
     let mut process_stdin = io::stdin().lock();
     if process_stdin.is_terminal() {
+        eprintln!("detected terminal stdin");
         return Ok(StdinContext {
             hash: ops::hash_bytes(&[]),
             length: 0,

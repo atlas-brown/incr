@@ -45,7 +45,9 @@ fn main() -> Result<()> {
 
 // ---------------- Tracer core ----------------
 pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, String>)> {
+    eprintln!("waiting for initial stop");
     wait_for_initial_stop(init)?;
+    eprintln!("after wait for initial stop");
 
     let opts = ptrace::Options::PTRACE_O_TRACESYSGOOD
         | ptrace::Options::PTRACE_O_TRACEFORK
@@ -54,7 +56,9 @@ pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, 
         | ptrace::Options::PTRACE_O_TRACEEXEC
         | ptrace::Options::PTRACE_O_EXITKILL;
 
-    ptrace::setoptions(init, opts)?;
+    eprintln!("before set options");
+    ptrace::seize(init, opts)?;
+    eprintln!("after set options");
 
     // Bookkeeping
     let mut live: HashSet<Pid> = HashSet::from([init]);
@@ -72,7 +76,9 @@ pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, 
     // path -> pre-write hash (or marker)
     let mut write_paths: HashMap<String, String> = HashMap::new();
 
+    eprintln!("before initial resume");
     ptrace::syscall(init, None)?; // initial resume
+    eprintln!("after initial resume");
 
     loop {
         match waitpid(None, None)? {
