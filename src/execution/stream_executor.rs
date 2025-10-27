@@ -83,7 +83,6 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     };
     debug_log!("[{}] Loaded cache data and saved outputs", command.name);
 
-    eprintln!("joining trace thread");
     let result = trace_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     eprintln!("{result:?}");
 
