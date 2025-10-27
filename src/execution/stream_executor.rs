@@ -84,7 +84,6 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     debug_log!("[{}] Loaded cache data and saved outputs", command.name);
 
     let result = trace_thread.join().map_err(|e| anyhow!("{e:?}"))??;
-    eprintln!("{result:?}");
 
     let exit_code = match cache_status {
         CacheStatus::Valid(cached_data) => {
@@ -215,7 +214,7 @@ fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, child_env: &ChildE
         Some(cached_data) => {
             if child.try_wait()?.is_none() {
                 command::kill_child(&child)?;
-                child.wait()?;
+                //child.wait()?;
             }
             clean_child_environment(child_env)?;
             Ok(CacheStatus::Valid(cached_data))
