@@ -158,6 +158,7 @@ pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, 
 
             // Generic signal-stops
             WaitStatus::Stopped(pid, sig) => {
+                eprintln!("GOT A STOP IN THE TRACER");
                 match sig {
                     // This SIGTRAP is what you'll see right after your kill_child()
                     // did ptrace::interrupt() on the leader. Use it as a cue to

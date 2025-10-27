@@ -214,11 +214,8 @@ fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, child_env: &ChildE
 
     match cached_data {
         Some(cached_data) => {
-            if child.try_wait()?.is_none() {
-                command::kill_child(&child)?;
-                //child.wait();
-            }
-            eprintln!("killed child");
+            command::kill_child(&child)?;
+            //child.wait();
             clean_child_environment(child_env)?;
             Ok(CacheStatus::Valid(cached_data))
         }

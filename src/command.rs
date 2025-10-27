@@ -209,10 +209,7 @@ pub(crate) fn kill_child(child: &Child) -> Result<()> {
     let pgid = child.id() as i32;
 
     // 1) SIGKILL the whole process group.
-    let rc = unsafe { libc::kill(-pgid, libc::SIGTERM) };
-    if rc == -1 {
-        return Err(IoError::last_os_error().into());
-    }
+    let rc = unsafe { libc::kill(-pgid, libc::SIGKILL) };
 
     // 2) If anything is in a job-control stop, make sure it can transition.
     //    (SIGKILL wins anyway once delivered, but SIGCONT avoids being stuck in group-stop.)
@@ -224,7 +221,16 @@ pub(crate) fn kill_child(child: &Child) -> Result<()> {
     //    This is non-blocking and safe even if the leader already exited;
     //    errors here are best-effort and can be ignored.
     let pid = nix::unistd::Pid::from_raw(child.id() as i32);
-    let _ = ptrace::interrupt(pid);
+    let mut c = 0;
+    while let Err(error) = ptrace::interrupt(pid) {
+        eprintln!("attempted interrupt {error:?}");
+        std::thread::sleep(std::time::Duration::from_millis(100));
+        c += 1;
+        if c == 20 {
+            break;
+        }
+    }
+    eprintln!("interrupted tracer");
 
     Ok(())
 }
