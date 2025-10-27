@@ -92,7 +92,7 @@ fn create_child_environment(config: &Config, command: &Command) -> Result<ChildE
     let stdout_file = cache_directory.join(format!("stdout_{hash}.incr"));
     let stderr_file = cache_directory.join(format!("stderr_{hash}.incr"));
 
-    if config.trace_type == TraceType::Nothing {
+    if config.trace_type == TraceType::Nothing || true {
         return Ok(ChildEnv {
             typ: EnvType::Nothing,
             stdout_file,

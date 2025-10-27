@@ -35,12 +35,16 @@ fn main() -> Result<()> {
             execvp(&argv[0], &argv)?;
             unreachable!()
         }
-        ForkResult::Parent { child } => run_tracer(child),
+        ForkResult::Parent { child } => {
+            run_tracer(child);
+        }
     }
+
+    Ok(())
 }
 
 // ---------------- Tracer core ----------------
-pub(crate) fn run_tracer(init: Pid) -> Result<()> {
+pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, String>)> {
     wait_for_initial_stop(init)?;
 
     let opts = ptrace::Options::PTRACE_O_TRACESYSGOOD
@@ -167,26 +171,7 @@ pub(crate) fn run_tracer(init: Pid) -> Result<()> {
         }
     }
 
-    // ---------------- Final output only: read/write sets ----------------
-    let mut read_vec: Vec<_> = read_paths.into_iter().collect();
-    read_vec.sort();
-
-    let mut write_vec: Vec<_> = write_paths.into_iter().collect();
-    write_vec.sort_by(|a, b| a.0.cmp(&b.0));
-
-    println!("READ_SET_START");
-    for p in read_vec {
-        println!("{}", p);
-    }
-    println!("READ_SET_END");
-
-    println!("WRITE_SET_START");
-    for (p, h) in write_vec {
-        println!("{} {}", p, h);
-    }
-    println!("WRITE_SET_END");
-
-    Ok(())
+    Ok((read_paths, write_paths))
 }
 
 fn wait_for_initial_stop(pid: Pid) -> Result<()> {

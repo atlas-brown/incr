@@ -1,5 +1,7 @@
 use anyhow::{Result, anyhow, ensure};
 use bincode::Encode;
+use nix::sys::ptrace;
+use nix::sys::signal::{Signal, raise};
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::{self, BufWriter, Error as IoError, ErrorKind, Read, Write};
@@ -9,8 +11,7 @@ use std::path::{Path, PathBuf};
 use std::process::{Child, Command as ShellCommand, Stdio};
 use std::thread::{self, JoinHandle};
 
-use crate::config::{CHUNK_SIZE, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRACE_FILE};
-use crate::ops;
+use crate::config::{CHUNK_SIZE, Config, EXCLUDED_VARIABLES};
 
 #[derive(Clone, Debug, Encode)]
 pub(crate) struct Command {
@@ -118,53 +119,21 @@ pub(crate) fn spawn_command(config: &Config, command: &Command, env: &ChildEnv) 
 }
 
 fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
-    let shell_command = match &env.typ {
-        EnvType::Sandbox(_) => &command.try_command,
-        EnvType::TraceFile(_) => STRACE_COMMAND,
-        EnvType::Nothing => &command.name,
-    };
-    let mut child = ShellCommand::new(shell_command);
-
-    match &env.typ {
-        EnvType::Sandbox(directory) => {
-            child.args([
-                "-D",
-                ops::path_to_string(directory)?,
-                STRACE_COMMAND,
-                "-yf",
-                "--seccomp-bpf",
-                "--trace=fork,clone,%file",
-                "-o",
-                &format!("/tmp/{TRACE_FILE}"),
-                &command.join()?,
-            ]);
-        }
-        EnvType::TraceFile(file) => {
-            child.args([
-                "-yf",
-                "--seccomp-bpf",
-                "--trace=fork,clone,%file",
-                "-o",
-                ops::path_to_string(file)?,
-                &command.join()?,
-            ]);
-        }
-        EnvType::Nothing => {
-            child.args(&command.arguments);
-        }
-    };
-
+    let mut child = ShellCommand::new(&command.name);
     child
+        .args(&command.arguments)
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped());
+
     unsafe {
         child.pre_exec(|| {
             if libc::setpgid(0, 0) == -1 {
-                Err(IoError::last_os_error())
-            } else {
-                Ok(())
+                return Err(IoError::last_os_error());
             }
+            ptrace::traceme()?;
+            raise(Signal::SIGSTOP)?; // allow parent to set ptrace options
+            Ok(())
         });
     }
 
