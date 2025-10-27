@@ -48,10 +48,9 @@ fn main() -> Result<()> {
 }
 
 // ---------------- Tracer core ----------------
+
 pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, PreWrite>, i32)> {
-    let st = waitpid(init, None)?;
-    // Expect exec trap
-    assert!(matches!(st, WaitStatus::Stopped(_, Signal::SIGTRAP)));
+    wait_initial_and_setopts(init)?;
 
     let opts = ptrace::Options::PTRACE_O_TRACESYSGOOD
         | ptrace::Options::PTRACE_O_TRACEEXEC
@@ -59,8 +58,6 @@ pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, 
         | ptrace::Options::PTRACE_O_TRACEVFORK
         | ptrace::Options::PTRACE_O_TRACECLONE
         | ptrace::Options::PTRACE_O_EXITKILL;
-
-    ptrace::setoptions(init, opts)?;
 
     // Bookkeeping
     let mut live: HashSet<Pid> = HashSet::from([init]);
@@ -75,28 +72,40 @@ pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, 
 
     // Final results
     let mut read_paths: HashSet<String> = HashSet::new();
-    // path -> pre-write info (Nonexistent/Unreadable/Hash(u64))
     let mut write_paths: HashMap<String, PreWrite> = HashMap::new();
 
-    ptrace::syscall(init, None)?;
+    // Helper: ptrace-inject SIGKILL into every currently-live tracee.
+    fn kill_all_via_ptrace(live: &HashSet<Pid>) {
+        for &p in live {
+            // Try CONT with SIGKILL; fall back to SYSCALL with SIGKILL.
+            // Ignore errors — some tasks may already be gone.
+            let _ = ptrace::cont(p, Some(Signal::SIGKILL));
+            let _ = ptrace::syscall(p, Some(Signal::SIGKILL));
+        }
+    }
 
     loop {
-        match waitpid(None, None)? {
+        eprintln!("tracer wait");
+        // IMPORTANT: __WALL so we get events/exits for *all* traced threads
+        match waitpid(
+            None,
+            Some(WaitPidFlag::__WALL | WaitPidFlag::WUNTRACED | WaitPidFlag::WCONTINUED),
+        )? {
             // fork/vfork/clone/exec notifications
             WaitStatus::PtraceEvent(pid, _sig, evt) => {
                 if evt == libc::PTRACE_EVENT_FORK
                     || evt == libc::PTRACE_EVENT_VFORK
                     || evt == libc::PTRACE_EVENT_CLONE
                 {
-                    let child = Pid::from_raw(ptrace::getevent(pid)? as i32);
-                    live.insert(child);
-                    // Best-effort: set options on the new child and get it going
-                    let _ = ptrace::setoptions(child, opts);
-                    let _ = ptrace::syscall(child, None);
+                    if let Ok(ev) = ptrace::getevent(pid) {
+                        let child = Pid::from_raw(ev as i32);
+                        live.insert(child);
+                        let _ = ptrace::setoptions(child, opts);
+                        let _ = ptrace::syscall(child, None);
+                    }
                 }
 
                 if evt == libc::PTRACE_EVENT_EXEC {
-                    // Count the executed binary as a read dependency
                     let exe = format!("/proc/{}/exe", pid);
                     if let Ok(tgt) = fs::read_link(&exe) {
                         read_paths.insert(tgt.to_string_lossy().into_owned());
@@ -106,14 +115,12 @@ pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, 
                 let _ = ptrace::syscall(pid, None);
             }
 
-            // clean syscall-stop abstraction
+            // Syscall-stop (clean entry/exit pairing)
             WaitStatus::PtraceSyscall(pid) => {
                 if !in_syscall.contains(&pid) {
-                    // ---------------- ENTRY ----------------
+                    // ENTRY
                     if let Ok(regs) = ptrace::getregs(pid) {
                         let se = SysEnter::from_regs(&regs);
-
-                        // Pre-write hashing & read/write set collection on ENTRY
                         handle_pre_write_and_read_sets_entry(
                             pid,
                             &se,
@@ -122,12 +129,11 @@ pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, 
                             &mut read_paths,
                             &mut write_paths,
                         );
-
                         last_enter.insert(pid, se);
                     }
                     in_syscall.insert(pid);
                 } else {
-                    // ---------------- EXIT ----------------
+                    // EXIT
                     if let Ok(regs) = ptrace::getregs(pid) {
                         if let Some(ent) = last_enter.get(&pid) {
                             handle_exit_updates(
@@ -139,7 +145,6 @@ pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, 
                                 &mut write_paths,
                                 &mut prehashed,
                             );
-                            // fd may be closed -> drop cache
                             if ent.nr == libc::SYS_close as i64 {
                                 let fd = ent.a[0] as i32;
                                 fd_cache.remove(&(pid, fd));
@@ -151,42 +156,71 @@ pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, 
                 let _ = ptrace::syscall(pid, None);
             }
 
-            // pass other signals through
+            // Generic signal-stops
             WaitStatus::Stopped(pid, sig) => {
-                // ---- avoid reinjecting SIGTRAP / SIGSTOP by default ----
-                let deliver = match sig {
-                    Signal::SIGTRAP => None,
-                    Signal::SIGSTOP => None,
-                    _ => Some(sig),
-                };
-                let _ = ptrace::syscall(pid, deliver);
+                match sig {
+                    // This SIGTRAP is what you'll see right after your kill_child()
+                    // did ptrace::interrupt() on the leader. Use it as a cue to
+                    // ptrace-inject SIGKILL into *all* live tracees to guarantee delivery.
+                    Signal::SIGTRAP => {
+                        kill_all_via_ptrace(&live);
+                        // The leader we just woke: resume it too
+                        let _ = ptrace::cont(pid, None);
+                    }
+
+                    // Avoid re-injecting plain SIGSTOP
+                    Signal::SIGSTOP => {
+                        let _ = ptrace::cont(pid, None);
+                    }
+
+                    // Pass other signals through
+                    other => {
+                        let _ = ptrace::syscall(pid, Some(other));
+                    }
+                }
             }
 
-            // process exit
+            // Thread/process exits
             WaitStatus::Exited(pid, _) | WaitStatus::Signaled(pid, _, _) => {
+                eprintln!("GOT AN EXIT IN THE TRACER");
                 live.remove(&pid);
                 in_syscall.remove(&pid);
                 last_enter.remove(&pid);
                 fd_cache.retain(|(p, _), _| *p != pid);
+
                 if live.is_empty() {
                     break;
                 }
             }
 
-            _ => {}
+            _ => { /* ignore */ }
         }
     }
 
     Ok((read_paths, write_paths, 0))
 }
 
-fn wait_for_initial_stop(pid: Pid) -> Result<()> {
+fn wait_initial_and_setopts(init: Pid) -> Result<()> {
+    // Wait for any usable ptrace stop on the initial thread.
     loop {
-        match waitpid(Some(pid), Some(WaitPidFlag::WSTOPPED))? {
-            WaitStatus::Stopped(_, _) => return Ok(()),
+        match waitpid(init, Some(WaitPidFlag::__WALL))? {
+            WaitStatus::Stopped(_, _) | WaitStatus::PtraceEvent(_, _, _) | WaitStatus::PtraceSyscall(_) => {
+                break;
+            }
             _ => continue,
         }
     }
+
+    let opts = ptrace::Options::PTRACE_O_TRACESYSGOOD
+        | ptrace::Options::PTRACE_O_TRACEEXEC
+        | ptrace::Options::PTRACE_O_TRACEFORK
+        | ptrace::Options::PTRACE_O_TRACEVFORK
+        | ptrace::Options::PTRACE_O_TRACECLONE
+        | ptrace::Options::PTRACE_O_EXITKILL;
+
+    ptrace::setoptions(init, opts)?;
+    ptrace::syscall(init, None)?;
+    Ok(())
 }
 
 // ---------------- Entry/Exit handlers ----------------

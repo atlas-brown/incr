@@ -200,12 +200,31 @@ where
     Ok(ChildOutput::Completed(length))
 }
 
+/// Kill the child's *process group* and poke the tracer so the main
+/// ptrace loop can resume/reap tasks and close the pipes.
+/// - Sends SIGKILL to -pgid
+/// - Sends SIGCONT to -pgid (break any group-stops so kill can take effect)
+/// - PTRACE_INTERRUPT on the leader (wakes a running tracee into a ptrace-stop)
 pub(crate) fn kill_child(child: &Child) -> Result<()> {
-    let group_id = child.id() as i32;
-    let kill_result = unsafe { libc::kill(-group_id, libc::SIGKILL) };
-    if kill_result == -1 {
-        Err(IoError::last_os_error().into())
-    } else {
-        Ok(())
+    let pgid = child.id() as i32;
+
+    // 1) SIGKILL the whole process group.
+    let rc = unsafe { libc::kill(-pgid, libc::SIGTERM) };
+    if rc == -1 {
+        return Err(IoError::last_os_error().into());
     }
+
+    // 2) If anything is in a job-control stop, make sure it can transition.
+    //    (SIGKILL wins anyway once delivered, but SIGCONT avoids being stuck in group-stop.)
+    let _ = unsafe { libc::kill(-pgid, libc::SIGCONT) };
+
+    // 3) Nudge the tracer side: force a ptrace-stop on the leader so your
+    //    `waitpid` loop wakes up and can drive resumes/reaps.
+    //
+    //    This is non-blocking and safe even if the leader already exited;
+    //    errors here are best-effort and can be ignored.
+    let pid = nix::unistd::Pid::from_raw(child.id() as i32);
+    let _ = ptrace::interrupt(pid);
+
+    Ok(())
 }

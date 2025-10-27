@@ -83,7 +83,9 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     };
     debug_log!("[{}] Loaded cache data and saved outputs", command.name);
 
+    eprintln!("joining the trace thread");
     let result = trace_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    eprintln!("after joining the trace thread");
 
     let exit_code = match cache_status {
         CacheStatus::Valid(cached_data) => {
@@ -214,8 +216,9 @@ fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, child_env: &ChildE
         Some(cached_data) => {
             if child.try_wait()?.is_none() {
                 command::kill_child(&child)?;
-                //child.wait()?;
+                //child.wait();
             }
+            eprintln!("killed child");
             clean_child_environment(child_env)?;
             Ok(CacheStatus::Valid(cached_data))
         }
@@ -234,9 +237,11 @@ fn join_stream_threads(
     stdout_thread: JoinHandle<Result<ChildOutput>>,
     stderr_thread: JoinHandle<Result<ChildOutput>>,
 ) -> Result<Option<(usize, usize)>> {
+    eprintln!("joining stream threads");
     if let Some(stdin_thread) = stdin_thread {
         stdin_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     }
+    eprintln!("joined stdin thread");
     let stdout_result = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let stderr_result = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     match (stdout_result, stderr_result) {
@@ -276,6 +281,7 @@ fn output_cached_data(context: CacheContext<'_>) -> Result<ExitCode> {
         cache.commit_output()?;
     }
     debug_log!("[{}] Outputted cached data and committed files", command.name);
+    eprintln!("completed output for child");
 
     Ok(ExitCode(cached_data.exit_code))
 }
