@@ -97,7 +97,6 @@ pub(crate) fn spawn_command(config: &Config, command: &Command, env: &ChildEnv) 
         fs::create_dir_all(directory)?;
     }
     let mut child = spawn_child(command, env)?;
-    eprintln!("after spawn call");
     let mut child_stdout = child.stdout.take().unwrap();
     let mut child_stderr = child.stderr.take().unwrap();
 
@@ -124,20 +123,21 @@ fn spawn_child(command: &Command, env: &ChildEnv) -> Result<Child> {
     arguments.push(command.name.as_str());
     arguments.extend(command.arguments.iter().map(|s| s.as_str()));
 
-    let mut child = ShellCommand::new("./target/debug/shim");
+    let mut child = ShellCommand::new(&command.name);
     child
-        .args(&arguments)
+        .args(&command.arguments)
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped());
-    /*unsafe {
+    unsafe {
         child.pre_exec(|| {
             if libc::setpgid(0, 0) == -1 {
                 return Err(IoError::last_os_error());
             }
+            ptrace::traceme()?;
             Ok(())
         });
-    }*/
+    }
 
     if let EnvType::TraceFile(file) = &env.typ
         && let Some(parent) = file.parent()

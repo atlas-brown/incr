@@ -44,21 +44,19 @@ fn main() -> Result<()> {
 }
 
 // ---------------- Tracer core ----------------
-pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, String>)> {
-    eprintln!("waiting for initial stop");
-    wait_for_initial_stop(init)?;
-    eprintln!("after wait for initial stop");
+pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, String>, i32)> {
+    let st = waitpid(init, None)?;
+    // Expect exec trap
+    assert!(matches!(st, WaitStatus::Stopped(_, Signal::SIGTRAP)));
 
     let opts = ptrace::Options::PTRACE_O_TRACESYSGOOD
+        | ptrace::Options::PTRACE_O_TRACEEXEC
         | ptrace::Options::PTRACE_O_TRACEFORK
         | ptrace::Options::PTRACE_O_TRACEVFORK
         | ptrace::Options::PTRACE_O_TRACECLONE
-        | ptrace::Options::PTRACE_O_TRACEEXEC
         | ptrace::Options::PTRACE_O_EXITKILL;
 
-    eprintln!("before set options");
-    ptrace::seize(init, opts)?;
-    eprintln!("after set options");
+    ptrace::setoptions(init, opts)?;
 
     // Bookkeeping
     let mut live: HashSet<Pid> = HashSet::from([init]);
@@ -76,9 +74,7 @@ pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, 
     // path -> pre-write hash (or marker)
     let mut write_paths: HashMap<String, String> = HashMap::new();
 
-    eprintln!("before initial resume");
-    ptrace::syscall(init, None)?; // initial resume
-    eprintln!("after initial resume");
+    ptrace::syscall(init, None)?;
 
     loop {
         match waitpid(None, None)? {
@@ -177,7 +173,7 @@ pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, 
         }
     }
 
-    Ok((read_paths, write_paths))
+    Ok((read_paths, write_paths, 0))
 }
 
 fn wait_for_initial_stop(pid: Pid) -> Result<()> {

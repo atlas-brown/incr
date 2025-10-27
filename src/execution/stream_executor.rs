@@ -45,18 +45,23 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     );
 
     let child_env = create_child_environment(config, command)?;
-    eprintln!("spawning child");
+    let (sender, receiver) = std::sync::mpsc::channel();
+    let trace_thread = thread::spawn({
+        let config = config.clone();
+        let command = command.clone();
+        let child_env = child_env.clone();
+        move || {
+            let context = command::spawn_command(&config, &command, &child_env)?;
+            let child_id = context.child.id();
+            sender.send(context)?;
+            scripts::run_tracer(Pid::from_raw(child_id as i32))
+        }
+    });
     let ChildContext {
         mut child,
         stdout_thread,
         stderr_thread,
-    } = command::spawn_command(config, command, &child_env)?;
-    eprintln!("spawned child {}", child.id());
-    debug_log!("[{}] Spawned stream child", command.name);
-
-    let child_pid = child.id() as i32;
-    let trace_thread = thread::spawn(move || scripts::run_tracer(Pid::from_raw(child_pid)));
-    eprintln!("spawned trace thread");
+    } = receiver.recv()?;
 
     let stdin_context = forward_stdin(child.stdin.take().unwrap())?;
     if execution::skip_cache(command, stdin_context.length) {
@@ -71,16 +76,16 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     cache.create_directory()?;
     debug_log!("[{}] Loaded cache directory", command.name);
 
-    eprintln!("joining trace thread");
-    let result = trace_thread.join().map_err(|e| anyhow!("{e:?}"))??;
-    eprintln!("{result:?}");
-
     let cache_status = load_cache_data(&cache, child, &child_env)?;
     let output_lengths = match join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
         Some(lengths) => lengths,
         None => return Ok(BROKEN_PIPE_CODE),
     };
     debug_log!("[{}] Loaded cache data and saved outputs", command.name);
+
+    eprintln!("joining trace thread");
+    let result = trace_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    eprintln!("{result:?}");
 
     let exit_code = match cache_status {
         CacheStatus::Valid(cached_data) => {
@@ -150,7 +155,6 @@ fn clean_child_environment(child_env: &ChildEnv) -> Result<()> {
 fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
     let mut process_stdin = io::stdin().lock();
     if process_stdin.is_terminal() {
-        eprintln!("detected terminal stdin");
         return Ok(StdinContext {
             hash: ops::hash_bytes(&[]),
             length: 0,
@@ -219,7 +223,8 @@ fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, child_env: &ChildE
             Ok(CacheStatus::Valid(cached_data))
         }
         None => {
-            let exit_code = child.wait()?.code().unwrap();
+            let exit_code = 0;
+            //let exit_code = child.wait()?.code().unwrap();
             cache.clean_sandbox_directory()?;
             cache.clean_data_files()?;
             Ok(CacheStatus::Invalid(ExitCode(exit_code)))
