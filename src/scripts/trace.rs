@@ -85,7 +85,6 @@ pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, 
     }
 
     loop {
-        eprintln!("tracer wait");
         // IMPORTANT: __WALL so we get events/exits for *all* traced threads
         match waitpid(
             None,
@@ -158,7 +157,6 @@ pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, 
 
             // Generic signal-stops
             WaitStatus::Stopped(pid, sig) => {
-                eprintln!("GOT A STOP IN THE TRACER");
                 match sig {
                     // This SIGTRAP is what you'll see right after your kill_child()
                     // did ptrace::interrupt() on the leader. Use it as a cue to
@@ -183,7 +181,6 @@ pub(crate) fn run_tracer(init: Pid) -> Result<(HashSet<String>, HashMap<String, 
 
             // Thread/process exits
             WaitStatus::Exited(pid, _) | WaitStatus::Signaled(pid, _, _) => {
-                eprintln!("GOT AN EXIT IN THE TRACER");
                 live.remove(&pid);
                 in_syscall.remove(&pid);
                 last_enter.remove(&pid);

@@ -222,7 +222,7 @@ pub(crate) fn kill_child(child: &Child) -> Result<()> {
     //    errors here are best-effort and can be ignored.
     let pid = nix::unistd::Pid::from_raw(child.id() as i32);
     let mut c = 0;
-    while let Err(error) = ptrace::interrupt(pid) {
+    /*while let Err(error) = ptrace::interrupt(pid) {
         eprintln!("attempted interrupt {error:?}");
         std::thread::sleep(std::time::Duration::from_millis(100));
         c += 1;
@@ -230,7 +230,7 @@ pub(crate) fn kill_child(child: &Child) -> Result<()> {
             break;
         }
     }
-    eprintln!("interrupted tracer");
+    eprintln!("interrupted tracer");*/
 
     Ok(())
 }
