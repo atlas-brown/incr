@@ -29,61 +29,62 @@ enum CacheStatus {
 #[derive(Clone, Debug)]
 struct CacheContext<'c> {
     config: &'c Config,
-    command: &'c Command,
     cache: CacheCursor<'c>,
     cached_data: CacheData,
     output_lengths: (usize, usize),
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    debug_log!(
-        "[{}] Starting stream command (trace_type={})",
-        command.name,
-        config.trace_type,
-    );
-
     let child_env = create_child_environment(config, command)?;
     let ChildContext {
         mut child,
         stdout_thread,
         stderr_thread,
     } = command::spawn_command(config, command, &child_env)?;
-    debug_log!("[{}] Spawned stream child", command.name);
 
     let stdin_context = forward_stdin(child.stdin.take().unwrap())?;
     if execution::skip_cache(command, stdin_context.length) {
         join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)?;
         let exit_code = child.wait()?.code().unwrap();
         clean_child_environment(&child_env)?;
-        debug_log!("[{}] Skipped caching", command.name);
         return Ok(ExitCode(exit_code));
     }
 
     let cache = CacheCursor::from_hash(command, stdin_context.hash)?;
     cache.create_directory()?;
-    debug_log!("[{}] Loaded cache directory", command.name);
-
     let cache_status = load_cache_data(&cache, child, &child_env)?;
     let output_lengths = match join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
         Some(lengths) => lengths,
         None => return Ok(BROKEN_PIPE_CODE),
     };
-    debug_log!("[{}] Loaded cache data and saved outputs", command.name);
 
     let exit_code = match cache_status {
         CacheStatus::Valid(cached_data) => {
+            debug_log!(
+                "Cache valid: {} {:?} {}",
+                command.name,
+                command.arguments,
+                stdin_context.hash,
+            );
             return output_cached_data(CacheContext {
                 config,
-                command,
                 cache,
                 cached_data,
                 output_lengths,
             });
         }
-        CacheStatus::Invalid(exit_code) => exit_code,
+        CacheStatus::Invalid(exit_code) => {
+            debug_log!(
+                "Cache invalid: {} {:?} {}",
+                command.name,
+                command.arguments,
+                stdin_context.hash,
+            );
+            exit_code
+        }
     };
 
-    save_command_data(command, cache, &child_env, exit_code)
+    save_command_data(cache, &child_env, exit_code)
 }
 
 fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
@@ -234,7 +235,6 @@ fn join_stream_threads(
 fn output_cached_data(context: CacheContext<'_>) -> Result<ExitCode> {
     let CacheContext {
         config,
-        command,
         cache,
         cached_data,
         output_lengths,
@@ -259,17 +259,11 @@ fn output_cached_data(context: CacheContext<'_>) -> Result<ExitCode> {
     if !cached_data.write_outputs.is_empty() {
         cache.commit_output()?;
     }
-    debug_log!("[{}] Outputted cached data and committed files", command.name);
 
     Ok(ExitCode(cached_data.exit_code))
 }
 
-fn save_command_data(
-    command: &Command,
-    cache: CacheCursor<'_>,
-    child_env: &ChildEnv,
-    exit_code: ExitCode,
-) -> Result<ExitCode> {
+fn save_command_data(cache: CacheCursor<'_>, child_env: &ChildEnv, exit_code: ExitCode) -> Result<ExitCode> {
     let (read_set, write_set) = execution::parse_trace(child_env)?;
     let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
     if let EnvType::Sandbox(directory) = &child_env.typ {
@@ -279,7 +273,6 @@ fn save_command_data(
             cache.commit_output()?;
         }
     }
-    debug_log!("[{}] Extracted dependencies and committed files", command.name);
 
     fs::rename(&child_env.stdout_file, cache.get_stdout_file())?;
     fs::rename(&child_env.stderr_file, cache.get_stderr_file())?;
@@ -288,7 +281,6 @@ fn save_command_data(
         read_dependencies,
         write_outputs: write_set,
     })?;
-    debug_log!("[{}] Saved command data", command.name);
 
     Ok(exit_code)
 }
