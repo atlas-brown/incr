@@ -44,6 +44,14 @@ if [[ "$size" == "small" ]]; then
         tar -xzf pg-small.tar.gz
         rm pg-small.tar.gz
     fi
+    input_dir="$INPUT_DIR/pg-small"
+    touch "$input_dir/book.txt"
+    for book in "$input_dir"/*; do
+        if [[ "$book" != "$input_dir/book.txt" ]]; then
+            cat "$book" >> "$input_dir/book.txt"
+            rm "$book"
+        fi
+    done
     exit 0
 elif [[ "$size" == "min" ]]; then
     if [ ! -e ./pg-min ]; then
