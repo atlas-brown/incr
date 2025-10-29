@@ -17,8 +17,8 @@ pure_func() {
     awk "\$1 == 2 {print \$2, \$3}" ${TEMPDIR}/${input}.input.bigrams
     rm -rf {TEMPDIR}
 }
-
 export -f pure_func
+
 for input in $(ls ${IN} | head -n ${ENTRIES} | xargs -I arg1 basename arg1)
 do
     TEMPDIR=$(mktemp -d)
