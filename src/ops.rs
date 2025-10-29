@@ -40,6 +40,7 @@ pub(crate) fn initialize_log_file() {
             let file = OpenOptions::new()
                 .append(true)
                 .create(true)
+                .truncate(true)
                 .open(DEBUG_LOG_FILE)
                 .unwrap();
             Mutex::new(file)

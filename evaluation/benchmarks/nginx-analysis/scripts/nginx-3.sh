@@ -11,8 +11,6 @@ pure_func() {
     awk '{print $9}' $tempfile | sort | uniq -c | sort -rn  
     # find broken links broken links
     awk '($9 ~ /404/)' $tempfile | awk '{print $7}' | sort | uniq -c | sort -rn  
-    # for 502 (bad-gateway) we can run following command:
-    awk '($9 ~ /502/)' $tempfile | awk '{print $7}' | sort | uniq -c | sort -r  
     # Who are requesting broken links (or URLs resulting in 502)
     awk -F\" '($2 ~ "/wp-admin/install.php"){print $1}' $tempfile | awk '{print $1}' | sort | uniq -c | sort -r  
     # 404 for php files -mostly hacking attempts
@@ -31,4 +29,3 @@ for log in $INPUT/*; do
     tempfile=$(mktemp)
     cat $log | pure_func $tempfile
 done
-
