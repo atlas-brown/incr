@@ -3,7 +3,7 @@ use bincode::config::{Configuration, Fixint, LittleEndian, NoLimit};
 use bincode::{Decode, Encode};
 use serde::Serialize;
 use serde::de::DeserializeOwned;
-use std::fs::{File, OpenOptions};
+use std::fs::File;
 use std::io::{self, BufReader, BufWriter, Error as IoError, ErrorKind, Read, Write};
 use std::path::Path;
 use std::sync::{Mutex, OnceLock};
@@ -36,15 +36,7 @@ pub(crate) struct ExitCode(pub(crate) i32);
 
 pub(crate) fn initialize_log_file() {
     if DEBUG_LOGS {
-        LOG_FILE.get_or_init(|| {
-            let file = OpenOptions::new()
-                .append(true)
-                .create(true)
-                .truncate(true)
-                .open(DEBUG_LOG_FILE)
-                .unwrap();
-            Mutex::new(file)
-        });
+        LOG_FILE.get_or_init(|| Mutex::new(File::create(DEBUG_LOG_FILE).unwrap()));
     }
 }
 
