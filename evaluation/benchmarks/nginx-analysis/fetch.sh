@@ -29,6 +29,18 @@ elif [[ "$size" == "small" ]]; then
         mv "$INPUT_DIR/nginx-logs" "$INPUT_DIR/nginx-logs_$size"
         rm "$zip_dst"
     fi
+    input_dir="$INPUT_DIR/nginx-logs_$size"
+    for log in "$input_dir"/*; do
+        if [[ "$log" != "$input_dir/log0" ]]; then
+            cat "$log" >> "$input_dir/log0"
+            rm "$log"
+        fi
+    done
+    for i in {1..3}; do
+        cp "$input_dir/log0" "$input_dir/dup"
+        cat "$input_dir/dup" >> "$input_dir/log0"
+        rm "$input_dir/dup"
+    done
     exit 0
 else
     if [[ ! -d "$INPUT_DIR/nginx-logs_$size" ]]; then
