@@ -28,7 +28,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         && execution::check_cache_valid(&cache, &cached_data)?
     {
         debug_log!("Cache valid: {} {:?}", command.name, command.arguments);
-        return output_cached_data(config, command, &cache, &cached_data);
+        return output_cached_data(config, &cache, &cached_data);
     }
     debug_log!("Cache invalid: {} {:?}", command.name, command.arguments);
 
@@ -111,12 +111,7 @@ fn clean_child_environment(cache: &CacheCursor<'_>, child_env: &ChildEnv) -> Res
     Ok(())
 }
 
-fn output_cached_data(
-    config: &Config,
-    command: &Command,
-    cache: &CacheCursor<'_>,
-    data: &CacheData,
-) -> Result<ExitCode> {
+fn output_cached_data(config: &Config, cache: &CacheCursor<'_>, data: &CacheData) -> Result<ExitCode> {
     let stdout_completed = execution::output_data(&cache.get_stdout_file(), 0, &mut io::stdout().lock())?;
     let stderr_completed = execution::output_data(&cache.get_stderr_file(), 0, &mut io::stderr().lock())?;
     if !config.complete_execution && (!stdout_completed || !stderr_completed) {
