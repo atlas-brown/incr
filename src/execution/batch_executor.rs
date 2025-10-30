@@ -14,12 +14,6 @@ enum CommandResult {
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    debug_log!(
-        "[{}] Starting batch command (trace_type={})",
-        command.name,
-        config.trace_type,
-    );
-
     let mut stdin = Vec::new();
     {
         let mut process_stdin = io::stdin().lock();
@@ -27,15 +21,16 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
             process_stdin.read_to_end(&mut stdin)?;
         }
     }
-    debug_log!("[{}] Collected all stdin", command.name);
 
     let cache = CacheCursor::from_stdin(command, &stdin)?;
     cache.create_directory()?;
     if let Some(cached_data) = cache.load_data()?
         && execution::check_cache_valid(&cache, &cached_data)?
     {
-        return output_cached_data(config, command, &cache, &cached_data);
+        debug_log!("Cache valid: {} {:?}", command.name, command.arguments);
+        return output_cached_data(config, &cache, &cached_data);
     }
+    debug_log!("Cache invalid: {} {:?}", command.name, command.arguments);
 
     cache.clean_sandbox_directory()?;
     cache.clean_data_files()?;
@@ -44,7 +39,6 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         CommandResult::BrokenPipe => return Ok(BROKEN_PIPE_CODE),
     };
     cache.save_data(&data)?;
-    debug_log!("[{}] Saved command data", command.name);
 
     Ok(ExitCode(data.exit_code))
 }
@@ -61,7 +55,6 @@ fn run_command(
         stdout_thread,
         stderr_thread,
     } = command::spawn_command(config, command, &child_env)?;
-    debug_log!("[{}] Spawned batch child", command.name);
 
     {
         let mut child_stdin = child.stdin.take().unwrap();
@@ -71,7 +64,6 @@ fn run_command(
             return Err(error.into());
         }
     }
-    debug_log!("[{}] Finished sending stdin to child", command.name);
 
     let exit_code = child.wait()?.code().unwrap();
     let stdout_result = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
@@ -80,7 +72,6 @@ fn run_command(
         clean_child_environment(cache, &child_env)?;
         return Ok(CommandResult::BrokenPipe);
     }
-    debug_log!("[{}] Saved child outputs", command.name);
 
     let (read_set, write_set) = execution::parse_trace(&child_env)?;
     let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
@@ -90,7 +81,6 @@ fn run_command(
             cache.commit_output()?;
         }
     }
-    debug_log!("[{}] Extracted dependencies and committed files", command.name);
 
     Ok(CommandResult::Completed(CacheData {
         exit_code,
@@ -121,12 +111,7 @@ fn clean_child_environment(cache: &CacheCursor<'_>, child_env: &ChildEnv) -> Res
     Ok(())
 }
 
-fn output_cached_data(
-    config: &Config,
-    command: &Command,
-    cache: &CacheCursor<'_>,
-    data: &CacheData,
-) -> Result<ExitCode> {
+fn output_cached_data(config: &Config, cache: &CacheCursor<'_>, data: &CacheData) -> Result<ExitCode> {
     let stdout_completed = execution::output_data(&cache.get_stdout_file(), 0, &mut io::stdout().lock())?;
     let stderr_completed = execution::output_data(&cache.get_stderr_file(), 0, &mut io::stderr().lock())?;
     if !config.complete_execution && (!stdout_completed || !stderr_completed) {
@@ -135,7 +120,6 @@ fn output_cached_data(
     if !data.write_outputs.is_empty() {
         cache.commit_output()?;
     }
-    debug_log!("[{}] Outputted cached data and committed files", command.name);
 
     Ok(ExitCode(data.exit_code))
 }

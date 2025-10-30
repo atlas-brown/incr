@@ -1,7 +1,7 @@
 mode,script,time_sec
-bash,dpt_seq_1.sh,54.034
-bash,dpt_seq_2.sh,59.689
-bash,dpt_seq_3.sh,61.06
-incr,dpt_seq_1.sh,64.459
-incr,dpt_seq_2.sh,19.468
-incr,dpt_seq_3.sh,1.219
+bash,dpt_seq_1.sh,55.217
+bash,dpt_seq_2.sh,60.734
+bash,dpt_seq_3.sh,61.523
+incr,dpt_seq_1.sh,73.702
+incr,dpt_seq_2.sh,19.99
+incr,dpt_seq_3.sh,1.396
