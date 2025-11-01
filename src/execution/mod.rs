@@ -228,10 +228,7 @@ where
         Box::new(BufReader::with_capacity(CHUNK_SIZE, file)) as Box<dyn Read>
     } else {
         let mut compressed_reader = Decoder::new(BufReader::with_capacity(CHUNK_SIZE, file))?;
-        io::copy(
-            &mut compressed_reader.by_ref().take(start as u64),
-            &mut io::sink(),
-        )?;
+        io::copy(&mut (&mut compressed_reader).take(start as u64), &mut io::sink())?;
         Box::new(compressed_reader)
     };
 
