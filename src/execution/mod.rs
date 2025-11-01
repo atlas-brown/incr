@@ -5,9 +5,10 @@ pub(crate) mod stream_executor;
 use anyhow::{Result, ensure};
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
-use std::io::{self, BufReader, ErrorKind, Seek, SeekFrom, Write};
+use std::io::{self, BufReader, ErrorKind, Read, Seek, SeekFrom, Write};
 use std::path::{Path, PathBuf};
 use std::time::UNIX_EPOCH;
+use zstd::Decoder;
 
 use crate::cache::{CacheCursor, CacheData, DependencyKey};
 use crate::command::{ChildEnv, Command, EnvType};
@@ -213,22 +214,29 @@ pub(crate) fn output_data<D>(
 where
     D: Write,
 {
-    if compressed {
-        panic!();
-    }
-
     let mut file = File::open(data_file)?;
-    let length = file.metadata()?.len() as usize;
-    ensure!(start <= length);
-    if start == length {
-        return Ok(true);
+    if !compressed {
+        let length = file.metadata()?.len() as usize;
+        ensure!(start <= length);
+        if start == length {
+            return Ok(true);
+        }
     }
 
-    file.seek(SeekFrom::Start(start as u64))?;
-    let mut file_reader = BufReader::with_capacity(CHUNK_SIZE, file);
-    match io::copy(&mut file_reader, destination) {
-        Ok(count) => {
-            ensure!(count as usize == length - start);
+    let mut reader = if !compressed {
+        file.seek(SeekFrom::Start(start as u64))?;
+        Box::new(BufReader::with_capacity(CHUNK_SIZE, file)) as Box<dyn Read>
+    } else {
+        let mut compressed_reader = Decoder::new(BufReader::with_capacity(CHUNK_SIZE, file))?;
+        io::copy(
+            &mut compressed_reader.by_ref().take(start as u64),
+            &mut io::sink(),
+        )?;
+        Box::new(compressed_reader)
+    };
+
+    match io::copy(&mut reader, destination) {
+        Ok(_) => {
             destination.flush()?;
             Ok(true)
         }
