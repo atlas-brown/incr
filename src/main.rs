@@ -97,6 +97,7 @@ fn parse_input() -> Result<Option<Input>> {
         force_cache: arguments.force_cache,
         trace_type: execution::get_trace_type(&command),
         complete_execution: true, // TODO: add a flag
+        compress: false,          // TODO: add a flag
     };
 
     Ok(Some(Input {

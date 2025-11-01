@@ -8,8 +8,9 @@ use std::os::unix::process::CommandExt;
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command as ShellCommand, Stdio};
 use std::thread::{self, JoinHandle};
+use zstd::Encoder;
 
-use crate::config::{CHUNK_SIZE, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRACE_FILE};
+use crate::config::{CHUNK_SIZE, COMPRESSION_LEVEL, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRACE_FILE};
 use crate::ops;
 
 #[derive(Clone, Debug, Encode)]
@@ -189,6 +190,29 @@ where
 {
     let file = File::create(capture_file)?;
     let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
+    if !config.compress {
+        let output = capture_into_writer(config, source, destination, &mut file_writer);
+        file_writer.flush()?;
+        output
+    } else {
+        let mut compressed_writer = Encoder::new(file_writer, COMPRESSION_LEVEL)?;
+        let output = capture_into_writer(config, source, destination, &mut compressed_writer);
+        compressed_writer.finish()?.flush()?;
+        output
+    }
+}
+
+fn capture_into_writer<S, D, W>(
+    config: &Config,
+    source: &mut S,
+    destination: &mut D,
+    writer: &mut W,
+) -> Result<ChildOutput>
+where
+    S: Read,
+    D: Write,
+    W: Write,
+{
     let mut chunk = [0; CHUNK_SIZE];
     let mut destination_broken = false;
     let mut length = 0;
@@ -207,20 +231,14 @@ where
             }
             destination_broken = true;
             if !config.complete_execution {
-                file_writer.write_all(&chunk[..count])?;
-                file_writer.flush()?;
+                writer.write_all(&chunk[..count])?;
                 return Ok(ChildOutput::BrokenPipe);
             }
         }
 
-        file_writer.write_all(&chunk[..count])?;
+        writer.write_all(&chunk[..count])?;
         length += count;
     }
-
-    if !destination_broken {
-        destination.flush()?;
-    }
-    file_writer.flush()?;
 
     Ok(ChildOutput::Completed(length))
 }

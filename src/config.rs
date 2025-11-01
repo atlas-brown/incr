@@ -5,6 +5,7 @@ pub(crate) struct Config {
     pub(crate) force_cache: bool,        // Do not skip the command
     pub(crate) trace_type: TraceType,    // Type of tracing to use
     pub(crate) complete_execution: bool, // Complete after a downstream failure
+    pub(crate) compress: bool,           // Whether to compress cached outputs
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -85,6 +86,7 @@ pub(crate) const OUTPUT_DIRECTORY: &str = "outputs";
 pub(crate) const COMMIT_DIRECTORY: &str = "commit";
 
 pub(crate) const CHUNK_SIZE: usize = 65536;
+pub(crate) const COMPRESSION_LEVEL: i32 = 1;
 pub(crate) const SUDO_SANDBOX: bool = true;
 pub(crate) const DEBUG: bool = false;
 pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
