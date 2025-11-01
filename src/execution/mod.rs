@@ -204,10 +204,19 @@ fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
     Ok(Some(ops::hash_stream(&mut file_reader)?))
 }
 
-pub(crate) fn output_data<D>(data_file: &Path, start: usize, destination: &mut D) -> Result<bool>
+pub(crate) fn output_data<D>(
+    data_file: &Path,
+    start: usize,
+    destination: &mut D,
+    compressed: bool,
+) -> Result<bool>
 where
     D: Write,
 {
+    if compressed {
+        panic!();
+    }
+
     let mut file = File::open(data_file)?;
     let length = file.metadata()?.len() as usize;
     ensure!(start <= length);

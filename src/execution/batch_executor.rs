@@ -83,6 +83,7 @@ fn run_command(
     }
 
     Ok(CommandResult::Completed(CacheData {
+        compressed_output: config.compress,
         exit_code,
         read_dependencies,
         write_outputs: write_set,
@@ -112,8 +113,19 @@ fn clean_child_environment(cache: &CacheCursor<'_>, child_env: &ChildEnv) -> Res
 }
 
 fn output_cached_data(config: &Config, cache: &CacheCursor<'_>, data: &CacheData) -> Result<ExitCode> {
-    let stdout_completed = execution::output_data(&cache.get_stdout_file(), 0, &mut io::stdout().lock())?;
-    let stderr_completed = execution::output_data(&cache.get_stderr_file(), 0, &mut io::stderr().lock())?;
+    let stdout_completed = execution::output_data(
+        &cache.get_stdout_file(),
+        0,
+        &mut io::stdout().lock(),
+        data.compressed_output,
+    )?;
+    let stderr_completed = execution::output_data(
+        &cache.get_stderr_file(),
+        0,
+        &mut io::stderr().lock(),
+        data.compressed_output,
+    )?;
+
     if !config.complete_execution && (!stdout_completed || !stderr_completed) {
         return Ok(BROKEN_PIPE_CODE);
     }

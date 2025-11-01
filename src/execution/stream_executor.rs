@@ -1,4 +1,4 @@
-use anyhow::{Result, anyhow, ensure};
+use anyhow::{Result, anyhow};
 use std::fs;
 use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 use std::path::Path;
@@ -9,7 +9,7 @@ use xxhash_rust::xxh3::Xxh3;
 
 use crate::cache::{self, CacheCursor, CacheData};
 use crate::command::{self, ChildContext, ChildEnv, ChildOutput, Command, EnvType};
-use crate::config::{CHUNK_SIZE, Config, DEBUG, TraceType};
+use crate::config::{CHUNK_SIZE, Config, TraceType};
 use crate::execution;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
@@ -24,14 +24,6 @@ struct StdinContext {
 enum CacheStatus {
     Valid(CacheData),
     Invalid(ExitCode),
-}
-
-#[derive(Clone, Debug)]
-struct CacheContext<'c> {
-    config: &'c Config,
-    cache: CacheCursor<'c>,
-    cached_data: CacheData,
-    output_lengths: (usize, usize),
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
@@ -66,12 +58,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
                 command.arguments,
                 stdin_context.hash,
             );
-            return output_cached_data(CacheContext {
-                config,
-                cache,
-                cached_data,
-                output_lengths,
-            });
+            return output_cached_data(config, &cache, &cached_data, output_lengths);
         }
         CacheStatus::Invalid(exit_code) => {
             debug_log!(
@@ -84,7 +71,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         }
     };
 
-    save_command_data(cache, &child_env, exit_code)
+    save_command_data(config, cache, &child_env, exit_code)
 }
 
 fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
@@ -232,27 +219,29 @@ fn join_stream_threads(
     }
 }
 
-fn output_cached_data(context: CacheContext<'_>) -> Result<ExitCode> {
-    let CacheContext {
-        config,
-        cache,
-        cached_data,
-        output_lengths,
-    } = context;
-
+fn output_cached_data(
+    config: &Config,
+    cache: &CacheCursor<'_>,
+    cached_data: &CacheData,
+    output_lengths: (usize, usize),
+) -> Result<ExitCode> {
     let (completed_stdout, completed_stderr) = output_lengths;
     let stdout_file = cache.get_stdout_file();
     let stderr_file = cache.get_stderr_file();
 
-    if DEBUG {
-        let stdout_length = fs::metadata(&stdout_file)?.len() as usize;
-        let stderr_length = fs::metadata(&stderr_file)?.len() as usize;
-        ensure!(completed_stdout <= stdout_length);
-        ensure!(completed_stderr <= stderr_length);
-    }
+    let stdout_completed = execution::output_data(
+        &stdout_file,
+        completed_stdout,
+        &mut io::stdout().lock(),
+        cached_data.compressed_output,
+    )?;
+    let stderr_completed = execution::output_data(
+        &stderr_file,
+        completed_stderr,
+        &mut io::stderr().lock(),
+        cached_data.compressed_output,
+    )?;
 
-    let stdout_completed = execution::output_data(&stdout_file, completed_stdout, &mut io::stdout().lock())?;
-    let stderr_completed = execution::output_data(&stderr_file, completed_stderr, &mut io::stderr().lock())?;
     if !config.complete_execution && (!stdout_completed || !stderr_completed) {
         return Ok(BROKEN_PIPE_CODE);
     }
@@ -263,7 +252,12 @@ fn output_cached_data(context: CacheContext<'_>) -> Result<ExitCode> {
     Ok(ExitCode(cached_data.exit_code))
 }
 
-fn save_command_data(cache: CacheCursor<'_>, child_env: &ChildEnv, exit_code: ExitCode) -> Result<ExitCode> {
+fn save_command_data(
+    config: &Config,
+    cache: CacheCursor<'_>,
+    child_env: &ChildEnv,
+    exit_code: ExitCode,
+) -> Result<ExitCode> {
     let (read_set, write_set) = execution::parse_trace(child_env)?;
     let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
     if let EnvType::Sandbox(directory) = &child_env.typ {
@@ -277,6 +271,7 @@ fn save_command_data(cache: CacheCursor<'_>, child_env: &ChildEnv, exit_code: Ex
     fs::rename(&child_env.stdout_file, cache.get_stdout_file())?;
     fs::rename(&child_env.stderr_file, cache.get_stderr_file())?;
     cache.save_data(&CacheData {
+        compressed_output: config.compress,
         exit_code: exit_code.0,
         read_dependencies,
         write_outputs: write_set,
