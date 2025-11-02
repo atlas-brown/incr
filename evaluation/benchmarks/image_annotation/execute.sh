@@ -3,9 +3,10 @@ cd "$(dirname "$0")" || exit 1
 
 TOP=$(git rev-parse --show-toplevel)
 EVAL_DIR="${TOP}/evaluation"
-BENCHMARK="inference"
+BENCHMARK="image_annotation"
 BENCHMARK_DIR="${EVAL_DIR}/benchmarks/${BENCHMARK}"
 SCRIPT_DIR="${BENCHMARK_DIR}/scripts"
+INPUT_DIR="${BENCHMARK_DIR}/inputs"
 OUTPUT_DIR="${BENCHMARK_DIR}/outputs"
 mkdir -p "$OUTPUT_DIR"
 
@@ -53,11 +54,11 @@ measure_time() {
 # Baseline: bash
 for script in "${SCRIPTS[@]}"; do
     echo "Running ${script} with bash..."
-    measure_time "bash" $script
+    measure_time "bash" $script "$INPUT_DIR/jpg.$suffix/jpg" "$OUTPUT_DIR"
 done
 
 # Incremental run: incr
 for script in "${SCRIPTS[@]}"; do
     echo "Running $script with incr..."
-    measure_time "incr" $script
+    measure_time "incr" $script "$INPUT_DIR/jpg.$suffix/jpg" "$OUTPUT_DIR"
 done
