@@ -1,7 +1,3 @@
 ## Incremental Development Details
 
-`dpt_seq_1.sh`: segment only
-
-`dpt_seq_2.sh`: segment and classify
-
-`dpt_seq_3.sh`: segment, classify, and output in a certain format
+Note: image-annotation-1.sh purposefully has a bug: the author didn't realize the model might give them names that include spaces.

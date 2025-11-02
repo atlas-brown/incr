@@ -1,7 +1,5 @@
 #!/bin/sh
 
-IN=$1
-OUT=$2
 mkdir -p "$OUT"
 
 find "$IN" -type f -iname "*.jpg" | while read -r img; do

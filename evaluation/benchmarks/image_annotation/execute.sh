@@ -51,14 +51,18 @@ measure_time() {
     echo "$mode,$script,$elapsed" >> "$TIME_FILE"
 }
 
+export IN="$INPUT_DIR/jpg$suffix/jpg"
+export OUT="$OUTPUT_DIR"
+
 # Baseline: bash
 for script in "${SCRIPTS[@]}"; do
     echo "Running ${script} with bash..."
-    measure_time "bash" $script "$INPUT_DIR/jpg.$suffix/jpg" "$OUTPUT_DIR"
+    measure_time "bash" $script
 done
+exit
 
 # Incremental run: incr
 for script in "${SCRIPTS[@]}"; do
     echo "Running $script with incr..."
-    measure_time "incr" $script "$INPUT_DIR/jpg.$suffix/jpg" "$OUTPUT_DIR"
+    measure_time "incr" $script
 done
