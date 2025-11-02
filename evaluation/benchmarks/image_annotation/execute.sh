@@ -19,7 +19,7 @@ done
 
 export IMG_DIR="${BENCHMARK_DIR}/inputs/dpt${suffix}"
 
-SCRIPTS=("dpt_seq_1.sh" "dpt_seq_2.sh" "dpt_seq_3.sh")
+SCRIPTS=("image-annotation-1.sh" "image-annotation-2.sh" "image-annotation-3.sh" "image-annotation-4.sh" "image-annotation-5.sh" "image-annotation-6.sh")
 
 TIME_FILE="${OUTPUT_DIR}/timing.csv"
 echo "mode,script,time_sec" > "$TIME_FILE"
