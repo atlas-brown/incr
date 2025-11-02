@@ -2,8 +2,9 @@
 
 TOP=$(git rev-parse --show-toplevel)
 URL="https://atlas.cs.brown.edu/data"
+BENCHMARK="poet"
 
-input_dir="${TOP}/nlp/inputs"
+input_dir="${TOP}/evaluation/benchmarks/${BENCHMARK}/inputs"
 mkdir -p "$input_dir"
 cd "$input_dir" || exit 1
 
@@ -41,6 +42,10 @@ if [[ "$size" == "small" ]]; then
         fi
         tar -xzf pg-small.tar.gz
         rm pg-small.tar.gz
+        # Double the number of books by copying the books inside pg-small
+        cp -r pg-small pg-small-copy
+        mv pg-small-copy/* pg-small/
+        rm -rf pg-small-copy
     fi
     exit 0
 elif [[ "$size" == "min" ]]; then
