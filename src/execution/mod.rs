@@ -290,7 +290,7 @@ pub(crate) fn save_introspection(config: &Config, command: &Command, cache_data:
         fs::create_dir_all(&introspect_directory)?;
     }
 
-    let introspect_file = introspect_directory.join(format!("command_{}", command.hash));
+    let introspect_file = introspect_directory.join(format!("command_{}.incr", command.hash));
     if cache_data.write_outputs.is_empty() {
         if !introspect_file.exists() {
             File::create(&introspect_file)?;
