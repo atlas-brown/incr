@@ -1,7 +1,6 @@
 use anyhow::{Result, anyhow};
 use std::fs;
 use std::io::{self, ErrorKind, IsTerminal, Read, Write};
-use std::path::Path;
 use std::process::{Child, ChildStdin};
 use std::sync::mpsc;
 use std::thread::{self, JoinHandle};
@@ -26,6 +25,12 @@ enum CacheStatus {
     Invalid(ExitCode),
 }
 
+#[derive(Clone, Debug)]
+struct Outputs {
+    stdout_length: usize,
+    stderr_length: usize,
+}
+
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     let child_env = create_child_environment(config, command)?;
     let ChildContext {
@@ -42,10 +47,10 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         return Ok(ExitCode(exit_code));
     }
 
-    let cache = CacheCursor::from_hash(command, stdin_context.hash)?;
+    let cache = CacheCursor::from_hash(config, command, stdin_context.hash)?;
     cache.create_directory()?;
     let cache_status = load_cache_data(&cache, child, &child_env)?;
-    let output_lengths = match join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
+    let outputs = match join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
         Some(lengths) => lengths,
         None => return Ok(BROKEN_PIPE_CODE),
     };
@@ -58,7 +63,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
                 command.arguments,
                 stdin_context.hash,
             );
-            return output_cached_data(config, &cache, &cached_data, output_lengths);
+            return output_cached_data(config, &cache, &cached_data, &outputs);
         }
         CacheStatus::Invalid(exit_code) => {
             debug_log!(
@@ -75,10 +80,12 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 }
 
 fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
-    let hash = ops::hash_bytes(&ops::encode_to_vec(command)?);
-    let cache_directory = Path::new(&command.cache_directory);
-    let stdout_file = cache_directory.join(format!("stdout_{hash}.incr"));
-    let stderr_file = cache_directory.join(format!("stderr_{hash}.incr"));
+    let stdout_file = config
+        .cache_directory
+        .join(format!("stdout_{}.incr", command.hash));
+    let stderr_file = config
+        .cache_directory
+        .join(format!("stderr_{}.incr", command.hash));
 
     if config.trace_type == TraceType::Nothing {
         return Ok(ChildEnv {
@@ -88,7 +95,7 @@ fn create_child_environment(config: &Config, command: &Command) -> Result<ChildE
         });
     }
     if config.trace_type == TraceType::TraceFile {
-        let trace_file = cache_directory.join(format!("trace_{hash}.txt"));
+        let trace_file = config.cache_directory.join(format!("trace_{}.txt", command.hash));
         return Ok(ChildEnv {
             typ: EnvType::TraceFile(trace_file),
             stdout_file,
@@ -96,7 +103,7 @@ fn create_child_environment(config: &Config, command: &Command) -> Result<ChildE
         });
     }
 
-    let sandbox_directory = cache_directory.join(format!("sandbox_{hash}"));
+    let sandbox_directory = config.cache_directory.join(format!("sandbox_{}", command.hash));
     if sandbox_directory.is_dir() {
         cache::remove_sandbox(&sandbox_directory)?;
     } else if sandbox_directory.is_file() {
@@ -205,16 +212,17 @@ fn join_stream_threads(
     stdin_thread: Option<JoinHandle<Result<()>>>,
     stdout_thread: JoinHandle<Result<ChildOutput>>,
     stderr_thread: JoinHandle<Result<ChildOutput>>,
-) -> Result<Option<(usize, usize)>> {
+) -> Result<Option<Outputs>> {
     if let Some(stdin_thread) = stdin_thread {
         stdin_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     }
     let stdout_result = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let stderr_result = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     match (stdout_result, stderr_result) {
-        (ChildOutput::Completed(stdout_length), ChildOutput::Completed(stderr_length)) => {
-            Ok(Some((stdout_length, stderr_length)))
-        }
+        (ChildOutput::Completed(stdout_length), ChildOutput::Completed(stderr_length)) => Ok(Some(Outputs {
+            stdout_length,
+            stderr_length,
+        })),
         (ChildOutput::BrokenPipe, _) | (_, ChildOutput::BrokenPipe) => Ok(None),
     }
 }
@@ -223,21 +231,20 @@ fn output_cached_data(
     config: &Config,
     cache: &CacheCursor<'_>,
     cached_data: &CacheData,
-    output_lengths: (usize, usize),
+    outputs: &Outputs,
 ) -> Result<ExitCode> {
-    let (completed_stdout, completed_stderr) = output_lengths;
     let stdout_file = cache.get_stdout_file();
     let stderr_file = cache.get_stderr_file();
 
     let stdout_completed = execution::output_data(
         &stdout_file,
-        completed_stdout,
+        outputs.stdout_length,
         &mut io::stdout().lock(),
         cached_data.compressed_output,
     )?;
     let stderr_completed = execution::output_data(
         &stderr_file,
-        completed_stderr,
+        outputs.stderr_length,
         &mut io::stderr().lock(),
         cached_data.compressed_output,
     )?;

@@ -59,7 +59,7 @@ for script in "${SCRIPTS[@]}"; do
 done
 
 # Incremental run: incr
-# for script in "${SCRIPTS[@]}"; do
-#     echo "Running $script with incr..."
-#     measure_time "incr" $script
-# done
+for script in "${SCRIPTS[@]}"; do
+    echo "Running $script with incr..."
+    measure_time "incr" $script
+done

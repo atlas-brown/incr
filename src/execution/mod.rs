@@ -207,7 +207,7 @@ fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
 
 pub(crate) fn output_data<D>(
     data_file: &Path,
-    start: usize,
+    start_index: usize,
     destination: &mut D,
     compressed: bool,
 ) -> Result<bool>
@@ -217,22 +217,32 @@ where
     let mut file = File::open(data_file)?;
     if !compressed {
         let length = file.metadata()?.len() as usize;
-        ensure!(start <= length);
-        if start == length {
+        ensure!(start_index <= length);
+        if start_index == length {
             return Ok(true);
         }
     }
 
-    let mut reader = if !compressed {
-        file.seek(SeekFrom::Start(start as u64))?;
-        Box::new(BufReader::with_capacity(CHUNK_SIZE, file)) as Box<dyn Read>
+    if !compressed {
+        file.seek(SeekFrom::Start(start_index as u64))?;
+        let mut file_reader = BufReader::with_capacity(CHUNK_SIZE, file);
+        output_from_stream(&mut file_reader, destination)
     } else {
         let mut compressed_reader = Decoder::new(BufReader::with_capacity(CHUNK_SIZE, file))?;
-        io::copy(&mut (&mut compressed_reader).take(start as u64), &mut io::sink())?;
-        Box::new(compressed_reader)
-    };
+        io::copy(
+            &mut (&mut compressed_reader).take(start_index as u64),
+            &mut io::sink(),
+        )?;
+        output_from_stream(&mut compressed_reader, destination)
+    }
+}
 
-    match io::copy(&mut reader, destination) {
+fn output_from_stream<S, D>(source: &mut S, destination: &mut D) -> Result<bool>
+where
+    S: Read,
+    D: Write,
+{
+    match io::copy(source, destination) {
         Ok(_) => {
             destination.flush()?;
             Ok(true)

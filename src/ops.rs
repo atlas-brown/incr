@@ -3,6 +3,7 @@ use bincode::config::{Configuration, Fixint, LittleEndian, NoLimit};
 use bincode::{Decode, Encode};
 use serde::Serialize;
 use serde::de::DeserializeOwned;
+use std::env;
 use std::fs::{File, OpenOptions};
 use std::io::{self, BufReader, BufWriter, Error as IoError, ErrorKind, Read, Write};
 use std::path::Path;
@@ -12,11 +13,16 @@ use time::macros::format_description;
 use time::{OffsetDateTime, UtcOffset};
 use xxhash_rust::xxh3::Xxh3;
 
-use crate::config::{CHUNK_SIZE, DEBUG, DEBUG_LOG_FILE, DEBUG_LOGS};
+use crate::config::{CHUNK_SIZE, DEBUG, DEBUG_LOG_PATH, DEBUG_LOGS};
 
 pub(crate) const SUCCESS_CODE: ExitCode = ExitCode(0);
 pub(crate) const FAILURE_CODE: ExitCode = ExitCode(1);
 pub(crate) const BROKEN_PIPE_CODE: ExitCode = ExitCode(141);
+
+const TIME_FORMAT: &[FormatItem<'_>] = format_description!("[hour]:[minute]:[second].[subsecond digits:3]");
+const BINCODE_CONFIG: Configuration<LittleEndian, Fixint, NoLimit> = bincode::config::standard()
+    .with_little_endian()
+    .with_fixed_int_encoding();
 
 macro_rules! debug_log {
     ($($arg:tt)*) => {
@@ -36,11 +42,12 @@ pub(crate) struct ExitCode(pub(crate) i32);
 
 pub(crate) fn initialize_log_file() {
     if DEBUG_LOGS {
+        let log_file = env::home_dir().unwrap().join(DEBUG_LOG_PATH);
         LOG_FILE.get_or_init(|| {
             let file = OpenOptions::new()
                 .append(true)
                 .create(true)
-                .open(DEBUG_LOG_FILE)
+                .open(log_file)
                 .unwrap();
             Mutex::new(file)
         });
@@ -48,11 +55,10 @@ pub(crate) fn initialize_log_file() {
 }
 
 pub(crate) fn log_line(line: &str) {
-    const FORMAT: &[FormatItem<'_>] = format_description!("[hour]:[minute]:[second].[subsecond digits:3]");
     let offset = UtcOffset::current_local_offset().unwrap_or(UtcOffset::UTC);
     let timestamp = OffsetDateTime::now_utc()
         .to_offset(offset)
-        .format(&FORMAT)
+        .format(&TIME_FORMAT)
         .unwrap();
     let line = format!("[{timestamp}] {line}\n");
     let mut file = LOG_FILE.get().unwrap().lock().unwrap();
@@ -99,7 +105,7 @@ pub(crate) fn encode_to_vec<T>(value: &T) -> Result<Vec<u8>>
 where
     T: Encode,
 {
-    Ok(bincode::encode_to_vec(value, get_bincode_config())?)
+    Ok(bincode::encode_to_vec(value, BINCODE_CONFIG)?)
 }
 
 pub(crate) fn encode_to_file<T>(value: &T, directory: &Path, file_name: String) -> Result<()>
@@ -110,7 +116,7 @@ where
     let file = File::create(directory.join(file_name))?;
     let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
     if !DEBUG {
-        bincode::encode_into_std_write(value, &mut file_writer, get_bincode_config())?;
+        bincode::encode_into_std_write(value, &mut file_writer, BINCODE_CONFIG)?;
     } else {
         serde_json::to_writer_pretty(&mut file_writer, value)?;
     }
@@ -131,7 +137,7 @@ where
 
     let mut file_reader = BufReader::with_capacity(CHUNK_SIZE, file);
     let value = if !DEBUG {
-        match bincode::decode_from_std_read(&mut file_reader, get_bincode_config()) {
+        match bincode::decode_from_std_read(&mut file_reader, BINCODE_CONFIG) {
             Ok(value) => value,
             Err(_) => return Ok(None),
         }
@@ -143,12 +149,6 @@ where
     };
 
     Ok(Some(value))
-}
-
-fn get_bincode_config() -> Configuration<LittleEndian, Fixint, NoLimit> {
-    bincode::config::standard()
-        .with_little_endian()
-        .with_fixed_int_encoding()
 }
 
 pub(crate) mod serialize_bytes {

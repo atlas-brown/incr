@@ -9,7 +9,7 @@ use std::process::{Command as ShellCommand, Stdio};
 
 use crate::command::Command;
 use crate::config::{
-    CHUNK_SIZE, COMMIT_DIRECTORY, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY, SANDBOX_DIRECTORY,
+    CHUNK_SIZE, COMMIT_DIRECTORY, Config, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY, SANDBOX_DIRECTORY,
     STDERR_FILE, STDOUT_FILE, SUDO_SANDBOX, TRACE_FILE,
 };
 use crate::ops;
@@ -17,12 +17,12 @@ use crate::ops;
 #[derive(Clone, Debug)]
 pub(crate) struct CacheCursor<'c> {
     directory: PathBuf,
-    try_command: &'c str,
+    try_command: String,
     debug_info: CacheInfo<'c>,
 }
 
 impl<'c> CacheCursor<'c> {
-    pub(crate) fn from_stdin(command: &'c Command, stdin: &'c [u8]) -> Result<Self> {
+    pub(crate) fn from_stdin(config: &Config, command: &'c Command, stdin: &'c [u8]) -> Result<Self> {
         let stdin_hash = ops::hash_bytes(stdin);
         let debug_info = CacheInfo {
             name: &command.name,
@@ -31,10 +31,10 @@ impl<'c> CacheCursor<'c> {
             stdin_hash,
             stdin: Some(stdin),
         };
-        Self::with_info(command, stdin_hash, debug_info)
+        Self::with_info(config, command, stdin_hash, debug_info)
     }
 
-    pub(crate) fn from_hash(command: &'c Command, stdin_hash: u64) -> Result<Self> {
+    pub(crate) fn from_hash(config: &Config, command: &'c Command, stdin_hash: u64) -> Result<Self> {
         let debug_info = CacheInfo {
             name: &command.name,
             arguments: &command.arguments,
@@ -42,21 +42,25 @@ impl<'c> CacheCursor<'c> {
             stdin_hash,
             stdin: None,
         };
-        Self::with_info(command, stdin_hash, debug_info)
+        Self::with_info(config, command, stdin_hash, debug_info)
     }
 
-    fn with_info(command: &'c Command, stdin_hash: u64, debug_info: CacheInfo<'c>) -> Result<Self> {
-        let key_data = CacheKey {
+    fn with_info(
+        config: &Config,
+        command: &'c Command,
+        stdin_hash: u64,
+        debug_info: CacheInfo<'c>,
+    ) -> Result<Self> {
+        let hash = ops::hash_bytes(&ops::encode_to_vec(&CacheKey {
             name: &command.name,
             arguments: &command.arguments,
             environment: &command.environment,
             stdin_hash,
-        };
-        let hash = ops::hash_bytes(&ops::encode_to_vec(&key_data)?);
-        let directory = Path::new(&command.cache_directory).join(format!("cache_{hash}"));
+        })?);
+        let directory = config.cache_directory.join(format!("cache_{hash}"));
         Ok(Self {
             directory,
-            try_command: &command.try_command,
+            try_command: config.try_command.clone(),
             debug_info,
         })
     }
@@ -126,7 +130,7 @@ impl<'c> CacheCursor<'c> {
             .stderr(Stdio::null())
             .spawn()?
             .wait()?;
-        ShellCommand::new(self.try_command)
+        ShellCommand::new(&self.try_command)
             .args(["commit", ops::path_to_string(&commit_directory)?])
             .stdin(Stdio::null())
             .stdout(Stdio::null())
