@@ -7,7 +7,6 @@ from matplotlib.patches import Patch
 BENCHMARKS = [
     "covid",
     "dpt",
-    "image_annotation",
     "nginx-analysis",
     "nlp-bigrams",
     "nlp-uppercase",
