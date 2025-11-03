@@ -1,61 +1,92 @@
 #!/bin/bash
-
 cd "$(dirname "$0")" || exit 1
-URL='https://atlas.cs.brown.edu/data'
-in="./inputs"
 
-mkdir -p "$in"
+TOP=$(git rev-parse --show-toplevel)
+BENCHMARK="nlp-bigrams"
+INPUT_DIR="${TOP}/evaluation/benchmarks/${BENCHMARK}/inputs"
 
-curl "$URL/web-index/stopwords.txt" > "$in/stopwords.txt" 
+URL="https://atlas.cs.brown.edu/data"
+mkdir -p "$INPUT_DIR"
+cd "$INPUT_DIR" || exit 1
 
-# TODO: Transform dataset into a format that can be used offline
-
-is_small=false
-is_min=false
+size=full
 for arg in "$@"; do
-    if [ "$arg" = "--small" ]; then
-        is_small=true
-		suffix="_small"
-        break
-    fi
-	if [ "$arg" = "--min" ]; then
-		is_min=true
-		suffix="_min"
-		break
-	fi
+    case "$arg" in
+        --small) size=small ;;
+        --min)   size=min ;;
+    esac
 done
 
-if [[ ! -d "$in/articles$suffix" ]]; then
-	if [[ ! -f "$in/wikipedia$suffix.tar.gz" ]]; then
-		if $is_min; then
-			echo "Downloading the min dataset."
-			# previously was the small dataset
-			wget -O $in/wikipedia$suffix.tar.gz "${URL}/wikipedia/input_small/articles.tar.gz" --no-check-certificate
-			wget -O $in/index$suffix.txt "${URL}/wikipedia/input_small/index.txt" --no-check-certificate
-			echo "Extracting the min dataset."
-			tar -xf $in/wikipedia$suffix.tar.gz -C $in
-			mv $in/articles $in/articles$suffix
-		elif $is_small; then
-			# 1gb entries
-			echo "Downloading the small dataset."
-			wget --no-check-certificate -O $in/wikipedia$suffix.tar.gz "${URL}/wikipedia/wikipedia1g.tar.gz"
-			wget --no-check-certificate -O $in/index$suffix.txt "${URL}/wikipedia/index1g.txt"
-			echo "Extracting the small dataset."
-			tar -xf $in/wikipedia$suffix.tar.gz -C $in
-			mv $in/articles1g $in/articles$suffix
-		else
-			# full dataset
-			echo "Downloading the full dataset."
-			wget --no-check-certificate -O $in/wikipedia$suffix.tar.gz "${URL}/wikipedia/wikipedia10g.tar.gz"
-			wget --no-check-certificate -O $in/index$suffix.txt "${URL}/wikipedia/index10g.txt"
-			echo "Extracting the full dataset."
-			tar -xf $in/wikipedia$suffix.tar.gz -C $in
-			mv $in/articles10g $in/articles$suffix
-		fi
-	else
-		echo "Extracting dataset."
-		tar -xf $in/wikipedia$suffix.tar.gz -C $in
-	fi
-else
-	echo "Dataset already exists."
+if [ ! -f ./book_links.txt ]; then
+    wget --no-check-certificate -O book_links.txt "${URL}/gutenberg/books.txt"
+    if [ ! -f book_links.txt ]; then
+        echo "Failed to download book_links.txt"
+        exit 1
+    fi
+fi
+
+if [ ! -f ./genesis ]; then
+    curl --insecure -sf ${URL}/gutenberg/8/0/0/8001/8001.txt > genesis
+fi 
+
+if [ ! -f ./exodus ]; then
+    curl --insecure -sf ${URL}/gutenberg/3/3/4/2/33420/33420-0.txt > exodus
+fi
+
+file_size() {
+    stat -c%s -- "$1" 2>/dev/null || \
+    stat -f%z -- "$1" 2>/dev/null || \
+    wc -c < "$1"
+}
+
+if [[ "$size" == "small" ]]; then
+    if [ ! -e ./pg-small ]; then
+        data_url="${URL}/nlp/pg-small.tar.gz"
+        wget --no-check-certificate -O pg-small.tar.gz "$data_url"
+        if [ ! -f pg-small.tar.gz ]; then
+            echo "Failed to download pg-small.tar.gz"
+            exit 1
+        fi
+        tar -xzf pg-small.tar.gz
+        rm pg-small.tar.gz
+    fi
+    input_dir="$INPUT_DIR/pg-small"
+    touch "$input_dir/book.txt"
+    for book in "$input_dir"/*; do
+        if [[ "$book" != "$input_dir/book.txt" ]]; then
+            if (( $(file_size "$input_dir/book.txt") < 100 * 1024 * 1024 )); then
+                cat "$book" >> "$input_dir/book.txt"
+            fi
+            rm "$book"
+        fi
+    done
+    exit 0
+elif [[ "$size" == "min" ]]; then
+    if [ ! -e ./pg-min ]; then
+        mkdir pg-min
+        cd pg-min || exit 1
+        book_count=1
+
+        head -n $book_count ../book_links.txt | while IFS= read -r line
+        do
+            full_url="${URL}/gutenberg/${line}"
+            echo "Downloading $full_url"
+            wget --no-check-certificate -q "$full_url"
+        done
+
+        cd ..
+    fi
+    exit 0
+fi
+
+if [ ! -e ./pg ]; then
+    data_url="${URL}/nlp/pg.tar.gz"
+    wget --no-check-certificate -O pg.tar.gz "$data_url"
+    if [ ! -f pg.tar.gz ]; then
+        echo "Failed to download pg.tar.gz"
+        exit 1
+    fi
+    tar -xzf pg.tar.gz
+    rm pg.tar.gz
+    exit 0
 fi
