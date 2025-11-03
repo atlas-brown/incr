@@ -13,8 +13,9 @@ use zstd::Decoder;
 use crate::cache::{CacheCursor, CacheData, DependencyKey};
 use crate::command::{ChildEnv, Command, EnvType};
 use crate::config::{
-    CHUNK_SIZE, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, IGNORE_COMMANDS, SKIP_CACHE_CONDITIONS,
-    SKIP_COMMANDS, SKIP_SANDBOX_CONDITIONS, SKIP_TRACE_CONDITIONS, SkipCondition, TRACE_FILE, TraceType,
+    CHUNK_SIZE, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, IGNORE_COMMANDS, INTROSPECT_DIRECTORY,
+    SKIP_CACHE_CONDITIONS, SKIP_COMMANDS, SKIP_SANDBOX_CONDITIONS, SKIP_TRACE_CONDITIONS, SkipCondition,
+    TRACE_FILE, TraceType,
 };
 use crate::ops;
 use crate::scripts;
@@ -25,7 +26,7 @@ pub(crate) fn skip_command(command: &Command, environment: &HashMap<String, Stri
         || environment.contains_key(&format!("BASH_FUNC_{}%%", command.name))
 }
 
-pub(crate) fn get_trace_type(command: &Command) -> TraceType {
+pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> TraceType {
     if IGNORE_COMMANDS.contains(&command.name.as_str()) || SKIP_COMMANDS.contains(&command.name.as_str()) {
         return TraceType::Nothing;
     }
@@ -41,6 +42,13 @@ pub(crate) fn get_trace_type(command: &Command) -> TraceType {
         .iter()
         .any(|c| check_condition(c, command, &flags, &values, 0))
     {
+        return TraceType::TraceFile;
+    }
+
+    let read_only_marker = cache_directory
+        .join(INTROSPECT_DIRECTORY)
+        .join(format!("command_{}.incr", command.hash));
+    if read_only_marker.exists() {
         return TraceType::TraceFile;
     }
 
