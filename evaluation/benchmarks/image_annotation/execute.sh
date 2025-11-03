@@ -59,7 +59,6 @@ for script in "${SCRIPTS[@]}"; do
     echo "Running ${script} with bash..."
     measure_time "bash" $script
 done
-exit
 
 # Incremental run: incr
 for script in "${SCRIPTS[@]}"; do
