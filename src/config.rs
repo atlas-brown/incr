@@ -93,7 +93,7 @@ pub(crate) const COMPRESSION_LEVEL: i32 = 1;
 pub(crate) const SUDO_SANDBOX: bool = true;
 pub(crate) const DEBUG: bool = true;
 pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
-pub(crate) const DEBUG_LOG_FILE: &str = "/users/jxia3/incr/debug_log.txt";
+pub(crate) const DEBUG_LOG_PATH: &str = "incr/debug_log.txt";
 
 pub(crate) const IGNORE_COMMANDS: &[&str] = &[
     "alias", "break", "cd", "chgrp", "chmod", "chown", "continue", "env", "export", "ln", "printenv", "pwd",

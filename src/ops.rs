@@ -3,6 +3,7 @@ use bincode::config::{Configuration, Fixint, LittleEndian, NoLimit};
 use bincode::{Decode, Encode};
 use serde::Serialize;
 use serde::de::DeserializeOwned;
+use std::env;
 use std::fs::{File, OpenOptions};
 use std::io::{self, BufReader, BufWriter, Error as IoError, ErrorKind, Read, Write};
 use std::path::Path;
@@ -12,7 +13,7 @@ use time::macros::format_description;
 use time::{OffsetDateTime, UtcOffset};
 use xxhash_rust::xxh3::Xxh3;
 
-use crate::config::{CHUNK_SIZE, DEBUG, DEBUG_LOG_FILE, DEBUG_LOGS};
+use crate::config::{CHUNK_SIZE, DEBUG, DEBUG_LOG_PATH, DEBUG_LOGS};
 
 pub(crate) const SUCCESS_CODE: ExitCode = ExitCode(0);
 pub(crate) const FAILURE_CODE: ExitCode = ExitCode(1);
@@ -36,11 +37,12 @@ pub(crate) struct ExitCode(pub(crate) i32);
 
 pub(crate) fn initialize_log_file() {
     if DEBUG_LOGS {
+        let log_file = env::home_dir().unwrap().join(DEBUG_LOG_PATH);
         LOG_FILE.get_or_init(|| {
             let file = OpenOptions::new()
                 .append(true)
                 .create(true)
-                .open(DEBUG_LOG_FILE)
+                .open(log_file)
                 .unwrap();
             Mutex::new(file)
         });
