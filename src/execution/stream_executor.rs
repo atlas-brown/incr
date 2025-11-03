@@ -76,7 +76,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         }
     };
 
-    save_command_data(config, cache, &child_env, exit_code)
+    save_command_data(config, command, cache, &child_env, exit_code)
 }
 
 fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
@@ -261,6 +261,7 @@ fn output_cached_data(
 
 fn save_command_data(
     config: &Config,
+    command: &Command,
     cache: CacheCursor<'_>,
     child_env: &ChildEnv,
     exit_code: ExitCode,
@@ -276,14 +277,17 @@ fn save_command_data(
     }
     execution::filter_dependencies(&mut read_dependencies, &mut write_set)?;
 
-    fs::rename(&child_env.stdout_file, cache.get_stdout_file())?;
-    fs::rename(&child_env.stderr_file, cache.get_stderr_file())?;
-    cache.save_data(&CacheData {
+    let cache_data = CacheData {
         compressed_output: config.compress,
         exit_code: exit_code.0,
         read_dependencies,
         write_outputs: write_set,
-    })?;
+    };
+
+    fs::rename(&child_env.stdout_file, cache.get_stdout_file())?;
+    fs::rename(&child_env.stderr_file, cache.get_stderr_file())?;
+    cache.save_data(&cache_data)?;
+    execution::save_introspection(config, command, &cache_data)?;
 
     Ok(exit_code)
 }

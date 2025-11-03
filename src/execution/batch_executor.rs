@@ -34,13 +34,14 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 
     cache.clean_sandbox_directory()?;
     cache.clean_data_files()?;
-    let data = match run_command(config, command, &cache, &stdin)? {
+    let cache_data = match run_command(config, command, &cache, &stdin)? {
         CommandResult::Completed(data) => data,
         CommandResult::BrokenPipe => return Ok(BROKEN_PIPE_CODE),
     };
-    cache.save_data(&data)?;
+    cache.save_data(&cache_data)?;
+    execution::save_introspection(config, command, &cache_data)?;
 
-    Ok(ExitCode(data.exit_code))
+    Ok(ExitCode(cache_data.exit_code))
 }
 
 fn run_command(

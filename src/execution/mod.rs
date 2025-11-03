@@ -13,7 +13,7 @@ use zstd::Decoder;
 use crate::cache::{CacheCursor, CacheData, DependencyKey};
 use crate::command::{ChildEnv, Command, EnvType};
 use crate::config::{
-    CHUNK_SIZE, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, IGNORE_COMMANDS, INTROSPECT_DIRECTORY,
+    CHUNK_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, IGNORE_COMMANDS, INTROSPECT_DIRECTORY,
     SKIP_CACHE_CONDITIONS, SKIP_COMMANDS, SKIP_SANDBOX_CONDITIONS, SKIP_TRACE_CONDITIONS, SkipCondition,
     TRACE_FILE, TraceType,
 };
@@ -284,4 +284,9 @@ where
         Err(error) if error.kind() == ErrorKind::BrokenPipe => Ok(false),
         Err(error) => Err(error.into()),
     }
+}
+
+pub(crate) fn save_introspection(config: &Config, command: &Command, cache_data: &CacheData) -> Result<()> {
+    eprintln!("introspection");
+    Ok(())
 }

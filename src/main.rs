@@ -20,7 +20,7 @@ use crate::config::{DEFAULT_CACHE_PATH, DEFAULT_TRY_PATH};
 use crate::execution::{batch_executor, skip_executor, stream_executor};
 use crate::ops::{ExitCode, FAILURE_CODE, SUCCESS_CODE};
 
-const EXECUTOR: Executor = Executor::Stream;
+const EXECUTOR: Executor = Executor::Batch;
 
 #[allow(unused)]
 #[derive(Clone, Copy, Debug)]
