@@ -1,11 +1,14 @@
 use std::fmt::{Display, Error as FormatError, Formatter};
+use std::path::PathBuf;
 
 #[derive(Clone, Debug)]
 pub(crate) struct Config {
-    pub(crate) force_cache: bool,        // Do not skip the command
-    pub(crate) trace_type: TraceType,    // Type of tracing to use
     pub(crate) complete_execution: bool, // Complete after a downstream failure
     pub(crate) compress: bool,           // Whether to compress cached outputs
+    pub(crate) force_cache: bool,        // Do not skip the command
+    pub(crate) try_command: String,      // Bash try command string
+    pub(crate) cache_directory: PathBuf, // Directory to store cache data
+    pub(crate) trace_type: TraceType,    // Type of tracing to use
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

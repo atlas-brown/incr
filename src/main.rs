@@ -11,6 +11,7 @@ use anyhow::{Result, anyhow};
 use clap::Parser;
 use std::collections::HashMap;
 use std::env;
+use std::path::PathBuf;
 use std::process;
 
 use crate::command::Command;
@@ -80,24 +81,29 @@ fn parse_input() -> Result<Option<Input>> {
     }
 
     let (try_command, cache_directory) = match (arguments.try_command, arguments.cache_directory) {
-        (Some(try_command), Some(cache_directory)) => (try_command, cache_directory),
+        (Some(try_command), Some(cache_directory)) => (try_command, PathBuf::from(cache_directory)),
         (try_command, cache_directory) => {
             let home_directory = env::home_dir().ok_or(anyhow!("Could not resolve home directory"))?;
-            let home_directory = ops::path_to_string(&home_directory)?;
             (
-                try_command.unwrap_or(format!("{home_directory}/{DEFAULT_TRY_PATH}")),
-                cache_directory.unwrap_or(format!("{home_directory}/{DEFAULT_CACHE_PATH}")),
+                try_command.unwrap_or(format!(
+                    "{}/{}",
+                    ops::path_to_string(&home_directory)?,
+                    DEFAULT_TRY_PATH,
+                )),
+                home_directory.join(cache_directory.unwrap_or(DEFAULT_CACHE_PATH.to_owned())),
             )
         }
     };
 
     let environment = env::vars().collect::<HashMap<_, _>>();
-    let command = command::get_command(try_command, cache_directory, arguments.command, &environment)?;
+    let command = command::get_command(arguments.command, &environment)?;
     let config = Config {
-        force_cache: arguments.force_cache,
-        trace_type: execution::get_trace_type(&command),
         complete_execution: true, // TODO: add a flag
         compress: true,           // TODO: add a flag
+        force_cache: arguments.force_cache,
+        try_command,
+        cache_directory,
+        trace_type: execution::get_trace_type(&command),
     };
 
     Ok(Some(Input {

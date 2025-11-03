@@ -1,7 +1,6 @@
 use anyhow::{Result, anyhow};
 use std::fs;
 use std::io::{self, ErrorKind, IsTerminal, Read, Write};
-use std::path::Path;
 use std::process::{Child, ChildStdin};
 use std::sync::mpsc;
 use std::thread::{self, JoinHandle};
@@ -42,7 +41,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         return Ok(ExitCode(exit_code));
     }
 
-    let cache = CacheCursor::from_hash(command, stdin_context.hash)?;
+    let cache = CacheCursor::from_hash(config, command, stdin_context.hash)?;
     cache.create_directory()?;
     let cache_status = load_cache_data(&cache, child, &child_env)?;
     let output_lengths = match join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
@@ -75,10 +74,12 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 }
 
 fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
-    let hash = ops::hash_bytes(&ops::encode_to_vec(command)?);
-    let cache_directory = Path::new(&command.cache_directory);
-    let stdout_file = cache_directory.join(format!("stdout_{hash}.incr"));
-    let stderr_file = cache_directory.join(format!("stderr_{hash}.incr"));
+    let stdout_file = config
+        .cache_directory
+        .join(format!("stdout_{}.incr", command.hash));
+    let stderr_file = config
+        .cache_directory
+        .join(format!("stderr_{}.incr", command.hash));
 
     if config.trace_type == TraceType::Nothing {
         return Ok(ChildEnv {
@@ -88,7 +89,7 @@ fn create_child_environment(config: &Config, command: &Command) -> Result<ChildE
         });
     }
     if config.trace_type == TraceType::TraceFile {
-        let trace_file = cache_directory.join(format!("trace_{hash}.txt"));
+        let trace_file = config.cache_directory.join(format!("trace_{}.txt", command.hash));
         return Ok(ChildEnv {
             typ: EnvType::TraceFile(trace_file),
             stdout_file,
@@ -96,7 +97,7 @@ fn create_child_environment(config: &Config, command: &Command) -> Result<ChildE
         });
     }
 
-    let sandbox_directory = cache_directory.join(format!("sandbox_{hash}"));
+    let sandbox_directory = config.cache_directory.join(format!("sandbox_{}", command.hash));
     if sandbox_directory.is_dir() {
         cache::remove_sandbox(&sandbox_directory)?;
     } else if sandbox_directory.is_file() {
