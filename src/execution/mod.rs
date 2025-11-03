@@ -292,11 +292,11 @@ pub(crate) fn save_introspection(config: &Config, command: &Command, cache_data:
 
     let introspect_file = introspect_directory.join(format!("command_{}", command.hash));
     if cache_data.write_outputs.is_empty() {
-        if introspect_file.exists() {
-            fs::remove_file(&introspect_file)?;
+        if !introspect_file.exists() {
+            File::create(&introspect_file)?;
         }
-    } else if !introspect_file.exists() {
-        File::create(&introspect_file)?;
+    } else if introspect_file.exists() {
+        fs::remove_file(&introspect_file)?;
     }
 
     Ok(())
