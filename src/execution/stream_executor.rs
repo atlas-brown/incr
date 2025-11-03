@@ -265,8 +265,8 @@ fn save_command_data(
     child_env: &ChildEnv,
     exit_code: ExitCode,
 ) -> Result<ExitCode> {
-    let (read_set, write_set) = execution::parse_trace(child_env)?;
-    let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
+    let (read_set, mut write_set) = execution::parse_trace(child_env)?;
+    let mut read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
     if let EnvType::Sandbox(directory) = &child_env.typ {
         fs::rename(directory, cache.get_sandbox_directory())?;
         cache.extract_sandbox_output()?;
@@ -274,6 +274,7 @@ fn save_command_data(
             cache.commit_output()?;
         }
     }
+    execution::filter_dependencies(&mut read_dependencies, &mut write_set)?;
 
     fs::rename(&child_env.stdout_file, cache.get_stdout_file())?;
     fs::rename(&child_env.stderr_file, cache.get_stderr_file())?;

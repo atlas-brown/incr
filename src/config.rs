@@ -50,6 +50,7 @@ pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
     "_",
 ];
 pub(crate) const EXCLUDED_PATHS: &[&str] = &["/proc", "pipe:"];
+pub(crate) const DYNAMIC_EXCLUDED_PATHS: &[&str] = &["/tmp"];
 
 #[derive(Clone, Debug)]
 pub(crate) struct Config {

@@ -73,14 +73,15 @@ fn run_command(
         return Ok(CommandResult::BrokenPipe);
     }
 
-    let (read_set, write_set) = execution::parse_trace(&child_env)?;
-    let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
+    let (read_set, mut write_set) = execution::parse_trace(&child_env)?;
+    let mut read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
     if let EnvType::Sandbox(_) = &child_env.typ {
         cache.extract_sandbox_output()?;
         if !write_set.is_empty() {
             cache.commit_output()?;
         }
     }
+    execution::filter_dependencies(&mut read_dependencies, &mut write_set)?;
 
     Ok(CommandResult::Completed(CacheData {
         compressed_output: config.compress,
