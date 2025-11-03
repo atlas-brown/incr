@@ -1,9 +1,9 @@
 mode,script,time_sec
-bash,nginx-1.sh,43.547
-bash,nginx-2.sh,99.188
-bash,nginx-3.sh,104.762
-bash,nginx-4.sh,114.18
-incr,nginx-1.sh,46.645
-incr,nginx-2.sh,75.5
-incr,nginx-3.sh,77.932
-incr,nginx-4.sh,78.294
+bash,nginx-1.sh,45.886
+bash,nginx-2.sh,99.742
+bash,nginx-3.sh,104.258
+bash,nginx-4.sh,111.532
+incr,nginx-1.sh,46.586
+incr,nginx-2.sh,75.718
+incr,nginx-3.sh,75.968
+incr,nginx-4.sh,77.398
