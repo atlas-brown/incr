@@ -97,13 +97,14 @@ fn parse_input() -> Result<Option<Input>> {
 
     let environment = env::vars().collect::<HashMap<_, _>>();
     let command = command::get_command(arguments.command, &environment)?;
+    let trace_type = execution::get_trace_type(&cache_directory, &command);
     let config = Config {
         complete_execution: true, // TODO: add a flag
         compress: true,           // TODO: add a flag
         force_cache: arguments.force_cache,
         try_command,
         cache_directory,
-        trace_type: execution::get_trace_type(&command),
+        trace_type,
     };
 
     Ok(Some(Input {

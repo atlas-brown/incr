@@ -13,8 +13,9 @@ use zstd::Decoder;
 use crate::cache::{CacheCursor, CacheData, DependencyKey};
 use crate::command::{ChildEnv, Command, EnvType};
 use crate::config::{
-    CHUNK_SIZE, EXCLUDED_PATHS, IGNORE_COMMANDS, SKIP_CACHE_CONDITIONS, SKIP_COMMANDS,
-    SKIP_SANDBOX_CONDITIONS, SKIP_TRACE_CONDITIONS, SkipCondition, TRACE_FILE, TraceType,
+    CHUNK_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, IGNORE_COMMANDS, INTROSPECT_DIRECTORY,
+    SKIP_CACHE_CONDITIONS, SKIP_COMMANDS, SKIP_SANDBOX_CONDITIONS, SKIP_TRACE_CONDITIONS, SkipCondition,
+    TRACE_FILE, TraceType,
 };
 use crate::ops;
 use crate::scripts;
@@ -25,7 +26,7 @@ pub(crate) fn skip_command(command: &Command, environment: &HashMap<String, Stri
         || environment.contains_key(&format!("BASH_FUNC_{}%%", command.name))
 }
 
-pub(crate) fn get_trace_type(command: &Command) -> TraceType {
+pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> TraceType {
     if IGNORE_COMMANDS.contains(&command.name.as_str()) || SKIP_COMMANDS.contains(&command.name.as_str()) {
         return TraceType::Nothing;
     }
@@ -41,6 +42,13 @@ pub(crate) fn get_trace_type(command: &Command) -> TraceType {
         .iter()
         .any(|c| check_condition(c, command, &flags, &values, 0))
     {
+        return TraceType::TraceFile;
+    }
+
+    let introspect_file = cache_directory
+        .join(INTROSPECT_DIRECTORY)
+        .join(format!("command_{}.incr", command.hash));
+    if introspect_file.exists() {
         return TraceType::TraceFile;
     }
 
@@ -142,16 +150,40 @@ pub(crate) fn get_read_dependencies(
             continue;
         }
 
-        if !write_set.contains(&path)
-            && let Some(timestamp) = get_modified_timestamp(&path)?
-        {
-            dependencies.insert(path, DependencyKey::Timestamp(timestamp));
+        if !write_set.contains(&path) {
+            if let Some(timestamp) = get_modified_timestamp(&path)? {
+                dependencies.insert(path, DependencyKey::Timestamp(timestamp));
+            }
         } else if let Some(hash) = get_file_hash(&path)? {
             dependencies.insert(path, DependencyKey::Hash(hash));
         }
     }
 
     Ok(dependencies)
+}
+
+pub(crate) fn filter_dependencies(
+    read_dependencies: &mut HashMap<PathBuf, DependencyKey>,
+    write_set: &mut HashSet<PathBuf>,
+) -> Result<()> {
+    let removed = read_dependencies
+        .iter()
+        .filter_map(|(p, k)| {
+            let excluded = DYNAMIC_EXCLUDED_PATHS
+                .iter()
+                .any(|e| ops::path_to_string(p).map(|p| p.starts_with(e)).unwrap_or(false));
+            if excluded && k == &mut DependencyKey::DoesNotExist && !p.exists() {
+                Some(p.clone())
+            } else {
+                None
+            }
+        })
+        .collect::<Vec<_>>();
+    for path in &removed {
+        read_dependencies.remove(path);
+        write_set.remove(path);
+    }
+    Ok(())
 }
 
 fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Result<bool> {
@@ -250,4 +282,22 @@ where
         Err(error) if error.kind() == ErrorKind::BrokenPipe => Ok(false),
         Err(error) => Err(error.into()),
     }
+}
+
+pub(crate) fn save_introspection(config: &Config, command: &Command, cache_data: &CacheData) -> Result<()> {
+    let introspect_directory = config.cache_directory.join(INTROSPECT_DIRECTORY);
+    if !introspect_directory.exists() {
+        fs::create_dir_all(&introspect_directory)?;
+    }
+
+    let introspect_file = introspect_directory.join(format!("command_{}.incr", command.hash));
+    if cache_data.write_outputs.is_empty() {
+        if !introspect_file.exists() {
+            File::create(&introspect_file)?;
+        }
+    } else if introspect_file.exists() {
+        fs::remove_file(&introspect_file)?;
+    }
+
+    Ok(())
 }

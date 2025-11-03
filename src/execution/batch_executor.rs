@@ -34,13 +34,14 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 
     cache.clean_sandbox_directory()?;
     cache.clean_data_files()?;
-    let data = match run_command(config, command, &cache, &stdin)? {
+    let cache_data = match run_command(config, command, &cache, &stdin)? {
         CommandResult::Completed(data) => data,
         CommandResult::BrokenPipe => return Ok(BROKEN_PIPE_CODE),
     };
-    cache.save_data(&data)?;
+    cache.save_data(&cache_data)?;
+    execution::save_introspection(config, command, &cache_data)?;
 
-    Ok(ExitCode(data.exit_code))
+    Ok(ExitCode(cache_data.exit_code))
 }
 
 fn run_command(
@@ -73,14 +74,15 @@ fn run_command(
         return Ok(CommandResult::BrokenPipe);
     }
 
-    let (read_set, write_set) = execution::parse_trace(&child_env)?;
-    let read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
+    let (read_set, mut write_set) = execution::parse_trace(&child_env)?;
+    let mut read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
     if let EnvType::Sandbox(_) = &child_env.typ {
         cache.extract_sandbox_output()?;
         if !write_set.is_empty() {
             cache.commit_output()?;
         }
     }
+    execution::filter_dependencies(&mut read_dependencies, &mut write_set)?;
 
     Ok(CommandResult::Completed(CacheData {
         compressed_output: config.compress,

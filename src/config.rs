@@ -5,6 +5,7 @@ pub(crate) const DEFAULT_TRY_PATH: &str = "incr/src/scripts/try.sh";
 pub(crate) const STRACE_COMMAND: &str = "strace";
 pub(crate) const BASH_COMMAND: &str = "bash";
 pub(crate) const DEFAULT_CACHE_PATH: &str = "incr/cache";
+pub(crate) const INTROSPECT_DIRECTORY: &str = "introspect";
 
 pub(crate) const DATA_FILE: &str = "data";
 pub(crate) const STDOUT_FILE: &str = "stdout.incr";
@@ -19,7 +20,7 @@ pub(crate) const COMMIT_DIRECTORY: &str = "commit";
 pub(crate) const CHUNK_SIZE: usize = 65536;
 pub(crate) const COMPRESSION_LEVEL: i32 = 1;
 pub(crate) const SUDO_SANDBOX: bool = true;
-pub(crate) const DEBUG: bool = true;
+pub(crate) const DEBUG: bool = false;
 pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
 pub(crate) const DEBUG_LOG_PATH: &str = "incr/debug_log.txt";
 
@@ -50,6 +51,7 @@ pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
     "_",
 ];
 pub(crate) const EXCLUDED_PATHS: &[&str] = &["/proc", "pipe:"];
+pub(crate) const DYNAMIC_EXCLUDED_PATHS: &[&str] = &["/tmp"];
 
 #[derive(Clone, Debug)]
 pub(crate) struct Config {

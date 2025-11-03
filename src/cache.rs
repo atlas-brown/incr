@@ -208,7 +208,7 @@ pub(crate) struct CacheData {
     pub(crate) write_outputs: HashSet<PathBuf>,
 }
 
-#[derive(Clone, Debug, Decode, Deserialize, Encode, Serialize)]
+#[derive(Clone, Debug, Decode, Deserialize, Encode, Eq, PartialEq, Serialize)]
 pub(crate) enum DependencyKey {
     DoesNotExist,
     Timestamp(u128),

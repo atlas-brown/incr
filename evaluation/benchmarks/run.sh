@@ -1,7 +1,7 @@
 #!/bin/bash
 cd "$(dirname "$0")" || exit 1
 
-BENCHMARKS=("covid" "dpt" "nginx-analysis" "nlp-bigrams" "nlp-uppercase" "unixfun" "weather" "word-freq" "image_annotation")
+BENCHMARKS=("covid" "dpt" "nginx-analysis" "nlp-bigrams" "nlp-uppercase" "unixfun" "weather" "word-freq")
 MODES=("" "" "" "" "" "" "" "")
 SIZES=("min" "min" "small" "small" "small" "small" "small" "small")
 

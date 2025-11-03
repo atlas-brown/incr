@@ -22,9 +22,12 @@ pub(crate) struct Command {
 }
 
 impl Command {
-    pub(crate) fn join(&self) -> Result<String> {
-        let parts = iter::once(self.name.as_str()).chain(self.arguments.iter().map(|a| a.as_str()));
-        Ok(shlex::try_join(parts)?)
+    pub(crate) fn join_string(&self) -> Result<String> {
+        Ok(shlex::try_join(self.join_sequence())?)
+    }
+
+    pub(crate) fn join_sequence(&self) -> impl Iterator<Item = &str> {
+        iter::once(self.name.as_str()).chain(self.arguments.iter().map(|a| a.as_str()))
     }
 }
 
@@ -151,18 +154,19 @@ fn spawn_child(config: &Config, command: &Command, env: &ChildEnv) -> Result<Chi
                 "--trace=fork,clone,%file",
                 "-o",
                 &format!("/tmp/{TRACE_FILE}"),
-                &command.join()?,
+                &command.join_string()?,
             ]);
         }
         EnvType::TraceFile(file) => {
-            child.args([
+            let mut arguments = vec![
                 "-yf",
                 "--seccomp-bpf",
                 "--trace=fork,clone,%file",
                 "-o",
                 ops::path_to_string(file)?,
-                &command.join()?,
-            ]);
+            ];
+            arguments.extend(command.join_sequence());
+            child.args(&arguments);
         }
         EnvType::Nothing => {
             child.args(&command.arguments);
