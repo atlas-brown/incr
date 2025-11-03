@@ -1,5 +1,5 @@
 mode,script,time_sec
-bash,uppercase_by_token.sh,28.243
-bash,uppercase_by_type.sh,126.289
-incr,uppercase_by_token.sh,34.591
-incr,uppercase_by_type.sh,69.642
+bash,uppercase_by_token.sh,28.24
+bash,uppercase_by_type.sh,146.43
+incr,uppercase_by_token.sh,35.029
+incr,uppercase_by_type.sh,69.123

@@ -1,0 +1,7 @@
+mode,script,time_sec
+bash,image-annotation-1.sh,0.011
+bash,image-annotation-2.sh,0.012
+bash,image-annotation-3.sh,0.011
+bash,image-annotation-4.sh,0.009
+bash,image-annotation-5.sh,0.01
+bash,image-annotation-6.sh,0.009
