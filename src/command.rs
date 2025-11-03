@@ -104,7 +104,12 @@ pub(crate) fn get_command(
 pub(crate) fn spawn_command(config: &Config, command: &Command, env: &ChildEnv) -> Result<ChildContext> {
     if let EnvType::Sandbox(directory) = &env.typ {
         fs::create_dir_all(directory)?;
+    } else if let EnvType::TraceFile(file) = &env.typ
+        && let Some(parent) = file.parent()
+    {
+        fs::create_dir_all(parent)?;
     }
+
     let mut child = spawn_child(config, command, env)?;
     let mut child_stdout = child.stdout.take().unwrap();
     let mut child_stderr = child.stderr.take().unwrap();
@@ -178,12 +183,6 @@ fn spawn_child(config: &Config, command: &Command, env: &ChildEnv) -> Result<Chi
         });
     }
 
-    if let EnvType::TraceFile(file) = &env.typ
-        && let Some(parent) = file.parent()
-    {
-        fs::create_dir_all(parent)?;
-    }
-
     Ok(child.spawn()?)
 }
 
@@ -200,22 +199,22 @@ where
     let file = File::create(capture_file)?;
     let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
     if !config.compress {
-        let output = capture_into_writer(config, source, destination, &mut file_writer);
+        let output = capture_into_stream(config, source, destination, &mut file_writer);
         file_writer.flush()?;
         output
     } else {
         let mut compressed_writer = Encoder::new(file_writer, COMPRESSION_LEVEL)?;
-        let output = capture_into_writer(config, source, destination, &mut compressed_writer);
+        let output = capture_into_stream(config, source, destination, &mut compressed_writer);
         compressed_writer.finish()?.flush()?;
         output
     }
 }
 
-fn capture_into_writer<S, D, W>(
+fn capture_into_stream<S, D, W>(
     config: &Config,
     source: &mut S,
     destination: &mut D,
-    writer: &mut W,
+    stream: &mut W,
 ) -> Result<ChildOutput>
 where
     S: Read,
@@ -240,12 +239,12 @@ where
             }
             destination_broken = true;
             if !config.complete_execution {
-                writer.write_all(&chunk[..count])?;
+                stream.write_all(&chunk[..count])?;
                 return Ok(ChildOutput::BrokenPipe);
             }
         }
 
-        writer.write_all(&chunk[..count])?;
+        stream.write_all(&chunk[..count])?;
         length += count;
     }
 
