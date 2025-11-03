@@ -2,7 +2,7 @@
 cd "$(dirname "$0")" || exit 1
 
 TOP=$(git rev-parse --show-toplevel)
-BENCHMARK="inference"
+BENCHMARK="dpt"
 BENCHMARK_DIR="${TOP}/evaluation/benchmarks/${BENCHMARK}"
 INPUT_DIR="${TOP}/evaluation/benchmarks/${BENCHMARK}/inputs"
 
