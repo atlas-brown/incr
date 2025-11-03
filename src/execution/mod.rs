@@ -45,10 +45,10 @@ pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> Trace
         return TraceType::TraceFile;
     }
 
-    let read_only_marker = cache_directory
+    let introspect_file = cache_directory
         .join(INTROSPECT_DIRECTORY)
         .join(format!("command_{}.incr", command.hash));
-    if read_only_marker.exists() {
+    if introspect_file.exists() {
         return TraceType::TraceFile;
     }
 
@@ -154,10 +154,8 @@ pub(crate) fn get_read_dependencies(
             if let Some(timestamp) = get_modified_timestamp(&path)? {
                 dependencies.insert(path, DependencyKey::Timestamp(timestamp));
             }
-        } else {
-            if let Some(hash) = get_file_hash(&path)? {
-                dependencies.insert(path, DependencyKey::Hash(hash));
-            }
+        } else if let Some(hash) = get_file_hash(&path)? {
+            dependencies.insert(path, DependencyKey::Hash(hash));
         }
     }
 
@@ -287,6 +285,19 @@ where
 }
 
 pub(crate) fn save_introspection(config: &Config, command: &Command, cache_data: &CacheData) -> Result<()> {
-    eprintln!("introspection");
+    let introspect_directory = config.cache_directory.join(INTROSPECT_DIRECTORY);
+    if !introspect_directory.exists() {
+        fs::create_dir_all(&introspect_directory)?;
+    }
+
+    let introspect_file = introspect_directory.join(format!("command_{}", command.hash));
+    if cache_data.write_outputs.is_empty() {
+        if introspect_file.exists() {
+            fs::remove_file(&introspect_file)?;
+        }
+    } else if !introspect_file.exists() {
+        File::create(&introspect_file)?;
+    }
+
     Ok(())
 }
