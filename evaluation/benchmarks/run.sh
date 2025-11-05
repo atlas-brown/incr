@@ -1,9 +1,21 @@
 #!/bin/bash
 cd "$(dirname "$0")" || exit 1
 
-BENCHMARKS=("covid" "dpt" "file-mod" "nginx-analysis" "nlp-uppercase" "nlp-ngrams" "poet" "unixfun" "weather" "word-freq")
-SIZES=("min" "min" "small" "small" "small" "small" "small" "small" "small" "small")
-MODES=("" "" "" "" "" "" "" "" "" "")
+BENCHMARKS=(
+    "covid"
+    "dpt"
+    "file-mod"
+    "nginx-analysis"
+    "nlp-uppercase"
+    "nlp-ngrams"
+    "poet"
+    "spell"
+    "unixfun"
+    "weather"
+    "word-freq"
+)
+SIZES=("min" "min" "small" "small" "small" "small" "small" "small" "small" "small" "small")
+MODES=("" "" "" "" "" "" "" "" "" "" "")
 
 rm -rf ../results
 mkdir -p ../results
