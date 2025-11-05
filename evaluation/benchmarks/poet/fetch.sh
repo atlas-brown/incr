@@ -32,6 +32,12 @@ if [ ! -f ./exodus ]; then
     curl --insecure -sf ${URL}/gutenberg/3/3/4/2/33420/33420-0.txt > exodus
 fi
 
+file_size() {
+    stat -c%s -- "$1" 2>/dev/null || \
+    stat -f%z -- "$1" 2>/dev/null || \
+    wc -c < "$1"
+}
+
 if [[ "$size" == "small" ]]; then
     if [ ! -e ./pg-small ]; then
         data_url="${URL}/nlp/pg-small.tar.gz"
@@ -42,11 +48,17 @@ if [[ "$size" == "small" ]]; then
         fi
         tar -xzf pg-small.tar.gz
         rm pg-small.tar.gz
-        # Double the number of books by copying the books inside pg-small
-        cp -r pg-small pg-small-copy
-        mv pg-small-copy/* pg-small/
-        rm -rf pg-small-copy
     fi
+    input_dir="$input_dir/pg-small"
+    touch "$input_dir/book.txt"
+    for book in "$input_dir"/*; do
+        if [[ "$book" != "$input_dir/book.txt" ]]; then
+            if (( $(file_size "$input_dir/book.txt") < 200 * 1024 * 1024 )); then
+                cat "$book" >> "$input_dir/book.txt"
+            fi
+            rm "$book"
+        fi
+    done
     exit 0
 elif [[ "$size" == "min" ]]; then
     if [ ! -e ./pg-min ]; then
