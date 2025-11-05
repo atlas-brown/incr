@@ -38,24 +38,16 @@ if [[ "$size" == "small" ]]; then
             exit 1
         }
         rm "$zip_dst"
+        input_dir="$INPUT_DIR/jpg.small/jpg"
+        total=0
+        for image in "$input_dir"/*; do
+            if (( total + 1 <= 10 )); then
+                total=$(( total + 1 ))
+            else
+                rm -f -- "$image"
+            fi
+        done
     fi
-    # if [[ -d "$INPUT_DIR/songs.small" ]]; then
-    #     echo "Song already downloaded and extracted."
-    #     exit 0
-    # fi
-    # data_url="${URL}/llm/playlist_small.tar.gz"
-    # wget --no-check-certificate $data_url -O "$INPUT_DIR"/playlist_small.tar.gz || {
-    #     echo "Failed to download $data_url"
-    #     exit 1
-    # }
-    # tar -xzf "$INPUT_DIR/playlist_small.tar.gz" -C "$INPUT_DIR" || {
-    #     echo "Failed to extract $INPUT_DIR/playlist_small.tar.gz"
-    #     exit 1
-    # }
-    # rm "$INPUT_DIR/playlist_small.tar.gz"
-    # mv "$INPUT_DIR/playlist_small" "$INPUT_DIR/songs.small"
-    # exit 0
-
 elif [[ "$size" == "min" ]]; then
     if [[ -d "$INPUT_DIR/jpg.min" ]]; then
         echo "Image data already downloaded and extracted."
