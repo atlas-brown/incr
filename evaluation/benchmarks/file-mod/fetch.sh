@@ -32,6 +32,7 @@ if [[ "$size" == "small" ]]; then
     for song in "$input_dir"/*; do
         if (( total + 1 <= 1 )); then
             total=$(( total + 1 ))
+            (cd -- "$song" && ls -1 | sort | tail -n +11 | xargs rm --)
         else
             rm -rf -- "$song"
         fi
