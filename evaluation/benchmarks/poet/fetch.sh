@@ -50,13 +50,14 @@ if [[ "$size" == "small" ]]; then
         rm pg-small.tar.gz
     fi
     input_dir="$input_dir/pg-small"
-    touch "$input_dir/book.txt"
+    limit=$((200 * 1024 * 1024))
+    total=0
     for book in "$input_dir"/*; do
-        if [[ "$book" != "$input_dir/book.txt" ]]; then
-            if (( $(file_size "$input_dir/book.txt") < 200 * 1024 * 1024 )); then
-                cat "$book" >> "$input_dir/book.txt"
-            fi
-            rm "$book"
+        size=$(file_size "$book")
+        if (( total + size <= limit )); then
+            total=$(( total + size ))
+        else
+            rm -f -- "$book"
         fi
     done
     exit 0
