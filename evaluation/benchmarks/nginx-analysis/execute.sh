@@ -18,7 +18,8 @@ for arg in "$@"; do
 done
 INPUT="${BENCHMARK_DIR}/inputs/nginx-logs_${size}"
 
-SCRIPTS=("nginx-1.sh"
+SCRIPTS=(
+    "nginx-1.sh"
     "nginx-2.sh"
     "nginx-3.sh"
     "nginx-4.sh"

@@ -3,6 +3,7 @@
 
 pure_func() {
     logfile=$1
+    tempfile=$2
 
     awk '{print $9}' $logfile | sort | uniq -c | sort -rn
     awk '($9 ~ /404/)' $logfile | awk '{print $7}' | sort | uniq -c | sort -rn
@@ -16,5 +17,6 @@ pure_func() {
 export -f pure_func
 
 for log in $INPUT/*; do
-    pure_func "$log"
+    tempfile=$(mktemp)
+    pure_func "$log" "$tempfile"
 done

@@ -1,9 +1,9 @@
 #!/bin/bash
 cd "$(dirname "$0")" || exit 1
 
-BENCHMARKS=("covid" "dpt" "nginx-analysis" "nlp-uppercase" "nlp-ngrams" "poet" "unixfun" "weather" "word-freq")
+BENCHMARKS=("covid" "dpt" "file-mod" "nginx-analysis" "nlp-uppercase" "nlp-ngrams" "poet" "unixfun" "weather" "word-freq")
 MODES=("" "" "" "" "" "" "" "" "")
-SIZES=("min" "min" "small" "small" "small" "small" "small" "small" "small")
+SIZES=("min" "min" "small" "small" "small" "small" "small" "small" "small" "small")
 
 rm -rf ../results
 mkdir -p ../results
