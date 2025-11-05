@@ -36,7 +36,6 @@ SCRIPTS=(
     "nginx-15.sh"
     "nginx-16.sh"
     "nginx-17.sh"
-    "nginx-17.sh"
     "nginx-18.sh"
     "nginx-19.sh"
     "nginx-20.sh"
@@ -74,10 +73,10 @@ measure_time() {
 }
 
 # Baseline: bash
-for script in "${SCRIPTS[@]}"; do
-    echo "Running ${script} with bash..."
-    measure_time "bash" $script
-done
+#for script in "${SCRIPTS[@]}"; do
+#    echo "Running ${script} with bash..."
+#    measure_time "bash" $script
+#done
 
 # Incremental run: incr
 for script in "${SCRIPTS[@]}"; do
