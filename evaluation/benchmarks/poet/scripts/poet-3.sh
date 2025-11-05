@@ -1,9 +1,9 @@
 input_dir="$IN"
 output_dir="$OUT"
-input_file="$OUT/all.txt"
+input_file="$OUT/all.$mode.txt"
 find "$input_dir" -type f -exec cat {} + > "$input_file"
-freq_out="$output_dir/freq.txt"
-alpha_out="$output_dir/alpha.txt"
+freq_out="$output_dir/freq.$mode.txt"
+alpha_out="$output_dir/alpha.$mode.txt"
 
 # Sort by frequency
 tr -sc 'A-Za-z' '\012' < "$input_file" |

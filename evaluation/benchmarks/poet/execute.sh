@@ -39,6 +39,7 @@ measure_time() {
         cmd="bash ${SCRIPT_DIR}/${script}"
     fi
 
+    export mode=$mode
     time_output=$({ time $cmd >"$out_file" 2>"$err_file"; } 2>&1)
 
     # Extract the real time and convert to seconds
@@ -53,10 +54,10 @@ export IN="${INPUT_DIR}/pg${suffix}"
 export OUT="${OUTPUT_DIR}"
 
 # Baseline: bash
-for script in "${SCRIPTS[@]}"; do
-    echo "Running ${script} with bash..."
-    measure_time "bash" $script 
-done
+#for script in "${SCRIPTS[@]}"; do
+#    echo "Running ${script} with bash..."
+#    measure_time "bash" $script 
+#done
 
 # Incremental run: incr
 for script in "${SCRIPTS[@]}"; do

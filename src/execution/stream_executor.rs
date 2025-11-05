@@ -1,4 +1,5 @@
 use anyhow::{Result, anyhow};
+use rand::Rng;
 use std::fs;
 use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 use std::process::{Child, ChildStdin};
@@ -32,7 +33,7 @@ struct Outputs {
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    let child_env = create_child_environment(config, command)?;
+    let child_env = create_child_environment(config)?;
     let ChildContext {
         mut child,
         stdout_thread,
@@ -79,13 +80,10 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     save_command_data(config, command, cache, &child_env, exit_code)
 }
 
-fn create_child_environment(config: &Config, command: &Command) -> Result<ChildEnv> {
-    let stdout_file = config
-        .cache_directory
-        .join(format!("stdout_{}.incr", command.hash));
-    let stderr_file = config
-        .cache_directory
-        .join(format!("stderr_{}.incr", command.hash));
+fn create_child_environment(config: &Config) -> Result<ChildEnv> {
+    let hash = rand::rng().random_range(0..u64::MAX);
+    let stdout_file = config.cache_directory.join(format!("stdout_{hash}.incr"));
+    let stderr_file = config.cache_directory.join(format!("stderr_{hash}.incr"));
 
     if config.trace_type == TraceType::Nothing {
         return Ok(ChildEnv {
@@ -95,7 +93,7 @@ fn create_child_environment(config: &Config, command: &Command) -> Result<ChildE
         });
     }
     if config.trace_type == TraceType::TraceFile {
-        let trace_file = config.cache_directory.join(format!("trace_{}.txt", command.hash));
+        let trace_file = config.cache_directory.join(format!("trace_{hash}.txt"));
         return Ok(ChildEnv {
             typ: EnvType::TraceFile(trace_file),
             stdout_file,
@@ -103,7 +101,7 @@ fn create_child_environment(config: &Config, command: &Command) -> Result<ChildE
         });
     }
 
-    let sandbox_directory = config.cache_directory.join(format!("sandbox_{}", command.hash));
+    let sandbox_directory = config.cache_directory.join(format!("sandbox_{hash}"));
     if sandbox_directory.is_dir() {
         cache::remove_sandbox(&sandbox_directory)?;
     } else if sandbox_directory.is_file() {
