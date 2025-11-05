@@ -1,5 +1,0 @@
-mode,script,time_sec
-bash,bigrams.sh,75.552
-bash,bigrams_appear_twice.sh,91.152
-incr,bigrams.sh,80.511
-incr,bigrams_appear_twice.sh,7.216

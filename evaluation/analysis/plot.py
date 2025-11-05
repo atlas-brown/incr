@@ -7,9 +7,12 @@ from matplotlib.patches import Patch
 BENCHMARKS = [
     "covid",
     "dpt",
+    "file-mod",
     "nginx-analysis",
-    "nlp-bigrams",
+    "nlp-ngrams",
     "nlp-uppercase",
+    "poet",
+    "spell",
     "unixfun",
     "weather",
     "word-freq",
@@ -89,9 +92,9 @@ mode_patches = [
 ]
 
 # Combine legends (iteration colors + mode)
-legend1 = axes.legend(handles=iter_patches, title="Iteration", loc="upper left")
-axes.add_artist(legend1)  # Add iteration legend first
-axes.legend(handles=mode_patches, title="Mode", loc="upper right")
+#legend1 = figure.legend(handles=iter_patches, title="Iteration", loc="upper right")
+#figure.add_artist(legend1)  # Add iteration legend first
+figure.legend(handles=mode_patches, title="Mode", loc="upper right")
 
 figure.tight_layout()
 figure.savefig("plot.png", bbox_inches="tight")

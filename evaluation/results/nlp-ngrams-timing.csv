@@ -1,0 +1,7 @@
+mode,script,time_sec
+bash,ngrams-1.sh,28.935
+bash,ngrams-2.sh,77.67
+bash,ngrams-3.sh,79.106
+incr,ngrams-1.sh,40.16
+incr,ngrams-2.sh,63.915
+incr,ngrams-3.sh,6.718
