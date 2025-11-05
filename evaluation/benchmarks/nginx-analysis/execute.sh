@@ -42,7 +42,6 @@ SCRIPTS=(
     "nginx-20.sh"
     "nginx-21.sh"
     "nginx-22.sh"
-    "nginx-23.sh"
 )
 
 TIME_FILE="${OUTPUT_DIR}/timing.csv"

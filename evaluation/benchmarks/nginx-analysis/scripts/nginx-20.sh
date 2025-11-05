@@ -3,7 +3,6 @@
 
 pure_func() {
     logfile=$1
-    tempfile=$2
 
     awk '{print $9}' $logfile | sort | uniq -c | sort -rn
     awk '($9 ~ /404/)' $logfile | awk '{print $7}' | sort | uniq -c | sort -rn
@@ -12,11 +11,10 @@ pure_func() {
     awk '($9 ~ /404/)' $logfile | awk -F\" '($2 ~ "^GET .*.php")' | awk '{print $7}' | head -n 20
 
     awk -F\" '{print $2}' $logfile | awk '{print $2}' | sort | uniq -c | sort -r
-    awk -F\" '($2 ~ "ref"){print $2}' $tempfile | awk '{print $2}' | sort | uniq -c | sort -r
+    awk -F\" '($2 ~ "ref"){print $2}' $logfile | awk '{print $2}' | sort | uniq -c | sort -r
 }
 export -f pure_func
 
 for log in $INPUT/*; do
-    tempfile=$(mktemp)
-    pure_func "$log" "$tempfile"
+    pure_func "$log"
 done
