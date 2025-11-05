@@ -30,7 +30,7 @@ if [[ "$size" == "small" ]]; then
     input_dir="$INPUT_DIR/songs.small"
     total=0
     for song in "$input_dir"/*; do
-        if (( total + 1 <= 2 )); then
+        if (( total + 1 <= 1 )); then
             total=$(( total + 1 ))
         else
             rm -rf -- "$song"
