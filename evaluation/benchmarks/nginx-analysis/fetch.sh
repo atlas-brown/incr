@@ -35,7 +35,7 @@ elif [[ "$size" == "small" ]]; then
                 rm "$log"
             fi
         done
-        for i in {1..3}; do
+        for i in {1..2}; do
             cp "$input_dir/log0" "$input_dir/dup"
             cat "$input_dir/dup" >> "$input_dir/log0"
             rm "$input_dir/dup"
