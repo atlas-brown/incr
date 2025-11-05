@@ -27,6 +27,15 @@ if [[ "$size" == "small" ]]; then
     tar -xzf "$INPUT_DIR/playlist_small.tar.gz" -C "$INPUT_DIR"
     rm "$INPUT_DIR/playlist_small.tar.gz"
     mv "$INPUT_DIR/playlist_small" "$INPUT_DIR/songs.small"
+    input_dir="$INPUT_DIR/songs.small"
+    total=0
+    for song in "$input_dir"/*; do
+        if (( total + 1 <= 2 )); then
+            total=$(( total + 1 ))
+        else
+            rm -rf -- "$song"
+        fi
+    done
     exit 0
 elif [[ "$size" == "min" ]]; then
     if [[ -d "$INPUT_DIR/jpg.min" ]]; then
