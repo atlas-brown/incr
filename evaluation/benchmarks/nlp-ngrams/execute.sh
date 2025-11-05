@@ -3,7 +3,7 @@ cd "$(dirname "$0")" || exit 1
 
 TOP=$(git rev-parse --show-toplevel)
 EVAL_DIR="${TOP}/evaluation"
-BENCHMARK="nlp-bigrams"
+BENCHMARK="nlp-ngrams"
 BENCHMARK_DIR="${EVAL_DIR}/benchmarks/${BENCHMARK}"
 SCRIPT_DIR="${BENCHMARK_DIR}/scripts"
 OUTPUT_DIR="${BENCHMARK_DIR}/outputs"

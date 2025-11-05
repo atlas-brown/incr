@@ -2,7 +2,7 @@
 cd "$(dirname "$0")" || exit 1
 
 TOP=$(git rev-parse --show-toplevel)
-BENCHMARK="nlp-bigrams"
+BENCHMARK="nlp-ngrams"
 INPUT_DIR="${TOP}/evaluation/benchmarks/${BENCHMARK}/inputs"
 
 URL="https://atlas.cs.brown.edu/data"
