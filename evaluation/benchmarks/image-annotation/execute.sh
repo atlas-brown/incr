@@ -3,7 +3,7 @@ cd "$(dirname "$0")" || exit 1
 
 TOP=$(git rev-parse --show-toplevel)
 EVAL_DIR="${TOP}/evaluation"
-BENCHMARK="image_annotation"
+BENCHMARK="image-annotation"
 BENCHMARK_DIR="${EVAL_DIR}/benchmarks/${BENCHMARK}"
 SCRIPT_DIR="${BENCHMARK_DIR}/scripts"
 INPUT_DIR="${BENCHMARK_DIR}/inputs"
