@@ -36,6 +36,11 @@ if [ ! -f ./dict.txt ]; then
     wget -O - "$URL"/dummy/dict.txt --no-check-certificate | sort >dict.txt
 fi
 
+file_size() {
+    stat -c%s -- "$1" 2>/dev/null || \
+    stat -f%z -- "$1" 2>/dev/null || \
+    wc -c < "$1"
+}
 
 if [[ "$size" == "small" ]]; then
     if [ ! -e ./pg-small ]; then
@@ -47,6 +52,17 @@ if [[ "$size" == "small" ]]; then
         fi
         tar -xzf pg-small.tar.gz
         rm pg-small.tar.gz
+        input_dir="$input_dir/pg-small"
+        limit=$((500 * 1024 * 1024))
+        total=0
+        for book in "$input_dir"/*; do
+            size=$(file_size "$book")
+            if (( total + size <= limit )); then
+                total=$(( total + size ))
+            else
+                rm -f -- "$book"
+            fi
+        done
     fi
     exit 0
 elif [[ "$size" == "min" ]]; then
