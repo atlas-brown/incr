@@ -47,16 +47,6 @@ if [[ "$size" == "small" ]]; then
         fi
         tar -xzf pg-small.tar.gz
         rm pg-small.tar.gz
-
-        for f in pg-small/*; do
-            base=$(basename "$f")
-            cp "$f" "pg-small/d_$base"
-        done
-
-        for f in pg-small/*; do
-            base=$(basename "$f")
-            cp "$f" "pg-small/d_$base"
-        done
     fi
     exit 0
 elif [[ "$size" == "min" ]]; then

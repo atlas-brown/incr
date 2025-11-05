@@ -2,16 +2,16 @@
 cd "$(dirname "$0")" || exit 1
 
 BENCHMARKS=("covid" "dpt" "file-mod" "nginx-analysis" "nlp-uppercase" "nlp-ngrams" "poet" "unixfun" "weather" "word-freq")
-MODES=("" "" "" "" "" "" "" "" "")
 SIZES=("min" "min" "small" "small" "small" "small" "small" "small" "small" "small")
+MODES=("" "" "" "" "" "" "" "" "" "")
 
 rm -rf ../results
 mkdir -p ../results
 
 for i in "${!BENCHMARKS[@]}"; do
     benchmark="${BENCHMARKS[$i]}"
-    mode="${MODES[$i]}"
     size="${SIZES[$i]}"
+    mode="${MODES[$i]}"
 
     echo "Running $benchmark '$mode' $size"
     sudo bash "./$benchmark/clean.sh"
