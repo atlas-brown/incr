@@ -16,5 +16,6 @@ mogrify -resize 1024x1024\> "$IMG_DIR"/*.jpg
 for img in "$IMG_DIR"/*.jpg; do
     cat "$img" | python3 scripts/segment.py |
     python3 scripts/classify.py "$img" |
-    awk -vi="$img" '{print "g:", $5, "c:", $6, i}' 
+    awk -vi="$img" '{print "g:", $5, "c:", $6, i}'
+    break
 done | sort > "$DB_FILE"
