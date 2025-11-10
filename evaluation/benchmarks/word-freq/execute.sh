@@ -12,7 +12,7 @@ mkdir -p "$OUTPUT_DIR"
 size=full
 for arg in "$@"; do
     case "$arg" in
-    --small) size=10M ;;
+    --small) size=30M ;;
     --min) size=10M ;;
     esac
 done
