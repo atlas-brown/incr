@@ -2,8 +2,8 @@
 cd "$(dirname "$0")" || exit 1
 
 BENCHMARKS=(
+    "beginner"
     "covid"
-    "dpt"
     "file-mod"
     "nginx-analysis"
     "nlp-uppercase"
@@ -14,8 +14,19 @@ BENCHMARKS=(
     "weather"
     "word-freq"
 )
-SIZES=("min" "min" "small" "small" "small" "small" "small" "small" "small" "small" "small")
-MODES=("" "" "" "" "" "" "" "" "" "" "")
+SIZES=(
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+)
 
 rm -rf ../results
 mkdir -p ../results
@@ -23,7 +34,7 @@ mkdir -p ../results
 for i in "${!BENCHMARKS[@]}"; do
     benchmark="${BENCHMARKS[$i]}"
     size="${SIZES[$i]}"
-    mode="${MODES[$i]}"
+    mode=""
 
     echo "Running $benchmark '$mode' $size"
     sudo bash "./$benchmark/clean.sh"

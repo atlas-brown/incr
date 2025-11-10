@@ -17,7 +17,8 @@ for arg in "$@"; do
     esac
 done
 
-export IMG_DIR="${BENCHMARK_DIR}/inputs/dpt${suffix}"
+export IMG_DIR="${BENCHMARK_DIR}/inputs"
+export OUTPUT_DIR="$OUTPUT_DIR"
 
 SCRIPTS=("dpt_1.sh" "dpt_2.sh" "dpt_3.sh" "dpt_4.sh" "dpt_5.sh")
 
@@ -32,6 +33,8 @@ measure_time() {
     local err_file="${OUTPUT_DIR}/${script}.${mode}.err"
     local time_output
     local cmd
+
+    export MODE="$mode"
 
     if [[ "$mode" == "incr" ]]; then
         cache_dir="${BENCHMARK_DIR}/cache"

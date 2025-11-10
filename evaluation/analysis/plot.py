@@ -5,8 +5,8 @@ import matplotlib
 from matplotlib.patches import Patch
 
 BENCHMARKS = [
+    "beginner",
     "covid",
-    "dpt",
     "file-mod",
     "nginx-analysis",
     "nlp-ngrams",

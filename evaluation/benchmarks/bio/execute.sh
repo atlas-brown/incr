@@ -1,7 +1,15 @@
 #!/bin/bash
+cd "$(dirname "$0")" || exit 1
 
-# create bam files with regions
-################### 1KG SAMPLES
+TOP=$(git rev-parse --show-toplevel)
+EVAL_DIR="${TOP}/evaluation"
+BENCHMARK="bio"
+BENCHMARK_DIR="${EVAL_DIR}/benchmarks/${BENCHMARK}"
+SCRIPT_DIR="${BENCHMARK_DIR}/scripts"
+OUTPUT_DIR="${BENCHMARK_DIR}/outputs"
+INPUT_DIR="${BENCHMARK_DIR}/inputs"
+mkdir -p "$OUTPUT_DIR"
+
 IN="inputs/bio-full"
 IN_NAME="inputs/bio-full/input.txt"
 OUT="outputs"
@@ -18,6 +26,10 @@ for arg in "$@"; do
             ;;
     esac
 done
+
+IN="${BENCHMARK_DIR}/$IN"
+IN_NAME="${BENCHMARK_DIR}/$IN_NAME"
+OUT="${BENCHMARK_DIR}/$OUT"
 
 SCRIPTS=("bio-1.sh" "bio-2.sh" "bio-3.sh" "bio-4.sh" "bio-5.sh" "bio-6.sh")
 
