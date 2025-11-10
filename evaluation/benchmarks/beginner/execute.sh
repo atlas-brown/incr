@@ -19,7 +19,22 @@ for arg in "$@"; do
 done
 INPUT="${BENCHMARK_DIR}/inputs/nginx-logs_${size}"
 
-SCRIPTS=("beginner-1.sh" "beginner-2.sh" "beginner-3.sh" "beginner-4.sh" "beginner-5.sh" "beginner-6.sh" "beginner-7.sh" "beginner-8.sh" "beginner-9.sh" "beginner-10.sh" "beginner-11.sh" "beginner-12.sh" "beginner-13.sh" "beginner-14.sh")
+SCRIPTS=(
+    "beginner-01.sh"
+    "beginner-02.sh"
+    "beginner-03.sh"
+    "beginner-04.sh" 
+    "beginner-05.sh"
+    "beginner-06.sh" 
+    "beginner-07.sh"
+    "beginner-08.sh"
+    "beginner-09.sh"
+    "beginner-10.sh"
+    "beginner-11.sh"
+    "beginner-12.sh"
+    "beginner-13.sh"
+    "beginner-14.sh"
+)
 
 TIME_FILE="${OUTPUT_DIR}/timing.csv"
 echo "mode,script,time_sec" > "$TIME_FILE"
