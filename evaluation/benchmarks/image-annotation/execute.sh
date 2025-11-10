@@ -22,11 +22,6 @@ export IMG_DIR="${BENCHMARK_DIR}/inputs/jpg${suffix}/jpg"
 
 SCRIPTS=(
     "image-annotation-1.sh"
-    "image-annotation-2.sh"
-    "image-annotation-3.sh"
-    "image-annotation-4.sh"
-    "image-annotation-5.sh"
-    "image-annotation-6.sh"
 )
 
 TIME_FILE="${OUTPUT_DIR}/timing.csv"
@@ -64,10 +59,10 @@ export IN="$INPUT_DIR/jpg$suffix/jpg"
 export OUT="$OUTPUT_DIR"
 
 # Baseline: bash
-for script in "${SCRIPTS[@]}"; do
-    echo "Running ${script} with bash..."
-    measure_time "bash" $script
-done
+#for script in "${SCRIPTS[@]}"; do
+#    echo "Running ${script} with bash..."
+#    measure_time "bash" $script
+#done
 
 # Incremental run: incr
 for script in "${SCRIPTS[@]}"; do
