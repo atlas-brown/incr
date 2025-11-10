@@ -15,7 +15,20 @@ BENCHMARKS=(
     "weather"
     "word-freq"
 )
-SIZES=("small" "min" "min" "small" "small" "small" "small" "small" "small" "small" "small" "small")
+SIZES=(
+    "small"
+    "small"
+    "min"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+)
 
 rm -rf ../results
 mkdir -p ../results
