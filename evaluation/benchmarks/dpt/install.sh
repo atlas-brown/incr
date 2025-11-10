@@ -13,32 +13,12 @@ sudo apt-get install -y --no-install-recommends \
     ffmpeg \
     coreutils findutils wget sed unzip curl jq coreutils findutils sed unzip curl imagemagick
 
-
 pip install  --upgrade pip
-pip install  llm
-pip install  llm-interpolate
-pip install  llm-clap
-pip install  llm-ollama
 
-pip install  numpy \
+pip install numpy \
     torch \
     torchvision \
     Pillow \
     segment-anything \
     tensorflow \
     opencv-python
-
-# check if ollama is installed
-# if ! command -v ollama &> /dev/null
-# then
-#     echo "Ollama could not be found, installing..."
-#     curl -fsSL https://ollama.com/install.sh | sh
-# else
-#     echo "Ollama is already installed."
-# fi
-# ollama serve > /dev/null 2>&1 &
-# sleep 5
-# ollama pull moondream:latest
-
-# ollama_pid=$(pgrep ollama)
-# kill $ollama_pid

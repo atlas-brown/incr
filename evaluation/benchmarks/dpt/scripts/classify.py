@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import json
 import os
 import sys
@@ -59,7 +61,7 @@ class Classifier:
         Returns:
             tuple[int, float]: Predicted class index and confidence score.
         """
-        prediction = self.model.predict(self.preprocess_image(image))
+        prediction = self.model.predict(self.preprocess_image(image), verbose=0)
         predicted_class_index = np.argmax(prediction, axis=1)[0]
         confidence = float(prediction[0][predicted_class_index])
         return predicted_class_index, confidence
