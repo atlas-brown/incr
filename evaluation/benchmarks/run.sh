@@ -4,7 +4,6 @@ cd "$(dirname "$0")" || exit 1
 BENCHMARKS=(
     "beginner"
     "covid"
-    "dpt"
     "file-mod"
     "nginx-analysis"
     "nlp-uppercase"
@@ -18,7 +17,6 @@ BENCHMARKS=(
 SIZES=(
     "small"
     "small"
-    "min"
     "small"
     "small"
     "small"

@@ -52,7 +52,7 @@ elif [[ "$size" == "min" ]]; then
     if [[ -d "$INPUT_DIR/jpg.min" ]]; then
         echo "Image data already downloaded and extracted."
     else
-        cp -r "${BENCHMARK_DIR}"/min_inputs/jpg.min "$INPUT_DIR"
+        cp -r "${BENCHMARK_DIR}"/min_inputs "$INPUT_DIR"/jpg.min
     fi
 else
     if [[ -d "$INPUT_DIR/jpg" ]]; then
