@@ -65,6 +65,7 @@ measure_time() {
 export IN
 export OUT
 export IN_NAME
+cp ./Gene_locs.txt scripts
 
 # Baseline: bash
 for script in "${SCRIPTS[@]}"; do
