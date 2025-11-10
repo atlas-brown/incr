@@ -17,7 +17,6 @@ for img in $(find "$IMG_DIR" -type f -name '*.jpg' | sort); do
     python3 scripts/classify.py "$img" |
     tee "$CLASS_FILE" |
     awk -vi="$img" '{print "g:", $5, "c:", $6, i}'
-    break
 done | sort > "$DB_FILE"
 
 python plot.py "$CLASS_FILE"

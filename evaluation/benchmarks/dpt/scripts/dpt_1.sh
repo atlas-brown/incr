@@ -17,5 +17,4 @@ for img in "$IMG_DIR"/*.jpg; do
     cat "$img" | python3 scripts/segment.py |
     python3 scripts/classify.py "$img" |
     awk '{print "g:", $5, "c:", $6}'
-    break
 done | sort > "$DB_FILE"
