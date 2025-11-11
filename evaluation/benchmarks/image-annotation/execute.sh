@@ -18,6 +18,7 @@ for arg in "$@"; do
     esac
 done
 
+llm --no-log -m "gpt-4o-mini" "Respond with the single word 'ok'"
 export IMG_DIR="${BENCHMARK_DIR}/inputs/jpg${suffix}/jpg"
 
 SCRIPTS=(
@@ -40,6 +41,8 @@ measure_time() {
     local err_file="${OUTPUT_DIR}/${script}.${mode}.err"
     local time_output
     local cmd
+
+    export mode="$mode"
 
     if [[ "$mode" == "incr" ]]; then
         cache_dir="${BENCHMARK_DIR}/cache"

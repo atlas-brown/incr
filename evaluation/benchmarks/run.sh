@@ -5,6 +5,7 @@ BENCHMARKS=(
     "beginner"
     "covid"
     "file-mod"
+    "image-annotation"
     "nginx-analysis"
     "nlp-uppercase"
     "nlp-ngrams"
@@ -15,6 +16,7 @@ BENCHMARKS=(
     "word-freq"
 )
 SIZES=(
+    "small"
     "small"
     "small"
     "small"
@@ -48,8 +50,10 @@ for i in "${!BENCHMARKS[@]}"; do
     sleep 0.01
 
     if [[ "$mode" == "" ]]; then
-        cp "./$benchmark/outputs/timing.csv" "../results/$benchmark-timing.csv"
+        cp "./$benchmark/outputs/timing.csv" "../results/$benchmark-time.csv"
+        du -sb "./$benchmark/cache" > "../results/$benchmark-size.csv"
     else
-        cp "./$benchmark/outputs/timing.csv" "../results/$benchmark-$mode-timing.csv"
+        cp "./$benchmark/outputs/timing.csv" "../results/$benchmark-time.csv"
+        du -sb "./$benchmark/cache" > "../results/$benchmark-size.csv"
     fi
 done
