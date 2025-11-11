@@ -78,7 +78,7 @@ axes.set_title("Benchmark Runtimes per Iteration (Stacked)")
 # Iteration colors
 # get the max number of iterations across all benchmarks
 num_iters = max(
-    pd.read_csv(f"../results/{benchmark}-timing.csv")["mode"].value_counts().max()
+    pd.read_csv(f"../results/{benchmark}-time.csv")["mode"].value_counts().max()
     for benchmark in BENCHMARKS
 )
 iter_patches = [
