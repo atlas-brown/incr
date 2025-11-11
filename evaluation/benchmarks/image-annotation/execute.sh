@@ -18,7 +18,7 @@ for arg in "$@"; do
     esac
 done
 
-llm logs path
+llm --no-log -m "gpt-4o-mini" "Respond with the single word 'ok'"
 export IMG_DIR="${BENCHMARK_DIR}/inputs/jpg${suffix}/jpg"
 
 SCRIPTS=(

@@ -8,6 +8,7 @@ BENCHMARKS = [
     "beginner",
     "covid",
     "file-mod",
+    "image-annotation",
     "nginx-analysis",
     "nlp-ngrams",
     "nlp-uppercase",
@@ -24,7 +25,7 @@ width = 0.35  # Bar width
 all_colors = matplotlib.colormaps.get_cmap("tab10")
 
 for i, benchmark in enumerate(BENCHMARKS):
-    data = pd.read_csv(f"../results/{benchmark}-timing.csv")
+    data = pd.read_csv(f"../results/{benchmark}-time.csv")
 
     # Get per-iteration times
     bash_times = data[data["mode"] == "bash"]["time_sec"].values
