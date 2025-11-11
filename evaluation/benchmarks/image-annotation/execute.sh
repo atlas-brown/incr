@@ -18,10 +18,16 @@ for arg in "$@"; do
     esac
 done
 
+llm logs path
 export IMG_DIR="${BENCHMARK_DIR}/inputs/jpg${suffix}/jpg"
 
 SCRIPTS=(
     "image-annotation-1.sh"
+    "image-annotation-2.sh"
+    "image-annotation-3.sh"
+    "image-annotation-4.sh"
+    "image-annotation-5.sh"
+    "image-annotation-6.sh"
 )
 
 TIME_FILE="${OUTPUT_DIR}/timing.csv"
