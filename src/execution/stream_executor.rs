@@ -7,7 +7,7 @@ use std::sync::mpsc;
 use std::thread::{self, JoinHandle};
 use xxhash_rust::xxh3::Xxh3;
 
-use crate::cache::{self, CacheCursor, CacheData};
+use crate::cache::batch_cache::{self, CacheCursor, CacheData};
 use crate::command::{self, ChildContext, ChildEnv, ChildOutput, Command, EnvType};
 use crate::config::{CHUNK_SIZE, Config, TraceType};
 use crate::execution;
@@ -103,7 +103,7 @@ fn create_child_environment(config: &Config) -> Result<ChildEnv> {
 
     let sandbox_directory = config.cache_directory.join(format!("sandbox_{hash}"));
     if sandbox_directory.is_dir() {
-        cache::remove_sandbox(&sandbox_directory)?;
+        batch_cache::remove_sandbox(&sandbox_directory)?;
     } else if sandbox_directory.is_file() {
         fs::remove_file(&sandbox_directory)?;
     }
@@ -120,7 +120,7 @@ fn clean_child_environment(child_env: &ChildEnv) -> Result<()> {
     ops::ignore_not_found(fs::remove_file(&child_env.stdout_file))?;
     ops::ignore_not_found(fs::remove_file(&child_env.stderr_file))?;
     match &child_env.typ {
-        EnvType::Sandbox(directory) => cache::remove_sandbox(directory)?,
+        EnvType::Sandbox(directory) => batch_cache::remove_sandbox(directory)?,
         EnvType::TraceFile(file) => ops::ignore_not_found(fs::remove_file(file))?,
         EnvType::Nothing => (),
     }

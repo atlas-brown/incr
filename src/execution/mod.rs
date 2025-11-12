@@ -10,7 +10,7 @@ use std::path::{Path, PathBuf};
 use std::time::UNIX_EPOCH;
 use zstd::Decoder;
 
-use crate::cache::{CacheCursor, CacheData, DependencyKey};
+use crate::cache::batch_cache::{CacheCursor, CacheData, DependencyKey};
 use crate::command::{ChildEnv, Command, EnvType};
 use crate::config::{
     CHUNK_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, IGNORE_COMMANDS, INTROSPECT_DIRECTORY,

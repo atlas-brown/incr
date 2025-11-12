@@ -1,6 +1,5 @@
 cache
+!/src/cache
 debug_log.txt
-/koala
 /target
 /venv
-*.cfg
