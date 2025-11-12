@@ -2,7 +2,7 @@ use anyhow::{Result, anyhow};
 use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 
 use crate::cache::batch_cache::{CacheCursor, CacheData};
-use crate::command::{self, ChildContext, ChildEnv, ChildOutput, Command, EnvType};
+use crate::command::{self, ChildContext, ChildOutput, Command, Runtime, RuntimeType};
 use crate::config::{Config, TraceType};
 use crate::execution;
 use crate::ops::{BROKEN_PIPE_CODE, ExitCode, debug_log};
@@ -50,12 +50,12 @@ fn run_command(
     cache: &CacheCursor<'_>,
     stdin: &[u8],
 ) -> Result<CommandResult> {
-    let child_env = create_child_environment(config, cache);
+    let runtime = create_child_runtime(config, cache);
     let ChildContext {
         mut child,
         stdout_thread,
         stderr_thread,
-    } = command::spawn_command(config, command, &child_env)?;
+    } = command::spawn_command(config, command, &runtime)?;
 
     {
         let mut child_stdin = child.stdin.take().unwrap();
@@ -70,13 +70,13 @@ fn run_command(
     let stdout_result = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let stderr_result = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     if stdout_result == ChildOutput::BrokenPipe || stderr_result == ChildOutput::BrokenPipe {
-        clean_child_environment(cache, &child_env)?;
+        clean_child_runtime(cache, &runtime)?;
         return Ok(CommandResult::BrokenPipe);
     }
 
-    let (read_set, mut write_set) = execution::parse_trace(&child_env)?;
+    let (read_set, mut write_set) = execution::parse_trace(&runtime)?;
     let mut read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
-    if let EnvType::Sandbox(_) = &child_env.typ {
+    if let RuntimeType::Sandbox(_) = &runtime.typ {
         cache.extract_sandbox_output()?;
         if !write_set.is_empty() {
             cache.commit_output()?;
@@ -92,24 +92,24 @@ fn run_command(
     }))
 }
 
-fn create_child_environment(config: &Config, cache: &CacheCursor<'_>) -> ChildEnv {
-    ChildEnv {
+fn create_child_runtime(config: &Config, cache: &CacheCursor<'_>) -> Runtime {
+    Runtime {
         typ: match config.trace_type {
-            TraceType::Sandbox => EnvType::Sandbox(cache.get_sandbox_directory()),
-            TraceType::TraceFile => EnvType::TraceFile(cache.get_trace_file()),
-            TraceType::Nothing => EnvType::Nothing,
+            TraceType::Sandbox => RuntimeType::Sandbox(cache.get_sandbox_directory()),
+            TraceType::TraceFile => RuntimeType::TraceFile(cache.get_trace_file()),
+            TraceType::Nothing => RuntimeType::Nothing,
         },
         stdout_file: cache.get_stdout_file(),
         stderr_file: cache.get_stderr_file(),
     }
 }
 
-fn clean_child_environment(cache: &CacheCursor<'_>, child_env: &ChildEnv) -> Result<()> {
+fn clean_child_runtime(cache: &CacheCursor<'_>, runtime: &Runtime) -> Result<()> {
     cache.clean_output_files()?;
-    match &child_env.typ {
-        EnvType::Sandbox(_) => cache.clean_sandbox_directory()?,
-        EnvType::TraceFile(_) => cache.clean_trace_file()?,
-        EnvType::Nothing => (),
+    match &runtime.typ {
+        RuntimeType::Sandbox(_) => cache.clean_sandbox_directory()?,
+        RuntimeType::TraceFile(_) => cache.clean_trace_file()?,
+        RuntimeType::Nothing => (),
     }
     Ok(())
 }

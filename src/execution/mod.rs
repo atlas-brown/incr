@@ -11,7 +11,7 @@ use std::time::UNIX_EPOCH;
 use zstd::Decoder;
 
 use crate::cache::batch_cache::{CacheCursor, CacheData, DependencyKey};
-use crate::command::{ChildEnv, Command, EnvType};
+use crate::command::{Command, Runtime, RuntimeType};
 use crate::config::{
     CHUNK_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, IGNORE_COMMANDS, INTROSPECT_DIRECTORY,
     SKIP_CACHE_CONDITIONS, SKIP_COMMANDS, SKIP_SANDBOX_CONDITIONS, SKIP_TRACE_CONDITIONS, SkipCondition,
@@ -112,11 +112,11 @@ pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Re
     Ok(true)
 }
 
-pub(crate) fn parse_trace(child_env: &ChildEnv) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
-    let trace_file = match &child_env.typ {
-        EnvType::Sandbox(directory) => &directory.join("upperdir").join("tmp").join(TRACE_FILE),
-        EnvType::TraceFile(file) => file,
-        EnvType::Nothing => return Ok((HashSet::new(), HashSet::new())),
+pub(crate) fn parse_trace(runtime: &Runtime) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
+    let trace_file = match &runtime.typ {
+        RuntimeType::Sandbox(directory) => &directory.join("upperdir").join("tmp").join(TRACE_FILE),
+        RuntimeType::TraceFile(file) => file,
+        RuntimeType::Nothing => return Ok((HashSet::new(), HashSet::new())),
     };
     let (mut read_set, mut write_set) = scripts::parse_trace(trace_file).unwrap();
     fs::remove_file(trace_file)?;

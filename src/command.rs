@@ -39,14 +39,14 @@ struct CommandKey<'c> {
 }
 
 #[derive(Clone, Debug)]
-pub(crate) struct ChildEnv {
-    pub(crate) typ: EnvType,
+pub(crate) struct Runtime {
+    pub(crate) typ: RuntimeType,
     pub(crate) stdout_file: PathBuf,
     pub(crate) stderr_file: PathBuf,
 }
 
 #[derive(Clone, Debug)]
-pub(crate) enum EnvType {
+pub(crate) enum RuntimeType {
     Sandbox(PathBuf),
     TraceFile(PathBuf),
     Nothing,
@@ -104,27 +104,27 @@ pub(crate) fn get_command(
     })
 }
 
-pub(crate) fn spawn_command(config: &Config, command: &Command, env: &ChildEnv) -> Result<ChildContext> {
-    if let EnvType::Sandbox(directory) = &env.typ {
+pub(crate) fn spawn_command(config: &Config, command: &Command, runtime: &Runtime) -> Result<ChildContext> {
+    if let RuntimeType::Sandbox(directory) = &runtime.typ {
         fs::create_dir_all(directory)?;
-    } else if let EnvType::TraceFile(file) = &env.typ
+    } else if let RuntimeType::TraceFile(file) = &runtime.typ
         && let Some(parent) = file.parent()
     {
         fs::create_dir_all(parent)?;
     }
 
-    let mut child = spawn_child(config, command, env)?;
+    let mut child = spawn_child(config, command, runtime)?;
     let mut child_stdout = child.stdout.take().unwrap();
     let mut child_stderr = child.stderr.take().unwrap();
 
     let stdout_thread = thread::spawn({
         let config = config.clone();
-        let stdout_file = env.stdout_file.clone();
+        let stdout_file = runtime.stdout_file.clone();
         move || capture_stream(&config, &mut child_stdout, &mut io::stdout(), &stdout_file)
     });
     let stderr_thread = thread::spawn({
         let config = config.clone();
-        let stderr_file = env.stderr_file.clone();
+        let stderr_file = runtime.stderr_file.clone();
         move || capture_stream(&config, &mut child_stderr, &mut io::stderr(), &stderr_file)
     });
 
@@ -135,16 +135,16 @@ pub(crate) fn spawn_command(config: &Config, command: &Command, env: &ChildEnv) 
     })
 }
 
-fn spawn_child(config: &Config, command: &Command, env: &ChildEnv) -> Result<Child> {
-    let shell_command = match &env.typ {
-        EnvType::Sandbox(_) => &config.try_command,
-        EnvType::TraceFile(_) => STRACE_COMMAND,
-        EnvType::Nothing => &command.name,
+fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<Child> {
+    let shell_command = match &runtime.typ {
+        RuntimeType::Sandbox(_) => &config.try_command,
+        RuntimeType::TraceFile(_) => STRACE_COMMAND,
+        RuntimeType::Nothing => &command.name,
     };
     let mut child = ShellCommand::new(shell_command);
 
-    match &env.typ {
-        EnvType::Sandbox(directory) => {
+    match &runtime.typ {
+        RuntimeType::Sandbox(directory) => {
             child.args([
                 "-D",
                 ops::path_to_string(directory)?,
@@ -157,7 +157,7 @@ fn spawn_child(config: &Config, command: &Command, env: &ChildEnv) -> Result<Chi
                 &command.join_string()?,
             ]);
         }
-        EnvType::TraceFile(file) => {
+        RuntimeType::TraceFile(file) => {
             let mut arguments = vec![
                 "-yf",
                 "--seccomp-bpf",
@@ -168,7 +168,7 @@ fn spawn_child(config: &Config, command: &Command, env: &ChildEnv) -> Result<Chi
             arguments.extend(command.join_sequence());
             child.args(&arguments);
         }
-        EnvType::Nothing => {
+        RuntimeType::Nothing => {
             child.args(&command.arguments);
         }
     };
