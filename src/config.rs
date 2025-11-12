@@ -17,9 +17,11 @@ pub(crate) const SANDBOX_DIRECTORY: &str = "sandbox";
 pub(crate) const OUTPUT_DIRECTORY: &str = "outputs";
 pub(crate) const COMMIT_DIRECTORY: &str = "commit";
 
-pub(crate) const CHUNK_SIZE: usize = 65536;
+pub(crate) const CHUNK_SIZE: usize = 1_000_000;
 pub(crate) const COMPRESSION_LEVEL: i32 = 1;
+pub(crate) const BUFFER_SIZE: usize = 65_536;
 pub(crate) const SUDO_SANDBOX: bool = true;
+
 pub(crate) const DEBUG: bool = true;
 pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
 pub(crate) const DEBUG_LOG_PATH: &str = "incr/debug_log.txt";

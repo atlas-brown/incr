@@ -7,9 +7,9 @@ use std::sync::mpsc;
 use std::thread::{self, JoinHandle};
 use xxhash_rust::xxh3::Xxh3;
 
-use crate::cache::{self, CacheCursor, CacheData};
-use crate::command::{self, ChildContext, ChildEnv, ChildOutput, Command, EnvType};
-use crate::config::{CHUNK_SIZE, Config, TraceType};
+use crate::cache::batch_cache::{self, CacheCursor, CacheData};
+use crate::command::{self, ChildContext, ChildOutput, Command, Runtime, RuntimeType};
+use crate::config::{BUFFER_SIZE, Config, TraceType};
 use crate::execution;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
@@ -33,24 +33,24 @@ struct Outputs {
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    let child_env = create_child_environment(config)?;
+    let runtime = create_child_runtime(config)?;
     let ChildContext {
         mut child,
         stdout_thread,
         stderr_thread,
-    } = command::spawn_command(config, command, &child_env)?;
+    } = command::spawn_command(config, command, &runtime)?;
 
     let stdin_context = forward_stdin(child.stdin.take().unwrap())?;
     if execution::skip_cache(command, stdin_context.length) {
         join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)?;
         let exit_code = child.wait()?.code().unwrap();
-        clean_child_environment(&child_env)?;
+        clean_child_runtime(&runtime)?;
         return Ok(ExitCode(exit_code));
     }
 
     let cache = CacheCursor::from_hash(config, command, stdin_context.hash)?;
     cache.create_directory()?;
-    let cache_status = load_cache_data(&cache, child, &child_env)?;
+    let cache_status = load_cache_data(&cache, child, &runtime)?;
     let outputs = match join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
         Some(lengths) => lengths,
         None => return Ok(BROKEN_PIPE_CODE),
@@ -77,52 +77,52 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         }
     };
 
-    save_command_data(config, command, cache, &child_env, exit_code)
+    save_command_data(config, command, cache, &runtime, exit_code)
 }
 
-fn create_child_environment(config: &Config) -> Result<ChildEnv> {
-    let hash = rand::rng().random_range(0..u64::MAX);
-    let stdout_file = config.cache_directory.join(format!("stdout_{hash}.incr"));
-    let stderr_file = config.cache_directory.join(format!("stderr_{hash}.incr"));
+fn create_child_runtime(config: &Config) -> Result<Runtime> {
+    let key = rand::rng().random_range(0..u64::MAX);
+    let stdout_file = config.cache_directory.join(format!("stdout_{key}.incr"));
+    let stderr_file = config.cache_directory.join(format!("stderr_{key}.incr"));
 
     if config.trace_type == TraceType::Nothing {
-        return Ok(ChildEnv {
-            typ: EnvType::Nothing,
+        return Ok(Runtime {
+            typ: RuntimeType::Nothing,
             stdout_file,
             stderr_file,
         });
     }
     if config.trace_type == TraceType::TraceFile {
-        let trace_file = config.cache_directory.join(format!("trace_{hash}.txt"));
-        return Ok(ChildEnv {
-            typ: EnvType::TraceFile(trace_file),
+        let trace_file = config.cache_directory.join(format!("trace_{key}.txt"));
+        return Ok(Runtime {
+            typ: RuntimeType::TraceFile(trace_file),
             stdout_file,
             stderr_file,
         });
     }
 
-    let sandbox_directory = config.cache_directory.join(format!("sandbox_{hash}"));
+    let sandbox_directory = config.cache_directory.join(format!("sandbox_{key}"));
     if sandbox_directory.is_dir() {
-        cache::remove_sandbox(&sandbox_directory)?;
+        batch_cache::remove_sandbox(&sandbox_directory)?;
     } else if sandbox_directory.is_file() {
         fs::remove_file(&sandbox_directory)?;
     }
     fs::create_dir_all(&sandbox_directory)?;
 
-    Ok(ChildEnv {
-        typ: EnvType::Sandbox(sandbox_directory),
+    Ok(Runtime {
+        typ: RuntimeType::Sandbox(sandbox_directory),
         stdout_file,
         stderr_file,
     })
 }
 
-fn clean_child_environment(child_env: &ChildEnv) -> Result<()> {
-    ops::ignore_not_found(fs::remove_file(&child_env.stdout_file))?;
-    ops::ignore_not_found(fs::remove_file(&child_env.stderr_file))?;
-    match &child_env.typ {
-        EnvType::Sandbox(directory) => cache::remove_sandbox(directory)?,
-        EnvType::TraceFile(file) => ops::ignore_not_found(fs::remove_file(file))?,
-        EnvType::Nothing => (),
+fn clean_child_runtime(runtime: &Runtime) -> Result<()> {
+    ops::ignore_not_found(fs::remove_file(&runtime.stdout_file))?;
+    ops::ignore_not_found(fs::remove_file(&runtime.stderr_file))?;
+    match &runtime.typ {
+        RuntimeType::Sandbox(directory) => batch_cache::remove_sandbox(directory)?,
+        RuntimeType::TraceFile(file) => ops::ignore_not_found(fs::remove_file(file))?,
+        RuntimeType::Nothing => (),
     }
     Ok(())
 }
@@ -154,7 +154,7 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
         Ok(())
     });
 
-    let mut chunk = [0; CHUNK_SIZE];
+    let mut chunk = [0; BUFFER_SIZE];
     let mut hasher = Xxh3::new();
     let mut length = 0;
     loop {
@@ -176,7 +176,7 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
     })
 }
 
-fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, child_env: &ChildEnv) -> Result<CacheStatus> {
+fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, runtime: &Runtime) -> Result<CacheStatus> {
     let cached_data = match cache.load_data()? {
         Some(cached_data) => {
             if execution::check_cache_valid(cache, &cached_data)? {
@@ -194,7 +194,7 @@ fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, child_env: &ChildE
                 command::kill_child(&child)?;
                 child.wait()?;
             }
-            clean_child_environment(child_env)?;
+            clean_child_runtime(runtime)?;
             Ok(CacheStatus::Valid(cached_data))
         }
         None => {
@@ -261,12 +261,12 @@ fn save_command_data(
     config: &Config,
     command: &Command,
     cache: CacheCursor<'_>,
-    child_env: &ChildEnv,
+    runtime: &Runtime,
     exit_code: ExitCode,
 ) -> Result<ExitCode> {
-    let (read_set, mut write_set) = execution::parse_trace(child_env)?;
+    let (read_set, mut write_set) = execution::parse_trace(runtime)?;
     let mut read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
-    if let EnvType::Sandbox(directory) = &child_env.typ {
+    if let RuntimeType::Sandbox(directory) = &runtime.typ {
         fs::rename(directory, cache.get_sandbox_directory())?;
         cache.extract_sandbox_output()?;
         if !write_set.is_empty() {
@@ -282,8 +282,8 @@ fn save_command_data(
         write_outputs: write_set,
     };
 
-    fs::rename(&child_env.stdout_file, cache.get_stdout_file())?;
-    fs::rename(&child_env.stderr_file, cache.get_stderr_file())?;
+    fs::rename(&runtime.stdout_file, cache.get_stdout_file())?;
+    fs::rename(&runtime.stderr_file, cache.get_stderr_file())?;
     cache.save_data(&cache_data)?;
     execution::save_introspection(config, command, &cache_data)?;
 

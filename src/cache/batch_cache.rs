@@ -9,7 +9,7 @@ use std::process::{Command as ShellCommand, Stdio};
 
 use crate::command::Command;
 use crate::config::{
-    CHUNK_SIZE, COMMIT_DIRECTORY, Config, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY, SANDBOX_DIRECTORY,
+    BUFFER_SIZE, COMMIT_DIRECTORY, Config, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY, SANDBOX_DIRECTORY,
     STDERR_FILE, STDOUT_FILE, SUDO_SANDBOX, TRACE_FILE,
 };
 use crate::ops;
@@ -92,7 +92,7 @@ impl<'c> CacheCursor<'c> {
         fs::create_dir_all(&self.directory)?;
         if DEBUG {
             let file = File::create(self.directory.join(DEBUG_FILE))?;
-            let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
+            let mut file_writer = BufWriter::with_capacity(BUFFER_SIZE, file);
             serde_json::to_writer_pretty(&mut file_writer, &self.debug_info)?;
             file_writer.flush()?;
         }
