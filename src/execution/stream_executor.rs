@@ -33,24 +33,24 @@ struct Outputs {
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    let child_env = create_child_runtime(config)?;
+    let runtime = create_child_runtime(config)?;
     let ChildContext {
         mut child,
         stdout_thread,
         stderr_thread,
-    } = command::spawn_command(config, command, &child_env)?;
+    } = command::spawn_command(config, command, &runtime)?;
 
     let stdin_context = forward_stdin(child.stdin.take().unwrap())?;
     if execution::skip_cache(command, stdin_context.length) {
         join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)?;
         let exit_code = child.wait()?.code().unwrap();
-        clean_child_runtime(&child_env)?;
+        clean_child_runtime(&runtime)?;
         return Ok(ExitCode(exit_code));
     }
 
     let cache = CacheCursor::from_hash(config, command, stdin_context.hash)?;
     cache.create_directory()?;
-    let cache_status = load_cache_data(&cache, child, &child_env)?;
+    let cache_status = load_cache_data(&cache, child, &runtime)?;
     let outputs = match join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
         Some(lengths) => lengths,
         None => return Ok(BROKEN_PIPE_CODE),
@@ -77,7 +77,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         }
     };
 
-    save_command_data(config, command, cache, &child_env, exit_code)
+    save_command_data(config, command, cache, &runtime, exit_code)
 }
 
 fn create_child_runtime(config: &Config) -> Result<Runtime> {
