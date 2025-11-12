@@ -75,14 +75,14 @@ IGNORE_COMMANDS = [
     "mount",
     "printenv",
     "sleep",
+    "stat",
     "stty",
     "sync",
     "touch",
     "umount",
     "yes",
 ]
-SKIP_COMMANDS = []
-AVOID_SET = set(IGNORE_COMMANDS + SKIP_COMMANDS)
+AVOID_SET = set(IGNORE_COMMANDS)
 
 # Monkey patch
 # TODO: Fix this in libdash

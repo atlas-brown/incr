@@ -104,12 +104,14 @@ pub(crate) const IGNORE_COMMANDS: &[&str] = &[
     "mount",
     "printenv",
     "sleep",
+    "stat",
     "stty",
     "sync",
     "touch",
     "umount",
     "yes",
 ];
+
 pub(crate) const PURE_COMMANDS: &[Condition] = &[];
 pub(crate) const STATELESS_COMMANDS: &[Condition] = &[];
 pub(crate) const READ_ONLY_COMMANDS: &[Condition] = &[];
