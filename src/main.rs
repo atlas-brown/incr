@@ -65,7 +65,7 @@ fn run() -> Result<ExitCode> {
         Some(input) => (input.config, input.command, input.environment),
         None => return Ok(SUCCESS_CODE),
     };
-    if !config.force_cache && execution::skip_command(&command, &environment) {
+    if !config.force_cache && annotation::skip_command(&command, &environment) {
         return Err(skip_executor::run(&command));
     }
     let result = match EXECUTOR {

@@ -7,7 +7,7 @@ from shasta.json_to_ast import to_ast_node
 
 # Ensure these match config.rs
 IGNORE_COMMANDS = [
-    # Commands from compgen -b
+    # Built-in commands from `compgen -b`
     "alias",
     "bg",
     "bind",
@@ -66,20 +66,23 @@ IGNORE_COMMANDS = [
     "unalias",
     "unset",
     "wait",
-    # Additional commands
+    # Additional untraced metadata commands
     "chgrp",
     "chmod",
     "chown",
     "env",
     "ln",
+    "mount",
     "printenv",
     "sleep",
+    "stat",
     "stty",
     "sync",
+    "touch",
+    "umount",
     "yes",
 ]
-SKIP_COMMANDS = []
-AVOID_SET = set(IGNORE_COMMANDS + SKIP_COMMANDS)
+AVOID_SET = set(IGNORE_COMMANDS)
 
 # Monkey patch
 # TODO: Fix this in libdash

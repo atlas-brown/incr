@@ -26,83 +26,6 @@ pub(crate) const DEBUG: bool = true;
 pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
 pub(crate) const DEBUG_LOG_PATH: &str = "incr/debug_log.txt";
 
-pub(crate) const IGNORE_COMMANDS: &[&str] = &[
-    // Commands from compgen -b
-    "alias",
-    "bg",
-    "bind",
-    "break",
-    "builtin",
-    "caller",
-    "cd",
-    "command",
-    "compgen",
-    "complete",
-    "compopt",
-    "continue",
-    "declare",
-    "dirs",
-    "disown",
-    "echo",
-    "enable",
-    "eval",
-    "exec",
-    "exit",
-    "export",
-    "false",
-    "fc",
-    "fg",
-    "getopts",
-    "hash",
-    "help",
-    "history",
-    "jobs",
-    "kill",
-    "let",
-    "local",
-    "logout",
-    "mapfile",
-    "popd",
-    "printf",
-    "pushd",
-    "pwd",
-    "read",
-    "readarray",
-    "readonly",
-    "return",
-    "set",
-    "shift",
-    "shopt",
-    "source",
-    "suspend",
-    "test",
-    "times",
-    "trap",
-    "true",
-    "type",
-    "typeset",
-    "ulimit",
-    "umask",
-    "unalias",
-    "unset",
-    "wait",
-    // Additional commands
-    "chgrp",
-    "chmod",
-    "chown",
-    "env",
-    "ln",
-    "printenv",
-    "sleep",
-    "stty",
-    "sync",
-    "yes",
-];
-pub(crate) const SKIP_COMMANDS: &[&str] = &[];
-pub(crate) const SKIP_CACHE_CONDITIONS: &[SkipCondition] = &[];
-pub(crate) const SKIP_TRACE_CONDITIONS: &[SkipCondition] = &[];
-pub(crate) const SKIP_SANDBOX_CONDITIONS: &[SkipCondition] = &[];
-
 pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
     "GIT_ASKPASS",
     "SHLVL",
@@ -146,51 +69,6 @@ impl Display for TraceType {
             Self::Sandbox => write!(formatter, "Sandbox"),
             Self::TraceFile => write!(formatter, "TraceFile"),
             Self::Nothing => write!(formatter, "Nothing"),
-        }
-    }
-}
-
-#[derive(Clone, Debug)]
-pub(crate) struct SkipCondition {
-    pub(crate) name: &'static str,
-    pub(crate) disallowed_flags: &'static [&'static str],
-    pub(crate) max_arguments: usize,
-    pub(crate) max_input: usize,
-}
-
-impl SkipCondition {
-    #[allow(unused)]
-    const fn with_name(name: &'static str) -> Self {
-        Self {
-            name,
-            disallowed_flags: &[],
-            max_arguments: usize::MAX,
-            max_input: usize::MAX,
-        }
-    }
-
-    #[allow(unused)]
-    const fn with_disallowed_flags(name: &'static str, disallowed_flags: &'static [&'static str]) -> Self {
-        Self {
-            name,
-            disallowed_flags,
-            max_arguments: usize::MAX,
-            max_input: usize::MAX,
-        }
-    }
-
-    #[allow(unused)]
-    const fn with_conditions(
-        name: &'static str,
-        disallowed_flags: &'static [&'static str],
-        max_arguments: usize,
-        max_input: usize,
-    ) -> Self {
-        Self {
-            name,
-            disallowed_flags,
-            max_arguments,
-            max_input,
         }
     }
 }

@@ -10,38 +10,19 @@ use std::path::{Path, PathBuf};
 use std::time::UNIX_EPOCH;
 use zstd::Decoder;
 
+use crate::annotation;
 use crate::cache::batch_cache::{CacheCursor, CacheData, DependencyKey};
 use crate::command::{Command, Runtime, RuntimeType};
 use crate::config::{
-    BUFFER_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, IGNORE_COMMANDS, INTROSPECT_DIRECTORY,
-    SKIP_CACHE_CONDITIONS, SKIP_COMMANDS, SKIP_SANDBOX_CONDITIONS, SKIP_TRACE_CONDITIONS, SkipCondition,
-    TRACE_FILE, TraceType,
+    BUFFER_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, INTROSPECT_DIRECTORY, TRACE_FILE, TraceType,
 };
 use crate::ops;
 use crate::scripts;
 
-pub(crate) fn skip_command(command: &Command, environment: &HashMap<String, String>) -> bool {
-    IGNORE_COMMANDS.contains(&command.name.as_str())
-        || SKIP_COMMANDS.contains(&command.name.as_str())
-        || environment.contains_key(&format!("BASH_FUNC_{}%%", command.name))
-}
-
 pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> TraceType {
-    if IGNORE_COMMANDS.contains(&command.name.as_str()) || SKIP_COMMANDS.contains(&command.name.as_str()) {
+    if annotation::check_pure(command) {
         return TraceType::Nothing;
-    }
-
-    let (flags, values) = parse_arguments(&command.arguments);
-    if SKIP_TRACE_CONDITIONS
-        .iter()
-        .any(|c| check_condition(c, command, &flags, &values, 0))
-    {
-        return TraceType::Nothing;
-    }
-    if SKIP_SANDBOX_CONDITIONS
-        .iter()
-        .any(|c| check_condition(c, command, &flags, &values, 0))
-    {
+    } else if annotation::check_stateless(command) || annotation::check_read_only(command) {
         return TraceType::TraceFile;
     }
 
@@ -53,53 +34,6 @@ pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> Trace
     }
 
     TraceType::Sandbox
-}
-
-pub(crate) fn skip_cache(command: &Command, stdin_length: usize) -> bool {
-    if IGNORE_COMMANDS.contains(&command.name.as_str()) || SKIP_COMMANDS.contains(&command.name.as_str()) {
-        return true;
-    }
-    let (flags, values) = parse_arguments(&command.arguments);
-    SKIP_CACHE_CONDITIONS
-        .iter()
-        .any(|c| check_condition(c, command, &flags, &values, stdin_length))
-}
-
-fn parse_arguments(arguments: &[String]) -> (HashSet<String>, Vec<String>) {
-    let mut flags = HashSet::new();
-    let mut values = Vec::new();
-    for argument in arguments {
-        if argument.starts_with("--") && argument.len() >= 3 {
-            match argument.find("=") {
-                Some(index) => flags.insert(argument[2..index].to_lowercase()),
-                None => flags.insert(argument[2..].to_lowercase()),
-            };
-        } else if !argument.starts_with("--") && argument.starts_with("-") && argument.len() >= 2 {
-            if argument.len() >= 3 && &argument[2..3] == "=" {
-                flags.insert(argument[1..2].to_lowercase());
-            } else {
-                for f in 1..argument.len() {
-                    flags.insert(argument[f..f + 1].to_lowercase());
-                }
-            }
-        } else {
-            values.push(argument.clone());
-        }
-    }
-    (flags, values)
-}
-
-fn check_condition(
-    condition: &SkipCondition,
-    command: &Command,
-    flags: &HashSet<String>,
-    values: &[String],
-    stdin_length: usize,
-) -> bool {
-    condition.name == command.name
-        && !condition.disallowed_flags.iter().any(|&f| flags.contains(f))
-        && values.len() <= condition.max_arguments
-        && stdin_length <= condition.max_input
 }
 
 pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {
