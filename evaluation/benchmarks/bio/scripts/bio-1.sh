@@ -2,7 +2,7 @@
 
 mkdir -p "$OUT"
 
-sample="HG01941"
+sample="HG00421"
 
 samtools view -H "${IN}/${sample}.bam" \
   | sed -e 's/SN:\([0-9XY]\)/SN:chr\1/' -e 's/SN:MT/SN:chrM/' \
