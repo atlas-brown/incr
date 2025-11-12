@@ -16,7 +16,6 @@ use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 #[derive(Debug)]
 struct StdinContext {
     hash: u64,
-    length: usize,
     thread: Option<JoinHandle<Result<()>>>,
 }
 
@@ -126,7 +125,6 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
     if process_stdin.is_terminal() {
         return Ok(StdinContext {
             hash: ops::hash_bytes(&[]),
-            length: 0,
             thread: None,
         });
     }
@@ -150,7 +148,6 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
 
     let mut chunk = [0; BUFFER_SIZE];
     let mut hasher = Xxh3::new();
-    let mut length = 0;
     loop {
         let count = match process_stdin.read(&mut chunk) {
             Ok(0) => break,
@@ -160,12 +157,10 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
         };
         send_channel.send(chunk[..count].to_vec())?;
         hasher.update(&chunk[..count]);
-        length += count;
     }
 
     Ok(StdinContext {
         hash: hasher.digest(),
-        length,
         thread: Some(stdin_thread),
     })
 }
