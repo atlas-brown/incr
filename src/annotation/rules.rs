@@ -1,3 +1,40 @@
+#[derive(Clone, Debug)]
+pub(crate) struct Condition {
+    pub(crate) name: &'static str,
+    pub(crate) disallowed_flags: &'static [&'static str],
+    pub(crate) max_arguments: usize,
+}
+
+impl Condition {
+    const fn with_name(name: &'static str) -> Self {
+        Self {
+            name,
+            disallowed_flags: &[],
+            max_arguments: usize::MAX,
+        }
+    }
+
+    const fn with_disallowed_flags(name: &'static str, disallowed_flags: &'static [&'static str]) -> Self {
+        Self {
+            name,
+            disallowed_flags,
+            max_arguments: usize::MAX,
+        }
+    }
+
+    const fn with_conditions(
+        name: &'static str,
+        disallowed_flags: &'static [&'static str],
+        max_arguments: usize,
+    ) -> Self {
+        Self {
+            name,
+            disallowed_flags,
+            max_arguments,
+        }
+    }
+}
+
 pub(crate) const IGNORE_COMMANDS: &[&str] = &[
     // Built-in commands from `compgen -b`
     "alias",
@@ -73,3 +110,6 @@ pub(crate) const IGNORE_COMMANDS: &[&str] = &[
     "umount",
     "yes",
 ];
+pub(crate) const PURE_COMMANDS: &[Condition] = &[];
+pub(crate) const STATELESS_COMMANDS: &[Condition] = &[];
+pub(crate) const READ_ONLY_COMMANDS: &[Condition] = &[];
