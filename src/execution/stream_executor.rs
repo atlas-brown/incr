@@ -41,15 +41,9 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     } = command::spawn_command(config, command, &runtime)?;
 
     let stdin_context = forward_stdin(child.stdin.take().unwrap())?;
-    if execution::skip_cache(command, stdin_context.length) {
-        join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)?;
-        let exit_code = child.wait()?.code().unwrap();
-        clean_child_runtime(&runtime)?;
-        return Ok(ExitCode(exit_code));
-    }
-
     let cache = CacheCursor::from_hash(config, command, stdin_context.hash)?;
     cache.create_directory()?;
+
     let cache_status = load_cache_data(&cache, child, &runtime)?;
     let outputs = match join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
         Some(lengths) => lengths,
