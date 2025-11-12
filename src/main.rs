@@ -1,5 +1,6 @@
 #![deny(rust_2018_idioms)]
 
+mod annotation;
 mod cache;
 mod command;
 mod config;

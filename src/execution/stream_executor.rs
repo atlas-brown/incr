@@ -9,7 +9,7 @@ use xxhash_rust::xxh3::Xxh3;
 
 use crate::cache::batch_cache::{self, CacheCursor, CacheData};
 use crate::command::{self, ChildContext, ChildOutput, Command, Runtime, RuntimeType};
-use crate::config::{CHUNK_SIZE, Config, TraceType};
+use crate::config::{BUFFER_SIZE, Config, TraceType};
 use crate::execution;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
@@ -154,7 +154,7 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
         Ok(())
     });
 
-    let mut chunk = [0; CHUNK_SIZE];
+    let mut chunk = [0; BUFFER_SIZE];
     let mut hasher = Xxh3::new();
     let mut length = 0;
     loop {

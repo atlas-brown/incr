@@ -13,7 +13,7 @@ use zstd::Decoder;
 use crate::cache::batch_cache::{CacheCursor, CacheData, DependencyKey};
 use crate::command::{Command, Runtime, RuntimeType};
 use crate::config::{
-    CHUNK_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, IGNORE_COMMANDS, INTROSPECT_DIRECTORY,
+    BUFFER_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, IGNORE_COMMANDS, INTROSPECT_DIRECTORY,
     SKIP_CACHE_CONDITIONS, SKIP_COMMANDS, SKIP_SANDBOX_CONDITIONS, SKIP_TRACE_CONDITIONS, SkipCondition,
     TRACE_FILE, TraceType,
 };
@@ -233,7 +233,7 @@ fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
         Err(error) if error.kind() == ErrorKind::PermissionDenied => return Ok(None),
         Err(error) => return Err(error.into()),
     };
-    let mut file_reader = BufReader::with_capacity(CHUNK_SIZE, file);
+    let mut file_reader = BufReader::with_capacity(BUFFER_SIZE, file);
     Ok(Some(ops::hash_stream(&mut file_reader)?))
 }
 
@@ -257,10 +257,10 @@ where
 
     if !compressed {
         file.seek(SeekFrom::Start(start_index as u64))?;
-        let mut file_reader = BufReader::with_capacity(CHUNK_SIZE, file);
+        let mut file_reader = BufReader::with_capacity(BUFFER_SIZE, file);
         output_from_stream(&mut file_reader, destination)
     } else {
-        let mut compressed_reader = Decoder::new(BufReader::with_capacity(CHUNK_SIZE, file))?;
+        let mut compressed_reader = Decoder::new(BufReader::with_capacity(BUFFER_SIZE, file))?;
         io::copy(
             &mut (&mut compressed_reader).take(start_index as u64),
             &mut io::sink(),

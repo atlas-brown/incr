@@ -13,7 +13,7 @@ use time::macros::format_description;
 use time::{OffsetDateTime, UtcOffset};
 use xxhash_rust::xxh3::Xxh3;
 
-use crate::config::{CHUNK_SIZE, DEBUG, DEBUG_LOG_PATH, DEBUG_LOGS};
+use crate::config::{BUFFER_SIZE, DEBUG, DEBUG_LOG_PATH, DEBUG_LOGS};
 
 pub(crate) const SUCCESS_CODE: ExitCode = ExitCode(0);
 pub(crate) const FAILURE_CODE: ExitCode = ExitCode(1);
@@ -114,7 +114,7 @@ where
 {
     let file_name = add_data_extension(file_name);
     let file = File::create(directory.join(file_name))?;
-    let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
+    let mut file_writer = BufWriter::with_capacity(BUFFER_SIZE, file);
     if !DEBUG {
         bincode::encode_into_std_write(value, &mut file_writer, BINCODE_CONFIG)?;
     } else {
@@ -135,7 +135,7 @@ where
         Err(error) => return Err(error.into()),
     };
 
-    let mut file_reader = BufReader::with_capacity(CHUNK_SIZE, file);
+    let mut file_reader = BufReader::with_capacity(BUFFER_SIZE, file);
     let value = if !DEBUG {
         match bincode::decode_from_std_read(&mut file_reader, BINCODE_CONFIG) {
             Ok(value) => value,

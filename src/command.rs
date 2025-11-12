@@ -10,7 +10,7 @@ use std::process::{Child, Command as ShellCommand, Stdio};
 use std::thread::{self, JoinHandle};
 use zstd::Encoder;
 
-use crate::config::{CHUNK_SIZE, COMPRESSION_LEVEL, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRACE_FILE};
+use crate::config::{BUFFER_SIZE, COMPRESSION_LEVEL, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRACE_FILE};
 use crate::ops;
 
 #[derive(Clone, Debug)]
@@ -201,7 +201,7 @@ where
     D: Write,
 {
     let file = File::create(capture_file)?;
-    let mut file_writer = BufWriter::with_capacity(CHUNK_SIZE, file);
+    let mut file_writer = BufWriter::with_capacity(BUFFER_SIZE, file);
     if !config.compress {
         let output = capture_into_stream(config, source, destination, &mut file_writer);
         file_writer.flush()?;
@@ -225,7 +225,7 @@ where
     D: Write,
     W: Write,
 {
-    let mut chunk = [0; CHUNK_SIZE];
+    let mut chunk = [0; BUFFER_SIZE];
     let mut destination_broken = false;
     let mut length = 0;
 
