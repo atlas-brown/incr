@@ -31,7 +31,7 @@ IN="${BENCHMARK_DIR}/$IN"
 IN_NAME="${BENCHMARK_DIR}/$IN_NAME"
 OUT="${BENCHMARK_DIR}/$OUT"
 
-SCRIPTS=("bio-1.sh" "bio-2.sh" "bio-3.sh" "bio-4.sh" "bio-5.sh" "bio-6.sh")
+SCRIPTS=("bio-1.sh" "bio-2.sh" "bio-3.sh" "bio-4-0.sh" "bio-4.sh" "bio-5.sh" "bio-6.sh")
 
 TIME_FILE="${OUTPUT_DIR}/timing.csv"
 echo "mode,script,time_sec" > "$TIME_FILE"
