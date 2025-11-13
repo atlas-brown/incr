@@ -28,6 +28,7 @@ SCRIPTS=(
     "image-annotation-4.sh"
     "image-annotation-5.sh"
     "image-annotation-6.sh"
+    "image-annotation-7.sh"
 )
 
 TIME_FILE="${OUTPUT_DIR}/timing.csv"
