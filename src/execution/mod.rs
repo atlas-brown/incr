@@ -220,18 +220,12 @@ where
 
 pub(crate) fn save_introspection(config: &Config, command: &Command, cache_data: &CacheData) -> Result<()> {
     let introspect_directory = config.cache_directory.join(INTROSPECT_DIRECTORY);
-    if !introspect_directory.exists() {
-        fs::create_dir_all(&introspect_directory)?;
-    }
-
     let introspect_file = introspect_directory.join(format!("command_{}.incr", command.hash));
+    fs::create_dir_all(&introspect_directory)?;
     if cache_data.write_outputs.is_empty() {
-        if !introspect_file.exists() {
-            File::create(&introspect_file)?;
-        }
+        File::create(&introspect_file)?;
     } else if introspect_file.exists() {
-        ops::ignore_not_found(fs::remove_file(&introspect_file))?;
+        ops::ignore_missing(fs::remove_file(&introspect_file))?;
     }
-
     Ok(())
 }

@@ -93,7 +93,7 @@ pub(crate) fn add_data_extension(mut file_name: String) -> String {
     file_name
 }
 
-pub(crate) fn ignore_not_found(result: Result<(), IoError>) -> Result<()> {
+pub(crate) fn ignore_missing(result: Result<(), IoError>) -> Result<()> {
     match result {
         Ok(()) => Ok(()),
         Err(error) if error.kind() == ErrorKind::NotFound => Ok(()),
