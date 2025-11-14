@@ -1,4 +1,5 @@
 pub(crate) mod batch_executor;
+pub(crate) mod chunk_executor;
 pub(crate) mod skip_executor;
 pub(crate) mod stream_executor;
 

@@ -18,7 +18,7 @@ use std::process;
 use crate::command::Command;
 use crate::config::Config;
 use crate::config::{DEFAULT_CACHE_PATH, DEFAULT_TRY_PATH};
-use crate::execution::{batch_executor, skip_executor, stream_executor};
+use crate::execution::{batch_executor, chunk_executor, skip_executor, stream_executor};
 use crate::ops::{ExitCode, FAILURE_CODE, SUCCESS_CODE};
 
 const EXECUTOR: Executor = Executor::Stream;
@@ -68,10 +68,16 @@ fn run() -> Result<ExitCode> {
     if !config.force_cache && annotation::skip_command(&command, &environment) {
         return Err(skip_executor::run(&command));
     }
-    let result = match EXECUTOR {
-        Executor::Batch => batch_executor::run(&config, &command),
-        Executor::Stream => stream_executor::run(&config, &command),
+
+    let result = if annotation::check_stateless(&command) {
+        chunk_executor::run(&config, &command)
+    } else {
+        match EXECUTOR {
+            Executor::Batch => batch_executor::run(&config, &command),
+            Executor::Stream => stream_executor::run(&config, &command),
+        }
     };
+
     result.map_err(|e| anyhow!("({}) {}", command.join_string().unwrap(), e))
 }
 
