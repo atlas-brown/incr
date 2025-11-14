@@ -3,11 +3,12 @@ pub(crate) mod chunk_executor;
 pub(crate) mod skip_executor;
 pub(crate) mod stream_executor;
 
-use anyhow::{Result, ensure};
+use anyhow::{Result, anyhow, ensure};
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::{self, BufReader, ErrorKind, Read, Seek, SeekFrom, Write};
 use std::path::{Path, PathBuf};
+use std::thread;
 use std::time::UNIX_EPOCH;
 use zstd::Decoder;
 
@@ -15,7 +16,8 @@ use crate::annotation;
 use crate::cache::batch_cache::{CacheCursor, CacheData, DependencyKey};
 use crate::command::{Command, Runtime, RuntimeType};
 use crate::config::{
-    BUFFER_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, INTROSPECT_DIRECTORY, TRACE_FILE, TraceType,
+    BUFFER_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, INTROSPECT_DIRECTORY, PARALLEL_SIZE,
+    TRACE_FILE, TraceType,
 };
 use crate::ops;
 use crate::scripts;
@@ -35,16 +37,6 @@ pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> Trace
     }
 
     TraceType::Sandbox
-}
-
-pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {
-    if !check_read_dependencies(&data.read_dependencies)? || !cache.data_outputs_exist() {
-        return Ok(false);
-    }
-    if !data.write_outputs.is_empty() && !cache.file_outputs_exist() {
-        return Ok(false);
-    }
-    Ok(true)
 }
 
 pub(crate) fn parse_trace(runtime: &Runtime) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
@@ -70,28 +62,45 @@ pub(crate) fn parse_trace(runtime: &Runtime) -> Result<(HashSet<PathBuf>, HashSe
     Ok((read_set, write_set))
 }
 
+pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {
+    if !cache.data_outputs_exist() || !check_read_dependencies(&data.read_dependencies)? {
+        return Ok(false);
+    }
+    if !data.write_outputs.is_empty() && !cache.file_outputs_exist() {
+        return Ok(false);
+    }
+    Ok(true)
+}
+
 pub(crate) fn get_read_dependencies(
-    read_set: HashSet<PathBuf>,
+    read_set: &HashSet<PathBuf>,
     write_set: &HashSet<PathBuf>,
 ) -> Result<HashMap<PathBuf, DependencyKey>> {
-    let mut dependencies = HashMap::with_capacity(read_set.len());
-
-    for path in read_set {
-        if !path.exists() {
-            dependencies.insert(path, DependencyKey::DoesNotExist);
-            continue;
-        }
-        if !path.is_file() {
-            continue;
-        }
-
-        if !write_set.contains(&path) {
-            if let Some(timestamp) = get_modified_timestamp(&path)? {
-                dependencies.insert(path, DependencyKey::Timestamp(timestamp));
+    let paths = read_set.iter().collect::<Vec<_>>();
+    let results = parallel_process(&paths, |chunk| {
+        let mut dependencies = Vec::with_capacity(chunk.len());
+        for &path in chunk {
+            if !path.exists() {
+                dependencies.push((path.clone(), DependencyKey::DoesNotExist));
+                continue;
             }
-        } else if let Some(hash) = get_file_hash(&path)? {
-            dependencies.insert(path, DependencyKey::Hash(hash));
+            if !path.is_file() {
+                continue;
+            }
+            if !write_set.contains(path) {
+                if let Some(timestamp) = get_modified_timestamp(path)? {
+                    dependencies.push((path.clone(), DependencyKey::Timestamp(timestamp)));
+                }
+            } else if let Some(hash) = get_file_hash(path)? {
+                dependencies.push((path.clone(), DependencyKey::Hash(hash)));
+            }
         }
+        Ok(dependencies)
+    })?;
+
+    let mut dependencies = HashMap::with_capacity(read_set.len());
+    for chunk in results {
+        dependencies.extend(chunk);
     }
 
     Ok(dependencies)
@@ -122,34 +131,30 @@ pub(crate) fn filter_dependencies(
 }
 
 fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Result<bool> {
-    for (path, key) in dependencies {
-        match key {
-            DependencyKey::DoesNotExist => {
-                if path.exists() {
-                    return Ok(false);
+    let dependencies = dependencies.iter().collect::<Vec<_>>();
+    let results = parallel_process(&dependencies, |chunk| {
+        for (path, key) in chunk {
+            match key {
+                DependencyKey::DoesNotExist => {
+                    if path.exists() {
+                        return Ok(false);
+                    }
                 }
-            }
-            DependencyKey::Timestamp(timestamp) => {
-                if !path.is_file() {
-                    return Ok(false);
+                DependencyKey::Timestamp(timestamp) => {
+                    if !path.is_file() || get_modified_timestamp(path)? != Some(*timestamp) {
+                        return Ok(false);
+                    }
                 }
-                let current_timestamp = get_modified_timestamp(path)?;
-                if current_timestamp != Some(*timestamp) {
-                    return Ok(false);
-                }
-            }
-            DependencyKey::Hash(hash) => {
-                if !path.is_file() {
-                    return Ok(false);
-                }
-                let current_hash = get_file_hash(path)?;
-                if current_hash != Some(*hash) {
-                    return Ok(false);
+                DependencyKey::Hash(hash) => {
+                    if !path.is_file() || get_file_hash(path)? != Some(*hash) {
+                        return Ok(false);
+                    }
                 }
             }
         }
-    }
-    Ok(true)
+        Ok(true)
+    })?;
+    Ok(results.into_iter().all(|r| r))
 }
 
 fn get_modified_timestamp(file_path: &Path) -> Result<Option<u128>> {
@@ -170,6 +175,30 @@ fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
     };
     let mut file_reader = BufReader::with_capacity(BUFFER_SIZE, file);
     Ok(Some(ops::hash_stream(&mut file_reader)?))
+}
+
+fn parallel_process<T, F, O>(data: &[T], task: F) -> Result<Vec<O>>
+where
+    T: Sync,
+    F: Fn(&[T]) -> Result<O> + Sync,
+    O: Send,
+{
+    let num_chunks = data.len().div_ceil(PARALLEL_SIZE);
+    if num_chunks <= 1 {
+        return Ok(vec![task(data)?]);
+    }
+
+    thread::scope(|scope| {
+        let mut threads = Vec::with_capacity(num_chunks);
+        let mut results = Vec::with_capacity(num_chunks);
+        for chunk in data.chunks(PARALLEL_SIZE) {
+            threads.push(scope.spawn(|| task(chunk)));
+        }
+        for thread in threads {
+            results.push(thread.join().map_err(|e| anyhow!("{e:?}"))??);
+        }
+        Ok(results)
+    })
 }
 
 pub(crate) fn output_data<D>(

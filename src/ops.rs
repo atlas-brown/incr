@@ -134,8 +134,8 @@ where
         Err(error) if error.kind() == ErrorKind::NotFound => return Ok(None),
         Err(error) => return Err(error.into()),
     };
-
     let mut file_reader = BufReader::with_capacity(BUFFER_SIZE, file);
+
     let value = if !DEBUG {
         match bincode::decode_from_std_read(&mut file_reader, BINCODE_CONFIG) {
             Ok(value) => value,

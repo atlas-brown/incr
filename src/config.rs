@@ -21,6 +21,7 @@ pub(crate) const CHUNK_WORKERS: usize = 4;
 pub(crate) const CHUNK_SIZE: usize = 1_000_000;
 pub(crate) const COMPRESSION_LEVEL: i32 = 1;
 pub(crate) const BUFFER_SIZE: usize = 65_536;
+pub(crate) const PARALLEL_SIZE: usize = 1000;
 pub(crate) const SUDO_SANDBOX: bool = true;
 
 pub(crate) const DEBUG: bool = true;

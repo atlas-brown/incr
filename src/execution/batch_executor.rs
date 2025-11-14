@@ -75,7 +75,7 @@ fn run_command(
     }
 
     let (read_set, mut write_set) = execution::parse_trace(&runtime)?;
-    let mut read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
+    let mut read_dependencies = execution::get_read_dependencies(&read_set, &write_set)?;
     if let RuntimeType::Sandbox(_) = &runtime.typ {
         cache.extract_sandbox_output()?;
         if !write_set.is_empty() {
