@@ -44,17 +44,28 @@ if [[ "$size" == "min" ]]; then
     fi
 fi
 
-# if [[ "$size" == "small" ]]; then
-#     if [ -d "$small_dir" ]; then
-#         echo "Data already downloaded and extracted."
-#     else
-#         mkdir -p "$small_dir"
-#         wget --no-check-certificate "${URL}/pl-06-P_F-A_N-20250401T083751Z-001.zip" -O "${INPUT_DIR}/small.zip"
-#         unzip -q "${INPUT_DIR}/small.zip" -d "${INPUT_DIR}/tmp_small"
-#         mv "${INPUT_DIR}/tmp_small"/*/* "$small_dir"
-#         rm -r "${INPUT_DIR}/tmp_small" "${INPUT_DIR}/small.zip"
-#     fi
-# fi
+if [[ "$size" == "small" ]]; then
+    if [ -d "$small_dir" ]; then
+        echo "Data already downloaded and extracted."
+    else
+        mkdir -p "$small_dir"
+        wget --no-check-certificate "${URL}/pl-06-P_F-A_N-20250401T083751Z-001.zip" -O "${INPUT_DIR}/small.zip"
+        unzip -q "${INPUT_DIR}/small.zip" -d "${INPUT_DIR}/tmp_small"
+        mv "${INPUT_DIR}/tmp_small"/*/* "$small_dir"
+        rm -r "${INPUT_DIR}/tmp_small" "${INPUT_DIR}/small.zip"
+    fi
+    input_dir="$INPUT_DIR/dpt.small"
+    mkdir -p "$input_dir/images"
+    i=0
+    for f in "$input_dir"/*.png; do
+        i=$((i + 1))
+        if [ "$i" -le 3 ]; then
+            mv "$f" "$input_dir/images"
+        elif [ "$i" -gt 6 ]; then
+            rm "$f"
+        fi
+    done
+fi
 
 # if [[ "$size" == "full" ]]; then
 #     if [ -d "$full_dir" ]; then
