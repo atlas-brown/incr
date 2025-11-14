@@ -37,16 +37,6 @@ pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> Trace
     TraceType::Sandbox
 }
 
-pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {
-    if !check_read_dependencies(&data.read_dependencies)? || !cache.data_outputs_exist() {
-        return Ok(false);
-    }
-    if !data.write_outputs.is_empty() && !cache.file_outputs_exist() {
-        return Ok(false);
-    }
-    Ok(true)
-}
-
 pub(crate) fn parse_trace(runtime: &Runtime) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
     let trace_file = match &runtime.typ {
         RuntimeType::Sandbox(directory) => &directory.join("upperdir").join("tmp").join(TRACE_FILE),
@@ -68,6 +58,16 @@ pub(crate) fn parse_trace(runtime: &Runtime) -> Result<(HashSet<PathBuf>, HashSe
     });
 
     Ok((read_set, write_set))
+}
+
+pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {
+    if !check_read_dependencies(&data.read_dependencies)? || !cache.data_outputs_exist() {
+        return Ok(false);
+    }
+    if !data.write_outputs.is_empty() && !cache.file_outputs_exist() {
+        return Ok(false);
+    }
+    Ok(true)
 }
 
 pub(crate) fn get_read_dependencies(
