@@ -9,7 +9,7 @@ CLASS_FILE="$OUTPUT_DIR/classifications.$MODE.txt"
 mkdir -p "$IMG_DIR"
 
 wget "https://atlas-group.cs.brown.edu/data/dpt/dpt.zip" -O images.zip
-unzip -o images.zip -d "$IMG_DIR"
+unzip -n images.zip -d "$IMG_DIR"
 rm images.zip
 
 for img in $(find "$IMG_DIR" -type f -name '*.jpg' | sort); do
