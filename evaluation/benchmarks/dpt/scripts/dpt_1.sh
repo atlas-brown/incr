@@ -11,6 +11,38 @@ mkdir -p "$IMG_DIR"
 wget "https://atlas-group.cs.brown.edu/data/dpt/dpt.zip" -O images.zip
 unzip images.zip -d "$IMG_DIR"
 rm images.zip
+
+num=0
+for img in "$IMG_DIR"/*.jpg; do
+    num=$((num + 1))
+    if [ "$num" -gt 5 ]; then
+        rm "$img"
+    fi
+done
+
+for dir in "$IMG_DIR"/expedition-*; do
+    if [ "$dir" = "$IMG_DIR/expedition-1" ] || [ "$dir" = "$IMG_DIR/expedition-2" ]; then
+        continue
+    fi
+    rm -rf "$dir"
+done
+
+num=0
+for img in "$IMG_DIR/expedition-1"/*.jpg; do
+    num=$((num + 1))
+    if [ "$num" -gt 2 ]; then
+        rm "$img"
+    fi
+done
+
+num=0
+for img in "$IMG_DIR/expedition-2"/*.jpg; do
+    num=$((num + 1))
+    if [ "$num" -gt 2 ]; then
+        rm "$img"
+    fi
+done
+
 mogrify -resize 1024x1024\> "$IMG_DIR"/*.jpg
 
 for img in "$IMG_DIR"/*.jpg; do
