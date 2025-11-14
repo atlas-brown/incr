@@ -2,7 +2,7 @@
 
 mkdir -p "$OUT"
 
-cat "$IN_NAME" | while read -r pop sample; do
+while read -r pop sample <&3; do
   [ -z "$pop" ] || [ -z "$sample" ] && continue
 
   samtools view -H "${IN}/${sample}.bam" \
@@ -14,4 +14,4 @@ cat "$IN_NAME" | while read -r pop sample; do
     samtools view -b "${OUT}/${sample}_corrected.bam" chr"$chr" > "${OUT}/${pop}_${sample}_${chr}.bam"
     samtools index -b "${OUT}/${pop}_${sample}_${chr}.bam"
   done
-done
+done 3< "$IN_NAME"

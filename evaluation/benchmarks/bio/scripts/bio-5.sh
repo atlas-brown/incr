@@ -4,7 +4,7 @@ mkdir -p "$OUT"
 
 echo -e "sample\treads" > "${OUT}/read_counts.tsv"
 
-cat "$IN_NAME" | while read pop sample; do
+while read pop sample <&3; do
   [ -z "$pop" ] || [ -z "$sample" ] && continue
   echo "Processing $sample..."
   samtools view -H "${IN}/${sample}.bam" \
@@ -19,4 +19,4 @@ cat "$IN_NAME" | while read pop sample; do
 
   reads=$(samtools idxstats "${OUT}/${sample}_corrected.bam" | awk '{sum+=$3} END {print sum}')
   echo -e "$sample\t$reads" >> "${OUT}/read_counts.tsv"
-done
+done 3< "$IN_NAME"
