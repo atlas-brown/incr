@@ -200,8 +200,12 @@ where
     S: Read,
     D: Write,
 {
+    if let Some(parent) = capture_file.parent() {
+        fs::create_dir_all(parent)?;
+    }
     let file = File::create(capture_file)?;
     let mut file_writer = BufWriter::with_capacity(BUFFER_SIZE, file);
+
     if !config.compress {
         let output = capture_into_stream(config, source, destination, &mut file_writer);
         file_writer.flush()?;

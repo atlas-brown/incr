@@ -72,7 +72,7 @@ fn run() -> Result<ExitCode> {
         Executor::Batch => batch_executor::run(&config, &command),
         Executor::Stream => stream_executor::run(&config, &command),
     };
-    result.map_err(|e| anyhow!("({} {}) {}", command.name, command.arguments.join(" "), e))
+    result.map_err(|e| anyhow!("({}) {}", command.join_string().unwrap(), e))
 }
 
 fn parse_input() -> Result<Option<Input>> {
