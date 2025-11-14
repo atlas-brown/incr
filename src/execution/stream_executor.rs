@@ -254,7 +254,7 @@ fn save_command_data(
     exit_code: ExitCode,
 ) -> Result<ExitCode> {
     let (read_set, mut write_set) = execution::parse_trace(runtime)?;
-    let mut read_dependencies = execution::get_read_dependencies(read_set, &write_set)?;
+    let mut read_dependencies = execution::get_read_dependencies(&read_set, &write_set)?;
     if let RuntimeType::Sandbox(directory) = &runtime.typ {
         fs::rename(directory, cache.get_sandbox_directory())?;
         cache.extract_sandbox_output()?;
