@@ -76,7 +76,7 @@ pub(crate) fn get_read_dependencies(
     read_set: &HashSet<PathBuf>,
     write_set: &HashSet<PathBuf>,
 ) -> Result<HashMap<PathBuf, DependencyKey>> {
-    let paths = read_set.into_iter().collect::<Vec<_>>();
+    let paths = read_set.iter().collect::<Vec<_>>();
     let results = parallel_process(&paths, |chunk| {
         let mut dependencies = Vec::with_capacity(chunk.len());
         for &path in chunk {
@@ -88,10 +88,10 @@ pub(crate) fn get_read_dependencies(
                 continue;
             }
             if !write_set.contains(path) {
-                if let Some(timestamp) = get_modified_timestamp(&path)? {
+                if let Some(timestamp) = get_modified_timestamp(path)? {
                     dependencies.push((path.clone(), DependencyKey::Timestamp(timestamp)));
                 }
-            } else if let Some(hash) = get_file_hash(&path)? {
+            } else if let Some(hash) = get_file_hash(path)? {
                 dependencies.push((path.clone(), DependencyKey::Hash(hash)));
             }
         }
@@ -131,7 +131,7 @@ pub(crate) fn filter_dependencies(
 }
 
 fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Result<bool> {
-    let dependencies = dependencies.into_iter().collect::<Vec<_>>();
+    let dependencies = dependencies.iter().collect::<Vec<_>>();
     let results = parallel_process(&dependencies, |chunk| {
         for (path, key) in chunk {
             match key {
