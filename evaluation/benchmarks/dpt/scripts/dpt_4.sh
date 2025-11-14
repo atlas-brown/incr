@@ -9,14 +9,14 @@ CLASS_FILE="$OUTPUT_DIR/classifications.$MODE.txt"
 mkdir -p "$IMG_DIR"
 
 wget "https://atlas-group.cs.brown.edu/data/dpt/dpt.zip" -O images.zip
-unzip images.zip -d "$IMG_DIR"
+unzip -o images.zip -d "$IMG_DIR"
 rm images.zip
 
 num=0
 for img in "$IMG_DIR"/*.jpg; do
     num=$((num + 1))
     if [ "$num" -gt 5 ]; then
-        rm "$img"
+        rm -f "$img"
     fi
 done
 
@@ -31,7 +31,7 @@ num=0
 for img in "$IMG_DIR/expedition-1"/*.jpg; do
     num=$((num + 1))
     if [ "$num" -gt 2 ]; then
-        rm "$img"
+        rm -f "$img"
     fi
 done
 
@@ -39,7 +39,7 @@ num=0
 for img in "$IMG_DIR/expedition-2"/*.jpg; do
     num=$((num + 1))
     if [ "$num" -gt 2 ]; then
-        rm "$img"
+        rm -f "$img"
     fi
 done
 
