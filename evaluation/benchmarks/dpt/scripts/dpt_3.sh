@@ -11,7 +11,6 @@ mkdir -p "$IMG_DIR"
 wget "https://atlas-group.cs.brown.edu/data/dpt/dpt.zip" -O images.zip
 unzip -n images.zip -d "$IMG_DIR"
 rm images.zip
-mogrify -resize 1024x1024\> "$IMG_DIR"/*.jpg
 
 for img in $(find "$IMG_DIR" -type f -name '*.jpg' | sort); do
     cat "$img" | python3 scripts/segment.py |

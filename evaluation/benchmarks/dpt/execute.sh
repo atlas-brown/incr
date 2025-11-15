@@ -20,7 +20,7 @@ done
 export IMG_DIR="${BENCHMARK_DIR}/inputs"
 export OUTPUT_DIR="$OUTPUT_DIR"
 
-SCRIPTS=("dpt_1.sh" "dpt_2.sh" "dpt_3.sh" "dpt_4.sh" "dpt_5.sh")
+SCRIPTS=("dpt_1.sh" "dpt_1_1.sh" "dpt_2.sh" "dpt_3.sh" "dpt_4.sh")
 
 TIME_FILE="${OUTPUT_DIR}/timing.csv"
 echo "mode,script,time_sec" > "$TIME_FILE"
