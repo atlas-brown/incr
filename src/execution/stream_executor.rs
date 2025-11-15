@@ -45,7 +45,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 
     let cache_status = load_cache_data(&cache, child, &runtime)?;
     let outputs = match join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
-        Some(lengths) => lengths,
+        Some(outputs) => outputs,
         None => {
             clean_child_runtime(&runtime)?;
             return Ok(BROKEN_PIPE_CODE);
