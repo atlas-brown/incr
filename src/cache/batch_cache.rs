@@ -121,7 +121,7 @@ impl<'c> CacheCursor<'c> {
 
         ShellCommand::new("cp")
             .args([
-                "-r",
+                "-rp",
                 ops::path_to_string(&output_directory)?,
                 ops::path_to_string(&commit_directory)?,
             ])
