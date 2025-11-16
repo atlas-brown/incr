@@ -18,12 +18,16 @@ pub(crate) const OUTPUT_DIRECTORY: &str = "outputs";
 pub(crate) const COMMIT_DIRECTORY: &str = "commit";
 
 pub(crate) const CHUNK_WORKERS: usize = 4;
-pub(crate) const CHUNK_SIZE: usize = 1_000_000;
+pub(crate) const CHUNK_SIZES: ChunkSizes = ChunkSizes {
+    minimum: 250_000,
+    average: 1_000_000,
+    maximum: 4_000_000,
+};
 pub(crate) const COMPRESSION_LEVEL: i32 = 1;
 pub(crate) const BUFFER_SIZE: usize = 65_536;
 pub(crate) const PARALLEL_SIZE: usize = 1000;
-pub(crate) const SUDO_SANDBOX: bool = true;
 
+pub(crate) const SUDO_SANDBOX: bool = true;
 pub(crate) const DEBUG: bool = true;
 pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
 pub(crate) const DEBUG_LOG_PATH: &str = "incr/debug_log.txt";
@@ -73,4 +77,11 @@ impl Display for TraceType {
             Self::Nothing => write!(formatter, "Nothing"),
         }
     }
+}
+
+#[derive(Clone, Debug)]
+pub(crate) struct ChunkSizes {
+    pub(crate) minimum: u32,
+    pub(crate) average: u32,
+    pub(crate) maximum: u32,
 }
