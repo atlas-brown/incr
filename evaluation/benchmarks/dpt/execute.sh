@@ -54,12 +54,14 @@ measure_time() {
 }
 
 # Baseline: bash
+rm -rf "$IMG_DIR/dpt"
 for script in "${SCRIPTS[@]}"; do
     echo "Running ${script} with bash..."
     measure_time "bash" $script
 done
 
 # Incremental run: incr
+rm -rf "$IMG_DIR/dpt"
 for script in "${SCRIPTS[@]}"; do
     echo "Running $script with incr..."
     measure_time "incr" $script
