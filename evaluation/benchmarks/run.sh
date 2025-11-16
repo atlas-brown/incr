@@ -51,9 +51,9 @@ for i in "${!BENCHMARKS[@]}"; do
 
     if [[ "$mode" == "" ]]; then
         cp "./$benchmark/outputs/timing.csv" "../results/$benchmark-time.csv"
-        du -sb "./$benchmark/cache" > "../results/$benchmark-size.csv"
+        du -sb "./$benchmark/cache" > "../results/$benchmark-size.txt"
     else
         cp "./$benchmark/outputs/timing.csv" "../results/$benchmark-time.csv"
-        du -sb "./$benchmark/cache" > "../results/$benchmark-size.csv"
+        du -sb "./$benchmark/cache" > "../results/$benchmark-size.txt"
     fi
 done
