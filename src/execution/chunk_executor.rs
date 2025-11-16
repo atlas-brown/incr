@@ -47,19 +47,22 @@ where
                 Some(Err(error)) => return Some(Err(error.into())),
                 None => {
                     if !self.prefix.is_empty() {
+                        self.prefix.push(b'\n');
                         return Some(Ok(Chunk {
                             prefix: Vec::new(),
                             data: mem::take(&mut self.prefix),
                         }));
+                    } else {
+                        return None;
                     }
-                    return None;
                 }
             };
 
             match data.iter().rposition(|&b| b == b'\n') {
                 Some(index) => {
-                    let mut prefix = data.split_off(index + 1);
-                    mem::swap(&mut self.prefix, &mut prefix);
+                    let next_prefix = data.split_off(index + 1);
+                    let prefix = mem::take(&mut self.prefix);
+                    self.prefix = next_prefix;
                     return Some(Ok(Chunk { prefix, data }));
                 }
                 None => self.prefix.extend_from_slice(&data),
