@@ -1,10 +1,12 @@
-use anyhow::Result;
+use anyhow::{Result, anyhow};
 use fastcdc::v2020::StreamCDC;
 use std::io::{self, Read};
 use std::mem;
 use std::os::unix::process::CommandExt;
 use std::process::Command as ShellCommand;
 use std::sync::mpsc::{Receiver, Sender, SyncSender};
+use std::sync::{Arc, Mutex};
+use std::thread::{self, JoinHandle};
 
 use crate::command::Command;
 use crate::config::{CHUNK_SIZES, CHUNK_WORKERS, Config};
@@ -91,9 +93,12 @@ struct InputChunk {
 }
 
 struct WorkerPool {
-    send_channel: SyncSender<InputChunk>,
+    threads: Vec<JoinHandle<Result<()>>>,
+    send_channel: Option<SyncSender<InputChunk>>,
     receive_channel: Receiver<OutputChunk>,
 }
+
+impl WorkerPool {}
 
 #[derive(Clone, Debug)]
 struct OutputChunk {
@@ -112,4 +117,11 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         );
     }
     todo!()
+}
+
+fn process_chunks(command: &Command, channel: &Mutex<Receiver<InputChunk>>) -> Result<()> {
+    loop {
+        let channel = channel.lock().map_err(|e| anyhow!("{e:?}"))?;
+    }
+    Ok(())
 }
