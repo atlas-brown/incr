@@ -1,3 +1,6 @@
+#![allow(warnings)]
+#![allow(clippy::all)]
+
 use anyhow::{Result, anyhow};
 use fastcdc::v2020::StreamCDC;
 use std::io::{self, Read};
