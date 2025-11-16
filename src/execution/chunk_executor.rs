@@ -46,15 +46,14 @@ where
                 Some(Ok(chunk)) => chunk.data,
                 Some(Err(error)) => return Some(Err(error.into())),
                 None => {
-                    if !self.prefix.is_empty() {
-                        self.prefix.push(b'\n');
-                        return Some(Ok(Chunk {
-                            prefix: Vec::new(),
-                            data: mem::take(&mut self.prefix),
-                        }));
-                    } else {
+                    if self.prefix.is_empty() {
                         return None;
                     }
+                    self.prefix.push(b'\n');
+                    return Some(Ok(Chunk {
+                        prefix: Vec::new(),
+                        data: mem::take(&mut self.prefix),
+                    }));
                 }
             };
 
