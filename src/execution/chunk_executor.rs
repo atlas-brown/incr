@@ -4,6 +4,7 @@ use std::io::{self, Read};
 use std::mem;
 use std::os::unix::process::CommandExt;
 use std::process::Command as ShellCommand;
+use std::sync::mpsc::{Receiver, Sender, SyncSender};
 
 use crate::command::Command;
 use crate::config::{CHUNK_SIZES, CHUNK_WORKERS, Config};
@@ -14,6 +15,7 @@ where
     R: Read,
 {
     chunker: StreamCDC<R>,
+    index: usize,
     prefix: Vec<u8>,
 }
 
@@ -29,6 +31,7 @@ where
                 CHUNK_SIZES.average,
                 CHUNK_SIZES.maximum,
             ),
+            index: 0,
             prefix: Vec::new(),
         }
     }
@@ -38,9 +41,9 @@ impl<R> Iterator for LineChunker<R>
 where
     R: Read,
 {
-    type Item = Result<Chunk>;
+    type Item = Result<InputChunk>;
 
-    fn next(&mut self) -> Option<Result<Chunk>> {
+    fn next(&mut self) -> Option<Result<InputChunk>> {
         loop {
             let mut data = match self.chunker.next() {
                 Some(Ok(chunk)) => chunk.data,
@@ -49,30 +52,52 @@ where
                     if self.prefix.is_empty() {
                         return None;
                     }
-                    self.prefix.push(b'\n');
-                    return Some(Ok(Chunk {
+                    return Some(Ok(InputChunk {
+                        index: self.index,
                         prefix: Vec::new(),
                         data: mem::take(&mut self.prefix),
                     }));
                 }
             };
 
-            match data.iter().rposition(|&b| b == b'\n') {
-                Some(index) => {
-                    let next_prefix = data.split_off(index + 1);
-                    let prefix = mem::take(&mut self.prefix);
-                    self.prefix = next_prefix;
-                    return Some(Ok(Chunk { prefix, data }));
+            let split_index = match data.iter().rposition(|&b| b == b'\n') {
+                Some(index) => index,
+                None => {
+                    self.prefix.extend_from_slice(&data);
+                    continue;
                 }
-                None => self.prefix.extend_from_slice(&data),
-            }
+            };
+
+            let chunk_index = self.index;
+            self.index += 1;
+            let next_prefix = data.split_off(split_index + 1);
+            let prefix = mem::take(&mut self.prefix);
+            self.prefix = next_prefix;
+
+            return Some(Ok(InputChunk {
+                index: chunk_index,
+                prefix,
+                data,
+            }));
         }
     }
 }
 
 #[derive(Clone, Debug)]
-struct Chunk {
+struct InputChunk {
+    index: usize,
     prefix: Vec<u8>,
+    data: Vec<u8>,
+}
+
+struct WorkerPool {
+    send_channel: SyncSender<InputChunk>,
+    receive_channel: Receiver<OutputChunk>,
+}
+
+#[derive(Clone, Debug)]
+struct OutputChunk {
+    index: usize,
     data: Vec<u8>,
 }
 
