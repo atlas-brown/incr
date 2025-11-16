@@ -4,6 +4,7 @@ import logging
 import os
 import shasta.ast_node as AST
 from shasta.json_to_ast import to_ast_node
+import sys
 
 # Ensure these match config.rs
 IGNORE_COMMANDS = [
@@ -127,10 +128,14 @@ def transform_node(node, sys_path):
                 return node
             assignments = [transform_node(ass, sys_path) for ass in node.assignments]
             arguments = [transform_node(arg, sys_path) for arg in node.arguments]
-            if arguments: # Don't append sys to assignments
+
+            # ----- INCR -----
+            if arguments and all(hasattr(c, "char") for c in arguments[0]): # Don't append sys to assignments
                 command_name = "".join(chr(c.char) for c in arguments[0])
                 if command_name not in AVOID_SET: # Don't append sys to unreasonable commands
                     arguments = [str_to_ast(sys_path)] + arguments
+            # ----- INCR -----
+
             return AST.CommandNode(
                     arguments=arguments,
                     assignments=assignments,
@@ -199,7 +204,13 @@ def main():
     
     logging.basicConfig(level=logging.DEBUG if args.debug else logging.INFO)
     sys_path = f"{args.sys_path} --try {args.try_path} --cache {args.cache_path}" if args.try_path and args.cache_path else args.sys_path
-    original_ast = parse_shell_to_asts(args.path)
+
+    try:
+        original_ast = parse_shell_to_asts(args.path)
+    except Exception as exception:
+        print("Error parsing shell script:", exception, file=sys.stderr)
+        exit(1)
+
     transformed_ast = transform_ast(original_ast, sys_path)
     transformed_code = ast_to_code(transformed_ast)
 
