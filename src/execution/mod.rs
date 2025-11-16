@@ -177,7 +177,7 @@ fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
     Ok(Some(ops::hash_stream(&mut file_reader)?))
 }
 
-fn parallel_process<T, F, O>(data: &[T], task: F) -> Result<Vec<O>>
+fn parallel_process<T, F, O>(data: &[T], function: F) -> Result<Vec<O>>
 where
     T: Sync,
     F: Fn(&[T]) -> Result<O> + Sync,
@@ -185,14 +185,14 @@ where
 {
     let num_chunks = data.len().div_ceil(PARALLEL_SIZE);
     if num_chunks <= 1 {
-        return Ok(vec![task(data)?]);
+        return Ok(vec![function(data)?]);
     }
 
     thread::scope(|scope| {
         let mut threads = Vec::with_capacity(num_chunks);
         let mut results = Vec::with_capacity(num_chunks);
         for chunk in data.chunks(PARALLEL_SIZE) {
-            threads.push(scope.spawn(|| task(chunk)));
+            threads.push(scope.spawn(|| function(chunk)));
         }
         for thread in threads {
             results.push(thread.join().map_err(|e| anyhow!("{e:?}"))??);
