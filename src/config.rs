@@ -81,7 +81,7 @@ impl Display for TraceType {
 
 #[derive(Clone, Debug)]
 pub(crate) struct ChunkSizes {
-    pub(crate) minimum: u32,
-    pub(crate) average: u32,
-    pub(crate) maximum: u32,
+    pub(crate) minimum: usize,
+    pub(crate) average: usize,
+    pub(crate) maximum: usize,
 }

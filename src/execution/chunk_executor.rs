@@ -92,13 +92,14 @@ struct LineChunker {
     mask_l: u64,
     mask_s_ls: u64,
     mask_l_ls: u64,
+    data: Vec<u8>,
 }
 
 impl LineChunker {
     fn new(sizes: ChunkSizes) -> Self {
-        assert!(MINIMUM_MIN <= sizes.minimum && sizes.minimum <= MINIMUM_MAX);
-        assert!(AVERAGE_MIN <= sizes.average && sizes.average <= AVERAGE_MAX);
-        assert!(MAXIMUM_MIN <= sizes.maximum && sizes.maximum <= MAXIMUM_MAX);
+        assert!(MINIMUM_MIN as usize <= sizes.minimum && sizes.minimum <= MINIMUM_MAX as usize);
+        assert!(AVERAGE_MIN as usize <= sizes.average && sizes.average <= AVERAGE_MAX as usize);
+        assert!(MAXIMUM_MIN as usize <= sizes.maximum && sizes.maximum <= MAXIMUM_MAX as usize);
 
         let average = (sizes.average as f64).log2().round() as u32;
         let normalization = Normalization::Level1.bits();
@@ -111,19 +112,46 @@ impl LineChunker {
             mask_l,
             mask_s_ls: mask_s << 1,
             mask_l_ls: mask_l << 1,
+            data: Vec::new(),
+        }
+    }
+
+    fn update(&mut self, line: &[u8]) -> bool {
+        self.data.extend_from_slice(line);
+        let (_, count) = cdc::cut(
+            &self.data,
+            self.sizes.minimum,
+            self.sizes.average,
+            self.sizes.maximum,
+            self.mask_s,
+            self.mask_l,
+            self.mask_s_ls,
+            self.mask_l_ls,
+        );
+        if count > 0 {
+            self.data.clear();
+            true
+        } else {
+            false
         }
     }
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     let mut line_reader = LineReader::new(io::stdin().lock());
+    let mut line_chunker = LineChunker::new(CHUNK_SIZES);
+
     let mut stdin_closed = false;
     while !stdin_closed {
         stdin_closed = line_reader.read()?;
         while let Some(line) = line_reader.next_line() {
             eprintln!("line: {:?}", String::from_utf8(line.to_vec()).unwrap());
+            if line_chunker.update(line) {
+                eprintln!("--- CHUNK ---");
+            }
         }
         line_reader.drain();
     }
+
     todo!()
 }
