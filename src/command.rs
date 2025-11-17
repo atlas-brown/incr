@@ -90,11 +90,12 @@ pub(crate) fn get_command(
         })
         .collect::<BTreeMap<_, _>>();
 
-    let hash = ops::hash_bytes(&ops::encode_to_vec(&CommandKey {
+    let key_data = ops::data::encode_to_bytes(&CommandKey {
         name: &name,
         arguments: &arguments,
         environment: &environment,
-    })?);
+    })?;
+    let hash = ops::data::hash_bytes(&key_data);
 
     Ok(Command {
         name,
@@ -147,7 +148,7 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
         RuntimeType::Sandbox(directory) => {
             child.args([
                 "-D",
-                ops::path_to_string(directory)?,
+                ops::files::path_to_string(directory)?,
                 STRACE_COMMAND,
                 "-yf",
                 "--seccomp-bpf",
@@ -163,7 +164,7 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
                 "--seccomp-bpf",
                 "--trace=fork,clone,%file",
                 "-o",
-                ops::path_to_string(file)?,
+                ops::files::path_to_string(file)?,
             ];
             arguments.extend(command.join_sequence());
             child.args(&arguments);

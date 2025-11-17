@@ -94,7 +94,7 @@ fn parse_input() -> Result<Option<Input>> {
             (
                 try_command.unwrap_or(format!(
                     "{}/{}",
-                    ops::path_to_string(&home_directory)?,
+                    ops::files::path_to_string(&home_directory)?,
                     DEFAULT_TRY_PATH,
                 )),
                 home_directory.join(cache_directory.unwrap_or(DEFAULT_CACHE_PATH.to_owned())),
