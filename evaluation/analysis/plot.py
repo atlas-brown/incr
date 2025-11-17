@@ -22,6 +22,7 @@ BENCHMARKS = [
 ]
 
 figure, axes = plt.subplots(figsize=(10, 6))
+axes.grid()
 
 width = 0.35  # Bar width
 all_colors = matplotlib.colormaps.get_cmap("tab10")
@@ -98,6 +99,5 @@ mode_patches = [
 #legend1 = figure.legend(handles=iter_patches, title="Iteration", loc="upper right")
 #figure.add_artist(legend1)  # Add iteration legend first
 figure.legend(handles=mode_patches, title="Mode", loc="upper right")
-
 figure.tight_layout()
 figure.savefig("plot.png", bbox_inches="tight")
