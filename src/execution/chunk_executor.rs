@@ -154,19 +154,22 @@ impl LineChunker {
 
 #[derive(Debug)]
 struct WorkerPool {
-    processing: VecDeque<JoinHandle<Result<()>>>,
     max_workers: usize,
+    channel_capacity: usize,
     current_thread: Option<JoinHandle<Result<()>>>,
     current_channel: Option<SyncSender<()>>,
+    processing: VecDeque<JoinHandle<Result<()>>>,
 }
 
 impl WorkerPool {
-    fn new(max_workers: usize) -> Self {
+    fn new(max_workers: usize, channel_capacity: usize) -> Self {
+        assert!(max_workers > 0 && channel_capacity > 0);
         Self {
-            processing: VecDeque::with_capacity(max_workers),
             max_workers,
+            channel_capacity,
             current_thread: None,
             current_channel: None,
+            processing: VecDeque::with_capacity(max_workers),
         }
     }
 
@@ -234,7 +237,8 @@ fn create_signal() -> (SignalSender, SignalReceiver) {
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    let mut worker_pool = WorkerPool::new(CHUNK_WORKERS);
+    let channel_capacity = CHUNK_SIZES.average / CHUNK_GRANULARITY;
+    let mut worker_pool = WorkerPool::new(CHUNK_WORKERS, channel_capacity);
     worker_pool.queue_worker();
 
     {
