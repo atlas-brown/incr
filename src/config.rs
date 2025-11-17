@@ -23,7 +23,7 @@ pub(crate) const CHUNK_SIZES: ChunkSizes = ChunkSizes {
     average: 256,
     maximum: 1024,
 };
-pub(crate) const CHUNK_GRANULARITY: usize = 8;
+pub(crate) const CHUNK_GRANULARITY: usize = 2;
 pub(crate) const COMPRESSION_LEVEL: i32 = 1;
 pub(crate) const BUFFER_SIZE: usize = 65_536;
 pub(crate) const PARALLEL_SIZE: usize = 1000;

@@ -3,7 +3,7 @@ pub(crate) mod chunk_executor;
 pub(crate) mod skip_executor;
 pub(crate) mod stream_executor;
 
-use anyhow::{Result, anyhow, ensure};
+use anyhow::{Result, anyhow};
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::{self, BufReader, ErrorKind, Read, Seek, SeekFrom, Write};
@@ -45,7 +45,7 @@ pub(crate) fn parse_trace(runtime: &Runtime) -> Result<(HashSet<PathBuf>, HashSe
         RuntimeType::TraceFile(file) => file,
         RuntimeType::Nothing => return Ok((HashSet::new(), HashSet::new())),
     };
-    let (mut read_set, mut write_set) = scripts::parse_trace(trace_file).unwrap();
+    let (mut read_set, mut write_set) = scripts::parse_trace(trace_file).map_err(|e| anyhow!("{e}"))?;
     fs::remove_file(trace_file)?;
 
     read_set.retain(|p| {
@@ -219,7 +219,7 @@ where
     let mut file = File::open(data_file)?;
     if !compressed {
         let length = file.metadata()?.len() as usize;
-        ensure!(start_index <= length);
+        assert!(start_index <= length);
         if start_index == length {
             return Ok(true);
         }

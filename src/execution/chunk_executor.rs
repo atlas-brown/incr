@@ -1,20 +1,22 @@
-use anyhow::{Result, anyhow};
+use anyhow::Result;
+use bytes::{Buf, BufMut, Bytes, BytesMut};
 use fastcdc::v2020::{
     self as cdc, AVERAGE_MAX, AVERAGE_MIN, MASKS, MAXIMUM_MAX, MAXIMUM_MIN, MINIMUM_MAX, MINIMUM_MIN,
     Normalization,
 };
+use std::collections::VecDeque;
 use std::io::{self, ErrorKind, Read};
 use std::marker::PhantomData;
 use std::mem;
 use std::os::unix::process::CommandExt;
 use std::process::Command as ShellCommand;
-use std::sync::mpsc::{Receiver, Sender, SyncSender};
-use std::sync::{Arc, Mutex};
+use std::sync::mpsc::{self, Receiver, SyncSender};
 use std::thread::{self, JoinHandle};
 
 use crate::command::Command;
 use crate::config::{BUFFER_SIZE, CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, ChunkSizes, Config};
-use crate::ops::{ExitCode, debug_log};
+use crate::ops::threads::{SignalReceiver, SignalSender};
+use crate::ops::{self, ExitCode, debug_log};
 
 #[derive(Clone, Debug)]
 struct LineReader<R>
@@ -37,6 +39,7 @@ where
     R: Read,
 {
     fn new(stream: R, group_size: usize) -> Self {
+        assert!(group_size > 0);
         Self {
             stream,
             group_size,
@@ -150,21 +153,120 @@ impl LineChunker {
     }
 }
 
-pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    let mut line_reader = LineReader::new(io::stdin().lock(), CHUNK_GRANULARITY);
-    let mut line_chunker = LineChunker::new(CHUNK_SIZES);
+#[derive(Debug)]
+struct WorkerPool {
+    max_workers: usize,
+    channel_capacity: usize,
+    processing: VecDeque<JoinHandle<Result<()>>>,
+    current_thread: Option<JoinHandle<Result<()>>>,
+    current_channel: Option<SyncSender<Bytes>>,
+    next_signal: Option<SignalReceiver>,
+    data: BytesMut,
+}
 
-    let mut stdin_closed = false;
-    while !stdin_closed {
-        stdin_closed = line_reader.read()?;
-        while let Some(lines) = line_reader.next_lines() {
-            eprintln!("lines: {:?}", String::from_utf8(lines.to_vec()).unwrap());
-            if line_chunker.update(lines) {
-                eprintln!("--- CHUNK ---");
-            }
+impl WorkerPool {
+    fn new(max_workers: usize, channel_capacity: usize) -> Self {
+        assert!(max_workers > 0 && channel_capacity > 0);
+        Self {
+            max_workers,
+            channel_capacity,
+            processing: VecDeque::with_capacity(max_workers),
+            current_thread: None,
+            current_channel: None,
+            next_signal: None,
+            data: BytesMut::new(),
         }
-        line_reader.drain();
     }
 
+    fn send_lines(&mut self, lines: &[u8]) -> Result<()> {
+        let channel = self.current_channel.as_ref().unwrap();
+        self.data.extend_from_slice(lines);
+        let lines = self.data.split_to(self.data.len());
+        channel.send(lines.freeze())?;
+        Ok(())
+    }
+
+    fn start_worker(&mut self) -> Result<()> {
+        assert!(self.current_thread.is_none() && self.current_channel.is_none());
+        if self.processing.len() == self.max_workers {
+            let worker_thread = self.processing.pop_front().unwrap();
+            ops::threads::join(worker_thread)??;
+        }
+
+        let (send_channel, receive_channel) = mpsc::sync_channel(self.channel_capacity);
+        let (send_signal, receive_signal) = ops::threads::create_signal();
+        self.current_thread = Some(thread::spawn({
+            let receive_signal = self.next_signal.take();
+            move || process_chunk(receive_channel, receive_signal, send_signal)
+        }));
+        self.current_channel = Some(send_channel);
+        self.next_signal = Some(receive_signal);
+
+        Ok(())
+    }
+
+    fn detach_worker(&mut self) {
+        assert!(self.current_thread.is_some() && self.current_channel.is_some());
+        self.processing.push_back(self.current_thread.take().unwrap());
+        self.current_channel.take();
+    }
+
+    fn join(self) -> Result<()> {
+        assert!(self.current_thread.is_none() && self.current_channel.is_none());
+        for worker_thread in self.processing {
+            ops::threads::join(worker_thread)??;
+        }
+        Ok(())
+    }
+}
+
+pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
+    let channel_capacity = CHUNK_SIZES.average / CHUNK_GRANULARITY;
+    let mut worker_pool = WorkerPool::new(CHUNK_WORKERS, channel_capacity);
+    worker_pool.start_worker()?;
+
+    {
+        let mut stdin_reader = LineReader::new(io::stdin().lock(), CHUNK_GRANULARITY);
+        let mut stdin_chunker = LineChunker::new(CHUNK_SIZES);
+        let mut stdin_closed = false;
+
+        while !stdin_closed {
+            stdin_closed = stdin_reader.read()?;
+            while let Some(lines) = stdin_reader.next_lines() {
+                worker_pool.send_lines(lines)?;
+                if stdin_chunker.update(lines) {
+                    worker_pool.detach_worker();
+                    worker_pool.start_worker()?;
+                }
+            }
+            stdin_reader.drain();
+        }
+
+        worker_pool.detach_worker();
+    }
+
+    worker_pool.join()?;
+    eprintln!("joined");
+
     todo!()
+}
+
+fn process_chunk(
+    channel: Receiver<Bytes>,
+    receive_signal: Option<SignalReceiver>,
+    send_signal: SignalSender,
+) -> Result<()> {
+    let mut test = Vec::new();
+    for lines in channel {
+        test.push(lines);
+    }
+    if let Some(signal) = receive_signal {
+        signal.wait_until_active();
+    }
+    for lines in test {
+        eprintln!("worker: {lines:?}");
+    }
+    eprintln!("worker done");
+    send_signal.set_active();
+    Ok(())
 }
