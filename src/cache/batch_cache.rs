@@ -2,16 +2,15 @@ use anyhow::Result;
 use bincode::Encode;
 use serde::Serialize;
 use std::collections::BTreeMap;
-use std::fs::{self, File};
-use std::io::{BufWriter, Write};
+use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::{Command as ShellCommand, Stdio};
 
-use crate::cache::CacheData;
+use crate::cache::{self, CacheData};
 use crate::command::Command;
 use crate::config::{
-    BUFFER_SIZE, COMMIT_DIRECTORY, Config, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY, SANDBOX_DIRECTORY,
-    STDERR_FILE, STDOUT_FILE, SUDO_SANDBOX, TRACE_FILE,
+    COMMIT_DIRECTORY, Config, DATA_FILE, DEBUG, OUTPUT_DIRECTORY, SANDBOX_DIRECTORY, STDERR_FILE,
+    STDOUT_FILE, SUDO_SANDBOX, TRACE_FILE,
 };
 use crate::ops;
 
@@ -60,7 +59,7 @@ impl<'c> CacheCursor<'c> {
         })?;
         let hash = ops::data::hash_bytes(&key_data);
         Ok(Self {
-            directory: config.cache_directory.join(format!("cache_{hash}")),
+            directory: config.cache_directory.join(format!("batch_{hash}")),
             try_command: config.try_command.clone(),
             debug_info,
         })
@@ -83,22 +82,8 @@ impl<'c> CacheCursor<'c> {
     }
 
     pub(crate) fn create_directory(&self) -> Result<()> {
-        if self.directory.is_dir() {
-            return Ok(());
-        }
-        if self.directory.is_file() {
-            fs::remove_file(&self.directory)?;
-        }
-
-        fs::create_dir_all(&self.directory)?;
-        if DEBUG {
-            let file = File::create(self.directory.join(DEBUG_FILE))?;
-            let mut file_writer = BufWriter::with_capacity(BUFFER_SIZE, file);
-            serde_json::to_writer_pretty(&mut file_writer, &self.debug_info)?;
-            file_writer.flush()?;
-        }
-
-        Ok(())
+        let debug_info = if DEBUG { Some(&self.debug_info) } else { None };
+        cache::create_directory(&self.directory, debug_info)
     }
 
     pub(crate) fn extract_sandbox_output(&self) -> Result<()> {

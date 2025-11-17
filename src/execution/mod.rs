@@ -8,7 +8,6 @@ use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::{self, BufReader, ErrorKind, Read, Seek, SeekFrom, Write};
 use std::path::{Path, PathBuf};
-use std::thread;
 use std::time::UNIX_EPOCH;
 use zstd::Decoder;
 
@@ -17,8 +16,7 @@ use crate::cache::batch_cache::CacheCursor;
 use crate::cache::{CacheData, DependencyKey};
 use crate::command::{Command, Runtime, RuntimeType};
 use crate::config::{
-    BUFFER_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, INTROSPECT_DIRECTORY, PARALLEL_SIZE,
-    TRACE_FILE, TraceType,
+    BUFFER_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, INTROSPECT_DIRECTORY, TRACE_FILE, TraceType,
 };
 use crate::ops;
 use crate::scripts;
@@ -82,7 +80,7 @@ pub(crate) fn get_read_dependencies(
     write_set: &HashSet<PathBuf>,
 ) -> Result<HashMap<PathBuf, DependencyKey>> {
     let paths = read_set.iter().collect::<Vec<_>>();
-    let results = parallel_process(&paths, |chunk| {
+    let results = ops::threads::parallel_process(&paths, |chunk| {
         let mut dependencies = Vec::with_capacity(chunk.len());
         for &path in chunk {
             if !path.exists() {
@@ -139,7 +137,7 @@ pub(crate) fn filter_dependencies(
 
 fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Result<bool> {
     let dependencies = dependencies.iter().collect::<Vec<_>>();
-    let results = parallel_process(&dependencies, |chunk| {
+    let results = ops::threads::parallel_process(&dependencies, |chunk| {
         for (path, key) in chunk {
             match key {
                 DependencyKey::DoesNotExist => {
@@ -182,30 +180,6 @@ fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
     };
     let mut file_reader = BufReader::with_capacity(BUFFER_SIZE, file);
     Ok(Some(ops::data::hash_stream(&mut file_reader)?))
-}
-
-fn parallel_process<T, F, O>(data: &[T], function: F) -> Result<Vec<O>>
-where
-    T: Sync,
-    F: Fn(&[T]) -> Result<O> + Sync,
-    O: Send,
-{
-    let num_chunks = data.len().div_ceil(PARALLEL_SIZE);
-    if num_chunks <= 1 {
-        return Ok(vec![function(data)?]);
-    }
-
-    thread::scope(|scope| {
-        let mut threads = Vec::with_capacity(num_chunks);
-        let mut results = Vec::with_capacity(num_chunks);
-        for chunk in data.chunks(PARALLEL_SIZE) {
-            threads.push(scope.spawn(|| function(chunk)));
-        }
-        for thread in threads {
-            results.push(thread.join().map_err(|e| anyhow!("{e:?}"))??);
-        }
-        Ok(results)
-    })
 }
 
 pub(crate) fn output_data<D>(
