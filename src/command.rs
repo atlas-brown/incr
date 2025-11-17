@@ -12,6 +12,7 @@ use zstd::Encoder;
 
 use crate::config::{BUFFER_SIZE, COMPRESSION_LEVEL, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRACE_FILE};
 use crate::ops;
+use crate::ops::thread::{AlwaysReady, ReadySignal};
 
 #[derive(Clone, Debug)]
 pub(crate) struct Command {
@@ -103,7 +104,7 @@ pub(crate) fn get(mut arguments: Vec<String>, environment: &HashMap<String, Stri
 }
 
 pub(crate) fn spawn(config: &Config, command: &Command, runtime: &Runtime) -> Result<ChildContext> {
-    spawn_with_signal(config, command, runtime, || true)
+    spawn_with_signal(config, command, runtime, AlwaysReady)
 }
 
 pub(crate) fn spawn_with_signal<R>(
@@ -113,7 +114,7 @@ pub(crate) fn spawn_with_signal<R>(
     destination_ready: R,
 ) -> Result<ChildContext>
 where
-    R: Clone + Fn() -> bool + Send + 'static,
+    R: Clone + ReadySignal + Send + 'static,
 {
     if let RuntimeType::Sandbox(directory) = &runtime.typ {
         fs::create_dir_all(directory)?;
@@ -228,7 +229,7 @@ fn capture_stream<S, D, R>(
 where
     S: Read,
     D: Write,
-    R: Fn() -> bool,
+    R: ReadySignal,
 {
     if let Some(parent) = capture_file.parent() {
         fs::create_dir_all(parent)?;
@@ -237,29 +238,32 @@ where
     let mut file_writer = BufWriter::with_capacity(BUFFER_SIZE, file);
 
     if !config.compress {
-        let output = capture_into_stream(config, source, destination, &mut file_writer);
+        let output = capture_into_stream(config, source, destination, &mut file_writer, destination_ready);
         file_writer.flush()?;
         output
     } else {
-        let mut compressed_writer = Encoder::new(file_writer, COMPRESSION_LEVEL)?;
-        let output = capture_into_stream(config, source, destination, &mut compressed_writer);
-        compressed_writer.finish()?.flush()?;
+        let mut compressor = Encoder::new(file_writer, COMPRESSION_LEVEL)?;
+        let output = capture_into_stream(config, source, destination, &mut compressor, destination_ready);
+        compressor.finish()?.flush()?;
         output
     }
 }
 
-fn capture_into_stream<S, D, W>(
+fn capture_into_stream<S, D, W, R>(
     config: &Config,
     source: &mut S,
     destination: &mut D,
     stream: &mut W,
+    destination_ready: R,
 ) -> Result<ChildOutput>
 where
     S: Read,
     D: Write,
     W: Write,
+    R: ReadySignal,
 {
     let mut chunk = [0; BUFFER_SIZE];
+    //let mut pending = Vec::new();
     let mut destination_broken = false;
     let mut length = 0;
 

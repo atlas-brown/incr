@@ -205,12 +205,9 @@ where
         let mut file_reader = BufReader::with_capacity(BUFFER_SIZE, file);
         output_from_stream(&mut file_reader, destination)
     } else {
-        let mut compressed_reader = Decoder::new(BufReader::with_capacity(BUFFER_SIZE, file))?;
-        io::copy(
-            &mut (&mut compressed_reader).take(start_index as u64),
-            &mut io::sink(),
-        )?;
-        output_from_stream(&mut compressed_reader, destination)
+        let mut decompressor = Decoder::new(BufReader::with_capacity(BUFFER_SIZE, file))?;
+        io::copy(&mut (&mut decompressor).take(start_index as u64), &mut io::sink())?;
+        output_from_stream(&mut decompressor, destination)
     }
 }
 
