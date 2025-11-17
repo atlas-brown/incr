@@ -28,7 +28,7 @@ pub(crate) const BUFFER_SIZE: usize = 65_536;
 pub(crate) const PARALLEL_SIZE: usize = 1000;
 
 pub(crate) const SUDO_SANDBOX: bool = true;
-pub(crate) const DEBUG: bool = true;
+pub(crate) const DEBUG: bool = false;
 pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
 pub(crate) const DEBUG_LOG_PATH: &str = "incr/debug_log.txt";
 
