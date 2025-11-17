@@ -64,7 +64,7 @@ where
             let line = &self.data[self.index..end_index + 1];
             self.index = end_index + 1;
             Some(line)
-        } else if self.stream_closed {
+        } else if self.stream_closed && self.index < self.data.len() {
             let line = &self.data[self.index..];
             self.index = self.data.len();
             Some(line)
@@ -80,5 +80,14 @@ where
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
+    let mut line_reader = LineReader::new(io::stdin().lock());
+    let mut stdin_closed = false;
+    while !stdin_closed {
+        stdin_closed = line_reader.read()?;
+        while let Some(line) = line_reader.next_line() {
+            eprintln!("line: {:?}", String::from_utf8(line.to_vec()).unwrap());
+        }
+        line_reader.drain();
+    }
     todo!()
 }
