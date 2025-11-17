@@ -188,6 +188,7 @@ impl WorkerPool {
 
     fn start_worker(&mut self) -> Result<()> {
         assert!(self.current_thread.is_none() && self.current_channel.is_none());
+        assert!(self.processing.len() <= self.max_workers);
         if self.processing.len() == self.max_workers {
             let worker_thread = self.processing.pop_front().unwrap();
             ops::threads::join(worker_thread)??;
