@@ -202,10 +202,10 @@ struct CacheKey<'c> {
 
 #[derive(Clone, Debug, Decode, Deserialize, Encode, Serialize)]
 pub(crate) struct CacheData {
-    pub(crate) compressed_output: bool,
     pub(crate) exit_code: i32,
     pub(crate) read_dependencies: HashMap<PathBuf, DependencyKey>,
     pub(crate) write_outputs: HashSet<PathBuf>,
+    pub(crate) compressed_output: bool,
 }
 
 #[derive(Clone, Debug, Decode, Deserialize, Encode, Eq, PartialEq, Serialize)]

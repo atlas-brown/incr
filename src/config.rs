@@ -23,6 +23,7 @@ pub(crate) const CHUNK_SIZES: ChunkSizes = ChunkSizes {
     average: 256,
     maximum: 1024,
 };
+pub(crate) const CHUNK_GRANULARITY: usize = 8;
 pub(crate) const COMPRESSION_LEVEL: i32 = 1;
 pub(crate) const BUFFER_SIZE: usize = 65_536;
 pub(crate) const PARALLEL_SIZE: usize = 1000;
@@ -54,12 +55,12 @@ pub(crate) const DYNAMIC_EXCLUDED_PATHS: &[&str] = &["/tmp"];
 
 #[derive(Clone, Debug)]
 pub(crate) struct Config {
-    pub(crate) complete_execution: bool, // Complete after a downstream failure
-    pub(crate) compress: bool,           // Whether to compress cached outputs
-    pub(crate) force_cache: bool,        // Do not skip the command
     pub(crate) try_command: String,      // Bash try command string
     pub(crate) cache_directory: PathBuf, // Directory to store cache data
     pub(crate) trace_type: TraceType,    // Type of tracing to use
+    pub(crate) complete_execution: bool, // Complete after a downstream failure
+    pub(crate) compress: bool,           // Whether to compress cached outputs
+    pub(crate) force_cache: bool,        // Do not skip the command
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -81,7 +82,7 @@ impl Display for TraceType {
 
 #[derive(Clone, Debug)]
 pub(crate) struct ChunkSizes {
-    pub(crate) minimum: u32,
-    pub(crate) average: u32,
-    pub(crate) maximum: u32,
+    pub(crate) minimum: usize,
+    pub(crate) average: usize,
+    pub(crate) maximum: usize,
 }

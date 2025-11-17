@@ -268,10 +268,10 @@ fn save_command_data(
     execution::filter_dependencies(&mut read_dependencies, &mut write_set)?;
 
     let cache_data = CacheData {
-        compressed_output: config.compress,
         exit_code: exit_code.0,
         read_dependencies,
         write_outputs: write_set,
+        compressed_output: config.compress,
     };
 
     fs::rename(&runtime.stdout_file, cache.get_stdout_file())?;
