@@ -159,9 +159,9 @@ impl LineChunker {
 }
 
 #[derive(Debug)]
-struct WorkerPool<'c> {
-    config: &'c Config,
-    command: &'c Command,
+struct WorkerPool {
+    config: Config,
+    command: Arc<Command>,
     cache: Arc<CacheCursor>,
     max_workers: usize,
     channel_capacity: usize,
@@ -173,10 +173,10 @@ struct WorkerPool<'c> {
     data: BytesMut,
 }
 
-impl<'c> WorkerPool<'c> {
+impl WorkerPool {
     fn new(
-        config: &'c Config,
-        command: &'c Command,
+        config: Config,
+        command: Command,
         cache: CacheCursor,
         max_workers: usize,
         channel_capacity: usize,
@@ -184,7 +184,7 @@ impl<'c> WorkerPool<'c> {
         assert!(max_workers > 0 && channel_capacity > 0);
         Self {
             config,
-            command,
+            command: Arc::new(command),
             cache: Arc::new(cache),
             max_workers,
             channel_capacity,
@@ -218,7 +218,7 @@ impl<'c> WorkerPool<'c> {
 
         self.current_thread = Some(thread::spawn({
             let config = self.config.clone();
-            let command = self.command.clone();
+            let command = Arc::clone(&self.command);
             let cache = Arc::clone(&self.cache);
             let receive_signal = self.next_signal.take();
             move || {
@@ -253,8 +253,8 @@ impl<'c> WorkerPool<'c> {
     }
 }
 
-pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    let cache = CacheCursor::new(config, command)?;
+pub(crate) fn run(config: Config, command: Command) -> Result<ExitCode> {
+    let cache = CacheCursor::new(&config, &command)?;
     cache.create_directory()?;
     let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);
     let mut worker_pool = WorkerPool::new(config, command, cache, CHUNK_WORKERS, channel_capacity);
@@ -284,18 +284,6 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     eprintln!("joined");
 
     todo!()
-}
-
-fn create_child_runtime(config: &Config) -> Result<Runtime> {
-    assert!(config.trace_type == TraceType::Nothing);
-    let key = rand::rng().random_range(0..u64::MAX);
-    let stdout_file = config.cache_directory.join(format!("stdout_{key}.incr"));
-    let stderr_file = config.cache_directory.join(format!("stderr_{key}.incr"));
-    Ok(Runtime {
-        typ: RuntimeType::Nothing,
-        stdout_file,
-        stderr_file,
-    })
 }
 
 fn process_chunk(
@@ -337,4 +325,16 @@ fn process_chunk(
     eprintln!("worker done");
     send_signal.set_active();*/
     Ok(())
+}
+
+fn create_child_runtime(config: &Config) -> Result<Runtime> {
+    assert!(config.trace_type == TraceType::Nothing);
+    let key = rand::rng().random_range(0..u64::MAX);
+    let stdout_file = config.cache_directory.join(format!("stdout_{key}.incr"));
+    let stderr_file = config.cache_directory.join(format!("stderr_{key}.incr"));
+    Ok(Runtime {
+        typ: RuntimeType::Nothing,
+        stdout_file,
+        stderr_file,
+    })
 }
