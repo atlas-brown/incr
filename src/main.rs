@@ -90,14 +90,16 @@ fn parse_input() -> Result<Option<Input>> {
     let (try_command, cache_directory) = match (arguments.try_command, arguments.cache_directory) {
         (Some(try_command), Some(cache_directory)) => (try_command, PathBuf::from(cache_directory)),
         (try_command, cache_directory) => {
-            let home_directory = env::home_dir().ok_or(anyhow!("Could not resolve home directory"))?;
+            let home_directory =
+                env::home_dir().ok_or_else(|| anyhow!("Could not resolve home directory"))?;
+            let default_try_command = format!(
+                "{}/{}",
+                ops::files::path_to_string(&home_directory)?,
+                DEFAULT_TRY_PATH,
+            );
             (
-                try_command.unwrap_or(format!(
-                    "{}/{}",
-                    ops::files::path_to_string(&home_directory)?,
-                    DEFAULT_TRY_PATH,
-                )),
-                home_directory.join(cache_directory.unwrap_or(DEFAULT_CACHE_PATH.to_owned())),
+                try_command.unwrap_or(default_try_command),
+                home_directory.join(cache_directory.unwrap_or_else(|| DEFAULT_CACHE_PATH.to_owned())),
             )
         }
     };

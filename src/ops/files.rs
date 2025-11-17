@@ -15,7 +15,7 @@ pub(crate) fn add_data_extension(mut file_name: String) -> String {
 }
 
 pub(crate) fn path_to_string(path: &Path) -> Result<&str> {
-    path.to_str().ok_or(anyhow!("Could not format path"))
+    path.to_str().ok_or_else(|| anyhow!("Could not format path"))
 }
 
 pub(crate) fn remove_file(path: &Path) -> Result<()> {
