@@ -66,7 +66,7 @@ fn run_command(
         }
     }
 
-    let exit_code = child.wait()?.code().expect("Child terminated by signal");
+    let exit_code = child.wait()?.code().unwrap_or(1);
     let stdout_result = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     let stderr_result = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
     if stdout_result == ChildOutput::BrokenPipe || stderr_result == ChildOutput::BrokenPipe {
