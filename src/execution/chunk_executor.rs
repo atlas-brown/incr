@@ -4,6 +4,7 @@ use fastcdc::v2020::{
     self as cdc, AVERAGE_MAX, AVERAGE_MIN, MASKS, MAXIMUM_MAX, MAXIMUM_MIN, MINIMUM_MAX, MINIMUM_MIN,
     Normalization,
 };
+use rand::Rng;
 use std::collections::VecDeque;
 use std::io::{self, ErrorKind, Read};
 use std::marker::PhantomData;
@@ -15,16 +16,12 @@ use std::sync::mpsc::{self, Receiver, SyncSender};
 use std::thread::{self, JoinHandle};
 
 use crate::cache::chunk_cache::CacheCursor;
-use crate::command::Command;
-use crate::config::{BUFFER_SIZE, CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, ChunkSizes, Config};
+use crate::command::{ChildContext, ChildOutput, Command, Runtime, RuntimeType};
+use crate::config::{
+    BUFFER_SIZE, CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, ChunkSizes, Config, TraceType,
+};
 use crate::ops::threads::{SignalReceiver, SignalSender};
 use crate::ops::{self, ExitCode, debug_log};
-
-#[derive(Clone, Debug)]
-struct CommandParams {
-    name: String,
-    arguments: Vec<String>,
-}
 
 #[derive(Clone, Debug)]
 struct LineReader<R>
@@ -162,8 +159,9 @@ impl LineChunker {
 }
 
 #[derive(Debug)]
-struct WorkerPool {
-    command_params: CommandParams,
+struct WorkerPool<'c> {
+    config: &'c Config,
+    command: &'c Command,
     cache: Arc<CacheCursor>,
     max_workers: usize,
     channel_capacity: usize,
@@ -175,19 +173,21 @@ struct WorkerPool {
     data: BytesMut,
 }
 
-impl WorkerPool {
+impl<'c> WorkerPool<'c> {
     fn new(
-        command_params: CommandParams,
+        config: &'c Config,
+        command: &'c Command,
         cache: CacheCursor,
         max_workers: usize,
         channel_capacity: usize,
     ) -> Self {
         assert!(max_workers > 0 && channel_capacity > 0);
         Self {
+            config,
+            command,
+            cache: Arc::new(cache),
             max_workers,
             channel_capacity,
-            command_params,
-            cache: Arc::new(cache),
 
             processing: VecDeque::with_capacity(max_workers),
             current_thread: None,
@@ -208,20 +208,23 @@ impl WorkerPool {
     fn start_worker(&mut self) -> Result<()> {
         assert!(self.current_thread.is_none() && self.current_channel.is_none());
         assert!(self.processing.len() <= self.max_workers);
+
         if self.processing.len() == self.max_workers {
             let worker_thread = self.processing.pop_front().unwrap();
             ops::threads::join(worker_thread)??;
         }
-
         let (send_channel, receive_channel) = mpsc::sync_channel(self.channel_capacity);
         let (send_signal, receive_signal) = ops::threads::create_signal();
+
         self.current_thread = Some(thread::spawn({
-            let command_params = self.command_params.clone();
+            let config = self.config.clone();
+            let command = self.command.clone();
             let cache = Arc::clone(&self.cache);
             let receive_signal = self.next_signal.take();
             move || {
                 process_chunk(
-                    command_params,
+                    &config,
+                    &command,
                     &cache,
                     receive_channel,
                     receive_signal,
@@ -251,15 +254,10 @@ impl WorkerPool {
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    let command_params = CommandParams {
-        name: command.name.clone(),
-        arguments: command.arguments.clone(),
-    };
     let cache = CacheCursor::new(config, command)?;
     cache.create_directory()?;
-
     let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);
-    let mut worker_pool = WorkerPool::new(command_params, cache, CHUNK_WORKERS, channel_capacity);
+    let mut worker_pool = WorkerPool::new(config, command, cache, CHUNK_WORKERS, channel_capacity);
     worker_pool.start_worker()?;
 
     {
@@ -288,8 +286,21 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     todo!()
 }
 
+fn create_child_runtime(config: &Config) -> Result<Runtime> {
+    assert!(config.trace_type == TraceType::Nothing);
+    let key = rand::rng().random_range(0..u64::MAX);
+    let stdout_file = config.cache_directory.join(format!("stdout_{key}.incr"));
+    let stderr_file = config.cache_directory.join(format!("stderr_{key}.incr"));
+    Ok(Runtime {
+        typ: RuntimeType::Nothing,
+        stdout_file,
+        stderr_file,
+    })
+}
+
 fn process_chunk(
-    command_params: CommandParams,
+    config: &Config,
+    command: &Command,
     cache: &CacheCursor,
     stdin_channel: Receiver<Bytes>,
     receive_signal: Option<SignalReceiver>,
