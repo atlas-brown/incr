@@ -80,7 +80,7 @@ pub(crate) fn get_read_dependencies(
     write_set: &HashSet<PathBuf>,
 ) -> Result<HashMap<PathBuf, DependencyKey>> {
     let paths = read_set.iter().collect::<Vec<_>>();
-    let results = ops::threads::parallel_process(&paths, |chunk| {
+    let results = ops::thread::parallel_process(&paths, |chunk| {
         let mut dependencies = Vec::with_capacity(chunk.len());
         for &path in chunk {
             if !path.exists() {
@@ -137,7 +137,7 @@ pub(crate) fn filter_dependencies(
 
 fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Result<bool> {
     let dependencies = dependencies.iter().collect::<Vec<_>>();
-    let results = ops::threads::parallel_process(&dependencies, |chunk| {
+    let results = ops::thread::parallel_process(&dependencies, |chunk| {
         for (path, key) in chunk {
             match key {
                 DependencyKey::DoesNotExist => {

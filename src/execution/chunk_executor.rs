@@ -16,7 +16,7 @@ use crate::cache::chunk_cache::CacheCursor;
 use crate::command::{self, ChildContext, ChildOutput, Command, Runtime, RuntimeType};
 use crate::config::{CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, Config, TraceType};
 use crate::ops::chunk::{LineChunker, LineReader};
-use crate::ops::threads::{SignalReceiver, SignalSender};
+use crate::ops::thread::{SignalReceiver, SignalSender};
 use crate::ops::{self, ExitCode, debug_log};
 
 #[derive(Debug)]
@@ -72,10 +72,10 @@ impl WorkerPool {
 
         if self.processing.len() == self.max_workers {
             let worker_thread = self.processing.pop_front().unwrap();
-            ops::threads::join(worker_thread)??;
+            ops::thread::join(worker_thread)??;
         }
         let (send_channel, receive_channel) = mpsc::sync_channel(self.channel_capacity);
-        let (send_signal, receive_signal) = ops::threads::create_signal();
+        let (send_signal, receive_signal) = ops::thread::create_signal();
 
         self.current_thread = Some(thread::spawn({
             let config = self.config.clone();
@@ -108,7 +108,7 @@ impl WorkerPool {
     fn join(self) -> Result<()> {
         assert!(self.current_thread.is_none() && self.current_channel.is_none());
         for worker_thread in self.processing {
-            ops::threads::join(worker_thread)??;
+            ops::thread::join(worker_thread)??;
         }
         Ok(())
     }

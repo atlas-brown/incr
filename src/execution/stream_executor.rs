@@ -205,10 +205,10 @@ fn join_stream_threads(
     stderr_thread: JoinHandle<Result<ChildOutput>>,
 ) -> Result<Option<Outputs>> {
     if let Some(stdin_thread) = stdin_thread {
-        ops::threads::join(stdin_thread)??;
+        ops::thread::join(stdin_thread)??;
     }
-    let stdout_result = ops::threads::join(stdout_thread)??;
-    let stderr_result = ops::threads::join(stderr_thread)??;
+    let stdout_result = ops::thread::join(stdout_thread)??;
+    let stderr_result = ops::thread::join(stderr_thread)??;
     match (stdout_result, stderr_result) {
         (ChildOutput::Completed(stdout_length), ChildOutput::Completed(stderr_length)) => Ok(Some(Outputs {
             stdout_length,

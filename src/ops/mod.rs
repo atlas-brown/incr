@@ -2,7 +2,7 @@ pub(crate) mod chunk;
 pub(crate) mod data;
 pub(crate) mod files;
 pub(crate) mod serialize_bytes;
-pub(crate) mod threads;
+pub(crate) mod thread;
 
 use std::env;
 use std::fs::{File, OpenOptions};
