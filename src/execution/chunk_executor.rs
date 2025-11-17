@@ -10,13 +10,21 @@ use std::marker::PhantomData;
 use std::mem;
 use std::os::unix::process::CommandExt;
 use std::process::Command as ShellCommand;
+use std::sync::Arc;
 use std::sync::mpsc::{self, Receiver, SyncSender};
 use std::thread::{self, JoinHandle};
 
+use crate::cache::chunk_cache::CacheCursor;
 use crate::command::Command;
 use crate::config::{BUFFER_SIZE, CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, ChunkSizes, Config};
 use crate::ops::threads::{SignalReceiver, SignalSender};
 use crate::ops::{self, ExitCode, debug_log};
+
+#[derive(Clone, Debug)]
+struct CommandParams {
+    name: String,
+    arguments: Vec<String>,
+}
 
 #[derive(Clone, Debug)]
 struct LineReader<R>
@@ -155,8 +163,11 @@ impl LineChunker {
 
 #[derive(Debug)]
 struct WorkerPool {
+    command_params: CommandParams,
+    cache: Arc<CacheCursor>,
     max_workers: usize,
     channel_capacity: usize,
+
     processing: VecDeque<JoinHandle<Result<()>>>,
     current_thread: Option<JoinHandle<Result<()>>>,
     current_channel: Option<SyncSender<Bytes>>,
@@ -165,11 +176,19 @@ struct WorkerPool {
 }
 
 impl WorkerPool {
-    fn new(max_workers: usize, channel_capacity: usize) -> Self {
+    fn new(
+        command_params: CommandParams,
+        cache: CacheCursor,
+        max_workers: usize,
+        channel_capacity: usize,
+    ) -> Self {
         assert!(max_workers > 0 && channel_capacity > 0);
         Self {
             max_workers,
             channel_capacity,
+            command_params,
+            cache: Arc::new(cache),
+
             processing: VecDeque::with_capacity(max_workers),
             current_thread: None,
             current_channel: None,
@@ -197,8 +216,18 @@ impl WorkerPool {
         let (send_channel, receive_channel) = mpsc::sync_channel(self.channel_capacity);
         let (send_signal, receive_signal) = ops::threads::create_signal();
         self.current_thread = Some(thread::spawn({
+            let command_params = self.command_params.clone();
+            let cache = Arc::clone(&self.cache);
             let receive_signal = self.next_signal.take();
-            move || process_chunk(receive_channel, receive_signal, send_signal)
+            move || {
+                process_chunk(
+                    command_params,
+                    &cache,
+                    receive_channel,
+                    receive_signal,
+                    send_signal,
+                )
+            }
         }));
         self.current_channel = Some(send_channel);
         self.next_signal = Some(receive_signal);
@@ -222,8 +251,15 @@ impl WorkerPool {
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    let channel_capacity = CHUNK_SIZES.average / CHUNK_GRANULARITY;
-    let mut worker_pool = WorkerPool::new(CHUNK_WORKERS, channel_capacity);
+    let command_params = CommandParams {
+        name: command.name.clone(),
+        arguments: command.arguments.clone(),
+    };
+    let cache = CacheCursor::new(config, command)?;
+    cache.create_directory()?;
+
+    let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);
+    let mut worker_pool = WorkerPool::new(command_params, cache, CHUNK_WORKERS, channel_capacity);
     worker_pool.start_worker()?;
 
     {
@@ -253,12 +289,32 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 }
 
 fn process_chunk(
-    channel: Receiver<Bytes>,
+    command_params: CommandParams,
+    cache: &CacheCursor,
+    stdin_channel: Receiver<Bytes>,
     receive_signal: Option<SignalReceiver>,
     send_signal: SignalSender,
 ) -> Result<()> {
-    let mut test = Vec::new();
-    for lines in channel {
+    /*let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);
+    let (send_channel, receive_channel) = mpsc::sync_channel(channel_capacity);
+    let stdin_thread = thread::spawn(move || {
+        let mut broken = false;
+        for chunk in receive_channel {
+            if broken {
+                continue;
+            }
+            if let Err(error) = child_stdin.write_all(&chunk) {
+                if error.kind() != ErrorKind::BrokenPipe {
+                    return Err(error.into());
+                }
+                broken = true;
+            };
+        }
+        Ok(())
+    });*/
+
+    /*let mut test = Vec::new();
+    for lines in stdin_channel {
         test.push(lines);
     }
     if let Some(signal) = receive_signal {
@@ -268,6 +324,6 @@ fn process_chunk(
         eprintln!("worker: {lines:?}");
     }
     eprintln!("worker done");
-    send_signal.set_active();
+    send_signal.set_active();*/
     Ok(())
 }
