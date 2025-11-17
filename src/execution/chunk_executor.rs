@@ -42,14 +42,16 @@ where
         if self.stream_closed {
             return Ok(true);
         }
-        let count = match self.stream.read(self.chunk.as_mut_slice()) {
-            Ok(0) => {
-                self.stream_closed = true;
-                return Ok(true);
+        let count = loop {
+            match self.stream.read(self.chunk.as_mut_slice()) {
+                Ok(0) => {
+                    self.stream_closed = true;
+                    return Ok(true);
+                }
+                Ok(count) => break count,
+                Err(error) if error.kind() == ErrorKind::Interrupted => continue,
+                Err(error) => return Err(error.into()),
             }
-            Ok(count) => count,
-            Err(error) if error.kind() == ErrorKind::Interrupted => return Ok(false),
-            Err(error) => return Err(error.into()),
         };
         self.data.extend_from_slice(&self.chunk[..count]);
         Ok(false)
