@@ -201,11 +201,11 @@ impl SignalReceiver {
         *self.active.lock().unwrap()
     }
 
-    fn wait_until_active(&mut self) {
-        let _guard = self
-            .condition
-            .wait_while(self.active.lock().unwrap(), |active| *active)
-            .unwrap();
+    fn wait_until_active(&self) {
+        let mut active = self.active.lock().unwrap();
+        while !*active {
+            active = self.condition.wait(active).unwrap();
+        }
     }
 }
 
