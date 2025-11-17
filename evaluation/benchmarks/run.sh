@@ -34,8 +34,8 @@ SIZES=(
     "small"
 )
 
-rm -rf ../results
-mkdir -p ../results
+rm -rf ../run_results
+mkdir -p ../run_results
 
 for i in "${!BENCHMARKS[@]}"; do
     benchmark="${BENCHMARKS[$i]}"
@@ -53,8 +53,12 @@ for i in "${!BENCHMARKS[@]}"; do
     fi
     sleep 0.01
 
-    cp "./$benchmark/outputs/timing.csv" "../results/$benchmark-time.csv"
-    du -sb "./$benchmark/cache" > "../results/$benchmark-size.txt"
+    cp "./$benchmark/outputs/timing.csv" "../run_results/$benchmark-time.csv"
+    du -sb "./$benchmark/cache" > "../run_results/$benchmark-size.txt"
+    # TODO: generate output hashes
+
     rm -rf "./$benchmark/cache"
+    rm -rf "./$benchmark/outputs"
     rm -rf "/tmp/sort*"
+    rm -rf "/tmp/tmp.*"
 done
