@@ -10,13 +10,13 @@ use std::io::{self, ErrorKind, Read};
 use std::marker::PhantomData;
 use std::mem;
 use std::os::unix::process::CommandExt;
-use std::process::Command as ShellCommand;
+use std::process::{ChildStdin, Command as ShellCommand};
 use std::sync::Arc;
 use std::sync::mpsc::{self, Receiver, SyncSender};
 use std::thread::{self, JoinHandle};
 
 use crate::cache::chunk_cache::CacheCursor;
-use crate::command::{ChildContext, ChildOutput, Command, Runtime, RuntimeType};
+use crate::command::{self, ChildContext, ChildOutput, Command, Runtime, RuntimeType};
 use crate::config::{
     BUFFER_SIZE, CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, ChunkSizes, Config, TraceType,
 };
@@ -253,6 +253,12 @@ impl WorkerPool {
     }
 }
 
+#[derive(Debug)]
+struct StdinContext {
+    hash: u64,
+    thread: Option<JoinHandle<Result<()>>>,
+}
+
 pub(crate) fn run(config: Config, command: Command) -> Result<ExitCode> {
     let cache = CacheCursor::new(&config, &command)?;
     cache.create_directory()?;
@@ -294,23 +300,15 @@ fn process_chunk(
     receive_signal: Option<SignalReceiver>,
     send_signal: SignalSender,
 ) -> Result<()> {
-    /*let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);
-    let (send_channel, receive_channel) = mpsc::sync_channel(channel_capacity);
-    let stdin_thread = thread::spawn(move || {
-        let mut broken = false;
-        for chunk in receive_channel {
-            if broken {
-                continue;
-            }
-            if let Err(error) = child_stdin.write_all(&chunk) {
-                if error.kind() != ErrorKind::BrokenPipe {
-                    return Err(error.into());
-                }
-                broken = true;
-            };
-        }
-        Ok(())
-    });*/
+    let runtime = create_child_runtime(config)?;
+    let ChildContext {
+        mut child,
+        stdout_thread,
+        stderr_thread,
+    } = command::spawn_command(config, command, &runtime)?;
+
+    let stdin_context = forward_stdin(stdin_channel, child.stdin.take().unwrap())?;
+    eprintln!("got stdin hash: {:?}", stdin_context.hash);
 
     /*let mut test = Vec::new();
     for lines in stdin_channel {
@@ -324,6 +322,7 @@ fn process_chunk(
     }
     eprintln!("worker done");
     send_signal.set_active();*/
+
     Ok(())
 }
 
@@ -337,4 +336,8 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
         stdout_file,
         stderr_file,
     })
+}
+
+fn forward_stdin(channel: Receiver<Bytes>, mut child_stdin: ChildStdin) -> Result<StdinContext> {
+    todo!()
 }
