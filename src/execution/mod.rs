@@ -261,7 +261,7 @@ pub(crate) fn save_introspection(config: &Config, command: &Command, cache_data:
     if cache_data.write_outputs.is_empty() {
         File::create(&introspect_file)?;
     } else if introspect_file.exists() {
-        ops::files::ignore_missing(fs::remove_file(&introspect_file))?;
+        ops::files::remove_file(&introspect_file)?;
     }
     Ok(())
 }

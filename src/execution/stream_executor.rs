@@ -113,11 +113,11 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
 }
 
 fn clean_child_runtime(runtime: &Runtime) -> Result<()> {
-    ops::files::ignore_missing(fs::remove_file(&runtime.stdout_file))?;
-    ops::files::ignore_missing(fs::remove_file(&runtime.stderr_file))?;
+    ops::files::remove_file(&runtime.stdout_file)?;
+    ops::files::remove_file(&runtime.stderr_file)?;
     match &runtime.typ {
         RuntimeType::Sandbox(directory) => batch_cache::remove_sandbox(directory)?,
-        RuntimeType::TraceFile(file) => ops::files::ignore_missing(fs::remove_file(file))?,
+        RuntimeType::TraceFile(file) => ops::files::remove_file(file)?,
         RuntimeType::Nothing => (),
     }
     Ok(())

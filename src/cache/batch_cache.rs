@@ -152,8 +152,8 @@ impl<'c> CacheCursor<'c> {
     }
 
     pub(crate) fn clean_output_files(&self) -> Result<()> {
-        ops::files::ignore_missing(fs::remove_file(self.get_stdout_file()))?;
-        ops::files::ignore_missing(fs::remove_file(self.get_stderr_file()))?;
+        ops::files::remove_file(&self.get_stdout_file())?;
+        ops::files::remove_file(&self.get_stderr_file())?;
         Ok(())
     }
 
@@ -162,14 +162,14 @@ impl<'c> CacheCursor<'c> {
     }
 
     pub(crate) fn clean_trace_file(&self) -> Result<()> {
-        ops::files::ignore_missing(fs::remove_file(self.get_trace_file()))
+        ops::files::remove_file(&self.get_trace_file())
     }
 
     pub(crate) fn clean_data_files(&self) -> Result<()> {
         let data_file = ops::files::add_data_extension(DATA_FILE.to_owned());
-        ops::files::ignore_missing(fs::remove_file(data_file))?;
-        ops::files::ignore_missing(fs::remove_dir_all(self.directory.join(OUTPUT_DIRECTORY)))?;
-        ops::files::ignore_missing(fs::remove_dir_all(self.directory.join(COMMIT_DIRECTORY)))?;
+        ops::files::remove_file(Path::new(&data_file))?;
+        ops::files::remove_directory(&self.directory.join(OUTPUT_DIRECTORY))?;
+        ops::files::remove_directory(&self.directory.join(COMMIT_DIRECTORY))?;
         Ok(())
     }
 
@@ -228,7 +228,7 @@ pub(crate) fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {
             .spawn()?
             .wait()?;
     } else {
-        ops::files::ignore_missing(fs::remove_dir_all(sandbox_directory))?;
+        ops::files::remove_directory(sandbox_directory)?;
     }
     Ok(())
 }
