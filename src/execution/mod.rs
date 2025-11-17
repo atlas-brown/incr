@@ -45,7 +45,7 @@ pub(crate) fn parse_trace(runtime: &Runtime) -> Result<(HashSet<PathBuf>, HashSe
         RuntimeType::TraceFile(file) => file,
         RuntimeType::Nothing => return Ok((HashSet::new(), HashSet::new())),
     };
-    let (mut read_set, mut write_set) = scripts::parse_trace(trace_file).unwrap();
+    let (mut read_set, mut write_set) = scripts::parse_trace(trace_file).map_err(|e| anyhow!("{e}"))?;
     fs::remove_file(trace_file)?;
 
     read_set.retain(|p| {

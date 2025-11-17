@@ -78,7 +78,7 @@ fn run() -> Result<ExitCode> {
         }
     };
 
-    result.map_err(|e| anyhow!("({}) {}", command.join_string().unwrap(), e))
+    result.map_err(|e| anyhow!("({}) {}", command.join_string().expect("Invalid command"), e))
 }
 
 fn parse_input() -> Result<Option<Input>> {

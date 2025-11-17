@@ -161,6 +161,7 @@ struct WorkerPool {
     current_thread: Option<JoinHandle<Result<()>>>,
     current_channel: Option<SyncSender<Bytes>>,
     next_signal: Option<SignalReceiver>,
+    data: BytesMut,
 }
 
 impl WorkerPool {
@@ -173,11 +174,16 @@ impl WorkerPool {
             current_thread: None,
             current_channel: None,
             next_signal: None,
+            data: BytesMut::new(),
         }
     }
 
-    fn send_lines(&mut self, lines: &[u8]) {
-        eprintln!("lines: {:?}", String::from_utf8(lines.to_vec()).unwrap());
+    fn send_lines(&mut self, lines: &[u8]) -> Result<()> {
+        let channel = self.current_channel.as_ref().unwrap();
+        self.data.extend_from_slice(lines);
+        let bytes = self.data.split_to(self.data.len());
+        channel.send(bytes.freeze())?;
+        Ok(())
     }
 
     fn split_chunk(&mut self) {
@@ -262,7 +268,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         while !stdin_closed {
             stdin_closed = stdin_reader.read()?;
             while let Some(lines) = stdin_reader.next_lines() {
-                worker_pool.send_lines(lines);
+                worker_pool.send_lines(lines)?;
                 if stdin_chunker.update(lines) {
                     worker_pool.split_chunk();
                 }
