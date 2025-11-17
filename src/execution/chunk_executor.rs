@@ -4,17 +4,22 @@ use fastcdc::v2020::{
     self as cdc, AVERAGE_MAX, AVERAGE_MIN, MASKS, MAXIMUM_MAX, MAXIMUM_MIN, MINIMUM_MAX, MINIMUM_MIN,
     Normalization,
 };
+use rand::Rng;
 use std::collections::VecDeque;
 use std::io::{self, ErrorKind, Read};
 use std::marker::PhantomData;
 use std::mem;
 use std::os::unix::process::CommandExt;
-use std::process::Command as ShellCommand;
+use std::process::{ChildStdin, Command as ShellCommand};
+use std::sync::Arc;
 use std::sync::mpsc::{self, Receiver, SyncSender};
 use std::thread::{self, JoinHandle};
 
-use crate::command::Command;
-use crate::config::{BUFFER_SIZE, CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, ChunkSizes, Config};
+use crate::cache::chunk_cache::CacheCursor;
+use crate::command::{self, ChildContext, ChildOutput, Command, Runtime, RuntimeType};
+use crate::config::{
+    BUFFER_SIZE, CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, ChunkSizes, Config, TraceType,
+};
 use crate::ops::threads::{SignalReceiver, SignalSender};
 use crate::ops::{self, ExitCode, debug_log};
 
@@ -155,8 +160,12 @@ impl LineChunker {
 
 #[derive(Debug)]
 struct WorkerPool {
+    config: Config,
+    command: Arc<Command>,
+    cache: Arc<CacheCursor>,
     max_workers: usize,
     channel_capacity: usize,
+
     processing: VecDeque<JoinHandle<Result<()>>>,
     current_thread: Option<JoinHandle<Result<()>>>,
     current_channel: Option<SyncSender<Bytes>>,
@@ -165,11 +174,21 @@ struct WorkerPool {
 }
 
 impl WorkerPool {
-    fn new(max_workers: usize, channel_capacity: usize) -> Self {
+    fn new(
+        config: Config,
+        command: Command,
+        cache: CacheCursor,
+        max_workers: usize,
+        channel_capacity: usize,
+    ) -> Self {
         assert!(max_workers > 0 && channel_capacity > 0);
         Self {
+            config,
+            command: Arc::new(command),
+            cache: Arc::new(cache),
             max_workers,
             channel_capacity,
+
             processing: VecDeque::with_capacity(max_workers),
             current_thread: None,
             current_channel: None,
@@ -181,23 +200,37 @@ impl WorkerPool {
     fn send_lines(&mut self, lines: &[u8]) -> Result<()> {
         let channel = self.current_channel.as_ref().unwrap();
         self.data.extend_from_slice(lines);
-        let lines = self.data.split_to(self.data.len());
+        let lines = self.data.split();
         channel.send(lines.freeze())?;
         Ok(())
     }
 
     fn start_worker(&mut self) -> Result<()> {
         assert!(self.current_thread.is_none() && self.current_channel.is_none());
+        assert!(self.processing.len() <= self.max_workers);
+
         if self.processing.len() == self.max_workers {
             let worker_thread = self.processing.pop_front().unwrap();
             ops::threads::join(worker_thread)??;
         }
-
         let (send_channel, receive_channel) = mpsc::sync_channel(self.channel_capacity);
         let (send_signal, receive_signal) = ops::threads::create_signal();
+
         self.current_thread = Some(thread::spawn({
+            let config = self.config.clone();
+            let command = Arc::clone(&self.command);
+            let cache = Arc::clone(&self.cache);
             let receive_signal = self.next_signal.take();
-            move || process_chunk(receive_channel, receive_signal, send_signal)
+            move || {
+                process_chunk(
+                    &config,
+                    &command,
+                    &cache,
+                    receive_channel,
+                    receive_signal,
+                    send_signal,
+                )
+            }
         }));
         self.current_channel = Some(send_channel);
         self.next_signal = Some(receive_signal);
@@ -220,9 +253,17 @@ impl WorkerPool {
     }
 }
 
-pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    let channel_capacity = CHUNK_SIZES.average / CHUNK_GRANULARITY;
-    let mut worker_pool = WorkerPool::new(CHUNK_WORKERS, channel_capacity);
+#[derive(Debug)]
+struct StdinContext {
+    hash: u64,
+    thread: Option<JoinHandle<Result<()>>>,
+}
+
+pub(crate) fn run(config: Config, command: Command) -> Result<ExitCode> {
+    let cache = CacheCursor::new(&config, &command)?;
+    cache.create_directory()?;
+    let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);
+    let mut worker_pool = WorkerPool::new(config, command, cache, CHUNK_WORKERS, channel_capacity);
     worker_pool.start_worker()?;
 
     {
@@ -252,12 +293,25 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 }
 
 fn process_chunk(
-    channel: Receiver<Bytes>,
+    config: &Config,
+    command: &Command,
+    cache: &CacheCursor,
+    stdin_channel: Receiver<Bytes>,
     receive_signal: Option<SignalReceiver>,
     send_signal: SignalSender,
 ) -> Result<()> {
-    let mut test = Vec::new();
-    for lines in channel {
+    let runtime = create_child_runtime(config)?;
+    let ChildContext {
+        mut child,
+        stdout_thread,
+        stderr_thread,
+    } = command::spawn_command(config, command, &runtime)?;
+
+    let stdin_context = forward_stdin(stdin_channel, child.stdin.take().unwrap())?;
+    eprintln!("got stdin hash: {:?}", stdin_context.hash);
+
+    /*let mut test = Vec::new();
+    for lines in stdin_channel {
         test.push(lines);
     }
     if let Some(signal) = receive_signal {
@@ -267,6 +321,25 @@ fn process_chunk(
         eprintln!("worker: {lines:?}");
     }
     eprintln!("worker done");
-    send_signal.set_active();
+    send_signal.set_active();*/
+
     Ok(())
+}
+
+fn create_child_runtime(config: &Config) -> Result<Runtime> {
+    assert!(config.trace_type == TraceType::Nothing);
+    let key = rand::rng().random_range(0..u64::MAX);
+    let stdout_file = config.cache_directory.join(format!("stdout_{key}.incr"));
+    let stderr_file = config.cache_directory.join(format!("stderr_{key}.incr"));
+    Ok(Runtime {
+        typ: RuntimeType::Nothing,
+        stdout_file,
+        stderr_file,
+    })
+}
+
+fn forward_stdin(stdin_channel: Receiver<Bytes>, mut child_stdin: ChildStdin) -> Result<StdinContext> {
+    //let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);
+    //let (send_channel, receive_channel) = mpsc::sync_channel(channel_capacity);
+    todo!()
 }

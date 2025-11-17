@@ -1,12 +1,13 @@
 use anyhow::Result;
-use bincode::{Decode, Encode};
-use serde::{Deserialize, Serialize};
-use std::collections::{BTreeMap, HashMap, HashSet};
+use bincode::Encode;
+use serde::Serialize;
+use std::collections::BTreeMap;
 use std::fs::{self, File};
 use std::io::{BufWriter, Write};
 use std::path::{Path, PathBuf};
 use std::process::{Command as ShellCommand, Stdio};
 
+use crate::cache::CacheData;
 use crate::command::Command;
 use crate::config::{
     BUFFER_SIZE, COMMIT_DIRECTORY, Config, DATA_FILE, DEBUG, DEBUG_FILE, OUTPUT_DIRECTORY, SANDBOX_DIRECTORY,
@@ -182,7 +183,7 @@ impl<'c> CacheCursor<'c> {
     }
 }
 
-#[derive(Clone, Debug, Encode, Serialize)]
+#[derive(Clone, Debug, Serialize)]
 struct CacheInfo<'c> {
     name: &'c str,
     arguments: &'c [String],
@@ -198,21 +199,6 @@ struct CacheKey<'c> {
     arguments: &'c [String],
     environment: &'c BTreeMap<String, String>,
     stdin_hash: u64,
-}
-
-#[derive(Clone, Debug, Decode, Deserialize, Encode, Serialize)]
-pub(crate) struct CacheData {
-    pub(crate) exit_code: i32,
-    pub(crate) read_dependencies: HashMap<PathBuf, DependencyKey>,
-    pub(crate) write_outputs: HashSet<PathBuf>,
-    pub(crate) compressed_output: bool,
-}
-
-#[derive(Clone, Debug, Decode, Deserialize, Encode, Eq, PartialEq, Serialize)]
-pub(crate) enum DependencyKey {
-    DoesNotExist,
-    Timestamp(u128),
-    Hash(u64),
 }
 
 pub(crate) fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {

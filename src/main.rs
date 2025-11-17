@@ -69,8 +69,9 @@ fn run() -> Result<ExitCode> {
         return Err(skip_executor::run(&command));
     }
 
+    let command_string = command.join_string()?;
     let result = if annotation::check_stateless(&command) {
-        chunk_executor::run(&config, &command)
+        chunk_executor::run(config, command)
     } else {
         match EXECUTOR {
             Executor::Batch => batch_executor::run(&config, &command),
@@ -80,7 +81,7 @@ fn run() -> Result<ExitCode> {
 
     match result {
         Ok(code) => Ok(code),
-        Err(error) => Err(anyhow!("({}) {}", command.join_string()?, error)),
+        Err(error) => Err(anyhow!("({command_string}) {error}")),
     }
 }
 

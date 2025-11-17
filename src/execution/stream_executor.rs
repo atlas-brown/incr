@@ -7,7 +7,8 @@ use std::sync::mpsc;
 use std::thread::{self, JoinHandle};
 use xxhash_rust::xxh3::Xxh3;
 
-use crate::cache::batch_cache::{self, CacheCursor, CacheData};
+use crate::cache::CacheData;
+use crate::cache::batch_cache::{self, CacheCursor};
 use crate::command::{self, ChildContext, ChildOutput, Command, Runtime, RuntimeType};
 use crate::config::{BUFFER_SIZE, Config, TraceType};
 use crate::execution;
