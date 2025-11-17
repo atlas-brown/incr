@@ -3,7 +3,7 @@ pub(crate) mod chunk_executor;
 pub(crate) mod skip_executor;
 pub(crate) mod stream_executor;
 
-use anyhow::{Result, anyhow, ensure};
+use anyhow::{Result, anyhow};
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::{self, BufReader, ErrorKind, Read, Seek, SeekFrom, Write};
@@ -219,7 +219,7 @@ where
     let mut file = File::open(data_file)?;
     if !compressed {
         let length = file.metadata()?.len() as usize;
-        ensure!(start_index <= length);
+        assert!(start_index <= length);
         if start_index == length {
             return Ok(true);
         }

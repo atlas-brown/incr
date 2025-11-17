@@ -37,6 +37,7 @@ where
     R: Read,
 {
     fn new(stream: R, group_size: usize) -> Self {
+        assert!(group_size > 0);
         Self {
             stream,
             group_size,

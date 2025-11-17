@@ -1,4 +1,4 @@
-use anyhow::{Result, anyhow, ensure};
+use anyhow::{Result, anyhow};
 use bincode::Encode;
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs::{self, File};
@@ -69,7 +69,7 @@ pub(crate) fn get_command(
     mut arguments: Vec<String>,
     environment: &HashMap<String, String>,
 ) -> Result<Command> {
-    ensure!(!arguments.is_empty());
+    assert!(!arguments.is_empty());
     if arguments.len() == 1 {
         let command_string = arguments.pop().unwrap();
         arguments = shlex::split(&command_string).ok_or_else(|| anyhow!("Could not split command"))?
