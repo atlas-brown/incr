@@ -23,7 +23,7 @@ pub(crate) struct CacheCursor<'c> {
 
 impl<'c> CacheCursor<'c> {
     pub(crate) fn from_stdin(config: &Config, command: &'c Command, stdin: &'c [u8]) -> Result<Self> {
-        let stdin_hash = ops::hash_bytes(stdin);
+        let stdin_hash = ops::data::hash_bytes(stdin);
         let debug_info = CacheInfo {
             name: &command.name,
             arguments: &command.arguments,
@@ -51,15 +51,15 @@ impl<'c> CacheCursor<'c> {
         stdin_hash: u64,
         debug_info: CacheInfo<'c>,
     ) -> Result<Self> {
-        let hash = ops::hash_bytes(&ops::encode_to_vec(&CacheKey {
+        let key_data = ops::data::encode_to_bytes(&CacheKey {
             name: &command.name,
             arguments: &command.arguments,
             environment: &command.environment,
             stdin_hash,
-        })?);
-        let directory = config.cache_directory.join(format!("cache_{hash}"));
+        })?;
+        let hash = ops::data::hash_bytes(&key_data);
         Ok(Self {
-            directory,
+            directory: config.cache_directory.join(format!("cache_{hash}")),
             try_command: config.try_command.clone(),
             debug_info,
         })
@@ -122,8 +122,8 @@ impl<'c> CacheCursor<'c> {
         ShellCommand::new("cp")
             .args([
                 "-rp",
-                ops::path_to_string(&output_directory)?,
-                ops::path_to_string(&commit_directory)?,
+                ops::files::path_to_string(&output_directory)?,
+                ops::files::path_to_string(&commit_directory)?,
             ])
             .stdin(Stdio::null())
             .stdout(Stdio::null())
@@ -131,7 +131,7 @@ impl<'c> CacheCursor<'c> {
             .spawn()?
             .wait()?;
         ShellCommand::new(&self.try_command)
-            .args(["commit", ops::path_to_string(&commit_directory)?])
+            .args(["commit", ops::files::path_to_string(&commit_directory)?])
             .stdin(Stdio::null())
             .stdout(Stdio::null())
             .stderr(Stdio::null())
@@ -152,8 +152,8 @@ impl<'c> CacheCursor<'c> {
     }
 
     pub(crate) fn clean_output_files(&self) -> Result<()> {
-        ops::ignore_missing(fs::remove_file(self.get_stdout_file()))?;
-        ops::ignore_missing(fs::remove_file(self.get_stderr_file()))?;
+        ops::files::remove_file(&self.get_stdout_file())?;
+        ops::files::remove_file(&self.get_stderr_file())?;
         Ok(())
     }
 
@@ -162,23 +162,23 @@ impl<'c> CacheCursor<'c> {
     }
 
     pub(crate) fn clean_trace_file(&self) -> Result<()> {
-        ops::ignore_missing(fs::remove_file(self.get_trace_file()))
+        ops::files::remove_file(&self.get_trace_file())
     }
 
     pub(crate) fn clean_data_files(&self) -> Result<()> {
-        let data_file = ops::add_data_extension(DATA_FILE.to_owned());
-        ops::ignore_missing(fs::remove_file(data_file))?;
-        ops::ignore_missing(fs::remove_dir_all(self.directory.join(OUTPUT_DIRECTORY)))?;
-        ops::ignore_missing(fs::remove_dir_all(self.directory.join(COMMIT_DIRECTORY)))?;
+        let data_file = ops::files::add_data_extension(DATA_FILE.to_owned());
+        ops::files::remove_file(Path::new(&data_file))?;
+        ops::files::remove_directory(&self.directory.join(OUTPUT_DIRECTORY))?;
+        ops::files::remove_directory(&self.directory.join(COMMIT_DIRECTORY))?;
         Ok(())
     }
 
     pub(crate) fn load_data(&self) -> Result<Option<CacheData>> {
-        ops::decode_from_file(&self.directory, DATA_FILE.to_owned())
+        ops::data::decode_from_file(&self.directory, DATA_FILE.to_owned())
     }
 
     pub(crate) fn save_data(&self, data: &CacheData) -> Result<()> {
-        ops::encode_to_file(data, &self.directory, DATA_FILE.to_owned())
+        ops::data::encode_to_file(data, &self.directory, DATA_FILE.to_owned())
     }
 }
 
@@ -221,14 +221,14 @@ pub(crate) fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {
             return Ok(());
         }
         ShellCommand::new("sudo")
-            .args(["rm", "-rf", ops::path_to_string(sandbox_directory)?])
+            .args(["rm", "-rf", ops::files::path_to_string(sandbox_directory)?])
             .stdin(Stdio::null())
             .stdout(Stdio::null())
             .stderr(Stdio::null())
             .spawn()?
             .wait()?;
     } else {
-        ops::ignore_missing(fs::remove_dir_all(sandbox_directory))?;
+        ops::files::remove_directory(sandbox_directory)?;
     }
     Ok(())
 }

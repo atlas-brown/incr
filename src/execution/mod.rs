@@ -49,14 +49,18 @@ pub(crate) fn parse_trace(runtime: &Runtime) -> Result<(HashSet<PathBuf>, HashSe
     fs::remove_file(trace_file)?;
 
     read_set.retain(|p| {
-        !EXCLUDED_PATHS
-            .iter()
-            .any(|e| ops::path_to_string(p).map(|p| p.starts_with(e)).unwrap_or(true))
+        !EXCLUDED_PATHS.iter().any(|e| {
+            ops::files::path_to_string(p)
+                .map(|p| p.starts_with(e))
+                .unwrap_or(true)
+        })
     });
     write_set.retain(|p| {
-        !EXCLUDED_PATHS
-            .iter()
-            .any(|e| ops::path_to_string(p).map(|p| p.starts_with(e)).unwrap_or(true))
+        !EXCLUDED_PATHS.iter().any(|e| {
+            ops::files::path_to_string(p)
+                .map(|p| p.starts_with(e))
+                .unwrap_or(true)
+        })
     });
 
     Ok((read_set, write_set))
@@ -113,9 +117,11 @@ pub(crate) fn filter_dependencies(
     let removed = read_dependencies
         .iter()
         .filter_map(|(p, k)| {
-            let excluded = DYNAMIC_EXCLUDED_PATHS
-                .iter()
-                .any(|e| ops::path_to_string(p).map(|p| p.starts_with(e)).unwrap_or(false));
+            let excluded = DYNAMIC_EXCLUDED_PATHS.iter().any(|e| {
+                ops::files::path_to_string(p)
+                    .map(|p| p.starts_with(e))
+                    .unwrap_or(false)
+            });
             if excluded && k == &mut DependencyKey::DoesNotExist && !p.exists() {
                 Some(p.clone())
             } else {
@@ -174,7 +180,7 @@ fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
         Err(error) => return Err(error.into()),
     };
     let mut file_reader = BufReader::with_capacity(BUFFER_SIZE, file);
-    Ok(Some(ops::hash_stream(&mut file_reader)?))
+    Ok(Some(ops::data::hash_stream(&mut file_reader)?))
 }
 
 fn parallel_process<T, F, O>(data: &[T], function: F) -> Result<Vec<O>>
@@ -255,7 +261,7 @@ pub(crate) fn save_introspection(config: &Config, command: &Command, cache_data:
     if cache_data.write_outputs.is_empty() {
         File::create(&introspect_file)?;
     } else if introspect_file.exists() {
-        ops::ignore_missing(fs::remove_file(&introspect_file))?;
+        ops::files::remove_file(&introspect_file)?;
     }
     Ok(())
 }
