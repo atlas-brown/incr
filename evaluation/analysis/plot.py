@@ -6,7 +6,9 @@ from matplotlib.patches import Patch
 
 BENCHMARKS = [
     "beginner",
+    "bio",
     "covid",
+    "dpt",
     "file-mod",
     "image-annotation",
     "nginx-analysis",
