@@ -3,12 +3,13 @@ use fastcdc::v2020::{
     self as cdc, AVERAGE_MAX, AVERAGE_MIN, MASKS, MAXIMUM_MAX, MAXIMUM_MIN, MINIMUM_MAX, MINIMUM_MIN,
     Normalization,
 };
+use std::collections::VecDeque;
 use std::io::{self, ErrorKind, Read};
 use std::marker::PhantomData;
 use std::mem;
 use std::os::unix::process::CommandExt;
 use std::process::Command as ShellCommand;
-use std::sync::mpsc::{Receiver, Sender, SyncSender};
+use std::sync::mpsc::{Receiver, SyncSender};
 use std::sync::{Arc, Condvar, Mutex};
 use std::thread::{self, JoinHandle};
 
@@ -151,11 +152,22 @@ impl LineChunker {
     }
 }
 
-struct WorkerPool {}
+#[derive(Debug)]
+struct WorkerPool {
+    processing: VecDeque<JoinHandle<Result<()>>>,
+    max_workers: usize,
+    current_thread: Option<JoinHandle<Result<()>>>,
+    current_channel: Option<SyncSender<()>>,
+}
 
 impl WorkerPool {
-    fn new() -> Self {
-        Self {}
+    fn new(max_workers: usize) -> Self {
+        Self {
+            processing: VecDeque::with_capacity(max_workers),
+            max_workers,
+            current_thread: None,
+            current_channel: None,
+        }
     }
 
     fn send_lines(&mut self, lines: &[u8]) {
@@ -222,7 +234,8 @@ fn create_signal() -> (SignalSender, SignalReceiver) {
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    let mut worker_pool = WorkerPool::new();
+    let mut worker_pool = WorkerPool::new(CHUNK_WORKERS);
+    worker_pool.queue_worker();
 
     {
         let mut stdin_reader = LineReader::new(io::stdin().lock(), CHUNK_GRANULARITY);
