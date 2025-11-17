@@ -181,17 +181,9 @@ impl WorkerPool {
     fn send_lines(&mut self, lines: &[u8]) -> Result<()> {
         let channel = self.current_channel.as_ref().unwrap();
         self.data.extend_from_slice(lines);
-        let bytes = self.data.split_to(self.data.len());
-        channel.send(bytes.freeze())?;
+        let lines = self.data.split_to(self.data.len());
+        channel.send(lines.freeze())?;
         Ok(())
-    }
-
-    fn split_chunk(&mut self) {
-        eprintln!("--- CHUNK ---");
-    }
-
-    fn finalize_chunks(&mut self) {
-        eprintln!("--- FINAL ---");
     }
 
     fn start_worker(&mut self) {
@@ -206,8 +198,18 @@ impl WorkerPool {
         self.next_signal = Some(receive_signal);
     }
 
-    fn join(&mut self) {
-        eprintln!("--- JOIN ---");
+    fn detach_worker(&mut self) {
+        assert!(self.current_thread.is_some() && self.current_channel.is_some());
+        self.processing.push_back(self.current_thread.take().unwrap());
+        self.current_channel.take();
+    }
+
+    fn join(self) -> Result<()> {
+        assert!(self.current_thread.is_none() && self.current_channel.is_none());
+        for worker in self.processing {
+            worker.join().map_err(|e| anyhow!("{e:?}"))??;
+        }
+        Ok(())
     }
 }
 
@@ -270,16 +272,18 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
             while let Some(lines) = stdin_reader.next_lines() {
                 worker_pool.send_lines(lines)?;
                 if stdin_chunker.update(lines) {
-                    worker_pool.split_chunk();
+                    worker_pool.detach_worker();
+                    worker_pool.start_worker();
                 }
             }
             stdin_reader.drain();
         }
 
-        worker_pool.finalize_chunks();
+        worker_pool.detach_worker();
     }
 
-    worker_pool.join();
+    worker_pool.join()?;
+    eprintln!("joined");
 
     todo!()
 }
@@ -289,6 +293,17 @@ fn process_chunk(
     receive_signal: Option<SignalReceiver>,
     send_signal: SignalSender,
 ) -> Result<()> {
-    eprintln!("started worker");
-    todo!()
+    let mut test = Vec::new();
+    for lines in channel {
+        test.push(lines);
+    }
+    if let Some(signal) = receive_signal {
+        signal.wait_until_active();
+    }
+    for lines in test {
+        eprintln!("worker: {lines:?}");
+    }
+    eprintln!("worker done");
+    send_signal.set_active();
+    Ok(())
 }
