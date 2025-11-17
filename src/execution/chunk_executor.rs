@@ -128,8 +128,8 @@ impl LineChunker {
             self.mask_s_ls,
             self.mask_l_ls,
         );
-        if count > 0 {
-            self.data.clear();
+        if 0 < count && count < self.data.len() {
+            self.data.drain(..count);
             true
         } else {
             false
