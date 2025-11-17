@@ -70,26 +70,31 @@ where
     }
 
     fn next_lines(&mut self) -> Option<&[u8]> {
-        let mut end_index = self.index;
-        while end_index < self.data.len() && self.data[end_index] != b'\n' {
-            end_index += 1;
+        debug_assert!(self.start_index <= self.current_index);
+        debug_assert!(self.current_lines < self.group_size);
+
+        while self.current_index < self.data.len() && self.current_lines < self.group_size {
+            if self.data[self.current_index] == b'\n' {
+                self.current_lines += 1;
+            }
+            self.current_index += 1;
         }
-        if end_index < self.data.len() {
-            let line = &self.data[self.index..end_index + 1];
-            self.index = end_index + 1;
-            Some(line)
-        } else if self.stream_closed && self.index < self.data.len() {
-            let line = &self.data[self.index..];
-            self.index = self.data.len();
-            Some(line)
+
+        if self.current_lines == self.group_size || (self.stream_closed && self.start_index < self.data.len())
+        {
+            let lines = &self.data[self.start_index..self.current_index];
+            self.start_index = self.current_index;
+            self.current_lines = 0;
+            Some(lines)
         } else {
             None
         }
     }
 
     fn drain(&mut self) {
-        self.data.drain(..self.index);
-        self.index = 0;
+        self.data.drain(..self.start_index);
+        self.current_index -= self.start_index;
+        self.start_index = 0;
     }
 }
 
