@@ -65,10 +65,7 @@ pub(crate) enum ChildOutput {
     BrokenPipe,
 }
 
-pub(crate) fn get_command(
-    mut arguments: Vec<String>,
-    environment: &HashMap<String, String>,
-) -> Result<Command> {
+pub(crate) fn get(mut arguments: Vec<String>, environment: &HashMap<String, String>) -> Result<Command> {
     assert!(!arguments.is_empty());
     if arguments.len() == 1 {
         let command_string = arguments.pop().unwrap();
@@ -105,7 +102,19 @@ pub(crate) fn get_command(
     })
 }
 
-pub(crate) fn spawn_command(config: &Config, command: &Command, runtime: &Runtime) -> Result<ChildContext> {
+pub(crate) fn spawn(config: &Config, command: &Command, runtime: &Runtime) -> Result<ChildContext> {
+    spawn_with_signal(config, command, runtime, || true)
+}
+
+pub(crate) fn spawn_with_signal<R>(
+    config: &Config,
+    command: &Command,
+    runtime: &Runtime,
+    destination_ready: R,
+) -> Result<ChildContext>
+where
+    R: Clone + Fn() -> bool + Send + 'static,
+{
     if let RuntimeType::Sandbox(directory) = &runtime.typ {
         fs::create_dir_all(directory)?;
     } else if let RuntimeType::TraceFile(file) = &runtime.typ
@@ -117,16 +126,34 @@ pub(crate) fn spawn_command(config: &Config, command: &Command, runtime: &Runtim
     let mut child = spawn_child(config, command, runtime)?;
     let mut child_stdout = child.stdout.take().unwrap();
     let mut child_stderr = child.stderr.take().unwrap();
+    let config = config.clone();
+    let destination_ready = destination_ready.clone();
 
     let stdout_thread = thread::spawn({
         let config = config.clone();
         let stdout_file = runtime.stdout_file.clone();
-        move || capture_stream(&config, &mut child_stdout, &mut io::stdout(), &stdout_file)
+        let destination_ready = destination_ready.clone();
+        move || {
+            capture_stream(
+                &config,
+                &mut child_stdout,
+                &mut io::stdout(),
+                &stdout_file,
+                destination_ready,
+            )
+        }
     });
     let stderr_thread = thread::spawn({
-        let config = config.clone();
         let stderr_file = runtime.stderr_file.clone();
-        move || capture_stream(&config, &mut child_stderr, &mut io::stderr(), &stderr_file)
+        move || {
+            capture_stream(
+                &config,
+                &mut child_stderr,
+                &mut io::stderr(),
+                &stderr_file,
+                destination_ready,
+            )
+        }
     });
 
     Ok(ChildContext {
@@ -191,15 +218,17 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
     Ok(child.spawn()?)
 }
 
-fn capture_stream<S, D>(
+fn capture_stream<S, D, R>(
     config: &Config,
     source: &mut S,
     destination: &mut D,
     capture_file: &Path,
+    destination_ready: R,
 ) -> Result<ChildOutput>
 where
     S: Read,
     D: Write,
+    R: Fn() -> bool,
 {
     if let Some(parent) = capture_file.parent() {
         fs::create_dir_all(parent)?;

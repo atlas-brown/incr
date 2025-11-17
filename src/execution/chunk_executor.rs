@@ -162,11 +162,18 @@ fn process_chunk(
     send_signal: SignalSender,
 ) -> Result<()> {
     let runtime = create_child_runtime(config)?;
+    let destination_ready = move || {
+        if let Some(signal) = &receive_signal {
+            signal.check_active()
+        } else {
+            true
+        }
+    };
     let ChildContext {
         mut child,
         stdout_thread,
         stderr_thread,
-    } = command::spawn_command(config, command, &runtime)?;
+    } = command::spawn_with_signal(config, command, &runtime, destination_ready)?;
 
     let stdin_context = forward_stdin(stdin_channel, child.stdin.take().unwrap())?;
     eprintln!("got stdin hash: {:?}", stdin_context.hash);

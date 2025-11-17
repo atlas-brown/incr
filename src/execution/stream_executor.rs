@@ -38,7 +38,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         mut child,
         stdout_thread,
         stderr_thread,
-    } = command::spawn_command(config, command, &runtime)?;
+    } = command::spawn(config, command, &runtime)?;
 
     let stdin_context = forward_stdin(child.stdin.take().unwrap())?;
     let cache = CacheCursor::from_hash(config, command, stdin_context.hash)?;

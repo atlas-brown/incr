@@ -56,7 +56,7 @@ fn run_command(
         mut child,
         stdout_thread,
         stderr_thread,
-    } = command::spawn_command(config, command, &runtime)?;
+    } = command::spawn(config, command, &runtime)?;
 
     {
         let mut child_stdin = child.stdin.take().unwrap();
