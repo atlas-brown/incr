@@ -85,10 +85,10 @@ fn run_command(
     execution::filter_dependencies(&mut read_dependencies, &mut write_set)?;
 
     Ok(CommandResult::Completed(CacheData {
-        compressed_output: config.compress,
         exit_code,
         read_dependencies,
         write_outputs: write_set,
+        compressed_output: config.compress,
     }))
 }
 

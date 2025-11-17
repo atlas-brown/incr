@@ -13,7 +13,7 @@ use std::sync::{Arc, Mutex};
 use std::thread::{self, JoinHandle};
 
 use crate::command::Command;
-use crate::config::{BUFFER_SIZE, CHUNK_SIZES, CHUNK_WORKERS, ChunkSizes, Config};
+use crate::config::{BUFFER_SIZE, CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, ChunkSizes, Config};
 use crate::ops::{ExitCode, debug_log};
 
 #[derive(Clone, Debug)]
@@ -22,23 +22,31 @@ where
     R: Read,
 {
     stream: R,
+    group_size: usize,
     stream_closed: bool,
+
     chunk: Box<[u8; BUFFER_SIZE]>,
     data: Vec<u8>,
-    index: usize,
+    start_index: usize,
+    current_index: usize,
+    current_lines: usize,
 }
 
 impl<R> LineReader<R>
 where
     R: Read,
 {
-    fn new(stream: R) -> Self {
+    fn new(stream: R, group_size: usize) -> Self {
         Self {
             stream,
+            group_size,
             stream_closed: false,
+
             chunk: vec![0; BUFFER_SIZE].into_boxed_slice().try_into().unwrap(),
             data: Vec::new(),
-            index: 0,
+            start_index: 0,
+            current_index: 0,
+            current_lines: 0,
         }
     }
 
@@ -61,7 +69,7 @@ where
         Ok(false)
     }
 
-    fn next_line(&mut self) -> Option<&[u8]> {
+    fn next_lines(&mut self) -> Option<&[u8]> {
         let mut end_index = self.index;
         while end_index < self.data.len() && self.data[end_index] != b'\n' {
             end_index += 1;
@@ -116,8 +124,8 @@ impl LineChunker {
         }
     }
 
-    fn update(&mut self, line: &[u8]) -> bool {
-        self.data.extend_from_slice(line);
+    fn update(&mut self, lines: &[u8]) -> bool {
+        self.data.extend_from_slice(lines);
         let (_, count) = cdc::cut(
             &self.data,
             self.sizes.minimum,
@@ -138,15 +146,15 @@ impl LineChunker {
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    let mut line_reader = LineReader::new(io::stdin().lock());
+    let mut line_reader = LineReader::new(io::stdin().lock(), CHUNK_GRANULARITY);
     let mut line_chunker = LineChunker::new(CHUNK_SIZES);
 
     let mut stdin_closed = false;
     while !stdin_closed {
         stdin_closed = line_reader.read()?;
-        while let Some(line) = line_reader.next_line() {
-            eprintln!("line: {:?}", String::from_utf8(line.to_vec()).unwrap());
-            if line_chunker.update(line) {
+        while let Some(lines) = line_reader.next_lines() {
+            eprintln!("lines: {:?}", String::from_utf8(lines.to_vec()).unwrap());
+            if line_chunker.update(lines) {
                 eprintln!("--- CHUNK ---");
             }
         }
