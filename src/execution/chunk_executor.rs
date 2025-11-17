@@ -9,7 +9,7 @@ use std::mem;
 use std::os::unix::process::CommandExt;
 use std::process::Command as ShellCommand;
 use std::sync::mpsc::{Receiver, Sender, SyncSender};
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, Condvar, Mutex};
 use std::thread::{self, JoinHandle};
 
 use crate::command::Command;
@@ -177,6 +177,48 @@ impl WorkerPool {
     fn join(&mut self) {
         eprintln!("--- JOIN ---");
     }
+}
+
+struct SignalSender {
+    active: Arc<Mutex<bool>>,
+    condition: Arc<Condvar>,
+}
+
+impl SignalSender {
+    fn set_active(&self) {
+        *self.active.lock().unwrap() = true;
+        self.condition.notify_all();
+    }
+}
+
+struct SignalReceiver {
+    active: Arc<Mutex<bool>>,
+    condition: Arc<Condvar>,
+}
+
+impl SignalReceiver {
+    fn check_active(&self) -> bool {
+        *self.active.lock().unwrap()
+    }
+
+    fn wait_until_active(&mut self) {
+        let _guard = self
+            .condition
+            .wait_while(self.active.lock().unwrap(), |active| *active)
+            .unwrap();
+    }
+}
+
+fn create_signal() -> (SignalSender, SignalReceiver) {
+    let active = Arc::new(Mutex::new(false));
+    let condition = Arc::new(Condvar::new());
+    (
+        SignalSender {
+            active: Arc::clone(&active),
+            condition: Arc::clone(&condition),
+        },
+        SignalReceiver { active, condition },
+    )
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
