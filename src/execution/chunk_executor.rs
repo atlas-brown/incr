@@ -1,4 +1,5 @@
 use anyhow::{Result, anyhow};
+use bytes::{Buf, BufMut, Bytes, BytesMut};
 use fastcdc::v2020::{
     self as cdc, AVERAGE_MAX, AVERAGE_MIN, MASKS, MAXIMUM_MAX, MAXIMUM_MIN, MINIMUM_MAX, MINIMUM_MIN,
     Normalization,
@@ -9,7 +10,7 @@ use std::marker::PhantomData;
 use std::mem;
 use std::os::unix::process::CommandExt;
 use std::process::Command as ShellCommand;
-use std::sync::mpsc::{Receiver, SyncSender};
+use std::sync::mpsc::{self, Receiver, SyncSender};
 use std::sync::{Arc, Condvar, Mutex};
 use std::thread::{self, JoinHandle};
 
@@ -156,9 +157,10 @@ impl LineChunker {
 struct WorkerPool {
     max_workers: usize,
     channel_capacity: usize,
-    current_thread: Option<JoinHandle<Result<()>>>,
-    current_channel: Option<SyncSender<()>>,
     processing: VecDeque<JoinHandle<Result<()>>>,
+    current_thread: Option<JoinHandle<Result<()>>>,
+    current_channel: Option<SyncSender<Bytes>>,
+    next_signal: Option<SignalReceiver>,
 }
 
 impl WorkerPool {
@@ -167,9 +169,10 @@ impl WorkerPool {
         Self {
             max_workers,
             channel_capacity,
+            processing: VecDeque::with_capacity(max_workers),
             current_thread: None,
             current_channel: None,
-            processing: VecDeque::with_capacity(max_workers),
+            next_signal: None,
         }
     }
 
@@ -185,8 +188,16 @@ impl WorkerPool {
         eprintln!("--- FINAL ---");
     }
 
-    fn queue_worker(&mut self) {
-        eprintln!("--- QUEUE ---");
+    fn start_worker(&mut self) {
+        assert!(self.current_thread.is_none() && self.current_channel.is_none());
+        let (send_channel, receive_channel) = mpsc::sync_channel(self.channel_capacity);
+        let (send_signal, receive_signal) = create_signal();
+        self.current_thread = Some(thread::spawn({
+            let receive_signal = self.next_signal.take();
+            move || process_chunk(receive_channel, receive_signal, send_signal)
+        }));
+        self.current_channel = Some(send_channel);
+        self.next_signal = Some(receive_signal);
     }
 
     fn join(&mut self) {
@@ -194,6 +205,7 @@ impl WorkerPool {
     }
 }
 
+#[derive(Clone, Debug)]
 struct SignalSender {
     active: Arc<Mutex<bool>>,
     condition: Arc<Condvar>,
@@ -206,6 +218,7 @@ impl SignalSender {
     }
 }
 
+#[derive(Clone, Debug)]
 struct SignalReceiver {
     active: Arc<Mutex<bool>>,
     condition: Arc<Condvar>,
@@ -239,7 +252,7 @@ fn create_signal() -> (SignalSender, SignalReceiver) {
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     let channel_capacity = CHUNK_SIZES.average / CHUNK_GRANULARITY;
     let mut worker_pool = WorkerPool::new(CHUNK_WORKERS, channel_capacity);
-    worker_pool.queue_worker();
+    worker_pool.start_worker();
 
     {
         let mut stdin_reader = LineReader::new(io::stdin().lock(), CHUNK_GRANULARITY);
@@ -262,5 +275,14 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
 
     worker_pool.join();
 
+    todo!()
+}
+
+fn process_chunk(
+    channel: Receiver<Bytes>,
+    receive_signal: Option<SignalReceiver>,
+    send_signal: SignalSender,
+) -> Result<()> {
+    eprintln!("started worker");
     todo!()
 }
