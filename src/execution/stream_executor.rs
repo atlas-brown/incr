@@ -1,4 +1,4 @@
-use anyhow::{Result, anyhow};
+use anyhow::Result;
 use rand::Rng;
 use std::fs;
 use std::io::{self, ErrorKind, IsTerminal, Read, Write};
@@ -204,10 +204,10 @@ fn join_stream_threads(
     stderr_thread: JoinHandle<Result<ChildOutput>>,
 ) -> Result<Option<Outputs>> {
     if let Some(stdin_thread) = stdin_thread {
-        stdin_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+        ops::threads::join(stdin_thread)??;
     }
-    let stdout_result = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
-    let stderr_result = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    let stdout_result = ops::threads::join(stdout_thread)??;
+    let stderr_result = ops::threads::join(stderr_thread)??;
     match (stdout_result, stderr_result) {
         (ChildOutput::Completed(stdout_length), ChildOutput::Completed(stderr_length)) => Ok(Some(Outputs {
             stdout_length,

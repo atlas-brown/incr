@@ -1,4 +1,4 @@
-use anyhow::{Result, anyhow};
+use anyhow::Result;
 use bytes::{Buf, BufMut, Bytes, BytesMut};
 use fastcdc::v2020::{
     self as cdc, AVERAGE_MAX, AVERAGE_MIN, MASKS, MAXIMUM_MAX, MAXIMUM_MIN, MINIMUM_MAX, MINIMUM_MIN,
@@ -11,12 +11,12 @@ use std::mem;
 use std::os::unix::process::CommandExt;
 use std::process::Command as ShellCommand;
 use std::sync::mpsc::{self, Receiver, SyncSender};
-use std::sync::{Arc, Condvar, Mutex};
 use std::thread::{self, JoinHandle};
 
 use crate::command::Command;
 use crate::config::{BUFFER_SIZE, CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, ChunkSizes, Config};
-use crate::ops::{ExitCode, debug_log};
+use crate::ops::threads::{SignalReceiver, SignalSender};
+use crate::ops::{self, ExitCode, debug_log};
 
 #[derive(Clone, Debug)]
 struct LineReader<R>
@@ -186,16 +186,23 @@ impl WorkerPool {
         Ok(())
     }
 
-    fn start_worker(&mut self) {
+    fn start_worker(&mut self) -> Result<()> {
         assert!(self.current_thread.is_none() && self.current_channel.is_none());
+        if self.processing.len() == self.max_workers {
+            let worker_thread = self.processing.pop_front().unwrap();
+            ops::threads::join(worker_thread)??;
+        }
+
         let (send_channel, receive_channel) = mpsc::sync_channel(self.channel_capacity);
-        let (send_signal, receive_signal) = create_signal();
+        let (send_signal, receive_signal) = ops::threads::create_signal();
         self.current_thread = Some(thread::spawn({
             let receive_signal = self.next_signal.take();
             move || process_chunk(receive_channel, receive_signal, send_signal)
         }));
         self.current_channel = Some(send_channel);
         self.next_signal = Some(receive_signal);
+
+        Ok(())
     }
 
     fn detach_worker(&mut self) {
@@ -206,61 +213,17 @@ impl WorkerPool {
 
     fn join(self) -> Result<()> {
         assert!(self.current_thread.is_none() && self.current_channel.is_none());
-        for worker in self.processing {
-            worker.join().map_err(|e| anyhow!("{e:?}"))??;
+        for worker_thread in self.processing {
+            ops::threads::join(worker_thread)??;
         }
         Ok(())
     }
 }
 
-#[derive(Clone, Debug)]
-struct SignalSender {
-    active: Arc<Mutex<bool>>,
-    condition: Arc<Condvar>,
-}
-
-impl SignalSender {
-    fn set_active(&self) {
-        *self.active.lock().unwrap() = true;
-        self.condition.notify_all();
-    }
-}
-
-#[derive(Clone, Debug)]
-struct SignalReceiver {
-    active: Arc<Mutex<bool>>,
-    condition: Arc<Condvar>,
-}
-
-impl SignalReceiver {
-    fn check_active(&self) -> bool {
-        *self.active.lock().unwrap()
-    }
-
-    fn wait_until_active(&self) {
-        let mut active = self.active.lock().unwrap();
-        while !*active {
-            active = self.condition.wait(active).unwrap();
-        }
-    }
-}
-
-fn create_signal() -> (SignalSender, SignalReceiver) {
-    let active = Arc::new(Mutex::new(false));
-    let condition = Arc::new(Condvar::new());
-    (
-        SignalSender {
-            active: Arc::clone(&active),
-            condition: Arc::clone(&condition),
-        },
-        SignalReceiver { active, condition },
-    )
-}
-
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     let channel_capacity = CHUNK_SIZES.average / CHUNK_GRANULARITY;
     let mut worker_pool = WorkerPool::new(CHUNK_WORKERS, channel_capacity);
-    worker_pool.start_worker();
+    worker_pool.start_worker()?;
 
     {
         let mut stdin_reader = LineReader::new(io::stdin().lock(), CHUNK_GRANULARITY);
@@ -273,7 +236,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
                 worker_pool.send_lines(lines)?;
                 if stdin_chunker.update(lines) {
                     worker_pool.detach_worker();
-                    worker_pool.start_worker();
+                    worker_pool.start_worker()?;
                 }
             }
             stdin_reader.drain();

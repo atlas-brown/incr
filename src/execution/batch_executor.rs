@@ -1,11 +1,11 @@
-use anyhow::{Result, anyhow};
+use anyhow::Result;
 use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 
 use crate::cache::batch_cache::{CacheCursor, CacheData};
 use crate::command::{self, ChildContext, ChildOutput, Command, Runtime, RuntimeType};
 use crate::config::{Config, TraceType};
 use crate::execution;
-use crate::ops::{BROKEN_PIPE_CODE, ExitCode, debug_log};
+use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
 #[derive(Clone, Debug)]
 enum CommandResult {
@@ -67,8 +67,8 @@ fn run_command(
     }
 
     let exit_code = child.wait()?.code().unwrap_or(1);
-    let stdout_result = stdout_thread.join().map_err(|e| anyhow!("{e:?}"))??;
-    let stderr_result = stderr_thread.join().map_err(|e| anyhow!("{e:?}"))??;
+    let stdout_result = ops::threads::join(stdout_thread)??;
+    let stderr_result = ops::threads::join(stderr_thread)??;
     if stdout_result == ChildOutput::BrokenPipe || stderr_result == ChildOutput::BrokenPipe {
         clean_child_runtime(cache, &runtime)?;
         return Ok(CommandResult::BrokenPipe);
