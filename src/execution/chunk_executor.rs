@@ -1,5 +1,8 @@
 use anyhow::{Result, anyhow};
-use fastcdc::v2020::StreamCDC;
+use fastcdc::v2020::{
+    self as cdc, AVERAGE_MAX, AVERAGE_MIN, MASKS, MAXIMUM_MAX, MAXIMUM_MIN, MINIMUM_MAX, MINIMUM_MIN,
+    Normalization,
+};
 use std::io::{self, ErrorKind, Read};
 use std::marker::PhantomData;
 use std::mem;
@@ -10,9 +13,10 @@ use std::sync::{Arc, Mutex};
 use std::thread::{self, JoinHandle};
 
 use crate::command::Command;
-use crate::config::{BUFFER_SIZE, CHUNK_SIZES, CHUNK_WORKERS, Config};
+use crate::config::{BUFFER_SIZE, CHUNK_SIZES, CHUNK_WORKERS, ChunkSizes, Config};
 use crate::ops::{ExitCode, debug_log};
 
+#[derive(Clone, Debug)]
 struct LineReader<R>
 where
     R: Read,
@@ -78,6 +82,36 @@ where
     fn drain(&mut self) {
         self.data.drain(..self.index);
         self.index = 0;
+    }
+}
+
+#[derive(Clone, Debug)]
+struct LineChunker {
+    sizes: ChunkSizes,
+    mask_s: u64,
+    mask_l: u64,
+    mask_s_ls: u64,
+    mask_l_ls: u64,
+}
+
+impl LineChunker {
+    fn new(sizes: ChunkSizes) -> Self {
+        assert!(MINIMUM_MIN <= sizes.minimum && sizes.minimum <= MINIMUM_MAX);
+        assert!(AVERAGE_MIN <= sizes.average && sizes.average <= AVERAGE_MAX);
+        assert!(MAXIMUM_MIN <= sizes.maximum && sizes.maximum <= MAXIMUM_MAX);
+
+        let average = (sizes.average as f64).log2().round() as u32;
+        let normalization = Normalization::Level1.bits();
+        let mask_s = MASKS[(average + normalization) as usize];
+        let mask_l = MASKS[(average - normalization) as usize];
+
+        Self {
+            sizes,
+            mask_s,
+            mask_l,
+            mask_s_ls: mask_s << 1,
+            mask_l_ls: mask_l << 1,
+        }
     }
 }
 
