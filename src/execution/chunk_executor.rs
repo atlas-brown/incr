@@ -165,6 +165,18 @@ impl WorkerPool {
     fn split_chunk(&mut self) {
         eprintln!("--- CHUNK ---");
     }
+
+    fn finalize_chunks(&mut self) {
+        eprintln!("--- FINAL ---");
+    }
+
+    fn queue_worker(&mut self) {
+        eprintln!("--- QUEUE ---");
+    }
+
+    fn join(&mut self) {
+        eprintln!("--- JOIN ---");
+    }
 }
 
 pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
@@ -185,7 +197,11 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
             }
             stdin_reader.drain();
         }
+
+        worker_pool.finalize_chunks();
     }
+
+    worker_pool.join();
 
     todo!()
 }
