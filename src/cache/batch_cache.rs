@@ -60,7 +60,7 @@ impl<'c> CacheCursor<'c> {
         })?;
         let hash = ops::data::hash_bytes(&key_data);
         Ok(Self {
-            directory: config.cache_directory.join(format!("cache_{hash}")),
+            directory: config.cache_directory.join(format!("batch_{hash}")),
             try_command: config.try_command.clone(),
             debug_info,
         })
