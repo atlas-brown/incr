@@ -1,7 +1,8 @@
 use anyhow::Result;
 use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 
-use crate::cache::batch_cache::{CacheCursor, CacheData};
+use crate::cache::CacheData;
+use crate::cache::batch_cache::CacheCursor;
 use crate::command::{self, ChildContext, ChildOutput, Command, Runtime, RuntimeType};
 use crate::config::{Config, TraceType};
 use crate::execution;

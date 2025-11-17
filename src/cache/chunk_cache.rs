@@ -1,4 +1,5 @@
 use anyhow::Result;
+use serde::{Deserialize, Serialize};
 
 use crate::command::Command;
 use crate::config::{Config, DEBUG};

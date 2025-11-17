@@ -13,7 +13,8 @@ use std::time::UNIX_EPOCH;
 use zstd::Decoder;
 
 use crate::annotation;
-use crate::cache::batch_cache::{CacheCursor, CacheData, DependencyKey};
+use crate::cache::batch_cache::CacheCursor;
+use crate::cache::{CacheData, DependencyKey};
 use crate::command::{Command, Runtime, RuntimeType};
 use crate::config::{
     BUFFER_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, INTROSPECT_DIRECTORY, PARALLEL_SIZE,

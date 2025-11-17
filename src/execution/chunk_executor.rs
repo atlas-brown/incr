@@ -338,6 +338,8 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
     })
 }
 
-fn forward_stdin(channel: Receiver<Bytes>, mut child_stdin: ChildStdin) -> Result<StdinContext> {
+fn forward_stdin(stdin_channel: Receiver<Bytes>, mut child_stdin: ChildStdin) -> Result<StdinContext> {
+    //let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);
+    //let (send_channel, receive_channel) = mpsc::sync_channel(channel_capacity);
     todo!()
 }
