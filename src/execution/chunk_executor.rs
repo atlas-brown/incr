@@ -151,20 +151,40 @@ impl LineChunker {
     }
 }
 
-pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
-    let mut line_reader = LineReader::new(io::stdin().lock(), CHUNK_GRANULARITY);
-    let mut line_chunker = LineChunker::new(CHUNK_SIZES);
+struct WorkerPool {}
 
-    let mut stdin_closed = false;
-    while !stdin_closed {
-        stdin_closed = line_reader.read()?;
-        while let Some(lines) = line_reader.next_lines() {
-            eprintln!("lines: {:?}", String::from_utf8(lines.to_vec()).unwrap());
-            if line_chunker.update(lines) {
-                eprintln!("--- CHUNK ---");
+impl WorkerPool {
+    fn new() -> Self {
+        Self {}
+    }
+
+    fn send_lines(&mut self, lines: &[u8]) {
+        eprintln!("lines: {:?}", String::from_utf8(lines.to_vec()).unwrap());
+    }
+
+    fn split_chunk(&mut self) {
+        eprintln!("--- CHUNK ---");
+    }
+}
+
+pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
+    let mut worker_pool = WorkerPool::new();
+
+    {
+        let mut stdin_reader = LineReader::new(io::stdin().lock(), CHUNK_GRANULARITY);
+        let mut stdin_chunker = LineChunker::new(CHUNK_SIZES);
+        let mut stdin_closed = false;
+
+        while !stdin_closed {
+            stdin_closed = stdin_reader.read()?;
+            while let Some(lines) = stdin_reader.next_lines() {
+                worker_pool.send_lines(lines);
+                if stdin_chunker.update(lines) {
+                    worker_pool.split_chunk();
+                }
             }
+            stdin_reader.drain();
         }
-        line_reader.drain();
     }
 
     todo!()
