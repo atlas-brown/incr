@@ -6,7 +6,7 @@ use fastcdc::v2020::{
 };
 use rand::Rng;
 use std::collections::VecDeque;
-use std::io::{self, ErrorKind, Read};
+use std::io::{self, ErrorKind, Read, Write};
 use std::marker::PhantomData;
 use std::mem;
 use std::os::unix::process::CommandExt;
@@ -14,6 +14,7 @@ use std::process::{ChildStdin, Command as ShellCommand};
 use std::sync::Arc;
 use std::sync::mpsc::{self, Receiver, SyncSender};
 use std::thread::{self, JoinHandle};
+use xxhash_rust::xxh3::Xxh3;
 
 use crate::cache::chunk_cache::CacheCursor;
 use crate::command::{self, ChildContext, ChildOutput, Command, Runtime, RuntimeType};
@@ -339,7 +340,32 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
 }
 
 fn forward_stdin(stdin_channel: Receiver<Bytes>, mut child_stdin: ChildStdin) -> Result<StdinContext> {
-    //let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);
-    //let (send_channel, receive_channel) = mpsc::sync_channel(channel_capacity);
-    todo!()
+    let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);
+    let (send_channel, receive_channel) = mpsc::sync_channel::<Bytes>(channel_capacity);
+    let stdin_thread = thread::spawn(move || {
+        let mut broken = false;
+        for lines in receive_channel {
+            if broken {
+                continue;
+            }
+            if let Err(error) = child_stdin.write_all(&lines) {
+                if error.kind() != ErrorKind::BrokenPipe {
+                    return Err(error.into());
+                }
+                broken = true;
+            };
+        }
+        Ok(())
+    });
+
+    let mut hasher = Xxh3::new();
+    for lines in stdin_channel {
+        hasher.update(&lines);
+        send_channel.send(lines)?;
+    }
+
+    Ok(StdinContext {
+        hash: hasher.digest(),
+        thread: Some(stdin_thread),
+    })
 }
