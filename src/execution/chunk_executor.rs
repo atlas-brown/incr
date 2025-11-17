@@ -181,7 +181,7 @@ impl WorkerPool {
     fn send_lines(&mut self, lines: &[u8]) -> Result<()> {
         let channel = self.current_channel.as_ref().unwrap();
         self.data.extend_from_slice(lines);
-        let lines = self.data.split_to(self.data.len());
+        let lines = self.data.split();
         channel.send(lines.freeze())?;
         Ok(())
     }
