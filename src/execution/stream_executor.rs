@@ -36,7 +36,7 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
         stderr_thread,
     } = command::spawn(config, command, &runtime)?;
 
-    let stdin_context = forward_stdin(child.stdin.take().unwrap())?;
+    let stdin_context = capture_stdin(child.stdin.take().unwrap())?;
     let cache = CacheCursor::from_hash(config, command, stdin_context.hash)?;
     cache.create_directory()?;
 
@@ -109,7 +109,7 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
     })
 }
 
-fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
+fn capture_stdin(child_stdin: ChildStdin) -> Result<StdinContext> {
     let mut process_stdin = io::stdin().lock();
     if process_stdin.is_terminal() {
         return Ok(StdinContext {
@@ -119,24 +119,10 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
     }
 
     let (send_channel, receive_channel) = mpsc::channel::<Vec<_>>();
-    let stdin_thread = thread::spawn(move || {
-        let mut broken = false;
-        for chunk in receive_channel {
-            if broken {
-                continue;
-            }
-            if let Err(error) = child_stdin.write_all(&chunk) {
-                if error.kind() != ErrorKind::BrokenPipe {
-                    return Err(error.into());
-                }
-                broken = true;
-            };
-        }
-        Ok(())
-    });
-
+    let stdin_thread = thread::spawn(|| run::forward_stdin(receive_channel, child_stdin));
     let mut chunk = [0; BUFFER_SIZE];
     let mut hasher = Xxh3::new();
+
     loop {
         let count = match process_stdin.read(&mut chunk) {
             Ok(0) => break,
@@ -195,14 +181,14 @@ fn output_cached_data(
     let stdout_completed = run::output_data(
         &stdout_file,
         outputs.stdout_length,
-        &mut io::stdout().lock(),
         cached_data.compressed_output,
+        &mut io::stdout().lock(),
     )?;
     let stderr_completed = run::output_data(
         &stderr_file,
         outputs.stderr_length,
-        &mut io::stderr().lock(),
         cached_data.compressed_output,
+        &mut io::stderr().lock(),
     )?;
 
     if !config.complete_execution && (!stdout_completed || !stderr_completed) {
