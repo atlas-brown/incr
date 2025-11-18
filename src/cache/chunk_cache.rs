@@ -5,12 +5,11 @@ use std::path::PathBuf;
 
 use crate::cache;
 use crate::command::Command;
-use crate::config::{Config, DEBUG};
+use crate::config::{Config, DEBUG, STDERR_FILE, STDOUT_FILE};
 
 #[derive(Clone, Debug)]
 pub(crate) struct CacheCursor {
     directory: PathBuf,
-    try_command: String,
     debug_info: Option<CacheInfo>,
 }
 
@@ -27,13 +26,21 @@ impl CacheCursor {
         };
         Ok(Self {
             directory: config.cache_directory.join(format!("chunk_{}", command.hash)),
-            try_command: config.try_command.clone(),
             debug_info,
         })
     }
 
+    pub(crate) fn chunk_exists(&self, stdin_hash: u64) -> bool {
+        let chunk_directory = self.get_chunk_directory(stdin_hash);
+        chunk_directory.join(STDOUT_FILE).is_file() && chunk_directory.join(STDERR_FILE).is_file()
+    }
+
     pub(crate) fn create_directory(&self) -> Result<()> {
         cache::create_directory(&self.directory, self.debug_info.as_ref())
+    }
+
+    fn get_chunk_directory(&self, stdin_hash: u64) -> PathBuf {
+        self.directory.join(format!("chunk_{stdin_hash}"))
     }
 }
 

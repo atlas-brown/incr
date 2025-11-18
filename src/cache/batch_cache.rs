@@ -81,6 +81,15 @@ impl<'c> CacheCursor<'c> {
         self.directory.join(TRACE_FILE)
     }
 
+    pub(crate) fn data_outputs_exist(&self) -> bool {
+        self.get_stdout_file().is_file() && self.get_stderr_file().is_file()
+    }
+
+    pub(crate) fn file_outputs_exist(&self) -> bool {
+        let output_directory = self.directory.join(OUTPUT_DIRECTORY);
+        output_directory.is_dir()
+    }
+
     pub(crate) fn create_directory(&self) -> Result<()> {
         let debug_info = if DEBUG { Some(&self.debug_info) } else { None };
         cache::create_directory(&self.directory, debug_info)
@@ -126,15 +135,6 @@ impl<'c> CacheCursor<'c> {
         fs::remove_dir_all(&commit_directory)?;
 
         Ok(())
-    }
-
-    pub(crate) fn data_outputs_exist(&self) -> bool {
-        self.get_stdout_file().is_file() && self.get_stderr_file().is_file()
-    }
-
-    pub(crate) fn file_outputs_exist(&self) -> bool {
-        let output_directory = self.directory.join(OUTPUT_DIRECTORY);
-        output_directory.is_dir()
     }
 
     pub(crate) fn clean(&self) -> Result<()> {

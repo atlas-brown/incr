@@ -12,24 +12,20 @@ use std::path::{Path, PathBuf};
 
 use crate::annotation;
 use crate::command::{Command, Runtime, RuntimeType};
-use crate::config::{EXCLUDED_PATHS, INTROSPECT_DIRECTORY, TRACE_FILE, TraceType};
+use crate::config::{EXCLUDED_PATHS, TRACE_FILE, TraceType};
 use crate::ops;
 use crate::scripts;
 
 pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> TraceType {
     if annotation::check_pure(command) {
         return TraceType::Nothing;
-    } else if annotation::check_stateless(command) || annotation::check_read_only(command) {
+    }
+    if annotation::check_stateless(command) || annotation::check_read_only(command) {
         return TraceType::TraceFile;
     }
-
-    let introspect_file = cache_directory
-        .join(INTROSPECT_DIRECTORY)
-        .join(format!("command_{}.incr", command.hash));
-    if introspect_file.exists() {
+    if dependency::get_introspect_file(cache_directory, command.hash).exists() {
         return TraceType::TraceFile;
     }
-
     TraceType::Sandbox
 }
 
