@@ -98,7 +98,7 @@ fn parse_input() -> Result<Option<Input>> {
                 env::home_dir().ok_or_else(|| anyhow!("Could not resolve home directory"))?;
             let default_try_command = format!(
                 "{}/{}",
-                ops::files::path_to_string(&home_directory)?,
+                ops::file::path_to_string(&home_directory)?,
                 DEFAULT_TRY_PATH,
             );
             (
@@ -109,7 +109,7 @@ fn parse_input() -> Result<Option<Input>> {
     };
 
     let environment = env::vars().collect::<HashMap<_, _>>();
-    let command = command::get(arguments.command, &environment)?;
+    let command = command::create(arguments.command, &environment)?;
     let trace_type = execution::get_trace_type(&cache_directory, &command);
     let config = Config {
         try_command,

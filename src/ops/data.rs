@@ -41,7 +41,7 @@ pub(crate) fn encode_to_file<T>(value: &T, directory: &Path, file_name: String) 
 where
     T: Encode + Serialize,
 {
-    let file_name = ops::files::add_data_extension(file_name);
+    let file_name = ops::file::add_data_extension(file_name);
     let file = File::create(directory.join(file_name))?;
     let mut file_writer = BufWriter::with_capacity(BUFFER_SIZE, file);
     if !DEBUG {
@@ -57,7 +57,7 @@ pub(crate) fn decode_from_file<T>(directory: &Path, file_name: String) -> Result
 where
     T: Decode<()> + DeserializeOwned,
 {
-    let file_name = ops::files::add_data_extension(file_name);
+    let file_name = ops::file::add_data_extension(file_name);
     let file = match File::open(directory.join(file_name)) {
         Ok(file) => file,
         Err(error) if error.kind() == ErrorKind::NotFound => return Ok(None),

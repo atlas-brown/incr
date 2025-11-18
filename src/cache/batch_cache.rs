@@ -108,8 +108,8 @@ impl<'c> CacheCursor<'c> {
         ShellCommand::new("cp")
             .args([
                 "-rp",
-                ops::files::path_to_string(&output_directory)?,
-                ops::files::path_to_string(&commit_directory)?,
+                ops::file::path_to_string(&output_directory)?,
+                ops::file::path_to_string(&commit_directory)?,
             ])
             .stdin(Stdio::null())
             .stdout(Stdio::null())
@@ -117,7 +117,7 @@ impl<'c> CacheCursor<'c> {
             .spawn()?
             .wait()?;
         ShellCommand::new(&self.try_command)
-            .args(["commit", ops::files::path_to_string(&commit_directory)?])
+            .args(["commit", ops::file::path_to_string(&commit_directory)?])
             .stdin(Stdio::null())
             .stdout(Stdio::null())
             .stderr(Stdio::null())
@@ -138,8 +138,8 @@ impl<'c> CacheCursor<'c> {
     }
 
     pub(crate) fn clean_output_files(&self) -> Result<()> {
-        ops::files::remove_file(&self.get_stdout_file())?;
-        ops::files::remove_file(&self.get_stderr_file())?;
+        ops::file::remove_file(&self.get_stdout_file())?;
+        ops::file::remove_file(&self.get_stderr_file())?;
         Ok(())
     }
 
@@ -148,14 +148,14 @@ impl<'c> CacheCursor<'c> {
     }
 
     pub(crate) fn clean_trace_file(&self) -> Result<()> {
-        ops::files::remove_file(&self.get_trace_file())
+        ops::file::remove_file(&self.get_trace_file())
     }
 
     pub(crate) fn clean_data_files(&self) -> Result<()> {
-        let data_file = ops::files::add_data_extension(DATA_FILE.to_owned());
-        ops::files::remove_file(Path::new(&data_file))?;
-        ops::files::remove_directory(&self.directory.join(OUTPUT_DIRECTORY))?;
-        ops::files::remove_directory(&self.directory.join(COMMIT_DIRECTORY))?;
+        let data_file = ops::file::add_data_extension(DATA_FILE.to_owned());
+        ops::file::remove_file(Path::new(&data_file))?;
+        ops::file::remove_directory(&self.directory.join(OUTPUT_DIRECTORY))?;
+        ops::file::remove_directory(&self.directory.join(COMMIT_DIRECTORY))?;
         Ok(())
     }
 
@@ -192,14 +192,14 @@ pub(crate) fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {
             return Ok(());
         }
         ShellCommand::new("sudo")
-            .args(["rm", "-rf", ops::files::path_to_string(sandbox_directory)?])
+            .args(["rm", "-rf", ops::file::path_to_string(sandbox_directory)?])
             .stdin(Stdio::null())
             .stdout(Stdio::null())
             .stderr(Stdio::null())
             .spawn()?
             .wait()?;
     } else {
-        ops::files::remove_directory(sandbox_directory)?;
+        ops::file::remove_directory(sandbox_directory)?;
     }
     Ok(())
 }

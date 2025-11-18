@@ -1,6 +1,6 @@
 pub(crate) mod chunk;
 pub(crate) mod data;
-pub(crate) mod files;
+pub(crate) mod file;
 pub(crate) mod serialize_bytes;
 pub(crate) mod thread;
 

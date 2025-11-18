@@ -6,6 +6,8 @@ use crate::cache::batch_cache::CacheCursor;
 use crate::command::{self, ChildContext, ChildOutput, Command, Runtime, RuntimeType};
 use crate::config::{Config, TraceType};
 use crate::execution;
+use crate::execution::dependency;
+use crate::execution::run;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
 #[derive(Clone, Debug)]
@@ -26,7 +28,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     let cache = CacheCursor::from_stdin(config, command, &stdin)?;
     cache.create_directory()?;
     if let Some(cached_data) = cache.load_data()?
-        && execution::check_cache_valid(&cache, &cached_data)?
+        && dependency::check_cache_valid(&cache, &cached_data)?
     {
         debug_log!("Cache valid: {} {:?}", command.name, command.arguments);
         return output_cached_data(config, &cache, &cached_data);
@@ -40,7 +42,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
         CommandResult::BrokenPipe => return Ok(BROKEN_PIPE_CODE),
     };
     cache.save_data(&cache_data)?;
-    execution::save_introspection(config, command, &cache_data)?;
+    dependency::save_introspection(config, command, &cache_data)?;
 
     Ok(ExitCode(cache_data.exit_code))
 }
@@ -76,14 +78,14 @@ fn run_command(
     }
 
     let (read_set, mut write_set) = execution::parse_trace(&runtime)?;
-    let mut read_dependencies = execution::get_read_dependencies(&read_set, &write_set)?;
+    let mut read_dependencies = dependency::get_read_dependencies(&read_set, &write_set)?;
     if let RuntimeType::Sandbox(_) = &runtime.typ {
         cache.extract_sandbox_output()?;
         if !write_set.is_empty() {
             cache.commit_output()?;
         }
     }
-    execution::filter_dependencies(&mut read_dependencies, &mut write_set)?;
+    dependency::filter_dependencies(&mut read_dependencies, &mut write_set)?;
 
     Ok(CommandResult::Completed(CacheData {
         exit_code,
@@ -116,13 +118,13 @@ fn clean_child_runtime(cache: &CacheCursor<'_>, runtime: &Runtime) -> Result<()>
 }
 
 fn output_cached_data(config: &Config, cache: &CacheCursor<'_>, data: &CacheData) -> Result<ExitCode> {
-    let stdout_completed = execution::output_data(
+    let stdout_completed = run::output_data(
         &cache.get_stdout_file(),
         0,
         &mut io::stdout().lock(),
         data.compressed_output,
     )?;
-    let stderr_completed = execution::output_data(
+    let stderr_completed = run::output_data(
         &cache.get_stderr_file(),
         0,
         &mut io::stderr().lock(),
