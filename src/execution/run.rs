@@ -8,7 +8,7 @@ use std::thread::JoinHandle;
 use zstd::Decoder;
 
 use crate::cache::batch_cache;
-use crate::command::{ChildOutput, Runtime, RuntimeType};
+use crate::command::{ChildResult, Runtime, RuntimeType};
 use crate::config::BUFFER_SIZE;
 use crate::ops;
 
@@ -16,6 +16,12 @@ use crate::ops;
 pub(crate) struct OutputMetadata {
     pub(crate) stdout_length: usize,
     pub(crate) stderr_length: usize,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) enum OutputResult {
+    Completed,
+    BrokenPipe,
 }
 
 pub(crate) fn forward_stdin<C>(channel: Receiver<C>, mut child_stdin: ChildStdin) -> Result<()>
@@ -39,8 +45,8 @@ where
 
 pub(crate) fn join_stream_threads(
     stdin_thread: Option<JoinHandle<Result<()>>>,
-    stdout_thread: JoinHandle<Result<ChildOutput>>,
-    stderr_thread: JoinHandle<Result<ChildOutput>>,
+    stdout_thread: JoinHandle<Result<ChildResult>>,
+    stderr_thread: JoinHandle<Result<ChildResult>>,
 ) -> Result<Option<OutputMetadata>> {
     if let Some(stdin_thread) = stdin_thread {
         ops::thread::join(stdin_thread)??;
@@ -48,13 +54,13 @@ pub(crate) fn join_stream_threads(
     let stdout_result = ops::thread::join(stdout_thread)??;
     let stderr_result = ops::thread::join(stderr_thread)??;
     match (stdout_result, stderr_result) {
-        (ChildOutput::Completed(stdout_length), ChildOutput::Completed(stderr_length)) => {
+        (ChildResult::Completed(stdout_length), ChildResult::Completed(stderr_length)) => {
             Ok(Some(OutputMetadata {
                 stdout_length,
                 stderr_length,
             }))
         }
-        (ChildOutput::BrokenPipe, _) | (_, ChildOutput::BrokenPipe) => Ok(None),
+        (ChildResult::BrokenPipe, _) | (_, ChildResult::BrokenPipe) => Ok(None),
     }
 }
 
@@ -74,7 +80,7 @@ pub(crate) fn output_data<D>(
     start_index: usize,
     compressed: bool,
     destination: &mut D,
-) -> Result<bool>
+) -> Result<OutputResult>
 where
     D: Write,
 {
@@ -83,7 +89,7 @@ where
         let length = file.metadata()?.len() as usize;
         assert!(start_index <= length);
         if start_index == length {
-            return Ok(true);
+            return Ok(OutputResult::Completed);
         }
     }
 
@@ -98,7 +104,7 @@ where
     }
 }
 
-fn output_from_stream<S, D>(source: &mut S, destination: &mut D) -> Result<bool>
+fn output_from_stream<S, D>(source: &mut S, destination: &mut D) -> Result<OutputResult>
 where
     S: Read,
     D: Write,
@@ -106,9 +112,9 @@ where
     match io::copy(source, destination) {
         Ok(_) => {
             destination.flush()?;
-            Ok(true)
+            Ok(OutputResult::Completed)
         }
-        Err(error) if error.kind() == ErrorKind::BrokenPipe => Ok(false),
+        Err(error) if error.kind() == ErrorKind::BrokenPipe => Ok(OutputResult::BrokenPipe),
         Err(error) => Err(error.into()),
     }
 }

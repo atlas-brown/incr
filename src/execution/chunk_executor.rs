@@ -15,36 +15,26 @@ use crate::config::{CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, Config, Trace
 use crate::execution::run;
 use crate::ops::chunk::{LineChunker, LineReader};
 use crate::ops::thread::{SignalReceiver, SignalSender};
-use crate::ops::{self, ExitCode, debug_log};
+use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
 #[derive(Debug)]
 struct WorkerPool {
-    config: Config,
-    command: Arc<Command>,
-    cache: Arc<CacheCursor>,
+    context: Arc<WorkerContext>,
     max_workers: usize,
     channel_capacity: usize,
 
-    processing: VecDeque<JoinHandle<Result<()>>>,
-    current_thread: Option<JoinHandle<Result<()>>>,
+    processing: VecDeque<JoinHandle<Result<ChunkResult>>>,
+    current_thread: Option<JoinHandle<Result<ChunkResult>>>,
     current_channel: Option<SyncSender<Bytes>>,
     next_signal: Option<SignalReceiver>,
     data: BytesMut,
 }
 
 impl WorkerPool {
-    fn new(
-        config: Config,
-        command: Command,
-        cache: CacheCursor,
-        max_workers: usize,
-        channel_capacity: usize,
-    ) -> Self {
+    fn new(context: WorkerContext, max_workers: usize, channel_capacity: usize) -> Self {
         assert!(max_workers > 0 && channel_capacity > 0);
         Self {
-            config,
-            command: Arc::new(command),
-            cache: Arc::new(cache),
+            context: Arc::new(context),
             max_workers,
             channel_capacity,
 
@@ -64,27 +54,27 @@ impl WorkerPool {
         Ok(())
     }
 
-    fn start_worker(&mut self) -> Result<()> {
+    fn start_worker(&mut self) -> Result<StartResult> {
         assert!(self.current_thread.is_none() && self.current_channel.is_none());
         assert!(self.processing.len() <= self.max_workers);
 
         if self.processing.len() == self.max_workers {
             let worker_thread = self.processing.pop_front().unwrap();
-            ops::thread::join(worker_thread)??;
+            if ops::thread::join(worker_thread)?? == ChunkResult::BrokenPipe {
+                return Ok(StartResult::BrokenPipe);
+            }
         }
         let (send_channel, receive_channel) = mpsc::sync_channel(self.channel_capacity);
         let (send_signal, receive_signal) = ops::thread::create_signal();
 
         self.current_thread = Some(thread::spawn({
-            let config = self.config.clone();
-            let command = Arc::clone(&self.command);
-            let cache = Arc::clone(&self.cache);
+            let context = Arc::clone(&self.context);
             let receive_signal = self.next_signal.take();
             move || {
                 process_chunk(
-                    &config,
-                    &command,
-                    &cache,
+                    &context.config,
+                    &context.command,
+                    &context.cache,
                     receive_channel,
                     receive_signal,
                     send_signal,
@@ -94,7 +84,7 @@ impl WorkerPool {
         self.current_channel = Some(send_channel);
         self.next_signal = Some(receive_signal);
 
-        Ok(())
+        Ok(StartResult::Started)
     }
 
     fn detach_worker(&mut self) {
@@ -103,14 +93,34 @@ impl WorkerPool {
         self.current_channel.take();
     }
 
-    fn join(self) -> Result<()> {
+    fn join(self) -> Result<ChunkResult> {
         assert!(self.current_thread.is_none() && self.current_channel.is_none());
         for worker_thread in self.processing {
-            eprintln!("joining");
-            ops::thread::join(worker_thread)??;
+            if ops::thread::join(worker_thread)?? == ChunkResult::BrokenPipe {
+                return Ok(ChunkResult::BrokenPipe);
+            }
         }
-        Ok(())
+        Ok(ChunkResult::Completed)
     }
+}
+
+#[derive(Clone, Debug)]
+struct WorkerContext {
+    config: Config,
+    command: Command,
+    cache: CacheCursor,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+enum ChunkResult {
+    Completed,
+    BrokenPipe,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+enum StartResult {
+    Started,
+    BrokenPipe,
 }
 
 #[derive(Debug)]
@@ -122,8 +132,14 @@ struct StdinContext {
 pub(crate) fn execute(config: Config, command: Command) -> Result<ExitCode> {
     let cache = CacheCursor::new(&config, &command)?;
     cache.create_directory()?;
+
+    let context = WorkerContext {
+        config,
+        command,
+        cache,
+    };
     let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);
-    let mut worker_pool = WorkerPool::new(config, command, cache, CHUNK_WORKERS, channel_capacity);
+    let mut worker_pool = WorkerPool::new(context, CHUNK_WORKERS, channel_capacity);
     worker_pool.start_worker()?;
 
     {
@@ -135,19 +151,20 @@ pub(crate) fn execute(config: Config, command: Command) -> Result<ExitCode> {
             stdin_closed = stdin_reader.read()?;
             while let Some(lines) = stdin_reader.next_lines() {
                 worker_pool.send_lines(lines)?;
-                if stdin_chunker.update(lines) {
-                    worker_pool.detach_worker();
-                    worker_pool.start_worker()?;
+                if !stdin_chunker.update(lines) {
+                    continue;
+                }
+                worker_pool.detach_worker();
+                if worker_pool.start_worker()? == StartResult::BrokenPipe {
+                    return Ok(BROKEN_PIPE_CODE);
                 }
             }
             stdin_reader.drain();
         }
-
         worker_pool.detach_worker();
     }
 
     worker_pool.join()?;
-    eprintln!("joined");
 
     Ok(ExitCode(0))
 }
@@ -159,7 +176,7 @@ fn process_chunk(
     stdin_channel: Receiver<Bytes>,
     receive_signal: Option<SignalReceiver>,
     send_signal: SignalSender,
-) -> Result<()> {
+) -> Result<ChunkResult> {
     let runtime = create_child_runtime(config)?;
     let ChildContext {
         mut child,
@@ -171,14 +188,20 @@ fn process_chunk(
     };
 
     let stdin_context = forward_stdin(stdin_channel, child.stdin.take().unwrap())?;
+    let outputs = match run::join_stream_threads(Some(stdin_context.thread), stdout_thread, stderr_thread)? {
+        Some(outputs) => outputs,
+        None => {
+            run::clean_child_runtime(&runtime)?;
+            return Ok(ChunkResult::BrokenPipe);
+        }
+    };
 
-    ops::thread::join(stdin_context.thread)??;
     let result = child.wait()?;
-    eprintln!("got stdin hash: {:?}", stdin_context.hash);
-    eprintln!("result: {result:?}");
+    eprintln!("got {:?}", stdin_context.hash);
+    eprintln!("result: {result:?} {outputs:?}");
     send_signal.signal_ready();
 
-    Ok(())
+    Ok(ChunkResult::Completed)
 }
 
 fn create_child_runtime(config: &Config) -> Result<Runtime> {
