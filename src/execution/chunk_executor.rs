@@ -151,7 +151,7 @@ pub(crate) fn run(config: Config, command: Command) -> Result<ExitCode> {
     worker_pool.join()?;
     eprintln!("joined");
 
-    todo!()
+    Ok(ExitCode(0))
 }
 
 fn process_chunk(
@@ -173,22 +173,12 @@ fn process_chunk(
     };
 
     let stdin_context = forward_stdin(stdin_channel, child.stdin.take().unwrap())?;
-    eprintln!("got stdin hash: {:?}", stdin_context.hash);
-
-    /*let mut test = Vec::new();
-    for lines in stdin_channel {
-        test.push(lines);
-    }
-    if let Some(signal) = receive_signal {
-        signal.wait_until_active();
-    }
-    for lines in test {
-        eprintln!("worker: {lines:?}");
-    }
-    eprintln!("worker done");
-    send_signal.set_active();*/
 
     ops::thread::join(stdin_context.thread)??;
+    let result = child.wait()?;
+    eprintln!("got stdin hash: {:?}", stdin_context.hash);
+    eprintln!("result: {result:?}");
+    send_signal.signal_ready();
 
     Ok(())
 }
