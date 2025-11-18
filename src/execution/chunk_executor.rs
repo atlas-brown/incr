@@ -16,7 +16,7 @@ use crate::cache::chunk_cache::CacheCursor;
 use crate::command::{self, ChildContext, ChildOutput, Command, Runtime, RuntimeType};
 use crate::config::{CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, Config, TraceType};
 use crate::ops::chunk::{LineChunker, LineReader};
-use crate::ops::threads::{SignalReceiver, SignalSender};
+use crate::ops::thread::{SignalReceiver, SignalSender};
 use crate::ops::{self, ExitCode, debug_log};
 
 #[derive(Debug)]
@@ -72,10 +72,10 @@ impl WorkerPool {
 
         if self.processing.len() == self.max_workers {
             let worker_thread = self.processing.pop_front().unwrap();
-            ops::threads::join(worker_thread)??;
+            ops::thread::join(worker_thread)??;
         }
         let (send_channel, receive_channel) = mpsc::sync_channel(self.channel_capacity);
-        let (send_signal, receive_signal) = ops::threads::create_signal();
+        let (send_signal, receive_signal) = ops::thread::create_signal();
 
         self.current_thread = Some(thread::spawn({
             let config = self.config.clone();
@@ -108,7 +108,8 @@ impl WorkerPool {
     fn join(self) -> Result<()> {
         assert!(self.current_thread.is_none() && self.current_channel.is_none());
         for worker_thread in self.processing {
-            ops::threads::join(worker_thread)??;
+            eprintln!("joining");
+            ops::thread::join(worker_thread)??;
         }
         Ok(())
     }
@@ -117,7 +118,7 @@ impl WorkerPool {
 #[derive(Debug)]
 struct StdinContext {
     hash: u64,
-    thread: Option<JoinHandle<Result<()>>>,
+    thread: JoinHandle<Result<()>>,
 }
 
 pub(crate) fn run(config: Config, command: Command) -> Result<ExitCode> {
@@ -150,7 +151,7 @@ pub(crate) fn run(config: Config, command: Command) -> Result<ExitCode> {
     worker_pool.join()?;
     eprintln!("joined");
 
-    todo!()
+    Ok(ExitCode(0))
 }
 
 fn process_chunk(
@@ -166,23 +167,18 @@ fn process_chunk(
         mut child,
         stdout_thread,
         stderr_thread,
-    } = command::spawn_command(config, command, &runtime)?;
+    } = match receive_signal {
+        Some(signal) => command::spawn_with_signal(config, command, &runtime, signal)?,
+        None => command::spawn(config, command, &runtime)?,
+    };
 
     let stdin_context = forward_stdin(stdin_channel, child.stdin.take().unwrap())?;
-    eprintln!("got stdin hash: {:?}", stdin_context.hash);
 
-    /*let mut test = Vec::new();
-    for lines in stdin_channel {
-        test.push(lines);
-    }
-    if let Some(signal) = receive_signal {
-        signal.wait_until_active();
-    }
-    for lines in test {
-        eprintln!("worker: {lines:?}");
-    }
-    eprintln!("worker done");
-    send_signal.set_active();*/
+    ops::thread::join(stdin_context.thread)??;
+    let result = child.wait()?;
+    eprintln!("got stdin hash: {:?}", stdin_context.hash);
+    eprintln!("result: {result:?}");
+    send_signal.signal_ready();
 
     Ok(())
 }
@@ -226,6 +222,6 @@ fn forward_stdin(stdin_channel: Receiver<Bytes>, mut child_stdin: ChildStdin) ->
 
     Ok(StdinContext {
         hash: hasher.digest(),
-        thread: Some(stdin_thread),
+        thread: stdin_thread,
     })
 }

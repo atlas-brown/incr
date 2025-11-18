@@ -7,6 +7,12 @@ use crate::annotation::rules::{
 };
 use crate::command::Command;
 
+#[derive(Clone, Debug)]
+struct CommandArguments {
+    values: Vec<String>,
+    flags: HashSet<String>,
+}
+
 pub(crate) fn skip_command(command: &Command, environment: &HashMap<String, String>) -> bool {
     IGNORE_COMMANDS.contains(&command.name.as_str())
         || environment.contains_key(&format!("BASH_FUNC_{}%%", command.name))
@@ -28,10 +34,10 @@ fn check_conditions(conditions: &[Condition], command: &Command) -> bool {
     if conditions.iter().all(|c| c.name != command.name) {
         return false;
     }
-    let (values, flags) = parse_arguments(&command.arguments);
+    let arguments = parse_arguments(&command.arguments);
     conditions
         .iter()
-        .any(|c| check_condition(c, command, &values, &flags))
+        .any(|c| check_condition(c, command, &arguments.values, &arguments.flags))
 }
 
 fn check_condition(
@@ -45,7 +51,7 @@ fn check_condition(
         && values.len() <= condition.max_arguments
 }
 
-fn parse_arguments(arguments: &[String]) -> (Vec<String>, HashSet<String>) {
+fn parse_arguments(arguments: &[String]) -> CommandArguments {
     let mut values = Vec::new();
     let mut flags = HashSet::new();
 
@@ -68,5 +74,5 @@ fn parse_arguments(arguments: &[String]) -> (Vec<String>, HashSet<String>) {
         }
     }
 
-    (values, flags)
+    CommandArguments { values, flags }
 }

@@ -109,7 +109,7 @@ fn parse_input() -> Result<Option<Input>> {
     };
 
     let environment = env::vars().collect::<HashMap<_, _>>();
-    let command = command::get_command(arguments.command, &environment)?;
+    let command = command::get(arguments.command, &environment)?;
     let trace_type = execution::get_trace_type(&cache_directory, &command);
     let config = Config {
         try_command,

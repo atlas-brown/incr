@@ -12,6 +12,7 @@ use zstd::Encoder;
 
 use crate::config::{BUFFER_SIZE, COMPRESSION_LEVEL, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRACE_FILE};
 use crate::ops;
+use crate::ops::thread::{AlwaysReady, ReadySignal};
 
 #[derive(Clone, Debug)]
 pub(crate) struct Command {
@@ -65,10 +66,7 @@ pub(crate) enum ChildOutput {
     BrokenPipe,
 }
 
-pub(crate) fn get_command(
-    mut arguments: Vec<String>,
-    environment: &HashMap<String, String>,
-) -> Result<Command> {
+pub(crate) fn get(mut arguments: Vec<String>, environment: &HashMap<String, String>) -> Result<Command> {
     assert!(!arguments.is_empty());
     if arguments.len() == 1 {
         let command_string = arguments.pop().unwrap();
@@ -105,7 +103,19 @@ pub(crate) fn get_command(
     })
 }
 
-pub(crate) fn spawn_command(config: &Config, command: &Command, runtime: &Runtime) -> Result<ChildContext> {
+pub(crate) fn spawn(config: &Config, command: &Command, runtime: &Runtime) -> Result<ChildContext> {
+    spawn_with_signal(config, command, runtime, AlwaysReady)
+}
+
+pub(crate) fn spawn_with_signal<R>(
+    config: &Config,
+    command: &Command,
+    runtime: &Runtime,
+    destination_ready: R,
+) -> Result<ChildContext>
+where
+    R: Clone + ReadySignal + Send + 'static,
+{
     if let RuntimeType::Sandbox(directory) = &runtime.typ {
         fs::create_dir_all(directory)?;
     } else if let RuntimeType::TraceFile(file) = &runtime.typ
@@ -117,16 +127,34 @@ pub(crate) fn spawn_command(config: &Config, command: &Command, runtime: &Runtim
     let mut child = spawn_child(config, command, runtime)?;
     let mut child_stdout = child.stdout.take().unwrap();
     let mut child_stderr = child.stderr.take().unwrap();
+    let config = config.clone();
+    let destination_ready = destination_ready.clone();
 
     let stdout_thread = thread::spawn({
         let config = config.clone();
         let stdout_file = runtime.stdout_file.clone();
-        move || capture_stream(&config, &mut child_stdout, &mut io::stdout(), &stdout_file)
+        let destination_ready = destination_ready.clone();
+        move || {
+            capture_stream(
+                &config,
+                &mut child_stdout,
+                &mut io::stdout(),
+                &stdout_file,
+                &destination_ready,
+            )
+        }
     });
     let stderr_thread = thread::spawn({
-        let config = config.clone();
         let stderr_file = runtime.stderr_file.clone();
-        move || capture_stream(&config, &mut child_stderr, &mut io::stderr(), &stderr_file)
+        move || {
+            capture_stream(
+                &config,
+                &mut child_stderr,
+                &mut io::stderr(),
+                &stderr_file,
+                &destination_ready,
+            )
+        }
     });
 
     Ok(ChildContext {
@@ -191,15 +219,17 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
     Ok(child.spawn()?)
 }
 
-fn capture_stream<S, D>(
+fn capture_stream<S, D, R>(
     config: &Config,
     source: &mut S,
     destination: &mut D,
     capture_file: &Path,
+    destination_ready: &R,
 ) -> Result<ChildOutput>
 where
     S: Read,
     D: Write,
+    R: ReadySignal,
 {
     if let Some(parent) = capture_file.parent() {
         fs::create_dir_all(parent)?;
@@ -208,29 +238,32 @@ where
     let mut file_writer = BufWriter::with_capacity(BUFFER_SIZE, file);
 
     if !config.compress {
-        let output = capture_into_stream(config, source, destination, &mut file_writer);
+        let output = capture_into_stream(config, source, destination, &mut file_writer, destination_ready);
         file_writer.flush()?;
         output
     } else {
-        let mut compressed_writer = Encoder::new(file_writer, COMPRESSION_LEVEL)?;
-        let output = capture_into_stream(config, source, destination, &mut compressed_writer);
-        compressed_writer.finish()?.flush()?;
+        let mut compressor = Encoder::new(file_writer, COMPRESSION_LEVEL)?;
+        let output = capture_into_stream(config, source, destination, &mut compressor, destination_ready);
+        compressor.finish()?.flush()?;
         output
     }
 }
 
-fn capture_into_stream<S, D, W>(
+fn capture_into_stream<S, D, W, R>(
     config: &Config,
     source: &mut S,
     destination: &mut D,
     stream: &mut W,
+    destination_ready: &R,
 ) -> Result<ChildOutput>
 where
     S: Read,
     D: Write,
     W: Write,
+    R: ReadySignal,
 {
     let mut chunk = [0; BUFFER_SIZE];
+    let mut pending = Vec::new();
     let mut destination_broken = false;
     let mut length = 0;
 
@@ -242,19 +275,45 @@ where
             Err(error) => return Err(error.into()),
         };
 
-        if !destination_broken && let Err(error) = destination.write_all(&chunk[..count]) {
-            if error.kind() != ErrorKind::BrokenPipe {
-                return Err(error.into());
+        if !destination_ready.check_ready() {
+            pending.extend_from_slice(&chunk[..count]);
+            continue;
+        }
+        let outputs = if pending.is_empty() {
+            &[&chunk[..count]] as &[_]
+        } else {
+            &[&pending, &chunk[..count]]
+        };
+
+        for output in outputs {
+            if !destination_broken && let Err(error) = destination.write_all(output) {
+                if error.kind() != ErrorKind::BrokenPipe {
+                    return Err(error.into());
+                }
+                destination_broken = true;
             }
-            destination_broken = true;
-            if !config.complete_execution {
-                stream.write_all(&chunk[..count])?;
+            stream.write_all(output)?;
+            length += output.len();
+            if destination_broken && !config.complete_execution {
                 return Ok(ChildOutput::BrokenPipe);
             }
         }
+        pending.clear();
+    }
 
-        stream.write_all(&chunk[..count])?;
-        length += count;
+    if !pending.is_empty() {
+        assert!(!destination_broken && length == 0);
+        destination_ready.wait_until_ready();
+        let result = destination.write_all(&pending);
+        stream.write_all(&pending)?;
+        length += pending.len();
+
+        if let Err(error) = result {
+            if error.kind() == ErrorKind::BrokenPipe {
+                return Ok(ChildOutput::BrokenPipe);
+            }
+            return Err(error.into());
+        }
     }
 
     Ok(ChildOutput::Completed(length))

@@ -4,47 +4,68 @@ use std::thread::{self, JoinHandle};
 
 use crate::config::PARALLEL_SIZE;
 
+pub(crate) trait ReadySignal {
+    fn check_ready(&self) -> bool;
+    fn wait_until_ready(&self);
+}
+
+#[derive(Clone, Debug)]
+pub(crate) struct AlwaysReady;
+
+impl ReadySignal for AlwaysReady {
+    fn check_ready(&self) -> bool {
+        true
+    }
+
+    fn wait_until_ready(&self) {}
+}
+
 #[derive(Clone, Debug)]
 pub(crate) struct SignalSender {
-    active: Arc<Mutex<bool>>,
-    condition: Arc<Condvar>,
+    state: Arc<SignalState>,
 }
 
 impl SignalSender {
-    pub(crate) fn set_active(&self) {
-        *self.active.lock().unwrap() = true;
-        self.condition.notify_all();
+    pub(crate) fn signal_ready(&self) {
+        *self.state.ready.lock().unwrap() = true;
+        self.state.condition.notify_all();
     }
 }
 
 #[derive(Clone, Debug)]
 pub(crate) struct SignalReceiver {
-    active: Arc<Mutex<bool>>,
-    condition: Arc<Condvar>,
+    state: Arc<SignalState>,
 }
 
-impl SignalReceiver {
-    pub(crate) fn check_active(&self) -> bool {
-        *self.active.lock().unwrap()
+impl ReadySignal for SignalReceiver {
+    fn check_ready(&self) -> bool {
+        *self.state.ready.lock().unwrap()
     }
 
-    pub(crate) fn wait_until_active(&self) {
-        let mut active = self.active.lock().unwrap();
-        while !*active {
-            active = self.condition.wait(active).unwrap();
+    fn wait_until_ready(&self) {
+        let mut ready = self.state.ready.lock().unwrap();
+        while !*ready {
+            ready = self.state.condition.wait(ready).unwrap();
         }
     }
 }
 
+#[derive(Debug)]
+struct SignalState {
+    ready: Mutex<bool>,
+    condition: Condvar,
+}
+
 pub(crate) fn create_signal() -> (SignalSender, SignalReceiver) {
-    let active = Arc::new(Mutex::new(false));
-    let condition = Arc::new(Condvar::new());
+    let state = Arc::new(SignalState {
+        ready: Mutex::new(false),
+        condition: Condvar::new(),
+    });
     (
         SignalSender {
-            active: Arc::clone(&active),
-            condition: Arc::clone(&condition),
+            state: Arc::clone(&state),
         },
-        SignalReceiver { active, condition },
+        SignalReceiver { state },
     )
 }
 

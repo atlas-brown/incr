@@ -56,7 +56,7 @@ fn run_command(
         mut child,
         stdout_thread,
         stderr_thread,
-    } = command::spawn_command(config, command, &runtime)?;
+    } = command::spawn(config, command, &runtime)?;
 
     {
         let mut child_stdin = child.stdin.take().unwrap();
@@ -68,8 +68,8 @@ fn run_command(
     }
 
     let exit_code = child.wait()?.code().unwrap_or(1);
-    let stdout_result = ops::threads::join(stdout_thread)??;
-    let stderr_result = ops::threads::join(stderr_thread)??;
+    let stdout_result = ops::thread::join(stdout_thread)??;
+    let stderr_result = ops::thread::join(stderr_thread)??;
     if stdout_result == ChildOutput::BrokenPipe || stderr_result == ChildOutput::BrokenPipe {
         clean_child_runtime(cache, &runtime)?;
         return Ok(CommandResult::BrokenPipe);
