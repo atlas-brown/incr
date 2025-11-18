@@ -2,19 +2,17 @@ use anyhow::Result;
 use bytes::{Bytes, BytesMut};
 use rand::Rng;
 use std::collections::VecDeque;
-use std::io::{self, ErrorKind, Read, Write};
-use std::marker::PhantomData;
-use std::mem;
-use std::os::unix::process::CommandExt;
-use std::process::{ChildStdin, Command as ShellCommand};
+use std::io;
+use std::process::ChildStdin;
 use std::sync::Arc;
 use std::sync::mpsc::{self, Receiver, SyncSender};
 use std::thread::{self, JoinHandle};
 use xxhash_rust::xxh3::Xxh3;
 
 use crate::cache::chunk_cache::CacheCursor;
-use crate::command::{self, ChildContext, ChildOutput, Command, Runtime, RuntimeType};
+use crate::command::{self, ChildContext, Command, Runtime, RuntimeType};
 use crate::config::{CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, Config, TraceType};
+use crate::execution::run;
 use crate::ops::chunk::{LineChunker, LineReader};
 use crate::ops::thread::{SignalReceiver, SignalSender};
 use crate::ops::{self, ExitCode, debug_log};
@@ -195,24 +193,10 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
     })
 }
 
-fn forward_stdin(stdin_channel: Receiver<Bytes>, mut child_stdin: ChildStdin) -> Result<StdinContext> {
+fn forward_stdin(stdin_channel: Receiver<Bytes>, child_stdin: ChildStdin) -> Result<StdinContext> {
     let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);
     let (send_channel, receive_channel) = mpsc::sync_channel::<Bytes>(channel_capacity);
-    let stdin_thread = thread::spawn(move || {
-        let mut broken = false;
-        for lines in receive_channel {
-            if broken {
-                continue;
-            }
-            if let Err(error) = child_stdin.write_all(&lines) {
-                if error.kind() != ErrorKind::BrokenPipe {
-                    return Err(error.into());
-                }
-                broken = true;
-            };
-        }
-        Ok(())
-    });
+    let stdin_thread = thread::spawn(|| run::forward_stdin(receive_channel, child_stdin));
 
     let mut hasher = Xxh3::new();
     for lines in stdin_channel {

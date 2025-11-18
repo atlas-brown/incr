@@ -7,10 +7,9 @@ Bolt-on incremental execution for the shell.
 1. Ensure Rust is installed and Ubuntu is running on 22.04 with updated packages (`sudo apt update` and `sudo apt upgrade`).
 2. Install OverlayFS with `sudo apt install mergerfs`.
 3. Install Python dependencies for the `insert.py` script:
-
-   ```sh
-   pip3 install --no-cache-dir -r requirements.txt
-   ```
+```sh
+pip3 install --no-cache-dir -r requirements.txt
+```
 4. Edit the `src/config.rs` to contain absolute paths to the `try.sh` script and directory you want cached results to be saved into.
 5. Build binaries with `cargo build` and `cargo build --release`.
 

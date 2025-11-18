@@ -110,14 +110,14 @@ fn output_cached_data(config: &Config, cache: &CacheCursor<'_>, data: &CacheData
     let stdout_completed = run::output_data(
         &cache.get_stdout_file(),
         0,
-        &mut io::stdout().lock(),
         data.compressed_output,
+        &mut io::stdout().lock(),
     )?;
     let stderr_completed = run::output_data(
         &cache.get_stderr_file(),
         0,
-        &mut io::stderr().lock(),
         data.compressed_output,
+        &mut io::stderr().lock(),
     )?;
 
     if !config.complete_execution && (!stdout_completed || !stderr_completed) {

@@ -2,6 +2,8 @@ use anyhow::Result;
 use std::fs::File;
 use std::io::{self, BufReader, ErrorKind, Read, Seek, SeekFrom, Write};
 use std::path::Path;
+use std::process::ChildStdin;
+use std::sync::mpsc::Receiver;
 use std::thread::JoinHandle;
 use zstd::Decoder;
 
@@ -14,6 +16,25 @@ use crate::ops;
 pub(crate) struct OutputMetadata {
     pub(crate) stdout_length: usize,
     pub(crate) stderr_length: usize,
+}
+
+pub(crate) fn forward_stdin<C>(channel: Receiver<C>, mut child_stdin: ChildStdin) -> Result<()>
+where
+    C: AsRef<[u8]>,
+{
+    let mut broken = false;
+    for chunk in channel {
+        if broken {
+            continue;
+        }
+        if let Err(error) = child_stdin.write_all(chunk.as_ref()) {
+            if error.kind() != ErrorKind::BrokenPipe {
+                return Err(error.into());
+            }
+            broken = true;
+        };
+    }
+    Ok(())
 }
 
 pub(crate) fn join_stream_threads(
@@ -51,8 +72,8 @@ pub(crate) fn clean_child_runtime(runtime: &Runtime) -> Result<()> {
 pub(crate) fn output_data<D>(
     data_file: &Path,
     start_index: usize,
-    destination: &mut D,
     compressed: bool,
+    destination: &mut D,
 ) -> Result<bool>
 where
     D: Write,
