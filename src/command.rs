@@ -304,15 +304,16 @@ where
     if !pending.is_empty() {
         assert!(!destination_broken && length == 0);
         destination_ready.wait_until_ready();
-        let result = destination.write_all(&pending);
+        if let Err(error) = destination.write_all(&pending) {
+            if error.kind() != ErrorKind::BrokenPipe {
+                return Err(error.into());
+            }
+            destination_broken = true;
+        }
         stream.write_all(&pending)?;
         length += pending.len();
-
-        if let Err(error) = result {
-            if error.kind() == ErrorKind::BrokenPipe {
-                return Ok(ChildOutput::BrokenPipe);
-            }
-            return Err(error.into());
+        if destination_broken && !config.complete_execution {
+            return Ok(ChildOutput::BrokenPipe);
         }
     }
 
