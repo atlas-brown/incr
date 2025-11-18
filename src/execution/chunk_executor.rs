@@ -19,9 +19,7 @@ use crate::ops::{self, ExitCode, debug_log};
 
 #[derive(Debug)]
 struct WorkerPool {
-    config: Config,
-    command: Arc<Command>,
-    cache: Arc<CacheCursor>,
+    context: Arc<WorkerContext>,
     max_workers: usize,
     channel_capacity: usize,
 
@@ -33,18 +31,10 @@ struct WorkerPool {
 }
 
 impl WorkerPool {
-    fn new(
-        config: Config,
-        command: Command,
-        cache: CacheCursor,
-        max_workers: usize,
-        channel_capacity: usize,
-    ) -> Self {
+    fn new(context: WorkerContext, max_workers: usize, channel_capacity: usize) -> Self {
         assert!(max_workers > 0 && channel_capacity > 0);
         Self {
-            config,
-            command: Arc::new(command),
-            cache: Arc::new(cache),
+            context: Arc::new(context),
             max_workers,
             channel_capacity,
 
@@ -76,15 +66,13 @@ impl WorkerPool {
         let (send_signal, receive_signal) = ops::thread::create_signal();
 
         self.current_thread = Some(thread::spawn({
-            let config = self.config.clone();
-            let command = Arc::clone(&self.command);
-            let cache = Arc::clone(&self.cache);
+            let context = Arc::clone(&self.context);
             let receive_signal = self.next_signal.take();
             move || {
                 process_chunk(
-                    &config,
-                    &command,
-                    &cache,
+                    &context.config,
+                    &context.command,
+                    &context.cache,
                     receive_channel,
                     receive_signal,
                     send_signal,
@@ -113,6 +101,13 @@ impl WorkerPool {
     }
 }
 
+#[derive(Clone, Debug)]
+struct WorkerContext {
+    config: Config,
+    command: Command,
+    cache: CacheCursor,
+}
+
 #[derive(Debug)]
 struct StdinContext {
     hash: u64,
@@ -122,8 +117,14 @@ struct StdinContext {
 pub(crate) fn execute(config: Config, command: Command) -> Result<ExitCode> {
     let cache = CacheCursor::new(&config, &command)?;
     cache.create_directory()?;
+
+    let context = WorkerContext {
+        config,
+        command,
+        cache,
+    };
     let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);
-    let mut worker_pool = WorkerPool::new(config, command, cache, CHUNK_WORKERS, channel_capacity);
+    let mut worker_pool = WorkerPool::new(context, CHUNK_WORKERS, channel_capacity);
     worker_pool.start_worker()?;
 
     {
