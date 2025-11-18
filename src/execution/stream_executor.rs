@@ -49,7 +49,7 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
         }
     };
 
-    let exit_code = match cache_status {
+    match cache_status {
         CacheStatus::Valid(cached_data) => {
             debug_log!(
                 "Cache valid: {} {:?} {}",
@@ -57,7 +57,7 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
                 command.arguments,
                 stdin_context.hash,
             );
-            return output_cached_data(config, &cache, &cached_data, &outputs);
+            output_cached_data(config, &cache, &cached_data, &outputs)
         }
         CacheStatus::Invalid(exit_code) => {
             debug_log!(
@@ -66,11 +66,9 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
                 command.arguments,
                 stdin_context.hash,
             );
-            exit_code
+            save_command_data(config, command, cache, &runtime, exit_code)
         }
-    };
-
-    save_command_data(config, command, cache, &runtime, exit_code)
+    }
 }
 
 fn create_child_runtime(config: &Config) -> Result<Runtime> {

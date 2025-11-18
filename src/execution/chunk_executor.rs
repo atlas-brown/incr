@@ -188,6 +188,15 @@ fn process_chunk(
     };
 
     let stdin_context = forward_stdin(stdin_channel, child.stdin.take().unwrap())?;
+    let cache_valid = cache.chunk_exists(stdin_context.hash);
+    if cache_valid {
+        if child.try_wait()?.is_none() {
+            command::kill_child(&child)?;
+            child.wait()?;
+        }
+        run::clean_child_runtime(&runtime)?;
+    }
+
     let outputs = match run::join_stream_threads(Some(stdin_context.thread), stdout_thread, stderr_thread)? {
         Some(outputs) => outputs,
         None => {
@@ -195,6 +204,22 @@ fn process_chunk(
             return Ok(ChunkResult::BrokenPipe);
         }
     };
+
+    if cache_valid {
+        debug_log!(
+            "Chunk cache valid: {} {:?} {}",
+            command.name,
+            command.arguments,
+            stdin_context.hash,
+        );
+    } else {
+        debug_log!(
+            "Chunk cache invalid: {} {:?} {}",
+            command.name,
+            command.arguments,
+            stdin_context.hash,
+        );
+    }
 
     let result = child.wait()?;
     eprintln!("got {:?}", stdin_context.hash);
