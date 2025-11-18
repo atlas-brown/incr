@@ -3,12 +3,12 @@ use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 
 use crate::cache::CacheData;
 use crate::cache::batch_cache::CacheCursor;
-use crate::command::{self, ChildContext, ChildOutput, Command, Runtime, RuntimeType};
+use crate::command::{self, ChildContext, Command, Runtime, RuntimeType};
 use crate::config::{Config, TraceType};
 use crate::execution;
 use crate::execution::dependency;
-use crate::execution::run;
-use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
+use crate::execution::run::{self, OutputResult};
+use crate::ops::{BROKEN_PIPE_CODE, ExitCode, debug_log};
 
 #[derive(Clone, Debug)]
 enum CommandResult {
@@ -69,9 +69,7 @@ fn run_command(
     }
 
     let exit_code = child.wait()?.code().unwrap_or(1);
-    let stdout_result = ops::thread::join(stdout_thread)??;
-    let stderr_result = ops::thread::join(stderr_thread)??;
-    if stdout_result == ChildOutput::BrokenPipe || stderr_result == ChildOutput::BrokenPipe {
+    if run::join_stream_threads(None, stdout_thread, stderr_thread)?.is_none() {
         run::clean_child_runtime(&runtime)?;
         return Ok(CommandResult::BrokenPipe);
     }
@@ -112,13 +110,13 @@ fn output_cached_data(config: &Config, cache: &CacheCursor<'_>, data: &CacheData
         0,
         data.compressed_output,
         &mut io::stdout().lock(),
-    )?;
+    )? == OutputResult::Completed;
     let stderr_completed = run::output_data(
         &cache.get_stderr_file(),
         0,
         data.compressed_output,
         &mut io::stderr().lock(),
-    )?;
+    )? == OutputResult::Completed;
 
     if !config.complete_execution && (!stdout_completed || !stderr_completed) {
         return Ok(BROKEN_PIPE_CODE);

@@ -56,12 +56,12 @@ pub(crate) enum RuntimeType {
 #[derive(Debug)]
 pub(crate) struct ChildContext {
     pub(crate) child: Child,
-    pub(crate) stdout_thread: JoinHandle<Result<ChildOutput>>,
-    pub(crate) stderr_thread: JoinHandle<Result<ChildOutput>>,
+    pub(crate) stdout_thread: JoinHandle<Result<ChildResult>>,
+    pub(crate) stderr_thread: JoinHandle<Result<ChildResult>>,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
-pub(crate) enum ChildOutput {
+pub(crate) enum ChildResult {
     Completed(usize),
     BrokenPipe,
 }
@@ -225,7 +225,7 @@ fn capture_stream<S, D, R>(
     destination: &mut D,
     capture_file: &Path,
     destination_ready: &R,
-) -> Result<ChildOutput>
+) -> Result<ChildResult>
 where
     S: Read,
     D: Write,
@@ -255,7 +255,7 @@ fn capture_into_stream<S, D, W, R>(
     destination: &mut D,
     stream: &mut W,
     destination_ready: &R,
-) -> Result<ChildOutput>
+) -> Result<ChildResult>
 where
     S: Read,
     D: Write,
@@ -295,7 +295,7 @@ where
             stream.write_all(output)?;
             length += output.len();
             if destination_broken && !config.complete_execution {
-                return Ok(ChildOutput::BrokenPipe);
+                return Ok(ChildResult::BrokenPipe);
             }
         }
         pending.clear();
@@ -313,11 +313,11 @@ where
         stream.write_all(&pending)?;
         length += pending.len();
         if destination_broken && !config.complete_execution {
-            return Ok(ChildOutput::BrokenPipe);
+            return Ok(ChildResult::BrokenPipe);
         }
     }
 
-    Ok(ChildOutput::Completed(length))
+    Ok(ChildResult::Completed(length))
 }
 
 pub(crate) fn kill_child(child: &Child) -> Result<()> {

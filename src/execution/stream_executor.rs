@@ -13,7 +13,7 @@ use crate::command::{self, ChildContext, Command, Runtime, RuntimeType};
 use crate::config::{BUFFER_SIZE, Config, TraceType};
 use crate::execution;
 use crate::execution::dependency;
-use crate::execution::run::{self, OutputMetadata};
+use crate::execution::run::{self, OutputMetadata, OutputResult};
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
 #[derive(Debug)]
@@ -183,13 +183,13 @@ fn output_cached_data(
         outputs.stdout_length,
         cached_data.compressed_output,
         &mut io::stdout().lock(),
-    )?;
+    )? == OutputResult::Completed;
     let stderr_completed = run::output_data(
         &stderr_file,
         outputs.stderr_length,
         cached_data.compressed_output,
         &mut io::stderr().lock(),
-    )?;
+    )? == OutputResult::Completed;
 
     if !config.complete_execution && (!stdout_completed || !stderr_completed) {
         return Ok(BROKEN_PIPE_CODE);
