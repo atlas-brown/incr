@@ -108,6 +108,7 @@ impl WorkerPool {
     fn join(self) -> Result<()> {
         assert!(self.current_thread.is_none() && self.current_channel.is_none());
         for worker_thread in self.processing {
+            eprintln!("joining");
             ops::thread::join(worker_thread)??;
         }
         Ok(())
@@ -117,7 +118,7 @@ impl WorkerPool {
 #[derive(Debug)]
 struct StdinContext {
     hash: u64,
-    thread: Option<JoinHandle<Result<()>>>,
+    thread: JoinHandle<Result<()>>,
 }
 
 pub(crate) fn run(config: Config, command: Command) -> Result<ExitCode> {
@@ -187,6 +188,8 @@ fn process_chunk(
     eprintln!("worker done");
     send_signal.set_active();*/
 
+    ops::thread::join(stdin_context.thread)??;
+
     Ok(())
 }
 
@@ -229,6 +232,6 @@ fn forward_stdin(stdin_channel: Receiver<Bytes>, mut child_stdin: ChildStdin) ->
 
     Ok(StdinContext {
         hash: hasher.digest(),
-        thread: Some(stdin_thread),
+        thread: stdin_thread,
     })
 }
