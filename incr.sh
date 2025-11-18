@@ -3,6 +3,8 @@
 script=$1
 cache_dir=$2
 
+incr_shell=${INCR_SHELL:-bash}
+
 [ -z "$script" ] && echo "Usage: $0 <script> <cache_dir>" && exit 1
 [ -z "$cache_dir" ] && echo "Usage: $0 <script> <cache_dir>" && exit 1
 
@@ -22,4 +24,5 @@ trap cleanup EXIT INT TERM
 
 python3 ${TOP}/src/scripts/insert.py --sys-path ${TOP}/target/release/incr --try $TRY_PATH --cache $2 "$1" > "$tempfile"
 bash "$tempfile"
+$incr_shell "$tempfile"
 rc=$?
