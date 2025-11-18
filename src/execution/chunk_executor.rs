@@ -121,7 +121,7 @@ struct StdinContext {
     thread: JoinHandle<Result<()>>,
 }
 
-pub(crate) fn run(config: Config, command: Command) -> Result<ExitCode> {
+pub(crate) fn execute(config: Config, command: Command) -> Result<ExitCode> {
     let cache = CacheCursor::new(&config, &command)?;
     cache.create_directory()?;
     let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);

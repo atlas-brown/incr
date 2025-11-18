@@ -9,9 +9,11 @@ use xxhash_rust::xxh3::Xxh3;
 
 use crate::cache::CacheData;
 use crate::cache::batch_cache::{self, CacheCursor};
-use crate::command::{self, ChildContext, ChildOutput, Command, Runtime, RuntimeType};
+use crate::command::{self, ChildContext, Command, Runtime, RuntimeType};
 use crate::config::{BUFFER_SIZE, Config, TraceType};
 use crate::execution;
+use crate::execution::dependency;
+use crate::execution::run::{self, OutputMetadata};
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
 #[derive(Debug)]
@@ -26,13 +28,7 @@ enum CacheStatus {
     Invalid(ExitCode),
 }
 
-#[derive(Clone, Debug)]
-struct Outputs {
-    stdout_length: usize,
-    stderr_length: usize,
-}
-
-pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
+pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     let runtime = create_child_runtime(config)?;
     let ChildContext {
         mut child,
@@ -45,10 +41,10 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     cache.create_directory()?;
 
     let cache_status = load_cache_data(&cache, child, &runtime)?;
-    let outputs = match join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
+    let outputs = match run::join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
         Some(outputs) => outputs,
         None => {
-            clean_child_runtime(&runtime)?;
+            run::clean_child_runtime(&runtime)?;
             return Ok(BROKEN_PIPE_CODE);
         }
     };
@@ -113,17 +109,6 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
     })
 }
 
-fn clean_child_runtime(runtime: &Runtime) -> Result<()> {
-    ops::files::remove_file(&runtime.stdout_file)?;
-    ops::files::remove_file(&runtime.stderr_file)?;
-    match &runtime.typ {
-        RuntimeType::Sandbox(directory) => batch_cache::remove_sandbox(directory)?,
-        RuntimeType::TraceFile(file) => ops::files::remove_file(file)?,
-        RuntimeType::Nothing => (),
-    }
-    Ok(())
-}
-
 fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
     let mut process_stdin = io::stdin().lock();
     if process_stdin.is_terminal() {
@@ -172,7 +157,7 @@ fn forward_stdin(mut child_stdin: ChildStdin) -> Result<StdinContext> {
 fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, runtime: &Runtime) -> Result<CacheStatus> {
     let cached_data = match cache.load_data()? {
         Some(cached_data) => {
-            if execution::check_cache_valid(cache, &cached_data)? {
+            if dependency::check_cache_valid(cache, &cached_data)? {
                 Some(cached_data)
             } else {
                 None
@@ -187,34 +172,14 @@ fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, runtime: &Runtime)
                 command::kill_child(&child)?;
                 child.wait()?;
             }
-            clean_child_runtime(runtime)?;
+            run::clean_child_runtime(runtime)?;
             Ok(CacheStatus::Valid(cached_data))
         }
         None => {
             let exit_code = child.wait()?.code().unwrap_or(1);
-            cache.clean_sandbox_directory()?;
-            cache.clean_data_files()?;
+            cache.clean()?;
             Ok(CacheStatus::Invalid(ExitCode(exit_code)))
         }
-    }
-}
-
-fn join_stream_threads(
-    stdin_thread: Option<JoinHandle<Result<()>>>,
-    stdout_thread: JoinHandle<Result<ChildOutput>>,
-    stderr_thread: JoinHandle<Result<ChildOutput>>,
-) -> Result<Option<Outputs>> {
-    if let Some(stdin_thread) = stdin_thread {
-        ops::thread::join(stdin_thread)??;
-    }
-    let stdout_result = ops::thread::join(stdout_thread)??;
-    let stderr_result = ops::thread::join(stderr_thread)??;
-    match (stdout_result, stderr_result) {
-        (ChildOutput::Completed(stdout_length), ChildOutput::Completed(stderr_length)) => Ok(Some(Outputs {
-            stdout_length,
-            stderr_length,
-        })),
-        (ChildOutput::BrokenPipe, _) | (_, ChildOutput::BrokenPipe) => Ok(None),
     }
 }
 
@@ -222,18 +187,18 @@ fn output_cached_data(
     config: &Config,
     cache: &CacheCursor<'_>,
     cached_data: &CacheData,
-    outputs: &Outputs,
+    outputs: &OutputMetadata,
 ) -> Result<ExitCode> {
     let stdout_file = cache.get_stdout_file();
     let stderr_file = cache.get_stderr_file();
 
-    let stdout_completed = execution::output_data(
+    let stdout_completed = run::output_data(
         &stdout_file,
         outputs.stdout_length,
         &mut io::stdout().lock(),
         cached_data.compressed_output,
     )?;
-    let stderr_completed = execution::output_data(
+    let stderr_completed = run::output_data(
         &stderr_file,
         outputs.stderr_length,
         &mut io::stderr().lock(),
@@ -258,7 +223,7 @@ fn save_command_data(
     exit_code: ExitCode,
 ) -> Result<ExitCode> {
     let (read_set, mut write_set) = execution::parse_trace(runtime)?;
-    let mut read_dependencies = execution::get_read_dependencies(&read_set, &write_set)?;
+    let mut read_dependencies = dependency::get_read_dependencies(&read_set, &write_set)?;
     if let RuntimeType::Sandbox(directory) = &runtime.typ {
         fs::rename(directory, cache.get_sandbox_directory())?;
         cache.extract_sandbox_output()?;
@@ -266,7 +231,7 @@ fn save_command_data(
             cache.commit_output()?;
         }
     }
-    execution::filter_dependencies(&mut read_dependencies, &mut write_set)?;
+    dependency::filter_dependencies(&mut read_dependencies, &mut write_set)?;
 
     let cache_data = CacheData {
         exit_code: exit_code.0,
@@ -278,7 +243,7 @@ fn save_command_data(
     fs::rename(&runtime.stdout_file, cache.get_stdout_file())?;
     fs::rename(&runtime.stderr_file, cache.get_stderr_file())?;
     cache.save_data(&cache_data)?;
-    execution::save_introspection(config, command, &cache_data)?;
+    dependency::save_introspection(config, command, &cache_data)?;
 
     Ok(exit_code)
 }

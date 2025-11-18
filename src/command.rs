@@ -60,13 +60,13 @@ pub(crate) struct ChildContext {
     pub(crate) stderr_thread: JoinHandle<Result<ChildOutput>>,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub(crate) enum ChildOutput {
     Completed(usize),
     BrokenPipe,
 }
 
-pub(crate) fn get(mut arguments: Vec<String>, environment: &HashMap<String, String>) -> Result<Command> {
+pub(crate) fn create(mut arguments: Vec<String>, environment: &HashMap<String, String>) -> Result<Command> {
     assert!(!arguments.is_empty());
     if arguments.len() == 1 {
         let command_string = arguments.pop().unwrap();
@@ -176,7 +176,7 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
         RuntimeType::Sandbox(directory) => {
             child.args([
                 "-D",
-                ops::files::path_to_string(directory)?,
+                ops::file::path_to_string(directory)?,
                 STRACE_COMMAND,
                 "-yf",
                 "--seccomp-bpf",
@@ -192,7 +192,7 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
                 "--seccomp-bpf",
                 "--trace=fork,clone,%file",
                 "-o",
-                ops::files::path_to_string(file)?,
+                ops::file::path_to_string(file)?,
             ];
             arguments.extend(command.join_sequence());
             child.args(&arguments);

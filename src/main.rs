@@ -24,10 +24,10 @@ use crate::ops::{ExitCode, FAILURE_CODE, SUCCESS_CODE};
 const EXECUTOR: Executor = Executor::Stream;
 
 #[allow(unused)]
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Debug)]
 enum Executor {
-    Batch,
     Stream,
+    Batch,
 }
 
 #[derive(Clone, Debug, Parser)]
@@ -66,16 +66,16 @@ fn run() -> Result<ExitCode> {
         None => return Ok(SUCCESS_CODE),
     };
     if !config.force_cache && annotation::skip_command(&command, &environment) {
-        return Err(skip_executor::run(&command));
+        return Err(skip_executor::execute(&command));
     }
 
     let command_string = command.join_string()?;
     let result = if annotation::check_stateless(&command) {
-        chunk_executor::run(config, command)
+        chunk_executor::execute(config, command)
     } else {
         match EXECUTOR {
-            Executor::Batch => batch_executor::run(&config, &command),
-            Executor::Stream => stream_executor::run(&config, &command),
+            Executor::Stream => stream_executor::execute(&config, &command),
+            Executor::Batch => batch_executor::execute(&config, &command),
         }
     };
 
@@ -98,7 +98,7 @@ fn parse_input() -> Result<Option<Input>> {
                 env::home_dir().ok_or_else(|| anyhow!("Could not resolve home directory"))?;
             let default_try_command = format!(
                 "{}/{}",
-                ops::files::path_to_string(&home_directory)?,
+                ops::file::path_to_string(&home_directory)?,
                 DEFAULT_TRY_PATH,
             );
             (
@@ -109,7 +109,7 @@ fn parse_input() -> Result<Option<Input>> {
     };
 
     let environment = env::vars().collect::<HashMap<_, _>>();
-    let command = command::get(arguments.command, &environment)?;
+    let command = command::create(arguments.command, &environment)?;
     let trace_type = execution::get_trace_type(&cache_directory, &command);
     let config = Config {
         try_command,
