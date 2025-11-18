@@ -129,15 +129,20 @@ fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
 }
 
 pub(crate) fn save_introspection(config: &Config, command: &Command, cache_data: &CacheData) -> Result<()> {
-    let introspect_directory = config.cache_directory.join(INTROSPECT_DIRECTORY);
-    let introspect_file = introspect_directory.join(format!("command_{}.incr", command.hash));
-
-    fs::create_dir_all(&introspect_directory)?;
+    let introspect_file = get_introspect_file(&config.cache_directory, command.hash);
+    if let Some(parent) = introspect_file.parent() {
+        fs::create_dir_all(parent)?;
+    }
     if cache_data.write_outputs.is_empty() {
         File::create(&introspect_file)?;
     } else if introspect_file.exists() {
         ops::file::remove_file(&introspect_file)?;
     }
-
     Ok(())
+}
+
+pub(crate) fn get_introspect_file(cache_directory: &Path, command_hash: u64) -> PathBuf {
+    cache_directory
+        .join(INTROSPECT_DIRECTORY)
+        .join(format!("command_{command_hash}.incr"))
 }

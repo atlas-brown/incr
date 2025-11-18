@@ -2,6 +2,7 @@ use anyhow::Result;
 use bytes::{Bytes, BytesMut};
 use rand::Rng;
 use std::collections::VecDeque;
+use std::fs;
 use std::io;
 use std::process::ChildStdin;
 use std::sync::Arc;
@@ -12,7 +13,7 @@ use xxhash_rust::xxh3::Xxh3;
 use crate::cache::chunk_cache::CacheCursor;
 use crate::command::{self, ChildContext, Command, Runtime, RuntimeType};
 use crate::config::{CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, Config, TraceType};
-use crate::execution::run;
+use crate::execution::run::{self, OutputMetadata, OutputResult};
 use crate::ops::chunk::{LineChunker, LineReader};
 use crate::ops::thread::{SignalReceiver, SignalSender};
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
@@ -164,9 +165,10 @@ pub(crate) fn execute(config: Config, command: Command) -> Result<ExitCode> {
         worker_pool.detach_worker();
     }
 
-    worker_pool.join()?;
-
-    Ok(ExitCode(0))
+    match worker_pool.join()? {
+        ChunkResult::Completed => Ok(ExitCode(0)),
+        ChunkResult::BrokenPipe => Ok(BROKEN_PIPE_CODE),
+    }
 }
 
 fn process_chunk(
@@ -188,6 +190,17 @@ fn process_chunk(
     };
 
     let stdin_context = forward_stdin(stdin_channel, child.stdin.take().unwrap())?;
+    let cache_valid = cache.chunk_exists(stdin_context.hash);
+    if cache_valid {
+        if child.try_wait()?.is_none() {
+            command::kill_child(&child)?;
+            child.wait()?;
+        }
+        run::clean_child_runtime(&runtime)?;
+    } else {
+        child.wait()?;
+    }
+
     let outputs = match run::join_stream_threads(Some(stdin_context.thread), stdout_thread, stderr_thread)? {
         Some(outputs) => outputs,
         None => {
@@ -196,12 +209,24 @@ fn process_chunk(
         }
     };
 
-    let result = child.wait()?;
-    eprintln!("got {:?}", stdin_context.hash);
-    eprintln!("result: {result:?} {outputs:?}");
-    send_signal.signal_ready();
-
-    Ok(ChunkResult::Completed)
+    if cache_valid {
+        debug_log!(
+            "Chunk cache valid: {} {:?} {}",
+            command.name,
+            command.arguments,
+            stdin_context.hash,
+        );
+        output_cached_data(config, cache, send_signal, stdin_context.hash, &outputs)
+    } else {
+        debug_log!(
+            "Chunk cache invalid: {} {:?} {}",
+            command.name,
+            command.arguments,
+            stdin_context.hash,
+        );
+        send_signal.signal_ready();
+        save_chunk_data(cache, stdin_context.hash, &runtime)
+    }
 }
 
 fn create_child_runtime(config: &Config) -> Result<Runtime> {
@@ -231,4 +256,42 @@ fn forward_stdin(stdin_channel: Receiver<Bytes>, child_stdin: ChildStdin) -> Res
         hash: hasher.digest(),
         thread: stdin_thread,
     })
+}
+
+fn output_cached_data(
+    config: &Config,
+    cache: &CacheCursor,
+    send_signal: SignalSender,
+    stdin_hash: u64,
+    outputs: &OutputMetadata,
+) -> Result<ChunkResult> {
+    let stdout_file = cache.get_stdout_file(stdin_hash);
+    let stderr_file = cache.get_stderr_file(stdin_hash);
+
+    let stdout_completed = run::output_data(
+        &stdout_file,
+        outputs.stdout_length,
+        false, // TODO: load
+        &mut io::stdout().lock(),
+    )? == OutputResult::Completed;
+    let stderr_completed = run::output_data(
+        &stderr_file,
+        outputs.stderr_length,
+        false, // TODO: load
+        &mut io::stderr().lock(),
+    )? == OutputResult::Completed;
+
+    if !config.complete_execution && (!stdout_completed || !stderr_completed) {
+        Ok(ChunkResult::BrokenPipe)
+    } else {
+        send_signal.signal_ready();
+        Ok(ChunkResult::Completed)
+    }
+}
+
+fn save_chunk_data(cache: &CacheCursor, stdin_hash: u64, runtime: &Runtime) -> Result<ChunkResult> {
+    cache.create_chunk_directory(stdin_hash)?;
+    fs::rename(&runtime.stdout_file, cache.get_stdout_file(stdin_hash))?;
+    fs::rename(&runtime.stderr_file, cache.get_stderr_file(stdin_hash))?;
+    Ok(ChunkResult::Completed)
 }
