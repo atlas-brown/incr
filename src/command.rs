@@ -307,10 +307,12 @@ where
         let result = destination.write_all(&pending);
         stream.write_all(&pending)?;
         length += pending.len();
-        if let Err(error) = result
-            && error.kind() == ErrorKind::BrokenPipe
-        {
-            return Ok(ChildOutput::BrokenPipe);
+
+        if let Err(error) = result {
+            if error.kind() == ErrorKind::BrokenPipe {
+                return Ok(ChildOutput::BrokenPipe);
+            }
+            return Err(error.into());
         }
     }
 
