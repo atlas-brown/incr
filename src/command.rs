@@ -140,7 +140,7 @@ where
                 &mut child_stdout,
                 &mut io::stdout(),
                 &stdout_file,
-                destination_ready,
+                &destination_ready,
             )
         }
     });
@@ -152,7 +152,7 @@ where
                 &mut child_stderr,
                 &mut io::stderr(),
                 &stderr_file,
-                destination_ready,
+                &destination_ready,
             )
         }
     });
@@ -224,7 +224,7 @@ fn capture_stream<S, D, R>(
     source: &mut S,
     destination: &mut D,
     capture_file: &Path,
-    destination_ready: R,
+    destination_ready: &R,
 ) -> Result<ChildOutput>
 where
     S: Read,
@@ -254,7 +254,7 @@ fn capture_into_stream<S, D, W, R>(
     source: &mut S,
     destination: &mut D,
     stream: &mut W,
-    destination_ready: R,
+    destination_ready: &R,
 ) -> Result<ChildOutput>
 where
     S: Read,
@@ -263,7 +263,7 @@ where
     R: ReadySignal,
 {
     let mut chunk = [0; BUFFER_SIZE];
-    //let mut pending = Vec::new();
+    let mut pending = Vec::new();
     let mut destination_broken = false;
     let mut length = 0;
 
@@ -275,19 +275,43 @@ where
             Err(error) => return Err(error.into()),
         };
 
-        if !destination_broken && let Err(error) = destination.write_all(&chunk[..count]) {
-            if error.kind() != ErrorKind::BrokenPipe {
-                return Err(error.into());
+        if !destination_ready.check_ready() {
+            pending.extend_from_slice(&chunk[..count]);
+            continue;
+        }
+        let outputs = if pending.is_empty() {
+            &[&chunk[..count]] as &[_]
+        } else {
+            &[&pending, &chunk[..count]]
+        };
+
+        for output in outputs {
+            if !destination_broken && let Err(error) = destination.write_all(output) {
+                if error.kind() != ErrorKind::BrokenPipe {
+                    return Err(error.into());
+                }
+                destination_broken = true;
             }
-            destination_broken = true;
-            if !config.complete_execution {
-                stream.write_all(&chunk[..count])?;
+            stream.write_all(output)?;
+            length += output.len();
+            if destination_broken && !config.complete_execution {
                 return Ok(ChildOutput::BrokenPipe);
             }
         }
+        pending.clear();
+    }
 
-        stream.write_all(&chunk[..count])?;
-        length += count;
+    if !pending.is_empty() {
+        assert!(!destination_broken && length == 0);
+        destination_ready.wait_until_ready();
+        let result = destination.write_all(&pending);
+        stream.write_all(&pending)?;
+        length += pending.len();
+        if let Err(error) = result
+            && error.kind() == ErrorKind::BrokenPipe
+        {
+            return Ok(ChildOutput::BrokenPipe);
+        }
     }
 
     Ok(ChildOutput::Completed(length))
