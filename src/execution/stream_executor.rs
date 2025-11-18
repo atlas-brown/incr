@@ -1,7 +1,7 @@
 use anyhow::Result;
 use rand::Rng;
 use std::fs;
-use std::io::{self, ErrorKind, IsTerminal, Read, Write};
+use std::io::{self, ErrorKind, IsTerminal, Read};
 use std::process::{Child, ChildStdin};
 use std::sync::mpsc;
 use std::thread::{self, JoinHandle};
