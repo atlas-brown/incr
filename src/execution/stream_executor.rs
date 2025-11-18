@@ -177,8 +177,7 @@ fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, runtime: &Runtime)
         }
         None => {
             let exit_code = child.wait()?.code().unwrap_or(1);
-            cache.clean_sandbox_directory()?;
-            cache.clean_data_files()?;
+            cache.clean()?;
             Ok(CacheStatus::Invalid(ExitCode(exit_code)))
         }
     }

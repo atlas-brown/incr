@@ -6,21 +6,13 @@ pub(crate) mod skip_executor;
 pub(crate) mod stream_executor;
 
 use anyhow::{Result, anyhow};
-use std::collections::{HashMap, HashSet};
-use std::fs::{self, File};
-use std::io::{self, BufReader, ErrorKind, Read, Seek, SeekFrom, Write};
+use std::collections::HashSet;
+use std::fs;
 use std::path::{Path, PathBuf};
-use std::thread::JoinHandle;
-use std::time::UNIX_EPOCH;
-use zstd::Decoder;
 
 use crate::annotation;
-use crate::cache::batch_cache::{self, CacheCursor};
-use crate::cache::{CacheData, DependencyKey};
 use crate::command::{Command, Runtime, RuntimeType};
-use crate::config::{
-    BUFFER_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, EXCLUDED_PATHS, INTROSPECT_DIRECTORY, TRACE_FILE, TraceType,
-};
+use crate::config::{EXCLUDED_PATHS, INTROSPECT_DIRECTORY, TRACE_FILE, TraceType};
 use crate::ops;
 use crate::scripts;
 

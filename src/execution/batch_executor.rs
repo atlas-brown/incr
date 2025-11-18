@@ -35,8 +35,7 @@ pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
     }
     debug_log!("Cache invalid: {} {:?}", command.name, command.arguments);
 
-    cache.clean_sandbox_directory()?;
-    cache.clean_data_files()?;
+    cache.clean()?;
     let cache_data = match run_command(config, command, &cache, &stdin)? {
         CommandResult::Completed(data) => data,
         CommandResult::BrokenPipe => return Ok(BROKEN_PIPE_CODE),
@@ -73,7 +72,7 @@ fn run_command(
     let stdout_result = ops::thread::join(stdout_thread)??;
     let stderr_result = ops::thread::join(stderr_thread)??;
     if stdout_result == ChildOutput::BrokenPipe || stderr_result == ChildOutput::BrokenPipe {
-        clean_child_runtime(cache, &runtime)?;
+        run::clean_child_runtime(&runtime)?;
         return Ok(CommandResult::BrokenPipe);
     }
 
@@ -105,16 +104,6 @@ fn create_child_runtime(config: &Config, cache: &CacheCursor<'_>) -> Runtime {
         stdout_file: cache.get_stdout_file(),
         stderr_file: cache.get_stderr_file(),
     }
-}
-
-fn clean_child_runtime(cache: &CacheCursor<'_>, runtime: &Runtime) -> Result<()> {
-    cache.clean_output_files()?;
-    match &runtime.typ {
-        RuntimeType::Sandbox(_) => cache.clean_sandbox_directory()?,
-        RuntimeType::TraceFile(_) => cache.clean_trace_file()?,
-        RuntimeType::Nothing => (),
-    }
-    Ok(())
 }
 
 fn output_cached_data(config: &Config, cache: &CacheCursor<'_>, data: &CacheData) -> Result<ExitCode> {
