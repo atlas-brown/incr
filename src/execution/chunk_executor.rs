@@ -12,7 +12,7 @@ use xxhash_rust::xxh3::Xxh3;
 use crate::cache::chunk_cache::CacheCursor;
 use crate::command::{self, ChildContext, Command, Runtime, RuntimeType};
 use crate::config::{CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, Config, TraceType};
-use crate::execution::run;
+use crate::execution::run::{self, OutputMetadata};
 use crate::ops::chunk::{LineChunker, LineReader};
 use crate::ops::thread::{SignalReceiver, SignalSender};
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
@@ -164,9 +164,10 @@ pub(crate) fn execute(config: Config, command: Command) -> Result<ExitCode> {
         worker_pool.detach_worker();
     }
 
-    worker_pool.join()?;
-
-    Ok(ExitCode(0))
+    match worker_pool.join()? {
+        ChunkResult::Completed => Ok(ExitCode(0)),
+        ChunkResult::BrokenPipe => Ok(BROKEN_PIPE_CODE),
+    }
 }
 
 fn process_chunk(
@@ -195,6 +196,8 @@ fn process_chunk(
             child.wait()?;
         }
         run::clean_child_runtime(&runtime)?;
+    } else {
+        child.wait()?;
     }
 
     let outputs = match run::join_stream_threads(Some(stdin_context.thread), stdout_thread, stderr_thread)? {
@@ -212,6 +215,7 @@ fn process_chunk(
             command.arguments,
             stdin_context.hash,
         );
+        output_cached_data(config, cache, &outputs)
     } else {
         debug_log!(
             "Chunk cache invalid: {} {:?} {}",
@@ -219,14 +223,8 @@ fn process_chunk(
             command.arguments,
             stdin_context.hash,
         );
+        save_chunk_data(config, cache, &runtime)
     }
-
-    let result = child.wait()?;
-    eprintln!("got {:?}", stdin_context.hash);
-    eprintln!("result: {result:?} {outputs:?}");
-    send_signal.signal_ready();
-
-    Ok(ChunkResult::Completed)
 }
 
 fn create_child_runtime(config: &Config) -> Result<Runtime> {
@@ -256,4 +254,12 @@ fn forward_stdin(stdin_channel: Receiver<Bytes>, child_stdin: ChildStdin) -> Res
         hash: hasher.digest(),
         thread: stdin_thread,
     })
+}
+
+fn output_cached_data(config: &Config, cache: &CacheCursor, outputs: &OutputMetadata) -> Result<ChunkResult> {
+    todo!()
+}
+
+fn save_chunk_data(config: &Config, cache: &CacheCursor, runtime: &Runtime) -> Result<ChunkResult> {
+    todo!()
 }

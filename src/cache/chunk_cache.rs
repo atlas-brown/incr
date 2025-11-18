@@ -30,9 +30,16 @@ impl CacheCursor {
         })
     }
 
+    pub(crate) fn get_stdout_file(&self, stdin_hash: u64) -> PathBuf {
+        self.get_chunk_directory(stdin_hash).join(STDOUT_FILE)
+    }
+
+    pub(crate) fn get_stderr_file(&self, stdin_hash: u64) -> PathBuf {
+        self.get_chunk_directory(stdin_hash).join(STDERR_FILE)
+    }
+
     pub(crate) fn chunk_exists(&self, stdin_hash: u64) -> bool {
-        let chunk_directory = self.get_chunk_directory(stdin_hash);
-        chunk_directory.join(STDOUT_FILE).is_file() && chunk_directory.join(STDERR_FILE).is_file()
+        self.get_stdout_file(stdin_hash).is_file() && self.get_stderr_file(stdin_hash).is_file()
     }
 
     pub(crate) fn create_directory(&self) -> Result<()> {
