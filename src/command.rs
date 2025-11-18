@@ -60,7 +60,7 @@ pub(crate) struct ChildContext {
     pub(crate) stderr_thread: JoinHandle<Result<ChildOutput>>,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub(crate) enum ChildOutput {
     Completed(usize),
     BrokenPipe,

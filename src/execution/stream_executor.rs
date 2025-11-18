@@ -28,7 +28,7 @@ enum CacheStatus {
     Invalid(ExitCode),
 }
 
-pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
+pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     let runtime = create_child_runtime(config)?;
     let ChildContext {
         mut child,

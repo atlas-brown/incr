@@ -16,7 +16,7 @@ enum CommandResult {
     BrokenPipe,
 }
 
-pub(crate) fn run(config: &Config, command: &Command) -> Result<ExitCode> {
+pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     let mut stdin = Vec::new();
     {
         let mut process_stdin = io::stdin().lock();

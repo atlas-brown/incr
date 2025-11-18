@@ -33,7 +33,7 @@ pub(crate) use debug_log;
 
 static LOG_FILE: OnceLock<Mutex<File>> = OnceLock::new();
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Debug)]
 pub(crate) struct ExitCode(pub(crate) i32);
 
 pub(crate) fn initialize_log_file() {

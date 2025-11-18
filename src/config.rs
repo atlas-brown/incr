@@ -63,7 +63,7 @@ pub(crate) struct Config {
     pub(crate) force_cache: bool,        // Do not skip the command
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub(crate) enum TraceType {
     Sandbox,
     TraceFile,
