@@ -1,6 +1,7 @@
 use anyhow::Result;
 use serde::Serialize;
 use std::collections::BTreeMap;
+use std::fs;
 use std::path::PathBuf;
 
 use crate::cache;
@@ -44,6 +45,11 @@ impl CacheCursor {
 
     pub(crate) fn create_directory(&self) -> Result<()> {
         cache::create_directory(&self.directory, self.debug_info.as_ref())
+    }
+
+    pub(crate) fn create_chunk_directory(&self, stdin_hash: u64) -> Result<()> {
+        fs::create_dir_all(self.get_chunk_directory(stdin_hash))?;
+        Ok(())
     }
 
     fn get_chunk_directory(&self, stdin_hash: u64) -> PathBuf {

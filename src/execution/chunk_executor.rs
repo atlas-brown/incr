@@ -2,6 +2,7 @@ use anyhow::Result;
 use bytes::{Bytes, BytesMut};
 use rand::Rng;
 use std::collections::VecDeque;
+use std::fs;
 use std::io;
 use std::process::ChildStdin;
 use std::sync::Arc;
@@ -12,7 +13,7 @@ use xxhash_rust::xxh3::Xxh3;
 use crate::cache::chunk_cache::CacheCursor;
 use crate::command::{self, ChildContext, Command, Runtime, RuntimeType};
 use crate::config::{CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, Config, TraceType};
-use crate::execution::run::{self, OutputMetadata};
+use crate::execution::run::{self, OutputMetadata, OutputResult};
 use crate::ops::chunk::{LineChunker, LineReader};
 use crate::ops::thread::{SignalReceiver, SignalSender};
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
@@ -215,7 +216,7 @@ fn process_chunk(
             command.arguments,
             stdin_context.hash,
         );
-        output_cached_data(config, cache, &outputs)
+        output_cached_data(config, cache, send_signal, stdin_context.hash, &outputs)
     } else {
         debug_log!(
             "Chunk cache invalid: {} {:?} {}",
@@ -223,7 +224,8 @@ fn process_chunk(
             command.arguments,
             stdin_context.hash,
         );
-        save_chunk_data(config, cache, &runtime)
+        send_signal.signal_ready();
+        save_chunk_data(cache, stdin_context.hash, &runtime)
     }
 }
 
@@ -256,10 +258,40 @@ fn forward_stdin(stdin_channel: Receiver<Bytes>, child_stdin: ChildStdin) -> Res
     })
 }
 
-fn output_cached_data(config: &Config, cache: &CacheCursor, outputs: &OutputMetadata) -> Result<ChunkResult> {
-    todo!()
+fn output_cached_data(
+    config: &Config,
+    cache: &CacheCursor,
+    send_signal: SignalSender,
+    stdin_hash: u64,
+    outputs: &OutputMetadata,
+) -> Result<ChunkResult> {
+    let stdout_file = cache.get_stdout_file(stdin_hash);
+    let stderr_file = cache.get_stderr_file(stdin_hash);
+
+    let stdout_completed = run::output_data(
+        &stdout_file,
+        outputs.stdout_length,
+        false, // TODO: load
+        &mut io::stdout().lock(),
+    )? == OutputResult::Completed;
+    let stderr_completed = run::output_data(
+        &stderr_file,
+        outputs.stderr_length,
+        false, // TODO: load
+        &mut io::stderr().lock(),
+    )? == OutputResult::Completed;
+
+    if !config.complete_execution && (!stdout_completed || !stderr_completed) {
+        Ok(ChunkResult::BrokenPipe)
+    } else {
+        send_signal.signal_ready();
+        Ok(ChunkResult::Completed)
+    }
 }
 
-fn save_chunk_data(config: &Config, cache: &CacheCursor, runtime: &Runtime) -> Result<ChunkResult> {
-    todo!()
+fn save_chunk_data(cache: &CacheCursor, stdin_hash: u64, runtime: &Runtime) -> Result<ChunkResult> {
+    cache.create_chunk_directory(stdin_hash)?;
+    fs::rename(&runtime.stdout_file, cache.get_stdout_file(stdin_hash))?;
+    fs::rename(&runtime.stderr_file, cache.get_stderr_file(stdin_hash))?;
+    Ok(ChunkResult::Completed)
 }
