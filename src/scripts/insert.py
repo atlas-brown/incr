@@ -205,6 +205,8 @@ def transform_bash_node(node, sys_path, state):
                     return node
                 if cmd_name in state.functions:
                     return node
+                if cmd_name[0] == '$': # Don't append sys to variable commands
+                    return node
                 logging.debug(f"Handling simple command node: {node} with command name {cmd_name}")
                 words = [BashAST.WordDesc(c_bash.word_desc(bytes(sys_path, "utf8"), 0))] + cmd.words
                 # ----- INCR -----
@@ -269,9 +271,9 @@ def transform_bash_node(node, sys_path, state):
             case BashAST.CommandType.CM_SUBSHELL:
                 logging.debug(f"Handling subshell command node: {node}")
                 assert node.value.subshell_com
-                sub_command = transform_bash_node(node.value.command, sys_path, state)
+                sub_command = transform_bash_node(node.value.subshell_com.command, sys_path, state)
                 node_copy = copy.deepcopy(node)
-                node_copy.value.command = sub_command
+                node_copy.value.subshell_com.command = sub_command
                 return node_copy
             case _:
                 logging.debug(f"Ignoring bash command node: {node} with type {node.type}")
@@ -298,7 +300,7 @@ class State:
 def transform_bash_ast(ast, sys_path, state):
     nodes = []
     for node in ast:
-        logging.debug(f"Transforming bash AST node: {node} state: {state}")
+        # logging.debug(f"Transforming bash AST node: {node} state: {state}")
         t_node = transform_bash_node(node, sys_path, state)
         nodes.append(t_node)
     return nodes
@@ -342,6 +344,7 @@ def main():
             transformed_code = ast_to_code(transformed_ast)
     except Exception as e:
         logging.error(f"Error processing script {args.path}: {e}")
+        assert False
         sys.exit(1)
 
     if args.output:
