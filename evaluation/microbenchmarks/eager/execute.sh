@@ -53,13 +53,13 @@ export IN="${INPUT_DIR}/pg${suffix}"
 export OUT="${OUTPUT_DIR}"
 
 # Baseline: incr without eager stream processing
-for script in "${SCRIPTS[@]}"; do
-    echo "Running ${script} without eager stream processing..."
-    measure_time "bash" $script  # TODO: change invocation
-done
+#for script in "${SCRIPTS[@]}"; do
+#    echo "Running ${script} without eager stream processing..."
+#    measure_time "bash" $script  # TODO: change invocation
+#done
 
-# # Incremental run: incr
-# for script in "${SCRIPTS[@]}"; do
-#     echo "Running $script with eager stream processing..."
-#     measure_time "incr" $script
-# done
+# Incremental run: incr
+for script in "${SCRIPTS[@]}"; do
+    echo "Running $script with eager stream processing..."
+    measure_time "incr" $script
+done
