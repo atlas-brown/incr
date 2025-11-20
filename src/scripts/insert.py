@@ -183,6 +183,13 @@ def transform_node(node, sys_path):
                     left_operand=transform_node(node.left_operand, sys_path),
                     right_operand=transform_node(node.right_operand, sys_path),
                     **{k: v for k, v in vars(node).items() if k not in ("left_operand", "right_operand")})
+        case AST.RedirNode():
+            return AST.RedirNode(
+                    node=transform_node(node.node, sys_path),
+                    redir_list=[transform_node(n, sys_path) for n in node.redir_list],
+                    **{k: v for k, v in vars(node).items() if k not in ("node", "redir_list")})
+        case AST.FileRedirNode():
+            return node
         case list() if all(isinstance(x, AST.ArgChar) for x in node):
             return [transform_node(n, sys_path) for n in node]
         case _:
