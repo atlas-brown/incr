@@ -10,7 +10,7 @@ use xxhash_rust::xxh3::Xxh3;
 use crate::cache::CacheData;
 use crate::cache::batch_cache::{self, CacheCursor};
 use crate::command::{self, ChildContext, Command, Runtime, RuntimeType};
-use crate::config::{BUFFER_SIZE, Config, TraceType};
+use crate::config::{BUFFER_SIZE, Config, SandboxMode, TraceType};
 use crate::execution;
 use crate::execution::dependency;
 use crate::execution::run::{self, OutputMetadata, OutputResult};
@@ -87,6 +87,14 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
         let trace_file = config.cache_directory.join(format!("trace_{key}.txt"));
         return Ok(Runtime {
             typ: RuntimeType::TraceFile(trace_file),
+            stdout_file,
+            stderr_file,
+        });
+    }
+    if config.sandbox_mode == SandboxMode::Docker {
+        let trace_file = config.cache_directory.join(format!("trace_{key}.txt"));
+        return Ok(Runtime {
+            typ: RuntimeType::Docker(trace_file),
             stdout_file,
             stderr_file,
         });

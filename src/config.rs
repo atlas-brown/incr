@@ -61,6 +61,7 @@ pub(crate) struct Config {
     pub(crate) complete_execution: bool, // Complete after a downstream failure
     pub(crate) compress: bool,           // Whether to compress cached outputs
     pub(crate) force_cache: bool,        // Do not skip the command
+    pub(crate) sandbox_mode: SandboxMode, // How to sandbox command execution
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -78,6 +79,13 @@ impl Display for TraceType {
             Self::Nothing => write!(formatter, "Nothing"),
         }
     }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) enum SandboxMode {
+    Try,
+    Docker,
+    None,
 }
 
 #[derive(Clone, Debug)]

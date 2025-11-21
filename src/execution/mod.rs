@@ -32,7 +32,7 @@ pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> Trace
 pub(crate) fn parse_trace(runtime: &Runtime) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
     let trace_file = match &runtime.typ {
         RuntimeType::Sandbox(directory) => &directory.join("upperdir").join("tmp").join(TRACE_FILE),
-        RuntimeType::TraceFile(file) => file,
+        RuntimeType::Docker(file) | RuntimeType::TraceFile(file) => file,
         RuntimeType::Nothing => return Ok((HashSet::new(), HashSet::new())),
     };
     let (mut read_set, mut write_set) = scripts::parse_trace(trace_file).map_err(|e| anyhow!("{e}"))?;

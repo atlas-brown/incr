@@ -1,6 +1,7 @@
 use anyhow::{Result, anyhow};
 use bincode::Encode;
 use std::collections::{BTreeMap, HashMap, HashSet};
+use std::env;
 use std::fs::{self, File};
 use std::io::{self, BufWriter, Error as IoError, ErrorKind, Read, Write};
 use std::iter;
@@ -10,7 +11,9 @@ use std::process::{Child, Command as ShellCommand, Stdio};
 use std::thread::{self, JoinHandle};
 use zstd::Encoder;
 
-use crate::config::{BUFFER_SIZE, COMPRESSION_LEVEL, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, TRACE_FILE};
+use crate::config::{
+    BUFFER_SIZE, COMPRESSION_LEVEL, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, SandboxMode, TRACE_FILE,
+};
 use crate::ops;
 use crate::ops::thread::{AlwaysReady, ReadySignal};
 
@@ -49,6 +52,7 @@ pub(crate) struct Runtime {
 #[derive(Clone, Debug)]
 pub(crate) enum RuntimeType {
     Sandbox(PathBuf),
+    Docker(PathBuf),
     TraceFile(PathBuf),
     Nothing,
 }
@@ -103,6 +107,8 @@ pub(crate) fn create(mut arguments: Vec<String>, environment: &HashMap<String, S
     })
 }
 
+const DOCKER_IMAGE: &str = "incr";
+
 pub(crate) fn spawn(config: &Config, command: &Command, runtime: &Runtime) -> Result<ChildContext> {
     spawn_with_signal(config, command, runtime, AlwaysReady)
 }
@@ -118,7 +124,7 @@ where
 {
     if let RuntimeType::Sandbox(directory) = &runtime.typ {
         fs::create_dir_all(directory)?;
-    } else if let RuntimeType::TraceFile(file) = &runtime.typ
+    } else if let RuntimeType::TraceFile(file) | RuntimeType::Docker(file) = &runtime.typ
         && let Some(parent) = file.parent()
     {
         fs::create_dir_all(parent)?;
@@ -165,15 +171,16 @@ where
 }
 
 fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<Child> {
-    let shell_command = match &runtime.typ {
-        RuntimeType::Sandbox(_) => &config.try_command,
-        RuntimeType::TraceFile(_) => STRACE_COMMAND,
-        RuntimeType::Nothing => &command.name,
+    let mut child = match &runtime.typ {
+        RuntimeType::Sandbox(_) => ShellCommand::new(&config.try_command),
+        RuntimeType::Docker(_) => ShellCommand::new("docker"),
+        RuntimeType::TraceFile(_) => ShellCommand::new(STRACE_COMMAND),
+        RuntimeType::Nothing => ShellCommand::new(&command.name),
     };
-    let mut child = ShellCommand::new(shell_command);
 
     match &runtime.typ {
         RuntimeType::Sandbox(directory) => {
+            debug_assert_eq!(config.sandbox_mode, SandboxMode::Try);
             child.args([
                 "-D",
                 ops::file::path_to_string(directory)?,
@@ -185,6 +192,18 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
                 &format!("/tmp/{TRACE_FILE}"),
                 &command.join_string()?,
             ]);
+        }
+        RuntimeType::Docker(file) => {
+            let mut arguments = vec![
+                STRACE_COMMAND.to_owned(),
+                "-yf".to_owned(),
+                "--seccomp-bpf".to_owned(),
+                "--trace=fork,clone,%file".to_owned(),
+                "-o".to_owned(),
+                ops::file::path_to_string(file)?,
+            ];
+            arguments.extend(command.join_sequence().map(|arg| arg.to_owned()));
+            configure_docker_run(&mut child, &config.cache_directory, command, arguments)?;
         }
         RuntimeType::TraceFile(file) => {
             let mut arguments = vec![
@@ -318,6 +337,40 @@ where
     }
 
     Ok(ChildResult::Completed(length))
+}
+
+fn configure_docker_run(
+    child: &mut ShellCommand,
+    cache_directory: &Path,
+    command: &Command,
+    container_args: Vec<String>,
+) -> Result<()> {
+    fs::create_dir_all(cache_directory)?;
+    let workspace = env::current_dir()?;
+    let workspace = ops::file::path_to_string(&workspace)?;
+    let cache_path = ops::file::path_to_string(cache_directory)?;
+    let workspace_mount = format!("{workspace}:{workspace}");
+    let cache_mount = format!("{cache_path}:{cache_path}");
+
+    child.arg("run");
+    child.arg("--rm");
+    child.arg("-v");
+    child.arg(&workspace_mount);
+    if cache_mount != workspace_mount {
+        child.arg("-v");
+        child.arg(&cache_mount);
+    }
+    child.arg("-w");
+    child.arg(&workspace);
+    for (variable, value) in &command.environment {
+        child.arg("-e");
+        child.arg(format!("{variable}={value}"));
+    }
+    child.arg(DOCKER_IMAGE);
+    for arg in container_args {
+        child.arg(arg);
+    }
+    Ok(())
 }
 
 pub(crate) fn kill_child(child: &Child) -> Result<()> {

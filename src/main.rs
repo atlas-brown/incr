@@ -16,7 +16,7 @@ use std::path::PathBuf;
 use std::process;
 
 use crate::command::Command;
-use crate::config::Config;
+use crate::config::{Config, SandboxMode, TraceType};
 use crate::config::{DEFAULT_CACHE_PATH, DEFAULT_TRY_PATH};
 use crate::execution::{batch_executor, chunk_executor, skip_executor, stream_executor};
 use crate::ops::{ExitCode, FAILURE_CODE, SUCCESS_CODE};
@@ -70,7 +70,7 @@ fn run() -> Result<ExitCode> {
     }
 
     let command_string = command.join_string()?;
-    let result = if annotation::check_stateless(&command) {
+    let result = if annotation::check_stateless(&command) && config.trace_type == TraceType::Nothing {
         chunk_executor::execute(config, command)
     } else {
         match EXECUTOR {
@@ -110,7 +110,25 @@ fn parse_input() -> Result<Option<Input>> {
 
     let environment = env::vars().collect::<HashMap<_, _>>();
     let command = command::create(arguments.command, &environment)?;
-    let trace_type = execution::get_trace_type(&cache_directory, &command);
+
+    let sandbox_mode = env::var("INCR_ISOLATION_MODE")
+        .ok()
+        .and_then(|value| {
+            let normalized = value.to_ascii_lowercase();
+            match normalized.as_str() {
+                "docker" => Some(SandboxMode::Docker),
+                "none" => Some(SandboxMode::None),
+                "try" => Some(SandboxMode::Try),
+                _ => None,
+            }
+        })
+        .unwrap_or(SandboxMode::Try);
+
+    let base_trace_type = execution::get_trace_type(&cache_directory, &command);
+    let trace_type = match sandbox_mode {
+        SandboxMode::None => TraceType::Nothing,
+        _ => base_trace_type,
+    };
     let config = Config {
         try_command,
         cache_directory,
@@ -118,6 +136,7 @@ fn parse_input() -> Result<Option<Input>> {
         complete_execution: true, // TODO: add a flag
         compress: false,          // TODO: add a flag
         force_cache: arguments.force_cache,
+        sandbox_mode,
     };
 
     Ok(Some(Input {

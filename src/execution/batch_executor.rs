@@ -4,7 +4,7 @@ use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 use crate::cache::CacheData;
 use crate::cache::batch_cache::CacheCursor;
 use crate::command::{self, ChildContext, Command, Runtime, RuntimeType};
-use crate::config::{Config, TraceType};
+use crate::config::{Config, SandboxMode, TraceType};
 use crate::execution;
 use crate::execution::dependency;
 use crate::execution::run::{self, OutputResult};
@@ -95,7 +95,13 @@ fn run_command(
 fn create_child_runtime(config: &Config, cache: &CacheCursor<'_>) -> Runtime {
     Runtime {
         typ: match config.trace_type {
-            TraceType::Sandbox => RuntimeType::Sandbox(cache.get_sandbox_directory()),
+            TraceType::Sandbox => {
+                if config.sandbox_mode == SandboxMode::Docker {
+                    RuntimeType::Docker(cache.get_trace_file())
+                } else {
+                    RuntimeType::Sandbox(cache.get_sandbox_directory())
+                }
+            }
             TraceType::TraceFile => RuntimeType::TraceFile(cache.get_trace_file()),
             TraceType::Nothing => RuntimeType::Nothing,
         },
