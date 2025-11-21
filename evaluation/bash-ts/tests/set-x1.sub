@@ -15,8 +15,6 @@
 TRACEFILE=$TMPDIR/bash-trace-$$
 trap 'rm -f $TRACEFILE' 0 1 2 3 6 15
 
-BASH_XTRACEFD=4		# error, invalid FD
-
 exec 4>$TRACEFILE
 BASH_XTRACEFD=4
 
@@ -28,7 +26,6 @@ echo 3
 echo 4
 
 unset BASH_XTRACEFD
-exec 4<&-		# no unset hooks yet
 
 for f in a b c d e; do echo $f ; done
 

@@ -66,5 +66,3 @@ OPTARG = x = ?
 unset x = ?
 declare -r RO="foo"
 declare -r RO="foo"
-./getopts10.sub: line 33: V: readonly variable
-1

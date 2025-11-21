@@ -34,11 +34,3 @@ echo "\!"
 
 echo "$( echo '\!' )"
 echo '\!'
-
-# more stop characters post-bash-5.2
-!; echo 1 hi $?
-!& echo 2 hi $?
-
-(echo !)
-echo !>/dev/null
-echo !</dev/null

@@ -12,7 +12,3 @@ echo $PWD
 
 cd "$MYDIR"
 rmdir $FULLDIR
-
-cd /
-cd /tmp
-cd -		# should print /

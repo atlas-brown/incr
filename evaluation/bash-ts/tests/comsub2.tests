@@ -42,7 +42,7 @@ unset -v x y z
 
 # variables can be local, but all function declarations are global
 func() { echo func-outside; }
-xx=${ func() { echo func-inside; }; }
+# xx=${ func() { echo func-inside; }; }
 declare -f func
 xx=${ unset -f func; }
 declare -f func

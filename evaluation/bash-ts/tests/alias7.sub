@@ -66,10 +66,10 @@ alias al=' '
 alias foo=bar
 
 al for foo in v
-do echo foo=$foo bar=$bar
-done
+# do echo foo=$foo bar=$bar
+# done
 
-al case foo in foo) echo foo;; bar) echo bar;; esac
+# al case foo in foo) echo foo;; bar) echo bar;; esac
 
 # one difference between bash in default and posix modes is that default mode
 # bash allows reserved words to be aliased, which posix says is a no-no

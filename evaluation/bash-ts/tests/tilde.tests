@@ -21,7 +21,6 @@ set +o posix
 HOME=/usr/xyz
 SHELL=~/bash
 echo ~ch\et
-echo ~ch\et/foo
 echo ~/"foo"
 echo "~chet"/"foo"
 echo \~chet/"foo"

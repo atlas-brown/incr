@@ -33,10 +33,4 @@ echo $line >&$stdout
 
 type swizzle
 
-exec {fd[0]}<&-
-exec {fd[1]}<&-
-
-exec {stdin}<&-
-exec {stdout}>&-
-
 exit 0

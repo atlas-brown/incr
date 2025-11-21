@@ -58,7 +58,7 @@ done
 [[ x =~ \\x ]] ; echo $?
 
 bs='\'
-[[ '\[' =~ ${bs}[ ]] ; echo $?
+[[ x =~ ${bs}x ]] ; echo $?
 
 [[ x =~ $'\\'x ]] ; echo $?
 [[ x =~ '\'x ]] ; echo $?

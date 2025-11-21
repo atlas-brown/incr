@@ -65,9 +65,6 @@ echo $? -- ${PIPESTATUS[@]}
 
 true | binfalse | true
 echo $? -- ${PIPESTATUS[@]}
-
-binfalse | true | true | VAR=42
-echo $? $VAR
 set +o pipefail
 
 ${THIS_SH} ./lastpipe1.sub

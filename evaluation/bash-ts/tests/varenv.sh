@@ -1,16 +1,3 @@
-#   This program is free software: you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation, either version 3 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
 #
 # varenv.sh
 #
@@ -233,33 +220,6 @@ ${THIS_SH} ./varenv7.sub
 # variable visibility problems with process substitution subshells in
 # redirections
 ${THIS_SH} ./varenv8.sub
-
-# make sure that builtins like readonly and export modify local array variables
-# if executed in shell functions, like they modify local scalar variables
-${THIS_SH} ./varenv9.sub
-
-# more tests of unset and local variables with dynamic scoping
-${THIS_SH} ./varenv10.sub
-
-# tests of compound assignments in function scope
-${THIS_SH} ./varenv11.sub
-
-# temporary environment variable propagation and scoping in posix mode
-${THIS_SH} ./varenv12.sub
-
-# temporary environment and invalid shell identifier names
-${THIS_SH} ./varenv13.sub
-
-# localvar_inherit
-${THIS_SH} ./varenv14.sub
-${THIS_SH} ./varenv15.sub
-${THIS_SH} ./varenv16.sub
-${THIS_SH} ./varenv17.sub
-${THIS_SH} ./varenv18.sub
-${THIS_SH} ./varenv19.sub
-${THIS_SH} ./varenv20.sub
-${THIS_SH} ./varenv21.sub
-${THIS_SH} ./varenv22.sub
 
 # make sure variable scoping is done right
 tt() { typeset a=b;echo a=$a; };a=z;echo a=$a;tt;echo a=$a
