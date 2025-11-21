@@ -203,7 +203,7 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
                 "--seccomp-bpf".to_owned(),
                 "--trace=fork,clone,%file".to_owned(),
                 "-o".to_owned(),
-                ops::file::path_to_string(trace_file)?,
+                ops::file::path_to_string(trace_file)?.to_string(),
             ];
             arguments.extend(command.join_sequence().map(|arg| arg.to_owned()));
             configure_docker_run(&mut child, &config.cache_directory, command, container, arguments)?;
