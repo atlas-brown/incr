@@ -7,19 +7,15 @@ find "$IN" -type f -name '*.txt' -exec cat {} + |
 iconv -f UTF-8 -t ASCII//TRANSLIT//IGNORE//SUBSTITUTE |
 tr -cs A-Za-z '\n' |
 grep -v '[0-9]+' |
-grep -E '.{5,}' |
+grep -f "$dict" |
 rev |
-grep -E -o '[[:alpha:]]{3,}' |
 awk '{print length, $0}' |
 perl -pe 's/(\d+)\s(.*)/sprintf("%08d %s", $1, $2)/e' |
 cut -d' ' -f1-3 |
-awk '{sub($1 FS,""); print}' |
 awk '{print tolower($0)}' |
 sed -E 's/(.{1,3})/\1 /g' |
 awk '{for(i=1;i<=NF-1;i++) print $i FS $(i+1)}' |
 awk '{print $2}' |
-grep -F -v -f "$dict" |
 sed -E 's/(.)(.)/\2\1/g' |
 awk '{print $0, NF, length($0)}' |
-rev |
-column -t
+rev 
