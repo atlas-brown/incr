@@ -23,6 +23,5 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 python3 ${TOP}/src/scripts/insert.py --sys-path ${TOP}/target/release/incr --try $TRY_PATH --cache $2 "$1" > "$tempfile"
-bash "$tempfile"
 $incr_shell "$tempfile"
 rc=$?
