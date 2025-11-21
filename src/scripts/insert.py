@@ -11,6 +11,7 @@ import sys
 import tempfile
 import copy
 from dataclasses import dataclass, field
+import re
 
 # Ensure these match config.rs
 IGNORE_COMMANDS = [
@@ -73,6 +74,8 @@ IGNORE_COMMANDS = [
     "unalias",
     "unset",
     "wait",
+    ":", # no-op command
+    ".", # source command
     # Additional untraced metadata commands
     "chgrp",
     "chmod",
@@ -125,7 +128,6 @@ def str_to_ast(s : str):
     return [AST.CArgChar(char=ord(c)) for c in s]
 
 def transform_node(node, sys_path):
-    logging.debug(f"Transforming node: {type(node)} {node}")
     match node:
         case AST.PipeNode():
             return AST.PipeNode(
@@ -197,7 +199,6 @@ def transform_node(node, sys_path):
             return node
 
 def transform_ast(ast, sys_path):
-    logging.debug(f"Transforming {ast=}")
     return [transform_node(node, sys_path) for node, _, _, _ in ast]
 
 def transform_bash_node(node, sys_path, state):
@@ -207,7 +208,7 @@ def transform_bash_node(node, sys_path, state):
                 assert node.value.simple_com
                 cmd = node.value.simple_com
                 # ----- INCR -----
-                cmd_name = str(cmd.words[0].word, "utf8")
+                cmd_name = str(cmd.words[0].word, "utf8", errors="replace")
                 if cmd_name in AVOID_SET or '=' in cmd_name: # Don't append sys to built-in commands or assignments
                     return node
                 if cmd_name in state.functions:
@@ -307,7 +308,6 @@ class State:
 def transform_bash_ast(ast, sys_path, state):
     nodes = []
     for node in ast:
-        # logging.debug(f"Transforming bash AST node: {node} state: {state}")
         t_node = transform_bash_node(node, sys_path, state)
         nodes.append(t_node)
     return nodes
@@ -315,6 +315,26 @@ def transform_bash_ast(ast, sys_path, state):
 
 def ast_to_code(ast):
     return "\n".join([node.pretty() for node in ast])
+
+def preserve_line_numbers(path: str):
+    lines = []
+    with open(path) as file:
+        # check for empty or comment-only lines and preserve them
+        empty_re = re.compile(r"^[ \t]*(#.*)?\s*$")
+        for line in file:
+            if empty_re.match(line):
+                line = f"incr__no_op\n"
+            lines.append(line)
+    return "".join(lines)
+
+def strip_no_op_lines(code: str):
+    lines = []
+    for line in code.splitlines(keepends=True):
+        if "incr__no_op" in line:
+            line = "\n"
+        lines.append(line)
+    return "".join(lines)
+    
 
 def main():
     sys_name = "incr"
@@ -336,21 +356,30 @@ def main():
     sys_path = f"{args.sys_path} --try {args.try_path} --cache {args.cache_path}" if args.try_path and args.cache_path else args.sys_path
 
     state = State()
+    script_path = args.path
 
     try:
         if args.bash:
+            # with tempfile.NamedTemporaryFile(delete=False, mode="w+", suffix=".sh") as temp_file:
+            #     temp_file.write(preserve_line_numbers(args.path))
+            #     temp_file.flush()
+            #     args.path = temp_file.name
             original_ast = parse_bash_to_asts(args.path)
+            # Do transform_bash_ast twice to populate function definitions
+            _ = transform_bash_ast(original_ast, sys_path, state)
             transformed_ast = transform_bash_ast(original_ast, sys_path, state)
-            with tempfile.NamedTemporaryFile(delete=False, mode="w+", suffix=".sh") as temp_file:
+            with tempfile.NamedTemporaryFile(delete=False, mode="wb+", suffix=".sh") as temp_file:
                 libbash.ast_to_bash(transformed_ast, temp_file.name)
                 temp_file.flush()
-                transformed_code = temp_file.read()
+                raw_bytes = temp_file.read()
+                transformed_code = raw_bytes.decode("utf-8", errors="replace")
+                transformed_code = strip_no_op_lines(transformed_code)
         else:
             original_ast = parse_shell_to_asts(args.path)
             transformed_ast = transform_ast(original_ast, sys_path)
             transformed_code = ast_to_code(transformed_ast)
     except Exception as e:
-        logging.error(f"Error processing script {args.path}: {e}")
+        print(f"Error inserting {sys_name} into script {script_path}: {e}", file=sys.stderr)
         assert False
         sys.exit(1)
 
@@ -359,6 +388,8 @@ def main():
             f.write(transformed_code)
     else:
         print(transformed_code)
+        # sys.stdout.buffer.write(transformed_code.encode("utf-8", errors="surrogateescape"))
+        # sys.stdout.buffer.write(b"\n")
     if args.execute and args.output is not None:
         os.system(f"bash {args.output}")
 
