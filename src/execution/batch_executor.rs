@@ -1,4 +1,5 @@
 use anyhow::Result;
+use rand::Rng;
 use std::io::{self, ErrorKind, IsTerminal, Read, Write};
 
 use crate::cache::CacheData;
@@ -76,11 +77,18 @@ fn run_command(
 
     let (read_set, mut write_set) = execution::parse_trace(&runtime)?;
     let mut read_dependencies = dependency::get_read_dependencies(&read_set, &write_set)?;
-    if let RuntimeType::Sandbox(_) = &runtime.typ {
-        cache.extract_sandbox_output()?;
-        if !write_set.is_empty() {
-            cache.commit_output()?;
+    match &runtime.typ {
+        RuntimeType::Sandbox(_) => {
+            cache.extract_sandbox_output()?;
+            if !write_set.is_empty() {
+                cache.commit_output()?;
+            }
         }
+        RuntimeType::Docker { container, .. } => {
+            execution::copy_docker_outputs(container, &write_set)?;
+            execution::remove_docker_container(container)?;
+        }
+        _ => {}
     }
     dependency::filter_dependencies(&mut read_dependencies, &mut write_set)?;
 
@@ -97,7 +105,11 @@ fn create_child_runtime(config: &Config, cache: &CacheCursor<'_>) -> Runtime {
         typ: match config.trace_type {
             TraceType::Sandbox => {
                 if config.sandbox_mode == SandboxMode::Docker {
-                    RuntimeType::Docker(cache.get_trace_file())
+                    let container = format!("incr_docker_{}", rand::rng().random_range(0..u64::MAX));
+                    RuntimeType::Docker {
+                        trace_file: cache.get_trace_file(),
+                        container,
+                    }
                 } else {
                     RuntimeType::Sandbox(cache.get_sandbox_directory())
                 }

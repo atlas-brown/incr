@@ -83,18 +83,22 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
             stderr_file,
         });
     }
-    if config.trace_type == TraceType::TraceFile {
+    if config.sandbox_mode == SandboxMode::Docker && config.trace_type == TraceType::Sandbox {
         let trace_file = config.cache_directory.join(format!("trace_{key}.txt"));
+        let container = format!("incr_docker_{key}");
         return Ok(Runtime {
-            typ: RuntimeType::TraceFile(trace_file),
+            typ: RuntimeType::Docker {
+                trace_file,
+                container,
+            },
             stdout_file,
             stderr_file,
         });
     }
-    if config.sandbox_mode == SandboxMode::Docker {
+    if config.trace_type == TraceType::TraceFile {
         let trace_file = config.cache_directory.join(format!("trace_{key}.txt"));
         return Ok(Runtime {
-            typ: RuntimeType::Docker(trace_file),
+            typ: RuntimeType::TraceFile(trace_file),
             stdout_file,
             stderr_file,
         });
@@ -216,12 +220,19 @@ fn save_command_data(
 ) -> Result<ExitCode> {
     let (read_set, mut write_set) = execution::parse_trace(runtime)?;
     let mut read_dependencies = dependency::get_read_dependencies(&read_set, &write_set)?;
-    if let RuntimeType::Sandbox(directory) = &runtime.typ {
-        fs::rename(directory, cache.get_sandbox_directory())?;
-        cache.extract_sandbox_output()?;
-        if !write_set.is_empty() {
-            cache.commit_output()?;
+    match &runtime.typ {
+        RuntimeType::Sandbox(directory) => {
+            fs::rename(directory, cache.get_sandbox_directory())?;
+            cache.extract_sandbox_output()?;
+            if !write_set.is_empty() {
+                cache.commit_output()?;
+            }
         }
+        RuntimeType::Docker { container, .. } => {
+            execution::copy_docker_outputs(container, &write_set)?;
+            execution::remove_docker_container(container)?;
+        }
+        _ => {}
     }
     dependency::filter_dependencies(&mut read_dependencies, &mut write_set)?;
 

@@ -7,6 +7,7 @@ use std::sync::mpsc::Receiver;
 use std::thread::JoinHandle;
 use zstd::Decoder;
 
+use super::remove_docker_container;
 use crate::cache::batch_cache;
 use crate::command::{ChildResult, Runtime, RuntimeType};
 use crate::config::BUFFER_SIZE;
@@ -69,7 +70,13 @@ pub(crate) fn clean_child_runtime(runtime: &Runtime) -> Result<()> {
     ops::file::remove_file(&runtime.stderr_file)?;
     match &runtime.typ {
         RuntimeType::Sandbox(directory) => batch_cache::remove_sandbox(directory)?,
-        RuntimeType::Docker(file) => ops::file::remove_file(file)?,
+        RuntimeType::Docker {
+            trace_file,
+            container,
+        } => {
+            ops::file::remove_file(trace_file)?;
+            remove_docker_container(container)?;
+        }
         RuntimeType::TraceFile(file) => ops::file::remove_file(file)?,
         RuntimeType::Nothing => (),
     }

@@ -9,6 +9,7 @@ use anyhow::{Result, anyhow};
 use std::collections::HashSet;
 use std::fs;
 use std::path::{Path, PathBuf};
+use std::process::Command as ShellCommand;
 
 use crate::annotation;
 use crate::command::{Command, Runtime, RuntimeType};
@@ -32,7 +33,7 @@ pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> Trace
 pub(crate) fn parse_trace(runtime: &Runtime) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
     let trace_file = match &runtime.typ {
         RuntimeType::Sandbox(directory) => &directory.join("upperdir").join("tmp").join(TRACE_FILE),
-        RuntimeType::Docker(file) | RuntimeType::TraceFile(file) => file,
+        RuntimeType::Docker { trace_file, .. } | RuntimeType::TraceFile(trace_file) => trace_file,
         RuntimeType::Nothing => return Ok((HashSet::new(), HashSet::new())),
     };
     let (mut read_set, mut write_set) = scripts::parse_trace(trace_file).map_err(|e| anyhow!("{e}"))?;
@@ -54,4 +55,27 @@ pub(crate) fn parse_trace(runtime: &Runtime) -> Result<(HashSet<PathBuf>, HashSe
     });
 
     Ok((read_set, write_set))
+}
+
+pub(crate) fn copy_docker_outputs(container: &str, write_set: &HashSet<PathBuf>) -> Result<()> {
+    for path in write_set {
+        let path_str = ops::file::path_to_string(path)?;
+        if let Some(parent) = path.parent() {
+            fs::create_dir_all(parent)?;
+        }
+        let status = ShellCommand::new("docker")
+            .args(["cp", &format!("{container}:{path_str}"), &path_str])
+            .status()?;
+        if !status.success() {
+            return Err(anyhow!("docker cp failed for {path_str}"));
+        }
+    }
+    Ok(())
+}
+
+pub(crate) fn remove_docker_container(container: &str) -> Result<()> {
+    let _ = ShellCommand::new("docker")
+        .args(["rm", "-f", container])
+        .status()?;
+    Ok(())
 }

@@ -52,7 +52,7 @@ pub(crate) struct Runtime {
 #[derive(Clone, Debug)]
 pub(crate) enum RuntimeType {
     Sandbox(PathBuf),
-    Docker(PathBuf),
+    Docker { trace_file: PathBuf, container: String },
     TraceFile(PathBuf),
     Nothing,
 }
@@ -124,7 +124,7 @@ where
 {
     if let RuntimeType::Sandbox(directory) = &runtime.typ {
         fs::create_dir_all(directory)?;
-    } else if let RuntimeType::TraceFile(file) | RuntimeType::Docker(file) = &runtime.typ
+    } else if let RuntimeType::TraceFile(file) | RuntimeType::Docker { trace_file: file, .. } = &runtime.typ
         && let Some(parent) = file.parent()
     {
         fs::create_dir_all(parent)?;
@@ -173,7 +173,7 @@ where
 fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<Child> {
     let mut child = match &runtime.typ {
         RuntimeType::Sandbox(_) => ShellCommand::new(&config.try_command),
-        RuntimeType::Docker(_) => ShellCommand::new("docker"),
+        RuntimeType::Docker { .. } => ShellCommand::new("docker"),
         RuntimeType::TraceFile(_) => ShellCommand::new(STRACE_COMMAND),
         RuntimeType::Nothing => ShellCommand::new(&command.name),
     };
@@ -193,17 +193,20 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
                 &command.join_string()?,
             ]);
         }
-        RuntimeType::Docker(file) => {
+        RuntimeType::Docker {
+            trace_file,
+            container,
+        } => {
             let mut arguments = vec![
                 STRACE_COMMAND.to_owned(),
                 "-yf".to_owned(),
                 "--seccomp-bpf".to_owned(),
                 "--trace=fork,clone,%file".to_owned(),
                 "-o".to_owned(),
-                ops::file::path_to_string(file)?,
+                ops::file::path_to_string(trace_file)?,
             ];
             arguments.extend(command.join_sequence().map(|arg| arg.to_owned()));
-            configure_docker_run(&mut child, &config.cache_directory, command, arguments)?;
+            configure_docker_run(&mut child, &config.cache_directory, command, container, arguments)?;
         }
         RuntimeType::TraceFile(file) => {
             let mut arguments = vec![
@@ -343,6 +346,7 @@ fn configure_docker_run(
     child: &mut ShellCommand,
     cache_directory: &Path,
     command: &Command,
+    container: &str,
     container_args: Vec<String>,
 ) -> Result<()> {
     fs::create_dir_all(cache_directory)?;
@@ -353,7 +357,8 @@ fn configure_docker_run(
     let cache_mount = format!("{cache_path}:{cache_path}");
 
     child.arg("run");
-    child.arg("--rm");
+    child.arg("--name");
+    child.arg(container);
     child.arg("-v");
     child.arg(&workspace_mount);
     if cache_mount != workspace_mount {
