@@ -136,7 +136,7 @@ impl LineChunker {
         for &byte in lines {
             let length_before = self.length;
             if self.update_hash(byte) {
-                eprintln!("chunk: {length_before} {:?}", self.start_time.elapsed());
+                eprintln!("new chunk: {length_before} {:?}", self.start_time.elapsed());
                 self.start_time = std::time::Instant::now();
                 boundary = true;
             }
@@ -229,9 +229,38 @@ impl ReferenceLineChunker {
         );
         if 0 < count && count < self.data.len() {
             self.data.drain(..count);
+            eprintln!("old chunk: {count}");
             true
         } else {
             false
+        }
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use rand::rngs::StdRng;
+    use rand::{Rng, SeedableRng};
+
+    use crate::config::CHUNK_SIZES;
+    use crate::ops::chunk::{LineChunker, ReferenceLineChunker};
+
+    const LINES_SIZE: usize = 64;
+    const TEST_CHUNKS: usize = 10;
+
+    #[test]
+    fn compare_chunkers() {
+        let mut rng = StdRng::seed_from_u64(0);
+        let mut chunker = LineChunker::new(CHUNK_SIZES);
+        let mut reference_chunker = ReferenceLineChunker::new(CHUNK_SIZES);
+        let mut lines = [0; LINES_SIZE];
+
+        let num_chunks = CHUNK_SIZES.maximum * TEST_CHUNKS;
+        for _ in 0..num_chunks {
+            rng.fill(&mut lines);
+            let boundary = chunker.update(&lines);
+            let reference_boundary = reference_chunker.update(&lines);
+            assert_eq!(boundary, reference_boundary);
         }
     }
 }
