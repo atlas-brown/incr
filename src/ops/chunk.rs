@@ -147,7 +147,8 @@ impl LineChunker {
     fn update_hash(&mut self, byte: u8) -> bool {
         self.length += 1;
         if self.length >= self.sizes.maximum {
-            self.reset_hash();
+            self.hash = 0;
+            self.length = 0;
             return true;
         }
         let min_length = (self.sizes.minimum / 2) * 2;
@@ -155,7 +156,7 @@ impl LineChunker {
             return false;
         }
 
-        let matched = if self.length % 2 != 0 {
+        let boundary = if self.length % 2 != 0 {
             self.hash = (self.hash << 2).wrapping_add(self.gear_ls[byte as usize]);
             let mask = if self.length < self.sizes.average {
                 self.mask_s_ls
@@ -173,18 +174,13 @@ impl LineChunker {
             (self.hash & mask) == 0
         };
 
-        if matched {
+        if boundary {
             self.hash = 0;
             self.length = 1;
-            return true;
+            true
+        } else {
+            false
         }
-
-        false
-    }
-
-    fn reset_hash(&mut self) {
-        self.hash = 0;
-        self.length = 0;
     }
 }
 
