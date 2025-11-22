@@ -63,6 +63,7 @@ pub(crate) struct Config {
     pub(crate) short_circuit: bool,   // Exit after a downstream failure
     pub(crate) compress_output: bool, // Compress stdout and stderr
     pub(crate) full_tracing: bool,    // Run without selective activation
+    pub(crate) skip_introspect: bool, // Disable command introspection
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]

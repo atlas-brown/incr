@@ -36,6 +36,8 @@ struct Arguments {
     compress_output: bool,
     #[arg(short = 'f', long = "full_tracing")]
     full_tracing: bool,
+    #[arg(short = 'o', long = "skip_introspect")]
+    skip_introspect: bool,
 
     #[arg(trailing_var_arg = true)]
     command: Vec<String>,
@@ -113,10 +115,12 @@ fn parse_input() -> Result<Option<Input>> {
         try_command,
         cache_directory,
         trace_type,
+
         batch_executor: arguments.batch_executor,
         short_circuit: arguments.short_circuit,
         compress_output: arguments.compress_output,
         full_tracing: arguments.full_tracing,
+        skip_introspect: arguments.skip_introspect,
     };
 
     Ok(Some(Input {
