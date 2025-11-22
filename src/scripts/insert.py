@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import argparse
 import libbash
 import libbash.bash_command as BashAST
@@ -12,6 +13,9 @@ import tempfile
 import copy
 from dataclasses import dataclass, field
 import re
+
+sys.setrecursionlimit(10000)
+
 
 # Ensure these match config.rs
 IGNORE_COMMANDS = [
@@ -64,6 +68,7 @@ IGNORE_COMMANDS = [
     "source",
     "suspend",
     "test",
+    "[",
     "times",
     "trap",
     "true",
@@ -89,6 +94,7 @@ IGNORE_COMMANDS = [
     "stty",
     "sync",
     "touch",
+    "mkdir",
     "umount",
     "yes",
 ]
@@ -208,7 +214,7 @@ def transform_bash_node(node, sys_path, state):
                 assert node.value.simple_com
                 cmd = node.value.simple_com
                 # ----- INCR -----
-                cmd_name = str(cmd.words[0].word, "utf8", errors="replace")
+                cmd_name = str(cmd.words[0].word, "utf8", errors="surrogateescape")
                 if cmd_name in AVOID_SET or '=' in cmd_name: # Don't append sys to built-in commands or assignments
                     return node
                 if cmd_name in state.functions:
@@ -334,7 +340,6 @@ def strip_no_op_lines(code: str):
             line = "\n"
         lines.append(line)
     return "".join(lines)
-    
 
 def main():
     sys_name = "incr"
@@ -350,6 +355,7 @@ def main():
     arg_parser.add_argument("--cache-path", help="Path to the cache directory", default=None)
     arg_parser.add_argument("-d", "--debug", action="store_true", help="Enable debug logging")
     arg_parser.add_argument("--bash", action="store_true", help="Use bash parser (experimental)")
+    arg_parser.add_argument("--identity", action="store_true", help=f"Output parsed script without inserting {sys_name}")
     args = arg_parser.parse_args()
     
     logging.basicConfig(level=logging.DEBUG if args.debug else logging.INFO)
@@ -365,14 +371,17 @@ def main():
             #     temp_file.flush()
             #     args.path = temp_file.name
             original_ast = parse_bash_to_asts(args.path)
-            # Do transform_bash_ast twice to populate function definitions
-            _ = transform_bash_ast(original_ast, sys_path, state)
-            transformed_ast = transform_bash_ast(original_ast, sys_path, state)
+            if args.identity:
+                transformed_ast = original_ast
+            else:
+                # Do transform_bash_ast twice to populate function definitions
+                _ = transform_bash_ast(original_ast, sys_path, state)
+                transformed_ast = transform_bash_ast(original_ast, sys_path, state)
             with tempfile.NamedTemporaryFile(delete=False, mode="wb+", suffix=".sh") as temp_file:
                 libbash.ast_to_bash(transformed_ast, temp_file.name)
                 temp_file.flush()
                 raw_bytes = temp_file.read()
-                transformed_code = raw_bytes.decode("utf-8", errors="replace")
+                transformed_code = raw_bytes.decode("utf-8", errors="surrogateescape")
                 transformed_code = strip_no_op_lines(transformed_code)
         else:
             original_ast = parse_shell_to_asts(args.path)
@@ -380,16 +389,21 @@ def main():
             transformed_code = ast_to_code(transformed_ast)
     except Exception as e:
         print(f"Error inserting {sys_name} into script {script_path}: {e}", file=sys.stderr)
-        assert False
+        with open(args.path, "r") as file:
+            transformed_code = file.read()
+        if args.debug:
+            raise Exception(f"Error inserting {sys_name} into script {script_path}: {e}")
         sys.exit(1)
 
+    output = args.output or sys.stdout
+
     if args.output:
-        with open(args.output, "w") as f:
+        with open(output, "w", encoding="utf-8", errors="surrogateescape") as f:
             f.write(transformed_code)
+            f.write("\n")
     else:
-        print(transformed_code)
-        # sys.stdout.buffer.write(transformed_code.encode("utf-8", errors="surrogateescape"))
-        # sys.stdout.buffer.write(b"\n")
+        sys.stdout.buffer.write(transformed_code.encode("utf-8", errors="surrogateescape"))
+        sys.stdout.buffer.write(b"\n")
     if args.execute and args.output is not None:
         os.system(f"bash {args.output}")
 
