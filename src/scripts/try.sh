@@ -257,6 +257,7 @@ do
 done
 
 ## Mount a few select devices in /dev
+mkdir -p "$SANDBOX_DIR/temproot/dev" "$SANDBOX_DIR/temproot/dev/pts"
 mount_devices "$SANDBOX_DIR"
 
 ## Check if chroot_executable exists, #29
@@ -285,10 +286,18 @@ EOF
 unset START_DIR SANDBOX_DIR UNION_HELPER DIRS_AND_MOUNTS TRY_EXIT_STATUS
 unset script_to_execute chroot_executable try_mount_log
 
-mount -t proc proc /proc &&
-ln -s /proc/self/fd/0 /dev/stdin &&
-ln -s /proc/self/fd/1 /dev/stdout &&
-ln -s /proc/self/fd/2 /dev/stderr &&
+mkdir -p /dev /dev/pts
+
+mount -t proc proc /proc
+
+mount -t devpts devpts /dev/pts -o newinstance,ptmxmode=0666,mode=0620,gid=$(getent group tty | cut -d: -f3 || echo 5) 2>/dev/null || true
+[ -e /dev/ptmx ] || ln -s /dev/pts/ptmx /dev/ptmx
+
+ln -snf /proc/self/fd   /dev/fd
+ln -snf /proc/self/fd/0 /dev/stdin
+ln -snf /proc/self/fd/1 /dev/stdout
+ln -snf /proc/self/fd/2 /dev/stderr
+
 cd "$START_DIR" &&
 . "$script_to_execute"
 EOF
