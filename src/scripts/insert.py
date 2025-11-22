@@ -274,7 +274,6 @@ def transform_bash_node(node, sys_path, state):
                 node_copy.value.cond_com.right = right
                 return node_copy
             case BashAST.CommandType.CM_FUNCTION_DEF:
-                logging.debug(f"Handling function definition command node: {node}")
                 assert node.value.function_def
                 name = str(node.value.function_def.name.word, "utf8")
                 state.functions.add(name)
@@ -283,14 +282,13 @@ def transform_bash_node(node, sys_path, state):
                 node_copy.value.function_def.command = body
                 return node_copy
             case BashAST.CommandType.CM_SUBSHELL:
-                logging.debug(f"Handling subshell command node: {node}")
                 assert node.value.subshell_com
                 sub_command = transform_bash_node(node.value.subshell_com.command, sys_path, state)
                 node_copy = copy.deepcopy(node)
                 node_copy.value.subshell_com.command = sub_command
                 return node_copy
             case _:
-                logging.debug(f"Ignoring bash command node: {node} with type {node.type}")
+                logging.warning(f"Ignoring bash command node: {node} with type {node.type}")
                 return node
 
     match node:
