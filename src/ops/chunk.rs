@@ -250,7 +250,7 @@ mod test {
         maximum: 1024,
     };
     const LINES_SIZE: usize = 64;
-    const TEST_CHUNKS: usize = 1000;
+    const TEST_CHUNKS: usize = 10_000;
 
     #[test]
     fn compare_chunkers() {
