@@ -18,7 +18,7 @@ for arg in "$@"; do
     esac
 done
 
-SCRIPTS=("eager-stream-processing.sh")
+SCRIPTS=("eager.sh")
 
 TIME_FILE="${OUTPUT_DIR}/timing.csv"
 echo "mode,script,time_sec" > "$TIME_FILE"

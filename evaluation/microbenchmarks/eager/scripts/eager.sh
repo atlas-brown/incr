@@ -18,4 +18,4 @@ awk '{for(i=1;i<=NF-1;i++) print $i FS $(i+1)}' |
 awk '{print $2}' |
 sed -E 's/(.)(.)/\2\1/g' |
 awk '{print $0, NF, length($0)}' |
-rev 
+rev
