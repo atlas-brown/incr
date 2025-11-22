@@ -101,7 +101,6 @@ pub(crate) struct LineChunker {
 
     hash: u64,
     length: usize,
-    start_time: std::time::Instant,
 }
 
 impl LineChunker {
@@ -127,17 +126,13 @@ impl LineChunker {
 
             hash: 0,
             length: 0,
-            start_time: std::time::Instant::now(),
         }
     }
 
     pub(crate) fn update(&mut self, lines: &[u8]) -> bool {
         let mut boundary = false;
         for &byte in lines {
-            let length_before = self.length;
             if self.update_hash(byte) {
-                //eprintln!("new chunk: {length_before} {:?}", self.start_time.elapsed());
-                self.start_time = std::time::Instant::now();
                 boundary = true;
             }
         }
@@ -160,7 +155,7 @@ impl LineChunker {
 
         let index = self.length - 1;
         let offset = index - min_length;
-        let gear_ls = offset % 2 == 0;
+        let gear_ls = offset.is_multiple_of(2);
         let small = index < self.sizes.average;
 
         let cut = if gear_ls {

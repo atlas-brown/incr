@@ -1,3 +1,3 @@
 cargo build --release
 rm -rf cache
-cat README.md | ./target/release/incr tr "[:lower:]" "[:upper:]" > out.txt
+cat evaluation/war-and-peace/book.txt | time ./target/release/incr tr "[:lower:]" "[:upper:]" > out.txt
