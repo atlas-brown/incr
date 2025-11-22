@@ -2,23 +2,25 @@
 
 incr_shell=${INCR_SHELL:-bash}
 args=""
+flags=""
 
-while getopts "c:o:" opt; do
+while getopts "c:o:u" opt; do
     case "$opt" in
         c) cmd_str="$OPTARG" ;;
         o) args="$args -o $OPTARG" ;;
+	u) flags="$flags -u" ;;
         *) echo "Usage: $0 [-c 'cmd'] <script> <cache_dir>" >&2; exit 1 ;;
     esac
 done
 shift $((OPTIND - 1))
 
 if [ -n "$cmd_str" ]; then
-    exec "$incr_shell" -c "$cmd_str" $args "$@"
+    exec "$incr_shell" $flags -c "$cmd_str" $args "$@"
 fi
 
 if [ $# -eq 1 ] && [ ! -t 0 ]; then
     # Explicit -s means "read commands from stdin".
-    exec -a bash "$incr_shell" -s $args
+    exec -a bash "$incr_shell" $flags -s $args
 fi
 
 script=$1
@@ -52,5 +54,5 @@ cp "$script" "$tmp_orig"
 cp "$tmp_incr" "$script"
 
 # $script now is $tmp_incr
-$incr_shell "$script" $args
+$incr_shell $flags "$script" $args
 rc=$?
