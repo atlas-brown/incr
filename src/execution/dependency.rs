@@ -129,6 +129,10 @@ fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
 }
 
 pub(crate) fn save_introspection(config: &Config, command: &Command, cache_data: &CacheData) -> Result<()> {
+    if config.skip_introspect {
+        return Ok(());
+    }
+
     let introspect_file = get_introspect_file(&config.cache_directory, command.hash);
     if let Some(parent) = introspect_file.parent() {
         fs::create_dir_all(parent)?;
@@ -138,6 +142,7 @@ pub(crate) fn save_introspection(config: &Config, command: &Command, cache_data:
     } else if introspect_file.exists() {
         ops::file::remove_file(&introspect_file)?;
     }
+
     Ok(())
 }
 

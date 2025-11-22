@@ -281,7 +281,7 @@ fn output_cached_data(
         &mut io::stderr().lock(),
     )? == OutputResult::Completed;
 
-    if !config.complete_execution && (!stdout_completed || !stderr_completed) {
+    if config.short_circuit && (!stdout_completed || !stderr_completed) {
         Ok(ChunkResult::BrokenPipe)
     } else {
         send_signal.signal_ready();

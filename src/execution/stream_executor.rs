@@ -189,7 +189,7 @@ fn output_cached_data(
         &mut io::stderr().lock(),
     )? == OutputResult::Completed;
 
-    if !config.complete_execution && (!stdout_completed || !stderr_completed) {
+    if config.short_circuit && (!stdout_completed || !stderr_completed) {
         return Ok(BROKEN_PIPE_CODE);
     }
     if !cached_data.write_outputs.is_empty() {
@@ -221,7 +221,7 @@ fn save_command_data(
         exit_code: exit_code.0,
         read_dependencies,
         write_outputs: write_set,
-        compressed_output: config.compress,
+        compressed_output: config.compress_output,
     };
 
     fs::rename(&runtime.stdout_file, cache.get_stdout_file())?;

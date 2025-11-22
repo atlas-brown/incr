@@ -237,7 +237,7 @@ where
     let file = File::create(capture_file)?;
     let mut file_writer = BufWriter::with_capacity(BUFFER_SIZE, file);
 
-    if !config.compress {
+    if !config.compress_output {
         let output = capture_into_stream(config, source, destination, &mut file_writer, destination_ready);
         file_writer.flush()?;
         output
@@ -294,7 +294,7 @@ where
             }
             stream.write_all(output)?;
             length += output.len();
-            if destination_broken && !config.complete_execution {
+            if destination_broken && config.short_circuit {
                 return Ok(ChildResult::BrokenPipe);
             }
         }
@@ -312,7 +312,7 @@ where
         }
         stream.write_all(&pending)?;
         length += pending.len();
-        if destination_broken && !config.complete_execution {
+        if destination_broken && config.short_circuit {
             return Ok(ChildResult::BrokenPipe);
         }
     }
