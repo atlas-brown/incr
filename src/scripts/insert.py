@@ -213,6 +213,7 @@ def transform_bash_node(node, sys_path, state):
             case BashAST.CommandType.CM_SIMPLE:
                 assert node.value.simple_com
                 cmd = node.value.simple_com
+                if not len(cmd.words): return node
                 # ----- INCR -----
                 cmd_name = str(cmd.words[0].word, "utf8", errors="surrogateescape")
                 if cmd_name in AVOID_SET or '=' in cmd_name: # Don't append sys to built-in commands or assignments
