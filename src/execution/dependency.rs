@@ -129,7 +129,7 @@ fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
 }
 
 pub(crate) fn save_introspection(config: &Config, command: &Command, cache_data: &CacheData) -> Result<()> {
-    if config.skip_introspect {
+    if config.skip_introspection {
         return Ok(());
     }
 

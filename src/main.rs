@@ -36,8 +36,10 @@ struct Arguments {
     compress_output: bool,
     #[arg(short = 'f', long = "full_tracing")]
     full_tracing: bool,
-    #[arg(short = 'o', long = "skip_introspect")]
-    skip_introspect: bool,
+    #[arg(short = 'a', long = "enable_annotations")]
+    enable_annotations: bool,
+    #[arg(short = 'o', long = "skip_introspection")]
+    skip_introspection: bool,
 
     #[arg(trailing_var_arg = true)]
     command: Vec<String>,
@@ -70,8 +72,9 @@ fn run() -> Result<ExitCode> {
         return Err(skip_executor::execute(&command));
     }
 
+    let chunk = !config.full_tracing && config.enable_annotations && annotation::check_stateless(&command);
     let command_string = command.join_string()?;
-    let result = if !config.full_tracing && annotation::check_stateless(&command) {
+    let result = if chunk {
         chunk_executor::execute(config, command)
     } else if !config.batch_executor {
         stream_executor::execute(&config, &command)
@@ -120,7 +123,8 @@ fn parse_input() -> Result<Option<Input>> {
         short_circuit: arguments.short_circuit,
         compress_output: arguments.compress_output,
         full_tracing: arguments.full_tracing,
-        skip_introspect: arguments.skip_introspect,
+        enable_annotations: arguments.enable_annotations,
+        skip_introspection: arguments.skip_introspection,
     };
 
     Ok(Some(Input {

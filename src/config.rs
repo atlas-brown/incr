@@ -59,11 +59,12 @@ pub(crate) struct Config {
     pub(crate) cache_directory: PathBuf, // Directory to store cache data
     pub(crate) trace_type: TraceType,    // Type of tracing to use
 
-    pub(crate) batch_executor: bool,  // Run using the batch executor
-    pub(crate) short_circuit: bool,   // Exit after a downstream failure
-    pub(crate) compress_output: bool, // Compress stdout and stderr
-    pub(crate) full_tracing: bool,    // Run without selective activation
-    pub(crate) skip_introspect: bool, // Disable command introspection
+    pub(crate) batch_executor: bool,     // Run using the batch executor
+    pub(crate) short_circuit: bool,      // Exit after a downstream failure
+    pub(crate) compress_output: bool,    // Compress stdout and stderr
+    pub(crate) full_tracing: bool,       // Run without selective activation
+    pub(crate) enable_annotations: bool, // Run with annotations
+    pub(crate) skip_introspection: bool, // Disable command introspection
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
