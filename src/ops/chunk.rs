@@ -90,7 +90,7 @@ where
     }
 }
 
-pub(crate) struct LineChunkerNew {
+pub(crate) struct LineChunker {
     sizes: ChunkSizes,
     mask_s: u64,
     mask_l: u64,
@@ -101,9 +101,10 @@ pub(crate) struct LineChunkerNew {
 
     hash: u64,
     length: usize,
+    start_time: std::time::Instant,
 }
 
-impl LineChunkerNew {
+impl LineChunker {
     pub(crate) fn new(sizes: ChunkSizes) -> Self {
         assert!(MINIMUM_MIN as usize <= sizes.minimum && sizes.minimum <= MINIMUM_MAX as usize);
         assert!(AVERAGE_MIN as usize <= sizes.average && sizes.average <= AVERAGE_MAX as usize);
@@ -126,13 +127,17 @@ impl LineChunkerNew {
 
             hash: 0,
             length: 0,
+            start_time: std::time::Instant::now(),
         }
     }
 
     pub(crate) fn update(&mut self, lines: &[u8]) -> bool {
         let mut boundary = false;
         for &byte in lines {
+            let length_before = self.length;
             if self.update_hash(byte) {
+                eprintln!("chunk: {length_before} {:?}", self.start_time.elapsed());
+                self.start_time = std::time::Instant::now();
                 boundary = true;
             }
         }
@@ -150,17 +155,14 @@ impl LineChunkerNew {
             return false;
         }
 
-        if self.length % 2 != 0 {
+        let matched = if self.length % 2 != 0 {
             self.hash = (self.hash << 2).wrapping_add(self.gear_ls[byte as usize]);
             let mask = if self.length < self.sizes.average {
                 self.mask_s_ls
             } else {
                 self.mask_l_ls
             };
-            if (self.hash & mask) == 0 {
-                self.reset_hash();
-                return true;
-            }
+            (self.hash & mask) == 0
         } else {
             self.hash = self.hash.wrapping_add(self.gear[byte as usize]);
             let mask = if self.length < self.sizes.average {
@@ -168,10 +170,13 @@ impl LineChunkerNew {
             } else {
                 self.mask_l
             };
-            if (self.hash & mask) == 0 {
-                self.reset_hash();
-                return true;
-            }
+            (self.hash & mask) == 0
+        };
+
+        if matched {
+            self.hash = 0;
+            self.length = 1;
+            return true;
         }
 
         false
@@ -184,18 +189,16 @@ impl LineChunkerNew {
 }
 
 #[derive(Clone, Debug)]
-pub(crate) struct LineChunker {
+pub(crate) struct ReferenceLineChunker {
     sizes: ChunkSizes,
     mask_s: u64,
     mask_l: u64,
     mask_s_ls: u64,
     mask_l_ls: u64,
     data: Vec<u8>,
-
-    start_time: std::time::Instant,
 }
 
-impl LineChunker {
+impl ReferenceLineChunker {
     pub(crate) fn new(sizes: ChunkSizes) -> Self {
         assert!(MINIMUM_MIN as usize <= sizes.minimum && sizes.minimum <= MINIMUM_MAX as usize);
         assert!(AVERAGE_MIN as usize <= sizes.average && sizes.average <= AVERAGE_MAX as usize);
@@ -213,8 +216,6 @@ impl LineChunker {
             mask_s_ls: mask_s << 1,
             mask_l_ls: mask_l << 1,
             data: Vec::new(),
-
-            start_time: std::time::Instant::now(),
         }
     }
 
@@ -232,8 +233,6 @@ impl LineChunker {
         );
         if 0 < count && count < self.data.len() {
             self.data.drain(..count);
-            eprintln!("chunk: {count} {:?}", self.start_time.elapsed());
-            self.start_time = std::time::Instant::now();
             true
         } else {
             false
