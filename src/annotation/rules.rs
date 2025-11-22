@@ -115,6 +115,6 @@ pub(crate) const IGNORE_COMMANDS: &[&str] = &[
     "yes",
 ];
 
-pub(crate) const PURE_COMMANDS: &[Condition] = &[Condition::with_name("tr")];
-pub(crate) const STATELESS_COMMANDS: &[Condition] = &[Condition::with_name("tr")];
+pub(crate) const PURE_COMMANDS: &[Condition] = &[];
+pub(crate) const STATELESS_COMMANDS: &[Condition] = &[];
 pub(crate) const READ_ONLY_COMMANDS: &[Condition] = &[];
