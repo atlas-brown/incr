@@ -1,3 +1,3 @@
 cargo build --release
-rm -rf cache
-cat evaluation/war-and-peace/book_large.txt | time ./target/release/incr tr "[:lower:]" "[:upper:]" > out.txt
+sudo rm -rf cache
+cat ./evaluation/war-and-peace/book_large.txt | cargo flamegraph --root --no-inline --release -- -a tr "[:upper:]" "[:lower:]" > out.txt
