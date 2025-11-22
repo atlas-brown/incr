@@ -21,23 +21,22 @@ use crate::config::{DEFAULT_CACHE_PATH, DEFAULT_TRY_PATH};
 use crate::execution::{batch_executor, chunk_executor, skip_executor, stream_executor};
 use crate::ops::{ExitCode, FAILURE_CODE, SUCCESS_CODE};
 
-const EXECUTOR: Executor = Executor::Stream;
-
-#[allow(unused)]
-#[derive(Clone, Debug)]
-enum Executor {
-    Stream,
-    Batch,
-}
-
 #[derive(Clone, Debug, Parser)]
 struct Arguments {
     #[arg(short = 't', long = "try")]
     try_command: Option<String>,
     #[arg(short = 'c', long = "cache")]
     cache_directory: Option<String>,
-    #[arg(short = 'f', long = "force_cache")]
-    force_cache: bool,
+
+    #[arg(short = 'b', long = "batch_executor")]
+    batch_executor: bool,
+    #[arg(short = 's', long = "short_circuit")]
+    short_circuit: bool,
+    #[arg(short = 'z', long = "compress_output")]
+    compress_output: bool,
+    #[arg(short = 'f', long = "full_tracing")]
+    full_tracing: bool,
+
     #[arg(trailing_var_arg = true)]
     command: Vec<String>,
 }
@@ -65,18 +64,17 @@ fn run() -> Result<ExitCode> {
         Some(input) => (input.config, input.command, input.environment),
         None => return Ok(SUCCESS_CODE),
     };
-    if !config.force_cache && annotation::skip_command(&command, &environment) {
+    if !config.full_tracing && annotation::skip_command(&command, &environment) {
         return Err(skip_executor::execute(&command));
     }
 
     let command_string = command.join_string()?;
-    let result = if annotation::check_stateless(&command) {
+    let result = if !config.full_tracing && annotation::check_stateless(&command) {
         chunk_executor::execute(config, command)
+    } else if !config.batch_executor {
+        stream_executor::execute(&config, &command)
     } else {
-        match EXECUTOR {
-            Executor::Stream => stream_executor::execute(&config, &command),
-            Executor::Batch => batch_executor::execute(&config, &command),
-        }
+        batch_executor::execute(&config, &command)
     };
 
     match result {
@@ -115,9 +113,10 @@ fn parse_input() -> Result<Option<Input>> {
         try_command,
         cache_directory,
         trace_type,
-        complete_execution: true, // TODO: add a flag
-        compress: false,          // TODO: add a flag
-        force_cache: arguments.force_cache,
+        batch_executor: arguments.batch_executor,
+        short_circuit: arguments.short_circuit,
+        compress_output: arguments.compress_output,
+        full_tracing: arguments.full_tracing,
     };
 
     Ok(Some(Input {

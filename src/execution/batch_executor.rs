@@ -88,7 +88,7 @@ fn run_command(
         exit_code,
         read_dependencies,
         write_outputs: write_set,
-        compressed_output: config.compress,
+        compressed_output: config.compress_output,
     }))
 }
 
@@ -118,7 +118,7 @@ fn output_cached_data(config: &Config, cache: &CacheCursor<'_>, data: &CacheData
         &mut io::stderr().lock(),
     )? == OutputResult::Completed;
 
-    if !config.complete_execution && (!stdout_completed || !stderr_completed) {
+    if config.short_circuit && (!stdout_completed || !stderr_completed) {
         return Ok(BROKEN_PIPE_CODE);
     }
     if !data.write_outputs.is_empty() {

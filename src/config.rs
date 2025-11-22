@@ -58,9 +58,11 @@ pub(crate) struct Config {
     pub(crate) try_command: String,      // Bash try command string
     pub(crate) cache_directory: PathBuf, // Directory to store cache data
     pub(crate) trace_type: TraceType,    // Type of tracing to use
-    pub(crate) complete_execution: bool, // Complete after a downstream failure
-    pub(crate) compress: bool,           // Whether to compress cached outputs
-    pub(crate) force_cache: bool,        // Do not skip the command
+
+    pub(crate) batch_executor: bool,  // Run using the batch executor
+    pub(crate) short_circuit: bool,   // Exit after a downstream failure
+    pub(crate) compress_output: bool, // Compress stdout and stderr
+    pub(crate) full_tracing: bool,    // Run without selective activation
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
