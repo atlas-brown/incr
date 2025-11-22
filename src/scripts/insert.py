@@ -97,6 +97,11 @@ IGNORE_COMMANDS = [
     "mkdir",
     "umount",
     "yes",
+    # TODO: Remove
+    "cat",
+    "_intl_normalize_spaces",
+    "_cut_leading_spaces",
+    r"/bin/sh",
 ]
 AVOID_SET = set(IGNORE_COMMANDS)
 
@@ -220,9 +225,10 @@ def transform_bash_node(node, sys_path, state):
                     return node
                 if cmd_name in state.functions:
                     return node
-                if cmd_name[0] == '$': # Don't append sys to variable commands
+                if cmd_name[0] in ('$', '%'): # Don't append sys to variables or job identifiers
                     return node
-                logging.debug(f"Handling simple command node: {node} with command name {cmd_name}")
+                if any([b'<(' in word.word for word in cmd.words]):
+                    return node
                 words = [BashAST.WordDesc(c_bash.word_desc(bytes(sys_path, "utf8"), 0))] + cmd.words
                 # ----- INCR -----
                 node_copy = copy.deepcopy(node)
