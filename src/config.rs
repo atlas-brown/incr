@@ -19,11 +19,11 @@ pub(crate) const COMMIT_DIRECTORY: &str = "commit";
 
 pub(crate) const CHUNK_WORKERS: usize = 4;
 pub(crate) const CHUNK_SIZES: ChunkSizes = ChunkSizes {
-    minimum: 64,
-    average: 256,
-    maximum: 1024,
+    minimum: 250_000,
+    average: 1_000_000,
+    maximum: 4_000_000,
 };
-pub(crate) const CHUNK_GRANULARITY: usize = 2;
+pub(crate) const CHUNK_GRANULARITY: usize = 16;
 pub(crate) const COMPRESSION_LEVEL: i32 = 1;
 pub(crate) const BUFFER_SIZE: usize = 65_536;
 pub(crate) const PARALLEL_SIZE: usize = 1000;
