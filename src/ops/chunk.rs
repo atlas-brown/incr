@@ -163,22 +163,19 @@ impl LineChunker {
         let gear_ls = offset % 2 == 0;
         let small = index < self.sizes.average;
 
-        if gear_ls {
+        let cut = if gear_ls {
             self.hash = (self.hash << 2).wrapping_add(self.gear_ls[byte as usize]);
             let mask = if small { self.mask_s_ls } else { self.mask_l_ls };
-            if (self.hash & mask) == 0 {
-                self.hash = 0;
-                self.length = 1;
-                return true;
-            }
+            (self.hash & mask) == 0
         } else {
             self.hash = self.hash.wrapping_add(self.gear[byte as usize]);
             let mask = if small { self.mask_s } else { self.mask_l };
-            if (self.hash & mask) == 0 {
-                self.hash = 0;
-                self.length = 1;
-                return true;
-            }
+            (self.hash & mask) == 0
+        };
+        if cut {
+            self.hash = 0;
+            self.length = 1;
+            return true;
         }
 
         boundary
