@@ -287,6 +287,18 @@ def transform_bash_node(node, sys_path, state):
                 node_copy = copy.deepcopy(node)
                 node_copy.value.subshell_com.command = sub_command
                 return node_copy
+            case BashAST.CommandType.CM_CASE:
+                assert node.value.case_com
+                def handle_pattern(pattern):
+                    if not pattern.action: return pattern
+                    action = transform_bash_node(pattern.action, sys_path, state)
+                    pattern_copy = copy.deepcopy(pattern)
+                    pattern_copy.action = action
+                    return pattern_copy
+                clauses = [handle_pattern(pat) for pat in node.value.case_com.clauses]
+                node_copy = copy.deepcopy(node)
+                node_copy.value.case_com.clauses = clauses
+                return node_copy
             case _:
                 logging.warning(f"Ignoring bash command node: {node} with type {node.type}")
                 return node
