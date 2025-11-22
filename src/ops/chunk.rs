@@ -145,45 +145,47 @@ impl LineChunker {
     }
 
     fn update_hash(&mut self, byte: u8) -> bool {
-        self.length += 1;
+        let mut boundary = false;
         if self.length >= self.sizes.maximum {
             self.hash = 0;
             self.length = 0;
-            return true;
+            boundary = true;
         }
+
+        self.length += 1;
         let min_length = (self.sizes.minimum / 2) * 2;
         if self.length <= min_length {
-            return false;
+            return boundary;
         }
 
-        let boundary = if self.length % 2 != 0 {
+        let index = self.length - 1;
+        let offset = index - min_length;
+        let gear_ls = offset % 2 == 0;
+        let small = index < self.sizes.average;
+
+        if gear_ls {
             self.hash = (self.hash << 2).wrapping_add(self.gear_ls[byte as usize]);
-            let mask = if self.length < self.sizes.average {
-                self.mask_s_ls
-            } else {
-                self.mask_l_ls
-            };
-            (self.hash & mask) == 0
+            let mask = if small { self.mask_s_ls } else { self.mask_l_ls };
+            if (self.hash & mask) == 0 {
+                self.hash = 0;
+                self.length = 1;
+                return true;
+            }
         } else {
             self.hash = self.hash.wrapping_add(self.gear[byte as usize]);
-            let mask = if self.length < self.sizes.average {
-                self.mask_s
-            } else {
-                self.mask_l
-            };
-            (self.hash & mask) == 0
-        };
-
-        if boundary {
-            self.hash = 0;
-            self.length = 1;
-            true
-        } else {
-            false
+            let mask = if small { self.mask_s } else { self.mask_l };
+            if (self.hash & mask) == 0 {
+                self.hash = 0;
+                self.length = 1;
+                return true;
+            }
         }
+
+        boundary
     }
 }
 
+#[allow(unused)]
 #[derive(Clone, Debug)]
 pub(crate) struct ReferenceLineChunker {
     sizes: ChunkSizes,
@@ -195,6 +197,7 @@ pub(crate) struct ReferenceLineChunker {
 }
 
 impl ReferenceLineChunker {
+    #[allow(unused)]
     pub(crate) fn new(sizes: ChunkSizes) -> Self {
         assert!(MINIMUM_MIN as usize <= sizes.minimum && sizes.minimum <= MINIMUM_MAX as usize);
         assert!(AVERAGE_MIN as usize <= sizes.average && sizes.average <= AVERAGE_MAX as usize);
@@ -215,6 +218,7 @@ impl ReferenceLineChunker {
         }
     }
 
+    #[allow(unused)]
     pub(crate) fn update(&mut self, lines: &[u8]) -> bool {
         self.data.extend_from_slice(lines);
         let (_, count) = cdc::cut(
@@ -259,18 +263,21 @@ mod test {
         let mut reference_chunker = ReferenceLineChunker::new(CHUNK_SIZES);
         let mut lines = [0; LINES_SIZE];
 
-        let num_chunks = (CHUNK_SIZES.maximum * TEST_CHUNKS) / LINES_SIZE;
+        let min_chunks = (CHUNK_SIZES.maximum * TEST_CHUNKS) / LINES_SIZE;
+        let mut num_chunks = 0;
         let mut differences = 0;
-        for _ in 0..num_chunks {
+        for _ in 0..min_chunks {
             rng.fill(&mut lines);
             let boundary = chunker.update(&lines);
             let reference_boundary = reference_chunker.update(&lines);
+            if boundary {
+                num_chunks += 1;
+            }
             if boundary != reference_boundary {
                 differences += 1;
             }
         }
 
-        eprintln!("differences: {differences}");
-        assert!(differences < TEST_CHUNKS / 5);
+        assert!(differences < num_chunks / 50);
     }
 }
