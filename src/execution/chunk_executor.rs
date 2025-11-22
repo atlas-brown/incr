@@ -15,7 +15,7 @@ use crate::command::{self, ChildContext, Command, Runtime, RuntimeType};
 use crate::config::{CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, Config, TraceType};
 use crate::execution::run::{self, OutputMetadata, OutputResult};
 use crate::ops::chunk::{LineChunker, LineReader};
-use crate::ops::thread::{SignalReceiver, SignalSender};
+use crate::ops::thread::{ReadySignal, SignalReceiver, SignalSender};
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
 #[derive(Debug)]
@@ -184,7 +184,7 @@ fn process_chunk(
         mut child,
         stdout_thread,
         stderr_thread,
-    } = match receive_signal {
+    } = match &receive_signal {
         Some(signal) => command::spawn_with_signal(config, command, &runtime, signal)?,
         None => command::spawn(config, command, &runtime)?,
     };
@@ -216,6 +216,9 @@ fn process_chunk(
             command.arguments,
             stdin_context.hash,
         );
+        if let Some(signal) = receive_signal {
+            signal.wait_until_ready();
+        }
         output_cached_data(config, cache, send_signal, stdin_context.hash, &outputs)
     } else {
         debug_log!(

@@ -104,14 +104,14 @@ pub(crate) fn create(mut arguments: Vec<String>, environment: &HashMap<String, S
 }
 
 pub(crate) fn spawn(config: &Config, command: &Command, runtime: &Runtime) -> Result<ChildContext> {
-    spawn_with_signal(config, command, runtime, AlwaysReady)
+    spawn_with_signal(config, command, runtime, &AlwaysReady)
 }
 
 pub(crate) fn spawn_with_signal<R>(
     config: &Config,
     command: &Command,
     runtime: &Runtime,
-    destination_ready: R,
+    destination_ready: &R,
 ) -> Result<ChildContext>
 where
     R: Clone + ReadySignal + Send + 'static,
