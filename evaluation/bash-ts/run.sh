@@ -11,22 +11,25 @@ target_test="run-precedence"
 
 export PATH="$PATH:$PWD/bash"
 export TMPDIR=/tmp
-
-# First, run tests with bash
-export THIS_SH=$PWD/bash/bash
-export BASH_TSTOUT=/tmp/tstout
+top=$(git rev-parse --show-toplevel)
 
 # cd tests
 cd tests-normln
 
-sh $target_test > ../results.bash
+# First, run tests with bash
+export THIS_SH=$top/evaluation/bash-ts/bash/bash
+export BASH_TSTOUT=/tmp/tstout
+
+$THIS_SH $target_test > ../results.bash
+cp /tmp/tstout ../out.bash
 
 # Then, run tests with incr
-TOP=$(git rev-parse --show-toplevel)
-rm -rf "$TOP/evaluation/bash-ts/cache"
-export THIS_SH=$TOP/evaluation/bash-ts/incr.sh
+rm -rf "$top/evaluation/bash-ts/cache"
+export THIS_SH=$top/evaluation/bash-ts/incr.sh
 export INCR_TSTOUT=/tmp/tstout
 
-sh $target_test > ../results.incr
+$THIS_SH $target_test > ../results.incr
+cp /tmp/tstout ../out.incr
 
 diff ../results.bash ../results.incr > ../results.diff
+diff ../out.bash ../out.incr > ../out.diff
