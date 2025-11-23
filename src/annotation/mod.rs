@@ -1,6 +1,7 @@
 pub(crate) mod rules;
 
 use std::collections::{HashMap, HashSet};
+use std::ffi::OsString;
 
 use crate::annotation::rules::{
     Condition, IGNORE_COMMANDS, PURE_COMMANDS, READ_ONLY_COMMANDS, STATELESS_COMMANDS,
@@ -51,13 +52,14 @@ fn check_condition(
         && values.len() <= condition.max_arguments
 }
 
-fn parse_arguments(arguments: &[String]) -> CommandArguments {
+fn parse_arguments(arguments: &[OsString]) -> CommandArguments {
     let mut values = Vec::new();
     let mut flags = HashSet::new();
 
     for argument in arguments {
+        let argument = argument.to_string_lossy().into_owned();
         if argument.starts_with("--") && argument.len() >= 3 {
-            match argument.find("=") {
+            match argument.find('=') {
                 Some(index) => flags.insert(argument[2..index].to_lowercase()),
                 None => flags.insert(argument[2..].to_lowercase()),
             };

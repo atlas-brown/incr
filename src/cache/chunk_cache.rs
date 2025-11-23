@@ -19,7 +19,7 @@ impl CacheCursor {
         let debug_info = if DEBUG {
             Some(CacheInfo {
                 name: command.name.clone(),
-                arguments: command.arguments.clone(),
+                arguments: command.argument_strings(),
                 environment: command.environment.clone(),
             })
         } else {

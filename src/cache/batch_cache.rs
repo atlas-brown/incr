@@ -26,7 +26,7 @@ impl<'c> CacheCursor<'c> {
         let stdin_hash = ops::data::hash_bytes(stdin);
         let debug_info = CacheInfo {
             name: &command.name,
-            arguments: &command.arguments,
+            arguments: command.argument_strings(),
             environment: &command.environment,
             stdin_hash,
             stdin: Some(stdin),
@@ -37,7 +37,7 @@ impl<'c> CacheCursor<'c> {
     pub(crate) fn from_hash(config: &Config, command: &'c Command, stdin_hash: u64) -> Result<Self> {
         let debug_info = CacheInfo {
             name: &command.name,
-            arguments: &command.arguments,
+            arguments: command.argument_strings(),
             environment: &command.environment,
             stdin_hash,
             stdin: None,
@@ -51,9 +51,10 @@ impl<'c> CacheCursor<'c> {
         stdin_hash: u64,
         debug_info: CacheInfo<'c>,
     ) -> Result<Self> {
+        let argument_bytes = command.argument_bytes();
         let key_data = ops::data::encode_to_bytes(&CacheKey {
             name: &command.name,
-            arguments: &command.arguments,
+            arguments: &argument_bytes,
             environment: &command.environment,
             stdin_hash,
         })?;
@@ -158,7 +159,7 @@ impl<'c> CacheCursor<'c> {
 #[derive(Clone, Debug, Serialize)]
 struct CacheInfo<'c> {
     name: &'c str,
-    arguments: &'c [String],
+    arguments: Vec<String>,
     environment: &'c BTreeMap<String, String>,
     stdin_hash: u64,
     #[serde(with = "ops::serialize_bytes")]
@@ -168,7 +169,7 @@ struct CacheInfo<'c> {
 #[derive(Clone, Debug, Encode)]
 struct CacheKey<'c> {
     name: &'c str,
-    arguments: &'c [String],
+    arguments: &'c [Vec<u8>],
     environment: &'c BTreeMap<String, String>,
     stdin_hash: u64,
 }

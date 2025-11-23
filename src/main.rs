@@ -9,9 +9,10 @@ mod ops;
 mod scripts;
 
 use anyhow::{Result, anyhow};
-use clap::Parser;
+use clap::{Parser, builder::OsStringValueParser};
 use std::collections::HashMap;
 use std::env;
+use std::ffi::OsString;
 use std::path::PathBuf;
 use std::process;
 
@@ -41,8 +42,8 @@ struct Arguments {
     #[arg(short = 'o', long = "skip_introspection")]
     skip_introspection: bool,
 
-    #[arg(trailing_var_arg = true)]
-    command: Vec<String>,
+    #[arg(trailing_var_arg = true, value_parser = OsStringValueParser::new())]
+    command: Vec<OsString>,
 }
 
 #[derive(Clone, Debug)]
@@ -73,7 +74,7 @@ fn run() -> Result<ExitCode> {
     }
 
     let chunk = !config.full_tracing && config.enable_annotations && annotation::check_stateless(&command);
-    let command_string = command.join_string()?;
+    let command_string = command.join_string()?.to_string_lossy().into_owned();
     let result = if chunk {
         chunk_executor::execute(config, command)
     } else if !config.batch_executor {

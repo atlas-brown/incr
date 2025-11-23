@@ -1,9 +1,10 @@
 use anyhow::{Result, anyhow};
 use bincode::Encode;
 use std::collections::{BTreeMap, HashMap, HashSet};
+use std::ffi::{OsStr, OsString};
 use std::fs::{self, File};
 use std::io::{self, BufWriter, Error as IoError, ErrorKind, Read, Write};
-use std::iter;
+use std::os::unix::ffi::{OsStrExt, OsStringExt};
 use std::os::unix::process::CommandExt;
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command as ShellCommand, Stdio};
@@ -17,25 +18,32 @@ use crate::ops::thread::{AlwaysReady, ReadySignal};
 #[derive(Clone, Debug)]
 pub(crate) struct Command {
     pub(crate) name: String,
-    pub(crate) arguments: Vec<String>,
+    pub(crate) arguments: Vec<OsString>,
     pub(crate) environment: BTreeMap<String, String>,
     pub(crate) hash: u64,
 }
 
 impl Command {
-    pub(crate) fn join_string(&self) -> Result<String> {
-        Ok(shlex::try_join(self.join_sequence())?)
+    pub(crate) fn join_string(&self) -> Result<OsString> {
+        build_shell_command(&self.name, &self.arguments)
     }
 
-    pub(crate) fn join_sequence(&self) -> impl Iterator<Item = &str> {
-        iter::once(self.name.as_str()).chain(self.arguments.iter().map(|a| a.as_str()))
+    pub(crate) fn argument_bytes(&self) -> Vec<Vec<u8>> {
+        to_bytes(&self.arguments)
+    }
+
+    pub(crate) fn argument_strings(&self) -> Vec<String> {
+        self.arguments
+            .iter()
+            .map(|argument| argument.to_string_lossy().into_owned())
+            .collect()
     }
 }
 
 #[derive(Clone, Debug, Encode)]
 struct CommandKey<'c> {
     name: &'c str,
-    arguments: &'c [String],
+    arguments: &'c [Vec<u8>],
     environment: &'c BTreeMap<String, String>,
 }
 
@@ -66,13 +74,24 @@ pub(crate) enum ChildResult {
     BrokenPipe,
 }
 
-pub(crate) fn create(mut arguments: Vec<String>, environment: &HashMap<String, String>) -> Result<Command> {
+pub(crate) fn create(mut arguments: Vec<OsString>, environment: &HashMap<String, String>) -> Result<Command> {
     assert!(!arguments.is_empty());
     if arguments.len() == 1 {
-        let command_string = arguments.pop().unwrap();
-        arguments = shlex::split(&command_string).ok_or_else(|| anyhow!("Could not split command"))?
+        let command_string = arguments
+            .pop()
+            .unwrap()
+            .into_string()
+            .map_err(|_| anyhow!("Commands provided as a single string must be valid UTF-8"))?;
+        arguments = shlex::split(&command_string)
+            .ok_or_else(|| anyhow!("Could not split command"))?
+            .into_iter()
+            .map(OsString::from)
+            .collect();
     }
-    let name = arguments.remove(0);
+    let name = arguments
+        .remove(0)
+        .into_string()
+        .map_err(|_| anyhow!("Command name must be valid UTF-8"))?;
 
     let excluded_variables = EXCLUDED_VARIABLES.iter().copied().collect::<HashSet<_>>();
     let environment = environment
@@ -88,9 +107,10 @@ pub(crate) fn create(mut arguments: Vec<String>, environment: &HashMap<String, S
         })
         .collect::<BTreeMap<_, _>>();
 
+    let argument_bytes = to_bytes(&arguments);
     let key_data = ops::data::encode_to_bytes(&CommandKey {
         name: &name,
-        arguments: &arguments,
+        arguments: &argument_bytes,
         environment: &environment,
     })?;
     let hash = ops::data::hash_bytes(&key_data);
@@ -174,28 +194,30 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
 
     match &runtime.typ {
         RuntimeType::Sandbox(directory) => {
-            child.args([
-                "-D",
-                ops::file::path_to_string(directory)?,
-                STRACE_COMMAND,
-                "-yf",
-                "--seccomp-bpf",
-                "--trace=fork,clone,%file",
-                "-o",
-                &format!("/tmp/{TRACE_FILE}"),
-                &command.join_string()?,
-            ]);
+            let sandbox_directory = ops::file::path_to_string(directory)?;
+            let trace_destination = format!("/tmp/{TRACE_FILE}");
+            let command_string = command.join_string()?;
+            child
+                .arg("-D")
+                .arg(sandbox_directory)
+                .arg(STRACE_COMMAND)
+                .arg("-yf")
+                .arg("--seccomp-bpf")
+                .arg("--trace=fork,clone,%file")
+                .arg("-o")
+                .arg(trace_destination)
+                .arg(command_string);
         }
         RuntimeType::TraceFile(file) => {
-            let mut arguments = vec![
-                "-yf",
-                "--seccomp-bpf",
-                "--trace=fork,clone,%file",
-                "-o",
-                ops::file::path_to_string(file)?,
-            ];
-            arguments.extend(command.join_sequence());
-            child.args(&arguments);
+            let trace_output = ops::file::path_to_string(file)?;
+            child
+                .arg("-yf")
+                .arg("--seccomp-bpf")
+                .arg("--trace=fork,clone,%file")
+                .arg("-o")
+                .arg(trace_output)
+                .arg(&command.name)
+                .args(&command.arguments);
         }
         RuntimeType::Nothing => {
             child.args(&command.arguments);
@@ -318,6 +340,46 @@ where
     }
 
     Ok(ChildResult::Completed(length))
+}
+
+fn to_bytes(arguments: &[OsString]) -> Vec<Vec<u8>> {
+    arguments.iter().map(|arg| arg.as_bytes().to_vec()).collect()
+}
+
+fn build_shell_command(name: &str, arguments: &[OsString]) -> Result<OsString> {
+    let mut components = Vec::with_capacity(arguments.len() + 1);
+    components.push(shell_escape(OsStr::new(name)));
+    for argument in arguments {
+        components.push(shell_escape(argument.as_os_str()));
+    }
+    let total_len = components.iter().map(|component| component.len()).sum::<usize>()
+        + components.len().saturating_sub(1);
+    let mut bytes = Vec::with_capacity(total_len);
+    for (index, component) in components.into_iter().enumerate() {
+        if index > 0 {
+            bytes.push(b' ');
+        }
+        bytes.extend_from_slice(&component);
+    }
+    Ok(OsString::from_vec(bytes))
+}
+
+fn shell_escape(argument: &OsStr) -> Vec<u8> {
+    let bytes = argument.as_bytes();
+    if bytes.is_empty() {
+        return b"''".to_vec();
+    }
+    let mut escaped = Vec::with_capacity(bytes.len() + 2);
+    escaped.push(b'\'');
+    for &byte in bytes {
+        if byte == b'\'' {
+            escaped.extend_from_slice(b"'\\''");
+        } else {
+            escaped.push(byte);
+        }
+    }
+    escaped.push(b'\'');
+    escaped
 }
 
 pub(crate) fn kill_child(child: &Child) -> Result<()> {

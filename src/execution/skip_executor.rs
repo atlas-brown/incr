@@ -13,7 +13,8 @@ pub(crate) fn execute(command: &Command) -> Error {
         Err(error) => return error,
     };
     ShellCommand::new(BASH_COMMAND)
-        .args(["-c", &command_string])
+        .arg("-c")
+        .arg(command_string)
         .exec()
         .into()
 }
