@@ -221,9 +221,13 @@ def transform_bash_node(node, sys_path, state):
                 if not len(cmd.words): return node
                 # ----- INCR -----
                 cmd_name = str(cmd.words[0].word, "utf8", errors="surrogateescape")
+                logging.debug(f"Handling simple command {cmd_name}")
+                if cmd_name == 'alias' and len(cmd.words) > 1:
+                    alias_name = str(cmd.words[1].word, "utf8", errors="surrogateescape").split('=')[0]
+                    state.aliases.add(alias_name)
                 if cmd_name in AVOID_SET or '=' in cmd_name: # Don't append sys to built-in commands or assignments
                     return node
-                if cmd_name in state.functions:
+                if cmd_name in state.functions or cmd_name in state.aliases:
                     return node
                 if cmd_name[0] in ('$', '%'): # Don't append sys to variables or job identifiers
                     return node
@@ -327,6 +331,7 @@ def transform_bash_node(node, sys_path, state):
 @dataclass
 class State:
     functions: set[str] = field(default_factory=set)
+    aliases: set[str] = field(default_factory=set)
 
 def transform_bash_ast(ast, sys_path, state):
     nodes = []
