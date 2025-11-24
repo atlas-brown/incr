@@ -1,0 +1,111 @@
+2c2
+< ./histexp.tests: line 15: history: !!:z: history expansion failed
+---
+> ./histexp.tests: line 37: history: !!:z: history expansion failed
+31c31,32
+< strace: Can't stat '^2^8': No such file or directory
+---
+> echo line 8 for history
+> line 8 for history
+75,88c76,90
+< echo x bar .c x bar .o x bar .html x bar .h
+< x bar .c x bar .o x bar .html x bar .h
+< ./histexp.tests: line 57:  : unrecognized history modifier
+< echo x whix .c x whix .o x whix .html x whix .h
+< x whix .c x whix .o x whix .html x whix .h
+< echo x whix .c x whix .o x whix .html x whix .h
+< echo ''
+< 
+< echo '.h'
+< .h
+< echo '.h'
+< .h
+< echo '.h'
+< .h
+---
+> echo xbar.c xbar.o xbar.html xbar.h
+> xbar.c xbar.o xbar.html xbar.h
+> echo xbar.c xbar.o xbar.html xbar.h
+> xbar.c xbar.o xbar.html xbar.h
+> echo xwhix.c xwhix.o xwhix.html xwhix.h
+> xwhix.c xwhix.o xwhix.html xwhix.h
+> echo xwhix.c xwhix.o xwhix.html xwhix.h
+> echo 'xwhix'
+> xwhix
+> echo 'xwhix.h'
+> xwhix.h
+> echo 'xwhix.h'
+> xwhix.h
+> echo 'xwhix.h'
+> xwhix.h
+93c95
+<    11  /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache ^2^8
+---
+>    11  echo line 8 for history
+117,120c119,122
+<    35  echo x bar .c x bar .o x bar .html x bar .h
+<    36  echo x whix .c x whix .o x whix .html x whix .h
+<    37  echo ''
+<    38  echo '.h'
+---
+>    35  echo xbar.c xbar.o xbar.html xbar.h
+>    36  echo xwhix.c xwhix.o xwhix.html xwhix.h
+>    37  echo 'xwhix'
+>    38  echo 'xwhix.h'
+133c135
+< echo two; echo four
+---
+> echo two ; echo four  
+135c137,139
+< echo four; echo two
+---
+> echo four ; echo two
+> !
+> !
+141d144
+< ./histexp1.sub: line 10: !: event not found
+144d146
+< ./histexp1.sub: line 12: !: event not found
+203,206c205,225
+< ./histexp4.sub: line 14: !': event not found
+< ./histexp5.sub: line 32: syntax error near unexpected token `('
+< ./histexp5.sub: line 32: `echo /+(one|two|three)/Step1'
+< Error inserting incr into script ./histexp5.sub: Bash read command failed, shell script may be invalid
+---
+> ./histexp4.sub: line 33: !': event not found
+> /tmp/Step1
+> echo /$(echo tmp)/Step1
+> /tmp/Step1
+> echo /<(echo tmp)/Step1 > /dev/null
+> /tmp/Step1
+> echo $(echo /tmp)/Step1
+> /tmp/Step1
+> echo <(echo /tmp)/Step1 > /dev/null
+> /+(one|two|three)/Step1
+> echo /+(one|two|three)/Step1
+> /+(one|two|three)/Step1
+> /*(tmp|dev|usr)/Step1
+> echo /*(tmp|dev|usr)/Step1
+> /*(tmp|dev|usr)/Step1
+> +(/one|/two|/three)/Step1
+> echo +(/one|/two|/three)/Step1
+> +(/one|/two|/three)/Step1
+> *(/tmp|/dev|/usr)/Step1
+> echo *(/tmp|/dev|/usr)/Step1
+> *(/tmp|/dev|/usr)/Step1
+208c227
+<     echo echo one;
+---
+> 	echo echo one
+214c233
+<     3  for f in a b c; do     echo echo one; done
+---
+>     3  for f in a b c; do 	echo echo one; done
+217c236
+<     echo echo two;
+---
+> 	echo echo two
+222c241
+<     2  for f in a b c; do     echo echo two; done
+---
+>     2  for f in a b c; do 	echo echo two; done

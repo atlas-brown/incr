@@ -1,0 +1,37 @@
+88,89c88,89
+< /home/vagozino/incr/incr.sh
+< /home/vagozino/incr/incr.sh
+---
+> specialname
+> -specialname
+125c125
+<  subshell
+---
+> one.1 subshell
+128,129c128,129
+<  subshell
+<  subshell
+---
+> four.1 subshell
+> one.2 subshell
+132c132
+<  subshell
+---
+> four.2 subshell
+245c245
+< /home/vagozino/incr/incr.sh: line 1: notthere: No such file or directory
+---
+> bash: line 1: notthere: No such file or directory
+247c247
+< /home/vagozino/incr/incr.sh: line 1: notthere: No such file or directory
+---
+> bash: line 1: notthere: No such file or directory
+249c249
+< /home/vagozino/incr/incr.sh: line 1: notthere: No such file or directory
+---
+> bash: line 1: .: notthere: file not found
+251,252c251
+< /home/vagozino/incr/incr.sh: line 1: notthere: No such file or directory
+< two
+---
+> bash: line 1: .: notthere: file not found

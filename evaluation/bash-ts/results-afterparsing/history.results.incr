@@ -1,0 +1,119 @@
+1c1
+< ./history.tests: line 2: history: -x: invalid option
+---
+> ./history.tests: line 17: history: -x: invalid option
+3,4c3,4
+< ./history.tests: line 3: history: cannot use more than one of -anrw
+< ./history.tests: line 4: fc: -v: invalid option
+---
+> ./history.tests: line 19: history: cannot use more than one of -anrw
+> ./history.tests: line 22: fc: -v: invalid option
+76,78c76,79
+<    10  for x in one two three; do     :; done
+< /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache set -H
+< /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache echo line 2 for history
+---
+>    10  # this should show up as one history entry
+>    11  for x in one two three; do 	:; done
+> set -H
+> echo line 2 for history
+86,91c87,94
+< 10	 for x in one two three; do     :; done
+< 11	 set -H
+< 12	 /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache set -H
+< 13	 /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache echo line 2 for history
+< 14	 unset HISTSIZE
+< 15	 unset HISTFILE
+---
+> 10	 # this should show up as one history entry
+> 11	 for x in one two three; do 	:; done
+> 12	 # just a basic test.  a full test suite for history expansion should be
+> 13	 # created
+> 14	 set -H
+> 15	 echo line 2 for history
+> 16	 unset HISTSIZE
+> 17	 unset HISTFILE
+97,101c100,104
+< ./history.tests: line 49: fc: no command found
+<    12  /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache set -H
+<    13  /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache echo line 2 for history
+<    14  unset HISTSIZE
+<    15  unset HISTFILE
+---
+> ./history.tests: line 90: fc: no command found
+>    15  echo line 2 for history
+>    16  unset HISTSIZE
+>    17  unset HISTFILE
+>    18  # now an out-of-range error because of the one=two not found in history
+107c110
+< ./history.tests: line 57: fc: no command found
+---
+> ./history.tests: line 105: fc: no command found
+167,171c170,174
+< ./history3.sub: line 19: history: 16: history position out of range
+< ./history3.sub: line 20: history: 200: history position out of range
+< ./history3.sub: line 21: history: -20: history position out of range
+< ./history3.sub: line 22: history: -50: history position out of range
+< ./history3.sub: line 23: history: 5-0xaf: history position out of range
+---
+> ./history3.sub: line 40: history: 16: history position out of range
+> ./history3.sub: line 41: history: 200: history position out of range
+> ./history3.sub: line 42: history: -20: history position out of range
+> ./history3.sub: line 43: history: -50: history position out of range
+> ./history3.sub: line 44: history: 5-0xaf: history position out of range
+187a191,195
+> (left
+> mid
+> right)
+> A
+> B
+188a197,201
+> (left
+> mid
+> right)
+> A
+> B
+189a203,215
+> 0
+> 1
+> 2
+> (left
+> mid
+> right)
+> A
+> B
+> (left
+> mid
+> right)
+> A
+> B
+190a217,229
+> 0
+> 1
+> 2
+> (left
+> mid
+> right)
+> A
+> B
+> (left
+> mid
+> right)
+> A
+> B
+193,194c232,233
+< ./history5.sub: line 7: fc: history specification out of range
+< ./history5.sub: line 8: fc: no command found
+---
+> ./history5.sub: line 24: fc: history specification out of range
+> ./history5.sub: line 25: fc: no command found
+197,198c236,237
+< 3	 fc -0
+< 4	 fc -s -0
+---
+> 3	 fc -0	# error
+> 4	 fc -s -0	# error
+227c266
+< 12	 echo out of range 3
+---
+> 13	 fc -l 1 99
