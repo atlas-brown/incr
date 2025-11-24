@@ -2,8 +2,8 @@
 # Calculate mispelled words in an input
 
 TOP=$(git rev-parse --show-toplevel)
-PROGRAM="${TOP}/target/release/incr -a"
-PROGRAM=""
+PROGRAM="${TOP}/target/release/incr"
+# PROGRAM=""
 
 dict=/usr/share/dict/words
 
