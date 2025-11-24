@@ -7,10 +7,14 @@ sleep 0.01
 time ./scripts/chunk.sh > output.txt
 sha256sum output.txt
 
-rm -- "$IN"/*_dup.*
+rm -f -- "$IN"/*_dup.*
 file=$(find "$IN" -maxdepth 1 -type f -printf '%f\n' | sort | head -n1)
 duplicated="$IN/${file%.*}_dup.${file##*.}"
 cp "$IN/$file" "$duplicated"
+
+sleep 0.01
+time ./scripts/chunk.sh > output.txt
+sha256sum output.txt
 
 sleep 0.01
 time ./scripts/chunk.sh > output.txt
