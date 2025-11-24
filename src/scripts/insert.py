@@ -97,10 +97,16 @@ IGNORE_COMMANDS = [
     "mkdir",
     "umount",
     "yes",
+    "exec",
     # TODO: Remove
+    "strmatch",
     "cat",
+    "cp",
+    "mkfifo",
     "_intl_normalize_spaces",
     "_cut_leading_spaces",
+    "a",
+    "/",
     r"/bin/sh",
 ]
 AVOID_SET = set(IGNORE_COMMANDS)
@@ -220,10 +226,11 @@ def transform_bash_node(node, sys_path, state):
                 cmd = node.value.simple_com
                 if not len(cmd.words): return node
                 # ----- INCR -----
-                cmd_name = str(cmd.words[0].word, "utf8", errors="surrogateescape")
-                logging.debug(f"Handling simple command {cmd_name}")
+                cmd_name = str(cmd.words[0].word, "utf8", errors="replace")
+                logging.debug(f"Handling simple command {cmd_name} {[str(word.word) for word in cmd.words]}")
+                logging.debug(f"State: {state}")
                 if cmd_name == 'alias' and len(cmd.words) > 1:
-                    alias_name = str(cmd.words[1].word, "utf8", errors="surrogateescape").split('=')[0]
+                    alias_name = str(cmd.words[1].word, "utf8", errors="replace").split('=')[0]
                     state.aliases.add(alias_name)
                 if cmd_name in AVOID_SET or '=' in cmd_name: # Don't append sys to built-in commands or assignments
                     return node
@@ -311,7 +318,7 @@ def transform_bash_node(node, sys_path, state):
                 node_copy.value.case_com.clauses = clauses
                 return node_copy
             case _:
-                logging.warning(f"Ignoring bash command node: {node} with type {node.type}")
+                logging.debug(f"Ignoring bash command node: {node} with type {node.type}")
                 return node
 
     match node:
@@ -403,7 +410,7 @@ def main():
                 libbash.ast_to_bash(transformed_ast, temp_file.name)
                 temp_file.flush()
                 raw_bytes = temp_file.read()
-                transformed_code = raw_bytes.decode("utf-8", errors="surrogateescape")
+                transformed_code = raw_bytes.decode("utf-8", errors="replace")
                 transformed_code = strip_no_op_lines(transformed_code)
         else:
             original_ast = parse_shell_to_asts(args.path)
@@ -411,8 +418,9 @@ def main():
             transformed_code = ast_to_code(transformed_ast)
     except Exception as e:
         print(f"Error inserting {sys_name} into script {script_path}: {e}", file=sys.stderr)
-        with open(args.path, "r") as file:
-            transformed_code = file.read()
+        with open(args.path, "rb") as file:
+            raw_bytes = file.read()
+            transformed_code = raw_bytes.decode("utf-8", errors="replace")
         if args.debug:
             raise Exception(f"Error inserting {sys_name} into script {script_path}: {e}")
         sys.exit(1)
@@ -420,11 +428,11 @@ def main():
     output = args.output or sys.stdout
 
     if args.output:
-        with open(output, "w", encoding="utf-8", errors="surrogateescape") as f:
+        with open(output, "w", encoding="utf-8", errors="replace") as f:
             f.write(transformed_code)
             f.write("\n")
     else:
-        sys.stdout.buffer.write(transformed_code.encode("utf-8", errors="surrogateescape"))
+        sys.stdout.buffer.write(transformed_code.encode("utf-8", errors="replace"))
         sys.stdout.buffer.write(b"\n")
     if args.execute and args.output is not None:
         os.system(f"bash {args.output}")
