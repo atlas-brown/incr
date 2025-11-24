@@ -302,13 +302,7 @@ cd "$START_DIR" &&
 . "$script_to_execute"
 EOF
 
-     {
-        printf '#!/bin/sh\nexec'
-        for arg in "$@"; do
-          printf ' %s' "'$(printf %s "$arg" | sed "s/'/'\"'\"'/g")'"
-        done
-        printf '\n'
-     } >"$script_to_execute"
+    echo "$@" >"$script_to_execute"
 
     # `$script_to_execute` need not be +x to be sourced
     chmod +x "$mount_and_execute" "$chroot_executable"
