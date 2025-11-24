@@ -4,34 +4,42 @@ incr_shell=${INCR_SHELL:-bash}
 args=""
 flags=""
 
-while getopts "c:o:u" opt; do
+while getopts "c:o:ue" opt; do
     case "$opt" in
         c) cmd_str="$OPTARG" ;;
         o) args="$args -o $OPTARG" ;;
 	u) flags="$flags -u" ;;
-        *) echo "Usage: $0 [-c 'cmd'] <script> <cache_dir>" >&2; exit 1 ;;
+	e) flags="$flags -e" ;;
+        *) echo "Usage: $0 [-c 'cmd'] <script>" >&2; exit 1 ;;
     esac
 done
 shift $((OPTIND - 1))
 
-if [ -n "$cmd_str" ]; then
-    exec "$incr_shell" $flags -c "$cmd_str" $args "$@"
+# hack to handle missparing `sh -ce $cmd`
+if [ "$cmd_str" = e ]; then
+   cmd_str="$@"	
+   flags="$flags -e"
 fi
 
-if [ $# -eq 1 ] && [ ! -t 0 ]; then
+if [ -n "$cmd_str" ]; then
+    exec -a "$0" "$incr_shell" $flags $args -c "$cmd_str" "$@"
+fi
+
+if [ $# -eq 0 ] && [ ! -t 0 ]; then
     # Explicit -s means "read commands from stdin".
-    exec -a bash "$incr_shell" $flags -s $args
+    exec -a $0 "$incr_shell" $flags -s $args
 fi
 
 script=$1
-cache_dir=$2
+shift
+cache_dir=/tmp/cache
 
-[ -z "$script" ] && echo "Usage: $0 <script> <cache_dir>" && exit 1
-[ -z "$cache_dir" ] && echo "Usage: $0 <script> <cache_dir>" && exit 1
+[ -z "$script" ] && echo "Usage: $0 <script>" && exit 1
+[ -z "$cache_dir" ] && echo "Usage: $0 <script>" && exit 1
 
 TOP=$(git rev-parse --show-toplevel)
 TRY_PATH="$TOP/src/scripts/try.sh"
-tmp_incr=$(mktemp "$(dirname $script)/incr_script_$(basename $script).XXXXXXXX.sh")
+tmp_incr="$(dirname $script)/incr_script_$(basename $script).sh"
 tmp_orig=$(mktemp)
 
 # Ensure cleanup and preserve the right exit status.
@@ -41,6 +49,7 @@ cleanup() {
     local st=${rc:-$?}
     # Restore the original script.
     cp "$tmp_orig" "$script"
+    # Delete all tmp files
     rm -f "$tmp_orig"
     # rm -f "$tmp_incr"
     exit $st
@@ -54,5 +63,5 @@ cp "$script" "$tmp_orig"
 cp "$tmp_incr" "$script"
 
 # $script now is $tmp_incr
-$incr_shell $flags "$script" $args
+$incr_shell $flags $args -- "$script" "$@"
 rc=$?
