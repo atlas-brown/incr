@@ -1,0 +1,154 @@
+1a2,4
+> ./array.tests: line 28: syntax error near unexpected token `&'
+> ./array.tests: line 28: `test=(first & second)'
+> 1
+26c29
+< ./array.tests: line 46: readonly: `a[5]': not a valid identifier
+---
+> ./array.tests: line 92: readonly: `a[5]': not a valid identifier
+46,48c49,51
+< ./array.tests: line 62: a: readonly variable
+< ./array.tests: line 63: b[]: bad array subscript
+< ./array.tests: line 64: b[*]: bad array subscript
+---
+> ./array.tests: line 116: a: readonly variable
+> ./array.tests: line 118: b[]: bad array subscript
+> ./array.tests: line 119: b[*]: bad array subscript
+50,51c53,54
+< ./array.tests: line 66: c[-2]: bad array subscript
+< ./array.tests: line 67: c: bad array subscript
+---
+> ./array.tests: line 122: c[-2]: bad array subscript
+> ./array.tests: line 123: c: bad array subscript
+53,56c56,59
+< ./array.tests: line 68: d[7]: cannot assign list to array member
+< ./array.tests: line 69: []=abcde: bad array subscript
+< ./array.tests: line 69: [*]=last: cannot assign to non-numeric index
+< ./array.tests: line 69: [-65]=negative: bad array subscript
+---
+> ./array.tests: line 125: d[7]: cannot assign list to array member
+> ./array.tests: line 127: []=abcde: bad array subscript
+> ./array.tests: line 127: [*]=last: cannot assign to non-numeric index
+> ./array.tests: line 127: [-65]=negative: bad array subscript
+69,70c72,73
+< ./array.tests: line 74: unset: ps1: not an array variable
+< ./array.tests: line 77: declare: c: cannot destroy array variables in this way
+---
+> ./array.tests: line 135: unset: ps1: not an array variable
+> ./array.tests: line 139: declare: c: cannot destroy array variables in this way
+129c132,134
+< ./array.tests: line 150: narray: unbound variable
+---
+> ./array.tests: line 255: narray: unbound variable
+> ./array1.sub: line 1: syntax error near unexpected token `('
+> ./array1.sub: line 1: `printf "%s\n" -a a=(a 'b  c')'
+131a137,138
+> ./array2.sub: line 4: syntax error near unexpected token `('
+> ./array2.sub: line 4: `declare -a ''=(a 'b c')'
+151a159,162
+> ./array.tests: line 305: syntax error near unexpected token `<>'
+> ./array.tests: line 305: `metas=( <> < > ! )'
+> ./array.tests: line 306: syntax error near unexpected token `<>'
+> ./array.tests: line 306: `metas=( [1]=<> [2]=< [3]=> [4]=! )'
+301c312
+< argv[1] = <ï¿½>
+---
+> argv[1] = <€>
+303,304c314,315
+< argv[2] = <^A^?>
+< argv[3] = <ï¿½>
+---
+> argv[2] = <^?>
+> argv[3] = <€>
+306,307c317,318
+< argv[2] = <^A^?>
+< argv[3] = <ï¿½>
+---
+> argv[2] = <^?>
+> argv[3] = <€>
+309,310c320,321
+< argv[2] = <^A^?>
+< argv[3] = <ï¿½>
+---
+> argv[2] = <^?>
+> argv[3] = <€>
+362c373
+< ./array14.sub: line 7: unset: [-10]: bad array subscript
+---
+> ./array14.sub: line 24: unset: [-10]: bad array subscript
+392c403
+< ./array17.sub: line 14: ~: syntax error: operand expected (error token is "~")
+---
+> ./array17.sub: line 43: ~: syntax error: operand expected (error token is "~")
+407c418
+< ./array17.sub: line 43: ~ : syntax error: operand expected (error token is "~ ")
+---
+> ./array17.sub: line 89: ~ : syntax error: operand expected (error token is "~ ")
+445c456
+< ./array19.sub: line 55: total 0: syntax error in expression (error token is "0")
+---
+> ./array19.sub: line 89: total 0: syntax error in expression (error token is "0")
+453c464
+< ./array19.sub: line 84: warning: a[1]=(var): quoted compound array assignment deprecated
+---
+> ./array19.sub: line 128: warning: a[1]=(var): quoted compound array assignment deprecated
+514,521c525,532
+< ./array23.sub: line 3: $( echo >&2 foo ) : syntax error: operand expected (error token is "$( echo >&2 foo ) ")
+< ./array23.sub: line 4: $( echo >&2 foo ) : syntax error: operand expected (error token is "$( echo >&2 foo ) ")
+< ./array23.sub: line 5: $( echo >&2 foo ) : syntax error: operand expected (error token is "$( echo >&2 foo ) ")
+< ./array23.sub: line 6: $( echo >&2 foo ) : syntax error: operand expected (error token is "$( echo >&2 foo ) ")
+< ./array23.sub: line 8: $( echo >&2 foo ): syntax error: operand expected (error token is "$( echo >&2 foo )")
+< ./array23.sub: line 9: $( echo >&2 foo ): syntax error: operand expected (error token is "$( echo >&2 foo )")
+< ./array23.sub: line 10: $index: syntax error: operand expected (error token is "$index")
+< ./array23.sub: line 11: $( echo >&2 foo ): syntax error: operand expected (error token is "$( echo >&2 foo )")
+---
+> ./array23.sub: line 22: $( echo >&2 foo ) : syntax error: operand expected (error token is "$( echo >&2 foo ) ")
+> ./array23.sub: line 23: $( echo >&2 foo ) : syntax error: operand expected (error token is "$( echo >&2 foo ) ")
+> ./array23.sub: line 24: $( echo >&2 foo ) : syntax error: operand expected (error token is "$( echo >&2 foo ) ")
+> ./array23.sub: line 26: $( echo >&2 foo ) : syntax error: operand expected (error token is "$( echo >&2 foo ) ")
+> ./array23.sub: line 30: $( echo >&2 foo ): syntax error: operand expected (error token is "$( echo >&2 foo )")
+> ./array23.sub: line 33: $( echo >&2 foo ): syntax error: operand expected (error token is "$( echo >&2 foo )")
+> ./array23.sub: line 34: $index: syntax error: operand expected (error token is "$index")
+> ./array23.sub: line 35: $( echo >&2 foo ): syntax error: operand expected (error token is "$( echo >&2 foo )")
+575c586
+< ./array25.sub: line 6: ' ': syntax error: operand expected (error token is "' '")
+---
+> ./array25.sub: line 24: ' ': syntax error: operand expected (error token is "' '")
+741c752
+< ./array27.sub: line 30: read: `A[]]': not a valid identifier
+---
+> ./array27.sub: line 52: read: `A[]]': not a valid identifier
+743c754
+< ./array27.sub: line 37: printf: `A[]]': not a valid identifier
+---
+> ./array27.sub: line 60: printf: `A[]]': not a valid identifier
+745c756
+< ./array27.sub: line 44: declare: `A[]]=X': not a valid identifier
+---
+> ./array27.sub: line 68: declare: `A[]]=X': not a valid identifier
+747c758
+< ./array27.sub: line 51: declare: `A[]]=X': not a valid identifier
+---
+> ./array27.sub: line 76: declare: `A[]]=X': not a valid identifier
+755,764c766,775
+< declare -a var=([0]=$'\001\001\001\001\001\001\001\001')
+< declare -A v2=([$'\001\001']=$'ab\001\001c' )
+< declare -a foo=([0]=$'\001\001\001\001\001\001\001\001')
+< declare -A foo=([$'\001\001']=$'ab\001\001c' )
+< declare -a foo=([0]=$'\001\001\001\001\001\001\001\001')
+< declare -a foo=([0]=$'\001\001\001\001\001\001\001\001')
+< declare -A foo=([v]=$'\001\001\001\001\001\001\001\001' )
+< declare -A foo=([v]=$'\001\001\001\001\001\001\001\001' )
+< declare -A foo=([$'\001\001']=$'ab\001\001c' )
+< declare -A foo=([$'\001\001']=$'ab\001\001c' )
+---
+> declare -a var=([0]=$'\001\001\001\001')
+> declare -A v2=([$'\001']=$'ab\001c' )
+> declare -a foo=([0]=$'\001\001\001\001')
+> declare -A foo=([$'\001']=$'ab\001c' )
+> declare -a foo=([0]=$'\001\001\001\001')
+> declare -a foo=([0]=$'\001\001\001\001')
+> declare -A foo=([v]=$'\001\001\001\001' )
+> declare -A foo=([v]=$'\001\001\001\001' )
+> declare -A foo=([$'\001']=$'ab\001c' )
+> declare -A foo=([$'\001']=$'ab\001c' )

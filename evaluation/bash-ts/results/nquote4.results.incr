@@ -1,0 +1,20 @@
+6,8c6,8
+< argv[1] = <abï¿½>
+< argv[1] = <abï¿½>
+< argv[1] = <abï¿½e>
+---
+> argv[1] = <abÞ>
+> argv[1] = <abÞ>
+> argv[1] = <abÍe>
+10,11c10,11
+< argv[1] = <ï¿½X>
+< argv[1] = <ï¿½cX>
+---
+> argv[1] = <¼X>
+> argv[1] = <«cX>
+17,18c17,18
+< argv[1] = <^A^Abcd>
+< argv[1] = <ï¿½>
+---
+> argv[1] = <^Abcd>
+> argv[1] = <Þ>

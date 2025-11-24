@@ -1,0 +1,72 @@
+4c4
+< ./quotearray.tests: line 10: ((: 'assoc[x\],b\[\$(echo uname >&2)]++' : syntax error: operand expected (error token is "'assoc[x\],b\[\$(echo uname >&2)]++' ")
+---
+> ./quotearray.tests: line 31: ((: 'assoc[x\],b\[\$(echo uname >&2)]++' : syntax error: operand expected (error token is "'assoc[x\],b\[\$(echo uname >&2)]++' ")
+6c6
+< ./quotearray.tests: line 12: ((: 'assoc[x\],b\[\$(echo uname >&2)]'++ : syntax error: operand expected (error token is "'assoc[x\],b\[\$(echo uname >&2)]'++ ")
+---
+> ./quotearray.tests: line 34: ((: 'assoc[x\],b\[\$(echo uname >&2)]'++ : syntax error: operand expected (error token is "'assoc[x\],b\[\$(echo uname >&2)]'++ ")
+27,28c27,28
+< ./quotearray.tests: line 84: x],b[$(echo uname >&2): syntax error: invalid arithmetic operator (error token is "],b[$(echo uname >&2)")
+< ./quotearray.tests: line 86: x],b[$(echo uname >&2): syntax error: invalid arithmetic operator (error token is "],b[$(echo uname >&2)")
+---
+> ./quotearray.tests: line 140: x],b[$(echo uname >&2): syntax error: invalid arithmetic operator (error token is "],b[$(echo uname >&2)")
+> ./quotearray.tests: line 144: x],b[$(echo uname >&2): syntax error: invalid arithmetic operator (error token is "],b[$(echo uname >&2)")
+30c30
+< ./quotearray.tests: line 88: x],b[$(echo uname >&2): syntax error: invalid arithmetic operator (error token is "],b[$(echo uname >&2)")
+---
+> ./quotearray.tests: line 147: x],b[$(echo uname >&2): syntax error: invalid arithmetic operator (error token is "],b[$(echo uname >&2)")
+32c32
+< ./quotearray.tests: line 90: x],b[$(echo uname >&2): syntax error: invalid arithmetic operator (error token is "],b[$(echo uname >&2)")
+---
+> ./quotearray.tests: line 150: x],b[$(echo uname >&2): syntax error: invalid arithmetic operator (error token is "],b[$(echo uname >&2)")
+34c34
+< ./quotearray.tests: line 92: x],b[$(echo uname >&2): syntax error: invalid arithmetic operator (error token is "],b[$(echo uname >&2)")
+---
+> ./quotearray.tests: line 153: x],b[$(echo uname >&2): syntax error: invalid arithmetic operator (error token is "],b[$(echo uname >&2)")
+47c47
+< ./quotearray1.sub: line 39: 0\],b\[1: syntax error: invalid arithmetic operator (error token is "\],b\[1")
+---
+> ./quotearray1.sub: line 68: 0\],b\[1: syntax error: invalid arithmetic operator (error token is "\],b\[1")
+60c60
+< ./quotearray1.sub: line 69: test: aa[$(echo: binary operator expected
+---
+> ./quotearray1.sub: line 113: test: aa[$(echo: binary operator expected
+70c70
+< ./quotearray2.sub: line 26: read: `A[]]': not a valid identifier
+---
+> ./quotearray2.sub: line 54: read: `A[]]': not a valid identifier
+72c72
+< ./quotearray2.sub: line 33: printf: `A[]]': not a valid identifier
+---
+> ./quotearray2.sub: line 62: printf: `A[]]': not a valid identifier
+74c74
+< ./quotearray2.sub: line 40: declare: `A[]]=X': not a valid identifier
+---
+> ./quotearray2.sub: line 70: declare: `A[]]=X': not a valid identifier
+76c76
+< ./quotearray2.sub: line 47: declare: `A[]]=X': not a valid identifier
+---
+> ./quotearray2.sub: line 78: declare: `A[]]=X': not a valid identifier
+78c78
+< ./quotearray2.sub: line 54: let: assoc[x],b[$(echo: bad array subscript (error token is "b[$(echo")
+---
+> ./quotearray2.sub: line 89: let: assoc[x],b[$(echo: bad array subscript (error token is "b[$(echo")
+97c97
+< ./quotearray3.sub: line 54: declare: array: not found
+---
+> ./quotearray3.sub: line 98: declare: array: not found
+106c106
+< ./quotearray4.sub: line 15: declare: assoc: not found
+---
+> ./quotearray4.sub: line 41: declare: assoc: not found
+128c128
+< ./quotearray4.sub: line 65: array[@]: bad array subscript
+---
+> ./quotearray4.sub: line 115: array[@]: bad array subscript
+130,131c130,131
+< ./quotearray5.sub: line 4: unset: `a[$(echo': not a valid identifier
+< ./quotearray5.sub: line 4: unset: `foo)]': not a valid identifier
+---
+> ./quotearray5.sub: line 27: unset: `a[$(echo': not a valid identifier
+> ./quotearray5.sub: line 27: unset: `foo)]': not a valid identifier

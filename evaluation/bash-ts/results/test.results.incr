@@ -1,0 +1,68 @@
+238c238
+< ./test.tests: line 11: test: 4+3: integer expression expected
+---
+> ./test.tests: line 26: test: 4+3: integer expression expected
+241c241
+< ./test.tests: line 6: [: 4+3: integer expression expected
+---
+> ./test.tests: line 20: [: 4+3: integer expression expected
+244c244
+< ./test.tests: line 11: test: 4+5: integer expression expected
+---
+> ./test.tests: line 26: test: 4+5: integer expression expected
+247c247
+< ./test.tests: line 6: [: 4+5: integer expression expected
+---
+> ./test.tests: line 20: [: 4+5: integer expression expected
+250c250
+< ./test.tests: line 11: test: A: integer expression expected
+---
+> ./test.tests: line 26: test: A: integer expression expected
+253c253
+< ./test.tests: line 6: [: A: integer expression expected
+---
+> ./test.tests: line 20: [: A: integer expression expected
+256c256
+< ./test.tests: line 11: test: B: integer expression expected
+---
+> ./test.tests: line 26: test: B: integer expression expected
+259c259
+< ./test.tests: line 6: [: B: integer expression expected
+---
+> ./test.tests: line 20: [: B: integer expression expected
+262c262
+< ./test.tests: line 11: test: `)' expected
+---
+> ./test.tests: line 26: test: `)' expected
+265c265
+< ./test.tests: line 6: [: `)' expected, found ]
+---
+> ./test.tests: line 20: [: `)' expected, found ]
+267c267
+< ./test.tests: line 11: test: a: unary operator expected
+---
+> ./test.tests: line 26: test: a: unary operator expected
+269c269
+< ./test.tests: line 11: test: b: binary operator expected
+---
+> ./test.tests: line 26: test: b: binary operator expected
+271c271
+< ./test.tests: line 11: test: -A: unary operator expected
+---
+> ./test.tests: line 26: test: -A: unary operator expected
+273c273
+< ./test.tests: line 11: test: syntax error: `-ne' unexpected
+---
+> ./test.tests: line 26: test: syntax error: `-ne' unexpected
+275c275
+< ./test.tests: line 11: test: too many arguments
+---
+> ./test.tests: line 26: test: too many arguments
+277c277
+< ./test.tests: line 329: [: missing `]'
+---
+> ./test.tests: line 434: [: missing `]'
+279c279
+< ./test.tests: line 11: test: (: unary operator expected
+---
+> ./test.tests: line 26: test: (: unary operator expected

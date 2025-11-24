@@ -1,0 +1,142 @@
+2,13c2,72
+< cp: -r not specified; omitting directory '.'
+< cp: './incr_script_..sh' and './incr_script_..sh' are the same file
+< .: .: Is a directory
+< /home/vagozino/incr/incr.sh: option requires an argument -- c
+< Usage: /home/vagozino/incr/incr.sh [-c 'cmd'] <script>
+< /home/vagozino/incr/incr.sh: illegal option -- -
+< Usage: /home/vagozino/incr/incr.sh [-c 'cmd'] <script>
+< /home/vagozino/incr/incr.sh: illegal option -- -
+< Usage: /home/vagozino/incr/incr.sh [-c 'cmd'] <script>
+< /home/vagozino/incr/incr.sh: illegal option -- q
+< Usage: /home/vagozino/incr/incr.sh [-c 'cmd'] <script>
+< /home/vagozino/incr/incr.sh /home/vagozino/incr/incr.sh
+---
+> bash: -c: option requires an argument
+> bash: --badopt: invalid option
+> bash [GNU long option] [option] ...
+> bash [GNU long option] [option] script-file ...
+> GNU long options:
+> 	--debug
+> 	--debugger
+> 	--dump-po-strings
+> 	--dump-strings
+> 	--help
+> 	--init-file
+> 	--login
+> 	--noediting
+> 	--noprofile
+> 	--norc
+> 	--posix
+> 	--pretty-print
+> 	--rcfile
+> 	--restricted
+> 	--verbose
+> 	--version
+> Shell options:
+> 	-ilrsD or -c command or -O shopt_option		(invocation only)
+> 	-abefhkmnptuvxBCEHPT or -o option
+> bash: --initfile: invalid option
+> bash [GNU long option] [option] ...
+> bash [GNU long option] [option] script-file ...
+> GNU long options:
+> 	--debug
+> 	--debugger
+> 	--dump-po-strings
+> 	--dump-strings
+> 	--help
+> 	--init-file
+> 	--login
+> 	--noediting
+> 	--noprofile
+> 	--norc
+> 	--posix
+> 	--pretty-print
+> 	--rcfile
+> 	--restricted
+> 	--verbose
+> 	--version
+> Shell options:
+> 	-ilrsD or -c command or -O shopt_option		(invocation only)
+> 	-abefhkmnptuvxBCEHPT or -o option
+> bash: -q: invalid option
+> bash [GNU long option] [option] ...
+> bash [GNU long option] [option] script-file ...
+> GNU long options:
+> 	--debug
+> 	--debugger
+> 	--dump-po-strings
+> 	--dump-strings
+> 	--help
+> 	--init-file
+> 	--login
+> 	--noediting
+> 	--noprofile
+> 	--norc
+> 	--posix
+> 	--pretty-print
+> 	--rcfile
+> 	--restricted
+> 	--verbose
+> 	--version
+> Shell options:
+> 	-ilrsD or -c command or -O shopt_option		(invocation only)
+> 	-abefhkmnptuvxBCEHPT or -o option
+> this-bash this-bash
+15,16c74
+< /home/vagozino/incr/incr.sh: illegal option -- O
+< Usage: /home/vagozino/incr/incr.sh [-c 'cmd'] <script>
+---
+> bash: line 0: badopt: invalid shell option name
+18,22c76,78
+< /home/vagozino/incr/incr.sh: illegal option -- O
+< Usage: /home/vagozino/incr/incr.sh [-c 'cmd'] <script>
+< bash: +O: No such file or directory
+< cp: cannot stat '+O': No such file or directory
+< ./invocation1.sub: line 16: BASHOPTS: readonly variable
+---
+> checkhash:checkwinsize:cmdhist:complete_fullquote:extquote:force_fignore:globasciiranges:globskipdots:hostcomplete:interactive_comments:patsub_replacement:progcomp:promptvars:sourcepath
+> cmdhist:complete_fullquote:extquote:force_fignore:globasciiranges:globskipdots:hostcomplete:interactive_comments:patsub_replacement:progcomp:promptvars:sourcepath
+> ./invocation1.sub: line 40: BASHOPTS: readonly variable
+25,31c81,82
+< bash: +B: No such file or directory
+< cp: cannot stat '+B': No such file or directory
+< bash: +o: No such file or directory
+< cp: cannot stat '+o': No such file or directory
+< /home/vagozino/incr/incr.sh: illegal option -- f
+< Usage: /home/vagozino/incr/incr.sh [-c 'cmd'] <script>
+< SHELLOPTS: noglob not inherited correctly
+---
+> hashall:interactive-comments
+> hashall:interactive-comments
+33,36c84,99
+< ./invocation2.sub: line 23: SHELLOPTS: readonly variable
+< /home/vagozino/incr/incr.sh: illegal option -- -
+< Usage: /home/vagozino/incr/incr.sh [-c 'cmd'] <script>
+< /home/vagozino/incr/evaluation/bash-ts/incr.sh: line 8: /tmp/invocation-1281309/incr/incr.sh: No such file or directory
+---
+> braceexpand:hashall:interactive-comments:noglob
+> ./invocation2.sub: line 50: SHELLOPTS: readonly variable
+> for i in 1 2 3;
+> do
+>     select var in a b c;
+>     do
+>         echo $REPLY;
+>     done <<< a; echo answer was $REPLY;
+> done
+> 
+> for ((i=1; i <= 3; i++ ))
+> do
+>     echo $(( 2**$i ));
+> done
+> 
+> this is bash_logout
+40,44c103,104
+< strace: exec: No such file or directory
+< not a git repository (or any parent up to mount point /)
+< Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+< [Errno 2] No such file or directory
+< No such file or directory
+---
+> ./invocation.tests: ./x23: nosuchfile: bad interpreter: No such file or directory
+> cannot execute binary file

@@ -1,0 +1,224 @@
+2,3c2,3
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+5,6c5,6
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+8,9c8,9
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+11,12c11,12
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+14,15c14,15
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+17,18c17,18
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+20,21c20,21
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+23,24c23,24
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+26,27c26,27
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+29,30c29,30
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+32,33c32,33
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+35,36c35,36
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+38,39c38,39
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+41,42c41,42
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+44,45c44,45
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+47,48c47,48
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+50,51c50,51
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+53,54c53,54
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+56,57c56,57
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+59,60c59,60
+< argv[2] = <a^A^Ab>
+< argv[3] = <4>
+---
+> argv[2] = <a^Ab>
+> argv[3] = <3>
+74,75c74,75
+< argv[2] = <uv^A^A^A^Awx>
+< argv[3] = <uv^A^A^A^Awx>
+---
+> argv[2] = <uv^A^Awx>
+> argv[3] = <uv^A^Awx>
+77,78c77,78
+< argv[2] = <uv^A^A^A^Awx>
+< argv[3] = <uv^A^A^A^Awx>
+---
+> argv[2] = <uv^A^Awx>
+> argv[3] = <uv^A^Awx>
+80,81c80,81
+< argv[2] = <uv^A^A^A^Awx>
+< argv[3] = <uv^A^A^A^Awx>
+---
+> argv[2] = <uv^A^Awx>
+> argv[3] = <uv^A^Awx>
+83,84c83,84
+< argv[2] = <uv^A^A^A^Awx>
+< argv[3] = <uv^A^A^A^Awx>
+---
+> argv[2] = <uv^A^Awx>
+> argv[3] = <uv^A^Awx>
+86,87c86,87
+< argv[2] = <uv^A^A^A^Awx>
+< argv[3] = <uv^A^A^A^Awx>
+---
+> argv[2] = <uv^A^Awx>
+> argv[3] = <uv^A^Awx>
+89,92c89,92
+< argv[2] = <uv^A^A^A^Awx uv^A^A^A^Awx>
+< argv[1] = <uv^A^A^A^Awx>
+< argv[1] = <uv^A^A^A^Awx>
+< argv[1] = <uv^A^A^A^Awx>
+---
+> argv[2] = <uv^A^Awx uv^A^Awx>
+> argv[1] = <uv^A^Awx>
+> argv[1] = <uv^A^Awx>
+> argv[1] = <uv^A^Awx>
+97c97
+< argv[2] = <v^A^A>
+---
+> argv[2] = <v^Aw>
+99c99
+< argv[2] = <v^A^A>
+---
+> argv[2] = <v^Aw>
+101c101
+< argv[2] = <uv^A^A>
+---
+> argv[2] = <uv^Aw>
+103c103
+< argv[2] = <uv^A^A>
+---
+> argv[2] = <uv^Aw>
+105c105
+< argv[2] = <uv^A^A>
+---
+> argv[2] = <uv^Aw>
+107c107
+< argv[2] = <uv^A^A>
+---
+> argv[2] = <uv^Aw>
+109c109
+< argv[2] = <uv^A^A>
+---
+> argv[2] = <uv^Aw>
+111c111
+< argv[2] = <uv^A^A>
+---
+> argv[2] = <uv^Aw>
+113c113
+< argv[2] = <^A^A>
+---
+> argv[2] = <^Aw>
+115c115
+< argv[2] = <^A^A>
+---
+> argv[2] = <^Aw>
+117,118c117,118
+< argv[2] = <uv^A^Aw^A^Axy>
+< argv[3] = <uv^A^Aw^A^Axy>
+---
+> argv[2] = <uv^Aw^Axy>
+> argv[3] = <uv^Aw^Axy>
+120,121c120,121
+< argv[2] = <uv^A^Aw^A^Axy>
+< argv[3] = <uv^A^Aw^A^Axy>
+---
+> argv[2] = <uv^Aw^Axy>
+> argv[3] = <uv^Aw^Axy>
+127,128c127,128
+< argv[2] = <uv^A^A^A^Awx>
+< argv[3] = <uv^A^A^A^Awx>
+---
+> argv[2] = <uv^A^Awx>
+> argv[3] = <uv^A^Awx>
+130,131c130,131
+< argv[2] = <uv^A^A^A^Awx>
+< argv[3] = <uv^A^A^A^Awx>
+---
+> argv[2] = <uv^A^Awx>
+> argv[3] = <uv^A^Awx>

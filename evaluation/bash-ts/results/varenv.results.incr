@@ -1,0 +1,68 @@
+63,64c63,64
+< ./varenv4.sub: line 43: bbb: unique: cannot convert indexed to associative array
+< ./varenv4.sub: line 43: declare: unique: cannot convert indexed to associative array
+---
+> ./varenv4.sub: line 67: bbb: unique: cannot convert indexed to associative array
+> ./varenv4.sub: line 67: declare: unique: cannot convert indexed to associative array
+81c81
+< ./varenv7.sub: line 33: local: var: readonly variable
+---
+> ./varenv7.sub: line 57: local: var: readonly variable
+99,100c99,100
+< ./varenv9.sub: line 12: declare: i1: not found
+< ./varenv9.sub: line 12: declare: j1: not found
+---
+> ./varenv9.sub: line 28: declare: i1: not found
+> ./varenv9.sub: line 28: declare: j1: not found
+107,108c107,108
+< ./varenv9.sub: line 25: unset: i2: cannot unset: readonly variable
+< ./varenv9.sub: line 25: unset: j2: cannot unset: readonly variable
+---
+> ./varenv9.sub: line 46: unset: i2: cannot unset: readonly variable
+> ./varenv9.sub: line 46: unset: j2: cannot unset: readonly variable
+113,114c113,114
+< ./varenv9.sub: line 37: declare: i3: not found
+< ./varenv9.sub: line 37: declare: j3: not found
+---
+> ./varenv9.sub: line 61: declare: i3: not found
+> ./varenv9.sub: line 61: declare: j3: not found
+121,122c121,122
+< ./varenv9.sub: line 50: unset: i4: cannot unset: readonly variable
+< ./varenv9.sub: line 50: unset: j4: cannot unset: readonly variable
+---
+> ./varenv9.sub: line 79: unset: i4: cannot unset: readonly variable
+> ./varenv9.sub: line 79: unset: j4: cannot unset: readonly variable
+132,134c132,134
+< ./varenv11.sub: line 3: local: qux: readonly variable
+< ./varenv11.sub: line 4: qux: readonly variable
+< ./varenv11.sub: line 4: local: qux: readonly variable
+---
+> ./varenv11.sub: line 17: local: qux: readonly variable
+> ./varenv11.sub: line 18: qux: readonly variable
+> ./varenv11.sub: line 18: local: qux: readonly variable
+139c139
+< ./varenv11.sub: line 22: a: readonly variable
+---
+> ./varenv11.sub: line 42: a: readonly variable
+168,170c168,170
+< ./varenv13.sub: line 6: `var[0]': not a valid identifier
+< ./varenv13.sub: line 6: `var[@]': not a valid identifier
+< ./varenv13.sub: line 4: declare: var: not found
+---
+> ./varenv13.sub: line 16: `var[0]': not a valid identifier
+> ./varenv13.sub: line 16: `var[@]': not a valid identifier
+> ./varenv13.sub: line 14: declare: var: not found
+173c173
+< ./varenv13.sub: line 24: `var[0]': not a valid identifier
+---
+> ./varenv13.sub: line 35: `var[0]': not a valid identifier
+180,181c180,181
+< ./varenv14.sub: line 34: f: var: cannot convert indexed to associative array
+< ./varenv14.sub: line 34: declare: var: cannot convert indexed to associative array
+---
+> ./varenv14.sub: line 31: f: var: cannot convert indexed to associative array
+> ./varenv14.sub: line 31: declare: var: cannot convert indexed to associative array
+257c257
+< ./varenv19.sub: line 32: declare: x: not found
+---
+> ./varenv19.sub: line 51: declare: x: not found

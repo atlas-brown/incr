@@ -1,0 +1,18 @@
+8c8
+< ./case.tests: line 51: xx: readonly variable
+---
+> ./case.tests: line 42: xx: readonly variable
+16a17
+> esac
+28,30c29,31
+< argv[1] = <\a\b\c\^A^A\d\e\f>
+< argv[1] = <\a\b\c\^A^A\d\e\f>
+< argv[1] = <abc^A^Adef>
+---
+> argv[1] = <\a\b\c\^A\d\e\f>
+> argv[1] = <\a\b\c\^A\d\e\f>
+> argv[1] = <abc^Adef>
+55c56
+< --- testing: soh
+---
+> --- testing: del

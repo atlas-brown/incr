@@ -1,0 +1,12 @@
+5c5
+< ./getopts.tests: line 5: getopts: -a: invalid option
+---
+> ./getopts.tests: line 23: getopts: -a: invalid option
+55c55
+< ./getopts7.sub: line 3: getopts: `opt-var': not a valid identifier
+---
+> ./getopts7.sub: line 17: getopts: `opt-var': not a valid identifier
+64c64
+< ./getopts10.sub: line 3: OPTARG: readonly variable
+---
+> ./getopts10.sub: line 16: OPTARG: readonly variable

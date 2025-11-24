@@ -1,0 +1,58 @@
+8c8
+< [12] debug
+---
+> [33] debug
+10c10
+< [13] debug
+---
+> [35] debug
+18,19c18,19
+< [14] debug
+< func[9] funcdebug
+---
+> [37] debug
+> func[29] funcdebug
+21c21
+< ./trap.tests[15] funcdebug
+---
+> ./trap.tests[39] funcdebug
+29,33c29,33
+< ./trap.tests[16] funcdebug
+< ./trap.tests[21] debug
+< ./trap.tests[22] debug
+< func2[18] debug
+< func2[19] debug
+---
+> ./trap.tests[41] funcdebug
+> ./trap.tests[46] debug
+> ./trap.tests[47] debug
+> func2[43] debug
+> func2[44] debug
+35,36c35,36
+< ./trap.tests[23] debug
+< ./trap.tests[24] debug
+---
+> ./trap.tests[49] debug
+> ./trap.tests[51] debug
+75c75
+< +[4] echo 1
+---
+> +[6] echo 1
+77c77
+< +[5] echo 2
+---
+> +[7] echo 2
+79,84c79,84
+< +[6] false
+< +[6] false
+< +[6] false
+< ++[6] echo trap: 6
+< trap: 6
+< +[7] echo 4
+---
+> +[8] false
+> +[8] false
+> +[8] false
+> ++[8] echo trap: 8
+> trap: 8
+> +[9] echo 4

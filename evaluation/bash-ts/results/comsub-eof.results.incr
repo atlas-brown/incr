@@ -1,0 +1,12 @@
+6c6,7
+< 
+---
+> ./comsub-eof3.sub: line 4: warning: here-document at line 1 delimited by end-of-file (wanted `EOF')
+> ./comsub-eof3.sub: line 5: unexpected EOF while looking for matching `)'
+10,11d10
+< ./comsub-eof5.sub: line 9: warning: here-document at line 7 delimited by end-of-file (wanted `EOF')
+< ./comsub-eof5.sub: line 15: warning: here-document at line 13 delimited by end-of-file (wanted `)')
+12a12
+> ./comsub-eof5.sub: line 9: warning: here-document at line 7 delimited by end-of-file (wanted `EOF')
+13a14
+> ./comsub-eof5.sub: line 15: warning: here-document at line 13 delimited by end-of-file (wanted `)')

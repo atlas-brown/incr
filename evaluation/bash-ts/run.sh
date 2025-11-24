@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 cd "$(dirname "$0")" || exit 1
 
@@ -7,29 +7,40 @@ cd "$(dirname "$0")" || exit 1
 # make -C bash -j4
 # make -C bash recho zecho printenv xcase -j4
 
-target_test="run-precedence"
+sudo rm -rf /tmp/cache
+rm -f out.* results.*
 
+[ -z "$1" ] && exit 1
+
+results_dir="$PWD/results"
+test="$1"
+target_test="run-$test"
+[ -z "$target_test" ] && exit 1
+top=$(git rev-parse --show-toplevel)
 export PATH="$PATH:$PWD/bash"
 export TMPDIR=/tmp
-top=$(git rev-parse --show-toplevel)
+export BASH_TSTOUT=/tmp/tstout
+export BUILD_DIR="$PWD/bash"
 
-# cd tests
-cd tests-normln
+mkdir -p "$results_dir"
+
+cd tests || exit 1
 
 # First, run tests with bash
 export THIS_SH=$top/evaluation/bash-ts/bash/bash
-export BASH_TSTOUT=/tmp/tstout
-
 $THIS_SH $target_test > ../results.bash
-cp /tmp/tstout ../out.bash
+cp ../results.bash "$results_dir"/$test.results.bash
 
 # Then, run tests with incr
-rm -rf "$top/evaluation/bash-ts/cache"
 export THIS_SH=$top/evaluation/bash-ts/incr.sh
-export INCR_TSTOUT=/tmp/tstout
-
 $THIS_SH $target_test > ../results.incr
-cp /tmp/tstout ../out.incr
+cp ../results.incr "$results_dir"/$test.results.incr
 
+# Finally, diff results
 diff ../results.bash ../results.incr > ../results.diff
-diff ../out.bash ../out.incr > ../out.diff
+nl()
+{
+	# Normalize line numbers
+	sed -E 's/line [0-9]+/line xxxx/' $1 
+}
+# diff <(nl ../out.bash) <(nl ../out.incr) > ../out.diff

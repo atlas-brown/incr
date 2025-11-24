@@ -1,0 +1,32 @@
+2c2
+< ./attr.tests: line 8: a: readonly variable
+---
+> ./attr.tests: line 17: a: readonly variable
+4c4
+< ./attr.tests: line 12: a: readonly variable
+---
+> ./attr.tests: line 18: a: readonly variable
+6c6
+< ./attr.tests: line 16: readonly: a: readonly variable
+---
+> ./attr.tests: line 19: readonly: a: readonly variable
+14c14
+< ./attr1.sub: line 15: p: readonly variable
+---
+> ./attr1.sub: line 26: p: readonly variable
+16c16
+< ./attr1.sub: line 21: r: readonly variable
+---
+> ./attr1.sub: line 32: r: readonly variable
+18c18
+< ./attr1.sub: line 27: r: readonly variable
+---
+> ./attr1.sub: line 36: r: readonly variable
+20c20
+< ./attr1.sub: line 33: r: readonly variable
+---
+> ./attr1.sub: line 40: r: readonly variable
+22c22
+< ./attr1.sub: line 39: readonly: r: readonly variable
+---
+> ./attr1.sub: line 44: readonly: r: readonly variable

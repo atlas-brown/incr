@@ -1,0 +1,10 @@
+3c3
+< ./alias.tests: line 14: qfoo: command not found
+---
+> ./alias.tests: line 38: qfoo: command not found
+12a13
+> OK
+36c37
+< < >
+---
+> <|cat>

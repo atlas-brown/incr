@@ -1,0 +1,26 @@
+94,95c94,95
+< argv[1] = <^A^?>
+< argv[1] = <^A^?>
+---
+> argv[1] = <^?>
+> argv[1] = <^?>
+111c111
+< ./more-exp.tests: line 226: abc=def: command not found
+---
+> ./more-exp.tests: line 285: abc=def: command not found
+187,193c187,193
+< ./more-exp.tests: line 330: ${#:}: bad substitution
+< ./more-exp.tests: line 332: ${#/}: bad substitution
+< ./more-exp.tests: line 334: ${#%}: bad substitution
+< ./more-exp.tests: line 336: ${#=}: bad substitution
+< ./more-exp.tests: line 338: ${#+}: bad substitution
+< ./more-exp.tests: line 340: ${#1xyz}: bad substitution
+< ./more-exp.tests: line 342: #: %: syntax error: operand expected (error token is "%")
+---
+> ./more-exp.tests: line 436: ${#:}: bad substitution
+> ./more-exp.tests: line 438: ${#/}: bad substitution
+> ./more-exp.tests: line 440: ${#%}: bad substitution
+> ./more-exp.tests: line 442: ${#=}: bad substitution
+> ./more-exp.tests: line 444: ${#+}: bad substitution
+> ./more-exp.tests: line 446: ${#1xyz}: bad substitution
+> ./more-exp.tests: line 449: #: %: syntax error: operand expected (error token is "%")

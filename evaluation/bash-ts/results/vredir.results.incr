@@ -1,0 +1,48 @@
+1c1
+< 11
+---
+> 10
+11,12c11,12
+< ./vredir.tests: line 5: v: readonly variable
+< ./vredir.tests: line 5: v: cannot assign fd to variable
+---
+> ./vredir.tests: line 19: v: readonly variable
+> ./vredir.tests: line 19: v: cannot assign fd to variable
+20c20
+< 14
+---
+> 10
+35c35
+< 13
+---
+> 10
+39c39
+< 14
+---
+> 10
+62c62
+< ./vredir3.sub: line 3: v: ambiguous redirect
+---
+> ./vredir3.sub: line 4: v: ambiguous redirect
+64c64
+< 13 14
+---
+> 10 11
+75c75
+< 15 13
+---
+> 12 10
+87,88c87,88
+< ./vredir6.sub: line 10: /dev/null: Too many open files
+< ./vredir6.sub: line 12: /dev/null: Too many open files
+---
+> ./vredir6.sub: redirection error: cannot duplicate fd: Invalid argument
+> ./vredir6.sub: line 13: /dev/null: Invalid argument
+90c90
+< 15 13
+---
+> 12 10
+101c101
+< ./vredir8.sub: line 6: $fd: Bad file descriptor
+---
+> ./vredir8.sub: line 12: $fd: Bad file descriptor

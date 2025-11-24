@@ -1,0 +1,4 @@
+63c63
+< ./complete.tests: line 89: complete: notthere: no completion specification
+---
+> ./complete.tests: line 123: complete: notthere: no completion specification

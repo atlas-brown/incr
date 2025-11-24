@@ -1,0 +1,89 @@
+Testing /home/vagozino/incr/evaluation/bash-ts/incr.sh
+version: 5.2.37(1)-release
+HOSTTYPE = x86_64
+OSTYPE = linux-gnu
+MACHTYPE = x86_64-pc-linux-gnu
+Testing /home/vagozino/incr/evaluation/bash-ts/incr.sh
+Any output from any test, unless otherwise noted, indicates a possible anomaly
+run-comsub-eof
+6c6,7
+< 
+---
+> ./comsub-eof3.sub: line 4: warning: here-document at line 1 delimited by end-of-file (wanted `EOF')
+> ./comsub-eof3.sub: line 5: unexpected EOF while looking for matching `)'
+10,11d10
+< ./comsub-eof5.sub: line 9: warning: here-document at line 7 delimited by end-of-file (wanted `EOF')
+< ./comsub-eof5.sub: line 15: warning: here-document at line 13 delimited by end-of-file (wanted `)')
+12a12
+> ./comsub-eof5.sub: line 9: warning: here-document at line 7 delimited by end-of-file (wanted `EOF')
+13a14
+> ./comsub-eof5.sub: line 15: warning: here-document at line 13 delimited by end-of-file (wanted `)')
+run-comsub-posix
+34,40c34
+< unshare: unshare failed: Operation not permitted
+< rm: cannot remove '/tmp/cache/sandbox_8868292016829407967/temproot//bin': No such file or directory
+< rm: cannot remove '/tmp/cache/sandbox_8868292016829407967/temproot//lib': No such file or directory
+< rm: cannot remove '/tmp/cache/sandbox_8868292016829407967/temproot//lib64': No such file or directory
+< rm: cannot remove '/tmp/cache/sandbox_8868292016829407967/temproot//sbin': No such file or directory
+< Error: (recho 'abcde
+<   ') read "/tmp/cache/sandbox_8868292016829407967/upperdir/tmp/trace.txt": No such file or directory (os error 2)
+---
+> argv[1] = <abcde^J  >
+42,59c36,39
+< unshare: unshare failed: Operation not permitted
+< rm: cannot remove '/tmp/cache/sandbox_12464980397348960821/temproot//bin': No such file or directory
+< rm: cannot remove '/tmp/cache/sandbox_12464980397348960821/temproot//lib': No such file or directory
+< rm: cannot remove '/tmp/cache/sandbox_12464980397348960821/temproot//lib64': No such file or directory
+< rm: cannot remove '/tmp/cache/sandbox_12464980397348960821/temproot//sbin': No such file or directory
+< Error: (recho abcde foo) read "/tmp/cache/sandbox_12464980397348960821/upperdir/tmp/trace.txt": No such file or directory (os error 2)
+< unshare: unshare failed: Operation not permitted
+< rm: cannot remove '/tmp/cache/sandbox_3276375909120192645/temproot//bin': No such file or directory
+< rm: cannot remove '/tmp/cache/sandbox_3276375909120192645/temproot//lib': No such file or directory
+< rm: cannot remove '/tmp/cache/sandbox_3276375909120192645/temproot//lib64': No such file or directory
+< rm: cannot remove '/tmp/cache/sandbox_3276375909120192645/temproot//sbin': No such file or directory
+< Error: (recho wxabcdeyz) read "/tmp/cache/sandbox_3276375909120192645/upperdir/tmp/trace.txt": No such file or directory (os error 2)
+< unshare: unshare failed: Operation not permitted
+< rm: cannot remove '/tmp/cache/sandbox_2532129375606825569/temproot//bin': No such file or directory
+< rm: cannot remove '/tmp/cache/sandbox_2532129375606825569/temproot//lib': No such file or directory
+< rm: cannot remove '/tmp/cache/sandbox_2532129375606825569/temproot//lib64': No such file or directory
+< rm: cannot remove '/tmp/cache/sandbox_2532129375606825569/temproot//sbin': No such file or directory
+< Error: (recho abcde) read "/tmp/cache/sandbox_2532129375606825569/upperdir/tmp/trace.txt": No such file or directory (os error 2)
+---
+> argv[1] = <abcde>
+> argv[2] = <foo>
+> argv[1] = <wxabcdeyz>
+> argv[1] = <abcde>
+84d63
+< Error inserting incr into script ./comsub-posix1.sub: Bash read command failed, shell script may be invalid
+100,110c79,90
+< /home/vagozino/incr/incr.sh: -c: line 1: syntax error near unexpected token `done'
+< /home/vagozino/incr/incr.sh: -c: line 1: `: $(case x in x) ;; x) done esac)'
+< /home/vagozino/incr/incr.sh: -c: line 1: syntax error near unexpected token `done'
+< /home/vagozino/incr/incr.sh: -c: line 1: `: $(case x in x) ;; x) done ;; esac)'
+< /home/vagozino/incr/incr.sh: -c: line 1: syntax error near unexpected token `esac'
+< /home/vagozino/incr/incr.sh: -c: line 1: `: $(case x in x) (esac) esac)'
+< esac
+< ./comsub-posix5.sub: line 211: syntax error near unexpected token `;;'
+< ./comsub-posix5.sub: line 211: `    ;;'
+< /home/vagozino/incr/incr.sh: -c: line 3: syntax error near unexpected token `esac'
+< /home/vagozino/incr/incr.sh: -c: line 3: `$( esac ; bar=foo ; echo "$bar")) echo bad 2;;'
+---
+> bash: -c: line 1: syntax error near unexpected token `done'
+> bash: -c: line 1: `: $(case x in x) ;; x) done esac)'
+> bash: -c: line 1: syntax error near unexpected token `done'
+> bash: -c: line 1: `: $(case x in x) ;; x) done ;; esac)'
+> bash: -c: line 1: syntax error near unexpected token `esac'
+> bash: -c: line 1: `: $(case x in x) (esac) esac)'
+> bash: -c: line 1: syntax error near unexpected token `in'
+> bash: -c: line 1: `: $(case x in esac|in) foo;; esac)'
+> bash: -c: line 1: syntax error near unexpected token `done'
+> bash: -c: line 1: `: $(case x in x) ;; x) done)'
+> case: -c: line 3: syntax error near unexpected token `esac'
+> case: -c: line 3: `$( esac ; bar=foo ; echo "$bar")) echo bad 2;;'
+114,115c94,95
+< /home/vagozino/incr/incr.sh: -c: line 2: syntax error near unexpected token `done'
+< /home/vagozino/incr/incr.sh: -c: line 2: `: $(case x in x) ;; x) done ;; esac)'
+---
+> syntax-error: -c: line 2: syntax error near unexpected token `done'
+> syntax-error: -c: line 2: `: $(case x in x) ;; x) done ;; esac)'
+run-dollars

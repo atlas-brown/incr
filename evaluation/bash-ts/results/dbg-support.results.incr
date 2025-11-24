@@ -1,0 +1,452 @@
+1,2c1,2
+< debug lineno: 49 main
+< debug lineno: 50 main
+---
+> debug lineno: 74 main
+> debug lineno: 77 main
+4,10c4,10
+< debug lineno: 51 main
+< debug lineno: 13 fn1
+< debug lineno: 14 fn1
+< LINENO 14
+< debug lineno: 15 fn1
+< LINENO 15
+< debug lineno: 16 fn1
+---
+> debug lineno: 81 main
+> debug lineno: 30 fn1
+> debug lineno: 31 fn1
+> LINENO 31
+> debug lineno: 32 fn1
+> LINENO 32
+> debug lineno: 33 fn1
+12c12
+< debug lineno: 17 fn1
+---
+> debug lineno: 34 fn1
+14,21c14,21
+< debug lineno: 18 fn1
+< debug lineno: 18 fn1 51 ./dbg-support.tests
+< debug lineno: 19 fn1
+< debug lineno: 19 fn1 51 main ./dbg-support.tests
+< debug lineno: 20 fn1
+< debug lineno: 20 fn1
+< debug lineno: 21 fn1
+< ./dbg-support.tests: line 21: caller: foo: invalid number
+---
+> debug lineno: 35 fn1
+> debug lineno: 35 fn1 81 ./dbg-support.tests
+> debug lineno: 36 fn1
+> debug lineno: 36 fn1 81 main ./dbg-support.tests
+> debug lineno: 37 fn1
+> debug lineno: 37 fn1
+> debug lineno: 38 fn1
+> ./dbg-support.tests: line 38: caller: foo: invalid number
+23,31c23,31
+< debug lineno: 21 fn1
+< debug lineno: 13 fn1
+< debug lineno: 8 print_return_trap
+< debug lineno: 9 print_return_trap
+< return lineno: 13 fn1
+< debug lineno: 10 print_return_trap
+< debug lineno: 52 main
+< debug lineno: 24 fn2
+< debug lineno: 25 fn2
+---
+> debug lineno: 38 fn1
+> debug lineno: 30 fn1
+> debug lineno: 25 print_return_trap
+> debug lineno: 26 print_return_trap
+> return lineno: 30 fn1
+> debug lineno: 27 print_return_trap
+> debug lineno: 82 main
+> debug lineno: 41 fn2
+> debug lineno: 42 fn2
+33,39c33,39
+< debug lineno: 26 fn2
+< debug lineno: 13 fn1
+< debug lineno: 14 fn1
+< LINENO 14
+< debug lineno: 15 fn1
+< LINENO 15
+< debug lineno: 16 fn1
+---
+> debug lineno: 43 fn2
+> debug lineno: 30 fn1
+> debug lineno: 31 fn1
+> LINENO 31
+> debug lineno: 32 fn1
+> LINENO 32
+> debug lineno: 33 fn1
+41c41
+< debug lineno: 17 fn1
+---
+> debug lineno: 34 fn1
+43,50c43,50
+< debug lineno: 18 fn1
+< debug lineno: 18 fn1 26 ./dbg-support.tests
+< debug lineno: 19 fn1
+< debug lineno: 19 fn1 26 fn2 ./dbg-support.tests
+< debug lineno: 20 fn1
+< debug lineno: 20 fn1 52 main ./dbg-support.tests
+< debug lineno: 21 fn1
+< ./dbg-support.tests: line 21: caller: foo: invalid number
+---
+> debug lineno: 35 fn1
+> debug lineno: 35 fn1 43 ./dbg-support.tests
+> debug lineno: 36 fn1
+> debug lineno: 36 fn1 43 fn2 ./dbg-support.tests
+> debug lineno: 37 fn1
+> debug lineno: 37 fn1 82 main ./dbg-support.tests
+> debug lineno: 38 fn1
+> ./dbg-support.tests: line 38: caller: foo: invalid number
+52,67c52,67
+< debug lineno: 21 fn1
+< debug lineno: 13 fn1
+< debug lineno: 8 print_return_trap
+< debug lineno: 9 print_return_trap
+< return lineno: 13 fn1
+< debug lineno: 10 print_return_trap
+< debug lineno: 24 fn2
+< debug lineno: 8 print_return_trap
+< debug lineno: 9 print_return_trap
+< return lineno: 24 fn2
+< debug lineno: 10 print_return_trap
+< debug lineno: 53 main
+< debug lineno: 29 fn3
+< debug lineno: 30 fn3
+< LINENO 30
+< debug lineno: 31 fn3
+---
+> debug lineno: 38 fn1
+> debug lineno: 30 fn1
+> debug lineno: 25 print_return_trap
+> debug lineno: 26 print_return_trap
+> return lineno: 30 fn1
+> debug lineno: 27 print_return_trap
+> debug lineno: 41 fn2
+> debug lineno: 25 print_return_trap
+> debug lineno: 26 print_return_trap
+> return lineno: 41 fn2
+> debug lineno: 27 print_return_trap
+> debug lineno: 83 main
+> debug lineno: 46 fn3
+> debug lineno: 47 fn3
+> LINENO 47
+> debug lineno: 48 fn3
+69,75c69,75
+< debug lineno: 32 fn3
+< debug lineno: 33 fn3
+< debug lineno: 34 fn3
+< debug lineno: 34 fn3
+< debug lineno: 36 fn3
+< debug lineno: 37 fn3
+< debug lineno: 38 fn3
+---
+> debug lineno: 51 fn3
+> debug lineno: 52 fn3
+> debug lineno: 53 fn3
+> debug lineno: 53 fn3
+> debug lineno: 54 fn3
+> debug lineno: 55 fn3
+> debug lineno: 56 fn3
+77,82c77,82
+< debug lineno: 34 fn3
+< debug lineno: 34 fn3
+< debug lineno: 36 fn3
+< debug lineno: 37 fn3
+< debug lineno: 37 fn3
+< debug lineno: 38 fn3
+---
+> debug lineno: 53 fn3
+> debug lineno: 53 fn3
+> debug lineno: 54 fn3
+> debug lineno: 55 fn3
+> debug lineno: 55 fn3
+> debug lineno: 56 fn3
+84,86c84,86
+< debug lineno: 34 fn3
+< debug lineno: 34 fn3
+< debug lineno: 40 fn3
+---
+> debug lineno: 53 fn3
+> debug lineno: 53 fn3
+> debug lineno: 59 fn3
+109c109
+< FUNCNAME[1]: source called from ./dbg-support.tests at line 40
+---
+> FUNCNAME[1]: source called from ./dbg-support.tests at line 59
+115c115
+< FUNCNAME[2]: fn3 called from ./dbg-support.tests at line 53
+---
+> FUNCNAME[2]: fn3 called from ./dbg-support.tests at line 83
+126,127c126,127
+< debug lineno: 8 print_return_trap
+< debug lineno: 9 print_return_trap
+---
+> debug lineno: 25 print_return_trap
+> debug lineno: 26 print_return_trap
+129,140c129,140
+< debug lineno: 10 print_return_trap
+< debug lineno: 40 fn3
+< debug lineno: 8 print_return_trap
+< debug lineno: 9 print_return_trap
+< return lineno: 40 fn3
+< debug lineno: 10 print_return_trap
+< debug lineno: 29 fn3
+< debug lineno: 8 print_return_trap
+< debug lineno: 9 print_return_trap
+< return lineno: 29 fn3
+< debug lineno: 10 print_return_trap
+< debug lineno: 54 main
+---
+> debug lineno: 27 print_return_trap
+> debug lineno: 59 fn3
+> debug lineno: 25 print_return_trap
+> debug lineno: 26 print_return_trap
+> return lineno: 59 fn3
+> debug lineno: 27 print_return_trap
+> debug lineno: 46 fn3
+> debug lineno: 25 print_return_trap
+> debug lineno: 26 print_return_trap
+> return lineno: 46 fn3
+> debug lineno: 27 print_return_trap
+> debug lineno: 84 main
+163c163
+< FUNCNAME[1]: source called from ./dbg-support.tests at line 54
+---
+> FUNCNAME[1]: source called from ./dbg-support.tests at line 84
+174,175c174,175
+< debug lineno: 8 print_return_trap
+< debug lineno: 9 print_return_trap
+---
+> debug lineno: 25 print_return_trap
+> debug lineno: 26 print_return_trap
+177,186c177,186
+< debug lineno: 10 print_return_trap
+< debug lineno: 54 main
+< debug lineno: 8 print_return_trap
+< debug lineno: 9 print_return_trap
+< return lineno: 54 main
+< debug lineno: 10 print_return_trap
+< debug lineno: 55 main
+< debug lineno: 56 main
+< LINENO 14
+< LINENO 15
+---
+> debug lineno: 27 print_return_trap
+> debug lineno: 84 main
+> debug lineno: 25 print_return_trap
+> debug lineno: 26 print_return_trap
+> return lineno: 84 main
+> debug lineno: 27 print_return_trap
+> debug lineno: 87 main
+> debug lineno: 90 main
+> LINENO 31
+> LINENO 32
+189,190c189,190
+< 56 ./dbg-support.tests
+< 56 main ./dbg-support.tests
+---
+> 90 ./dbg-support.tests
+> 90 main ./dbg-support.tests
+192c192
+< ./dbg-support.tests: line 21: caller: foo: invalid number
+---
+> ./dbg-support.tests: line 38: caller: foo: invalid number
+195c195
+< debug lineno: 57 main
+---
+> debug lineno: 91 main
+197,198c197,198
+< LINENO 14
+< LINENO 15
+---
+> LINENO 31
+> LINENO 32
+201,204c201,204
+< 26 ./dbg-support.tests
+< 26 fn2 ./dbg-support.tests
+< 57 main ./dbg-support.tests
+< ./dbg-support.tests: line 21: caller: foo: invalid number
+---
+> 43 ./dbg-support.tests
+> 43 fn2 ./dbg-support.tests
+> 91 main ./dbg-support.tests
+> ./dbg-support.tests: line 38: caller: foo: invalid number
+207,208c207,208
+< debug lineno: 58 main
+< LINENO 30
+---
+> debug lineno: 92 main
+> LINENO 47
+216,217c216,217
+< FUNCNAME[1]: source called from ./dbg-support.tests at line 40
+< FUNCNAME[2]: fn3 called from ./dbg-support.tests at line 58
+---
+> FUNCNAME[1]: source called from ./dbg-support.tests at line 59
+> FUNCNAME[2]: fn3 called from ./dbg-support.tests at line 92
+219c219
+< debug lineno: 59 main
+---
+> debug lineno: 93 main
+221c221
+< LINENO 30
+---
+> LINENO 47
+223c223
+< fn3 called from file  `./dbg-support.tests' at line 59
+---
+> fn3 called from file  `./dbg-support.tests' at line 93
+230,232c230,232
+< FUNCNAME[1]: source called from ./dbg-support.tests at line 40
+< FUNCNAME[2]: fn3 called from ./dbg-support.tests at line 45
+< FUNCNAME[3]: fn4 called from ./dbg-support.tests at line 59
+---
+> FUNCNAME[1]: source called from ./dbg-support.tests at line 59
+> FUNCNAME[2]: fn3 called from ./dbg-support.tests at line 64
+> FUNCNAME[3]: fn4 called from ./dbg-support.tests at line 93
+234c234
+< debug lineno: 60 main
+---
+> debug lineno: 94 main
+239c239
+< FUNCNAME[1]: source called from ./dbg-support.tests at line 60
+---
+> FUNCNAME[1]: source called from ./dbg-support.tests at line 94
+241,243c241,243
+< return lineno: 60 main
+< debug lineno: 61 main
+< debug lineno: 62 main
+---
+> return lineno: 94 main
+> debug lineno: 97 main
+> debug lineno: 100 main
+266c266
+< FUNCNAME[1]: source called from ./dbg-support.tests at line 62
+---
+> FUNCNAME[1]: source called from ./dbg-support.tests at line 100
+277,278c277,278
+< debug lineno: 8 print_return_trap
+< debug lineno: 9 print_return_trap
+---
+> debug lineno: 25 print_return_trap
+> debug lineno: 26 print_return_trap
+280,298c280,298
+< debug lineno: 10 print_return_trap
+< debug lineno: 62 main
+< debug lineno: 8 print_return_trap
+< debug lineno: 9 print_return_trap
+< return lineno: 62 main
+< debug lineno: 10 print_return_trap
+< debug lineno: 63 main
+< debug lineno: 64 main
+< debug lineno: 64 main
+< debug lineno: 66 main
+< debug lineno: 68 main
+< debug lineno: 64 main
+< debug lineno: 64 main
+< debug lineno: 66 main
+< debug lineno: 68 main
+< debug lineno: 64 main
+< debug lineno: 64 main
+< debug lineno: 66 main
+< debug lineno: 67 main
+---
+> debug lineno: 27 print_return_trap
+> debug lineno: 100 main
+> debug lineno: 25 print_return_trap
+> debug lineno: 26 print_return_trap
+> return lineno: 100 main
+> debug lineno: 27 print_return_trap
+> debug lineno: 101 main
+> debug lineno: 104 main
+> debug lineno: 104 main
+> debug lineno: 105 main
+> debug lineno: 108 main
+> debug lineno: 104 main
+> debug lineno: 104 main
+> debug lineno: 105 main
+> debug lineno: 108 main
+> debug lineno: 104 main
+> debug lineno: 104 main
+> debug lineno: 105 main
+> debug lineno: 106 main
+300,308c300,308
+< debug lineno: 68 main
+< debug lineno: 64 main
+< debug lineno: 64 main
+< debug lineno: 70 main
+< SOURCED FN LINENO 18 FUNCNAME[0]: sourced_fn called from ./dbg-support.tests at line 70 FUNCNAME[1]: main called from ./dbg-support.tests at line 0
+< debug lineno: 71 main
+< SOURCED FN LINENO 18 FUNCNAME[0]: sourced_fn called from ./dbg-support.tests at line 71 FUNCNAME[1]: main called from ./dbg-support.tests at line 0
+< debug lineno: 72 main
+< debug lineno: 73 main
+---
+> debug lineno: 108 main
+> debug lineno: 104 main
+> debug lineno: 104 main
+> debug lineno: 114 main
+> SOURCED FN LINENO 18 FUNCNAME[0]: sourced_fn called from ./dbg-support.tests at line 114 FUNCNAME[1]: main called from ./dbg-support.tests at line 0
+> debug lineno: 115 main
+> SOURCED FN LINENO 18 FUNCNAME[0]: sourced_fn called from ./dbg-support.tests at line 115 FUNCNAME[1]: main called from ./dbg-support.tests at line 0
+> debug lineno: 116 main
+> debug lineno: 117 main
+310c310
+< FUNCNAME[0]: sourced_fn called from ./dbg-support.tests at line 73
+---
+> FUNCNAME[0]: sourced_fn called from ./dbg-support.tests at line 117
+312,313c312,313
+< debug lineno: 74 main
+< debug lineno: 75 main
+---
+> debug lineno: 121 main
+> debug lineno: 122 main
+325c325
+< FUNCNAME[0]: sourced_fn called from ./dbg-support.tests at line 75
+---
+> FUNCNAME[0]: sourced_fn called from ./dbg-support.tests at line 122
+336,337c336,337
+< debug lineno: 8 print_return_trap
+< debug lineno: 9 print_return_trap
+---
+> debug lineno: 25 print_return_trap
+> debug lineno: 26 print_return_trap
+339,342c339,342
+< debug lineno: 10 print_return_trap
+< debug lineno: 76 main
+< debug lineno: 81 main
+< debug lineno: 86 main
+---
+> debug lineno: 27 print_return_trap
+> debug lineno: 125 main
+> debug lineno: 130 main
+> debug lineno: 134 main
+344,354c344,354
+< debug lineno: 97 main
+< debug lineno: 99 main
+< debug lineno: 101 main
+< debug lineno: 99 main
+< debug lineno: 101 main
+< debug lineno: 97 main
+< debug lineno: 99 main
+< debug lineno: 101 main
+< debug lineno: 99 main
+< debug lineno: 101 main
+< debug lineno: 104 main
+---
+> debug lineno: 142 main
+> debug lineno: 143 main
+> debug lineno: 144 main
+> debug lineno: 143 main
+> debug lineno: 144 main
+> debug lineno: 142 main
+> debug lineno: 143 main
+> debug lineno: 144 main
+> debug lineno: 143 main
+> debug lineno: 144 main
+> debug lineno: 148 main
+367c367
+< 24 f2 ./dbg-support3.sub
+---
+> 39 f2 ./dbg-support3.sub

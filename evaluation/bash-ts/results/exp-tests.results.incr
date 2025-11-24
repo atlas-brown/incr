@@ -1,0 +1,149 @@
+1,6c1,6
+< argv[1] = <^A^A>
+< argv[1] = <^A^A>
+< argv[1] = <^A^?>
+< argv[1] = <^A^?>
+< argv[1] = <^A^A>
+< argv[1] = <^A^?>
+---
+> argv[1] = <^A>
+> argv[1] = <^A>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^A>
+> argv[1] = <^?>
+8,11c8,11
+< argv[1] = <^A^A>
+< argv[1] = <^A^?>
+< argv[1] = <^A^A>
+< argv[1] = <^A^?>
+---
+> argv[1] = <^A>
+> argv[1] = <^?>
+> argv[1] = <^A>
+> argv[1] = <^?>
+32,37c32,37
+< argv[1] = <^A^A>
+< argv[1] = <^A^?>
+< argv[1] = <^A^A>
+< argv[1] = <^A^?>
+< argv[1] = <^A^A>
+< argv[1] = <^A^?>
+---
+> argv[1] = <^A>
+> argv[1] = <^?>
+> argv[1] = <^A>
+> argv[1] = <^?>
+> argv[1] = <^A>
+> argv[1] = <^?>
+44c44
+< argv[1] = <\^A^A>
+---
+> argv[1] = <\^A>
+49,50c49,50
+< argv[1] = <^A^A>
+< argv[2] = <^A^?>
+---
+> argv[1] = <^A>
+> argv[2] = <^?>
+53,56c53,56
+< argv[1] = <^A^A^A^?^A^A^A^?>
+< argv[1] = <^A^A^A^A>
+< argv[1] = <^A^A^A^?>
+< argv[1] = <^A^A^A^A^A^?>
+---
+> argv[1] = <^A^?^A^?>
+> argv[1] = <^A^A>
+> argv[1] = <^A^?>
+> argv[1] = <^A^A^?>
+155a156,163
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^A>
+> argv[2] = <^?>
+157,166c165,166
+< argv[1] = <^A^?>
+< argv[1] = <^A^?>
+< argv[1] = <^A^?>
+< argv[1] = <^A^?>
+< argv[1] = <^A^?>
+< argv[1] = <^A^A>
+< argv[2] = <^A^?>
+< argv[1] = <^A^A^A^?>
+< argv[1] = <^A^A^A^?^A^A^A^?>
+< argv[1] = <^A^A^A^A^A^?>
+---
+> argv[1] = <^A^?^A^?>
+> argv[1] = <^A^A^?>
+191,193c191,193
+< argv[1] = <^A^?>
+< argv[1] = <^A^?b>
+< argv[1] = <b^A^?>
+---
+> argv[1] = <^?>
+> argv[1] = <^?b>
+> argv[1] = <b^?>
+216,217c216,217
+< argv[1] = <^A^A>
+< argv[1] = <5>
+---
+> argv[1] = <^A>
+> argv[1] = <3>
+219c219
+< argv[3] = <>
+---
+> argv[3] = <^C>
+221c221
+< argv[1] = <^A^A>
+---
+> argv[1] = <^A>
+223,225c223,224
+< argv[2] = <>
+< argv[3] = <YX>
+< argv[1] = <XY^A^AYX>
+---
+> argv[2] = <YX>
+> argv[1] = <XY^AYX>
+227,232c226,230
+< argv[2] = <>
+< argv[3] = <Y>
+< argv[1] = <XY^A^AY>
+< argv[1] = <x^A^Ay^A^?z>
+< argv[1] = <x^A^Ay^A^?z>
+< declare -- var=$'x\001\001y\001\177z'
+---
+> argv[2] = <Y>
+> argv[1] = <XY^AY>
+> argv[1] = <x^Ay^?z>
+> argv[1] = <x^Ay^?z>
+> declare -- var=$'x\001y\177z'
+235,241c233,239
+< argv[3] = <var=$'x\001\001y\001\177z'>
+< var=x\001\001y\001\177z$
+< declare -- var="x\001\001y\001\177z"$
+< argv[1] = <$'x\001\001y\001\177z'>
+< argv[1] = <x^A^Ay^A^?z>
+< var=$'x\001\001y\001\177z'
+< ./exp8.sub: line 12: xyz: syntax error: invalid arithmetic operator (error token is "z")
+---
+> argv[3] = <var=$'x\001y\177z'>
+> var=x\001y\177z$
+> declare -- var="x\001y\177z"$
+> argv[1] = <$'x\001y\177z'>
+> argv[1] = <x^Ay^?z>
+> var=$'x\001y\177z'
+> ./exp8.sub: line 30: xyz: syntax error: invalid arithmetic operator (error token is "z")
+243,246c241,244
+< declare -a array=([0]=$'x\001\001y\001\177z')
+< argv[1] = <x^A^Ay^A^?z>
+< declare -a array=([0]=$'x\001\001y\001\177z')
+< declare -A array=([$'x\001\001y\001\177z']=$'a�b\002c' )
+---
+> declare -a array=([0]=$'x\001y\177z')
+> argv[1] = <x^Ay^?z>
+> declare -a array=([0]=$'x\001y\177z')
+> declare -A array=([$'x\001y\177z']=$'a\242b\002c' )

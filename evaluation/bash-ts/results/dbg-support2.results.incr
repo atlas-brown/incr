@@ -1,0 +1,14 @@
+1,2c1,2
+< lineno: 13 (4) main
+< lineno: 14 (4) main
+---
+> lineno: 29 (18) main
+> lineno: 30 (18) main
+4,6c4,6
+< lineno: 15 (4) main
+< lineno: 16 (4) main
+< lineno: 17 (4) main
+---
+> lineno: 31 (18) main
+> lineno: 32 (18) main
+> lineno: 33 (18) main
