@@ -10,7 +10,7 @@ cd "$(dirname "$0")" || exit 1
 sudo rm -rf /tmp/cache
 rm -f results.*
 
-results_dir="$PWD/results-redo"
+results_dir="$PWD/results"
 mkdir -p "$results_dir"
 top=$(git rev-parse --show-toplevel)
 export PATH="$PATH:$PWD/bash"
