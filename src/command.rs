@@ -174,8 +174,7 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
 
     match &runtime.typ {
         RuntimeType::Sandbox(directory) => {
-            let trace_file = format!("/tmp/{TRACE_FILE}");
-            let mut arguments = vec![
+            child.args([
                 "-D",
                 ops::file::path_to_string(directory)?,
                 STRACE_COMMAND,
@@ -183,9 +182,9 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
                 "--seccomp-bpf",
                 "--trace=fork,clone,%file",
                 "-o",
-                &trace_file,
-            ];
-            arguments.extend(command.join_sequence());
+                &format!("/tmp/{TRACE_FILE}"),
+                &command.join_string()?,
+            ]);
         }
         RuntimeType::TraceFile(file) => {
             let mut arguments = vec![

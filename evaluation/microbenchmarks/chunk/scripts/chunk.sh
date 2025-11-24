@@ -1,9 +1,13 @@
+#!/bin/bash
+# Calculate mispelled words in an input
+
 TOP=$(git rev-parse --show-toplevel)
 PROGRAM="${TOP}/target/release/incr -a"
+PROGRAM=""
 
 dict=/usr/share/dict/words
 
-$PROGRAM find "./inputs/pg-small" -type f -name '*.txt' -exec cat {} + |
+$PROGRAM find "$IN" -type f -name '*.txt' -exec cat {} + |
 $PROGRAM iconv -f UTF-8 -t ASCII//TRANSLIT//IGNORE//SUBSTITUTE |
 $PROGRAM tr -cs A-Za-z '\n' |
 $PROGRAM grep -v '[0-9]+' |
