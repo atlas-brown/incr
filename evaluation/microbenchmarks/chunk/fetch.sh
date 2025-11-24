@@ -53,7 +53,7 @@ if [[ "$size" == "small" ]]; then
         tar -xzf pg-small.tar.gz
         rm pg-small.tar.gz
         input_dir="$input_dir/pg-small"
-        limit=$((100 * 1024 * 1024))
+        limit=$((200 * 1024 * 1024))
         total=0
         for book in "$input_dir"/*; do
             size=$(file_size "$book")
