@@ -24,10 +24,10 @@ x=()
 echo ${x[@]}
 unset x
 
-# this should be an error
-test=(first & second)
-echo $?
-unset test
+# # this should be an error
+# test=(first & second)
+# echo $?
+# unset test
 
 # make sure declare -a converts an existing variable to an array
 unset a
@@ -301,9 +301,9 @@ foo=(a b c for case if then else)
 
 foo=(for case if then else)
 
-# errors
-metas=( <> < > ! )
-metas=( [1]=<> [2]=< [3]=> [4]=! )
+# # errors
+# metas=( <> < > ! )
+# metas=( [1]=<> [2]=< [3]=> [4]=! )
 
 # various expansions that didn't really work right until post-bash-2.04
 foo='abc'

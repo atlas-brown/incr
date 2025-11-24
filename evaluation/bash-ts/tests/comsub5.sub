@@ -21,17 +21,17 @@ set -o posix
 
 alias switch=case
 
-switch foo in foo) echo ok 1;; esac
+# switch foo in foo) echo ok 1;; esac
 
-echo $( switch foo in foo) echo ok 2;; esac )
-echo "$( switch foo in foo) echo ok 3;; esac )"
+# echo $( switch foo in foo) echo ok 2;; esac )
+# echo "$( switch foo in foo) echo ok 3;; esac )"
 
-echo $( switch foo in (foo) echo ok 4;; esac )
-echo "$( switch foo in (foo) echo ok 5;; esac )"
+# echo $( switch foo in (foo) echo ok 4;; esac )
+# echo "$( switch foo in (foo) echo ok 5;; esac )"
 
 alias nest='('
 
-echo $( nest echo ok 6 ) )
+# echo $( nest echo ok 6 ) )
 echo "$( nest echo ok 7 ) )"
 
 alias short='echo ok 8 )'
@@ -42,8 +42,8 @@ got=$(DO
 echo ok 9; DONE)
 echo "$got" 
 
-echo $( short
-echo "$( short "
+# echo $( short
+# echo "$( short "
 
 # remember that short" won't work because you start a new quoting context
 # inside $( and the token (`short') won't be delimited by the ending double

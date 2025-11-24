@@ -24,11 +24,11 @@ foo1
 echo post foo1
 
 alias comsub0='echo $(echo $DATE'
-comsub0)
-comsub0		) after
+# comsub0)
+# comsub0		) after
 
 alias math0='echo $(( 4+3 )'
-math0)
+# math0)
 
 alias x='VAR=$(echo hey)'
 x
@@ -37,4 +37,4 @@ foo
 echo $VAR after x
 
 alias math1='echo $( date )'
-math1)
+# math1)

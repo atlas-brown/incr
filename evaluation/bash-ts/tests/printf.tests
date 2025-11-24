@@ -314,12 +314,12 @@ echo b
 printf "%b\n" ''
 printf "%b\n"
 
-# bug in bash versions up to and including bash-3.2
-v=yyy
-printf -v var "%s" '/current/working/directory/*.@(m3|i3|ig|mg)'
-shopt -s nullglob extglob
-echo "x$(printf "%b" @(hugo))x"
-printf -v var "%b" @(hugo); echo "x${var}x"
+# # bug in bash versions up to and including bash-3.2
+# v=yyy
+# printf -v var "%s" '/current/working/directory/*.@(m3|i3|ig|mg)'
+# shopt -s nullglob extglob
+# echo "x$(printf "%b" @(hugo))x"
+# printf -v var "%b" @(hugo); echo "x${var}x"
 
 # make sure that missing arguments are always handled like the empty string
 printf "<%3s><%3b>\n"

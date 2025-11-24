@@ -74,11 +74,11 @@ echo $?
 
 # hmmm...should this set the handling to SIG_IGN for children, too?
 trap '' USR2
-./trap1.sub
+${THIS_SH} ./trap1.sub
 trap - USR2
 
 # test ERR trap
-./trap2.sub
+${THIS_SH} ./trap2.sub
 
 ${THIS_SH} ./trap3.sub
 

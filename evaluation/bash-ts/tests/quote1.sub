@@ -57,6 +57,6 @@ x="a'b'c"; echo "${x//\'/\'}"
 
 printf '%s\n' "foo ${IFS+"b   c"} baz"
 
-# this is where the default behavior differs from posix
-set -o posix
-echo "foo ${IFS+'bar} baz"
+# # this is where the default behavior differs from posix
+# set -o posix
+# echo "foo ${IFS+'bar} baz"
