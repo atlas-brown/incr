@@ -1,8 +1,8 @@
 # sudo rm -rf "../../../cache"
-rm -f out.txt
+rm -f output.txt
 TOP=$(git rev-parse --show-toplevel)
 export IN="$TOP/evaluation/microbenchmarks/eager/inputs/pg-min"
 
 sleep 0.01
-time ./scripts/eager.sh > out.txt
-sha256sum out.txt
+time ./scripts/eager.sh > output.txt
+sha256sum output.txt
