@@ -1,7 +1,8 @@
 #!/bin/bash
 
-__TOP=$(git rev-parse --show-toplevel)
-export INCR_SHELL="$__TOP/evaluation/bash-ts/bash/bash"
+top=/home/vagozino/incr
+export INCR_SHELL="$top/evaluation/bash-ts/bash/bash"
+export THIS_SH="$top/evaluation/bash-ts/incr.sh"
 cache="/tmp/cache"
 mkdir -p "$cache"
-$__TOP/incr.sh "$@" "$cache" 
+$top/incr.sh "$@"
