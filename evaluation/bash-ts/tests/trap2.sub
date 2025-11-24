@@ -33,7 +33,7 @@ done
 
 echo after while
 
-./trap2a.sub
+${THIS_SH} ./trap2a.sub
 
 echo $(false ; echo command substitution)
 

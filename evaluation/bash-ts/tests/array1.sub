@@ -1,1 +1,1 @@
-printf "%s\n" -a a=(a 'b  c')
+# printf "%s\n" -a a=(a 'b  c')

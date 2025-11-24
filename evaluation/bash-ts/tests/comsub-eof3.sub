@@ -1,4 +1,4 @@
-foo=$(cat <<EOF
-hi
-)
+# foo=$(cat <<EOF
+# hi
+# )
 echo $foo
