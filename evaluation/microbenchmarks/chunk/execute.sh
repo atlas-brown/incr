@@ -1,6 +1,6 @@
-# sudo rm -rf "../../../cache"
-rm -f output.txt
 TOP=$(git rev-parse --show-toplevel)
+sudo rm -rf "$TOP/cache"
+rm -f output.txt
 export IN="$TOP/evaluation/microbenchmarks/chunk/inputs/pg-min"
 
 sleep 0.01
