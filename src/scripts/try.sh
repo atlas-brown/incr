@@ -302,7 +302,11 @@ cd "$START_DIR" &&
 . "$script_to_execute"
 EOF
 
-    echo "$@" >"$script_to_execute"
+    # Preserve original argument boundaries when generating the script we exec inside
+    # the sandbox. `printf '%q'` emits shell-escaped strings so sourcing the script
+    # reproduces the argv exactly.
+    printf '%q ' "$@" >"$script_to_execute"
+    printf '\n' >>"$script_to_execute"
 
     # `$script_to_execute` need not be +x to be sourced
     chmod +x "$mount_and_execute" "$chroot_executable"
