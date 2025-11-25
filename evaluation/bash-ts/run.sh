@@ -33,7 +33,7 @@ run_test() {
   cp ../results.bash "$results_dir"/$test.results.bash
   
   # Then, run tests with incr
-  export THIS_SH=$top/evaluation/bash-ts/incr.sh
+  export THIS_SH=$top/incr.sh
   $THIS_SH $target_test > ../results.incr
   cp ../results.incr "$results_dir"/$test.results.incr
 }
@@ -42,6 +42,8 @@ if [ -n "$1" ]; then
 	run_test "$1"
 	exit 0
 fi
+
+exit 1
 
 tests="$(find . -type f -name "run-*" | sed 's/run-//' | grep -v all | grep -v minimal)"
 for test in $tests; do
