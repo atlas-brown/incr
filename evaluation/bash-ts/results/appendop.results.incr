@@ -1,0 +1,4 @@
+18c18
+< ./appendop.tests: line 52: x: readonly variable
+---
+> ./appendop.tests: line 97: x: readonly variable

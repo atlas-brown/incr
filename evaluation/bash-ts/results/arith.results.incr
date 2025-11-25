@@ -1,0 +1,98 @@
+63c63
+< ./arith.tests: line 86: 1 ? 20 : x+=2: attempted assignment to non-variable (error token is "+=2")
+---
+> ./arith.tests: line 127: 1 ? 20 : x+=2: attempted assignment to non-variable (error token is "+=2")
+83,92c83,92
+< ./arith.tests: line 108: 3425#56: invalid arithmetic base (error token is "3425#56")
+< ./arith.tests: line 109: 2#: invalid integer constant (error token is "2#")
+< ./arith.tests: line 110: 7 = 43 : attempted assignment to non-variable (error token is "= 43 ")
+< ./arith.tests: line 111: 2#44: value too great for base (error token is "2#44")
+< ./arith.tests: line 112: 44 / 0 : division by 0 (error token is "0 ")
+< ./arith.tests: line 113: let: jv += $iv: syntax error: operand expected (error token is "$iv")
+< ./arith.tests: line 114: jv += $iv : syntax error: operand expected (error token is "$iv ")
+< ./arith.tests: line 115: let: rv = 7 + (43 * 6: missing `)' (error token is "6")
+< ./arith.tests: line 117: 0#4: invalid number (error token is "0#4")
+< ./arith.tests: line 118: 2#110#11: invalid number (error token is "2#110#11")
+---
+> ./arith.tests: line 162: 3425#56: invalid arithmetic base (error token is "3425#56")
+> ./arith.tests: line 165: 2#: invalid integer constant (error token is "2#")
+> ./arith.tests: line 168: 7 = 43 : attempted assignment to non-variable (error token is "= 43 ")
+> ./arith.tests: line 169: 2#44: value too great for base (error token is "2#44")
+> ./arith.tests: line 170: 44 / 0 : division by 0 (error token is "0 ")
+> ./arith.tests: line 171: let: jv += $iv: syntax error: operand expected (error token is "$iv")
+> ./arith.tests: line 172: jv += $iv : syntax error: operand expected (error token is "$iv ")
+> ./arith.tests: line 173: let: rv = 7 + (43 * 6: missing `)' (error token is "6")
+> ./arith.tests: line 177: 0#4: invalid number (error token is "0#4")
+> ./arith.tests: line 178: 2#110#11: invalid number (error token is "2#110#11")
+100c100
+< ./arith.tests: line 130: 4 + : syntax error: operand expected (error token is "+ ")
+---
+> ./arith.tests: line 196: 4 + : syntax error: operand expected (error token is "+ ")
+102,104c102,104
+< ./arith.tests: line 133: 4 ? : 3 + 5 : expression expected (error token is ": 3 + 5 ")
+< ./arith.tests: line 134: 1 ? 20 : `:' expected for conditional expression (error token is "20 ")
+< ./arith.tests: line 135: 4 ? 20 : : expression expected (error token is ": ")
+---
+> ./arith.tests: line 201: 4 ? : 3 + 5 : expression expected (error token is ": 3 + 5 ")
+> ./arith.tests: line 202: 1 ? 20 : `:' expected for conditional expression (error token is "20 ")
+> ./arith.tests: line 203: 4 ? 20 : : expression expected (error token is ": ")
+106c106
+< ./arith.tests: line 138: 0 && B=42 : attempted assignment to non-variable (error token is "=42 ")
+---
+> ./arith.tests: line 209: 0 && B=42 : attempted assignment to non-variable (error token is "=42 ")
+108c108
+< ./arith.tests: line 140: 1 || B=88 : attempted assignment to non-variable (error token is "=88 ")
+---
+> ./arith.tests: line 212: 1 || B=88 : attempted assignment to non-variable (error token is "=88 ")
+134,138c134,138
+< ./arith.tests: line 170: 7-- : syntax error: operand expected (error token is "- ")
+< ./arith.tests: line 171: --x=7 : attempted assignment to non-variable (error token is "=7 ")
+< ./arith.tests: line 172: ++x=7 : attempted assignment to non-variable (error token is "=7 ")
+< ./arith.tests: line 173: x++=7 : attempted assignment to non-variable (error token is "=7 ")
+< ./arith.tests: line 174: x--=7 : attempted assignment to non-variable (error token is "=7 ")
+---
+> ./arith.tests: line 260: 7-- : syntax error: operand expected (error token is "- ")
+> ./arith.tests: line 262: --x=7 : attempted assignment to non-variable (error token is "=7 ")
+> ./arith.tests: line 263: ++x=7 : attempted assignment to non-variable (error token is "=7 ")
+> ./arith.tests: line 265: x++=7 : attempted assignment to non-variable (error token is "=7 ")
+> ./arith.tests: line 266: x--=7 : attempted assignment to non-variable (error token is "=7 ")
+146,149c146,149
+< ./arith1.sub: line 1: 4-- : syntax error: operand expected (error token is "- ")
+< ./arith1.sub: line 2: 4++ : syntax error: operand expected (error token is "+ ")
+< ./arith1.sub: line 3: 4 -- : syntax error: operand expected (error token is "- ")
+< ./arith1.sub: line 4: 4 ++ : syntax error: operand expected (error token is "+ ")
+---
+> ./arith1.sub: line 15: 4-- : syntax error: operand expected (error token is "- ")
+> ./arith1.sub: line 16: 4++ : syntax error: operand expected (error token is "+ ")
+> ./arith1.sub: line 17: 4 -- : syntax error: operand expected (error token is "- ")
+> ./arith1.sub: line 18: 4 ++ : syntax error: operand expected (error token is "+ ")
+164c164
+< ./arith1.sub: line 24: ((: ++ : syntax error: operand expected (error token is "+ ")
+---
+> ./arith1.sub: line 48: ((: ++ : syntax error: operand expected (error token is "+ ")
+167c167
+< ./arith1.sub: line 27: ((: -- : syntax error: operand expected (error token is "- ")
+---
+> ./arith1.sub: line 51: ((: -- : syntax error: operand expected (error token is "- ")
+186c186
+< ./arith2.sub: line 25: ((: -- : syntax error: operand expected (error token is "- ")
+---
+> ./arith2.sub: line 46: ((: -- : syntax error: operand expected (error token is "- ")
+189c189
+< ./arith2.sub: line 28: ((: ++ : syntax error: operand expected (error token is "+ ")
+---
+> ./arith2.sub: line 50: ((: ++ : syntax error: operand expected (error token is "+ ")
+253,255c253,255
+< ./arith.tests: line 195: ((: x=9 y=41 : syntax error in expression (error token is "y=41 ")
+< ./arith.tests: line 197: a b: syntax error in expression (error token is "b")
+< ./arith.tests: line 198: ((: a b: syntax error in expression (error token is "b")
+---
+> ./arith.tests: line 310: ((: x=9 y=41 : syntax error in expression (error token is "y=41 ")
+> ./arith.tests: line 314: a b: syntax error in expression (error token is "b")
+> ./arith.tests: line 315: ((: a b: syntax error in expression (error token is "b")
+262,263c262,263
+< ./arith.tests: line 210: 'foo' : syntax error: operand expected (error token is "'foo' ")
+< ./arith.tests: line 211: b[c]d: syntax error in expression (error token is "d")
+---
+> ./arith.tests: line 330: 'foo' : syntax error: operand expected (error token is "'foo' ")
+> ./arith.tests: line 333: b[c]d: syntax error in expression (error token is "d")

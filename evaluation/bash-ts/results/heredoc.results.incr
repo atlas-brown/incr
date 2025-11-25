@@ -8,38 +8,29 @@
 <     /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache ed ${TMPDIR}/foo <<ENDOFINPUT > /dev/null
 ---
 >     ed ${TMPDIR}/foo <<ENDOFINPUT > /dev/null
-71a71
-> = here is the text =
-72a73
-> this paren ) is not a problem
-73a75
-> these balanced parens ( ) are not a problem
-74a77,92
-> quoted balanced parens \( ) are not a problem either
-> more text in a subshell
-> some more text in a different subshell
-> end
-> hello
-> hello
-> ENDEND
-> end ENDEND
-> hello
-> end hello
-> end x*x
-> helloEND
-> end helloEND
-> hello
-> \END
-> end hello<NL>\END
-77d94
-< Error inserting incr into script ./heredoc3.sub: Bash read command failed, shell script may be invalid
-105a123,129
-> ./heredoc7.sub: line 17: warning: command substitution: 1 unterminated here-document
-> foo bar
+72,74d70
+< ./heredoc3.sub: line 26: warning: here-document at line 24 delimited by end-of-file (wanted `EOF')
+< ./heredoc3.sub: line 32: warning: here-document at line 30 delimited by end-of-file (wanted `EOF')
+< ./heredoc3.sub: line 38: warning: here-document at line 36 delimited by end-of-file (wanted `EOF')
+75a72
+> ./heredoc3.sub: line 26: warning: here-document at line 24 delimited by end-of-file (wanted `EOF')
+76a74
+> ./heredoc3.sub: line 32: warning: here-document at line 30 delimited by end-of-file (wanted `EOF')
+77a76
+> ./heredoc3.sub: line 38: warning: here-document at line 36 delimited by end-of-file (wanted `EOF')
+93a93,94
+> ./heredoc3.sub: line 98: warning: here-document at line 96 delimited by end-of-file (wanted `EOF')
+> ./heredoc3.sub: line 99: syntax error: unexpected end of file
+123d123
+< ./heredoc7.sub: line 29: warning: here-document at line 29 delimited by end-of-file (wanted `EOF')
+125,127c125,128
+< strace: Can't stat 'after': No such file or directory
+< ./heredoc7.sub: line 9: foobar: command not found
+< ./heredoc7.sub: line 10: EOF: command not found
+---
 > ./heredoc7.sub: line 21: after: command not found
 > ./heredoc7.sub: line 29: warning: here-document at line 29 delimited by end-of-file (wanted `EOF')
 > ./heredoc7.sub: line 29: foobar: command not found
 > ./heredoc7.sub: line 30: EOF: command not found
-> grep: *.c: No such file or directory
-106a131
+129a131
 > ./heredoc.tests: line 156: warning: here-document at line 154 delimited by end-of-file (wanted `EOF')
