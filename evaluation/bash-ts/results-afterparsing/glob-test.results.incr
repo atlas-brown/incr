@@ -1,60 +1,7 @@
-8,13c8,14
-< argv[1] = <A\u03B1B>
-< argv[1] = <Au>
-< argv[1] = <>
-< argv[1] = <a\u03B1b>
-< 0000000 141 134 165 060 063 102 061 142
-< 0000010
----
-> argv[1] = <A£\B>
-> argv[1] = <A>
-> argv[1] = <B>
-> argv[1] = <a£\b>
-> 0000000 141 243 134 142
-> 0000004
-> ok 6
-20c21
-< [a
----
-> [[:alpha:]
-26c27
-< [a
----
-> [[:alpha:]
-29c30
-< [a
----
-> [[:alpha:]
-36,37c37,38
-< a p
-< a p
----
-> p
-> p
-45,46c46,47
-< a p
-< a p
----
-> p
-> p
-113d113
-< rmdir: failed to remove '/tmp/bash-glob-1227958': Directory not empty
-121c121
-< a\*b*
----
-> a\*b*
 125c125
 < .a a .aa aa .b b .bb bb
 ---
 > .a .aa .b .bb a aa b bb
-142c142
-< ./glob.tests: line 35: no match: tmp/*4
----
-> ./glob.tests: line 66: no match: tmp/*4
-171d170
-< argv[10] = <tmp>
-180d178
-< argv[5] = <tmp>
 232,241c230,239
 < argv[1] = <b>
 < argv[2] = <bb>

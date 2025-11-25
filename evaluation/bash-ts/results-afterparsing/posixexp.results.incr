@@ -1,5 +1,2 @@
-40,41d39
-< /home/vagozino/incr/incr.sh
-< sh posixexp2.sub: test 6 failed
-309a308
+307a308
 > ./posixexp.tests: line 97: unexpected EOF while looking for matching `}'
