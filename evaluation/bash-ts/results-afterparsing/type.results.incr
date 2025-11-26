@@ -1,0 +1,18 @@
+43,44c43,44
+< /tmp/incr.sh
+< incr.sh is hashed (/tmp/incr.sh)
+---
+> /tmp/bash
+> bash is hashed (/tmp/bash)
+47d46
+<    3	/tmp/incr.sh
+48a48
+>    3	/tmp/bash
+86c86
+<     /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache rm -f a b c;
+---
+>     rm -f a b c;
+94c94
+<     /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache grep . a b c
+---
+>     grep . a b c

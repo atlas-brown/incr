@@ -8,49 +8,49 @@
 > after exec1.sub with args: 0
 > 
 > after exec1.sub without args: 0
-8,16c8,11
+8,17c8,11
 < strace: Can't stat 'notthere': No such file or directory
 < 1
 < Traceback (most recent call last):
 <   File "/home/vagozino/incr/src/scripts/insert.py", line 3, in <module>
 <     import libbash
 < ModuleNotFoundError: No module named 'libbash'
+< cp: cannot stat 'notthere': No such file or directory
 < 0
-< /home/vagozino/incr/incr.sh: line 51: /bin/incr_script_sh.sh: Permission denied
+< /home/vagozino/incr/incr.sh: line 59: /bin/incr_script_sh.sh: Permission denied
 < cp: cannot stat '/bin/incr_script_sh.sh': No such file or directory
 ---
 > ./execscript: line 21: notthere: command not found
 > 127
 > /tmp/bash: notthere: No such file or directory
 > 127
-18d12
+19d12
 < cp: cannot create regular file '/bin/sh': Permission denied
-20,24c14,15
-< strace: exec: Permission denied
-< 1
-< /home/vagozino/incr/incr.sh: line 51: //incr_script_/.sh: No such file or directory
-< cp: -r not specified; omitting directory '/'
-< cp: cannot stat '//incr_script_/.sh': No such file or directory
+21c14
+< ./execscript: line 28: /: Is a directory
 ---
 > ./execscript: line 40: /: Is a directory
-> 126
-26d16
-< cp: cannot create regular file '/tmp.tihNYn0mh2': Permission denied
-28c18
+23,25d15
+< /home/vagozino/incr/incr.sh: line 59: //incr_script_/.sh: No such file or directory
+< cp: -r not specified; omitting directory '/'
+< cp: cannot stat '//incr_script_/.sh': No such file or directory
+27d16
+< cp: cannot create regular file '/tmp.2o7VDUxaPu': Permission denied
+29c18
 < ./execscript: line 32: .: /: is a directory
 ---
 > ./execscript: line 47: .: /: is a directory
-29a20
+30a20
 > 126
-31,32d21
+32,38d21
 < 0
 < this is bashenv
-34,67c23,38
+< this is bashenv
 < Traceback (most recent call last):
 <   File "/home/vagozino/incr/src/scripts/insert.py", line 3, in <module>
 <     import libbash
 < ModuleNotFoundError: No module named 'libbash'
-< this is bashenv
+40,66c23,34
 < this is bashenv
 < /home/vagozino/incr/src/scripts/try.sh: 12: date: not found
 < /home/vagozino/incr/src/scripts/try.sh: 651: mktemp: not found
@@ -75,11 +75,9 @@
 < /home/vagozino/incr/src/scripts/try.sh: 314: chmod: not found
 < /home/vagozino/incr/src/scripts/try.sh: 326: unshare: not found
 < /home/vagozino/incr/src/scripts/try.sh: 331: chmod: not found
-< Error: (notthere) read "/tmp/cache/sandbox_14137144558695956437/upperdir/tmp/trace.txt": No such file or directory (os error 2)
+< Error: (notthere) read "/tmp/cache/sandbox_6316231265259058038/upperdir/tmp/trace.txt": No such file or directory (os error 2)
 < 1
-< ./execscript: line 46: notthere: Permission denied
-< 126
-< ./execscript: line 48: notthere: command not found
+< ./execscript: line 46: notthere: No such file or directory
 ---
 > trap -- 'echo EXIT' EXIT
 > trap -- '' SIGTERM
@@ -93,13 +91,15 @@
 > USR1
 > EXIT
 > ./execscript: line 71: notthere: No such file or directory
-> 127
+68c36,38
+< ./execscript: line 48: notthere: command not found
+---
 > ./execscript: line 74: notthere: No such file or directory
 > 127
 > ./execscript: line 77: notthere: command not found
-72,108c43,91
+73,109c43,91
 < /home/vagozino/incr/incr.sh: illegal option -- t
-< Usage: /home/vagozino/incr/incr.sh [-c 'cmd'] <script> <cache_dir>
+< Usage: /home/vagozino/incr/incr.sh [-c 'cmd'] <script>
 < Traceback (most recent call last):
 <   File "/home/vagozino/incr/src/scripts/insert.py", line 3, in <module>
 <     import libbash
@@ -122,7 +122,7 @@
 <     import libbash
 < ModuleNotFoundError: No module named 'libbash'
 < /home/vagozino/incr/incr.sh: illegal option -- i
-< Usage: /home/vagozino/incr/incr.sh [-c 'cmd'] <script> <cache_dir>
+< Usage: /home/vagozino/incr/incr.sh [-c 'cmd'] <script>
 < Traceback (most recent call last):
 <   File "/home/vagozino/incr/src/scripts/insert.py", line 3, in <module>
 <     import libbash
@@ -185,7 +185,7 @@
 > group pipeline: 1
 > EXIT-group.1
 > foo 0
-110,133c93,152
+111,134c93,98
 < Traceback (most recent call last):
 <   File "/home/vagozino/incr/src/scripts/insert.py", line 3, in <module>
 <     import libbash
@@ -217,16 +217,16 @@
 > exit code: 1
 > exit code: 1
 > exit code: 1
-> a
-> b
-> c
-> A
-> B
-> c
-> d
-> c
-> d
-> e
+145,152c109,172
+< Traceback (most recent call last):
+<   File "/home/vagozino/incr/src/scripts/insert.py", line 3, in <module>
+<     import libbash
+< ModuleNotFoundError: No module named 'libbash'
+< Traceback (most recent call last):
+<   File "/home/vagozino/incr/src/scripts/insert.py", line 3, in <module>
+<     import libbash
+< ModuleNotFoundError: No module named 'libbash'
+---
 > x1
 > x1a
 > x2
@@ -271,19 +271,18 @@
 > b
 > c
 > d
-136a156,157
+> a
+> b
+> c
 > d
 > e
-144,151c165,172
-< Traceback (most recent call last):
-<   File "/home/vagozino/incr/src/scripts/insert.py", line 3, in <module>
-<     import libbash
-< ModuleNotFoundError: No module named 'libbash'
-< Traceback (most recent call last):
-<   File "/home/vagozino/incr/src/scripts/insert.py", line 3, in <module>
-<     import libbash
-< ModuleNotFoundError: No module named 'libbash'
----
+> A
+> B
+> c
+> d
+> c
+> d
+> e
 > x
 > y
 > z

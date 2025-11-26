@@ -38,7 +38,7 @@
 > p
 > p
 113d113
-< rmdir: failed to remove '/tmp/bash-glob-1227958': Directory not empty
+< rmdir: failed to remove '/tmp/bash-glob-1686014': Directory not empty
 121c121
 < a\*b*
 ---

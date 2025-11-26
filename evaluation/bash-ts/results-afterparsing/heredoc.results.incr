@@ -1,0 +1,8 @@
+32c31
+<     /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache ed ${TMPDIR}/foo <<ENDOFINPUT > /dev/null
+---
+>     ed ${TMPDIR}/foo <<ENDOFINPUT > /dev/null
+43c42
+<     /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache ed ${TMPDIR}/foo <<ENDOFINPUT > /dev/null
+---
+>     ed ${TMPDIR}/foo <<ENDOFINPUT > /dev/null

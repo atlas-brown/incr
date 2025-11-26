@@ -1,0 +1,234 @@
+1,9c1,8
+< ./comsub2.tests: line 19: ${ printf '%s\n' aa bb cc dd; }: bad substitution
+< ./comsub2.tests: line 20: AA${ printf '%s\n' aa bb cc dd; }BB: bad substitution
+< ./comsub2.tests: line 22: ${ printf '%s\n' aa bb cc dd; return; echo ee ff; }: bad substitution
+< ./comsub2.tests: line 24: ${ printf '%s\n' aa bb cc dd
+< 	}: bad substitution
+< ./comsub2.tests: line 27: DDDDD${
+< 	printf '%s\n' aa bb cc dd
+< }EEEEE: bad substitution
+< ./comsub2.tests: line 29: ${ printf '%s\n' aa bb cc dd; x=42 ; return 12; echo ee ff; }: bad substitution
+---
+> aa bb cc dd
+> AAaa bb cc ddBB
+> aa bb cc dd
+> aa bb cc dd
+> DDDDDaa bb cc ddEEEEE
+> aa bb cc dd
+> outside: 42
+> aa bb cc dd
+11,20c10
+< ./comsub2.tests: line 32: ${ local x; printf '%s\n' aa bb cc dd; x=42 ; return 12; echo ee ff; }: bad substitution
+< outside:
+< ./comsub2.tests: line 34: ${ local x; printf '%s\n' aa bb cc dd; x=42 ; return 12; echo ee ff; }: bad substitution
+< assignment: 1
+< ./comsub2.tests: line 39: ${ :;}: bad substitution
+< func () 
+< { 
+<     echo func-outside
+< }
+< ./comsub2.tests: line 47: ${ unset -f func; }: bad substitution
+---
+> assignment: 12
+23c13
+<     echo func-outside
+---
+>     echo func-inside
+25,27c15,17
+< ./comsub2.tests: line 50: ${ ( echo abcde );}: bad substitution
+< ./comsub2.tests: line 52: ${| echo 67890;  REPLY=12345; }: bad substitution
+< ./comsub2.tests: line 53: ${| REPLY= ;}: bad substitution
+---
+> abcde
+> 67890
+> 12345
+29d18
+< ./comsub2.tests: line 56: ${| :;}: bad substitution
+31,38c20,44
+< ./comsub2.tests: line 60: ${ echo aa; },${ echo bb; }: bad substitution
+< ./comsub2.tests: line 64: JOB${ printf '%s\n' aa bb cc dd; }CONTROL: bad substitution
+< ./comsub2.tests: line 68: NOT${ p; }FOUND: bad substitution
+< ./comsub2.tests: line 77: ${ typeset x;
+< 	for f in 1 2; do p '%s\n' $f ; shopt expand_aliases; done
+< 	unalias p
+< 	alias e='echo inside redefine'
+<  	x=42 ; return; echo this should not be seen; }: bad substitution
+---
+> aa,bb
+> JOBaa bb cc ddCONTROL
+> ./comsub2.tests: line 68: p: command not found
+> NOTFOUND
+> ./comsub2.tests: line 75: p: command not found
+> ./comsub2.tests: line 75: p: command not found
+> expand_aliases      	off
+> expand_aliases      	off
+> outside:
+> ./comsub2.tests: line 79: alias: p: not found
+> alias e='echo inside redefine'
+> expand_aliases      	off
+> 1
+> expand_aliases      	on
+> 2
+> expand_aliases      	on
+> outside:
+> ./comsub2.tests: line 89: alias: p: not found
+> expand_aliases      	on
+> 1
+> xx
+> expand_aliases      	on
+> 2
+> xx
+> expand_aliases      	on
+40,43c46,192
+< alias p='printf'
+< alias e='echo aliasval'
+< expand_aliases 	off
+< ./comsub2.tests: line 116: unexpected EOF while looking for matching `''
+---
+> expand_aliases      	on
+> inside: 12 22 42
+> outside: 42 2
+> newlines
+> 
+> 
+> outside: 42
+> before: 1 2
+> after: 2
+> before: 1 2
+> after: 2
+> before: 1 2
+> after: 1 2
+> XnestedY
+> a nested b
+> one two
+> 42
+> 42
+> 42
+> 123
+> 123
+> 0
+> 123
+> 123
+> 0
+> Mon Aug 29 20:03:02 EDT 2022
+> Mon Aug 29 20:03:02 EDT 2022
+> Mon Aug 29 20:03:02 EDT 2022
+> Mon Aug 29 20:03:02 EDT 2022
+> 123
+> before 123
+> in for 123
+> outside before: value
+> inside before: value
+> inside after: funsub
+> inside: after false xxx
+> outside after: funsub
+> =====posix mode=====
+> outside before: value
+> .
+> declare -a a=([0]="1" [1]="2" [2]="3" [3]="4")
+> declare -- int="2"
+> after here-doc: 1
+> [1]-  Running                    sleep 1 &
+> [2]+  Running                    sleep 1 &
+> [1]-  Running                    sleep 1 &
+> [2]+  Running                    sleep 1 &
+> 17772 26794
+> 17772 26794
+> we should try rhs
+> comsub
+> and
+> funsub
+> in here-documents
+> after all they work here
+> and work here
+> a b c == 1 2 3
+>  == 1 2 3
+> before return
+> after func
+> 1 2 3a b c
+> 2 2
+> foobara b c
+> declare -- IFS=" "
+> *???
+> *???
+> yyy zzzz
+> argv[1] = <AA^ABB>
+> argv[1] = <AA^OBB>
+> argv[1] = <AA^?BB>
+> argv[1] = <^A>
+> argv[1] = <^A>
+> argv[1] = <^A>
+> argv[1] = <^A>
+> argv[1] = <^A>
+> argv[1] = <^A>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <AA^ABB>
+> argv[1] = <AA^ABB>
+> argv[1] = <AA^OBB>
+> argv[1] = <AA^OBB>
+> argv[1] = <AA^?BB>
+> argv[1] = <AA^?BB>
+> argv[1] = <^A>
+> argv[1] = <^A>
+> argv[1] = <^A>
+> argv[1] = <^A>
+> argv[1] = <^A>
+> argv[1] = <^A>
+> argv[1] = <^A>
+> argv[1] = <^A>
+> argv[1] = <^A>
+> argv[1] = <^A>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <^?>
+> argv[1] = <AA^ABB>
+> argv[1] = <AA>
+> argv[2] = <BB>
+> argv[1] = <AA^ABB>
+> argv[1] = <AA>
+> argv[2] = <BB>
+> argv[1] = <AA^?BB>
+> argv[1] = <AA>
+> argv[2] = <BB>
+> argv[1] = <AA^?BB>
+> argv[1] = <AA>
+> argv[2] = <BB>
+> argv[1] = <AA BB>
+> argv[1] = <AA>
+> argv[2] = <BB>
+> argv[1] = <AA BB>
+> argv[1] = <AA BB>
+> argv[1] = <AA BB>
+> argv[1] = <AA>
+> argv[2] = <BB>
+> argv[1] = <AA BB>
+> argv[1] = <AA BB>
+> inside1-inside2-outside
+> BEFOREAA
+> BB
+> CC
+> AFTER
+> BEFOREAA
+> BB
+> CC
+> AFTER
+> unbalanced braces}}
+> combined comsubs
+> combined comsubs
+> inside
+> after: var = inside
+> after: 42 var = inside
+> var=inside 42
+> after: 0 var = inside

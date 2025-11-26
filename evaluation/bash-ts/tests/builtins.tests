@@ -145,11 +145,11 @@ command -p hash rm
 # check out source/.
 
 # sourcing a zero-length-file had better not be an error
-rm -f zero-length-file
-cp /dev/null zero-length-file
-. zero-length-file
+rm -f /tmp/zero-length-file
+cp /dev/null /tmp/zero-length-file
+. /tmp/zero-length-file
 echo $?
-rm zero-length-file
+rm /tmp/zero-length-file
 
 AVAR=AVAR
 

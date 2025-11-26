@@ -98,23 +98,13 @@
 > ./errors.tests: line 156: umask: `:': invalid symbolic mode character
 > ./errors.tests: line 157: umask: `:': invalid symbolic mode operator
 > ./errors.tests: line 160: umask: -i: invalid option
-51,66c51,66
+51,56c51,56
 < ./errors.tests: line 77: umask: `u': invalid symbolic mode character
 < ./errors.tests: line 84: VAR: readonly variable
 < ./errors.tests: line 85: declare: VAR: readonly variable
 < ./errors.tests: line 86: declare: VAR: readonly variable
 < ./errors.tests: line 87: declare: unset: not found
 < ./errors.tests: line 88: VAR: readonly variable
-< /home/vagozino/incr/incr.sh: -c: line 1: syntax error near unexpected token `)'
-< /home/vagozino/incr/incr.sh: -c: line 1: `: $( for z in 1 2 3; do )'
-< /home/vagozino/incr/incr.sh: -c: line 1: syntax error near unexpected token `done'
-< /home/vagozino/incr/incr.sh: -c: line 1: `: $( for z in 1 2 3; done )'
-< ./errors.tests: line 94: cd: HOME not set
-< ./errors.tests: line 95: cd: /tmp/xyz.bash: No such file or directory
-< ./errors.tests: line 96: cd: OLDPWD not set
-< ./errors.tests: line 97: cd: /bin/sh: Not a directory
-< ./errors.tests: line 99: cd: /tmp/cd-notthere: No such file or directory
-< ./errors.tests: line 100: .: filename argument required
 ---
 > ./errors.tests: line 164: umask: `u': invalid symbolic mode character
 > ./errors.tests: line 173: VAR: readonly variable
@@ -122,10 +112,14 @@
 > ./errors.tests: line 177: declare: VAR: readonly variable
 > ./errors.tests: line 179: declare: unset: not found
 > ./errors.tests: line 182: VAR: readonly variable
-> comsub: -c: line 1: syntax error near unexpected token `)'
-> comsub: -c: line 1: `: $( for z in 1 2 3; do )'
-> comsub: -c: line 1: syntax error near unexpected token `done'
-> comsub: -c: line 1: `: $( for z in 1 2 3; done )'
+61,66c61,66
+< ./errors.tests: line 94: cd: HOME not set
+< ./errors.tests: line 95: cd: /tmp/xyz.bash: No such file or directory
+< ./errors.tests: line 96: cd: OLDPWD not set
+< ./errors.tests: line 97: cd: /bin/sh: Not a directory
+< ./errors.tests: line 99: cd: /tmp/cd-notthere: No such file or directory
+< ./errors.tests: line 100: .: filename argument required
+---
 > ./errors.tests: line 189: cd: HOME not set
 > ./errors.tests: line 190: cd: /tmp/xyz.bash: No such file or directory
 > ./errors.tests: line 192: cd: OLDPWD not set
@@ -230,10 +224,8 @@
 < ./errors4.sub: line 10: break: x: numeric argument required
 ---
 > ./errors4.sub: line 26: break: x: numeric argument required
-121,128c121,126
+121,126c121,126
 < ./errors4.sub: line 6: var: readonly variable
-< after readonly assignment
-< ./errors4.sub: line 10: break: x: numeric argument required
 < ./errors5.sub: line 4: array: unbound variable
 < ./errors5.sub: line 5: array: unbound variable
 < ./errors5.sub: line 6: array[7]: unbound variable
@@ -246,62 +238,43 @@
 > ./errors5.sub: line 8: array[7]: unbound variable
 > ./errors5.sub: line 11: 7: unbound variable
 > ./errors5.sub: line 12: 7: unbound variable
-136,137c134,135
-< /home/vagozino/incr/incr.sh: line 1: uvar: parameter not set
-< /home/vagozino/incr/incr.sh: line 1: uvar: parameter null or not set
----
-> ./errors6.sub: line 1: uvar: parameter not set
-> ./errors6.sub: line 1: uvar: parameter null or not set
-139,142c137,140
-< /home/vagozino/incr/incr.sh: line 1: uvar: parameter null or not set
+138,140c138,140
 < ./errors6.sub: line 18: ${-3:-${-3}}: bad substitution
 < ./errors6.sub: line 19: ${-3}: bad substitution
 < ./errors6.sub: line 20: -3: invalid variable name
 ---
-> ./errors6.sub: line 1: uvar: parameter null or not set
 > ./errors6.sub: line 38: ${-3:-${-3}}: bad substitution
 > ./errors6.sub: line 39: ${-3}: bad substitution
 > ./errors6.sub: line 40: -3: invalid variable name
-144c142
+142c142
 < ./errors6.sub: line 24: -3: invalid variable name
 ---
 > ./errors6.sub: line 43: -3: invalid variable name
-147,154c145,149
+145,152c145,149
 < ./errors6.sub: line 30: var: invalid indirect expansion
 < ./errors6.sub: line 31: var: invalid indirect expansion
 < ./errors6.sub: line 33: invalid-ident: invalid variable name
 < ./errors6.sub: line 34: invalid-ident: invalid variable name
 < ./errors6.sub: line 35: invalid-ident: invalid variable name
-< after 1: 1
-< after 2: 1
-< after 3: 1
 ---
 > ./errors6.sub: line 50: var: invalid indirect expansion
 > ./errors6.sub: line 51: var: invalid indirect expansion
 > ./errors6.sub: line 54: invalid-ident: invalid variable name
 > ./errors6.sub: line 55: invalid-ident: invalid variable name
 > ./errors6.sub: line 56: invalid-ident: invalid variable name
-159,160c154,155
-< /home/vagozino/incr/incr.sh: line 1: uvar: parameter not set
-< /home/vagozino/incr/incr.sh: line 1: uvar: parameter null or not set
----
-> ./errors6.sub: line 1: uvar: parameter not set
-> ./errors6.sub: line 1: uvar: parameter null or not set
-162,165c157,160
-< /home/vagozino/incr/incr.sh: line 1: uvar: parameter null or not set
+161,163c158,160
 < ./errors6.sub: line 18: ${-3:-${-3}}: bad substitution
 < ./errors6.sub: line 19: ${-3}: bad substitution
 < ./errors6.sub: line 20: -3: invalid variable name
 ---
-> ./errors6.sub: line 1: uvar: parameter null or not set
 > ./errors6.sub: line 38: ${-3:-${-3}}: bad substitution
 > ./errors6.sub: line 39: ${-3}: bad substitution
 > ./errors6.sub: line 40: -3: invalid variable name
-167c162
+165c162
 < ./errors6.sub: line 24: -3: invalid variable name
 ---
 > ./errors6.sub: line 43: -3: invalid variable name
-170,176c165,171
+168,174c165,171
 < ./errors6.sub: line 30: var: invalid indirect expansion
 < ./errors6.sub: line 31: var: invalid indirect expansion
 < ./errors6.sub: line 33: invalid-ident: invalid variable name
@@ -317,77 +290,69 @@
 > ./errors6.sub: line 56: invalid-ident: invalid variable name
 > ./errors7.sub: line 21: x: readonly variable
 > ./errors7.sub: line 21: notthere: command not found
-178c173
+176c173
 < ./errors7.sub: line 5: x: readonly variable
 ---
 > ./errors7.sub: line 23: x: readonly variable
-181c176
+179c176
 < ./errors7.sub: line 7: x: readonly variable
 ---
 > ./errors7.sub: line 25: x: readonly variable
-183,195c178,187
+181,183c178,180
 < ./errors7.sub: line 8: x: readonly variable
 < ./errors7.sub: line 9: x: readonly variable
 < ./errors7.sub: line 3: x: readonly variable
-< ./errors7.sub: line 3: notthere: command not found
-< after no such command: 127
-< ./errors7.sub: line 5: x: readonly variable
-< echo builtin
-< after non-special builtin: 0
-< ./errors7.sub: line 7: x: readonly variable
-< after special builtin: 0
-< ./errors7.sub: line 8: x: readonly variable
-< ./errors7.sub: line 9: x: readonly variable
-< ./errors8.sub: eval: line 4: syntax error: unexpected end of file
 ---
 > ./errors7.sub: line 27: x: readonly variable
 > ./errors7.sub: line 29: x: readonly variable
 > ./errors7.sub: line 21: x: readonly variable
-> after no such command: 1
+185c182
+< ./errors7.sub: line 5: x: readonly variable
+---
 > ./errors7.sub: line 23: x: readonly variable
-> after non-special builtin: 1
+187,190c184,187
+< ./errors7.sub: line 7: x: readonly variable
+< ./errors7.sub: line 8: x: readonly variable
+< ./errors7.sub: line 9: x: readonly variable
+< ./errors8.sub: eval: line 4: syntax error: unexpected end of file
+---
 > ./errors7.sub: line 25: x: readonly variable
 > ./errors7.sub: line 27: x: readonly variable
 > ./errors7.sub: line 29: x: readonly variable
 > ./errors8.sub: eval: line 7: syntax error: unexpected end of file
-197c189
+192c189
 < ./errors8.sub: line 4: v: readonly variable
 ---
 > ./errors8.sub: line 8: v: readonly variable
-199c191
+194c191
 < ./errors8.sub: line 5: v: readonly variable
 ---
 > ./errors8.sub: line 9: v: readonly variable
-201c193
+196c193
 < ./errors8.sub: line 6: shift: 12: shift count out of range
 ---
 > ./errors8.sub: line 11: shift: 12: shift count out of range
-203c195
+198c195
 < ./errors8.sub: line 7: return: can only `return' from a function or sourced script
 ---
 > ./errors8.sub: line 13: return: can only `return' from a function or sourced script
-205c197
+200c197
 < ./errors8.sub: line 8: set: notanoption: invalid option name
 ---
 > ./errors8.sub: line 14: set: notanoption: invalid option name
-208c200
+203c200
 < ./errors9.sub: line 2: [[: ++: syntax error: operand expected (error token is "+")
 ---
 > ./errors9.sub: line 6: [[: ++: syntax error: operand expected (error token is "+")
-210c202
+205c202
 < ./errors9.sub: line 3: ((: -- : syntax error: operand expected (error token is "- ")
 ---
 > ./errors9.sub: line 8: ((: -- : syntax error: operand expected (error token is "- ")
-212,215c204,205
+207c204
 < ./errors9.sub: line 4: ((: -- : syntax error: operand expected (error token is "- ")
-< /home/vagozino/incr/incr.sh: line 1: return: can only `return' from a function or sourced script
-< after return
-< /home/vagozino/incr/incr.sh: line 1: return: can only `return' from a function or sourced script
 ---
 > ./errors9.sub: line 10: ((: -- : syntax error: operand expected (error token is "- ")
-> bash: line 1: return: can only `return' from a function or sourced script
-217c207,208
+211c208
 < ./errors.tests: line 154: `!!': not a valid identifier
 ---
-> bash: line 1: return: can only `return' from a function or sourced script
 > ./errors.tests: line 305: `!!': not a valid identifier

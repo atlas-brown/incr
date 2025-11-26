@@ -91,8 +91,8 @@ if [ -n "$GMON_OUT_PREFIX" ]; then
 fi
 cd "$SAVEPWD"
 
-# this has to be last -- results in a syntax error
-# doesn't currently parse because EOF is not on a line by itself -- should it?
-(cat <<EOF
-still more text in a subshell
-EOF)
+# # this has to be last -- results in a syntax error
+# # doesn't currently parse because EOF is not on a line by itself -- should it?
+# (cat <<EOF
+# still more text in a subshell
+# EOF)

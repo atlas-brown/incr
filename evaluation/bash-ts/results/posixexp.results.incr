@@ -1,7 +1,4 @@
-40,41d39
-< /home/vagozino/incr/incr.sh
-< sh posixexp2.sub: test 6 failed
-261,268c259,266
+259,266c259,266
 < argv[1] = <^A^A^B^C^A^?>
 < argv[1] = <^A^A^B^C^A^?>
 < argv[1] = <^A^A^B^C^A^?>
@@ -19,7 +16,7 @@
 > argv[1] = <^A^B^C^?>
 > argv[1] = <^A^B^C^?>
 > argv[1] = <^A^B^C^?>
-301,304c299,302
+299,302c299,302
 < ./posixexp7.sub: line 46: ${'x1'%'t'}: bad substitution
 < ./posixexp7.sub: line 47: ${'x1'%'t'}: bad substitution
 < ./posixexp7.sub: line 51: ${'x1'%'t'}: bad substitution
@@ -29,5 +26,5 @@
 > ./posixexp7.sub: line 70: ${'x1'%'t'}: bad substitution
 > ./posixexp7.sub: line 73: ${'x1'%'t'}: bad substitution
 > ./posixexp7.sub: line 74: ${'x1'%'t'}: bad substitution
-309a308
+307a308
 > ./posixexp.tests: line 97: unexpected EOF while looking for matching `}'

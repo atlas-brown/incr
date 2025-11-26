@@ -1,0 +1,20 @@
+2c2
+< /home/vagozino/incr/incr.sh: line 1: `invalid-name': not a valid identifier
+---
+> bash5: line 1: `invalid-name': not a valid identifier
+7,8c7,8
+< /home/vagozino/incr/incr.sh: -c: line 1: syntax error near unexpected token `)'
+< /home/vagozino/incr/incr.sh: -c: line 1: `case x in esac) echo done; esac'
+---
+> bash5: -c: line 1: syntax error near unexpected token `)'
+> bash5: -c: line 1: `case x in esac) echo done; esac'
+10,13c10,13
+< /home/vagozino/incr/incr.sh: -c: line 1: syntax error near unexpected token `do'
+< /home/vagozino/incr/incr.sh: -c: line 1: `case in do do) echo in; esac'
+< /home/vagozino/incr/incr.sh: -c: line 1: syntax error near unexpected token `('
+< /home/vagozino/incr/incr.sh: -c: line 1: `for()'
+---
+> bash5: -c: line 1: syntax error near unexpected token `do'
+> bash5: -c: line 1: `case in do do) echo in; esac'
+> bash5: -c: line 1: syntax error near unexpected token `('
+> bash5: -c: line 1: `for()'
