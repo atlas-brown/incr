@@ -1,5 +1,5 @@
 TOP=$(git rev-parse --show-toplevel)
-# sudo rm -rf "$TOP/cache"
+sudo rm -rf "$TOP/cache"
 rm -f output.txt
 
 INPUT_DIRECTORY="$TOP/evaluation/microbenchmarks/introspect/inputs/pg-small"
