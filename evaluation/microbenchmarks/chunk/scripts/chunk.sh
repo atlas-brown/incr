@@ -1,11 +1,11 @@
 #!/bin/bash
 
 TOP=$(git rev-parse --show-toplevel)
-PROGRAM="${TOP}/target/release/incr -a"
-PROGRAM=""
+PROGRAM="${TOP}/target/release/incr"
+# PROGRAM=""
 
-cat "$IN" | \
-sed -E 's/(.)/\1/g' | \
-awk '{gsub(/./, "&"); print}' | \
-sed -e 's/^/X/; s/^X//' | \
-grep -a -E "^.*$"
+$PROGRAM cat "$IN" | \
+$PROGRAM sed -E 's/(.)/\1/g' | \
+$PROGRAM awk '{gsub(/./, "&"); print}' | \
+$PROGRAM sed -e 's/^/X/; s/^X//' | \
+$PROGRAM grep -a -E "^.*$"
