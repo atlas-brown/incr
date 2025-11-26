@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TOP=$(git rev-parse --show-toplevel)
-PROGRAM="${TOP}/target/release/incr"
+PROGRAM="${TOP}/target/release/incr -o"
 PROGRAM=""
 
 $PROGRAM cat "$IN" | \

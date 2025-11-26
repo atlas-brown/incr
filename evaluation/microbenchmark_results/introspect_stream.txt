@@ -1,0 +1,17 @@
+Running microbenchmark with /users/jxia3/incr/evaluation/microbenchmarks/introspect/inputs/pg-small/data_chunk_0.txt
+real    0m34.964s
+user    1m29.768s
+sys     1m25.640s
+1cd32229e603dcec5a6b9d164cb88cd7d8d38404e7dfe6c24ce0920af704a91b  output.txt
+
+Running microbenchmark with /users/jxia3/incr/evaluation/microbenchmarks/introspect/inputs/pg-small/data_chunk_1.txt
+real    0m30.904s
+user    1m27.829s
+sys     1m24.994s
+26eda1626a4b5b35a2e986d3497895a5ea9876839ed50053c8b52fc38c130d4f  output.txt
+
+Running microbenchmark with /users/jxia3/incr/evaluation/microbenchmarks/introspect/inputs/pg-small/data_chunk_2.txt
+real    0m31.646s
+user    1m27.248s
+sys     1m22.645s
+b7af9a0c6f22aeec91fb290636f0a26860cf914d2b577e328d089b025dada122  output.txt
