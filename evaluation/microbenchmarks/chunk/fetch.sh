@@ -54,14 +54,21 @@ if [[ "$size" == "small" ]]; then
         rm pg-small.tar.gz
         input_dir="$input_dir/pg-small"
         limit=$((200 * 1024 * 1024))
-        total=0
+        max_chunks=1
+        chunk_id=0
+        current_size=0
         for book in "$input_dir"/*; do
-            size=$(file_size "$book")
-            if (( total + size <= limit )); then
-                total=$(( total + size ))
-            else
-                rm -f -- "$book"
+            [[ "$book" == *"data_chunk_"* ]] && continue
+            if (( chunk_id < max_chunks )); then
+                cat "$book" >> "$input_dir/data_chunk_${chunk_id}.txt"
+                size=$(file_size "$book")
+                current_size=$((current_size + size))
+                if (( current_size >= limit )); then
+                    chunk_id=$((chunk_id + 1))
+                    current_size=0
+                fi
             fi
+            rm -f -- "$book"
         done
     fi
     exit 0
