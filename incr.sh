@@ -32,7 +32,7 @@ fi
 
 script=$1
 shift
-cache_dir=/tmp/cache
+cache_dir=${1:-/tmp/cache}
 
 [ -z "$script" ] && echo "Usage: $0 <script>" && exit 1
 [ -z "$cache_dir" ] && echo "Usage: $0 <script>" && exit 1
@@ -51,7 +51,7 @@ cleanup() {
     cp "$tmp_orig" "$script"
     # Delete all tmp files
     rm -f "$tmp_orig"
-    # rm -f "$tmp_incr"
+    rm -f "$tmp_incr"
     exit $st
 }
 trap cleanup EXIT INT TERM
