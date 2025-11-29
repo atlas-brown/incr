@@ -32,12 +32,16 @@ pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> Trace
 
 pub(crate) fn parse_trace(runtime: &Runtime) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
     let trace_file = match &runtime.typ {
-        RuntimeType::Sandbox(directory) => &directory.join("upperdir").join("tmp").join(TRACE_FILE),
-        RuntimeType::Docker { trace_file, .. } | RuntimeType::TraceFile(trace_file) => trace_file,
+        RuntimeType::Sandbox(directory) => directory.join("upperdir").join("tmp").join(TRACE_FILE),
+        RuntimeType::Docker { trace_file, container } => {
+            ensure_docker_trace_file(container, trace_file)?;
+            trace_file.clone()
+        }
+        RuntimeType::TraceFile(trace_file) => trace_file.clone(),
         RuntimeType::Nothing => return Ok((HashSet::new(), HashSet::new())),
     };
-    let (mut read_set, mut write_set) = scripts::parse_trace(trace_file).map_err(|e| anyhow!("{e}"))?;
-    fs::remove_file(trace_file)?;
+    let (mut read_set, mut write_set) = scripts::parse_trace(&trace_file).map_err(|e| anyhow!("{e}"))?;
+    fs::remove_file(&trace_file)?;
 
     read_set.retain(|p| {
         !EXCLUDED_PATHS.iter().any(|e| {
@@ -55,6 +59,23 @@ pub(crate) fn parse_trace(runtime: &Runtime) -> Result<(HashSet<PathBuf>, HashSe
     });
 
     Ok((read_set, write_set))
+}
+
+fn ensure_docker_trace_file(container: &str, trace_file: &Path) -> Result<()> {
+    if trace_file.exists() {
+        return Ok(());
+    }
+    if let Some(parent) = trace_file.parent() {
+        fs::create_dir_all(parent)?;
+    }
+    let trace_path = ops::file::path_to_string(trace_file)?.to_owned();
+    let status = ShellCommand::new("docker")
+        .args(["cp", &format!("{container}:{trace_path}"), &trace_path])
+        .status()?;
+    if !status.success() {
+        return Err(anyhow!("docker cp failed for trace file {trace_path}"));
+    }
+    Ok(())
 }
 
 pub(crate) fn copy_docker_outputs(container: &str, write_set: &HashSet<PathBuf>) -> Result<()> {
