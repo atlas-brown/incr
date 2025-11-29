@@ -14,7 +14,7 @@ use zstd::Encoder;
 use crate::config::{
     BUFFER_SIZE, COMPRESSION_LEVEL, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, SandboxMode, TRACE_FILE,
 };
-use crate::ops;
+use crate::ops::{self, debug_log};
 use crate::ops::thread::{AlwaysReady, ReadySignal};
 
 #[derive(Clone, Debug)]
@@ -205,18 +205,36 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
                 "-o".to_owned(),
                 ops::file::path_to_string(trace_file)?.to_string(),
             ];
-            arguments.extend(command.join_sequence().map(|arg| arg.to_owned()));
+            let command_string = command.join_string()?;
+            debug_log!(
+                "Docker runtime initial strace args for {} {:?}: {:?}",
+                command.name,
+                command.arguments,
+                arguments,
+            );
+            arguments.push("/bin/bash".to_owned());
+            arguments.push("-lc".to_owned());
+            arguments.push(command_string);
+            debug_log!(
+                "Docker runtime final strace args for {} {:?}: {:?}",
+                command.name,
+                command.arguments,
+                arguments,
+            );
             configure_docker_run(&mut child, &config.cache_directory, command, container, arguments)?;
         }
         RuntimeType::TraceFile(file) => {
             let mut arguments = vec![
-                "-yf",
-                "--seccomp-bpf",
-                "--trace=fork,clone,%file",
-                "-o",
-                ops::file::path_to_string(file)?,
+                "-yf".to_owned(),
+                "--seccomp-bpf".to_owned(),
+                "--trace=fork,clone,%file".to_owned(),
+                "-o".to_owned(),
+                ops::file::path_to_string(file)?.to_string(),
             ];
-            arguments.extend(command.join_sequence());
+            let command_string = command.join_string()?;
+            arguments.push("/bin/bash".to_owned());
+            arguments.push("-lc".to_owned());
+            arguments.push(command_string);
             child.args(&arguments);
         }
         RuntimeType::Nothing => {

@@ -68,14 +68,28 @@ fn ensure_docker_trace_file(container: &str, trace_file: &Path) -> Result<()> {
     if let Some(parent) = trace_file.parent() {
         fs::create_dir_all(parent)?;
     }
-    let trace_path = ops::file::path_to_string(trace_file)?.to_owned();
-    let status = ShellCommand::new("docker")
-        .args(["cp", &format!("{container}:{trace_path}"), &trace_path])
-        .status()?;
-    if !status.success() {
-        return Err(anyhow!("docker cp failed for trace file {trace_path}"));
+    if docker_cp_path(container, trace_file, trace_file)? {
+        return Ok(());
     }
-    Ok(())
+    if let Some(file_name) = trace_file.file_name().and_then(|name| name.to_str()) {
+        let fallback = Path::new("/tmp").join(file_name);
+        if docker_cp_path(container, &fallback, trace_file)? {
+            return Ok(());
+        }
+    }
+    Err(anyhow!(
+        "docker cp failed for trace file {}",
+        ops::file::path_to_string(trace_file)?
+    ))
+}
+
+fn docker_cp_path(container: &str, container_path: &Path, destination: &Path) -> Result<bool> {
+    let container_str = ops::file::path_to_string(container_path)?;
+    let destination_str = ops::file::path_to_string(destination)?.to_owned();
+    let status = ShellCommand::new("docker")
+        .args(["cp", &format!("{container}:{container_str}"), &destination_str])
+        .status()?;
+    Ok(status.success())
 }
 
 pub(crate) fn copy_docker_outputs(container: &str, write_set: &HashSet<PathBuf>) -> Result<()> {
