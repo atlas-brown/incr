@@ -1,7 +1,7 @@
 mode,script,time_sec
-bash,temp-analytics-1.sh,9.951
-bash,temp-analytics-2.sh,20.957
-bash,temp-analytics-3.sh,20.791
-incr,temp-analytics-1.sh,5.807
-incr,temp-analytics-2.sh,5.252
-incr,temp-analytics-3.sh,4.368
+bash,temp-analytics-1.sh,9.788
+bash,temp-analytics-2.sh,19.599
+bash,temp-analytics-3.sh,22.983
+incr,temp-analytics-1.sh,5.045
+incr,temp-analytics-2.sh,5.114
+incr,temp-analytics-3.sh,4.603
