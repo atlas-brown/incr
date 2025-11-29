@@ -1,5 +1,8 @@
 #!/bin/bash
 
+TOP=$(git rev-parse --show-toplevel)
+PROGRAM="${TOP}/target/release/incr"
+
 SCRIPT=$(cat <<'EOF'
 sed '' | \
 awk 1 | \
@@ -17,4 +20,4 @@ sed 's/^//'
 EOF
 )
 
-cat "$IN" | bash -c "$SCRIPT"
+$PROGRAM cat "$IN" | $PROGRAM bash -c "$SCRIPT"
