@@ -37,4 +37,4 @@ sh -c 'cat'
 EOF
 )
 
-$PROGRAM cat "$IN" | $PROGRAM bash -c "$SCRIPT" | $PROGRAM ./scripts/expensive.py
+$PROGRAM cat "$IN" | $PROGRAM bash -c "$SCRIPT" | ./scripts/expensive.py

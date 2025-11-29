@@ -30,3 +30,12 @@ sha256sum output.txt
 sleep 0.01
 time ./scripts/incr_group.sh > output.txt
 sha256sum output.txt
+
+sudo rm -rf "$TOP/cache"
+
+sleep 0.01
+time ./scripts/incr_disable.sh > output.txt
+sha256sum output.txt
+sleep 0.01
+time ./scripts/incr_disable > output.txt
+sha256sum output.txt

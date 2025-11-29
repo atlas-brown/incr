@@ -29,4 +29,5 @@ grep -a -e '' | \
 grep -aE '.*' | \
 grep -aE '^' | \
 grep -aF '' | \
-sh -c 'cat'
+sh -c 'cat' | \
+./scripts/expensive.py
