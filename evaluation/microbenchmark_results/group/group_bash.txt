@@ -1,9 +1,9 @@
-real    0m5.285s
-user    0m52.902s
-sys     0m11.929s
+real    0m6.131s
+user    0m59.546s
+sys     0m13.251s
 1cd32229e603dcec5a6b9d164cb88cd7d8d38404e7dfe6c24ce0920af704a91b  output.txt
 
-real    0m5.891s
-user    0m55.865s
-sys     0m13.129s
+real    0m6.336s
+user    1m1.995s
+sys     0m13.555s
 1cd32229e603dcec5a6b9d164cb88cd7d8d38404e7dfe6c24ce0920af704a91b  output.txt

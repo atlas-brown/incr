@@ -32,5 +32,4 @@ $PROGRAM grep -a -e '' | \
 $PROGRAM grep -aE '.*' | \
 $PROGRAM grep -aE '^' | \
 $PROGRAM grep -aF '' | \
-$PROGRAM sh -c 'cat' | \
-$PROGRAM ./scripts/expensive.py
+$PROGRAM sh -c 'cat'
