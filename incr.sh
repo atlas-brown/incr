@@ -56,7 +56,7 @@ cleanup() {
 }
 trap cleanup EXIT INT TERM
 
-python3 ${TOP}/src/scripts/insert.py --bash --sys-path ${TOP}/target/release/incr --try $TRY_PATH --cache "$cache_dir" "$script" > "$tmp_incr"
+python3 ${TOP}/src/scripts/insert.py --sys-path ${TOP}/target/release/incr --try $TRY_PATH --cache "$cache_dir" "$script" > "$tmp_incr"
 
 # Swap the original script with the incrementalized one.
 cp "$script" "$tmp_orig"
