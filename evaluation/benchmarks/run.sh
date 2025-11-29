@@ -59,6 +59,6 @@ for i in "${!BENCHMARKS[@]}"; do
 
     rm -rf "./$benchmark/cache"
     rm -rf "./$benchmark/outputs"
-    rm -rf "/tmp/sort*"
-    rm -rf "/tmp/tmp.*"
+    rm -rf /tmp/sort*
+    rm -rf /tmp/tmp*
 done
