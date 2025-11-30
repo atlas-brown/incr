@@ -123,7 +123,7 @@ fn parse_input() -> Result<Option<Input>> {
         short_circuit: arguments.short_circuit,
         compress_output: arguments.compress_output,
         full_tracing: arguments.full_tracing,
-        enable_annotations: arguments.enable_annotations,
+        enable_annotations: true,
         skip_introspection: arguments.skip_introspection,
     };
 
