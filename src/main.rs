@@ -121,7 +121,7 @@ fn parse_input() -> Result<Option<Input>> {
 
         batch_executor: arguments.batch_executor,
         short_circuit: arguments.short_circuit,
-        compress_output: true,
+        compress_output: arguments.compress_output,
         full_tracing: arguments.full_tracing,
         enable_annotations: arguments.enable_annotations,
         skip_introspection: arguments.skip_introspection,
