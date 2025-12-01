@@ -132,7 +132,6 @@ pub(crate) const READ_ONLY_COMMANDS: &[Condition] = &[
     Condition::with_name("comm"),
     Condition::with_name("find"),
     Condition::with_name("head"),
-    Condition::with_name("llm"),
     Condition::with_name("paste"),
     Condition::with_name("sed"),
     Condition::with_name("tail"),
