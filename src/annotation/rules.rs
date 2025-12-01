@@ -116,13 +116,23 @@ pub(crate) const IGNORE_COMMANDS: &[&str] = &[
 ];
 
 pub(crate) const PURE_COMMANDS: &[Condition] = &[
-    Condition::with_name("awk"),
+    Condition::with_name("basename"),
+    Condition::with_name("cut"),
     Condition::with_name("grep"),
-    Condition::with_name("sed"),
+    Condition::with_name("rev"),
+    Condition::with_name("sort"),
+    Condition::with_name("tr"),
+    Condition::with_name("uniq"),
+    Condition::with_name("wget"),
 ];
-pub(crate) const STATELESS_COMMANDS: &[Condition] = &[
+pub(crate) const STATELESS_COMMANDS: &[Condition] = &[];
+pub(crate) const READ_ONLY_COMMANDS: &[Condition] = &[
     Condition::with_name("awk"),
-    Condition::with_name("grep"),
+    Condition::with_name("cat"),
+    Condition::with_name("comm"),
+    Condition::with_name("find"),
+    Condition::with_name("head"),
+    Condition::with_name("paste"),
     Condition::with_name("sed"),
+    Condition::with_name("tail"),
 ];
-pub(crate) const READ_ONLY_COMMANDS: &[Condition] = &[];

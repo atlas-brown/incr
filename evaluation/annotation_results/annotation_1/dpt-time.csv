@@ -1,0 +1,11 @@
+mode,script,time_sec
+bash,dpt_1.sh,319.085
+bash,dpt_1_1.sh,317.818
+bash,dpt_2.sh,317.752
+bash,dpt_3.sh,648.161
+bash,dpt_4.sh,644.224
+incr,dpt_1.sh,410.393
+incr,dpt_1_1.sh,1.367
+incr,dpt_2.sh,0.556
+incr,dpt_3.sh,393.703
+incr,dpt_4.sh,5.387
