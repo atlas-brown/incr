@@ -38,7 +38,7 @@ cleanup() {
     # Restore the original script.
     cp "$tmp_orig" "$script"
     rm -f "$tmp_orig"
-    # rm -f "$tmp_incr"
+    rm -f "$tmp_incr"
     exit $st
 }
 trap cleanup EXIT INT TERM
