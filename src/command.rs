@@ -14,8 +14,8 @@ use zstd::Encoder;
 use crate::config::{
     BUFFER_SIZE, COMPRESSION_LEVEL, Config, EXCLUDED_VARIABLES, STRACE_COMMAND, SandboxMode, TRACE_FILE,
 };
-use crate::ops::{self, debug_log};
 use crate::ops::thread::{AlwaysReady, ReadySignal};
+use crate::ops::{self, debug_log};
 
 #[derive(Clone, Debug)]
 pub(crate) struct Command {
@@ -375,6 +375,15 @@ fn configure_docker_run(
     let cache_mount = format!("{cache_path}:{cache_path}");
 
     child.arg("run");
+
+    // --- ADD THIS SECTION ---
+    // Explicitly override the entrypoint to ensure arguments are passed
+    // directly to the executable (strace) rather than being consumed
+    // by a shell wrapper or existing entrypoint.
+    child.arg("--entrypoint");
+    child.arg("");
+    // ------------------------
+
     child.arg("--name");
     child.arg(container);
     child.arg("-v");

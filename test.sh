@@ -1,1 +1,1 @@
-cat README.md | tr "[:lower:]" "[:upper:]"
+cat README.md | tee output.txt

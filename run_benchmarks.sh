@@ -14,9 +14,9 @@ run_benchmark() {
 	local benchmark_name="$1"
 	local times=""
 	
-	for i in {1..10}; do
+	for i in {1..1}; do
 		echo "Running $script_path (Iteration $i)"
-		time_output=$( { /usr/bin/time -f "%e" ./incr.sh $bm_script cache >/dev/null; } 2>&1)
+		time_output=$( { /usr/bin/time -f "%e" ./incr.sh $bm_script /users/jxia3/incr/cache > /users/jxia3/incr/out.txt; } 2>&1)
 		times="$times,$time_output"
 	done
 
