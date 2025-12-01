@@ -1,0 +1,15 @@
+mode,script,time_sec
+bash,image-annotation-1.sh,162.993
+bash,image-annotation-2.sh,156.334
+bash,image-annotation-3.sh,159.298
+bash,image-annotation-4.sh,180.412
+bash,image-annotation-5.sh,205.427
+bash,image-annotation-6.sh,213.833
+bash,image-annotation-7.sh,212.127
+incr,image-annotation-1.sh,492.762
+incr,image-annotation-2.sh,490.979
+incr,image-annotation-3.sh,495.872
+incr,image-annotation-4.sh,481.46
+incr,image-annotation-5.sh,489.013
+incr,image-annotation-6.sh,491.96
+incr,image-annotation-7.sh,483.249

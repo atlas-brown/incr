@@ -20,6 +20,7 @@ BENCHMARKS = [
     "weather",
     "word-freq",
 ]
+DIRECTORY = "../annotation_results/annotation_1"
 
 figure, axes = plt.subplots(figsize=(10, 6))
 axes.grid()
@@ -28,7 +29,7 @@ width = 0.35  # Bar width
 all_colors = matplotlib.colormaps.get_cmap("tab10")
 
 for i, benchmark in enumerate(BENCHMARKS):
-    data = pd.read_csv(f"../default_results/default_1/{benchmark}-time.csv")
+    data = pd.read_csv(f"{DIRECTORY}/{benchmark}-time.csv")
 
     # Get per-iteration times
     bash_times = data[data["mode"] == "bash"]["time_sec"].values
@@ -81,7 +82,7 @@ axes.set_title("Benchmark Runtimes per Iteration (Stacked)")
 # Iteration colors
 # get the max number of iterations across all benchmarks
 num_iters = max(
-    pd.read_csv(f"../default_results/default_1/{benchmark}-time.csv")["mode"].value_counts().max()
+    pd.read_csv(f"{DIRECTORY}/{benchmark}-time.csv")["mode"].value_counts().max()
     for benchmark in BENCHMARKS
 )
 iter_patches = [
