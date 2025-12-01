@@ -123,7 +123,6 @@ pub(crate) const PURE_COMMANDS: &[Condition] = &[
     Condition::with_name("sort"),
     Condition::with_name("tr"),
     Condition::with_name("uniq"),
-    Condition::with_name("wget"),
 ];
 pub(crate) const STATELESS_COMMANDS: &[Condition] = &[];
 pub(crate) const READ_ONLY_COMMANDS: &[Condition] = &[
