@@ -8,9 +8,9 @@ fi
 set -- one two three
 echo before exec1.sub: "$@"
 echo calling exec1.sub
-./exec1.sub aa bb cc dd ee
+${THIS_SH} ./exec1.sub aa bb cc dd ee
 echo after exec1.sub with args: $?
-./exec1.sub
+${THIS_SH} ./exec1.sub
 echo after exec1.sub without args: $?
 echo after exec1.sub: "$@"
 
