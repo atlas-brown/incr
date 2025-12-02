@@ -1,6 +1,7 @@
 #!/bin/bash
 
-base_dir=$(realpath $(dirname $0))
+base_dir=$(realpath "$(dirname "$0")")
+cd "$base_dir" || exit 1
 result_dir=./results/incr
 
 mkdir -p ${result_dir}
@@ -8,15 +9,16 @@ mkdir -p ${result_dir}
 # Remove results from previous runs 
 rm -f "$result_dir"/*
 
-bm_script="test.sh"
+export IN="./evaluation/microbenchmarks/eager/inputs/pg-small"
 
 run_benchmark() {
 	local benchmark_name="$1"
+	local script="./evaluation/microbenchmarks/eager/scripts/$2"
 	local times=""
 	
 	for i in {1..1}; do
-		echo "Running $script_path (Iteration $i)"
-		time_output=$( { /usr/bin/time -f "%e" ./incr.sh $bm_script /users/jxia3/incr/cache > /users/jxia3/incr/out.txt; } 2>&1)
+		echo "Running $script (Iteration $i)"
+		time_output=$( { /usr/bin/time -f "%e" ./incr.sh "$script" /users/jxia3/incr/cache > /users/jxia3/incr/out.txt; } 2>&1)
 		times="$times,$time_output"
 	done
 
@@ -25,12 +27,21 @@ run_benchmark() {
 
 #export INCR_ISOLATION_MODE=try
 #output_file=${result_dir}/"benchmark_results_try.csv"
-#run_benchmark "eager"
+#run_benchmark "nlp" eager-stream-processing.sh
+#run_benchmark "spell" spell-7.sh
+#run_benchmark "unixfun" unixfun.sh
+#run_benchmark "covid" covid.sh
 
 export INCR_ISOLATION_MODE=docker
 output_file=${result_dir}/"benchmark_results_docker.csv"
-run_benchmark "eager"
+run_benchmark "nlp" eager-stream-processing.sh
+run_benchmark "spell" spell-7.sh
+run_benchmark "unixfun" unixfun.sh
+run_benchmark "covid" covid.sh
 
 #export INCR_ISOLATION_MODE=none
 #output_file=${result_dir}/"benchmark_results_vanilla.csv"
-#run_benchmark "eager"
+#run_benchmark "nlp" eager-stream-processing.sh
+#run_benchmark "spell" spell-7.sh
+#run_benchmark "unixfun" unixfun.sh
+#run_benchmark "covid" covid.sh
