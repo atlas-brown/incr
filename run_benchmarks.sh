@@ -9,16 +9,16 @@ mkdir -p ${result_dir}
 # Remove results from previous runs 
 rm -f "$result_dir"/*
 
-export IN="./evaluation/microbenchmarks/eager/inputs/pg-small"
+export IN="$PWD/evaluation/microbenchmarks/eager/inputs/pg-small"
 
 run_benchmark() {
 	local benchmark_name="$1"
 	local script="./evaluation/microbenchmarks/eager/scripts/$2"
 	local times=""
 	
-	for i in {1..1}; do
-		echo "Running $script (Iteration $i)"
-		time_output=$( { /usr/bin/time -f "%e" ./incr.sh "$script" /users/jxia3/incr/cache > /users/jxia3/incr/out.txt; } 2>&1)
+	for i in {1..10}; do
+		echo "Running $script_path (Iteration $i)"
+		time_output=$( { /usr/bin/time -f "%e" ./incr.sh $bm_script >/dev/null; } 2>&1)
 		times="$times,$time_output"
 	done
 
