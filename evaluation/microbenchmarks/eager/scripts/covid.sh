@@ -1,5 +1,8 @@
 #!/bin/bash
 
+find "$IN" -type f -name '*.txt' -exec cat {} + > /tmp/all.txt
+IN=/tmp/all.txt
+
 # Vehicles on the road per day
 
 # <in.csv sed 's/T..:..:..//' |
