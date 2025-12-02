@@ -20,12 +20,11 @@ if [ $# -eq 0 ] && [ ! -t 0 ]; then
 fi
 
 script=$1
-cache_dir=/tmp
-
+cache_dir=/tmp/incr
 mkdir -p "$cache_dir"
 
-[ -z "$script" ] && echo "Usage: $0 <script> <cache_dir>" && exit 1
-[ -z "$cache_dir" ] && echo "Usage: $0 <script> <cache_dir>" && exit 1
+[ -z "$script" ] && echo "Usage: $0 <script>" && exit 1
+[ -z "$cache_dir" ] && echo "Usage: $0 <script>" && exit 1
 
 TOP=$(git rev-parse --show-toplevel)
 TRY_PATH="$TOP/src/scripts/try.sh"
