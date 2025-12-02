@@ -8,14 +8,14 @@ fi
 set -- one two three
 echo before exec1.sub: "$@"
 echo calling exec1.sub
-./exec1.sub aa bb cc dd ee
+${THIS_SH} ./exec1.sub aa bb cc dd ee
 echo after exec1.sub with args: $?
-./exec1.sub
+${THIS_SH} ./exec1.sub
 echo after exec1.sub without args: $?
 echo after exec1.sub: "$@"
 
 # set up a fixed path so we know notthere will not be found
-PATH=/usr/bin:/bin:/usr/local/bin:
+# PATH=/usr/bin:/bin:/usr/local/bin:
 export PATH
 
 notthere
@@ -66,7 +66,7 @@ rm -f $TMPDIR/bashenv
 unset BASH_ENV
 
 # we're resetting the $PATH to empty, so this should be last
-PATH=
+# PATH=
 
 notthere
 echo $?
@@ -80,7 +80,7 @@ echo $?
 # but -p should guarantee that we find all the standard utilities, even
 # with an empty or unset $PATH
 command -p sh -c 'echo this is $0'
-unset PATH
+# unset PATH
 command -p sh -c 'echo this is $0'
 
 # a bug in bash before bash-2.01 caused PATH to be set to the empty string
