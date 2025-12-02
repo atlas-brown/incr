@@ -20,7 +20,7 @@ BENCHMARKS = [
     "weather",
     "word-freq",
 ]
-DIRECTORY = "../annotation_results/annotation_2"
+DIRECTORY = "../annotation_results/annotation_3"
 
 figure, axes = plt.subplots(figsize=(10, 6))
 axes.grid()

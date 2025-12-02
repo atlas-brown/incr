@@ -1,0 +1,15 @@
+mode,script,time_sec
+bash,file-mod-1.sh,3.377
+bash,file-mod-2.sh,3.906
+bash,file-mod-3.sh,3.668
+bash,file-mod-4.sh,3.847
+bash,file-mod-5.sh,4.049
+bash,file-mod-6.sh,11.213
+bash,file-mod-7.sh,11.905
+incr,file-mod-1.sh,20.148
+incr,file-mod-2.sh,16.978
+incr,file-mod-3.sh,4.642
+incr,file-mod-4.sh,4.361
+incr,file-mod-5.sh,2.818
+incr,file-mod-6.sh,23.304
+incr,file-mod-7.sh,8.607
