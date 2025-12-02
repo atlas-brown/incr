@@ -20,7 +20,9 @@ if [ $# -eq 1 ] && [ ! -t 0 ]; then
 fi
 
 script=$1
-cache_dir=$2
+cache_dir=/tmp
+
+mkdir -p "$cache_dir"
 
 [ -z "$script" ] && echo "Usage: $0 <script> <cache_dir>" && exit 1
 [ -z "$cache_dir" ] && echo "Usage: $0 <script> <cache_dir>" && exit 1
@@ -50,5 +52,5 @@ cp "$script" "$tmp_orig"
 cp "$tmp_incr" "$script"
 
 # $script now is $tmp_incr
-$incr_shell "$script"
+$incr_shell "$script" 2>/dev/null
 rc=$?
