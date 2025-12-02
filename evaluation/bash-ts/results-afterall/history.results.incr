@@ -34,18 +34,6 @@
 >    17  unset HISTFILE
 >    18  # now an out-of-range error because of the one=two not found in history
 107c110
-167,171c170,174
-< ./history3.sub: line 19: history: 16: history position out of range
-< ./history3.sub: line 20: history: 200: history position out of range
-< ./history3.sub: line 21: history: -20: history position out of range
-< ./history3.sub: line 22: history: -50: history position out of range
-< ./history3.sub: line 23: history: 5-0xaf: history position out of range
----
-> ./history3.sub: line 40: history: 16: history position out of range
-> ./history3.sub: line 41: history: 200: history position out of range
-> ./history3.sub: line 42: history: -20: history position out of range
-> ./history3.sub: line 43: history: -50: history position out of range
-> ./history3.sub: line 44: history: 5-0xaf: history position out of range
 187a191,195
 > (left
 > mid
