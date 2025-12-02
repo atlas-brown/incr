@@ -4,12 +4,14 @@ incr_shell=${INCR_SHELL:-bash}
 args=""
 flags=""
 
-while getopts "c:o:ue" opt; do
+while getopts "c:o:ueti" opt; do
     case "$opt" in
         c) cmd_str="$OPTARG" ;;
         o) args="$args -o $OPTARG" ;;
 	u) flags="$flags -u" ;;
 	e) flags="$flags -e" ;;
+	t) flags="$flags -t" ;;
+	i) flags="$flags -i" ;;
         *) echo "Usage: $0 [-c 'cmd'] <script>" >&2; exit 1 ;;
     esac
 done
