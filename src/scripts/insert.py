@@ -79,6 +79,8 @@ IGNORE_COMMANDS = [
     "unalias",
     "unset",
     "wait",
+    "fc",
+    "set",
     ":", # no-op command
     ".", # source command
     # Additional untraced metadata commands
