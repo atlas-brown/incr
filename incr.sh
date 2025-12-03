@@ -14,8 +14,8 @@ if [ -n "$cmd_str" ]; then
     exec "$incr_shell" -c "$cmd_str" "$@"
 fi
 
-if [ $# -eq 1 ] && [ ! -t 0 ]; then
-    # Explicit -s means "read commands from stdin".
+if [ $# -eq 0 ] && [ ! -t 0 ]; then
+    # When no script is provided but stdin is piped, run an interactive shell on stdin.
     exec -a bash "$incr_shell" -s
 fi
 
@@ -45,7 +45,7 @@ cleanup() {
 }
 trap cleanup EXIT INT TERM
 
-python3 ${TOP}/src/scripts/insert.py --bash --sys-path ${TOP}/target/release/incr --try $TRY_PATH --cache "$cache_dir" "$script" > "$tmp_incr"
+python3 ${TOP}/src/scripts/insert.py --sys-path ${TOP}/target/release/incr --try $TRY_PATH --cache "$cache_dir" "$script" > "$tmp_incr"
 
 # Swap the original script with the incrementalized one.
 cp "$script" "$tmp_orig"
