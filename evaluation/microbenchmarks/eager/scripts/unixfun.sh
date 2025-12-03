@@ -1,6 +1,6 @@
 #!/bin/bash
 
-find "$IN" -type f -name '*.txt' -exec cat {} + > /tmp/all.txt
+find "$IN" -type f -name '\*.txt' -exec cat {} + > /tmp/all.txt
 IN=/tmp/all.txt
 
 # 4.4: histogram of Belle's captures (-pawns) by each type of piece
