@@ -13,9 +13,10 @@ unzip -o images.zip -d "$IMG_DIR"
 rm images.zip
 
 for img in $(find "$IMG_DIR" -type f -name '*.jpg' | sort); do
-    cat "$img" | python3 scripts/segment.py |
+    cat "$img" |
+    python3 scripts/segment.py |
     python3 scripts/classify.py "$img" |
-    tee "$CLASS_FILE" |
+    tee -a "$CLASS_FILE" |
     awk -vi="$img" '{print "g:", $5, "c:", $6, i}'
 done | sort > "$DB_FILE"
 
