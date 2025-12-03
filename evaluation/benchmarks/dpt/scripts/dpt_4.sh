@@ -15,8 +15,5 @@ rm images.zip
 for img in $(find "$IMG_DIR" -type f -name '*.jpg' | sort); do
     cat "$img" | python3 scripts/segment.py |
     python3 scripts/classify.py "$img" |
-    tee "$CLASS_FILE" |
     awk -vi="$img" '{print "g:", $5, "c:", $6, i}'
 done | sort > "$DB_FILE"
-
-python plot.py "$CLASS_FILE"

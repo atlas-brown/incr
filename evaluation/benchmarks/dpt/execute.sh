@@ -20,7 +20,7 @@ done
 export IMG_DIR="${BENCHMARK_DIR}/inputs"
 export OUTPUT_DIR="$OUTPUT_DIR"
 
-SCRIPTS=("dpt_1.sh" "dpt_1_1.sh" "dpt_2.sh" "dpt_3.sh" "dpt_4.sh")
+SCRIPTS=("dpt_1.sh" "dpt_2.sh" "dpt_3.sh" "dpt_4.sh" "dpt_5.sh")
 
 TIME_FILE="${OUTPUT_DIR}/timing.csv"
 echo "mode,script,time_sec" > "$TIME_FILE"
@@ -54,11 +54,11 @@ measure_time() {
 }
 
 # Baseline: bash
-rm -rf "$IMG_DIR/dpt"
-for script in "${SCRIPTS[@]}"; do
-    echo "Running ${script} with bash..."
-    measure_time "bash" $script
-done
+#rm -rf "$IMG_DIR/dpt"
+#for script in "${SCRIPTS[@]}"; do
+#    echo "Running ${script} with bash..."
+#    measure_time "bash" $script
+#done
 
 # Incremental run: incr
 rm -rf "$IMG_DIR/dpt"
