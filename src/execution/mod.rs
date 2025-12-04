@@ -9,7 +9,7 @@ use anyhow::{Result, anyhow};
 use std::collections::HashSet;
 use std::fs;
 use std::path::{Path, PathBuf};
-use std::process::Command as ShellCommand;
+use std::process::{Command as ShellCommand, Stdio};
 
 use crate::annotation;
 use crate::command::{Command, Runtime, RuntimeType};
@@ -111,6 +111,8 @@ pub(crate) fn copy_docker_outputs(container: &str, write_set: &HashSet<PathBuf>)
 pub(crate) fn remove_docker_container(container: &str) -> Result<()> {
     let _ = ShellCommand::new("docker")
         .args(["rm", "-f", container])
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
         .status()?;
     Ok(())
 }

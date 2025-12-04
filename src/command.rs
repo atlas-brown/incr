@@ -186,7 +186,6 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
                 ops::file::path_to_string(directory)?,
                 STRACE_COMMAND,
                 "-yf",
-                "--seccomp-bpf",
                 "--trace=fork,clone,%file",
                 "-o",
                 &format!("/tmp/{TRACE_FILE}"),
@@ -200,7 +199,6 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
             let mut arguments = vec![
                 STRACE_COMMAND.to_owned(),
                 "-yf".to_owned(),
-                "--seccomp-bpf".to_owned(),
                 "--trace=fork,clone,%file".to_owned(),
                 "-o".to_owned(),
                 ops::file::path_to_string(trace_file)?.to_string(),
@@ -373,8 +371,17 @@ fn configure_docker_run(
     let cache_path = ops::file::path_to_string(cache_directory)?;
     let workspace_mount = format!("{workspace}:{workspace}");
     let cache_mount = format!("{cache_path}:{cache_path}");
+    // Share the host /tmp so intermediate scratch files (e.g., script-generated tmp files)
+    // survive across container invocations in Docker isolation mode.
+    let tmp_mount = "/tmp:/tmp";
+    // Provide host locale data so LC_ALL/LANG from the parent environment work inside the container.
+    let locale_mount = "/usr/lib/locale:/usr/lib/locale:ro";
+    // Some core utilities (e.g., `col`) may be missing from the base image; bind the host binary if present.
+    let col_path = "/usr/bin/col";
 
     child.arg("run");
+    // Keep STDIN attached so pipelines can stream into the containerized command.
+    child.arg("-i");
 
     // --- ADD THIS SECTION ---
     // Explicitly override the entrypoint to ensure arguments are passed
@@ -392,6 +399,18 @@ fn configure_docker_run(
         child.arg("-v");
         child.arg(&cache_mount);
     }
+    if Path::new(col_path).exists() {
+        child.arg("-v");
+        child.arg(format!("{col_path}:{col_path}:ro"));
+    }
+    child.arg("--cap-add");
+    child.arg("SYS_PTRACE");
+    child.arg("--security-opt");
+    child.arg("seccomp=unconfined");
+    child.arg("-v");
+    child.arg(tmp_mount);
+    child.arg("-v");
+    child.arg(locale_mount);
     child.arg("-w");
     child.arg(&workspace);
     for (variable, value) in &command.environment {
