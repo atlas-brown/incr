@@ -12,8 +12,13 @@ wget "https://atlas-group.cs.brown.edu/data/dpt/dpt.zip" -O images.zip
 unzip -o images.zip -d "$IMG_DIR"
 rm images.zip
 
-for img in "$IMG_DIR"/*.jpg; do
-    cat "$img" | python3 scripts/segment.py |
+echo "" > "$CLASS_FILE"
+for img in $(find "$IMG_DIR" -type f -name '*.jpg' | sort); do
+    cat "$img" |
+    python3 scripts/segment.py |
     python3 scripts/classify.py "$img" |
-    awk '{print "g:", $5, "c:", $6}'
+    tee -a "$CLASS_FILE" |
+    awk -vi="$img" '{print "g:", $5, "c:", $6, i}'
 done | sort > "$DB_FILE"
+
+python plot_1.py "$CLASS_FILE"

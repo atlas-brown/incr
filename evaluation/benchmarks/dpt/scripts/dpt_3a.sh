@@ -12,9 +12,9 @@ wget "https://atlas-group.cs.brown.edu/data/dpt/dpt.zip" -O images.zip
 unzip -o images.zip -d "$IMG_DIR"
 rm images.zip
 
-for img in $(find "$IMG_DIR" -type f -name '*.jpg' | sort); do
+for img in "$IMG_DIR"/*.jpg; do
     cat "$img" |
     python3 scripts/segment.py |
     python3 scripts/classify.py "$img" |
-    awk -vi="$img" '{print "g:", $5, "c:", $6, i}'
+    awk '{print "g:", $5, "c:", $6}'
 done | sort > "$DB_FILE"
