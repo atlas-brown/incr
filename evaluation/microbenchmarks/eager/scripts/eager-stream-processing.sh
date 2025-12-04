@@ -3,7 +3,7 @@
 
 dict=/usr/share/dict/words
 
-find "$IN" -type f -name '*.txt' -exec cat {} + |
+find "$IN" -type f -exec cat {} + |
 # iconv -f UTF-8 -t ASCII//TRANSLIT//IGNORE//SUBSTITUTE |
 tr -cs A-Za-z '\n' |
 grep -v '[0-9]+' |
