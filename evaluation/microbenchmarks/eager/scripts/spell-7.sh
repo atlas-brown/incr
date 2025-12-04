@@ -2,6 +2,7 @@
 # Calculate mispelled words in an input
 
 dict=/usr/share/dict/words
+cat $dict | sort > /tmp/dict
 
 find "$IN" -type f -name '\*.txt' -exec cat {} + |
     sed 's/[^[:print:]]//g' |      # remove non-printing characters
@@ -11,4 +12,4 @@ find "$IN" -type f -name '\*.txt' -exec cat {} + |
     tr -d '[:punct:]' |            # remove punctuation
     sort |                         # put words in alphabetical order
     uniq |                         # remove duplicate words
-    comm -23 - $dict               # report words not in dictionary 
+    comm -23 - /tmp/dict               # report words not in dictionary 
