@@ -10,6 +10,7 @@ mkdir -p ${result_dir}
 rm -f "$result_dir"/*
 
 export IN="$PWD/evaluation/microbenchmarks/eager/inputs/pg-small"
+sudo rm -rf /tmp/*
 
 run_benchmark() {
 	local benchmark_name="$1"
@@ -17,8 +18,9 @@ run_benchmark() {
 	local times=""
 	
 	for i in {1..10}; do
+		rm -rf /tmp/incr
 		echo "Running $script_path (Iteration $i)"
-		time_output=$( { /usr/bin/time -f "%e" ./incr.sh $bm_script >/dev/null; } 2>&1)
+		time_output=$( { /usr/bin/time -f "%e" ./incr.sh $script >/dev/null; } 2>&1)
 		times="$times,$time_output"
 	done
 
