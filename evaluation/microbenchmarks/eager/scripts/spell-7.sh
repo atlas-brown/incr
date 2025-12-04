@@ -4,7 +4,7 @@
 dict=/usr/share/dict/words
 cat $dict | sort > /tmp/dict
 
-find "$IN" -type f -name '\*.txt' -exec cat {} + |
+find "$IN" -type f -name '*.txt' -exec cat {} + |
     sed 's/[^[:print:]]//g' |      # remove non-printing characters
     col -bx            |           # remove backspaces / linefeeds
     tr -cs A-Za-z '\n' |
