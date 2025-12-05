@@ -13,7 +13,9 @@ awk '{print length, $0}' |
 perl -pe 's/(\d+)\s(.*)/sprintf("%08d %s", $1, $2)/e' |
 awk '{gsub(/./, "&"); print}' |
 sed -e 's/^/X/; s/^X//' |
-cut -d' ' -f1-3 |
+python3 -u -c 'import sys
+for line in sys.stdin:
+    sys.stdout.write(line.lower())' |
 awk '{print tolower($0)}' |
 grep -a -E "^.*$" |
 sed -E 's/(.{1,3})/\1 /g' |
