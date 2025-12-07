@@ -9,11 +9,11 @@ PROGRAM="${TOP}/target/release/incr"
 
 echo "// A comment" >> "$inputs"/file004.c
 
-clang -O3 -flto -march=native -c "$inputs"/file000.c
-clang -O3 -flto -march=native -c "$inputs"/file001.c
-clang -O3 -flto -march=native -c "$inputs"/file002.c
-clang -O3 -flto -march=native -c "$inputs"/file003.c
-clang -O3 -flto -march=native -c "$inputs"/file004.c
+$PROGRAM clang -O3 -flto -march=native -c "$inputs"/file000.c
+$PROGRAM clang -O3 -flto -march=native -c "$inputs"/file001.c
+$PROGRAM clang -O3 -flto -march=native -c "$inputs"/file002.c
+$PROGRAM clang -O3 -flto -march=native -c "$inputs"/file003.c
+$PROGRAM clang -O3 -flto -march=native -c "$inputs"/file004.c
 
 sha256sum ./file000.o
 sha256sum ./file001.o
