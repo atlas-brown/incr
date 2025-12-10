@@ -28,7 +28,7 @@ DELTAS = {
         {"change_reason": "exploration", "type": "add"},
         {"change_reason": "exploration", "type": "add"},
         {"change_reason": "flag_wrong", "type": "mod"},
-        {"change_reason": "aggregation", "type": "add"},
+        {"change_reason": "summary", "type": "add"},
         {"change_reason": "flag_wrong", "type": "mod"},
     ],
     "bio": [
@@ -168,7 +168,7 @@ def latex_for_runs(runs):
         R = reason_letter(reason)
         tag = type_tag(types_tuple)
         C = count if count > 1 else ""
-        macro = f"\\CB{{\\ttt{{{C}{R}}}}}{{{tag}}}"
+        macro = f"\\CB{{{C}\\Dreason{{{R}}}}}{{{tag}}}"
         parts.append(macro)
     return "".join(parts)
 
