@@ -34,10 +34,11 @@ fi
 
 script=$1
 shift
-cache_dir=${1:-/tmp/cache}
+cache_dir=/tmp/incr_cache
 
 [ -z "$script" ] && echo "Usage: $0 <script>" && exit 1
-[ -z "$cache_dir" ] && echo "Usage: $0 <script>" && exit 1
+
+mkdir -p "$cache_dir"
 
 TOP=$(git rev-parse --show-toplevel)
 TRY_PATH="$TOP/src/scripts/try.sh"
