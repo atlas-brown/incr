@@ -2,35 +2,9 @@
 cd "$(dirname "$0")" || exit 1
 
 BENCHMARKS=(
-    "beginner"
-    "bio"
-    "covid"
-    "dpt"
-    "file-mod"
-    "image-annotation"
     "nginx-analysis"
-    "nlp-uppercase"
-    "nlp-ngrams"
-    "poet"
-    "spell"
-    "unixfun"
-    "weather"
-    "word-freq"
 )
 SIZES=(
-    "small"
-    "small"
-    "small"
-    "small"
-    "small"
-    "small"
-    "small"
-    "small"
-    "small"
-    "small"
-    "small"
-    "small"
-    "small"
     "small"
 )
 
@@ -57,8 +31,6 @@ for i in "${!BENCHMARKS[@]}"; do
     du -sb "./$benchmark/cache" > "../run_results/$benchmark-size.txt"
     # TODO: generate output hashes
 
-    rm -rf "./$benchmark/cache"
-    rm -rf "./$benchmark/outputs"
     rm -rf /tmp/sort*
     rm -rf /tmp/tmp*
 done
