@@ -1,0 +1,501 @@
+30,31c30,31
+< ./nameref.tests: line 65: foo: readonly variable
+< ./nameref.tests: line 66: foo: readonly variable
+---
+> ./nameref.tests: line 106: foo: readonly variable
+> ./nameref.tests: line 107: foo: readonly variable
+34,35c34,35
+< ./nameref.tests: line 75: foo: readonly variable
+< ./nameref.tests: line 73: foo: readonly variable
+---
+> ./nameref.tests: line 119: foo: readonly variable
+> ./nameref.tests: line 116: foo: readonly variable
+42c42
+< ./nameref2.sub: line 3: foo: readonly variable
+---
+> ./nameref2.sub: line 5: foo: readonly variable
+51,52c51,52
+< ./nameref3.sub: line 12: foo: invalid indirect expansion
+< ./nameref3.sub: line 15: unset: bar: cannot unset: readonly variable
+---
+> ./nameref3.sub: line 29: foo: invalid indirect expansion
+> ./nameref3.sub: line 34: unset: bar: cannot unset: readonly variable
+108c108
+< ./nameref5.sub: line 33: unset: three: cannot unset: readonly variable
+---
+> ./nameref5.sub: line 56: unset: three: cannot unset: readonly variable
+113,115c113,115
+< ./nameref6.sub: line 1: typeset: x: nameref variable self references not allowed
+< ./nameref6.sub: line 2: typeset: x[3]: reference variable cannot be an array
+< ./nameref6.sub: line 5: typeset: x: reference variable cannot be an array
+---
+> ./nameref6.sub: line 15: typeset: x: nameref variable self references not allowed
+> ./nameref6.sub: line 18: typeset: x[3]: reference variable cannot be an array
+> ./nameref6.sub: line 25: typeset: x: reference variable cannot be an array
+124,126c124,126
+< ./nameref8.sub: line 3: typeset: warning: v: circular name reference
+< ./nameref8.sub: line 3: warning: v: circular name reference
+< ./nameref8.sub: line 4: warning: v: circular name reference
+---
+> ./nameref8.sub: line 16: typeset: warning: v: circular name reference
+> ./nameref8.sub: line 16: warning: v: circular name reference
+> ./nameref8.sub: line 18: warning: v: circular name reference
+130,132c130,132
+< ./nameref8.sub: line 22: typeset: warning: x: circular name reference
+< ./nameref8.sub: line 22: warning: x: circular name reference
+< ./nameref8.sub: line 23: warning: x: circular name reference
+---
+> ./nameref8.sub: line 42: typeset: warning: x: circular name reference
+> ./nameref8.sub: line 42: warning: x: circular name reference
+> ./nameref8.sub: line 44: warning: x: circular name reference
+134,136c134,136
+< ./nameref8.sub: line 30: typeset: warning: v: circular name reference
+< ./nameref8.sub: line 30: warning: v: circular name reference
+< ./nameref8.sub: line 31: warning: v: circular name reference
+---
+> ./nameref8.sub: line 51: typeset: warning: v: circular name reference
+> ./nameref8.sub: line 51: warning: v: circular name reference
+> ./nameref8.sub: line 51: warning: v: circular name reference
+138,140c138,140
+< ./nameref8.sub: line 37: typeset: v: nameref variable self references not allowed
+< ./nameref8.sub: line 41: warning: x: circular name reference
+< ./nameref8.sub: line 42: warning: x: circular name reference
+---
+> ./nameref8.sub: line 60: typeset: v: nameref variable self references not allowed
+> ./nameref8.sub: line 67: warning: x: circular name reference
+> ./nameref8.sub: line 68: warning: x: circular name reference
+160c160
+< ./nameref10.sub: line 28: typeset: somevariable: not found
+---
+> ./nameref10.sub: line 51: typeset: somevariable: not found
+167,169c167,169
+< ./nameref10.sub: line 36: typeset: somevariable: not found
+< ./nameref10.sub: line 38: typeset: foo: not found
+< ./nameref10.sub: line 38: typeset: somevariable: not found
+---
+> ./nameref10.sub: line 62: typeset: somevariable: not found
+> ./nameref10.sub: line 64: typeset: foo: not found
+> ./nameref10.sub: line 64: typeset: somevariable: not found
+171c171
+< ./nameref10.sub: line 41: typeset: bar: not found
+---
+> ./nameref10.sub: line 68: typeset: bar: not found
+173c173
+< ./nameref10.sub: line 43: typeset: bar: not found
+---
+> ./nameref10.sub: line 70: typeset: bar: not found
+178,183c178,183
+< ./nameref10.sub: line 49: typeset: bar: not found
+< ./nameref11.sub: line 1: declare: `/': invalid variable name for name reference
+< ./nameref11.sub: line 2: declare: `/': invalid variable name for name reference
+< ./nameref11.sub: line 3: `/': not a valid identifier
+< ./nameref11.sub: line 4: declare: `/': not a valid identifier
+< ./nameref11.sub: line 5: `/': not a valid identifier
+---
+> ./nameref10.sub: line 77: typeset: bar: not found
+> ./nameref11.sub: line 14: declare: `/': invalid variable name for name reference
+> ./nameref11.sub: line 15: declare: `/': invalid variable name for name reference
+> ./nameref11.sub: line 16: `/': not a valid identifier
+> ./nameref11.sub: line 17: declare: `/': not a valid identifier
+> ./nameref11.sub: line 18: `/': not a valid identifier
+185c185
+< #? ./nameref11.sub: line 9: `/': not a valid identifier
+---
+> #? ./nameref11.sub: line 19: `/': not a valid identifier
+188,191c188,191
+< ./nameref11.sub: line 13: ((: `0': not a valid identifier
+< ./nameref11.sub: line 14: declare: `0': invalid variable name for name reference
+< ./nameref11.sub: line 15: declare: `/': invalid variable name for name reference
+< ./nameref11.sub: line 18: declare: `/': invalid variable name for name reference
+---
+> ./nameref11.sub: line 20: ((: `0': not a valid identifier
+> ./nameref11.sub: line 21: declare: `0': invalid variable name for name reference
+> ./nameref11.sub: line 22: declare: `/': invalid variable name for name reference
+> ./nameref11.sub: line 23: declare: `/': invalid variable name for name reference
+193,196c193,196
+< ./nameref11.sub: line 24: `/': not a valid identifier
+< ./nameref11.sub: line 25: exec: `14': not a valid identifier
+< ./nameref11.sub: line 25: r: cannot assign fd to variable
+< ./nameref11.sub: line 26: warning: r: removing nameref attribute
+---
+> ./nameref11.sub: line 25: `/': not a valid identifier
+> ./nameref11.sub: line 26: exec: `10': not a valid identifier
+> ./nameref11.sub: line 26: r: cannot assign fd to variable
+> ./nameref11.sub: line 27: warning: r: removing nameref attribute
+198,201c198,199
+< ./nameref11.sub: line 27: declare: RO: readonly variable
+< ./nameref11.sub: line 27: RO: readonly variable
+< ./nameref11.sub: line 28: declare: `/': invalid variable name for name reference
+< /
+---
+> ./nameref11.sub: line 28: declare: RO: readonly variable
+> ./nameref11.sub: line 28: RO: readonly variable
+202a201,202
+> /
+> ./nameref11.sub: line 30: declare: `/': invalid variable name for name reference
+204,205c204,205
+< ./nameref11.sub: line 30: getopts: `?': not a valid identifier
+< ./nameref11.sub: line 31: warning: r: removing nameref attribute
+---
+> ./nameref11.sub: line 31: getopts: `?': not a valid identifier
+> ./nameref11.sub: line 32: warning: r: removing nameref attribute
+207,210c207,208
+< ./nameref11.sub: line 32: declare: r: reference variable cannot be an array
+< ./nameref11.sub: line 33: printf: `/': not a valid identifier
+< ./nameref11.sub: line 34: `': not a valid identifier
+< ./nameref11.sub: line 35: declare: `': not a valid identifier
+---
+> ./nameref11.sub: line 33: declare: r: reference variable cannot be an array
+> ./nameref11.sub: line 34: printf: `/': not a valid identifier
+212,213c210,213
+< ./nameref11.sub: line 37: printf: `': not a valid identifier
+< ./nameref11.sub: line 38: declare: `': invalid variable name for name reference
+---
+> ./nameref11.sub: line 37: declare: `': not a valid identifier
+> ./nameref11.sub: line 38: `': not a valid identifier
+> ./nameref11.sub: line 39: printf: `': not a valid identifier
+> ./nameref11.sub: line 40: declare: `': invalid variable name for name reference
+215,216c215,216
+< ./nameref11.sub: line 41: ROVAR: readonly variable
+< ./nameref11.sub: line 41: ROVAR: cannot unset: readonly variable
+---
+> ./nameref11.sub: line 45: ROVAR: readonly variable
+> ./nameref11.sub: line 45: ROVAR: cannot unset: readonly variable
+219c219
+< ./nameref11.sub: line 42: `@': not a valid identifier
+---
+> ./nameref11.sub: line 47: `@': not a valid identifier
+222c222
+< ./nameref11.sub: line 45: RO: readonly variable
+---
+> ./nameref11.sub: line 52: RO: readonly variable
+224c224
+< ./nameref11.sub: line 45: RO: cannot unset: readonly variable
+---
+> ./nameref11.sub: line 52: RO: cannot unset: readonly variable
+226,227c226,227
+< ./nameref11.sub: line 45: declare: RO_PID: not found
+< ./nameref11.sub: line 46: RO2: readonly variable
+---
+> ./nameref11.sub: line 52: declare: RO_PID: not found
+> ./nameref11.sub: line 54: RO2: readonly variable
+230c230
+< ./nameref11.sub: line 53: typeset: `2': invalid variable name for name reference
+---
+> ./nameref11.sub: line 65: typeset: `2': invalid variable name for name reference
+232c232
+< ./nameref11.sub: line 56: typeset: `2': invalid variable name for name reference
+---
+> ./nameref11.sub: line 70: typeset: `2': invalid variable name for name reference
+234,238c234,238
+< ./nameref11.sub: line 60: foo[2]: invalid indirect expansion
+< ./nameref11.sub: line 61: bar: invalid indirect expansion
+< ./nameref12.sub: line 5: declare: `/': invalid variable name for name reference
+< ./nameref12.sub: line 7: declare: `%': invalid variable name for name reference
+< ./nameref12.sub: line 10: `^': not a valid identifier
+---
+> ./nameref11.sub: line 75: foo[2]: invalid indirect expansion
+> ./nameref11.sub: line 76: bar: invalid indirect expansion
+> ./nameref12.sub: line 19: declare: `/': invalid variable name for name reference
+> ./nameref12.sub: line 22: declare: `%': invalid variable name for name reference
+> ./nameref12.sub: line 26: `^': not a valid identifier
+242,243c242,243
+< ./nameref12.sub: line 20: declare: `42': not a valid identifier
+< ./nameref12.sub: line 21: declare: x: not found
+---
+> ./nameref12.sub: line 39: declare: `42': not a valid identifier
+> ./nameref12.sub: line 40: declare: x: not found
+246,248c246,248
+< ./nameref12.sub: line 33: declare: `7*6': not a valid identifier
+< ./nameref12.sub: line 33: declare: foo: not found
+< ./nameref12.sub: line 35: `7*6': not a valid identifier
+---
+> ./nameref12.sub: line 58: declare: `7*6': not a valid identifier
+> ./nameref12.sub: line 58: declare: foo: not found
+> ./nameref12.sub: line 60: `7*6': not a valid identifier
+251c251
+< ./nameref12.sub: line 57: readonly: `var[0]': not a valid identifier
+---
+> ./nameref12.sub: line 87: readonly: `var[0]': not a valid identifier
+256c256
+< ./nameref12.sub: line 70: `': not a valid identifier
+---
+> ./nameref12.sub: line 104: `': not a valid identifier
+260c260
+< ./nameref12.sub: line 85: declare: global: not found
+---
+> ./nameref12.sub: line 113: declare: global: not found
+273c273
+< ./nameref13.sub: line 71: typeset: `12345': invalid variable name for name reference
+---
+> ./nameref13.sub: line 101: typeset: `12345': invalid variable name for name reference
+275c275
+< ./nameref13.sub: line 79: typeset: `12345': invalid variable name for name reference
+---
+> ./nameref13.sub: line 110: typeset: `12345': invalid variable name for name reference
+288c288
+< ./nameref14.sub: line 15: typeset: var: not found
+---
+> ./nameref14.sub: line 36: typeset: var: not found
+297c297
+< ./nameref14.sub: line 21: typeset: var: not found
+---
+> ./nameref14.sub: line 45: typeset: var: not found
+299,301c299,301
+< ./nameref15.sub: line 3: local: warning: a: circular name reference
+< ./nameref15.sub: line 3: warning: a: circular name reference
+< ./nameref15.sub: line 4: `a[0]': not a valid identifier
+---
+> ./nameref15.sub: line 14: local: warning: a: circular name reference
+> ./nameref15.sub: line 14: warning: a: circular name reference
+> ./nameref15.sub: line 14: `a[0]': not a valid identifier
+303,305c303,305
+< ./nameref15.sub: line 3: local: warning: a: circular name reference
+< ./nameref15.sub: line 3: warning: a: circular name reference
+< ./nameref15.sub: line 4: warning: a: circular name reference
+---
+> ./nameref15.sub: line 14: local: warning: a: circular name reference
+> ./nameref15.sub: line 14: warning: a: circular name reference
+> ./nameref15.sub: line 14: warning: a: circular name reference
+308,310c308,310
+< ./nameref15.sub: line 3: local: warning: a: circular name reference
+< ./nameref15.sub: line 3: warning: a: circular name reference
+< ./nameref15.sub: line 4: `a[0]': not a valid identifier
+---
+> ./nameref15.sub: line 14: local: warning: a: circular name reference
+> ./nameref15.sub: line 14: warning: a: circular name reference
+> ./nameref15.sub: line 14: `a[0]': not a valid identifier
+312,315c312,315
+< ./nameref15.sub: line 26: typeset: warning: ref: circular name reference
+< ./nameref15.sub: line 26: warning: ref: circular name reference
+< ./nameref15.sub: line 27: warning: ref: circular name reference
+< ./nameref15.sub: line 28: warning: ref: circular name reference
+---
+> ./nameref15.sub: line 32: typeset: warning: ref: circular name reference
+> ./nameref15.sub: line 32: warning: ref: circular name reference
+> ./nameref15.sub: line 33: warning: ref: circular name reference
+> ./nameref15.sub: line 34: warning: ref: circular name reference
+319,321c319,321
+< ./nameref15.sub: line 36: typeset: warning: xxx: circular name reference
+< ./nameref15.sub: line 36: warning: xxx: circular name reference
+< ./nameref15.sub: line 37: warning: xxx: circular name reference
+---
+> ./nameref15.sub: line 45: typeset: warning: xxx: circular name reference
+> ./nameref15.sub: line 45: warning: xxx: circular name reference
+> ./nameref15.sub: line 46: warning: xxx: circular name reference
+323c323
+< ./nameref15.sub: line 39: warning: xxx: circular name reference
+---
+> ./nameref15.sub: line 48: warning: xxx: circular name reference
+326,327c326,327
+< ./nameref15.sub: line 47: typeset: ref: nameref variable self references not allowed
+< ./nameref15.sub: line 48: ref: nameref variable self references not allowed
+---
+> ./nameref15.sub: line 59: typeset: ref: nameref variable self references not allowed
+> ./nameref15.sub: line 61: ref: nameref variable self references not allowed
+334c334
+< ./nameref15.sub: line 61: var[@]: bad array subscript
+---
+> ./nameref15.sub: line 78: var[@]: bad array subscript
+336c336
+< ./nameref15.sub: line 65: var[@]: bad array subscript
+---
+> ./nameref15.sub: line 83: var[@]: bad array subscript
+339c339
+< ./nameref15.sub: line 71: warning: a: removing nameref attribute
+---
+> ./nameref15.sub: line 91: warning: a: removing nameref attribute
+342c342
+< ./nameref15.sub: line 75: warning: a: removing nameref attribute
+---
+> ./nameref15.sub: line 96: warning: a: removing nameref attribute
+347c347
+< ./nameref15.sub: line 87: typeset: n: not found
+---
+> ./nameref15.sub: line 112: typeset: n: not found
+351c351
+< ./nameref15.sub: line 93: warning: xref: removing nameref attribute
+---
+> ./nameref15.sub: line 120: warning: xref: removing nameref attribute
+353c353
+< ./nameref15.sub: line 98: warning: xref: removing nameref attribute
+---
+> ./nameref15.sub: line 126: warning: xref: removing nameref attribute
+357,358c357,358
+< ./nameref16.sub: line 5: typeset: x: not found
+< ./nameref16.sub: line 5: typeset: y: not found
+---
+> ./nameref16.sub: line 25: typeset: x: not found
+> ./nameref16.sub: line 25: typeset: y: not found
+361,362c361,362
+< ./nameref16.sub: line 11: typeset: x: not found
+< ./nameref16.sub: line 11: typeset: y: not found
+---
+> ./nameref16.sub: line 34: typeset: x: not found
+> ./nameref16.sub: line 34: typeset: y: not found
+365,366c365,366
+< ./nameref16.sub: line 20: typeset: x: not found
+< ./nameref16.sub: line 20: typeset: y: not found
+---
+> ./nameref16.sub: line 46: typeset: x: not found
+> ./nameref16.sub: line 46: typeset: y: not found
+371,372c371,372
+< ./nameref17.sub: line 4: declare: bar: not found
+< ./nameref17.sub: line 5: unset: foo0: cannot unset: readonly variable
+---
+> ./nameref17.sub: line 21: declare: bar: not found
+> ./nameref17.sub: line 22: unset: foo0: cannot unset: readonly variable
+376,377c376,377
+< ./nameref17.sub: line 9: declare: foo0: readonly variable
+< ./nameref17.sub: line 10: declare: foo0: readonly variable
+---
+> ./nameref17.sub: line 27: declare: foo0: readonly variable
+> ./nameref17.sub: line 28: declare: foo0: readonly variable
+379c379
+< ./nameref17.sub: line 15: typeset: foo1: readonly variable
+---
+> ./nameref17.sub: line 37: typeset: foo1: readonly variable
+383,384c383,384
+< ./nameref17.sub: line 22: bar: readonly variable
+< ./nameref17.sub: line 23: typeset: bar: readonly variable
+---
+> ./nameref17.sub: line 48: bar: readonly variable
+> ./nameref17.sub: line 49: typeset: bar: readonly variable
+388,389c388,389
+< ./nameref17.sub: line 30: unset: foo3: cannot unset: readonly variable
+< ./nameref17.sub: line 32: declare: bar3: readonly variable
+---
+> ./nameref17.sub: line 59: unset: foo3: cannot unset: readonly variable
+> ./nameref17.sub: line 62: declare: bar3: readonly variable
+392c392
+< ./nameref17.sub: line 34: declare: foo3: readonly variable
+---
+> ./nameref17.sub: line 64: declare: foo3: readonly variable
+395c395
+< ./nameref17.sub: line 40: typeset: foo4: readonly variable
+---
+> ./nameref17.sub: line 76: typeset: foo4: readonly variable
+399c399
+< ./nameref17.sub: line 50: typeset: foo4: readonly variable
+---
+> ./nameref17.sub: line 92: typeset: foo4: readonly variable
+407,410c407,410
+< ./nameref18.sub: line 2: mapfile: `XXX[0]': not a valid identifier
+< ./nameref18.sub: line 4: declare: XXX[0]: not found
+< ./nameref18.sub: line 8: `XXX[0]': not a valid identifier
+< ./nameref18.sub: line 9: declare: XXX[0]: not found
+---
+> ./nameref18.sub: line 15: mapfile: `XXX[0]': not a valid identifier
+> ./nameref18.sub: line 16: declare: XXX[0]: not found
+> ./nameref18.sub: line 22: `XXX[0]': not a valid identifier
+> ./nameref18.sub: line 23: declare: XXX[0]: not found
+413c413
+< ./nameref18.sub: line 18: `XXX[0]': not a valid identifier
+---
+> ./nameref18.sub: line 37: `XXX[0]': not a valid identifier
+415,418c415,418
+< ./nameref18.sub: line 19: declare: XXX[0]: not found
+< ./nameref18.sub: line 22: read: `XXX[0]': not a valid identifier
+< ./nameref18.sub: line 23: declare: XXX[0]: not found
+< ./nameref18.sub: line 27: `XXX[0]': not a valid identifier
+---
+> ./nameref18.sub: line 38: declare: XXX[0]: not found
+> ./nameref18.sub: line 42: read: `XXX[0]': not a valid identifier
+> ./nameref18.sub: line 43: declare: XXX[0]: not found
+> ./nameref18.sub: line 48: `XXX[0]': not a valid identifier
+420,421c420,421
+< ./nameref18.sub: line 29: `XXX[0]': not a valid identifier
+< ./nameref18.sub: line 29: declare: XXX[0]: not found
+---
+> ./nameref18.sub: line 51: `XXX[0]': not a valid identifier
+> ./nameref18.sub: line 51: declare: XXX[0]: not found
+423c423
+< ./nameref18.sub: line 35: declare: var[123]: not found
+---
+> ./nameref18.sub: line 59: declare: var[123]: not found
+426c426
+< ./nameref18.sub: line 38: declare: var[123]: not found
+---
+> ./nameref18.sub: line 63: declare: var[123]: not found
+429c429
+< ./nameref18.sub: line 41: declare: var[123]: not found
+---
+> ./nameref18.sub: line 67: declare: var[123]: not found
+450c450
+< ./nameref19.sub: line 5: declare: bar: not found
+---
+> ./nameref19.sub: line 22: declare: bar: not found
+474c474
+< ./nameref20.sub: line 24: declare: var: not found
+---
+> ./nameref20.sub: line 36: declare: var: not found
+480,481c480,481
+< ./nameref20.sub: line 42: declare: ref: not found
+< ./nameref20.sub: line 42: declare: var: not found
+---
+> ./nameref20.sub: line 51: declare: ref: not found
+> ./nameref20.sub: line 51: declare: var: not found
+485,486c485,486
+< ./nameref20.sub: line 53: declare: ref: not found
+< ./nameref20.sub: line 53: declare: var: not found
+---
+> ./nameref20.sub: line 58: declare: ref: not found
+> ./nameref20.sub: line 58: declare: var: not found
+493c493
+< ./nameref20.sub: line 69: declare: var: not found
+---
+> ./nameref20.sub: line 74: declare: var: not found
+515,516c515,516
+< ./nameref22.sub: line 25: declare: array: reference variable cannot be an array
+< ./nameref22.sub: line 27: declare: array[128]: reference variable cannot be an array
+---
+> ./nameref22.sub: line 50: declare: array: reference variable cannot be an array
+> ./nameref22.sub: line 53: declare: array[128]: reference variable cannot be an array
+520,521c520,521
+< ./nameref22.sub: line 39: declare: `(one two three)': invalid variable name for name reference
+< ./nameref22.sub: line 40: declare: array: reference variable cannot be an array
+---
+> ./nameref22.sub: line 69: declare: `(one two three)': invalid variable name for name reference
+> ./nameref22.sub: line 70: declare: array: reference variable cannot be an array
+523c523
+< ./nameref22.sub: line 43: declare: array: reference variable cannot be an array
+---
+> ./nameref22.sub: line 74: declare: array: reference variable cannot be an array
+525c525
+< ./nameref22.sub: line 47: declare: array: reference variable cannot be an array
+---
+> ./nameref22.sub: line 79: declare: array: reference variable cannot be an array
+533c533
+< ./nameref23.sub: line 10: declare: b: not found
+---
+> ./nameref23.sub: line 15: declare: b: not found
+540c540
+< ./nameref23.sub: line 16: declare: `1': invalid variable name for name reference
+---
+> ./nameref23.sub: line 25: declare: `1': invalid variable name for name reference
+542c542
+< ./nameref23.sub: line 18: declare: b: not found
+---
+> ./nameref23.sub: line 27: declare: b: not found
+561,581d560
+< ./nameref24.sub: line 6: declare: `': not a valid identifier
+< ./nameref24.sub: line 7: declare: `a&b': invalid variable name for name reference
+< 3
+< 0
+< 0
+< 0
+< 0
+< ./nameref24.sub: line 17: declare: `aa&bb': invalid variable name for name reference
+< 3
+< 0
+< 5
+< /home/vagozino/incr/incr.sh: line 1: a[k]: unbound variable
+< ok 1
+< /home/vagozino/incr/incr.sh: line 1: r0: unbound variable
+< ok 2
+< /home/vagozino/incr/incr.sh: line 1: k: unbound variable
+< ok 4
+< ok 5
+< ok 6
+< ok 7
+< ok 8

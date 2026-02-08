@@ -1,0 +1,43 @@
+33c33
+< ./printf.tests: line 38: printf: missing hex digit for \x
+---
+> ./printf.tests: line 95: printf: missing hex digit for \x
+94,97c94,97
+< ./printf.tests: line 104: printf: `%10': missing format character
+< ./printf.tests: line 105: printf: `M': invalid format character
+< ab./printf.tests: line 106: printf: `y': invalid format character
+< ./printf.tests: line 107: printf: GNU: invalid number
+---
+> ./printf.tests: line 219: printf: `%10': missing format character
+> ./printf.tests: line 220: printf: `M': invalid format character
+> ab./printf.tests: line 223: printf: `y': invalid format character
+> ./printf.tests: line 226: printf: GNU: invalid number
+99c99
+< ./printf.tests: line 108: printf: GNU: invalid number
+---
+> ./printf.tests: line 227: printf: GNU: invalid number
+148a149,150
+> xx
+> xx
+175c177
+< ./printf1.sub: line 56: printf: missing hex digit for \x
+---
+> ./printf1.sub: line 107: printf: missing hex digit for \x
+236,239c238,241
+< ./printf1.sub: line 184: printf: `%10': missing format character
+< ./printf1.sub: line 185: printf: `M': invalid format character
+< ./printf1.sub: line 186: printf: `y': invalid format character
+< ./printf1.sub: line 187: printf: GNU: invalid number
+---
+> ./printf1.sub: line 293: printf: `%10': missing format character
+> ./printf1.sub: line 294: printf: `M': invalid format character
+> ./printf1.sub: line 297: printf: `y': invalid format character
+> ./printf1.sub: line 300: printf: GNU: invalid number
+241c243
+< ./printf1.sub: line 189: printf: GNU: invalid number
+---
+> ./printf1.sub: line 302: printf: GNU: invalid number
+253c255
+< ./printf3.sub: line 15: printf: warning: `Z': invalid time format specification
+---
+> ./printf3.sub: line 27: printf: warning: `Z': invalid time format specification

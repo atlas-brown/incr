@@ -2,8 +2,9 @@
 
 TOP=$(git rev-parse --show-toplevel)
 URL="https://atlas.cs.brown.edu/data"
+BENCHMARK="poet"
 
-input_dir="${TOP}/nlp/inputs"
+input_dir="${TOP}/evaluation/benchmarks/${BENCHMARK}/inputs"
 mkdir -p "$input_dir"
 cd "$input_dir" || exit 1
 
@@ -31,6 +32,12 @@ if [ ! -f ./exodus ]; then
     curl --insecure -sf ${URL}/gutenberg/3/3/4/2/33420/33420-0.txt > exodus
 fi
 
+file_size() {
+    stat -c%s -- "$1" 2>/dev/null || \
+    stat -f%z -- "$1" 2>/dev/null || \
+    wc -c < "$1"
+}
+
 if [[ "$size" == "small" ]]; then
     if [ ! -e ./pg-small ]; then
         data_url="${URL}/nlp/pg-small.tar.gz"
@@ -41,6 +48,17 @@ if [[ "$size" == "small" ]]; then
         fi
         tar -xzf pg-small.tar.gz
         rm pg-small.tar.gz
+        input_dir="$input_dir/pg-small"
+        limit=$((200 * 1024 * 1024))
+        total=0
+        for book in "$input_dir"/*; do
+            size=$(file_size "$book")
+            if (( total + size <= limit )); then
+                total=$(( total + size ))
+            else
+                rm -f -- "$book"
+            fi
+        done
     fi
     exit 0
 elif [[ "$size" == "min" ]]; then

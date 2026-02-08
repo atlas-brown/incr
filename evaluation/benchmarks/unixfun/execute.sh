@@ -12,11 +12,11 @@ mkdir -p "$OUTPUT_DIR"
 size=full
 for arg in "$@"; do
     case "$arg" in
-    --small) size=30M ;;
-    --min) size=6M ;;
+    --small) size=small ;;
+    --min) size=min ;;
     esac
 done
-INPUT="${BENCHMARK_DIR}/inputs/4_${size}.txt"
+INPUT="${BENCHMARK_DIR}/inputs/4.${size}.txt"
 
 SCRIPTS=("7.sh" "8.sh" "9.sh" "10.sh" "11.sh" "12.sh")
 
@@ -48,6 +48,8 @@ measure_time() {
 
     echo "$mode,$script,$elapsed" >> "$TIME_FILE"
 }
+
+export INPUT
 
 # Baseline: bash
 for script in "${SCRIPTS[@]}"; do

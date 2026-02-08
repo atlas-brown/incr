@@ -1,0 +1,84 @@
+2c2
+< ./redir.tests: line 8: /tmp/redir-test: cannot overwrite existing file
+---
+> ./redir.tests: line 28: /tmp/redir-test: cannot overwrite existing file
+6c6
+< ./redir.tests: line 17: $z: ambiguous redirect
+---
+> ./redir.tests: line 44: $z: ambiguous redirect
+27,28c27,28
+< ./redir4.sub: line 12: $fd: ambiguous redirect
+< ./redir4.sub: line 13: $fd: ambiguous redirect
+---
+> ./redir4.sub: line 45: $fd: ambiguous redirect
+> ./redir4.sub: line 46: $fd: ambiguous redirect
+47,49c47,64
+< ./redir.tests: line 99: redir1.*: No such file or directory
+< exec 9< $0
+< function f ()
+---
+> ./redir.tests: line 170: redir1.*: No such file or directory
+> #   This program is free software: you can redistribute it and/or modify
+> #   it under the terms of the GNU General Public License as published by
+> #   the Free Software Foundation, either version 3 of the License, or
+> #   (at your option) any later version.
+> #
+> #   This program is distributed in the hope that it will be useful,
+> #   but WITHOUT ANY WARRANTY; without even the implied warranty of
+> #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> #   GNU General Public License for more details.
+> #
+> #   You should have received a copy of the GNU General Public License
+> #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> #
+> # tests of ksh93-like dup-and-close redirection operators
+> exec 9<$0
+> 
+> f()
+51,52c66,69
+< exec 5< $0;
+< exec 0<&5-;
+---
+> exec 5<$0
+> 
+> exec 0<&5-
+> 
+54c71
+< echo "$line";
+---
+> echo "$line"
+56a74
+> 
+57a76
+> 
+59c78,80
+< read -u 5 foo 2>&1 | /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache grep -q 'invalid file descriptor'
+---
+> 
+> # make sure it was closed
+> read -u 5 foo 2>&1 | grep -q 'invalid file descriptor'
+60a82
+> 
+62,63c84,88
+< exec 0>&-
+< read abcde 2>&1 | /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache grep -q 'read error'
+---
+> 
+> exec <&-
+> 
+> read abcde 2>&1 | grep -q 'read error'
+> 
+67d91
+< 
+77c101
+< exec 9< $0
+---
+> # This program is free software: you can redistribute it and/or modify
+133c157
+< ./redir11.sub: line 30: $(ss= declare -i ss): ambiguous redirect
+---
+> ./redir11.sub: line 53: $(ss= declare -i ss): ambiguous redirect
+138c162
+< ./redir11.sub: line 44: 42: No such file or directory
+---
+> ./redir11.sub: line 75: 42: No such file or directory

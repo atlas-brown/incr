@@ -1,0 +1,77 @@
+8,14c8,11
+< strace: Can't stat 'notthere': No such file or directory
+< 1
+< bash: notthere: No such file or directory
+< cp: cannot stat 'notthere': No such file or directory
+< 0
+< /home/vagozino/incr/incr.sh: line 61: /bin/incr_script_sh.sh: Permission denied
+< cp: cannot stat '/bin/incr_script_sh.sh': No such file or directory
+---
+> ./execscript: line 21: notthere: command not found
+> 127
+> /tmp/bash: notthere: No such file or directory
+> 127
+16d12
+< cp: cannot create regular file '/bin/sh': Permission denied
+18c14
+< ./execscript: line 27: /: Is a directory
+---
+> ./execscript: line 40: /: Is a directory
+20,22d15
+< /home/vagozino/incr/incr.sh: line 61: //incr_script_/.sh: No such file or directory
+< cp: -r not specified; omitting directory '/'
+< cp: cannot stat '//incr_script_/.sh': No such file or directory
+24d16
+< cp: cannot create regular file '/tmp.qIoaFIXLij': Permission denied
+26c18
+< ./execscript: line 31: .: /: is a directory
+---
+> ./execscript: line 47: .: /: is a directory
+27a20
+> 126
+29,30d21
+< 0
+< this is bashenv
+33d23
+< trap -- 'echo USR1' SIGUSR1
+34a25
+> trap -- 'echo USR1' SIGUSR1
+36c27
+< ./exec3.sub: line 7: /tmp/bash-notthere: No such file or directory
+---
+> ./exec3.sub: line 27: /tmp/bash-notthere: No such file or directory
+39d29
+< trap -- 'echo USR1' SIGUSR1
+40a31
+> trap -- 'echo USR1' SIGUSR1
+43,46c34,36
+< this is bashenv
+< strace: Can't stat 'notthere': No such file or directory
+< 1
+< ./execscript: line 44: notthere: command not found
+---
+> ./execscript: line 71: notthere: No such file or directory
+> 127
+> ./execscript: line 74: notthere: No such file or directory
+48c38
+< ./execscript: line 46: notthere: command not found
+---
+> ./execscript: line 77: notthere: command not found
+52c42
+< /home/vagozino/incr/venv/bin:/home/vagozino/.cargo/bin:/opt/orbstack-guest/bin-hiprio:/opt/orbstack-guest/data/bin/cmdlinks:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/opt/orbstack-guest/bin:/home/vagozino/incr/evaluation/bash-ts/bash
+---
+> unset
+55c45
+< ./exec5.sub: line 2: exec: bash-notthere: not found
+---
+> ./exec5.sub: line 4: exec: bash-notthere: not found
+57c47
+< this is /home/vagozino/incr/incr.sh
+---
+> this is ohio-state
+72c62
+< /home/vagozino/incr/incr.sh: line 27: exec: bash: not found
+---
+> testb
+105d94
+< Error: (rm -f /tmp/exitcode) Not a directory (os error 20)

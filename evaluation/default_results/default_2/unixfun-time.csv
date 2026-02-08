@@ -1,0 +1,13 @@
+mode,script,time_sec
+bash,7.sh,9.944
+bash,8.sh,3.896
+bash,9.sh,3.956
+bash,10.sh,23.867
+bash,11.sh,25.239
+bash,12.sh,111.338
+incr,7.sh,12.371
+incr,8.sh,4.674
+incr,9.sh,4.445
+incr,10.sh,21.268
+incr,11.sh,26.794
+incr,12.sh,122.316

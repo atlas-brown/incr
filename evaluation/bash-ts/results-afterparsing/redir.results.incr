@@ -1,0 +1,17 @@
+59c78,80
+< read -u 5 foo 2>&1 | /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache grep -q 'invalid file descriptor'
+---
+> 
+> # make sure it was closed
+> read -u 5 foo 2>&1 | grep -q 'invalid file descriptor'
+60a82
+> 
+62,63c84,88
+< exec 0>&-
+< read abcde 2>&1 | /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache grep -q 'read error'
+---
+> 
+> exec <&-
+> 
+> read abcde 2>&1 | grep -q 'read error'
+> 

@@ -1,0 +1,16 @@
+620c620
+< /home/vagozino/incr/incr.sh: line 1: ${x@C}: bad substitution
+---
+> bash: line 1: ${x@C}: bad substitution
+725c725
+< /home/vagozino/incr/incr.sh: line 1: foo: unbound variable
+---
+> bash: line 1: foo: unbound variable
+728c728
+< /home/vagozino/incr/incr.sh: line 1: !bar: unbound variable
+---
+> bash: line 1: !bar: unbound variable
+795c795
+< /home/vagozino/incr/incr.sh: line 1: ABXD: parameter unset
+---
+> ./new-exp.tests: line 1: ABXD: parameter unset

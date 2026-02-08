@@ -1,0 +1,120 @@
+6c6
+< ./new-exp.tests: line 21: HOME: }: syntax error: operand expected (error token is "}")
+---
+> ./new-exp.tests: line 41: HOME: }: syntax error: operand expected (error token is "}")
+69,70c69,70
+< ./new-exp.tests: line 135: ABX: unbound variable
+< ./new-exp.tests: line 138: $6: cannot assign in this way
+---
+> ./new-exp.tests: line 197: ABX: unbound variable
+> ./new-exp.tests: line 201: $6: cannot assign in this way
+173c173
+< ./new-exp2.sub: line 30: /tmp/redir-notthere: No such file or directory
+---
+> ./new-exp2.sub: line 55: /tmp/redir-notthere: No such file or directory
+176c176
+< ./new-exp2.sub: line 34: 1111111111111111111111: command not found
+---
+> ./new-exp2.sub: line 62: 1111111111111111111111: command not found
+179c179
+< ./new-exp.tests: line 223: ${#:}: bad substitution
+---
+> ./new-exp.tests: line 302: ${#:}: bad substitution
+227c227
+< argv[1] = <^A^A>
+---
+> argv[1] = <^A>
+229,230c229,230
+< argv[3] = <^A^?>
+< argv[1] = <^A^A>
+---
+> argv[3] = <^?>
+> argv[1] = <^A>
+232,233c232,233
+< argv[3] = <^A^?>
+< argv[1] = <^A^A>
+---
+> argv[3] = <^?>
+> argv[1] = <^A>
+235,236c235,236
+< argv[3] = <^A^?>
+< argv[1] = <^A^A>
+---
+> argv[3] = <^?>
+> argv[1] = <^A>
+238c238
+< argv[3] = <^A^?>
+---
+> argv[3] = <^?>
+414,420c414,420
+< ./new-exp.tests: line 383: $9: unbound variable
+< ./new-exp.tests: line 384: 9: unbound variable
+< ./new-exp.tests: line 385: UNSET: unbound variable
+< ./new-exp.tests: line 386: UNSET: unbound variable
+< ./new-exp.tests: line 387: UNSET: unbound variable
+< ./new-exp.tests: line 388: UNSET: unbound variable
+< ./new-exp.tests: line 389: UNSET: unbound variable
+---
+> ./new-exp.tests: line 520: $9: unbound variable
+> ./new-exp.tests: line 521: 9: unbound variable
+> ./new-exp.tests: line 522: UNSET: unbound variable
+> ./new-exp.tests: line 523: UNSET: unbound variable
+> ./new-exp.tests: line 524: UNSET: unbound variable
+> ./new-exp.tests: line 525: UNSET: unbound variable
+> ./new-exp.tests: line 526: UNSET: unbound variable
+456,458c456,458
+< ./new-exp3.sub: line 16: ${!_Q* }: bad substitution
+< ./new-exp3.sub: line 20: ${!1*}: bad substitution
+< ./new-exp3.sub: line 21: ${!@*}: bad substitution
+---
+> ./new-exp3.sub: line 36: ${!_Q* }: bad substitution
+> ./new-exp3.sub: line 41: ${!1*}: bad substitution
+> ./new-exp3.sub: line 43: ${!@*}: bad substitution
+467c467
+< ./new-exp.tests: line 402: ${$(($#-1))}: bad substitution
+---
+> ./new-exp.tests: line 546: ${$(($#-1))}: bad substitution
+484,485c484,485
+< ./new-exp.tests: line 414: $(($# - 2)): substring expression < 0
+< ./new-exp.tests: line 416: -2: substring expression < 0
+---
+> ./new-exp.tests: line 565: $(($# - 2)): substring expression < 0
+> ./new-exp.tests: line 567: -2: substring expression < 0
+546c546
+< argv[1] = <+^A>
+---
+> argv[1] = <+^?>
+548,551c548,551
+< argv[1] = <^A^?2>
+< argv[1] = <^A^?2>
+< argv[1] = <^A^?>
+< argv[1] = <^A^?>
+---
+> argv[1] = <^?2>
+> argv[1] = <^?2>
+> argv[1] = <^?>
+> argv[1] = <^?>
+620c620
+< /home/vagozino/incr/incr.sh: line 1: ${x@C}: bad substitution
+---
+> bash: line 1: ${x@C}: bad substitution
+651c651
+< ./new-exp10.sub: line 70: ${V@}: bad substitution
+---
+> ./new-exp10.sub: line 118: ${V@}: bad substitution
+697c697
+< ./new-exp13.sub: line 30: aaa bbb: invalid variable name
+---
+> ./new-exp13.sub: line 56: aaa bbb: invalid variable name
+725c725
+< /home/vagozino/incr/incr.sh: line 1: foo: unbound variable
+---
+> bash: line 1: foo: unbound variable
+728c728
+< /home/vagozino/incr/incr.sh: line 1: !bar: unbound variable
+---
+> bash: line 1: !bar: unbound variable
+795c795
+< /home/vagozino/incr/incr.sh: line 1: ABXD: parameter unset
+---
+> ./new-exp.tests: line 1: ABXD: parameter unset

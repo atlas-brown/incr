@@ -1,0 +1,44 @@
+88,89c88,89
+< /home/vagozino/incr/incr.sh
+< /home/vagozino/incr/incr.sh
+---
+> specialname
+> -specialname
+109c109
+< ./source5.sub: line 7: /tmp/source-notthere: No such file or directory
+---
+> ./source5.sub: line 23: /tmp/source-notthere: No such file or directory
+111c111
+< ./source5.sub: line 10: /tmp/source-notthere: No such file or directory
+---
+> ./source5.sub: line 30: /tmp/source-notthere: No such file or directory
+148c148
+< ./builtins.tests: line 155: declare: FOO: not found
+---
+> ./builtins.tests: line 228: declare: FOO: not found
+152c152
+< ./builtins.tests: line 181: kill: 4096: invalid signal specification
+---
+> ./builtins.tests: line 260: kill: 4096: invalid signal specification
+218,219c218,219
+< ./builtins6.sub: line 19: declare: f1: not found
+< ./builtins6.sub: line 19: declare: f2: not found
+---
+> ./builtins6.sub: line 41: declare: f1: not found
+> ./builtins6.sub: line 41: declare: f2: not found
+264c264
+< ./builtins7.sub: line 14: : command not found
+---
+> ./builtins7.sub: line 19: : command not found
+267c267
+< ./builtins7.sub: line 19: notthere: No such file or directory
+---
+> ./builtins7.sub: line 27: notthere: No such file or directory
+269c269
+< ./builtins7.sub: line 20: notthere: No such file or directory
+---
+> ./builtins7.sub: line 28: notthere: No such file or directory
+281c281
+< ./builtins.tests: line 189: exit: status: numeric argument required
+---
+> ./builtins.tests: line 284: exit: status: numeric argument required

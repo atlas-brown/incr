@@ -1,0 +1,15 @@
+mode,script,time_sec
+bash,bio-1.sh,5.068
+bash,bio-2.sh,16.11
+bash,bio-3.sh,54.035
+bash,bio-4-0.sh,52.219
+bash,bio-4.sh,52.615
+bash,bio-5.sh,53.312
+bash,bio-6.sh,53.042
+incr,bio-1.sh,8.984
+incr,bio-2.sh,18.424
+incr,bio-3.sh,95.02
+incr,bio-4-0.sh,51.737
+incr,bio-4.sh,10.787
+incr,bio-5.sh,13.855
+incr,bio-6.sh,11.815

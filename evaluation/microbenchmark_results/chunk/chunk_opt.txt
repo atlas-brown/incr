@@ -1,0 +1,14 @@
+real    0m29.808s
+user    2m50.567s
+sys     0m16.943s
+fc2d15ac23a1b3960f1ea49bced1da1dfe4206be8279d9f1806defc7d4964a57  output.txt
+
+real    0m5.942s
+user    0m32.401s
+sys     0m12.304s
+67825b2dd8f32e3e8024cfd28fa1ad9078c860bdcf2ba1078388ed2749335d96  output.txt
+
+real    0m5.635s
+user    0m31.214s
+sys     0m11.700s
+08d211edd130baecfbb029dcd2136b7ed90d6589503a759699f2b691d42451ca  output.txt

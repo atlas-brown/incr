@@ -1,0 +1,15 @@
+mode,script,time_sec
+bash,spell-1.sh,7.867
+bash,spell-2.sh,70.277
+bash,spell-3.sh,73.849
+bash,spell-4.sh,74.366
+bash,spell-5.sh,312.747
+bash,spell-6.sh,327.738
+bash,spell-7.sh,292.989
+incr,spell-1.sh,8.177
+incr,spell-2.sh,99.106
+incr,spell-3.sh,4.552
+incr,spell-4.sh,5.234
+incr,spell-5.sh,174.247
+incr,spell-6.sh,24.22
+incr,spell-7.sh,9.396

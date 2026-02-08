@@ -1,0 +1,12 @@
+156c156
+< ./func4.sub: line 8: foo: maximum function nesting level exceeded (100)
+---
+> ./func4.sub: line 23: foo: maximum function nesting level exceeded (100)
+159c159
+< ./func4.sub: line 8: foo: maximum function nesting level exceeded (100)
+---
+> ./func4.sub: line 23: foo: maximum function nesting level exceeded (100)
+166c166
+< ./func4.sub: line 8: foo: maximum function nesting level exceeded (20)
+---
+> ./func4.sub: line 23: foo: maximum function nesting level exceeded (20)

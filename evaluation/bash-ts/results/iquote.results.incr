@@ -1,0 +1,134 @@
+2c2
+< argv[1] = <xxx^A^?yyy>
+---
+> argv[1] = <xxx^?yyy>
+4c4
+< argv[1] = <x^A^?y>
+---
+> argv[1] = <x^?y>
+6c6
+< argv[1] = <-^A^?->
+---
+> argv[1] = <-^?->
+9,10c9,11
+< argv[1] = <^A>
+< argv[1] = <^A^?y>
+---
+> argv[1] = <^?>
+> argv[1] = <^?yy>
+> 0x7f
+12d12
+< 0x1
+21a22,24
+> argv[1] = <1>
+> argv[2] = <^?>
+> argv[3] = <^?>
+23,27c26,30
+< argv[2] = <^A^?>
+< argv[3] = <^A^?>
+< argv[1] = <3>
+< argv[2] = <^A^?a>
+< argv[3] = <^A^?a>
+---
+> argv[2] = <^?a>
+> argv[3] = <^?a>
+> argv[1] = <2>
+> argv[2] = <^?a>
+> argv[3] = <^?a>
+29,33c32,33
+< argv[2] = <^A^?a>
+< argv[3] = <^A^?a>
+< argv[1] = <4>
+< argv[2] = <^A^?aa>
+< argv[3] = <^A^?aa>
+---
+> argv[2] = <^?aa>
+> argv[3] = <^?aa>
+37,40c37,40
+< argv[1] = <^A^?>
+< argv[1] = <-^A^?->
+< argv[1] = <^A^?>
+< argv[1] = <-^A^?->
+---
+> argv[1] = <^?>
+> argv[1] = <-^?->
+> argv[1] = <^?>
+> argv[1] = <-^?->
+42,45c42,45
+< argv[1] = <aaa^A^?bbb>
+< argv[1] = <ccc^A^?ddd>
+< argv[1] = <eee^A^?fff>
+< argv[1] = <ggg^A^?hhh>
+---
+> argv[1] = <aaa^?bbb>
+> argv[1] = <ccc^?ddd>
+> argv[1] = <eee^?fff>
+> argv[1] = <ggg^?hhh>
+50,53c50,53
+< argv[1] = <aaa^A^?bbb>
+< argv[1] = <ccc^A^?ddd>
+< argv[1] = <eee^A^?fff>
+< argv[1] = <ggg^A^?hhh>
+---
+> argv[1] = <aaa^?bbb>
+> argv[1] = <ccc^?ddd>
+> argv[1] = <eee^?fff>
+> argv[1] = <ggg^?hhh>
+58,61c58,61
+< argv[1] = <aaa^A^?bbb>
+< argv[1] = <ccc^A^?ddd>
+< argv[1] = <eee^A^?fff>
+< argv[1] = <ggg^A^?hhh>
+---
+> argv[1] = <aaa^?bbb>
+> argv[1] = <ccc^?ddd>
+> argv[1] = <eee^?fff>
+> argv[1] = <ggg^?hhh>
+65c65
+< argv[1] = <x^A^?y>
+---
+> argv[1] = <x^?y>
+72,92c72,92
+< argv[1] = <^A^?>
+< argv[1] = <^A^? >
+< argv[1] = < ^A^?>
+< argv[1] = < ^A^?>
+< argv[1] = < ^A^?>
+< argv[1] = < ^A^?>
+< argv[1] = < ^A^?>
+< argv[1] = < ^A^?>
+< argv[1] = < ^A^?>
+< argv[1] = < ^A^?>
+< argv[1] = < ^A^?>
+< argv[1] = < ^A^?x>
+< argv[1] = < ^A^?>
+< argv[1] = < ^A^?>
+< argv[1] = < ^A>
+< argv[1] = < ^Ax>
+< argv[1] = <^Ax>
+< argv[1] = <^A>
+< argv[1] = < ^A x>
+< argv[1] = <^A x>
+< argv[1] = <^A >
+---
+> argv[1] = <^?>
+> argv[1] = <^? >
+> argv[1] = < ^?>
+> argv[1] = < ^?>
+> argv[1] = < ^?>
+> argv[1] = < ^?>
+> argv[1] = < ^?>
+> argv[1] = < ^?>
+> argv[1] = < ^?>
+> argv[1] = < ^?>
+> argv[1] = < ^?>
+> argv[1] = < ^?x>
+> argv[1] = < ^?>
+> argv[1] = < ^?>
+> argv[1] = < ^?>
+> argv[1] = < ^?x>
+> argv[1] = <^?x>
+> argv[1] = <^?>
+> argv[1] = < ^? x>
+> argv[1] = <^? x>
+> argv[1] = <^? >

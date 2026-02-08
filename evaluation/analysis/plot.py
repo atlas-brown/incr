@@ -5,23 +5,31 @@ import matplotlib
 from matplotlib.patches import Patch
 
 BENCHMARKS = [
+    "beginner",
+    "bio",
     "covid",
-    "inference",
+    "dpt",
+    "file-mod",
+    "image-annotation",
     "nginx-analysis",
-    "nlp-bigrams",
+    "nlp-ngrams",
     "nlp-uppercase",
+    "poet",
+    "spell",
     "unixfun",
     "weather",
     "word-freq",
 ]
+DIRECTORY = "../annotation_results/annotation_3"
 
 figure, axes = plt.subplots(figsize=(10, 6))
+axes.grid()
 
 width = 0.35  # Bar width
 all_colors = matplotlib.colormaps.get_cmap("tab10")
 
 for i, benchmark in enumerate(BENCHMARKS):
-    data = pd.read_csv(f"../results/{benchmark}-timing.csv")
+    data = pd.read_csv(f"{DIRECTORY}/{benchmark}-time.csv")
 
     # Get per-iteration times
     bash_times = data[data["mode"] == "bash"]["time_sec"].values
@@ -74,7 +82,7 @@ axes.set_title("Benchmark Runtimes per Iteration (Stacked)")
 # Iteration colors
 # get the max number of iterations across all benchmarks
 num_iters = max(
-    pd.read_csv(f"../results/{benchmark}-timing.csv")["mode"].value_counts().max()
+    pd.read_csv(f"{DIRECTORY}/{benchmark}-time.csv")["mode"].value_counts().max()
     for benchmark in BENCHMARKS
 )
 iter_patches = [
@@ -89,9 +97,8 @@ mode_patches = [
 ]
 
 # Combine legends (iteration colors + mode)
-legend1 = axes.legend(handles=iter_patches, title="Iteration", loc="upper left")
-axes.add_artist(legend1)  # Add iteration legend first
-axes.legend(handles=mode_patches, title="Mode", loc="upper right")
-
+#legend1 = figure.legend(handles=iter_patches, title="Iteration", loc="upper right")
+#figure.add_artist(legend1)  # Add iteration legend first
+figure.legend(handles=mode_patches, title="Mode", loc="upper right")
 figure.tight_layout()
 figure.savefig("plot.png", bbox_inches="tight")

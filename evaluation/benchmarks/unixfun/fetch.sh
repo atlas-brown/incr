@@ -42,14 +42,23 @@ do
     elif [ "$size" = "small" ]; then
         if [ ! -f "${input}_30M.txt" ]; then
             wget --no-check-certificate "${URL}/unix50/small/${input}_30M.txt" || exit 1
-        else 
-            continue
         fi
+        
+        if [ ! -f "${input}_1G.txt" ]; then
+            echo "Creating ${input}_1G.txt from ${input}_30M.txt"
+            file_content_size=$(wc -c < "${input}_30M.txt")
+            iteration_limit=$((1073741824 / file_content_size))
+            for (( i = 0; i < iteration_limit; i++ )); do
+                cat "${input}_30M.txt" >> "${input}_1G.txt"
+            done
+        fi
+        mv "${input}_1G.txt" "${input}.$size.txt"
     elif [ "$size" = "full" ]; then 
         if [ ! -f "${input}_3G.txt" ]; then
             wget --no-check-certificate "${URL}/unix50/large/${input}_3G.txt" || exit 1
         else
             continue
         fi
+        mv "${input}_3G.txt" "${input}.$size.txt"
     fi
 done

@@ -1,0 +1,36 @@
+1,4c1,4
+< ./dstack.tests: line 4: pushd: /tmp/xxx-notthere: No such file or directory
+< ./dstack.tests: line 5: pushd: no other directory
+< ./dstack.tests: line 6: popd: directory stack empty
+< ./dstack.tests: line 7: pushd: -m: invalid number
+---
+> ./dstack.tests: line 19: pushd: /tmp/xxx-notthere: No such file or directory
+> ./dstack.tests: line 22: pushd: no other directory
+> ./dstack.tests: line 23: popd: directory stack empty
+> ./dstack.tests: line 26: pushd: -m: invalid number
+6c6
+< ./dstack.tests: line 8: popd: -m: invalid number
+---
+> ./dstack.tests: line 27: popd: -m: invalid number
+8c8
+< ./dstack.tests: line 9: dirs: -m: invalid number
+---
+> ./dstack.tests: line 28: dirs: -m: invalid number
+10c10
+< ./dstack.tests: line 10: dirs: 7: invalid option
+---
+> ./dstack.tests: line 29: dirs: 7: invalid option
+34,39c34,39
+< ./dstack.tests: line 41: dirs: 9: directory stack index out of range
+< ./dstack.tests: line 41: dirs: 9: directory stack index out of range
+< ./dstack.tests: line 42: pushd: +9: directory stack index out of range
+< ./dstack.tests: line 42: pushd: -9: directory stack index out of range
+< ./dstack.tests: line 43: popd: +9: directory stack index out of range
+< ./dstack.tests: line 43: popd: -9: directory stack index out of range
+---
+> ./dstack.tests: line 71: dirs: 9: directory stack index out of range
+> ./dstack.tests: line 71: dirs: 9: directory stack index out of range
+> ./dstack.tests: line 72: pushd: +9: directory stack index out of range
+> ./dstack.tests: line 72: pushd: -9: directory stack index out of range
+> ./dstack.tests: line 73: popd: +9: directory stack index out of range
+> ./dstack.tests: line 73: popd: -9: directory stack index out of range

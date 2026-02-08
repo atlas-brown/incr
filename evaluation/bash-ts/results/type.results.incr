@@ -1,0 +1,40 @@
+1c1
+< ./type.tests: line 5: type: -r: invalid option
+---
+> ./type.tests: line 22: type: -r: invalid option
+3c3
+< ./type.tests: line 6: type: notthere: not found
+---
+> ./type.tests: line 25: type: notthere: not found
+27c27
+< ./type.tests: line 30: type: m: not found
+---
+> ./type.tests: line 56: type: m: not found
+40,41c40,41
+< ./type.tests: line 47: type: func: not found
+< ./type.tests: line 49: type: m: not found
+---
+> ./type.tests: line 78: type: func: not found
+> ./type.tests: line 80: type: m: not found
+43,44c43,44
+< /tmp/incr.sh
+< incr.sh is hashed (/tmp/incr.sh)
+---
+> /tmp/bash
+> bash is hashed (/tmp/bash)
+47d46
+<    3	/tmp/incr.sh
+48a48
+>    3	/tmp/bash
+52c52
+<     v='^A^A'
+---
+>     v='^A'
+86c86
+<     /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache rm -f a b c;
+---
+>     rm -f a b c;
+94c94
+<     /home/vagozino/incr/target/release/incr --try /home/vagozino/incr/src/scripts/try.sh --cache /tmp/cache grep . a b c
+---
+>     grep . a b c

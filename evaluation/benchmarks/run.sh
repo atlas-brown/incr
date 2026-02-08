@@ -1,17 +1,46 @@
 #!/bin/bash
 cd "$(dirname "$0")" || exit 1
 
-BENCHMARKS=("covid" "inference" "nginx-analysis" "nlp-bigrams" "nlp-uppercase" "unixfun" "weather" "word-freq")
-MODES=("" "" "" "" "" "" "" "")
-SIZES=("min" "min" "small" "small" "small" "small" "small" "small")
+BENCHMARKS=(
+    "beginner"
+    "bio"
+    "covid"
+    "dpt"
+    "file-mod"
+    "image-annotation"
+    "nginx-analysis"
+    "nlp-uppercase"
+    "nlp-ngrams"
+    "poet"
+    "spell"
+    "unixfun"
+    "weather"
+    "word-freq"
+)
+SIZES=(
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+    "small"
+)
 
-rm -rf ../results
-mkdir -p ../results
+rm -rf ../run_results
+mkdir -p ../run_results
 
 for i in "${!BENCHMARKS[@]}"; do
     benchmark="${BENCHMARKS[$i]}"
-    mode="${MODES[$i]}"
     size="${SIZES[$i]}"
+    mode=""
 
     echo "Running $benchmark '$mode' $size"
     sudo bash "./$benchmark/clean.sh"
@@ -24,9 +53,12 @@ for i in "${!BENCHMARKS[@]}"; do
     fi
     sleep 0.01
 
-    if [[ "$mode" == "" ]]; then
-        cp "./$benchmark/outputs/timing.csv" "../results/$benchmark-timing.csv"
-    else
-        cp "./$benchmark/outputs/timing.csv" "../results/$benchmark-$mode-timing.csv"
-    fi
+    cp "./$benchmark/outputs/timing.csv" "../run_results/$benchmark-time.csv"
+    du -sb "./$benchmark/cache" > "../run_results/$benchmark-size.txt"
+    # TODO: generate output hashes
+
+    rm -rf "./$benchmark/cache"
+    rm -rf "./$benchmark/outputs"
+    rm -rf /tmp/sort*
+    rm -rf /tmp/tmp*
 done

@@ -1,0 +1,5 @@
+mode,script,time_sec
+bash,wf.sh,20.654
+bash,top-n.sh,20.34
+incr,wf.sh,8.154
+incr,top-n.sh,0.398

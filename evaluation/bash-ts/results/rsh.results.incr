@@ -1,0 +1,41 @@
+1,18c1,15
+< ./rsh1.sub: line 6: /bin/sh: restricted
+< ./rsh1.sub: line 7: sh: not found
+< ./rsh1.sub: line 8: a: command not found
+< ./rsh1.sub: line 9: /home/vagozino/incr/target/release/incr: restricted: cannot specify `/' in command names
+< ./rsh2.sub: line 7: hash: /bin/sh: restricted
+< ./rsh2.sub: line 8: hash: sh: not found
+< ./rsh2.sub: line 9: a: command not found
+< ./rsh2.sub: line 10: /home/vagozino/incr/target/release/incr: restricted: cannot specify `/' in command names
+< ./rsh.tests: line 4: cd: restricted
+< ./rsh.tests: line 5: PATH: readonly variable
+< ./rsh.tests: line 6: SHELL: readonly variable
+< ./rsh.tests: line 7: /bin/sh: restricted: cannot specify `/' in command names
+< ./rsh.tests: line 8: .: ./source.sub3: restricted
+< ./rsh.tests: line 9: /home/vagozino/incr/target/release/incr: restricted: cannot specify `/' in command names
+< ./rsh.tests: line 10: /tmp/restricted: restricted: cannot redirect output
+< ./rsh.tests: line 14: /tmp/restricted: restricted: cannot redirect output
+< ./rsh.tests: line 18: command: -p: restricted
+< ./rsh.tests: line 19: set: +r: invalid option
+---
+> ./rsh1.sub: line 22: /bin/sh: restricted
+> ./rsh1.sub: line 24: sh: not found
+> ./rsh1.sub: line 25: a: command not found
+> ./rsh2.sub: line 23: hash: /bin/sh: restricted
+> ./rsh2.sub: line 25: hash: sh: not found
+> ./rsh2.sub: line 26: a: command not found
+> ./rsh.tests: line 25: cd: restricted
+> ./rsh.tests: line 26: PATH: readonly variable
+> ./rsh.tests: line 27: SHELL: readonly variable
+> ./rsh.tests: line 28: /bin/sh: restricted: cannot specify `/' in command names
+> ./rsh.tests: line 30: .: ./source.sub3: restricted
+> ./rsh.tests: line 33: /tmp/restricted: restricted: cannot redirect output
+> ./rsh.tests: line 37: /tmp/restricted: restricted: cannot redirect output
+> ./rsh.tests: line 42: command: -p: restricted
+> ./rsh.tests: line 44: set: +r: invalid option
+20,21c17,18
+< ./rsh.tests: line 20: set: restricted: invalid option name
+< ./rsh.tests: line 21: exec: restricted
+---
+> ./rsh.tests: line 45: set: restricted: invalid option name
+> ./rsh.tests: line 47: exec: restricted
