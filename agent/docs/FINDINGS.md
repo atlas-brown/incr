@@ -43,10 +43,13 @@ Preliminary benchmarks (5 iterations each) show:
 | **write** | **~250 ms** | **~23 ms** | ~36 ms | ~18 ms |
 | **cp** | **~250 ms** | **~22 ms** | ~35 ms | ~17 ms |
 | grep | ~5 ms | ~5 ms | — | — |
+| **script: cp\|sed\|cat** | **~265 ms** | **~34 ms** | ~40 ms | ~22 ms |
+| **script: echo\|cp\|grep** | **~265 ms** | **~32 ms** | ~40 ms | ~22 ms |
 | **batch write** | **~250 ms** | **~23 ms** | ~27 ms | ~17 ms |
 
 **Takeaways**:
 - **Write workloads**: ~11x speedup (cold), ~2–4x (warm). Observe avoids Sandbox/try overlayfs.
+- **Multi-command scripts** (3 commands): ~8x cold speedup; similar to single-write workloads.
 - **TraceFile (read-only)**: ~1.2–1.4x speedup from lighter tracing.
 - **Pure (grep)**: Similar overhead; both use TraceFile then Nothing.
 

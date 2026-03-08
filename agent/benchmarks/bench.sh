@@ -110,8 +110,30 @@ t_s=$(run_repeat "echo -e 'a\nb\nc' | $INCR --try $TRY --cache $CACHE_STRACE gre
 t_o=$(run_repeat "echo -e 'a\nb\nc' | $INCR --try $TRY --cache $CACHE_OBSERVE --observe $OBSERVE grep -q b $TESTDIR/sed.txt" $ITERATIONS observe)
 echo "   cold: strace ${t_s}s, observe ${t_o}s"; emit "grep_cold" "strace" "$t_s"; emit "grep_cold" "observe" "$t_o"
 
-# 7. Batch executor - write
-echo ""; echo "7. batch write"
+# 7. Multi-command script: cp -> sed -> cat (read chain)
+echo ""; echo "7. script: cp | sed | cat (3 commands)"
+rm -rf $CACHE_STRACE $CACHE_OBSERVE
+rm -f "$TESTDIR/chain_b.txt" "$TESTDIR/chain_c.txt"
+t_s=$(run_repeat "echo '' | $INCR --try $TRY --cache $CACHE_STRACE bash -c \"cp $TESTDIR/sed.txt $TESTDIR/chain_b.txt && sed 's/a/x/' $TESTDIR/chain_b.txt > $TESTDIR/chain_c.txt && cat $TESTDIR/chain_c.txt > /dev/null\"" $ITERATIONS strace)
+t_o=$(run_repeat "echo '' | $INCR --try $TRY --cache $CACHE_OBSERVE --observe $OBSERVE bash -c \"cp $TESTDIR/sed.txt $TESTDIR/chain_b.txt && sed 's/a/x/' $TESTDIR/chain_b.txt > $TESTDIR/chain_c.txt && cat $TESTDIR/chain_c.txt > /dev/null\"" $ITERATIONS observe)
+echo "   cold: strace ${t_s}s, observe ${t_o}s"; emit "script_chain_cold" "strace" "$t_s"; emit "script_chain_cold" "observe" "$t_o"
+t_sw=$(run_repeat "echo '' | $INCR --try $TRY --cache $CACHE_STRACE bash -c \"cp $TESTDIR/sed.txt $TESTDIR/chain_b.txt && sed 's/a/x/' $TESTDIR/chain_b.txt > $TESTDIR/chain_c.txt && cat $TESTDIR/chain_c.txt > /dev/null\"" $ITERATIONS "")
+t_ow=$(run_repeat "echo '' | $INCR --try $TRY --cache $CACHE_OBSERVE --observe $OBSERVE bash -c \"cp $TESTDIR/sed.txt $TESTDIR/chain_b.txt && sed 's/a/x/' $TESTDIR/chain_b.txt > $TESTDIR/chain_c.txt && cat $TESTDIR/chain_c.txt > /dev/null\"" $ITERATIONS "")
+echo "   warm: strace ${t_sw}s, observe ${t_ow}s"; emit "script_chain_warm" "strace" "$t_sw"; emit "script_chain_warm" "observe" "$t_ow"
+
+# 8. Multi-command script: echo + cp + grep (writes then read)
+echo ""; echo "8. script: echo | cp | grep (3 commands)"
+rm -rf $CACHE_STRACE $CACHE_OBSERVE
+rm -f "$TESTDIR/script_f1.txt" "$TESTDIR/script_f2.txt"
+t_s=$(run_repeat "echo '' | $INCR --try $TRY --cache $CACHE_STRACE bash -c \"echo hello > $TESTDIR/script_f1.txt && cp $TESTDIR/script_f1.txt $TESTDIR/script_f2.txt && grep -q hello $TESTDIR/script_f2.txt\"" $ITERATIONS strace)
+t_o=$(run_repeat "echo '' | $INCR --try $TRY --cache $CACHE_OBSERVE --observe $OBSERVE bash -c \"echo hello > $TESTDIR/script_f1.txt && cp $TESTDIR/script_f1.txt $TESTDIR/script_f2.txt && grep -q hello $TESTDIR/script_f2.txt\"" $ITERATIONS observe)
+echo "   cold: strace ${t_s}s, observe ${t_o}s"; emit "script_write_cold" "strace" "$t_s"; emit "script_write_cold" "observe" "$t_o"
+t_sw=$(run_repeat "echo '' | $INCR --try $TRY --cache $CACHE_STRACE bash -c \"echo hello > $TESTDIR/script_f1.txt && cp $TESTDIR/script_f1.txt $TESTDIR/script_f2.txt && grep -q hello $TESTDIR/script_f2.txt\"" $ITERATIONS "")
+t_ow=$(run_repeat "echo '' | $INCR --try $TRY --cache $CACHE_OBSERVE --observe $OBSERVE bash -c \"echo hello > $TESTDIR/script_f1.txt && cp $TESTDIR/script_f1.txt $TESTDIR/script_f2.txt && grep -q hello $TESTDIR/script_f2.txt\"" $ITERATIONS "")
+echo "   warm: strace ${t_sw}s, observe ${t_ow}s"; emit "script_write_warm" "strace" "$t_sw"; emit "script_write_warm" "observe" "$t_ow"
+
+# 9. Batch executor - write
+echo ""; echo "9. batch write"
 rm -rf $CACHE_STRACE $CACHE_OBSERVE
 rm -f "$TESTDIR/batch_s.txt" "$TESTDIR/batch_o.txt"
 t_s=$(run_repeat "echo '' | $INCR -b --try $TRY --cache $CACHE_STRACE bash -c \"echo batch > $TESTDIR/batch_s.txt\"" $ITERATIONS strace)

@@ -42,6 +42,8 @@ def plot_results(data: dict, output_path: Path) -> None:
         "cat_cold", "cat_warm", "cat_large_cold", "cat_large_warm",
         "sed_cold", "sed_warm", "write_cold", "write_warm",
         "cp_cold", "cp_warm", "grep_cold",
+        "script_chain_cold", "script_chain_warm",
+        "script_write_cold", "script_write_warm",
         "batch_write_cold", "batch_write_warm",
     ]
     names = [n for n in order if n in data]
