@@ -1,6 +1,6 @@
 # incr + observe: Summary of Findings
 
-This document consolidates findings from the observe integration work, correctness review, benchmarks, and tests.
+This document consolidates findings from the observe integration work, correctness review, benchmarks, and tests. For user-facing usage (script mode, observe, fallback try+strace), see the main [README.md](../../README.md).
 
 ---
 
@@ -51,7 +51,7 @@ Preliminary benchmarks (5 iterations each) show:
 - **Write workloads**: ~11x speedup (cold), ~2–4x (warm). Observe avoids Sandbox/try overlayfs.
 - **Multi-command scripts** (3 commands): ~8x cold speedup; similar to single-write workloads.
 - **TraceFile (read-only)**: ~1.2–1.4x speedup from lighter tracing.
-- **Pure (grep)**: Similar overhead; both use TraceFile then Nothing.
+- **Pure (grep)**: Similar overhead; both use Nothing (no tracing).
 
 Run `bash agent/run_bench.sh` and `python3 agent/benchmarks/plot.py agent/benchmarks/results.txt` to regenerate.
 
@@ -99,6 +99,7 @@ Run `bash agent/run_bench.sh` and `python3 agent/benchmarks/plot.py agent/benchm
 - **TraceType::Observe** is a new mode alongside Sandbox, TraceFile, Nothing.
 - For TraceFile (read-only), incr can use strace or observe; both produce parseable output.
 - For write commands, Observe replaces Sandbox when available.
+- **Fallback**: When observe is not available, incr uses try + strace (Sandbox for writes, TraceFile for read-only). See main `README.md` for user-facing fallback documentation.
 - See `ARCHITECTURE_ANALYSIS.md` for full incr architecture.
 
 ---

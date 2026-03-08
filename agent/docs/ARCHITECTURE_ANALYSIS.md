@@ -1,6 +1,6 @@
 # incr Architecture: Trace Modes, Executors, and Optimizations
 
-This document explains how incr's trace modes, stream vs batch executors, and pure/stateless optimizations work.
+This document explains how incr's trace modes, stream vs batch executors, and pure/stateless optimizations work. For observe integration and fallback (try + strace), see main `README.md` and `FINDINGS.md`.
 
 ---
 
@@ -8,9 +8,9 @@ This document explains how incr's trace modes, stream vs batch executors, and pu
 
 ```
 incr.sh
-  └─> insert.py transforms script (prepends incr to each external command)
+  └─> insert.py transforms script (adds incr --try --cache [--observe] to each external command)
   └─> bash runs instrumented script
-        └─> each command: incr --try <path> --cache <dir> <cmd> <args>
+        └─> each command: incr --try <path> --cache <dir> [--observe <path>] <cmd> <args>
               └─> main.rs: parse_input, choose executor, execute
 ```
 
@@ -23,14 +23,17 @@ incr.sh
 
 ## 2. Trace Modes (TraceType)
 
-Trace type is chosen by `get_trace_type(cache_directory, command)` in [incr/src/execution/mod.rs](incr/src/execution/mod.rs):
+Trace type is chosen by `get_trace_type(cache_directory, command, observe_command)` in [incr/src/execution/mod.rs](incr/src/execution/mod.rs):
 
 | Order | Condition | TraceType |
 |-------|-----------|-----------|
 | 1 | `check_pure(command)` | **Nothing** |
 | 2 | `check_stateless(command)` OR `check_read_only(command)` | **TraceFile** |
 | 3 | `get_introspect_file(...).exists()` | **TraceFile** |
-| 4 | (default) | **Sandbox** |
+| 4 | `observe_command.is_some()` | **Observe** (replaces Sandbox for writes) |
+| 5 | (default) | **Sandbox** (fallback: try + strace) |
+
+**Fallback**: When observe is not available, write commands use Sandbox (try overlayfs + strace). See main `README.md`.
 
 ### 2.1 TraceType::Nothing
 
@@ -42,14 +45,22 @@ Trace type is chosen by `get_trace_type(cache_directory, command)` in [incr/src/
 ### 2.2 TraceType::TraceFile
 
 - **When:** READ_ONLY_COMMANDS (awk, cat, comm, find, head, paste, sed, tail), STATELESS_COMMANDS (empty), or we have introspect data from a previous run
-- **Execution:** `strace -yf --seccomp-bpf --trace=fork,clone,%file -o <trace_file> -- <cmd>`
+- **Execution:** When observe available: `observe --json --output <file> --no-filter -- <cmd>`. Else: `strace -yf --seccomp-bpf --trace=fork,clone,%file -o <trace_file> -- <cmd>`
 - **No sandbox:** Writes go to real filesystem (but these commands shouldn't write)
-- **Trace file:** Written to cache dir (batch) or temp path (stream)
-- **After run:** Parse strace output for read/write sets; no commit needed
+- **Trace file:** Written to cache dir (batch) or temp path (stream); `.json` → parse_observe, else → parse_strace
+- **After run:** Parse trace for read/write sets; no commit needed
 
-### 2.3 TraceType::Sandbox
+### 2.3 TraceType::Observe
 
-- **When:** Commands that may write (everything not pure/stateless/read-only)
+- **When:** Commands that may write AND `observe_command.is_some()` (--observe passed)
+- **Execution:** `observe --json --output <file> --no-filter -- <cmd>` (no sandbox)
+- **Trace file:** JSON in cache dir (e.g. `observe_{key}.json` or `batch_<hash>/observe.json`)
+- **After run:** `capture_observe_output()` copies written files to `outputs/upperdir`, then `try commit` applies changes
+- **Benefit:** ~10x faster than Sandbox for write commands; no overlayfs overhead
+
+### 2.4 TraceType::Sandbox (fallback)
+
+- **When:** Commands that may write AND observe is NOT available
 - **Execution:** `try -D <sandbox_dir> strace -yf ... -o /tmp/trace.txt -- <cmd>`
 - **Sandbox:** try creates overlayfs; all writes go to `sandbox/upperdir/`
 - **Trace file:** Inside sandbox at `upperdir/tmp/trace.txt` (strace -o writes there)
@@ -126,7 +137,8 @@ Trace type is chosen by `get_trace_type(cache_directory, command)` in [incr/src/
 | RuntimeType | Shell command | Args |
 |-------------|---------------|------|
 | Sandbox(dir) | try | `-D <dir> strace -yf --seccomp-bpf --trace=fork,clone,%file -o /tmp/trace.txt -- <cmd>` |
-| TraceFile(file) | strace | `-yf --seccomp-bpf --trace=fork,clone,%file -o <file> -- <cmd>` |
+| TraceFile(file) | strace or observe | strace: `-o <file> -- <cmd>`; observe: `--json --output <file> --no-filter -- <cmd>` |
+| Observe(file) | observe | `--json --output <file> --no-filter -- <cmd>` |
 | Nothing | command.name | `<cmd> <args>` |
 
 **Output capture:** All modes capture stdout/stderr to files via `capture_stream`, which also forwards to the real stdout/stderr (with optional `destination_ready` gating for short-circuit).
@@ -175,11 +187,12 @@ batch_<hash>/
   data                    # CacheData (bincode)
   stdout.incr
   stderr.incr
-  sandbox/                # (during run) try overlay
+  observe.json            # (Observe mode) trace file; or trace_{key}.txt (TraceFile)
+  sandbox/                # (Sandbox mode only) try overlay
     upperdir/
       tmp/trace.txt       # strace output
     ignore
-  outputs/                # (after extract_sandbox_output)
+  outputs/                # (after extract_sandbox_output or capture_observe_output)
     upperdir/             # files to commit
     ignore
 ```
@@ -207,5 +220,6 @@ chunk_<cmd_hash>/
 | TraceType | Tracing | Sandbox | Commit |
 |-----------|---------|---------|--------|
 | Nothing | none | no | no |
-| TraceFile | strace | no | no |
+| TraceFile | strace or observe | no | no |
+| Observe | observe | no | try commit |
 | Sandbox | strace (in try) | yes (try) | try commit |

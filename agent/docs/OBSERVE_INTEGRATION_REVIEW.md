@@ -1,6 +1,6 @@
 # Observe Integration Review
 
-Review of the observe integration in incr, focusing on correctness and edge cases.
+Review of the observe integration in incr, focusing on correctness and edge cases. When observe is not available, incr falls back to try + strace (Sandbox for writes); see main `README.md`.
 
 ## Flow Summary
 
