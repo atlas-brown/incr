@@ -42,7 +42,8 @@ cache_dir=${1:-/tmp/cache}
 TOP=$(git rev-parse --show-toplevel)
 TRY_PATH="$TOP/src/scripts/try.sh"
 OBSERVE_PATH=""
-if [ -x "$TOP/../observe/target/release/observe" ]; then
+# INCR_OBSERVE=0 forces default mode (try+strace); 1 or unset uses observe when available
+if [ "${INCR_OBSERVE:-1}" != "0" ] && [ -x "$TOP/../observe/target/release/observe" ]; then
     OBSERVE_PATH="$TOP/../observe/target/release/observe"
 fi
 tmp_incr="$(dirname $script)/incr_script_$(basename $script).sh"
@@ -62,7 +63,7 @@ cleanup() {
 }
 trap cleanup EXIT INT TERM
 
-python3 ${TOP}/src/scripts/insert.py --sys-path ${TOP}/target/release/incr --try $TRY_PATH --cache "$cache_dir" ${OBSERVE_PATH:+--observe-path "$OBSERVE_PATH"} "$script" > "$tmp_incr"
+python3 ${TOP}/src/scripts/insert.py --sys-path ${TOP}/target/release/incr --try-path "$TRY_PATH" --cache-path "$cache_dir" ${OBSERVE_PATH:+--observe-path "$OBSERVE_PATH"} "$script" > "$tmp_incr"
 
 # Swap the original script with the incrementalized one.
 cp "$script" "$tmp_orig"

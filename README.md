@@ -134,13 +134,22 @@ See `agent/README.md` for details.
 
 ---
 
-## Benchmark (war-and-peace)
+## Evaluation suite
 
-The `evaluation/war-and-peace` directory contains a basic benchmark. Run from the directory above `src`:
+The `evaluation/` directory contains benchmarks. Run from `incr/`:
 
 ```bash
-./evaluation/war-and-peace/with_cache.sh
-./evaluation/war-and-peace/without_cache.sh
+# Benchmarks (default mode = try+strace, observe mode = observe)
+bash evaluation/run.sh              # run both modes
+bash evaluation/run.sh default      # default mode only
+bash evaluation/run.sh observe      # observe mode only
+
+# War-and-peace (word count pipeline)
+bash evaluation/war-and-peace/with_cache.sh         # default (try+strace)
+bash evaluation/war-and-peace/with_cache_observe.sh # observe
+bash evaluation/war-and-peace/without_cache.sh     # baseline (no incr)
 ```
+
+Results: `evaluation/run_results/default/` and `evaluation/run_results/observe/`.
 
 For Koala benchmarks, clone https://github.com/kbensh/koala and manually insert `target/release/incr` invocations into the benchmark scripts.
