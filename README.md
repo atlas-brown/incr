@@ -13,7 +13,7 @@ cd ../observe && cargo build --release && cd ../incr
 ./incr.sh my_script.sh [/path/to/cache]
 ```
 
-When **observe** is built as a sibling project (`../observe/target/release/observe`), incr.sh automatically uses it for write commands, giving ~10x faster cold runs than the default strace/sandbox mode.
+When **observe** is built as a sibling project (`../observe/target/release/observe`), incr.sh automatically uses it for write commands, giving ~10x faster cold runs than the fallback mode (try + strace). incr works without observe; it falls back to try + strace for write commands.
 
 ---
 
@@ -61,10 +61,10 @@ echo "" | ./target/release/incr -t ./src/scripts/try.sh -c /tmp/cache --observe 
 
 | Mode | Write commands | Cold run | Warm run |
 |------|----------------|----------|----------|
-| strace + Sandbox | Full overlayfs isolation | ~250 ms | ~35 ms |
+| **Fallback**: try + strace | Overlayfs sandbox + strace | ~250 ms | ~35 ms |
 | **observe** | Direct execution + trace | **~23 ms** | **~18 ms** |
 
-For write-heavy workloads, observe gives ~10x faster cold runs.
+For write-heavy workloads, observe gives ~10x faster cold runs. The fallback (try + strace) uses full overlayfs isolation and works without building observe.
 
 ### Enabling observe
 
@@ -82,6 +82,16 @@ For write-heavy workloads, observe gives ~10x faster cold runs.
 - **Write commands** (echo > file, cp, sed -i, etc.): Use Observe mode (replaces Sandbox)
 - **Read-only commands** (cat, sed to stdout): Use TraceFile with observe for lighter tracing
 - **Pure commands** (grep, wc): No tracing
+
+### Fallback: try + strace
+
+When observe is **not** available (not built or not passed via `--observe`), incr falls back to **try + strace**:
+
+- **Write commands**: Run inside a **try** overlayfs sandbox. The command executes in an isolated overlay; strace records file access; try commit applies changes to the real filesystem. Requires `mergerfs` (or `unionfs`) and `try.sh`.
+- **Read-only commands**: Use **strace** to trace file reads (TraceFile mode). No sandbox.
+- **Pure commands**: No tracing (Nothing mode).
+
+This fallback works without the observe project. It is slower for write commands (~250 ms cold vs ~23 ms with observe) but provides full isolation via the try overlay. Use it when observe is unavailable or when you need the sandbox’s stronger isolation guarantees.
 
 ---
 
