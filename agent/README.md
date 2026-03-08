@@ -29,6 +29,7 @@ agent/
 └── docs/
     ├── ARCHITECTURE_ANALYSIS.md
     ├── OBSERVE_INTEGRATION_REVIEW.md
+    ├── EVALUATION_BENCHMARK_SUITE.md  # How to install, run, clean evaluation benchmarks (default + observe)
     └── FINDINGS.md           # Summary of all findings
 ```
 
@@ -46,6 +47,10 @@ bash agent/run_bench.sh
 
 # Generate plot (requires matplotlib)
 python3 agent/benchmarks/plot.py agent/benchmarks/results.txt
+
+# Full evaluation suite (14 benchmarks, default + observe modes)
+# See docs/EVALUATION_BENCHMARK_SUITE.md for install, run, clean
+bash evaluation/run.sh
 ```
 
 ## Tests
