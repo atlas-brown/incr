@@ -50,6 +50,7 @@ pub(crate) struct Runtime {
 pub(crate) enum RuntimeType {
     Sandbox(PathBuf),
     TraceFile(PathBuf),
+    Observe(PathBuf),
     Nothing,
 }
 
@@ -118,10 +119,10 @@ where
 {
     if let RuntimeType::Sandbox(directory) = &runtime.typ {
         fs::create_dir_all(directory)?;
-    } else if let RuntimeType::TraceFile(file) = &runtime.typ
-        && let Some(parent) = file.parent()
-    {
-        fs::create_dir_all(parent)?;
+    } else if let RuntimeType::TraceFile(file) | RuntimeType::Observe(file) = &runtime.typ {
+        if let Some(parent) = file.parent() {
+            fs::create_dir_all(parent)?;
+        }
     }
 
     let mut child = spawn_child(config, command, runtime)?;
@@ -165,9 +166,17 @@ where
 }
 
 fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<Child> {
+    let use_observe = config.observe_command.is_some();
     let shell_command = match &runtime.typ {
         RuntimeType::Sandbox(_) => &config.try_command,
-        RuntimeType::TraceFile(_) => STRACE_COMMAND,
+        RuntimeType::TraceFile(_) => {
+            if use_observe {
+                config.observe_command.as_ref().unwrap()
+            } else {
+                STRACE_COMMAND
+            }
+        }
+        RuntimeType::Observe(_) => config.observe_command.as_ref().unwrap(),
         RuntimeType::Nothing => &command.name,
     };
     let mut child = ShellCommand::new(shell_command);
@@ -186,15 +195,34 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
             child.args(&command.arguments);
         }
         RuntimeType::TraceFile(file) => {
-            let mut arguments = vec![
-                "-yf",
-                "--seccomp-bpf",
-                "--trace=fork,clone,%file",
-                "-o",
-                ops::file::path_to_string(file)?,
-            ];
-            arguments.extend(command.join_sequence());
-            child.args(&arguments);
+            if use_observe {
+                child.arg("--json");
+                child.arg("--output");
+                child.arg(ops::file::path_to_string(file)?);
+                child.arg("--no-filter");
+                child.arg("--");
+                child.arg(&command.name);
+                child.args(&command.arguments);
+            } else {
+                let mut arguments = vec![
+                    "-yf",
+                    "--seccomp-bpf",
+                    "--trace=fork,clone,%file",
+                    "-o",
+                    ops::file::path_to_string(file)?,
+                ];
+                arguments.extend(command.join_sequence());
+                child.args(&arguments);
+            }
+        }
+        RuntimeType::Observe(file) => {
+            child.arg("--json");
+            child.arg("--output");
+            child.arg(ops::file::path_to_string(file)?);
+            child.arg("--no-filter");
+            child.arg("--");
+            child.arg(&command.name);
+            child.args(&command.arguments);
         }
         RuntimeType::Nothing => {
             child.args(&command.arguments);

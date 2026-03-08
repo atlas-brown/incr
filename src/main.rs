@@ -27,6 +27,8 @@ struct Arguments {
     try_command: Option<String>,
     #[arg(short = 'c', long = "cache")]
     cache_directory: Option<String>,
+    #[arg(long = "observe")]
+    observe_command: Option<String>,
 
     #[arg(short = 'b', long = "batch_executor")]
     batch_executor: bool,
@@ -113,11 +115,16 @@ fn parse_input() -> Result<Option<Input>> {
 
     let environment = env::vars().collect::<HashMap<_, _>>();
     let command = command::create(arguments.command, &environment)?;
-    let trace_type = execution::get_trace_type(&cache_directory, &command);
+    let trace_type = execution::get_trace_type(
+        &cache_directory,
+        &command,
+        arguments.observe_command.as_deref(),
+    );
     let config = Config {
         try_command,
         cache_directory,
         trace_type,
+        observe_command: arguments.observe_command,
 
         batch_executor: arguments.batch_executor,
         short_circuit: arguments.short_circuit,

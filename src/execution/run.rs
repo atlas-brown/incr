@@ -69,7 +69,11 @@ pub(crate) fn clean_child_runtime(runtime: &Runtime) -> Result<()> {
     ops::file::remove_file(&runtime.stderr_file)?;
     match &runtime.typ {
         RuntimeType::Sandbox(directory) => batch_cache::remove_sandbox(directory)?,
-        RuntimeType::TraceFile(file) => ops::file::remove_file(file)?,
+        RuntimeType::TraceFile(file) | RuntimeType::Observe(file) => {
+            if file.exists() {
+                ops::file::remove_file(file)?;
+            }
+        }
         RuntimeType::Nothing => (),
     }
     Ok(())

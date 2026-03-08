@@ -1,7 +1,7 @@
 use anyhow::Result;
 use bincode::Encode;
 use serde::Serialize;
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::{Command as ShellCommand, Stdio};
@@ -9,8 +9,8 @@ use std::process::{Command as ShellCommand, Stdio};
 use crate::cache::{self, CacheData};
 use crate::command::Command;
 use crate::config::{
-    COMMIT_DIRECTORY, Config, DATA_FILE, DEBUG, OUTPUT_DIRECTORY, SANDBOX_DIRECTORY, STDERR_FILE,
-    STDOUT_FILE, SUDO_SANDBOX, TRACE_FILE,
+    COMMIT_DIRECTORY, Config, DATA_FILE, DEBUG, OBSERVE_TRACE_FILE, OUTPUT_DIRECTORY,
+    SANDBOX_DIRECTORY, STDERR_FILE, STDOUT_FILE, SUDO_SANDBOX, TRACE_FILE,
 };
 use crate::ops;
 
@@ -81,6 +81,10 @@ impl<'c> CacheCursor<'c> {
         self.directory.join(TRACE_FILE)
     }
 
+    pub(crate) fn get_observe_trace_file(&self) -> PathBuf {
+        self.directory.join(OBSERVE_TRACE_FILE)
+    }
+
     pub(crate) fn data_outputs_exist(&self) -> bool {
         self.get_stdout_file().is_file() && self.get_stderr_file().is_file()
     }
@@ -106,6 +110,39 @@ impl<'c> CacheCursor<'c> {
         )?;
         fs::rename(sandbox_directory.join("ignore"), output_directory.join("ignore"))?;
         remove_sandbox(&sandbox_directory)?;
+
+        Ok(())
+    }
+
+    /// Capture written files from real filesystem to outputs/upperdir for Observe mode.
+    /// Creates the structure try commit expects (upperdir/<path>, ignore file).
+    pub(crate) fn capture_observe_output(&self, write_set: &HashSet<PathBuf>) -> Result<()> {
+        let output_directory = self.directory.join(OUTPUT_DIRECTORY);
+        let upperdir = output_directory.join("upperdir");
+        fs::create_dir_all(&upperdir)?;
+        // try commit expects an ignore file (can be empty)
+        fs::write(output_directory.join("ignore"), b"")?;
+
+        for path in write_set {
+            if !path.exists() {
+                continue;
+            }
+            let metadata = match fs::metadata(path) {
+                Ok(m) => m,
+                Err(_) => continue,
+            };
+            if metadata.is_file() {
+                let rel = path
+                    .strip_prefix("/")
+                    .unwrap_or_else(|_| path.as_path());
+                let dest = upperdir.join(rel);
+                if let Some(parent) = dest.parent() {
+                    fs::create_dir_all(parent)?;
+                }
+                fs::copy(path, &dest)?;
+            }
+            // TODO: handle directories, symlinks for full try commit compatibility
+        }
 
         Ok(())
     }

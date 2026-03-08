@@ -76,11 +76,20 @@ fn run_command(
 
     let (read_set, mut write_set) = execution::parse_trace(&runtime)?;
     let mut read_dependencies = dependency::get_read_dependencies(&read_set, &write_set)?;
-    if let RuntimeType::Sandbox(_) = &runtime.typ {
-        cache.extract_sandbox_output()?;
-        if !write_set.is_empty() {
-            cache.commit_output()?;
+    match &runtime.typ {
+        RuntimeType::Sandbox(_) => {
+            cache.extract_sandbox_output()?;
+            if !write_set.is_empty() {
+                cache.commit_output()?;
+            }
         }
+        RuntimeType::Observe(_) => {
+            cache.capture_observe_output(&write_set)?;
+            if !write_set.is_empty() {
+                cache.commit_output()?;
+            }
+        }
+        _ => {}
     }
     dependency::filter_dependencies(&mut read_dependencies, &mut write_set)?;
 
@@ -93,12 +102,20 @@ fn run_command(
 }
 
 fn create_child_runtime(config: &Config, cache: &CacheCursor<'_>) -> Runtime {
+    let typ = match config.trace_type {
+        TraceType::Sandbox => RuntimeType::Sandbox(cache.get_sandbox_directory()),
+        TraceType::TraceFile => {
+            if config.observe_command.is_some() {
+                RuntimeType::TraceFile(cache.get_observe_trace_file())
+            } else {
+                RuntimeType::TraceFile(cache.get_trace_file())
+            }
+        }
+        TraceType::Observe => RuntimeType::Observe(cache.get_observe_trace_file()),
+        TraceType::Nothing => RuntimeType::Nothing,
+    };
     Runtime {
-        typ: match config.trace_type {
-            TraceType::Sandbox => RuntimeType::Sandbox(cache.get_sandbox_directory()),
-            TraceType::TraceFile => RuntimeType::TraceFile(cache.get_trace_file()),
-            TraceType::Nothing => RuntimeType::Nothing,
-        },
+        typ,
         stdout_file: cache.get_stdout_file(),
         stderr_file: cache.get_stderr_file(),
     }

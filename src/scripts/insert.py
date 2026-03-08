@@ -384,13 +384,19 @@ def main():
     arg_parser.add_argument("--sys-path", help=f"Path to the {sys_name} executable", default=sys_path)
     arg_parser.add_argument("--try-path", help=f"Path to the try.sh script", default=None)
     arg_parser.add_argument("--cache-path", help="Path to the cache directory", default=None)
+    arg_parser.add_argument("--observe-path", help="Path to the observe binary (enables observe for tracing)", default=None)
     arg_parser.add_argument("-d", "--debug", action="store_true", help="Enable debug logging")
     arg_parser.add_argument("--bash", action="store_true", help="Use bash parser (experimental)")
     arg_parser.add_argument("--identity", action="store_true", help=f"Output parsed script without inserting {sys_name}")
     args = arg_parser.parse_args()
     
     logging.basicConfig(level=logging.DEBUG if args.debug else logging.INFO)
-    sys_path = f"{args.sys_path} --try {args.try_path} --cache {args.cache_path}" if args.try_path and args.cache_path else args.sys_path
+    if args.try_path and args.cache_path:
+        sys_path = f"{args.sys_path} --try {args.try_path} --cache {args.cache_path}"
+        if args.observe_path:
+            sys_path = f"{sys_path} --observe {args.observe_path}"
+    else:
+        sys_path = args.sys_path
 
     state = State()
     script_path = args.path

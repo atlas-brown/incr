@@ -16,7 +16,11 @@ use crate::config::{EXCLUDED_PATHS, TRACE_FILE, TraceType};
 use crate::ops;
 use crate::scripts;
 
-pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> TraceType {
+pub(crate) fn get_trace_type(
+    cache_directory: &Path,
+    command: &Command,
+    observe_command: Option<&str>,
+) -> TraceType {
     if annotation::check_pure(command) {
         return TraceType::Nothing;
     }
@@ -26,17 +30,30 @@ pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> Trace
     if dependency::get_introspect_file(cache_directory, command.hash).exists() {
         return TraceType::TraceFile;
     }
+    // When observe is available, use Observe mode instead of Sandbox (no try overlayfs)
+    if observe_command.is_some() {
+        return TraceType::Observe;
+    }
     TraceType::Sandbox
 }
 
 pub(crate) fn parse_trace(runtime: &Runtime) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
     let trace_file = match &runtime.typ {
-        RuntimeType::Sandbox(directory) => &directory.join("upperdir").join("tmp").join(TRACE_FILE),
-        RuntimeType::TraceFile(file) => file,
+        RuntimeType::Sandbox(directory) => directory.join("upperdir").join("tmp").join(TRACE_FILE),
+        RuntimeType::TraceFile(file) | RuntimeType::Observe(file) => file.clone(),
         RuntimeType::Nothing => return Ok((HashSet::new(), HashSet::new())),
     };
-    let (mut read_set, mut write_set) = scripts::parse_trace(trace_file).map_err(|e| anyhow!("{e}"))?;
-    fs::remove_file(trace_file)?;
+    let (mut read_set, mut write_set) = if trace_file
+        .extension()
+        .map_or(false, |e| e == "json")
+    {
+        scripts::parse_observe(&trace_file).map_err(|e| anyhow!("{e}"))?
+    } else {
+        scripts::parse_trace(&trace_file).map_err(|e| anyhow!("{e}"))?
+    };
+    if trace_file.exists() {
+        fs::remove_file(&trace_file)?;
+    }
 
     read_set.retain(|p| {
         !EXCLUDED_PATHS.iter().any(|e| {
