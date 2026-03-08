@@ -67,7 +67,7 @@ pub(crate) fn filter_dependencies(
                     .map(|p| p.starts_with(e))
                     .unwrap_or(false)
             });
-            if excluded && k == &mut DependencyKey::DoesNotExist && !p.exists() {
+            if excluded && k == &DependencyKey::DoesNotExist && !p.exists() {
                 Some(p.clone())
             } else {
                 None

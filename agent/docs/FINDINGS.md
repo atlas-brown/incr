@@ -54,14 +54,24 @@ Run `bash agent/run_bench.sh` and `python3 agent/benchmarks/plot.py agent/benchm
 
 ---
 
-## 4. Test Coverage
+## 4. Bug Fixes
 
-`bash agent/test_incr_observe.sh` runs 7 test files, 21 scenarios:
+- **cache.clean()** (batch_cache.rs): Previously used `Path::new("data.incr")`, removing the data file from the current working directory instead of the cache directory. Fixed to use `self.directory.join(&data_file)`.
+- **dependency.rs**: Corrected `k == &mut DependencyKey::DoesNotExist` to `k == &DependencyKey::DoesNotExist` (unnecessary mutable reference).
+
+**Note**: Avoid naming files `data.incr` in the working directory when running incr; use a distinct name (e.g. `preserve_me.txt`) for regression tests.
+
+---
+
+## 5. Test Coverage
+
+`bash agent/test_incr_observe.sh` runs 8 test files, 22 scenarios:
 
 | File | Scenarios |
 |------|-----------|
 | t_incr_basic | TraceFile (strace/observe), Sandbox, Observe write, cache hits |
 | t_incr_batch | Batch executor + observe, cache hit |
+| t_incr_cache_clean | Cache clean does not touch cwd files (regression for batch_cache fix) |
 | t_incr_invalidation | cp + cache hit + invalidation on input change |
 | t_incr_pure | grep (TraceType::Nothing) |
 | t_incr_multi | Multi-file write |
@@ -70,7 +80,7 @@ Run `bash agent/run_bench.sh` and `python3 agent/benchmarks/plot.py agent/benchm
 
 ---
 
-## 5. How incr Uses observe
+## 6. How incr Uses observe
 
 1. **incr.sh** detects `../observe/target/release/observe` and passes `--observe-path` to insert.py.
 2. **insert.py** adds `--observe <path>` to incr invocations in the transformed script.
@@ -81,7 +91,7 @@ Run `bash agent/run_bench.sh` and `python3 agent/benchmarks/plot.py agent/benchm
 
 ---
 
-## 6. Architecture Notes
+## 7. Architecture Notes
 
 - **TraceType::Observe** is a new mode alongside Sandbox, TraceFile, Nothing.
 - For TraceFile (read-only), incr can use strace or observe; both produce parseable output.
@@ -90,7 +100,7 @@ Run `bash agent/run_bench.sh` and `python3 agent/benchmarks/plot.py agent/benchm
 
 ---
 
-## 7. Files in agent/
+## 8. Files in agent/
 
 | Path | Purpose |
 |------|---------|

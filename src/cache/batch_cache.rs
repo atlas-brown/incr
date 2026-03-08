@@ -176,7 +176,7 @@ impl<'c> CacheCursor<'c> {
 
     pub(crate) fn clean(&self) -> Result<()> {
         let data_file = ops::file::add_data_extension(DATA_FILE.to_owned());
-        ops::file::remove_file(Path::new(&data_file))?;
+        ops::file::remove_file(&self.directory.join(&data_file))?;
         ops::file::remove_directory(&self.directory.join(OUTPUT_DIRECTORY))?;
         ops::file::remove_directory(&self.directory.join(COMMIT_DIRECTORY))?;
         remove_sandbox(&self.get_sandbox_directory())?;
