@@ -1,0 +1,59 @@
+==============================================
+incr performance: strace vs observe (5 iter)
+==============================================
+
+1. cat (small file)
+   cold: strace .0091s, observe .0066s
+BENCH:cat_cold:strace:.0091
+BENCH:cat_cold:observe:.0066
+   warm: strace .0032s, observe .0034s
+BENCH:cat_warm:strace:.0032
+BENCH:cat_warm:observe:.0034
+
+2. cat (100KB file)
+   cold: strace .0089s, observe .0067s
+BENCH:cat_large_cold:strace:.0089
+BENCH:cat_large_cold:observe:.0067
+   warm: strace .0032s, observe .0029s
+BENCH:cat_large_warm:strace:.0032
+BENCH:cat_large_warm:observe:.0029
+
+3. sed (read-only)
+   cold: strace .0095s, observe .0073s
+BENCH:sed_cold:strace:.0095
+BENCH:sed_cold:observe:.0073
+   warm: strace .0031s, observe .0031s
+BENCH:sed_warm:strace:.0031
+BENCH:sed_warm:observe:.0031
+
+4. write (echo > file)
+   cold: strace .2523s, observe .0227s
+BENCH:write_cold:strace:.2523
+BENCH:write_cold:observe:.0227
+   warm: strace .0362s, observe .0175s
+BENCH:write_warm:strace:.0362
+BENCH:write_warm:observe:.0175
+
+5. cp (read+write)
+   cold: strace .2509s, observe .0220s
+BENCH:cp_cold:strace:.2509
+BENCH:cp_cold:observe:.0220
+   warm: strace .0348s, observe .0171s
+BENCH:cp_warm:strace:.0348
+BENCH:cp_warm:observe:.0171
+
+6. grep (pure)
+   cold: strace .0046s, observe .0046s
+BENCH:grep_cold:strace:.0046
+BENCH:grep_cold:observe:.0046
+
+7. batch write
+   cold: strace .2517s, observe .0225s
+BENCH:batch_write_cold:strace:.2517
+BENCH:batch_write_cold:observe:.0225
+   warm: strace .0267s, observe .0166s
+BENCH:batch_write_warm:strace:.0267
+BENCH:batch_write_warm:observe:.0166
+
+==============================================
+Done
