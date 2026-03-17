@@ -1,0 +1,3 @@
+mode,script,time_sec
+incr,uppercase_by_token.sh,47.101
+incr,uppercase_by_type.sh,53.309

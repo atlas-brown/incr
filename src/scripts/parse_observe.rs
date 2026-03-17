@@ -3,6 +3,8 @@
 use std::collections::HashSet;
 use std::path::{Path, PathBuf};
 
+use crate::config::OBSERVE_READ_EXCLUDED_PATHS;
+
 type Result<T> = std::result::Result<T, String>;
 
 #[derive(serde::Deserialize)]
@@ -13,6 +15,8 @@ struct ObserveReport {
 
 /// Parse observe's JSON output and return (read_set, write_set).
 /// Handles both plain writes: ["path1", "path2"] and hash format: [{"path": "...", "pre_hash": "..."}].
+/// Filters out reads under OBSERVE_READ_EXCLUDED_PATHS (/tmp, /dev, /proc, /sys) to avoid
+/// cache invalidation from transient or non-deterministic paths.
 pub fn parse_observe(trace_path: &Path) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
     let data = std::fs::read_to_string(trace_path)
         .map_err(|e| format!("read {:?}: {e}", trace_path))?;
@@ -20,7 +24,17 @@ pub fn parse_observe(trace_path: &Path) -> Result<(HashSet<PathBuf>, HashSet<Pat
     let report: ObserveReport = serde_json::from_str(&data)
         .map_err(|e| format!("parse observe JSON: {e}"))?;
 
-    let read_set: HashSet<PathBuf> = report.reads.into_iter().map(PathBuf::from).collect();
+    let read_set: HashSet<PathBuf> = report
+        .reads
+        .into_iter()
+        .map(PathBuf::from)
+        .filter(|p| {
+            let s = p.to_string_lossy();
+            !OBSERVE_READ_EXCLUDED_PATHS
+                .iter()
+                .any(|prefix| s.starts_with(prefix))
+        })
+        .collect();
 
     let write_set: HashSet<PathBuf> = match report.writes {
         serde_json::Value::Array(arr) => {
