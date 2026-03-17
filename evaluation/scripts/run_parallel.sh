@@ -13,7 +13,8 @@ RESULTS_DIR="$EVAL_DIR/run_results_parallel"
 mkdir -p "$LOG_DIR" "$RESULTS_DIR/default" "$RESULTS_DIR/observe"
 
 # Same as run.sh (skip image-annotation, file-mod)
-ALL_BENCHMARKS=(beginner bio covid dpt nginx-analysis nlp-uppercase nlp-ngrams poet spell unixfun weather word-freq)
+# word-freq first: it fails when run alongside many others (resource contention)
+ALL_BENCHMARKS=(word-freq beginner bio covid dpt nginx-analysis nlp-uppercase nlp-ngrams poet spell unixfun weather)
 ALL_SIZES=(small small small small small small small small small small small)
 
 SKIP_DPT=false
@@ -40,14 +41,14 @@ run_one_benchmark() {
     local log_default="$LOG_DIR/${bench}_default.log"
     local log_observe="$LOG_DIR/${bench}_observe.log"
 
-    # Default mode
+    # Default mode (run from benchmarks/ to match sequential run.sh)
     {
         echo "=== $bench DEFAULT $(date) ==="
         sudo bash "$BENCH_DIR/$bench/clean.sh" 2>/dev/null || true
         rm -rf "$BENCH_DIR/$bench/cache" "$BENCH_DIR/$bench/outputs"
         mkdir -p "$BENCH_DIR/$bench/outputs"
         export INCR_OBSERVE=0
-        bash "$BENCH_DIR/$bench/execute.sh" "--$size" "--incr-only"
+        (cd "$BENCH_DIR" && bash "./$bench/execute.sh" "--$size" "--incr-only")
         cp "$BENCH_DIR/$bench/outputs/timing.csv" "$RESULTS_DIR/default/${bench}-time.csv" 2>/dev/null || true
         if [[ -d "$BENCH_DIR/$bench/cache" ]]; then
             du -sb "$BENCH_DIR/$bench/cache" > "$RESULTS_DIR/default/${bench}-size.txt" 2>/dev/null || true
@@ -62,7 +63,7 @@ run_one_benchmark() {
         rm -rf "$BENCH_DIR/$bench/cache" "$BENCH_DIR/$bench/outputs"
         mkdir -p "$BENCH_DIR/$bench/outputs"
         export INCR_OBSERVE=1
-        bash "$BENCH_DIR/$bench/execute.sh" "--$size" "--incr-only"
+        (cd "$BENCH_DIR" && bash "./$bench/execute.sh" "--$size" "--incr-only")
         cp "$BENCH_DIR/$bench/outputs/timing.csv" "$RESULTS_DIR/observe/${bench}-time.csv" 2>/dev/null || true
         if [[ -d "$BENCH_DIR/$bench/cache" ]]; then
             du -sb "$BENCH_DIR/$bench/cache" > "$RESULTS_DIR/observe/${bench}-size.txt" 2>/dev/null || true
@@ -93,9 +94,19 @@ cleanup_on_exit() {
 }
 trap cleanup_on_exit EXIT INT TERM
 
-echo "Starting ${#BENCHMARKS[@]} benchmarks in parallel..."
-for i in "${!BENCHMARKS[@]}"; do
-    run_one_benchmark "$i" &
+# Run in batches of 3 to avoid resource contention (word-freq produces empty output when many run at once)
+BATCH_SIZE=3
+echo "Starting ${#BENCHMARKS[@]} benchmarks in batches of $BATCH_SIZE..."
+for ((i=0; i<${#BENCHMARKS[@]}; i+=BATCH_SIZE)); do
+    for ((j=i; j<i+BATCH_SIZE && j<${#BENCHMARKS[@]}; j++)); do
+        run_one_benchmark "$j" &
+    done
+    wait
+    # Clean caches and sort temp files between batches to free disk space
+    for ((j=i; j<i+BATCH_SIZE && j<${#BENCHMARKS[@]}; j++)); do
+        b="${BENCHMARKS[$j]}"
+        rm -rf "$BENCH_DIR/$b/cache" "$BENCH_DIR/$b/outputs" 2>/dev/null || true
+    done
+    rm -rf /tmp/sort* /tmp/tmp* 2>/dev/null || true
 done
-wait
 echo "All benchmarks finished."

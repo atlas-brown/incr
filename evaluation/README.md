@@ -11,11 +11,11 @@ Set `INCR_OBSERVE=0` to force default mode; `INCR_OBSERVE=1` or unset to use obs
 
 ```
 evaluation/
-├── run.sh                    # Main entry: sequential benchmark run
+├── run.sh                    # Sequential benchmark run (creates run_results/)
 ├── benchmarks/               # Per-benchmark dirs (execute.sh, scripts/, etc.)
-├── scripts/                  # Helper scripts (parallel, verify, monitor)
+├── scripts/                  # Helper scripts (parallel, verify, monitor, restore)
 ├── analysis/                 # Plotting (compare_default_observe.py)
-├── run_results/             # Results from sequential run
+├── run_results_parallel/     # Results from parallel run (primary baseline)
 └── agent/docs/BENCHMARK_RUN_CONTEXT.md  # Detailed run guide
 ```
 
@@ -37,4 +37,4 @@ bash evaluation/scripts/monitor_benchmarks.sh --loop   # monitor
 bash evaluation/scripts/verify_outputs.sh --min
 ```
 
-Results: `run_results/` (sequential) and `run_results_parallel/` (parallel); both are committed.
+Results: `run_results_parallel/` (primary; from run_parallel.sh). See BENCHMARK_RUN_CONTEXT.md for error checking and baseline comparison.

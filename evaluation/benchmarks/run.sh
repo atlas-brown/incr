@@ -6,6 +6,19 @@
 #   (none)   - run both modes, save to run_results/default/ and run_results/observe/
 cd "$(dirname "$0")" || exit 1
 
+EVAL_DIR="$(cd .. && pwd)"
+cleanup_on_exit() {
+    echo ""
+    echo "Cleaning up (interrupted or done)..."
+    "$EVAL_DIR/scripts/restore_benchmark_scripts.sh" 2>/dev/null || true
+    rm -rf /tmp/sort* /tmp/tmp* /tmp/cache* /tmp/incr_bench* 2>/dev/null || true
+}
+trap cleanup_on_exit EXIT INT TERM
+
+# Restore any scripts left in incr state from previous interrupted run
+"$EVAL_DIR/scripts/restore_benchmark_scripts.sh" 2>/dev/null || true
+rm -rf /tmp/sort* /tmp/tmp* 2>/dev/null || true
+
 # Skip image-annotation (requires OpenAI API key), file-mod (no min_inputs)
 BENCHMARKS=(
     "beginner"

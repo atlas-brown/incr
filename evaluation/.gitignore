@@ -1,3 +1,6 @@
+# Incr instrumentation temp files (left if interrupted)
+benchmarks/*/scripts/incr_script_*
+
 # Run artifacts
 parallel_logs/
 verify_outputs/
