@@ -1,8 +1,8 @@
 mode,script,time_sec
-incr,bio-1.sh,0.629
-incr,bio-2.sh,1.443
-incr,bio-3.sh,16.592
-incr,bio-4-0.sh,14.648
-incr,bio-4.sh,8.01
-incr,bio-5.sh,2.2
-incr,bio-6.sh,1.757
+incr,bio-1.sh,6.834
+incr,bio-2.sh,20.639
+incr,bio-3.sh,65.022
+incr,bio-4-0.sh,28.533
+incr,bio-4.sh,29.02
+incr,bio-5.sh,8.822
+incr,bio-6.sh,6.706
