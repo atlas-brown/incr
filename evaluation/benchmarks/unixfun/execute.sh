@@ -10,10 +10,12 @@ OUTPUT_DIR="${BENCHMARK_DIR}/outputs"
 mkdir -p "$OUTPUT_DIR"
 
 size=full
+incr_only=false
 for arg in "$@"; do
     case "$arg" in
     --small) size=small ;;
     --min) size=min ;;
+    --incr-only) incr_only=true ;;
     esac
 done
 INPUT="${BENCHMARK_DIR}/inputs/4.${size}.txt"
@@ -51,11 +53,13 @@ measure_time() {
 
 export INPUT
 
-# Baseline: bash
-for script in "${SCRIPTS[@]}"; do
-    echo "Running ${script} with bash..."
-    measure_time "bash" $script
-done
+# Baseline: bash (skip with --incr-only)
+if [[ "$incr_only" != "true" ]]; then
+    for script in "${SCRIPTS[@]}"; do
+        echo "Running ${script} with bash..."
+        measure_time "bash" $script
+    done
+fi
 
 # Incremental run: incr
 for script in "${SCRIPTS[@]}"; do

@@ -10,10 +10,12 @@ OUTPUT_DIR="${BENCHMARK_DIR}/outputs"
 mkdir -p "$OUTPUT_DIR"
 
 suffix=".full"
+incr_only=false
 for arg in "$@"; do
     case "$arg" in
         --small) suffix=".small" ;;
         --min) suffix=".min" ;;
+        --incr-only) incr_only=true ;;
     esac
 done
 
@@ -64,12 +66,14 @@ measure_time() {
     echo "$mode,$script,$elapsed" >> "$TIME_FILE"
 }
 
-# Baseline: bash
-rm -rf "$IMG_DIR/dpt"
-for script in "${SCRIPTS[@]}"; do
-    echo "Running ${script} with bash..."
-    measure_time "bash" $script
-done
+# Baseline: bash (skip with --incr-only)
+if [[ "$incr_only" != "true" ]]; then
+    rm -rf "$IMG_DIR/dpt"
+    for script in "${SCRIPTS[@]}"; do
+        echo "Running ${script} with bash..."
+        measure_time "bash" $script
+    done
+fi
 
 # Incremental run: incr
 rm -rf "$IMG_DIR/dpt"

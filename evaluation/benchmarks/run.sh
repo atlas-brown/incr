@@ -6,13 +6,12 @@
 #   (none)   - run both modes, save to run_results/default/ and run_results/observe/
 cd "$(dirname "$0")" || exit 1
 
+# Skip image-annotation (requires OpenAI API key), file-mod (no min_inputs)
 BENCHMARKS=(
     "beginner"
     "bio"
     "covid"
     "dpt"
-    "file-mod"
-    "image-annotation"
     "nginx-analysis"
     "nlp-uppercase"
     "nlp-ngrams"
@@ -23,8 +22,6 @@ BENCHMARKS=(
     "word-freq"
 )
 SIZES=(
-    "small"
-    "small"
     "small"
     "small"
     "small"
@@ -75,9 +72,9 @@ for eval_mode in "${MODES[@]}"; do
         sleep 0.01
 
         if [[ "$mode" == "" ]]; then
-            bash "./$benchmark/execute.sh" "--$size"
+            bash "./$benchmark/execute.sh" "--$size" "--incr-only"
         else
-            bash "./$benchmark/execute.sh" "$mode" "--$size"
+            bash "./$benchmark/execute.sh" "$mode" "--$size" "--incr-only"
         fi
         sleep 0.01
 

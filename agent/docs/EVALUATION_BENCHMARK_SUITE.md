@@ -52,6 +52,17 @@ cd incr && cargo build --release
 cd ../observe && cargo build --release
 ```
 
+### Python dependencies (required for incr.sh)
+
+incr.sh uses `insert.py` which requires libbash, libdash, shasta. Install with:
+
+```bash
+pip install --user libbash libdash shasta
+# Or: pip install -r incr/requirements.txt
+```
+
+Without these, benchmarks may complete in seconds (incorrect) instead of ~1 hour.
+
 ### Permissions
 
 - `run.sh` uses `sudo` for `clean.sh`. Ensure the agent has sudo access.

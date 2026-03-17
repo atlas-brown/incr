@@ -1,0 +1,11 @@
+mode,script,time_sec
+incr,dpt_1.sh,4.712
+incr,dpt_2.sh,0.702
+incr,dpt_3a.sh,0.321
+incr,dpt_3b.sh,0.338
+incr,dpt_4.sh,1.402
+incr,dpt_5a.sh,1.148
+incr,dpt_5b.sh,0.933
+incr,dpt_5c.sh,0.952
+incr,dpt_5d.sh,0.964
+incr,dpt_5e.sh,0.966

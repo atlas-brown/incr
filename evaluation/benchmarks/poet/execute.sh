@@ -11,10 +11,12 @@ INPUT_DIR="${BENCHMARK_DIR}/inputs"
 mkdir -p "$OUTPUT_DIR"
 
 suffix=""
+incr_only=false
 for arg in "$@"; do
     case "$arg" in
         --small) suffix="-small" ;;
         --min) suffix="-min" ;;
+        --incr-only) incr_only=true ;;
     esac
 done
 
@@ -53,11 +55,13 @@ measure_time() {
 export IN="${INPUT_DIR}/pg${suffix}"
 export OUT="${OUTPUT_DIR}"
 
-# Baseline: bash
-for script in "${SCRIPTS[@]}"; do
-    echo "Running ${script} with bash..."
-    measure_time "bash" $script 
-done
+# Baseline: bash (skip with --incr-only)
+if [[ "$incr_only" != "true" ]]; then
+    for script in "${SCRIPTS[@]}"; do
+        echo "Running ${script} with bash..."
+        measure_time "bash" $script 
+    done
+fi
 
 # Incremental run: incr
 for script in "${SCRIPTS[@]}"; do

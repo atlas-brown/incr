@@ -14,6 +14,7 @@ IN="inputs/bio-full"
 IN_NAME="inputs/bio-full/input.txt"
 OUT="outputs"
 
+incr_only=false
 for arg in "$@"; do
     case "$arg" in
         --small)
@@ -24,6 +25,7 @@ for arg in "$@"; do
             IN_NAME="inputs/bio-min/input_min.txt" 
             IN="inputs/bio-min"
             ;;
+        --incr-only) incr_only=true ;;
     esac
 done
 
@@ -67,11 +69,13 @@ export OUT
 export IN_NAME
 cp ./Gene_locs.txt scripts
 
-# Baseline: bash
-for script in "${SCRIPTS[@]}"; do
-    echo "Running ${script} with bash..."
-    measure_time "bash" $script 
-done
+# Baseline: bash (skip with --incr-only)
+if [[ "$incr_only" != "true" ]]; then
+    for script in "${SCRIPTS[@]}"; do
+        echo "Running ${script} with bash..."
+        measure_time "bash" $script 
+    done
+fi
 
 # Incremental run: incr
 for script in "${SCRIPTS[@]}"; do
