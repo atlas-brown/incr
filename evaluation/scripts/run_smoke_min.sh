@@ -1,8 +1,19 @@
 #!/bin/bash
 # Smoke test: run each benchmark with --min --incr-only to verify it works.
 # Usage: bash run_smoke_min.sh [default|observe]
-# Run from incr/: bash evaluation/run_smoke_min.sh
-cd "$(dirname "$0")" || exit 1
+# Run from incr/: bash evaluation/scripts/run_smoke_min.sh
+EVAL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$EVAL_DIR" || exit 1
+
+cleanup_on_exit() {
+    echo ""
+    "$EVAL_DIR/scripts/restore_benchmark_scripts.sh" 2>/dev/null || true
+    for b in beginner bio covid dpt nginx-analysis nlp-uppercase nlp-ngrams poet spell unixfun weather word-freq; do
+        sudo rm -rf "benchmarks/$b/cache" "benchmarks/$b/outputs" 2>/dev/null || true
+    done
+    rm -rf /tmp/sort* /tmp/tmp* /tmp/cache* /tmp/incr_bench* 2>/dev/null || true
+}
+trap cleanup_on_exit EXIT INT TERM
 
 # Skip image-annotation (OpenAI key), file-mod (no min_inputs)
 BENCHMARKS=(

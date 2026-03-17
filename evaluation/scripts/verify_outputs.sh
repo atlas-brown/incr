@@ -1,12 +1,13 @@
 #!/bin/bash
 # Verify default vs observe produce identical outputs for speedup benchmarks.
-# Run from incr/: bash evaluation/verify_outputs.sh [--min]
+# Run from incr/: bash evaluation/scripts/verify_outputs.sh [--min]
 # Uses --small by default; --min for faster run (bio, nlp-ngrams, etc.)
 # Cleans up all artifacts (verify_outputs, benchmark cache/outputs, /tmp) on exit.
 
-cd "$(dirname "$0")" || exit 1
-BENCH_DIR="$(pwd)/benchmarks"
-VERIFY_DIR="$(pwd)/verify_outputs"
+EVAL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$EVAL_DIR" || exit 1
+BENCH_DIR="$EVAL_DIR/benchmarks"
+VERIFY_DIR="$EVAL_DIR/verify_outputs"
 SIZE="--small"
 NO_CLEANUP=false
 for arg in "$@"; do
@@ -22,6 +23,7 @@ cleanup() {
     [[ "$NO_CLEANUP" == "true" ]] && return
     echo ""
     echo "Cleaning up artifacts..."
+    "$EVAL_DIR/scripts/restore_benchmark_scripts.sh" 2>/dev/null || true
     rm -rf "$VERIFY_DIR"
     for b in beginner bio covid nginx-analysis nlp-uppercase nlp-ngrams poet spell unixfun weather word-freq; do
         sudo rm -rf "$BENCH_DIR/$b/cache" "$BENCH_DIR/$b/outputs" 2>/dev/null || true

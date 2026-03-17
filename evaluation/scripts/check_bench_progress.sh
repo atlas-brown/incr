@@ -1,8 +1,9 @@
 #!/bin/bash
 # Check benchmark progress, clean up if hung.
-# Usage: bash check_bench_progress.sh
-LOG_D="/users/jxia3/atlas/incr/evaluation/bench_run_default.log"
-LOG_O="/users/jxia3/atlas/incr/evaluation/bench_run_observe.log"
+# Usage: bash evaluation/scripts/check_bench_progress.sh
+EVAL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+LOG_D="$EVAL_DIR/bench_run_default.log"
+LOG_O="$EVAL_DIR/bench_run_observe.log"
 PID_D="/tmp/incr_bench_default.pid"
 PID_O="/tmp/incr_bench_observe.pid"
 

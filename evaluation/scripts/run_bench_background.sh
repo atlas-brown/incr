@@ -1,17 +1,18 @@
 #!/bin/bash
 # Run benchmark suite in background with periodic checks.
-# Usage: bash run_bench_background.sh [default|observe]
-# Run from incr/: bash evaluation/run_bench_background.sh default
+# Usage: bash evaluation/scripts/run_bench_background.sh [default|observe]
+# Run from incr/: bash evaluation/scripts/run_bench_background.sh default
 set -e
-cd "$(dirname "$0")/.." || exit 1
+EVAL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+INCR_DIR="$(cd "$EVAL_DIR/.." && pwd)"
 
 MODE="${1:-default}"
-LOG="/users/jxia3/atlas/incr/evaluation/bench_run_${MODE}.log"
+LOG="$EVAL_DIR/bench_run_${MODE}.log"
 PID_FILE="/tmp/incr_bench_${MODE}.pid"
 
 echo "Starting benchmark ($MODE) at $(date), log: $LOG"
 nohup bash -c "
-  cd /users/jxia3/atlas/incr
+  cd '$INCR_DIR'
   export INCR_OBSERVE=$([ \"$MODE\" = observe ] && echo 1 || echo 0)
   bash evaluation/benchmarks/run.sh $MODE 2>&1
 " > "$LOG" 2>&1 &

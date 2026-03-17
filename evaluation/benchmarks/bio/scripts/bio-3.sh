@@ -1,10 +1,18 @@
-mkdir -p "${OUT}"
-for bam in "${IN}"/*.bam; 
- do         base=$(/users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache basename "${bam}" .bam)
-                /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache samtools view -H "${bam}" | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache sed -e "s/SN:\\([0-9XY]\\)/SN:chr\\1/" -e "s/SN:MT/SN:chrM/" | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache samtools reheader - "${bam}" | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache dd of="${OUT}/${base}_corrected.bam" status=none
-                /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache samtools index -b "${OUT}/${base}_corrected.bam"
-                for chr in $(/users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache cut -f2 Gene_locs.txt | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache sort -u); 
- do         /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache samtools view -b "${OUT}/${base}_corrected.bam" chr"${chr}" | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache dd of="${OUT}/${base}_chr${chr}.bam" status=none
-                /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache samtools index -b "${OUT}/${base}_chr${chr}.bam"
-done
+#!/bin/bash
+
+mkdir -p "$OUT"
+
+for bam in "${IN}"/*.bam; do
+  base=$(basename "$bam" .bam)
+  samtools view -H "$bam" \
+    | sed -e 's/SN:\([0-9XY]\)/SN:chr\1/' -e 's/SN:MT/SN:chrM/' \
+    | samtools reheader - "$bam" \
+    | dd of="${OUT}/${base}_corrected.bam" status=none
+  samtools index -b "${OUT}/${base}_corrected.bam"
+
+  for chr in $(cut -f2 Gene_locs.txt | sort -u); do
+    samtools view -b "${OUT}/${base}_corrected.bam" chr"$chr" \
+      | dd of="${OUT}/${base}_chr${chr}.bam" status=none
+    samtools index -b "${OUT}/${base}_chr${chr}.bam"
+  done
 done

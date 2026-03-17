@@ -264,20 +264,20 @@ bash evaluation/benchmarks/run.sh
 Run all benchmarks in parallel (each runs default then observe in its own process):
 
 ```bash
-cd incr/evaluation
-bash run_parallel.sh              # all benchmarks including dpt
-bash run_parallel.sh --skip-dpt   # skip dpt (longest, ~10+ min)
+cd incr
+bash evaluation/scripts/run_parallel.sh              # all benchmarks including dpt
+bash evaluation/scripts/run_parallel.sh --skip-dpt   # skip dpt (longest, ~10+ min)
 ```
 
-Results: `run_results_parallel/default/`, `run_results_parallel/observe/`.
+Results: `evaluation/run_results_parallel/default/`, `evaluation/run_results_parallel/observe/`.
 
 ### 10.2 monitor_benchmarks.sh
 
 Poll status while parallel run is in progress:
 
 ```bash
-./monitor_benchmarks.sh           # one-shot status
-./monitor_benchmarks.sh --loop   # refresh every 60s
+bash evaluation/scripts/monitor_benchmarks.sh           # one-shot status
+bash evaluation/scripts/monitor_benchmarks.sh --loop   # refresh every 60s
 ```
 
 ### 10.3 Plotting (with or without dpt)
@@ -299,15 +299,15 @@ python3 compare_default_observe.py --skip-dpt --output-dir ../run_results_parall
 Verify that default and observe produce identical outputs (validates speedups):
 
 ```bash
-cd incr/evaluation
-bash verify_outputs.sh --min      # faster, uses --min for benchmarks
-bash verify_outputs.sh            # uses --small
-bash verify_outputs.sh --no-cleanup  # keep artifacts for inspection
+cd incr
+bash evaluation/scripts/verify_outputs.sh --min      # faster, uses --min for benchmarks
+bash evaluation/scripts/verify_outputs.sh            # uses --small
+bash evaluation/scripts/verify_outputs.sh --no-cleanup  # keep artifacts for inspection
 ```
 
 - Uses `timeout` (180s per benchmark) if available to avoid hangs
 - Compares all output files except `timing.csv` and `*.err`
-- Cleans up on exit: `verify_outputs/`, benchmark cache/outputs, `/tmp/sort*`, `/tmp/tmp*`, `/tmp/cache*`, `/tmp/incr_bench*`
+- Cleans up on exit: restores benchmark scripts (via `restore_benchmark_scripts.sh`), removes `verify_outputs/`, benchmark cache/outputs, `/tmp` artifacts
 
 ---
 
@@ -343,9 +343,10 @@ rm -rf /tmp/sort* /tmp/tmp* /tmp/cache* /tmp/incr_bench* /tmp/dpt*.log
 | Path | Purpose |
 |------|---------|
 | `evaluation/benchmarks/run.sh` | Main runner; skips image-annotation, file-mod |
-| `evaluation/run_parallel.sh` | Parallel runner; `--skip-dpt` to skip dpt |
-| `evaluation/monitor_benchmarks.sh` | Poll parallel run status; `--loop` for refresh |
-| `evaluation/verify_outputs.sh` | Verify default vs observe output correctness |
+| `evaluation/scripts/run_parallel.sh` | Parallel runner; `--skip-dpt` to skip dpt |
+| `evaluation/scripts/monitor_benchmarks.sh` | Poll parallel run status; `--loop` for refresh |
+| `evaluation/scripts/verify_outputs.sh` | Verify default vs observe output correctness |
+| `evaluation/scripts/restore_benchmark_scripts.sh` | Restore benchmark scripts if left in incr mode; removes `incr_script_*` files |
 | `evaluation/benchmarks/<name>/execute.sh` | Per-benchmark runner |
 | `evaluation/benchmarks/<name>/install.sh` | Dependency installer |
 | `evaluation/run_results/default/`, `observe/` | timing CSV (sequential run) |

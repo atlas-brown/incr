@@ -1,0 +1,17 @@
+# Run artifacts
+parallel_logs/
+run_results_parallel/
+verify_outputs/
+bench_run_*.log
+verify_*.log
+
+# Benchmark outputs (regenerated on run)
+benchmarks/*/cache/
+benchmarks/*/outputs/
+
+# Legacy result dirs
+annotation_results/
+batch_results/
+compaction_results/
+default_results/
+introspect_results/

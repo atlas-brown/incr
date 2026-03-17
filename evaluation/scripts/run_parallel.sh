@@ -2,13 +2,14 @@
 # Run all benchmarks in parallel (each benchmark runs default then observe).
 # Usage: bash run_parallel.sh [--skip-dpt]
 #   --skip-dpt  Skip dpt (longest benchmark, ~10+ min)
-# Run from incr/: bash evaluation/run_parallel.sh
-# Monitor: bash evaluation/monitor_benchmarks.sh
+# Run from incr/: bash evaluation/scripts/run_parallel.sh
+# Monitor: bash evaluation/scripts/monitor_benchmarks.sh
 
-cd "$(dirname "$0")" || exit 1
-BENCH_DIR="$(pwd)/benchmarks"
-LOG_DIR="$(pwd)/parallel_logs"
-RESULTS_DIR="$(pwd)/run_results_parallel"
+EVAL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$EVAL_DIR" || exit 1
+BENCH_DIR="$EVAL_DIR/benchmarks"
+LOG_DIR="$EVAL_DIR/parallel_logs"
+RESULTS_DIR="$EVAL_DIR/run_results_parallel"
 mkdir -p "$LOG_DIR" "$RESULTS_DIR/default" "$RESULTS_DIR/observe"
 
 # Same as run.sh (skip image-annotation, file-mod)
@@ -70,6 +71,9 @@ run_one_benchmark() {
     } > "$log_observe" 2>&1
 }
 
+# Restore any benchmark scripts left in incr mode from previous interrupted run
+"$EVAL_DIR/scripts/restore_benchmark_scripts.sh" 2>/dev/null || true
+
 # Clean everything first
 echo "Cleaning all benchmarks..."
 for bench in "${BENCHMARKS[@]}"; do
@@ -77,6 +81,17 @@ for bench in "${BENCHMARKS[@]}"; do
     rm -rf "$BENCH_DIR/$bench/cache" "$BENCH_DIR/$bench/outputs"
 done
 rm -rf /tmp/sort* /tmp/tmp* 2>/dev/null || true
+
+cleanup_on_exit() {
+    echo ""
+    echo "Cleaning up (interrupted or done)..."
+    "$EVAL_DIR/scripts/restore_benchmark_scripts.sh" 2>/dev/null || true
+    for bench in "${BENCHMARKS[@]}"; do
+        sudo rm -rf "$BENCH_DIR/$bench/cache" "$BENCH_DIR/$bench/outputs" 2>/dev/null || true
+    done
+    rm -rf /tmp/sort* /tmp/tmp* /tmp/cache* /tmp/incr_bench* 2>/dev/null || true
+}
+trap cleanup_on_exit EXIT INT TERM
 
 echo "Starting ${#BENCHMARKS[@]} benchmarks in parallel..."
 for i in "${!BENCHMARKS[@]}"; do

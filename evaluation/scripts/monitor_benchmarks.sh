@@ -1,12 +1,12 @@
 #!/bin/bash
 # Poll and display benchmark status. Run in a separate terminal.
 # Usage: bash monitor_benchmarks.sh [--loop]
-# Run from incr/: bash evaluation/monitor_benchmarks.sh
+# Run from incr/: bash evaluation/scripts/monitor_benchmarks.sh
 
-cd "$(dirname "$0")" || exit 1
-BENCH_DIR="$(pwd)/benchmarks"
-LOG_DIR="$(pwd)/parallel_logs"
-RESULTS_DIR="$(pwd)/run_results_parallel"
+EVAL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+BENCH_DIR="$EVAL_DIR/benchmarks"
+LOG_DIR="$EVAL_DIR/parallel_logs"
+RESULTS_DIR="$EVAL_DIR/run_results_parallel"
 
 # Use results to infer benchmarks (so --skip-dpt works: dpt won't be in results)
 BENCHMARKS=(beginner bio covid dpt nginx-analysis nlp-uppercase nlp-ngrams poet spell unixfun weather word-freq)
