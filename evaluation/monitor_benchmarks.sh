@@ -8,6 +8,7 @@ BENCH_DIR="$(pwd)/benchmarks"
 LOG_DIR="$(pwd)/parallel_logs"
 RESULTS_DIR="$(pwd)/run_results_parallel"
 
+# Use results to infer benchmarks (so --skip-dpt works: dpt won't be in results)
 BENCHMARKS=(beginner bio covid dpt nginx-analysis nlp-uppercase nlp-ngrams poet spell unixfun weather word-freq)
 
 status_of() {

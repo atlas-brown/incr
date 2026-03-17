@@ -1,7 +1,17 @@
-mkdir -p "${OUT}"
-while read -r pop sample 0<&3; do             /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache samtools view -H "${IN}/${sample}.bam" | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache sed -e "s/SN:\\([0-9XY]\\)/SN:chr\\1/" -e "s/SN:MT/SN:chrM/" | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache samtools reheader - "${IN}/${sample}.bam" | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache dd of="${OUT}/${sample}_corrected.bam" status=none
-                /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache samtools index -b "${OUT}/${sample}_corrected.bam"
-                for chr in $(/users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache cut -f2 Gene_locs.txt | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache sort -u); 
- do         /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache samtools view -b "${OUT}/${sample}_corrected.bam" chr"${chr}" | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache dd of="${OUT}/${pop}_${sample}_${chr}.bam" status=none
-                /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/bio/cache samtools index -b "${OUT}/${pop}_${sample}_${chr}.bam"
-done; done  3< "${IN_NAME}"
+#!/bin/bash
+
+mkdir -p "$OUT"
+
+while read -r pop sample <&3; do
+  samtools view -H "${IN}/${sample}.bam" \
+    | sed -e 's/SN:\([0-9XY]\)/SN:chr\1/' -e 's/SN:MT/SN:chrM/' \
+    | samtools reheader - "${IN}/${sample}.bam" \
+    | dd of="${OUT}/${sample}_corrected.bam" status=none
+  samtools index -b "${OUT}/${sample}_corrected.bam"
+
+  for chr in $(cut -f2 Gene_locs.txt | sort -u); do
+    samtools view -b "${OUT}/${sample}_corrected.bam" chr"$chr" \
+      | dd of="${OUT}/${pop}_${sample}_${chr}.bam" status=none
+    samtools index -b "${OUT}/${pop}_${sample}_${chr}.bam"
+  done
+done 3< "$IN_NAME"

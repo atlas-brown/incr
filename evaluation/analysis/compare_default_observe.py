@@ -22,10 +22,25 @@ except ImportError:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", default="plots", help="Output directory for plots")
+    parser.add_argument("--results-dir", default=None, help="Results dir (default: ../run_results or ../run_results_parallel)")
+    parser.add_argument("--skip-dpt", action="store_true", help="Exclude dpt from plot")
     args = parser.parse_args()
 
     script_dir = Path(__file__).resolve().parent
-    results_dir = script_dir.parent / "run_results"
+    eval_dir = script_dir.parent
+    if args.results_dir:
+        results_dir = Path(args.results_dir)
+        if not results_dir.is_absolute():
+            results_dir = eval_dir / results_dir
+    else:
+        # Prefer run_results_parallel (from run_parallel.sh) if it exists
+        for name in ("run_results_parallel", "run_results"):
+            cand = eval_dir / name
+            if (cand / "default").exists() and (cand / "observe").exists():
+                results_dir = cand
+                break
+        else:
+            results_dir = eval_dir / "run_results"
     default_dir = results_dir / "default"
     observe_dir = results_dir / "observe"
     out_dir = Path(args.output_dir)
@@ -36,6 +51,9 @@ def main():
         return 1
 
     benchmarks = sorted([f.stem.replace("-time", "") for f in default_dir.glob("*-time.csv")])
+    if args.skip_dpt:
+        benchmarks = [b for b in benchmarks if b != "dpt"]
+        print("Excluding dpt from plot (--skip-dpt)")
     if not benchmarks:
         print("No benchmark results found")
         return 1

@@ -1,2 +1,9 @@
+#!/bin/bash
+# Calculate mispelled words in an input
+
 dict=/usr/share/dict/words
-/users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/spell/cache --observe /users/jxia3/atlas/incr/../observe/target/release/observe find ${IN} -type f -name "*.txt" -exec cat {} + | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/spell/cache --observe /users/jxia3/atlas/incr/../observe/target/release/observe sed "s/[^[:print:]]//g" | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/spell/cache --observe /users/jxia3/atlas/incr/../observe/target/release/observe col -bx | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/spell/cache --observe /users/jxia3/atlas/incr/../observe/target/release/observe tr -cs A-Za-z "\\n"
+
+find $IN -type f -name '*.txt' -exec cat {} + |
+    sed 's/[^[:print:]]//g' |      # remove non-printing characters
+    col -bx            |           # remove backspaces / linefeeds
+    tr -cs A-Za-z '\n'  
