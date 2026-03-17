@@ -21,4 +21,4 @@ for img in $(find "$IMG_DIR" -type f -name '*.jpg' | sort); do
     awk -vi="$img" '{print "g:", $5, "c:", $6, i}'
 done | sort > "$DB_FILE"
 
-python plot_2.py "$CLASS_FILE"
+python3 scripts/plot_2.py "$CLASS_FILE"
