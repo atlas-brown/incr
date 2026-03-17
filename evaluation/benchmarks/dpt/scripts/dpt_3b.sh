@@ -1,20 +1,11 @@
-#!/bin/bash
-# tag: segment-classify-index sequential
-
-cd "$(dirname "$0")/.." || exit 1
-
-IMG_DIR="$IMG_DIR/dpt"
-DB_FILE="$OUTPUT_DIR/db.$MODE.txt"
-CLASS_FILE="$OUTPUT_DIR/classifications.$MODE.txt"
-mkdir -p "$IMG_DIR"
-
-wget "https://atlas-group.cs.brown.edu/data/dpt/dpt.zip" -O images.zip
-unzip -o images.zip -d "$IMG_DIR"
-rm images.zip
-
-for img in "$IMG_DIR"/*.jpg; do
-    cat "$img" |
-    python3 scripts/segment.py |
-    python3 scripts/classify.py "$img" |
-    awk -vi="$img" '{print "g:", $5, "c:", $6, i}'
-done | sort > "$DB_FILE"
+{ cd "$(dirname "${0}")/.." ; } || { exit 1 ; }
+IMG_DIR="${IMG_DIR}/dpt"
+DB_FILE="${OUTPUT_DIR}/db.${MODE}.txt"
+CLASS_FILE="${OUTPUT_DIR}/classifications.${MODE}.txt"
+mkdir -p "${IMG_DIR}"
+/users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/dpt/cache --observe /users/jxia3/atlas/incr/../observe/target/release/observe wget "https://atlas-group.cs.brown.edu/data/dpt/dpt.zip" -O images.zip
+/users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/dpt/cache --observe /users/jxia3/atlas/incr/../observe/target/release/observe unzip -o images.zip -d "${IMG_DIR}"
+/users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/dpt/cache --observe /users/jxia3/atlas/incr/../observe/target/release/observe rm images.zip
+for img in "${IMG_DIR}"/*.jpg; 
+ do         cat "${img}" | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/dpt/cache --observe /users/jxia3/atlas/incr/../observe/target/release/observe python3 scripts/segment.py | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/dpt/cache --observe /users/jxia3/atlas/incr/../observe/target/release/observe python3 scripts/classify.py "${img}" | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/dpt/cache --observe /users/jxia3/atlas/incr/../observe/target/release/observe awk -vi="${img}" "{print \"g:\", \$5, \"c:\", \$6, i}"
+done | /users/jxia3/atlas/incr/target/release/incr --try /users/jxia3/atlas/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/evaluation/benchmarks/dpt/cache --observe /users/jxia3/atlas/incr/../observe/target/release/observe sort > "${DB_FILE}"

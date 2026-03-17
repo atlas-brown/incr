@@ -1,1 +1,0 @@
-1406833010	/users/jxia3/atlas/incr/evaluation/benchmarks/nginx-analysis/cache

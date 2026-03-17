@@ -1,0 +1,13 @@
+==============================================
+Verifying default vs observe output correctness
+Size: --min | Results: /users/jxia3/atlas/incr/evaluation/verify_outputs
+==============================================
+
+>>> beginner
+  Running default...
+  Running observe...
+  Comparing...
+  OK: outputs match
+
+>>> bio
+  Running default...

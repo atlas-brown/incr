@@ -2,21 +2,45 @@
 # Verify default vs observe produce identical outputs for speedup benchmarks.
 # Run from incr/: bash evaluation/verify_outputs.sh [--min]
 # Uses --small by default; --min for faster run (bio, nlp-ngrams, etc.)
+# Cleans up all artifacts (verify_outputs, benchmark cache/outputs, /tmp) on exit.
 
 cd "$(dirname "$0")" || exit 1
 BENCH_DIR="$(pwd)/benchmarks"
 VERIFY_DIR="$(pwd)/verify_outputs"
 SIZE="--small"
-[[ "$1" == "--min" ]] && SIZE="--min"
+NO_CLEANUP=false
+for arg in "$@"; do
+    [[ "$arg" == "--min" ]] && SIZE="--min"
+    [[ "$arg" == "--no-cleanup" ]] && NO_CLEANUP=true
+done
+TIMEOUT_PER_BENCH=180
+command -v timeout >/dev/null 2>&1 || TIMEOUT_PER_BENCH=0
 
 mkdir -p "$VERIFY_DIR/default" "$VERIFY_DIR/observe"
+
+cleanup() {
+    [[ "$NO_CLEANUP" == "true" ]] && return
+    echo ""
+    echo "Cleaning up artifacts..."
+    rm -rf "$VERIFY_DIR"
+    for b in beginner bio covid nginx-analysis nlp-uppercase nlp-ngrams poet spell unixfun weather word-freq; do
+        sudo rm -rf "$BENCH_DIR/$b/cache" "$BENCH_DIR/$b/outputs" 2>/dev/null || true
+    done
+    rm -rf /tmp/sort* /tmp/tmp* /tmp/cache* /tmp/incr_bench* 2>/dev/null || true
+    echo "Done."
+}
+trap cleanup EXIT INT TERM
 
 run_and_save() {
     local bench=$1 mode=$2
     export INCR_OBSERVE=$([ "$mode" = "observe" ] && echo 1 || echo 0)
     sudo rm -rf "$BENCH_DIR/$bench/cache" "$BENCH_DIR/$bench/outputs" 2>/dev/null || true
     mkdir -p "$BENCH_DIR/$bench/outputs"
-    (cd "$BENCH_DIR" && bash "./$bench/execute.sh" $SIZE --incr-only) >/dev/null 2>&1
+    if [[ "$TIMEOUT_PER_BENCH" -gt 0 ]]; then
+        timeout "$TIMEOUT_PER_BENCH" bash -c "cd '$BENCH_DIR' && bash './$bench/execute.sh' $SIZE --incr-only" >/dev/null 2>&1 || true
+    else
+        (cd "$BENCH_DIR" && bash "./$bench/execute.sh" $SIZE --incr-only) >/dev/null 2>&1
+    fi
     cp -r "$BENCH_DIR/$bench/outputs" "$VERIFY_DIR/$mode/$bench" 2>/dev/null || true
 }
 
@@ -44,7 +68,7 @@ compare_bench() {
         fi
     done < <(find "$def" -type f 2>/dev/null | while read f; do
         rel="${f#$def/}"
-        [[ "$rel" == "timing.csv" ]] && continue
+        [[ "$(basename "$rel")" == "timing.csv" ]] && continue
         [[ "$rel" == *.err ]] && continue
         echo "$rel"
     done)
@@ -75,5 +99,5 @@ done
 
 echo ""
 echo "=============================================="
-echo "Verification complete. Inspect $VERIFY_DIR for details."
+echo "Verification complete. Artifacts will be cleaned on exit."
 echo "=============================================="

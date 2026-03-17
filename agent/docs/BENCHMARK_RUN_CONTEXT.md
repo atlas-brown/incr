@@ -257,12 +257,97 @@ bash evaluation/benchmarks/run.sh
 
 ---
 
-## 10. Files Reference
+## 10. Parallel Runner & Monitoring
+
+### 10.1 run_parallel.sh
+
+Run all benchmarks in parallel (each runs default then observe in its own process):
+
+```bash
+cd incr/evaluation
+bash run_parallel.sh              # all benchmarks including dpt
+bash run_parallel.sh --skip-dpt   # skip dpt (longest, ~10+ min)
+```
+
+Results: `run_results_parallel/default/`, `run_results_parallel/observe/`.
+
+### 10.2 monitor_benchmarks.sh
+
+Poll status while parallel run is in progress:
+
+```bash
+./monitor_benchmarks.sh           # one-shot status
+./monitor_benchmarks.sh --loop   # refresh every 60s
+```
+
+### 10.3 Plotting (with or without dpt)
+
+```bash
+cd evaluation/analysis
+python3 compare_default_observe.py --skip-dpt --output-dir ../run_results_parallel/plots
+```
+
+- `--skip-dpt`: exclude dpt from plot/summary
+- `--results-dir`: optional; auto-detects `run_results_parallel` if present
+
+---
+
+## 11. Output Verification
+
+### 11.1 verify_outputs.sh
+
+Verify that default and observe produce identical outputs (validates speedups):
+
+```bash
+cd incr/evaluation
+bash verify_outputs.sh --min      # faster, uses --min for benchmarks
+bash verify_outputs.sh            # uses --small
+bash verify_outputs.sh --no-cleanup  # keep artifacts for inspection
+```
+
+- Uses `timeout` (180s per benchmark) if available to avoid hangs
+- Compares all output files except `timing.csv` and `*.err`
+- Cleans up on exit: `verify_outputs/`, benchmark cache/outputs, `/tmp/sort*`, `/tmp/tmp*`, `/tmp/cache*`, `/tmp/incr_bench*`
+
+---
+
+## 12. Observe-Mode Optimization
+
+**OBSERVE_READ_EXCLUDED_PATHS** (in `incr/src/config.rs`): filters `/tmp`, `/dev`, `/proc`, `/sys` from observe-mode read dependencies at parse time. Observe runs without sandbox and traces more paths; these cause cache invalidation. Filtering improves cache hits for observe (e.g. nlp-ngrams, bio).
+
+---
+
+## 13. Artifact Cleanup
+
+Manual cleanup after runs:
+
+```bash
+cd incr/evaluation
+
+# Benchmark caches and outputs
+for b in beginner bio covid dpt nginx-analysis nlp-uppercase nlp-ngrams poet spell unixfun weather word-freq; do
+  sudo rm -rf benchmarks/$b/cache benchmarks/$b/outputs
+done
+
+# Parallel run artifacts
+rm -rf parallel_logs run_results_parallel verify_outputs
+
+# /tmp artifacts
+rm -rf /tmp/sort* /tmp/tmp* /tmp/cache* /tmp/incr_bench* /tmp/dpt*.log
+```
+
+---
+
+## 14. Files Reference
 
 | Path | Purpose |
 |------|---------|
 | `evaluation/benchmarks/run.sh` | Main runner; skips image-annotation, file-mod |
+| `evaluation/run_parallel.sh` | Parallel runner; `--skip-dpt` to skip dpt |
+| `evaluation/monitor_benchmarks.sh` | Poll parallel run status; `--loop` for refresh |
+| `evaluation/verify_outputs.sh` | Verify default vs observe output correctness |
 | `evaluation/benchmarks/<name>/execute.sh` | Per-benchmark runner |
 | `evaluation/benchmarks/<name>/install.sh` | Dependency installer |
-| `evaluation/run_results/default/`, `observe/` | timing CSV, cache sizes |
-| `evaluation/analysis/compare_default_observe.py` | Generate plots |
+| `evaluation/run_results/default/`, `observe/` | timing CSV (sequential run) |
+| `evaluation/run_results_parallel/` | timing CSV (parallel run) |
+| `evaluation/analysis/compare_default_observe.py` | Generate plots; `--skip-dpt`, `--results-dir` |
