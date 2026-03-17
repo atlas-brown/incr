@@ -1,6 +1,5 @@
 # Run artifacts
 parallel_logs/
-run_results_parallel/
 verify_outputs/
 bench_run_*.log
 verify_*.log

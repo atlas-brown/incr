@@ -269,7 +269,7 @@ bash evaluation/scripts/run_parallel.sh              # all benchmarks including 
 bash evaluation/scripts/run_parallel.sh --skip-dpt   # skip dpt (longest, ~10+ min)
 ```
 
-Results: `evaluation/run_results_parallel/default/`, `evaluation/run_results_parallel/observe/`.
+Results: `evaluation/run_results_parallel/default/`, `evaluation/run_results_parallel/observe/`. Committed alongside `run_results/`.
 
 ### 10.2 monitor_benchmarks.sh
 

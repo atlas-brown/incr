@@ -37,4 +37,4 @@ bash evaluation/scripts/monitor_benchmarks.sh --loop   # monitor
 bash evaluation/scripts/verify_outputs.sh --min
 ```
 
-Results: `run_results/default/`, `run_results/observe/` (or `run_results_parallel/` for parallel).
+Results: `run_results/` (sequential) and `run_results_parallel/` (parallel); both are committed.
