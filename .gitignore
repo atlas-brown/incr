@@ -4,3 +4,4 @@ debug_log.txt
 /target
 /venv
 .venv
+.DS_Store
