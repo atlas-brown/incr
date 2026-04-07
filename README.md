@@ -54,7 +54,7 @@ The `evaluation/war-and-peace` pipeline counts word frequencies. `without_incr.s
 ```sh
 bash ./evaluation/war-and-peace/without_incr.sh > baseline.txt
 bash ./evaluation/war-and-peace/with_incr.sh > incr.txt
-diff baseline.txt incr.txt
+diff -u baseline.txt incr.txt
 ```
 
 The first run is a cold start (tracing overhead). Run `with_incr.sh` again to see cached replay. Clean up with `bash ./evaluation/war-and-peace/clean.sh`.

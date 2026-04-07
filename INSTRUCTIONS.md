@@ -62,7 +62,7 @@ Confirm sufficient documentation, key components as described in the paper, and 
 <a name="exercisability"></a>
 **Exercisability:** Build Incr and run a minimal pipeline. See [FUNCTIONAL.md](./FUNCTIONAL.md) for a condensed version.
 
-Requirements: Ubuntu 22.04 (or close), Rust (nightly, via `rustup`), `python3`, `pip3`, `strace`, `bash`, `mergerfs`, and `sudo` for sandboxed paths.
+Requirements: Ubuntu 22.04, Rust, `python3`, `pip3`, `bash`, `strace`, `mergerfs`, and `sudo` for sandboxed paths. Incr uses `sudo` to clean up sandbox mount points after execution. Installing directly on an Ubuntu machine is quickest and recommended; fall back to Docker if the native install does not work.
 
 ```sh
 sudo apt update && sudo apt upgrade
@@ -72,7 +72,7 @@ pip3 install --no-cache-dir -r requirements.txt
 cargo build --release
 ```
 
-Or use Docker:
+Alternatively, use Docker:
 
 ```sh
 docker build -t incr .
