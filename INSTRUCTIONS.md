@@ -100,11 +100,11 @@ Clean up with `bash ./evaluation/war-and-peace/clean.sh`.
 ```sh
 ./target/release/incr \
   --try "$(pwd)/src/scripts/try.sh" \
-  --cache "$(pwd)/evaluation/war-and-peace/test_cache" \
-  grep -i "war" ./evaluation/war-and-peace/book-small.txt
+  --cache "$(pwd)/test_cache" \
+  sort ./evaluation/war-and-peace/book-large.txt | md5sum
 ```
 
-This prints the matching lines (e.g. `The Project Gutenberg eBook of War and Peace`, etc.) and populates `test_cache/`. Running it again replays the cached output without invoking `grep`.
+Without incr, `sort` on this file takes about a second. The output should be `9ef554d5bf475ce2820592f7f9a10e42`. Incr populates `test_cache/` on the first run. Running it again replays the cached result and completes near-instantly.
 
 <a name="results-reproducible"></a>
 # Results Reproducible (~x mins)
