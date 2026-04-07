@@ -56,7 +56,7 @@ Confirm sufficient documentation, key components as described in the paper, and 
 
 1. fine-grained dependency tracking and memoization are implemented in the tracing/execution/cache path rooted at [src/main.rs](./src/main.rs), [src/execution](./src/execution), and [src/cache](./src/cache);
 2. runtime optimizations such as streaming, batching, chunking, introspection, and compression are reflected by flags in [src/main.rs](./src/main.rs) and constants/configuration in [src/config.rs](./src/config.rs);
-3. optional tuning through annotations and developer configuration is represented by [src/annotation](./src/annotation) together with the paper's `INCR="..."` examples (`XXX add the exact parser/config reference if we want this section to be more concrete`);
+3. optional tuning through annotations and developer configuration is represented by [src/annotation](./src/annotation);
 4. shell behavioral equivalence is exercised by the Bash test-suite harness in [evaluation/bash-ts/run.sh](./evaluation/bash-ts/run.sh).
 
 <a name="exercisability"></a>
@@ -89,9 +89,9 @@ diff -u baseline.txt incr.txt
 
 What to expect:
 
-1. Both scripts produce the same sorted word-frequency list, so `diff` prints nothing.
-2. On the first run, `with_incr.sh` prints "No cache found" to stderr. This is the cold run: Incr traces each command via `strace`, records file dependencies, and saves stdout to `./cache/`. The cold run is slower than plain Bash due to tracing overhead.
-3. Run `with_incr.sh` again. It now prints "Cache found" and finishes faster. Incr sees that the input file and piped data are unchanged and replays cached stdout instead of re-executing each stage.
+1. Both scripts produce the same sorted word-frequency list, so `diff` prints nothing. Both also print elapsed time to stderr.
+2. On the first run, `with_incr.sh` prints "No cache found" to stderr. This is the cold run: Incr traces each command, records file dependencies, and saves stdout to `./cache/`. The cold run is slower than plain Bash due to tracing overhead.
+3. Run `with_incr.sh` again. It prints "Cache found" and finishes faster, since Incr detects that inputs are unchanged and replays cached stdout instead of re-executing each pipeline stage.
 
 Clean up with `bash ./evaluation/war-and-peace/clean.sh`.
 
