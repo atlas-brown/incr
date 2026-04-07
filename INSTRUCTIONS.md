@@ -91,7 +91,7 @@ What to expect:
 
 1. Both scripts produce the same sorted word-frequency list, so `diff` prints nothing.
 2. On the first run, `with_incr.sh` prints "No cache found" to stderr. This is the cold run: Incr traces each command via `strace`, records file dependencies, and saves stdout to `./cache/`. The cold run is slower than plain Bash due to tracing overhead.
-3. Run `with_incr.sh` again. It now prints "Cache found" and finishes faster — Incr sees that the input file and piped data are unchanged and replays cached stdout instead of re-executing each stage.
+3. Run `with_incr.sh` again. It now prints "Cache found" and finishes faster. Incr sees that the input file and piped data are unchanged and replays cached stdout instead of re-executing each stage.
 
 Clean up with `bash ./evaluation/war-and-peace/clean.sh`.
 

@@ -38,14 +38,14 @@ Toggle `DEBUG` and `DEBUG_LOGS` in `src/config.rs` for debug output.
 
 ## Architecture
 
-`incr` intercepts shell command execution to memoize results — on re-execution, it replays cached stdout/stderr and file outputs when the command's inputs, environment, and file dependencies are unchanged, using strace and an OverlayFS sandbox to track side effects.
+`incr` intercepts shell command execution to memoize results. On re-execution, it replays cached stdout/stderr and file outputs when the command's inputs, environment, and file dependencies are unchanged, using strace and an OverlayFS sandbox to track side effects.
 
-- **`src/main.rs`** — CLI entrypoint that selects an execution strategy for each command.
-- **`src/command.rs`** — Represents a command invocation and handles spawning child processes.
-- **`src/execution/`** — Execution engines that manage tracing, caching, and replaying command results.
-- **`src/cache/`** — Stores and retrieves memoized outputs and file dependency information.
-- **`src/config.rs`** — Runtime and compile-time configuration constants.
-- **`src/scripts/`** — Helper scripts for parsing trace output and rewriting shell scripts to use incr.
+- **`src/main.rs`** - CLI entrypoint that selects an execution strategy for each command.
+- **`src/command.rs`** - Represents a command invocation and handles spawning child processes.
+- **`src/execution/`** - Execution engines that manage tracing, caching, and replaying command results.
+- **`src/cache/`** - Stores and retrieves memoized outputs and file dependency information.
+- **`src/config.rs`** - Runtime and compile-time configuration constants.
+- **`src/scripts/`** - Helper scripts for parsing trace output and rewriting shell scripts to use incr.
 
 ## Quick Start
 
