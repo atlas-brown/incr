@@ -16,6 +16,9 @@ enum CommandResult {
     BrokenPipe,
 }
 
+/// Batch executor: reads all of stdin into memory first, then checks the cache before
+/// deciding whether to run the command. Simpler than the stream executor but adds latency
+/// for the full stdin read.
 pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     let mut stdin = Vec::new();
     {

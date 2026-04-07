@@ -11,6 +11,7 @@ use crate::command::Command;
 use crate::config::{BUFFER_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, INTROSPECT_DIRECTORY};
 use crate::ops;
 
+/// Returns true if all cached outputs exist and all recorded file dependencies still match.
 pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {
     if !cache.data_outputs_exist() || !check_read_dependencies(&data.read_dependencies)? {
         return Ok(false);
@@ -21,6 +22,8 @@ pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Re
     Ok(true)
 }
 
+/// Builds a dependency map from the traced read set. Files only in the read set are keyed by
+/// mtime; files in both the read and write sets are keyed by content hash.
 pub(crate) fn get_read_dependencies(
     read_set: &HashSet<PathBuf>,
     write_set: &HashSet<PathBuf>,
@@ -55,6 +58,8 @@ pub(crate) fn get_read_dependencies(
     Ok(dependencies)
 }
 
+/// Removes dependencies on paths under dynamic excluded directories (e.g. `/tmp`)
+/// that don't exist and were recorded as `DoesNotExist`.
 pub(crate) fn filter_dependencies(
     read_dependencies: &mut HashMap<PathBuf, DependencyKey>,
     write_set: &mut HashSet<PathBuf>,
@@ -128,6 +133,8 @@ fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
     Ok(Some(ops::data::hash_stream(&mut file_reader)?))
 }
 
+/// Records whether a command wrote any files. If it didn't, creates a marker file so future
+/// runs can use TraceFile instead of Sandbox. If it did write, removes any existing marker.
 pub(crate) fn save_introspection(config: &Config, command: &Command, cache_data: &CacheData) -> Result<()> {
     if config.skip_introspection {
         return Ok(());

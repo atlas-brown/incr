@@ -28,6 +28,9 @@ enum CacheStatus {
     Invalid(ExitCode),
 }
 
+/// Streaming executor: launches the child immediately while hashing stdin in parallel.
+/// Once stdin is consumed, checks the cache. If the cache is valid, kills the child and
+/// replays cached output; otherwise waits for the child and saves new results.
 pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     let runtime = create_child_runtime(config)?;
     let ChildContext {
@@ -71,6 +74,8 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     }
 }
 
+/// Creates temporary runtime paths with random names to avoid collisions between concurrent
+/// invocations sharing the same cache directory.
 fn create_child_runtime(config: &Config) -> Result<Runtime> {
     let key = rand::rng().random_range(0..u64::MAX);
     let stdout_file = config.cache_directory.join(format!("stdout_{key}.incr"));
@@ -107,6 +112,7 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
     })
 }
 
+/// Reads all of stdin, hashing it incrementally while forwarding chunks to the child via a channel.
 fn capture_stdin(child_stdin: ChildStdin) -> Result<StdinContext> {
     let mut process_stdin = io::stdin().lock();
     if process_stdin.is_terminal() {
@@ -138,6 +144,8 @@ fn capture_stdin(child_stdin: ChildStdin) -> Result<StdinContext> {
     })
 }
 
+/// Checks if cached data is still valid. If so, kills the (still-running) child and returns
+/// the cached data; otherwise waits for the child to finish and returns Invalid.
 fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, runtime: &Runtime) -> Result<CacheStatus> {
     let cached_data = match cache.load_data()? {
         Some(cached_data) => {
@@ -167,6 +175,8 @@ fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, runtime: &Runtime)
     }
 }
 
+/// Replays cached stdout/stderr (skipping bytes already forwarded by the child) and
+/// commits any cached file outputs.
 fn output_cached_data(
     config: &Config,
     cache: &CacheCursor<'_>,
@@ -199,6 +209,7 @@ fn output_cached_data(
     Ok(ExitCode(cached_data.exit_code))
 }
 
+/// Parses the trace, records dependencies, extracts sandbox output, and persists the cache entry.
 fn save_command_data(
     config: &Config,
     command: &Command,

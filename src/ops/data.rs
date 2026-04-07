@@ -15,12 +15,14 @@ const BINCODE_CONFIG: Configuration<LittleEndian, Fixint, NoLimit> = bincode::co
     .with_little_endian()
     .with_fixed_int_encoding();
 
+/// Computes an xxh3 hash of a byte slice.
 pub(crate) fn hash_bytes(bytes: &[u8]) -> u64 {
     let mut hasher = Box::new(Xxh3::new());
     hasher.update(bytes);
     hasher.digest()
 }
 
+/// Computes an xxh3 hash by streaming from a reader.
 pub(crate) fn hash_stream<S>(stream: &mut S) -> Result<u64>
 where
     S: Read,
@@ -37,6 +39,7 @@ where
     Ok(bincode::encode_to_vec(value, BINCODE_CONFIG)?)
 }
 
+/// Serializes a value to a file. Uses bincode in release mode, JSON when `DEBUG` is true.
 pub(crate) fn encode_to_file<T>(value: &T, directory: &Path, file_name: String) -> Result<()>
 where
     T: Encode + Serialize,
@@ -53,6 +56,7 @@ where
     Ok(())
 }
 
+/// Deserializes a value from a file. Returns `None` if the file does not exist or is malformed.
 pub(crate) fn decode_from_file<T>(directory: &Path, file_name: String) -> Result<Option<T>>
 where
     T: Decode<()> + DeserializeOwned,

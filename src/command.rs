@@ -14,6 +14,8 @@ use crate::config::{BUFFER_SIZE, COMPRESSION_LEVEL, Config, EXCLUDED_VARIABLES, 
 use crate::ops;
 use crate::ops::thread::{AlwaysReady, ReadySignal};
 
+/// A command invocation. The `hash` is an xxh3 digest of (name, arguments, filtered environment)
+/// and serves as the identity for cache lookups and introspection files.
 #[derive(Clone, Debug)]
 pub(crate) struct Command {
     pub(crate) name: String,
@@ -39,6 +41,7 @@ struct CommandKey<'c> {
     environment: &'c BTreeMap<String, String>,
 }
 
+/// Describes where a child process's trace and captured output are stored during execution.
 #[derive(Clone, Debug)]
 pub(crate) struct Runtime {
     pub(crate) typ: RuntimeType,
@@ -53,6 +56,7 @@ pub(crate) enum RuntimeType {
     Nothing,
 }
 
+/// A spawned child process and the threads capturing its stdout/stderr to files.
 #[derive(Debug)]
 pub(crate) struct ChildContext {
     pub(crate) child: Child,
@@ -66,6 +70,8 @@ pub(crate) enum ChildResult {
     BrokenPipe,
 }
 
+/// Builds a [`Command`] from raw argv. Filters out excluded environment variables and
+/// computes the cache key hash via bincode + xxh3.
 pub(crate) fn create(mut arguments: Vec<String>, environment: &HashMap<String, String>) -> Result<Command> {
     assert!(!arguments.is_empty());
     if arguments.len() == 1 {
@@ -103,10 +109,14 @@ pub(crate) fn create(mut arguments: Vec<String>, environment: &HashMap<String, S
     })
 }
 
+/// Spawns the command as a child process with the appropriate wrapper (try.sh, strace, or direct)
+/// and starts threads to capture stdout/stderr to files while forwarding to the parent's streams.
 pub(crate) fn spawn(config: &Config, command: &Command, runtime: &Runtime) -> Result<ChildContext> {
     spawn_with_signal(config, command, runtime, &AlwaysReady)
 }
 
+/// Like [`spawn`], but output threads wait for `destination_ready` before writing to the
+/// parent's stdout/stderr. Used by the chunk executor to enforce ordering across workers.
 pub(crate) fn spawn_with_signal<R>(
     config: &Config,
     command: &Command,
@@ -218,6 +228,8 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
     Ok(child.spawn()?)
 }
 
+/// Reads from `source`, writes to both `destination` (parent stream) and `capture_file` (on disk).
+/// Optionally compresses the file copy. Buffers data until `destination_ready` signals.
 fn capture_stream<S, D, R>(
     config: &Config,
     source: &mut S,
@@ -319,6 +331,7 @@ where
     Ok(ChildResult::Completed(length))
 }
 
+/// Sends SIGKILL to the child's entire process group.
 pub(crate) fn kill_child(child: &Child) -> Result<()> {
     let group_id = child.id() as i32;
     let kill_result = unsafe { libc::kill(-group_id, libc::SIGKILL) };

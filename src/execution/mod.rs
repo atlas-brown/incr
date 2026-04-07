@@ -16,6 +16,9 @@ use crate::config::{EXCLUDED_PATHS, TRACE_FILE, TraceType};
 use crate::ops;
 use crate::scripts;
 
+/// Selects the trace type for a command based on annotations and introspection history.
+/// Pure commands need no tracing; read-only/stateless or previously-introspected commands
+/// use strace only; everything else gets a full sandbox.
 pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> TraceType {
     if annotation::check_pure(command) {
         return TraceType::Nothing;
@@ -29,6 +32,8 @@ pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> Trace
     TraceType::Sandbox
 }
 
+/// Parses the strace output from a completed child into read and write path sets,
+/// filtering out excluded paths (e.g. `/proc`, `pipe:`).
 pub(crate) fn parse_trace(runtime: &Runtime) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
     let trace_file = match &runtime.typ {
         RuntimeType::Sandbox(directory) => &directory.join("upperdir").join("tmp").join(TRACE_FILE),

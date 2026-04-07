@@ -14,6 +14,9 @@ use crate::config::{
 };
 use crate::ops;
 
+/// Handle to a `batch_<hash>` cache directory. Provides access to cached stdout/stderr,
+/// sandbox overlay, trace file, and serialized [`CacheData`]. The hash is derived from
+/// (command name, arguments, environment, stdin hash).
 #[derive(Clone, Debug)]
 pub(crate) struct CacheCursor<'c> {
     directory: PathBuf,
@@ -95,6 +98,8 @@ impl<'c> CacheCursor<'c> {
         cache::create_directory(&self.directory, debug_info)
     }
 
+    /// Moves the OverlayFS upper layer out of the sandbox into the outputs directory
+    /// and removes the remaining sandbox files.
     pub(crate) fn extract_sandbox_output(&self) -> Result<()> {
         let sandbox_directory = self.directory.join(SANDBOX_DIRECTORY);
         let output_directory = self.directory.join(OUTPUT_DIRECTORY);
@@ -110,6 +115,7 @@ impl<'c> CacheCursor<'c> {
         Ok(())
     }
 
+    /// Applies cached file outputs to the real filesystem via `try.sh commit`.
     pub(crate) fn commit_output(&self) -> Result<()> {
         let output_directory = self.directory.join(OUTPUT_DIRECTORY);
         let commit_directory = self.directory.join(COMMIT_DIRECTORY);
@@ -173,6 +179,8 @@ struct CacheKey<'c> {
     stdin_hash: u64,
 }
 
+/// Removes a sandbox directory. Uses `sudo rm -rf` when [`SUDO_SANDBOX`] is true,
+/// since OverlayFS mounts may create root-owned files.
 pub(crate) fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {
     if SUDO_SANDBOX {
         if !sandbox_directory.exists() {

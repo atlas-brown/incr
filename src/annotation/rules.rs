@@ -1,3 +1,5 @@
+/// A rule matching a command name, optionally restricting which flags and argument counts
+/// are allowed for the annotation to apply.
 #[derive(Clone, Debug)]
 pub(crate) struct Condition {
     pub(crate) name: &'static str,

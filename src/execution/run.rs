@@ -24,6 +24,8 @@ pub(crate) enum OutputResult {
     BrokenPipe,
 }
 
+/// Drains a channel of byte chunks into a child's stdin. Silently absorbs broken-pipe errors
+/// (the child may exit before consuming all input).
 pub(crate) fn forward_stdin<C>(channel: Receiver<C>, mut child_stdin: ChildStdin) -> Result<()>
 where
     C: AsRef<[u8]>,
@@ -43,6 +45,8 @@ where
     Ok(())
 }
 
+/// Joins the stdin/stdout/stderr capture threads and returns output lengths.
+/// Returns `None` if a broken pipe was encountered.
 pub(crate) fn join_stream_threads(
     stdin_thread: Option<JoinHandle<Result<()>>>,
     stdout_thread: JoinHandle<Result<ChildResult>>,
@@ -64,6 +68,7 @@ pub(crate) fn join_stream_threads(
     }
 }
 
+/// Removes temporary runtime files (stdout/stderr captures, sandbox, or trace file).
 pub(crate) fn clean_child_runtime(runtime: &Runtime) -> Result<()> {
     ops::file::remove_file(&runtime.stdout_file)?;
     ops::file::remove_file(&runtime.stderr_file)?;
@@ -75,6 +80,9 @@ pub(crate) fn clean_child_runtime(runtime: &Runtime) -> Result<()> {
     Ok(())
 }
 
+/// Replays captured data from a file to a destination stream, skipping the first
+/// `start_index` bytes (which were already forwarded during speculative execution).
+/// Handles both compressed and uncompressed files.
 pub(crate) fn output_data<D>(
     data_file: &Path,
     start_index: usize,

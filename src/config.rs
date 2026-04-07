@@ -53,6 +53,7 @@ pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
 pub(crate) const EXCLUDED_PATHS: &[&str] = &["/proc", "pipe:"];
 pub(crate) const DYNAMIC_EXCLUDED_PATHS: &[&str] = &["/tmp"];
 
+/// Per-invocation configuration built from CLI arguments.
 #[derive(Clone, Debug)]
 pub(crate) struct Config {
     pub(crate) try_command: String,      // Bash try command string
@@ -67,6 +68,10 @@ pub(crate) struct Config {
     pub(crate) skip_introspection: bool, // Disable command introspection
 }
 
+/// How a command's file I/O is traced.
+/// - `Sandbox`: full OverlayFS sandbox via try.sh + strace (for commands that may write files).
+/// - `TraceFile`: strace only, no sandbox (for read-only or introspected commands).
+/// - `Nothing`: no tracing (for commands annotated as pure).
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub(crate) enum TraceType {
     Sandbox,
@@ -84,6 +89,7 @@ impl Display for TraceType {
     }
 }
 
+/// Content-defined chunking size bounds (in bytes) for the chunk executor.
 #[derive(Clone, Debug)]
 pub(crate) struct ChunkSizes {
     pub(crate) minimum: usize,

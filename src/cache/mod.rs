@@ -11,6 +11,7 @@ use crate::config::{BUFFER_SIZE, DEBUG_FILE};
 pub(crate) mod batch_cache;
 pub(crate) mod chunk_cache;
 
+/// Persisted metadata for a cached command invocation.
 #[derive(Clone, Debug, Decode, Deserialize, Encode, Serialize)]
 pub(crate) struct CacheData {
     pub(crate) exit_code: i32,
@@ -19,6 +20,10 @@ pub(crate) struct CacheData {
     pub(crate) compressed_output: bool,
 }
 
+/// How a file dependency is validated on cache reuse.
+/// - `DoesNotExist`: the path must still be absent.
+/// - `Timestamp`: mtime in microseconds must match (used for files that were only read).
+/// - `Hash`: xxh3 content hash must match (used for files that were both read and written).
 #[derive(Clone, Debug, Decode, Deserialize, Encode, Eq, PartialEq, Serialize)]
 pub(crate) enum DependencyKey {
     DoesNotExist,

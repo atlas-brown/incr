@@ -21,6 +21,7 @@ use crate::config::{DEFAULT_CACHE_PATH, DEFAULT_TRY_PATH};
 use crate::execution::{batch_executor, chunk_executor, skip_executor, stream_executor};
 use crate::ops::{ExitCode, FAILURE_CODE, SUCCESS_CODE};
 
+/// CLI arguments parsed by clap. The trailing `command` captures the wrapped command and its args.
 #[derive(Clone, Debug, Parser)]
 struct Arguments {
     #[arg(short = 't', long = "try")]
@@ -63,6 +64,7 @@ fn main() {
     }
 }
 
+/// Parses input, selects an executor (skip, chunk, stream, or batch), and runs the command.
 fn run() -> Result<ExitCode> {
     let (config, command, environment) = match parse_input()? {
         Some(input) => (input.config, input.command, input.environment),
@@ -88,6 +90,8 @@ fn run() -> Result<ExitCode> {
     }
 }
 
+/// Resolves CLI args into a [`Config`], [`Command`], and environment. Returns `None` if no
+/// command was provided. Falls back to `$HOME`-relative defaults for `--try` and `--cache`.
 fn parse_input() -> Result<Option<Input>> {
     let arguments = Arguments::parse();
     if arguments.command.is_empty() {

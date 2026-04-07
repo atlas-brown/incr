@@ -8,6 +8,8 @@ use crate::cache;
 use crate::command::Command;
 use crate::config::{Config, DEBUG, STDERR_FILE, STDOUT_FILE};
 
+/// Handle to a `chunk_<command_hash>` cache directory. Each stdin chunk is cached in a
+/// subdirectory keyed by the chunk's xxh3 hash.
 #[derive(Clone, Debug)]
 pub(crate) struct CacheCursor {
     directory: PathBuf,

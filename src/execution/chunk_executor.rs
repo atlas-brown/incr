@@ -18,6 +18,8 @@ use crate::ops::chunk::{LineChunker, LineReader};
 use crate::ops::thread::{ReadySignal, SignalReceiver, SignalSender};
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
+/// Manages a bounded pool of worker threads that each process one stdin chunk.
+/// Workers are connected by ready signals to preserve output ordering.
 #[derive(Debug)]
 struct WorkerPool {
     context: Arc<WorkerContext>,
@@ -130,6 +132,9 @@ struct StdinContext {
     thread: JoinHandle<Result<()>>,
 }
 
+/// Chunk executor: splits stdin at content-defined boundaries (via [`LineChunker`]) and
+/// dispatches each chunk to a parallel worker. Only used for stateless-annotated commands
+/// that require no file tracing.
 pub(crate) fn execute(config: Config, command: Command) -> Result<ExitCode> {
     let cache = CacheCursor::new(&config, &command)?;
     cache.create_directory()?;
@@ -171,6 +176,8 @@ pub(crate) fn execute(config: Config, command: Command) -> Result<ExitCode> {
     }
 }
 
+/// Runs a single chunk through the command. If the chunk's stdin hash is already cached,
+/// kills the child and replays; otherwise saves the output.
 fn process_chunk(
     config: &Config,
     command: &Command,

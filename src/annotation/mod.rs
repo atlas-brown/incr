@@ -13,6 +13,7 @@ struct CommandArguments {
     flags: HashSet<String>,
 }
 
+/// Returns true if the command should bypass incr entirely (shell builtins and bash functions).
 pub(crate) fn skip_command(command: &Command, environment: &HashMap<String, String>) -> bool {
     IGNORE_COMMANDS.contains(&command.name.as_str())
         || environment.contains_key(&format!("BASH_FUNC_{}%%", command.name))

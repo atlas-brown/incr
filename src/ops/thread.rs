@@ -4,6 +4,8 @@ use std::thread::{self, JoinHandle};
 
 use crate::config::PARALLEL_SIZE;
 
+/// Used by capture threads to gate output to the parent stream. The chunk executor
+/// uses this to enforce sequential output ordering across parallel workers.
 pub(crate) trait ReadySignal {
     fn check_ready(&self) -> bool;
     fn wait_until_ready(&self);
@@ -73,6 +75,7 @@ pub(crate) fn join<T>(thread: JoinHandle<T>) -> Result<T> {
     thread.join().map_err(|e| anyhow!("{e:?}"))
 }
 
+/// Splits `data` into chunks of [`PARALLEL_SIZE`] and processes each in a scoped thread.
 pub(crate) fn parallel_process<T, F, O>(data: &[T], function: F) -> Result<Vec<O>>
 where
     T: Sync,

@@ -7,6 +7,8 @@ use std::io::{ErrorKind, Read};
 
 use crate::config::{BUFFER_SIZE, ChunkSizes};
 
+/// Buffered reader that yields groups of complete lines from an input stream.
+/// `group_size` controls how many newlines must be seen before yielding a group.
 #[derive(Clone, Debug)]
 pub(crate) struct LineReader<R>
 where
@@ -90,6 +92,9 @@ where
     }
 }
 
+/// Streaming content-defined chunker based on FastCDC (v2020). Called with line-group
+/// boundaries from [`LineReader`] so chunk splits align to line boundaries.
+/// `update` returns true when a chunk boundary is found.
 pub(crate) struct LineChunker {
     sizes: ChunkSizes,
     mask_s: u64,
@@ -177,6 +182,8 @@ impl LineChunker {
     }
 }
 
+/// Reference chunker using the FastCDC library's `cdc::cut` directly. Used only in tests
+/// to validate that [`LineChunker`] produces equivalent boundaries.
 #[allow(unused)]
 #[derive(Clone, Debug)]
 pub(crate) struct ReferenceLineChunker {

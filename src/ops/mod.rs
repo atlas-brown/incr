@@ -33,6 +33,7 @@ pub(crate) use debug_log;
 
 static LOG_FILE: OnceLock<Mutex<File>> = OnceLock::new();
 
+/// Wrapper around a process exit code for type safety.
 #[derive(Clone, Debug)]
 pub(crate) struct ExitCode(pub(crate) i32);
 
