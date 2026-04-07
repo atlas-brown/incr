@@ -42,15 +42,15 @@ Confirm sufficient documentation, key components as described in the paper, and 
 
 **Documentation:** The repository already contains the core implementation and the main evaluation entry points:
 
-* [src/main.rs](./src/main.rs): CLI entrypoint and execution-mode selection
-* [src/config.rs](./src/config.rs): default paths, tracing mode, caching constants, and debug flags
-* [src/execution](./src/execution): execution engines
-* [src/cache](./src/cache): cache representation and persistence
-* [src/annotation](./src/annotation): optional annotation support
-* [src/scripts](./src/scripts): helper scripts for insertion/incrementization
-* [evaluation/benchmarks/run.sh](./evaluation/benchmarks/run.sh): main benchmark driver
-* [evaluation/bash-ts/run.sh](./evaluation/bash-ts/run.sh): Bash test-suite comparison harness
-* [evaluation/analysis](./evaluation/analysis): plotting/statistics helpers
+* [src/main.rs](./src/main.rs): CLI entrypoint that selects an execution strategy for each command.
+* [src/command.rs](./src/command.rs): represents a command invocation and handles spawning child processes.
+* [src/config.rs](./src/config.rs): runtime and compile-time configuration constants.
+* [src/execution](./src/execution): execution engines that manage tracing, caching, and replaying command results.
+* [src/cache](./src/cache): stores and retrieves memoized outputs and file dependency information.
+* [src/scripts](./src/scripts): helper scripts for parsing trace output and rewriting shell scripts to use incr.
+* [evaluation/benchmarks/run.sh](./evaluation/benchmarks/run.sh): top-level benchmark driver that runs and times each scenario under both Bash and Incr.
+* [evaluation/bash-ts/run.sh](./evaluation/bash-ts/run.sh): Bash test-suite comparison harness that checks behavioral equivalence.
+* [evaluation/analysis](./evaluation/analysis): plotting and statistics helpers for generating figures.
 
 **Completeness:** The current paper claims correspond to the following repository elements:
 
@@ -60,64 +60,51 @@ Confirm sufficient documentation, key components as described in the paper, and 
 4. shell behavioral equivalence is exercised by the Bash test-suite harness in [evaluation/bash-ts/run.sh](./evaluation/bash-ts/run.sh).
 
 <a name="exercisability"></a>
-**Exercisability:** The shortest reviewer path is to build Incr and run a minimal pipeline.
+**Exercisability:** Build Incr and run a minimal pipeline. See [FUNCTIONAL.md](./FUNCTIONAL.md) for a condensed version.
 
-Current environment assumptions:
+Requirements: Ubuntu 22.04 (or close), Rust (nightly, via `rustup`), `python3`, `pip3`, `strace`, `bash`, `mergerfs`, and `sudo` for sandboxed paths.
 
-* Linux close to Ubuntu 22.04
-* Rust toolchain
-* `python3` and `pip3`
-* `strace`
-* `bash`
-* `mergerfs`
-* `sudo` access for sandboxed execution paths used by some benchmarks
-
-The current top-level setup notes in [README.md](./README.md) are:
-
-For distro xxx:
 ```sh
-sudo apt update
-sudo apt upgrade
-sudo apt install mergerfs
+sudo apt update && sudo apt upgrade
+sudo apt install mergerfs strace python3-pip
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 pip3 install --no-cache-dir -r requirements.txt
-```
-
-Build Incr from the repository root:
-
-```sh
-cargo build
 cargo build --release
 ```
 
-The repository also includes an optional Docker container enviroment via [Dockerfile](./Dockerfile):
+Or use Docker:
 
 ```sh
 docker build -t incr .
 docker run -it --rm -v $(pwd):/app --privileged incr
 ```
 
-To run a minimal example:
+**Minimal example (war-and-peace):** A word-frequency pipeline over a large text. `without_incr.sh` runs it under plain Bash; `with_incr.sh` wraps each command with `incr`.
 
 ```sh
-bash ./evaluation/war-and-peace/without_cache.sh > /tmp/incr-baseline.txt
-bash ./evaluation/war-and-peace/with_cache.sh > /tmp/incr-output.txt
-diff -u /tmp/incr-baseline.txt /tmp/incr-output.txt
+bash ./evaluation/war-and-peace/without_incr.sh > baseline.txt
+bash ./evaluation/war-and-peace/with_incr.sh > incr.txt
+diff -u baseline.txt incr.txt
 ```
 
-The expected result is:
+What to expect:
 
-1. both scripts finish successfully,
-2. both outputs match, and
-3. Incr populates its cache directory (`XXX document this cleanly for reviewers`).
+1. Both scripts produce the same sorted word-frequency list, so `diff` prints nothing.
+2. On the first run, `with_incr.sh` prints "No cache found" to stderr. This is the cold run: Incr traces each command via `strace`, records file dependencies, and saves stdout to `./cache/`. The cold run is slower than plain Bash due to tracing overhead.
+3. Run `with_incr.sh` again. It now prints "Cache found" and finishes faster — Incr sees that the input file and piped data are unchanged and replays cached stdout instead of re-executing each stage.
 
-Reviewers can also invoke the binary directly:
+Clean up with `bash ./evaluation/war-and-peace/clean.sh`.
+
+**Invoking incr directly:** You can also wrap a single command. For example:
 
 ```sh
-./incr.sh \
+./target/release/incr \
   --try "$(pwd)/src/scripts/try.sh" \
-  --cache "$(pwd)/cache" \
-  cat ./evaluation/war-and-peace/book-small.txt
+  --cache "$(pwd)/evaluation/war-and-peace/test_cache" \
+  grep -i "war" ./evaluation/war-and-peace/book-small.txt
 ```
+
+This prints the matching lines (e.g. `The Project Gutenberg eBook of War and Peace`, etc.) and populates `test_cache/`. Running it again replays the cached output without invoking `grep`.
 
 <a name="results-reproducible"></a>
 # Results Reproducible (~x mins)

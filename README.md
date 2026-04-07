@@ -1,52 +1,72 @@
 # incr
 
-Bolt-on incremental execution for the shell.
+Bolt-on incremental execution for the shell. Incr wraps shell commands to track their file dependencies and memoize their results, so that unchanged commands are skipped on re-execution and their outputs are replayed from cache.
 
-## Development Setup
+## Setup
 
-1. Ensure Rust is installed and Ubuntu is running on 22.04 with updated packages (`sudo apt update` and `sudo apt upgrade`).
-2. Install OverlayFS with `sudo apt install mergerfs`.
-3. Install Python dependencies for the `insert.py` script:
+1. Ensure Ubuntu 22.04 is running with updated packages:
+```sh
+sudo apt update && sudo apt upgrade
+```
+2. Install system dependencies (OverlayFS, strace, pip):
+```sh
+sudo apt install mergerfs strace python3-pip
+```
+3. Install Rust via rustup:
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+4. Install Python dependencies for the `insert.py` script:
 ```sh
 pip3 install --no-cache-dir -r requirements.txt
 ```
-4. Edit the `src/config.rs` to contain absolute paths to the `try.sh` script and directory you want cached results to be saved into.
-5. Build binaries with `cargo build` and `cargo build --release`.
+5. Build the binary:
+```sh
+cargo build --release
+```
 
-### Using Docker
+See [FUNCTIONAL.md](./FUNCTIONAL.md) for a minimal walkthrough and [INSTRUCTIONS.md](./INSTRUCTIONS.md) for full evaluation instructions.
 
-To build and run the Docker container, use the following commands:
+### Docker
 
 ```sh
 docker build -t incr .
 docker run -it --rm -v $(pwd):/app --privileged incr
 ```
 
-Toggle the `DEBUG` and `DEBUG_LOGS` flag in `src/config.rs` to enable debug information to be saved in the cache directory and a log file to be generated.
+Toggle `DEBUG` and `DEBUG_LOGS` in `src/config.rs` for debug output.
 
-## Benchmark Setup
+## Architecture
 
-The `evaluation/war-and-peace` directory contains a basic benchmark that counts the number of words in War and Peace.
-Run the scripts `./evaluation/war-and-peace/with_cache.sh` and `./evaluation/war-and-peace/without_cache.sh` from the directory above `src` where the relative path accesses are correct.
+`incr` intercepts shell command execution to memoize results — on re-execution, it replays cached stdout/stderr and file outputs when the command's inputs, environment, and file dependencies are unchanged, using strace and an OverlayFS sandbox to track side effects.
 
-Install the Koala benchmarks by cloning the repository https://github.com/kbensh/koala.
-The benchmark scripts need to be manually edited to insert invocations of `target/release/incr`.
-An example edited script from the NLP benchmark is:
+- **`src/main.rs`** — CLI entrypoint that selects an execution strategy for each command.
+- **`src/command.rs`** — Represents a command invocation and handles spawning child processes.
+- **`src/execution/`** — Execution engines that manage tracing, caching, and replaying command results.
+- **`src/cache/`** — Stores and retrieves memoized outputs and file dependency information.
+- **`src/config.rs`** — Runtime and compile-time configuration constants.
+- **`src/scripts/`** — Helper scripts for parsing trace output and rewriting shell scripts to use incr.
+
+## Quick Start
+
+The `evaluation/war-and-peace` pipeline counts word frequencies. `without_incr.sh` runs it under plain Bash; `with_incr.sh` wraps each command with `incr`:
 
 ```sh
-#!/bin/bash
-# tag: count_words
-
-IN="/users/jxia3/incr/koala/nlp/inputs/pg-small"
-OUT="/users/jxia3/incr/koala/nlp/outputs/count_words"
-ENTRIES=${ENTRIES:-50}
-mkdir -p "$OUT"
-
-for input in $(ls ${IN} | head -n ${ENTRIES} | xargs -I arg1 basename arg1)
-do
-    cat $IN/$input | tr -c 'A-Za-z' '[\n*]' | grep -v "^\s*$" | sort | uniq -c > $OUT/${input}.out
-done
-
-echo 'done';
-# rm -rf "$OUT"
+bash ./evaluation/war-and-peace/without_incr.sh > baseline.txt
+bash ./evaluation/war-and-peace/with_incr.sh > incr.txt
+diff baseline.txt incr.txt
 ```
+
+The first run is a cold start (tracing overhead). Run `with_incr.sh` again to see cached replay. Clean up with `bash ./evaluation/war-and-peace/clean.sh`.
+
+## Benchmarks
+
+Each of 14 scenarios in `evaluation/benchmarks/` has an `execute.sh` that times the script under both Bash and `incr.sh`. The top-level driver runs all of them:
+
+```sh
+cd evaluation/benchmarks && bash ./run.sh
+```
+
+Results go to `evaluation/run_results/`. Speedup is `bash_time / incr_time` on re-executions after the cold run.
+
+See [INSTRUCTIONS.md](./INSTRUCTIONS.md) for full benchmark setup and the behavioral-equivalence harness.
