@@ -74,7 +74,7 @@ Both files land in the same size-specific subdir. `show_results.py` reads from t
 ## Min Inputs Created
 | Benchmark    | What                                       | Where                           |
 |--------------|--------------------------------------------|---------------------------------|
-| beginner     | 537 nginx log lines                        | min_inputs/nginx-logs/log0      |
+| beginner     | ~373 nginx log lines (valid combined format; includes `error` URLs for beginner-04–07) | min_inputs/nginx-logs/log0      |
 | nlp-ngrams   | English text (~80 lines)                   | min_inputs/pg-min/sample.txt    |
 | nlp-uppercase| same                                       | min_inputs/pg-min/sample.txt    |
 | poet         | same                                       | min_inputs/pg-min/sample.txt    |
