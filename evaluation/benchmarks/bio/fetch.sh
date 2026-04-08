@@ -1,4 +1,7 @@
 #!/bin/bash
+# Min BAM: after download, optional subsampling via samtools (valid BAM). Do not byte-truncate BAM files.
+# BIO_MIN_KEEP_FRAC=fraction of reads to keep (default 0.5). Set to 1 or 1.0 to keep the full download.
+# Reproducible seed is fixed at 42 in -s (see samtools view -s).
 
 cd "$(realpath "$(dirname "$0")")" || exit 1
 URL='https://atlas.cs.brown.edu/data'
@@ -41,6 +44,17 @@ if [[ $size == "min" ]]; then
         link="${URL}/bio/medium/${sample}.bam"
         if wget -O "$tmp_file" --no-check-certificate "$link"; then
             mv "$tmp_file" "$out_file"
+            # Shrink min workload: subsample reads (still a well-formed BAM). Not the same as truncating bytes.
+            keep="${BIO_MIN_KEEP_FRAC:-0.5}"
+            if [[ "$keep" != "1" && "$keep" != "1.0" ]] && command -v samtools >/dev/null 2>&1; then
+                s_arg="42.${keep#*.}"
+                shrink_tmp="${out_file}.subsampled"
+                if samtools view -b -s "$s_arg" -o "$shrink_tmp" "$out_file" 2>/dev/null && [[ -s "$shrink_tmp" ]]; then
+                    mv "$shrink_tmp" "$out_file"
+                else
+                    rm -f "$shrink_tmp"
+                fi
+            fi
         else
             echo "Failed to download: $link" >&2
             rm -f "$tmp_file"

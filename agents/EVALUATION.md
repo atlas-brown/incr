@@ -199,7 +199,7 @@ Exit code **0** means every paired file matched, no disk-full errors were found 
 
 **Correctness status:** the suite is intended to produce **identical stdout** for bash vs incr on these workloads. Run `verify_outputs.sh` after a full run with outputs retained to confirm on your machine. If `outputs/<size>/` is missing (e.g. outputs were cleared), the script exits with a message that nothing was checked.
 
-**Bio (`--size min`):** first-time setup downloads a single **`HG00421.bam`** (~233 MB) over the network into `inputs/bio-min/` (same artifact tier as small’s HG00421 fetch, not the full small corpus).
+**Bio (`--size min`):** setup downloads **`HG00421.bam`** from the same tier as small’s single-sample fetch, then **subsamples reads** by default (~50%, still a valid BAM; faster than using the full ~233 MB file). Set **`BIO_MIN_KEEP_FRAC=1`** when running `setup.sh` / `fetch.sh` to keep the full download. Do not **truncate** a BAM with `dd`/`head`—that breaks the format.
 
 ---
 

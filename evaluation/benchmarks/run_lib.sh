@@ -132,11 +132,13 @@ run_benchmark_scripts() {
         export mode="$mode"
         time_log=$(mktemp -p /tmp "incr-bench-time.XXXXXX") || return 1
 
+        # Redirect stdin for both paths: tools like ffmpeg may block reading stdin if
+        # it is a pipe (IDE, tee, CI) that never closes.
         if [[ "$mode" == "incr" ]]; then
             { time "$TOP/incr.sh" "$SCRIPT_DIR/$script" "$cache_dir" \
                 < /dev/null >"$out_file" 2>"$err_file"; } 2>"$time_log"
         else
-            { time bash "$SCRIPT_DIR/$script" >"$out_file" 2>"$err_file"; } 2>"$time_log"
+            { time bash "$SCRIPT_DIR/$script" < /dev/null >"$out_file" 2>"$err_file"; } 2>"$time_log"
         fi
         rc=$?
 
