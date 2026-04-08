@@ -1,11 +1,11 @@
 #!/bin/bash
-# Diff bash vs incr stdout for each script. Also flags disk errors and empty outputs.
-# Usage: verify_outputs.sh [--size min|small|full] [--mode easy|full]
+# Diff bash/incr stdout; empty outputs; disk-full in *.err; htslib-style lines in *.err (skip file-mod).
+# Usage: [--size min|small|full] [--mode easy|full]. Default easy+min (same as run_all.sh).
 set -uo pipefail
 cd "$(dirname "$0")" || exit 1
 
 TOP=$(git rev-parse --show-toplevel)
-SIZE=small
+SIZE=min
 MODE=easy
 
 for arg in "$@"; do
@@ -45,7 +45,6 @@ for benchmark in "${BENCHMARKS[@]}"; do
         continue
     fi
 
-    # Disk / fatal errors in stderr
     for err in "$out_dir"/*.err; do
         [[ -f "$err" ]] || continue
         if grep -qi 'no space left on device' "$err" 2>/dev/null; then
@@ -127,8 +126,7 @@ if [[ "$total_checked" -eq 0 ]]; then
     exit 1
 fi
 
-# Stderr sanity: bash/incr can agree on empty stdout while both tools failed (e.g. missing inputs).
-# file-mod is excluded: ffmpeg writes banners to stderr only (not treated as failure here).
+# htslib/samtools failures in *.err (stdout can still match). file-mod skipped (ffmpeg stderr).
 stderr_fail=false
 for benchmark in "${BENCHMARKS[@]}"; do
     [[ "$benchmark" == "file-mod" ]] && continue
@@ -149,6 +147,6 @@ if $overall_pass && [[ "$stderr_fail" == false ]]; then
     echo "OK: all outputs match"
     exit 0
 fi
-[[ "$stderr_fail" == true ]] && echo "FAIL: stderr checks (fix inputs or scripts; stdout diff alone is not enough)" >&2
+[[ "$stderr_fail" == true ]] && echo "FAIL: stderr checks (missing/bad inputs?)" >&2
 ! $overall_pass && echo "FAIL: mismatches or disk errors" >&2
 exit 1

@@ -30,10 +30,8 @@ case "$RUN_SIZE" in
     small) suffix=".small" ;;
     full)  suffix="" ;;
 esac
-# file-mod scripts use $IN for MP3 source files
 export IN="$INPUT_DIR/songs${suffix}"
 export OUT="$OUTPUT_DIR"
-# IMG_DIR is exported for compatibility but unused by the scripts
 export IMG_DIR="$INPUT_DIR/dpt${suffix}"
 TIME_FILE="$OUTPUT_DIR/timing.csv"
 

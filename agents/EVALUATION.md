@@ -180,15 +180,19 @@ bash verify_outputs.sh [--size min|small|full] [--mode easy|full]
 
 | Option | Meaning |
 |--------|---------|
-| `--size` | Which `outputs/<size>/` tree to check (default: `small`) |
+| `--size` | Which `outputs/<size>/` tree to check (default: `min`, same as `run_all.sh`) |
 | `--mode easy` or `--mode full` | Which benchmarks to scan (default: `easy` = 12 workloads; `full` includes `dpt` and `image-annotation`) |
 
 **Examples:**
 
 ```sh
 cd evaluation/benchmarks
-# After: bash run_all.sh --mode easy --size min --no-clear-outputs
-bash verify_outputs.sh --size min
+# After default run_all (easy + min); min keeps outputs unless you pass --clear-outputs
+bash run_all.sh
+bash verify_outputs.sh
+
+# Explicit flags (same as no-arg verify above)
+bash verify_outputs.sh --mode easy --size min
 
 # After a small run with outputs retained
 bash run_all.sh --mode easy --size small --no-clear-outputs

@@ -24,9 +24,7 @@ if [[ "$size" == "min" ]]; then
     fi
     exit 0
 elif [[ "$size" == "small" ]]; then
-    # One-shot prepare: merge shard logs and expand log0 for the benchmark (~25GB+ on disk after prep).
     if [[ ! -d "$INPUT_DIR/nginx-logs_$size" ]]; then
-        # Rough headroom for unzip + merge + tripling (see EVALUATION.md disk table).
         need_bytes=$((32 * 1024 * 1024 * 1024))
         avail_bytes=$(df -B1 --output=avail "$INPUT_DIR" | tail -1)
         if [[ "$avail_bytes" -lt "$need_bytes" ]]; then

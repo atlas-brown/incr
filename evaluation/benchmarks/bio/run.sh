@@ -35,7 +35,6 @@ esac
 export OUT="$OUTPUT_DIR"
 TIME_FILE="$OUTPUT_DIR/timing.csv"
 
-# bio scripts need Gene_locs.txt in the scripts directory
 cp "$BENCHMARK_DIR/Gene_locs.txt" "$SCRIPT_DIR/" 2>/dev/null || true
 
 DEFAULT_SCRIPTS=(bio-1.sh bio-2.sh bio-3.sh bio-4-0.sh bio-4.sh bio-5.sh bio-6.sh)

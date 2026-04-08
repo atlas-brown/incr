@@ -1,12 +1,9 @@
 #!/bin/bash
-# Shared helpers for benchmark run.sh (source after TOP and BENCHMARK_DIR).
+# Shared helpers for benchmark run.sh (and run_all.sh).
 
-# Set by parse_benchmark_run_sh_args; empty means use each benchmark's default script list.
 BENCHMARK_SCRIPTS_OVERRIDE=()
 
-# Parse shared flags for per-benchmark run.sh. Sets RUN_MODE, RUN_SIZE,
-# BENCHMARK_SCRIPTS_OVERRIDE (comma list from --scripts=).
-# Legacy positional words still work: bash|incr|both, min|small|full.
+# Sets RUN_MODE, RUN_SIZE, BENCHMARK_SCRIPTS_OVERRIDE. Legacy: bash|incr|both, min|small|full.
 parse_benchmark_run_sh_args() {
     RUN_MODE=both
     RUN_SIZE=small
@@ -42,8 +39,7 @@ EOF
     done
 }
 
-# Build global SCRIPTS from defaults or --scripts override. Exits 1 if a file is missing.
-# Usage: finalize_benchmark_scripts "$SCRIPT_DIR" "${DEFAULT_SCRIPTS[@]}"
+# SCRIPTS from defaults or --scripts=; exit 1 if a basename is missing under script_dir.
 finalize_benchmark_scripts() {
     local script_dir=$1
     shift
@@ -93,7 +89,7 @@ cleanup_overlay_mounts() {
     fi
 }
 
-# Best-effort scrub of incr/try/sort leftovers under /tmp (benchmark-dedicated machines).
+# Best-effort /tmp cleanup (incr try/sort temp files).
 cleanup_tmp_artifacts() {
     rm -f /tmp/*.try-* 2>/dev/null || true
     rm -rf /tmp/sort.* 2>/dev/null || true
@@ -102,14 +98,12 @@ cleanup_tmp_artifacts() {
     done || true
 }
 
-# Args: script basenames. Needs TOP, BENCHMARK_DIR, SCRIPT_DIR, OUTPUT_DIR, RUN_MODE, TIME_FILE.
 run_benchmark_scripts() {
     mkdir -p "$OUTPUT_DIR"
     echo "mode,script,time_sec" > "$TIME_FILE"
 
     local cache_dir="$BENCHMARK_DIR/cache"
     local scripts=("$@")
-    # Use default system temp (/tmp) for sort(1), mktemp, etc. so paths match what incr expects.
     local old_tmp="${TMPDIR:-}"
     export TMPDIR=/tmp
     restore_tmpdir() {
@@ -132,8 +126,7 @@ run_benchmark_scripts() {
         export mode="$mode"
         time_log=$(mktemp -p /tmp "incr-bench-time.XXXXXX") || return 1
 
-        # Redirect stdin for both paths: tools like ffmpeg may block reading stdin if
-        # it is a pipe (IDE, tee, CI) that never closes.
+        # stdin from pipe never closes in some runners; ffmpeg etc. would block.
         if [[ "$mode" == "incr" ]]; then
             { time "$TOP/incr.sh" "$SCRIPT_DIR/$script" "$cache_dir" \
                 < /dev/null >"$out_file" 2>"$err_file"; } 2>"$time_log"
@@ -146,8 +139,7 @@ run_benchmark_scripts() {
         time_output=$(cat "$time_log")
         rm -f "$time_log"
 
-        # Many POSIX tools (e.g. grep) use exit 1 for "no match" / non-error conditions;
-        # benchmark scripts often rely on that. Only warn on other non-zero exits.
+        # grep uses 1 for no match; warn only on other non-zero exits.
         if [[ "$rc" -ne 0 && "$rc" -ne 1 ]]; then
             echo "[run] WARNING: $mode $script exited $rc (see $err_file)" >&2
         fi
@@ -162,8 +154,7 @@ run_benchmark_scripts() {
         cleanup_tmp_artifacts
     }
 
-    # With mode=both, run bash then incr per script (not all bash then all incr).
-    # All-bash-first fills the disk with huge stdout before incr runs heavy sorts.
+    # Per-script bash then incr (not all bash first — avoids huge stdout filling disk).
     if [[ "$RUN_MODE" == "both" ]]; then
         for script in "${scripts[@]}"; do
             echo "[run] Running $script with bash..."

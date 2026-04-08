@@ -69,7 +69,6 @@ if [[ "$CLEAR_OUTPUTS_SET" -eq 0 && "$SIZE" == "small" ]]; then
     CLEAR_OUTPUTS=1
 fi
 
-# Benchmark lists
 EASY_BENCHMARKS=(
     beginner
     bio

@@ -1,6 +1,5 @@
 #!/bin/bash
-# setup.sh: idempotently install dependencies and fetch data for the spell benchmark.
-# Usage: setup.sh [--min|--small|--full]
+# setup.sh [--min|--small|--full]
 set -euo pipefail
 cd "$(dirname "$0")" || exit 1
 
@@ -19,7 +18,7 @@ done
 
 mkdir -p "$INPUT_DIR"
 
-# spell-*.sh pipelines use comm(1) against the system dictionary (scripts 6–7 especially).
+# spell-6/7: comm(1) needs /usr/share/dict/words
 if [[ ! -f /usr/share/dict/words ]]; then
     echo "[setup] spell: installing system word list (wamerican)..."
     sudo apt-get update -qq

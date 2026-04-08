@@ -1,7 +1,5 @@
 #!/bin/bash
-# Min BAM: after download, optional subsampling via samtools (valid BAM). Do not byte-truncate BAM files.
-# BIO_MIN_KEEP_FRAC=fraction of reads to keep (default 0.5). Set to 1 or 1.0 to keep the full download.
-# Reproducible seed is fixed at 42 in -s (see samtools view -s).
+# Min: optional samtools view -s subsample after wget (valid BAM; no dd/head). BIO_MIN_KEEP_FRAC (default 0.5); 1 = full. Seed 42.
 
 cd "$(realpath "$(dirname "$0")")" || exit 1
 URL='https://atlas.cs.brown.edu/data'
@@ -35,7 +33,7 @@ if [[ ! -f "$IN_NAME" ]]; then
     exit 1
 fi
 
-# Min: only the one BAM used by bio-1.sh and input_min.txt (same object as small tier HG00421).
+# Min: HG00421 only (same sample as small).
 if [[ $size == "min" ]]; then
     sample="HG00421"
     out_file="$in_dir/${sample}.bam"
@@ -44,7 +42,6 @@ if [[ $size == "min" ]]; then
         link="${URL}/bio/medium/${sample}.bam"
         if wget -O "$tmp_file" --no-check-certificate "$link"; then
             mv "$tmp_file" "$out_file"
-            # Shrink min workload: subsample reads (still a well-formed BAM). Not the same as truncating bytes.
             keep="${BIO_MIN_KEEP_FRAC:-0.5}"
             if [[ "$keep" != "1" && "$keep" != "1.0" ]] && command -v samtools >/dev/null 2>&1; then
                 s_arg="42.${keep#*.}"
