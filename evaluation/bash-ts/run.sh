@@ -2,10 +2,10 @@
 
 cd "$(dirname "$0")" || exit 1
 
-# [ ! -d bash ] && git clone https://github.com/bminor/bash && git -C bash checkout c5c97b3
-# ( cd bash; CC=cc ./configure)
-# make -C bash -j4
-# make -C bash recho zecho printenv xcase -j4
+[ ! -d bash ] && git clone https://github.com/bminor/bash && git -C bash checkout c5c97b3
+( cd bash && CC=cc ./configure)
+make -C bash -j4
+make -C bash recho zecho printenv xcase -j4
 
 sudo rm -rf /tmp/cache
 rm -f results.*
@@ -25,8 +25,6 @@ run_test() {
   target_test="run-$test"
   [ -z "$target_test" ] && exit 1
   
-  
-  
   # First, run tests with bash
   export THIS_SH=$top/evaluation/bash-ts/bash/bash
   $THIS_SH $target_test > ../results.bash
@@ -43,9 +41,14 @@ if [ -n "$1" ]; then
 	exit 0
 fi
 
-exit 1
+all_tests="$(find . -type f -name "run-*" | sed 's/run-//' | grep -v all | grep -v minimal)"
+tests="run-dollars run-execscript run-func run-getopts run-ifs-tests run-input-test run-invert run-more-exp run-nquote run-ifs-posix run-posix2 run-posixpat run-precedence run-quote run-read run-rhs-exp run-strip run-tilde run-dynvar run-iquote run-type run-comsub-eof run-comsub-posix"
 
-tests="$(find . -type f -name "run-*" | sed 's/run-//' | grep -v all | grep -v minimal)"
+if [ -n "$INCR_BASH_TEST_FULL" ];
+then
+  tests="$all_tests"
+fi
+
 for test in $tests; do
 	run_test "${test#./}"
 done
