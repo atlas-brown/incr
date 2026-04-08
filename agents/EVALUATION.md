@@ -74,7 +74,7 @@ Figures are approximate; **beginner** `--size small` input preparation alone nee
 
 | | **min** | **small** |
 |---|---------|-----------|
-| **Input data on disk (after setup)** | Under ~100 MB | Roughly **8–35 GB** (largest share is beginner nginx logs; other benchmarks add fetched data under each `inputs/`) |
+| **Input data on disk (after setup)** | Roughly **under ~500 MB** (bio min alone adds ~233 MB for one BAM; other min inputs are small) | Roughly **8–35 GB** (largest share is beginner nginx logs; other benchmarks add fetched data under each `inputs/`) |
 | **Peak stdout/stderr under `outputs/<size>/`** | Under ~100 MB | Up to **~25 GB** if all benchmarks retain `.out` files (`--no-clear-outputs`) |
 | **incr cache (per benchmark, cleared by default after each)** | Under ~100 MB each | Often **~0.5–3 GB** per benchmark while a run is active; default `--clear-cache` deletes it after each benchmark |
 | **Wall clock (full `run_all.sh --mode easy`)** | **~5–20 minutes** (setup + run; network for first-time fetches adds variance) | **~1–2 hours** typical; **2–4 hours** on slower storage |
@@ -168,6 +168,8 @@ Prints current/baseline time ratios. Very small ratios on workloads that should 
 
 `verify_outputs.sh` **diffs** paired `*.bash.out` and `*.incr.out` under each benchmark’s `outputs/<size>/` directory. It also flags **empty** outputs and **“No space left on device”** lines in `*.err`.
 
+**Stderr sanity:** matching stdout does not prove tools succeeded (both runs can fail identically). The script therefore scans `*.err` for common **htslib/samtools** failure lines (missing BAM, failed open, unusable index). The **`file-mod`** benchmark is **excluded** from this scan because **ffmpeg** writes large informational banners to stderr that are not failures.
+
 **Requirements:** you must run benchmarks with **`--run-mode both`** (the default) so both stdout files exist, and you must **keep** output files on disk. For `--size small`, the default is to delete `outputs/` after each benchmark—use **`--no-clear-outputs`** on `run_all.sh` first.
 
 **Usage (from `evaluation/benchmarks/`):**
@@ -193,9 +195,11 @@ bash run_all.sh --mode easy --size small --no-clear-outputs
 bash verify_outputs.sh --size small
 ```
 
-Exit code **0** means every paired file matched and no disk-full errors were found in stderr logs; **non-zero** means mismatches, skips, or errors (see script output).
+Exit code **0** means every paired file matched, no disk-full errors were found in stderr logs, and the stderr sanity checks passed; **non-zero** means mismatches, skips, stderr failures, or errors (see script output).
 
 **Correctness status:** the suite is intended to produce **identical stdout** for bash vs incr on these workloads. Run `verify_outputs.sh` after a full run with outputs retained to confirm on your machine. If `outputs/<size>/` is missing (e.g. outputs were cleared), the script exits with a message that nothing was checked.
+
+**Bio (`--size min`):** first-time setup downloads a single **`HG00421.bam`** (~233 MB) over the network into `inputs/bio-min/` (same artifact tier as small’s HG00421 fetch, not the full small corpus).
 
 ---
 
