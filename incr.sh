@@ -41,18 +41,24 @@ cache_dir=${1:-/tmp/cache}
 
 TOP=$(git rev-parse --show-toplevel)
 TRY_PATH="$TOP/src/scripts/try.sh"
-tmp_incr="$(dirname $script)/incr_script_$(basename $script).sh"
-tmp_orig=$(mktemp)
+tmp_incr="$(dirname "$script")/incr_script_$(basename "$script").sh"
+# Sentinel: presence signals cleanup needed; contents ARE the original script.
+sentinel="${script}.incr_orig"
 
-# Ensure cleanup and preserve the right exit status.
+# Recover from a previous SIGKILL: restore original from sentinel and continue.
+if [ -f "$sentinel" ]; then
+    cp "$sentinel" "$script"
+    rm -f "$sentinel"
+fi
+
 rc=
 cleanup() {
-    # If we recorded the temp script's status, use it; otherwise use last command's.
+    trap '' EXIT INT TERM
     local st=${rc:-$?}
-    # Restore the original script.
-    cp "$tmp_orig" "$script"
-    # Delete all tmp files
-    rm -f "$tmp_orig"
+    if [ -f "$sentinel" ]; then
+        cp "$sentinel" "$script"
+    fi
+    rm -f "$sentinel"
     rm -f "$tmp_incr"
     exit $st
 }
@@ -60,10 +66,9 @@ trap cleanup EXIT INT TERM
 
 python3 ${TOP}/src/scripts/insert.py --sys-path ${TOP}/target/release/incr --try $TRY_PATH --cache "$cache_dir" "$script" > "$tmp_incr"
 
-# Swap the original script with the incrementalized one.
-cp "$script" "$tmp_orig"
+# sentinel IS the backup; after this point any kill is recoverable
+cp "$script" "$sentinel"
 cp "$tmp_incr" "$script"
 
-# $script now is $tmp_incr
 $incr_shell $flags $args -- "$script" "$@"
 rc=$?
