@@ -144,7 +144,9 @@ run_benchmark_scripts() {
         time_output=$(cat "$time_log")
         rm -f "$time_log"
 
-        if [[ "$rc" -ne 0 ]]; then
+        # Many POSIX tools (e.g. grep) use exit 1 for "no match" / non-error conditions;
+        # benchmark scripts often rely on that. Only warn on other non-zero exits.
+        if [[ "$rc" -ne 0 && "$rc" -ne 1 ]]; then
             echo "[run] WARNING: $mode $script exited $rc (see $err_file)" >&2
         fi
 

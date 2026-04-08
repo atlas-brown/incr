@@ -127,9 +127,28 @@ if [[ "$total_checked" -eq 0 ]]; then
     exit 1
 fi
 
-if $overall_pass; then
+# Stderr sanity: bash/incr can agree on empty stdout while both tools failed (e.g. missing inputs).
+# file-mod is excluded: ffmpeg writes banners to stderr only (not treated as failure here).
+stderr_fail=false
+for benchmark in "${BENCHMARKS[@]}"; do
+    [[ "$benchmark" == "file-mod" ]] && continue
+    out_dir="$TOP/evaluation/benchmarks/$benchmark/outputs/$SIZE"
+    [[ -d "$out_dir" ]] || continue
+    for err in "$out_dir"/*.err; do
+        [[ -f "$err" ]] || continue
+        [[ -s "$err" ]] || continue
+        if grep -E -q '\[E::hts_open|Failed to open file|failed to open .*: No such file or directory|cannot be usefully indexed' "$err" 2>/dev/null; then
+            echo "FAIL  stderr indicates missing/bad inputs: $benchmark/$(basename "$err")" >&2
+            head -5 "$err" | sed 's/^/  /' >&2
+            stderr_fail=true
+        fi
+    done
+done
+
+if $overall_pass && [[ "$stderr_fail" == false ]]; then
     echo "OK: all outputs match"
     exit 0
 fi
-echo "FAIL: mismatches or disk errors" >&2
+[[ "$stderr_fail" == true ]] && echo "FAIL: stderr checks (fix inputs or scripts; stdout diff alone is not enough)" >&2
+! $overall_pass && echo "FAIL: mismatches or disk errors" >&2
 exit 1
