@@ -14,9 +14,6 @@ This artifact targets the following badge (mirroring [the OSDI26 artifact "evalu
 * Incr is [functional](#artifact-functional): functional executables verified via a miniam "Hello world" example (~10mins).
 * Results presented in the papers are [reproducible](#results-reproducible): Incr's efficient incrementalization of diverse shell programs, demonstrated by its performance compared to Bash (Fig.4, ~x hours).  -->
 
-> [!IMPORTANT]
-> AEC Reviewers: **All following steps are optional.**
-
 # Artifact Available (~5mins)
 Confirm that the paper, code, and automation scripts are all publicly available:
 
@@ -51,6 +48,9 @@ The current repository includes:
 2. runtime optimizations such as streaming, batching, chunking, introspection, and compression are reflected by flags in [src/main.rs](./src/main.rs) and constants/configuration in [src/config.rs](./src/config.rs);
 3. optional tuning through annotations and developer configuration is represented by [src/annotation](./src/annotation);
 4. shell behavioral equivalence is exercised by the Bash test-suite harness in [evaluation/bash-ts/run.sh](./evaluation/bash-ts/run.sh).
+
+> [!IMPORTANT]
+> AEC Reviewers: **All following steps are optional.**
 
 <a name="artifact-functional"></a>
 # Getting Started Instructions (~5mins)
