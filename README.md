@@ -41,7 +41,7 @@ pip3 install --no-cache-dir -r requirements.txt
 cargo build --release
 ```
 
-See [FUNCTIONAL.md](./FUNCTIONAL.md) for a minimal walkthrough and [INSTRUCTIONS.md](./INSTRUCTIONS.md) for full evaluation instructions.
+See [INSTRUCTIONS.md](./INSTRUCTIONS.md) for full evaluation instructions.
 
 ### Docker
 
