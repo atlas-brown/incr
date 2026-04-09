@@ -4,23 +4,39 @@ Bolt-on incremental execution for the shell. Incr wraps shell commands to track 
 
 ## Setup
 
-1. Ensure Ubuntu 22.04 is running with updated packages:
+The quickest path is Ubuntu 22.04 with the bootstrap script:
+
 ```sh
-sudo apt update && sudo apt upgrade
+curl -fsSL https://raw.githubusercontent.com/atlas-brown/incr/main/scripts/up.sh | sh
+cd ~/incr
 ```
-2. Install system dependencies (OverlayFS, strace, pip):
+
+The bootstrap script installs:
+
+* Rust via `rustup` if needed
+* Ubuntu packages: `git`, `mergerfs`, `strace`, `python3-pip`, `curl`, `ca-certificates`, `build-essential`, `pkg-config`, and `libssl-dev`
+* Python dependencies from `requirements.txt`
+* the release binary via `cargo build --release`
+
+If you prefer to install manually on Ubuntu 22.04:
+
+1. Update packages:
 ```sh
-sudo apt install mergerfs strace python3-pip
+sudo apt update && sudo apt upgrade -y
 ```
-3. Install Rust via rustup:
+2. Install system dependencies:
+```sh
+sudo apt install -y git mergerfs strace python3-pip curl ca-certificates build-essential pkg-config libssl-dev
+```
+3. Install Rust via `rustup`:
 ```sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
-4. Install Python dependencies for the `insert.py` script:
+4. Install Python dependencies:
 ```sh
 pip3 install --no-cache-dir -r requirements.txt
 ```
-5. Build the binary:
+5. Build the release binary:
 ```sh
 cargo build --release
 ```
@@ -31,7 +47,7 @@ See [FUNCTIONAL.md](./FUNCTIONAL.md) for a minimal walkthrough and [INSTRUCTIONS
 
 ```sh
 docker build -t incr .
-docker run -it --rm -v $(pwd):/app --privileged incr
+docker run -it --rm --privileged incr
 ```
 
 Toggle `DEBUG` and `DEBUG_LOGS` in `src/config.rs` for debug output.
@@ -49,10 +65,18 @@ Toggle `DEBUG` and `DEBUG_LOGS` in `src/config.rs` for debug output.
 
 ## Quick Start
 
+To sanity-check the install with a minimal example:
+
+```sh
+./incr.sh ./evaluation/hello-world.sh
+```
+
+This should print the same `Hello, world!`-style output as the underlying shell script, while exercising the `incr.sh` entrypoint.
+
 The `evaluation/war-and-peace` pipeline counts word frequencies. Run the combined harness:
 
 ```sh
-bash ./evaluation/war-and-peace/test.sh
+./evaluation/war-and-peace/test.sh
 ```
 
 This runs:
@@ -65,12 +89,31 @@ It checks that both Incr outputs match the baseline. Clean up with `bash ./evalu
 
 ## Benchmarks
 
-Each of 14 scenarios in `evaluation/benchmarks/` has an `execute.sh` that times the script under both Bash and `incr.sh`. The top-level driver runs all of them:
+Each benchmark under `evaluation/benchmarks/` has its own setup and execution scripts. The main suite driver is `run_all.sh`:
 
 ```sh
-cd evaluation/benchmarks && bash ./run.sh
+cd evaluation/benchmarks && ./run_all.sh --mode=easy --size=min --run-mode=both
 ```
 
-Results go to `evaluation/run_results/`. Speedup is `bash_time / incr_time` on re-executions after the cold run.
+Results are written under `evaluation/run_results/`. Use `python3 ./show_results.py --size min` to print a summary, and `bash ./verify_outputs.sh --mode=easy --size=min` to check Bash/Incr output agreement.
 
 See [INSTRUCTIONS.md](./INSTRUCTIONS.md) for full benchmark setup and the behavioral-equivalence harness.
+
+## Citing Incr
+
+If you use Incr or build on any component in this repository, please cite the following paper:
+
+```bibtex
+@inproceedings{incr:osdi:2026,
+  title = {Incr: Faster Re-execution via Bolt-on Incrementalization},
+  author = {Xie, Yizheng and Lamprou, Evangelos and Xia, Jerry and Vasilakis, Nikos},
+  booktitle = {20th USENIX Symposium on Operating Systems Design and Implementation (OSDI 26)},
+  year = {2026},
+  publisher = {USENIX Association},
+  tags = {performance}
+}
+```
+
+## License & Contributing
+
+Incr is an open-source, collaborative, [MIT-licensed](./LICENSE) project developed by the [ATLAS group](https://atlas.cs.brown.edu/) at [Brown University](https://cs.brown.edu/). If you'd like to contribute, please see [CONTRIBUTING.md](./CONTRIBUTING.md) — contributions, bug reports, and reproducibility feedback are welcome.

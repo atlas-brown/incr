@@ -116,7 +116,7 @@ bash ./evaluation/war-and-peace/clean.sh
 Without incr, `sort` on this file takes about a second. The output should be `9ef554d5bf475ce2820592f7f9a10e42`. Incr populates `test_cache/` on the first run. Running it again replays the cached result and completes near-instantly. -->
 
 <a name="results-reproducible"></a>
-# Results Reproducible (~1--4 hours)
+# Detailed Instructions (~1--4 hours)
 
 This section describes the two main reproduction paths we recommend for artifact evaluation:
 
