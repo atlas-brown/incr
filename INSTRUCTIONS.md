@@ -186,7 +186,7 @@ This script automatically scans `evaluation/run_results`, plots each available s
 
 An example plot showing the subset of results using minimal inputs:
 
-![Example performance plot](evaluation/figs/perf-bars-color.min.pdf)
+![Example performance plot](evaluation/figs/perf-bars-color-min.pdf)
 
 ### Closer-to-paper path (~2--4 hours, machine dependent)
 
