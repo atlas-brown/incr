@@ -71,7 +71,8 @@ Requirements:
 
 To install Incr on Ubuntu 22.04, run the following command:
 ```sh
-curl -fsSL https://atlas-brown/incr/main/scripts/up.sh | sh
+curl -fsSL https://raw.githubusercontent.com/atlas-brown/incr/main/scripts/up.sh | sh
+cd incr
 ```
 
 This bootstrap script installs the required Ubuntu packages, installs Rust if needed, clones the repository into `~/incr` when run outside an existing checkout, installs Python dependencies, and builds `target/release/incr`.
