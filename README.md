@@ -49,15 +49,19 @@ Toggle `DEBUG` and `DEBUG_LOGS` in `src/config.rs` for debug output.
 
 ## Quick Start
 
-The `evaluation/war-and-peace` pipeline counts word frequencies. `without_incr.sh` runs it under plain Bash; `with_incr.sh` wraps each command with `incr`:
+The `evaluation/war-and-peace` pipeline counts word frequencies. Run the combined harness:
 
 ```sh
-bash ./evaluation/war-and-peace/without_incr.sh > baseline.txt
-bash ./evaluation/war-and-peace/with_incr.sh > incr.txt
-diff -u baseline.txt incr.txt
+bash ./evaluation/war-and-peace/test.sh
 ```
 
-The first run is a cold start (tracing overhead). Run `with_incr.sh` again to see cached replay. Clean up with `bash ./evaluation/war-and-peace/clean.sh`.
+This runs:
+
+1. the baseline Bash pipeline,
+2. a cold Incr run, and
+3. a warm Incr run that should reuse cached results.
+
+It checks that both Incr outputs match the baseline. Clean up with `bash ./evaluation/war-and-peace/clean.sh`.
 
 ## Benchmarks
 

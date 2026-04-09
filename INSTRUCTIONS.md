@@ -33,11 +33,6 @@ The current repository already includes:
 5. the Bash behavioral-equivalence harness under [evaluation/bash-ts](./evaluation/bash-ts), and
 6. bundled examples such as [evaluation/war-and-peace](./evaluation/war-and-peace).
 
-The final artifact should also provide stable links for benchmark inputs derived from Koala and for any external annotation sources used in the paper.
-
-<a name="artifact-functional"></a>
-# Artifact Functional (~10mins)
-
 Confirm sufficient documentation, key components as described in the paper, and the system's exercisability.
 
 **Documentation:** The repository already contains the core implementation and the main evaluation entry points:
@@ -59,43 +54,58 @@ Confirm sufficient documentation, key components as described in the paper, and 
 3. optional tuning through annotations and developer configuration is represented by [src/annotation](./src/annotation);
 4. shell behavioral equivalence is exercised by the Bash test-suite harness in [evaluation/bash-ts/run.sh](./evaluation/bash-ts/run.sh).
 
-<a name="exercisability"></a>
-**Exercisability:** Build Incr and run a minimal pipeline. See [FUNCTIONAL.md](./FUNCTIONAL.md) for a condensed version.
+<a name="artifact-functional"></a>
+# Getting Started Instructions (~5mins)
 
-Requirements: Ubuntu 22.04, Rust, `python3`, `pip3`, `bash`, `strace`, `mergerfs`, and `sudo` for sandboxed paths. Incr uses `sudo` to clean up sandbox mount points after execution. Installing directly on an Ubuntu machine is quickest and recommended; fall back to Docker if the native install does not work.
+We provide instructions to set up environments to run Incr.
 
+Requirements: 
+1. Ubuntu 22.04, 
+2. Rust 
+3. Python3, 
+4. `strace`
+5. `mergerfs`
+6. `sudo` access for sandboxed paths to clean up sandbox mount points after execution. 
+
+> Note: Installing directly on an Ubuntu machine is quickest and recommended; fall back to Docker if the native install does not work.
+
+To install Incr on Ubuntu 22.04, run the following command:
 ```sh
-sudo apt update && sudo apt upgrade
-sudo apt install mergerfs strace python3-pip
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-pip3 install --no-cache-dir -r requirements.txt
-cargo build --release
+curl -fsSL https://atlas-brown/incr/main/scripts/up.sh | sh
 ```
 
-Alternatively, use Docker:
+This bootstrap script installs the required Ubuntu packages, installs Rust if needed, clones the repository into `~/incr` when run outside an existing checkout, installs Python dependencies, and builds `target/release/incr`.
+
+Alternatively, we provide a Docker image to allow running Incr on other OS:
 
 ```sh
 docker build -t incr .
-docker run -it --rm -v $(pwd):/app --privileged incr
+docker run -it --rm --privileged incr
 ```
 
-**Minimal example (war-and-peace):** A word-frequency pipeline over a large text. `without_incr.sh` runs it under plain Bash; `with_incr.sh` wraps each command with `incr`.
+To run a "hello world" example:
 
 ```sh
-bash ./evaluation/war-and-peace/without_incr.sh > baseline.txt
-bash ./evaluation/war-and-peace/with_incr.sh > incr.txt
-diff -u baseline.txt incr.txt
+bash ./incr.sh ./evaluation/hello-world.sh
 ```
 
-What to expect:
+**Minimal incrementalization example (war-and-peace):** A word-frequency pipeline over a large text.
 
-1. Both scripts produce the same sorted word-frequency list, so `diff` prints nothing. Both also print elapsed time to stderr.
-2. On the first run, `with_incr.sh` prints "No cache found" to stderr. This is the cold run: Incr traces each command, records file dependencies, and saves stdout to `./cache/`. The cold run is slower than plain Bash due to tracing overhead.
-3. Run `with_incr.sh` again. It prints "Cache found" and finishes faster, since Incr detects that inputs are unchanged and replays cached stdout instead of re-executing each pipeline stage.
+```sh
+bash ./evaluation/war-and-peace/test.sh
+```
 
-Clean up with `bash ./evaluation/war-and-peace/clean.sh`.
+The script first runs the baseline pipeline using `bash`, then executes Incr twice. 
+The first Incr run is a cold run. 
+The second Incr run reuses cached results and finishes faster.
+Reviewers should expect to see all outputs from Incr runs match the baseline.
 
-**Invoking incr directly:** You can also wrap a single command. For example:
+To clean up the caches:
+```bash
+bash ./evaluation/war-and-peace/clean.sh
+```
+
+<!-- **Invoking incr directly:** You can also wrap a single command. For example:
 
 ```sh
 ./target/release/incr \
@@ -104,7 +114,7 @@ Clean up with `bash ./evaluation/war-and-peace/clean.sh`.
   sort ./evaluation/war-and-peace/book-large.txt | md5sum
 ```
 
-Without incr, `sort` on this file takes about a second. The output should be `9ef554d5bf475ce2820592f7f9a10e42`. Incr populates `test_cache/` on the first run. Running it again replays the cached result and completes near-instantly.
+Without incr, `sort` on this file takes about a second. The output should be `9ef554d5bf475ce2820592f7f9a10e42`. Incr populates `test_cache/` on the first run. Running it again replays the cached result and completes near-instantly. -->
 
 <a name="results-reproducible"></a>
 # Results Reproducible (~x mins)
