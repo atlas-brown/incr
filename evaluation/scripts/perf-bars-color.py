@@ -99,27 +99,7 @@ def load_series(csv_path: Path):
     return bash_times[:min_len], incr_times[:min_len]
 
 
-def main():
-    script_dir = Path(__file__).resolve().parent
-    repo_root = script_dir.parent.parent
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--results-dir",
-        default=str(repo_root / "evaluation" / "run_results" / "min"),
-        help="Directory containing <benchmark>-time.csv files.",
-    )
-    parser.add_argument(
-        "--output",
-        default=str(repo_root / "evaluation" / "figs" / "perf-bars-color.pdf"),
-        help="Output PDF path.",
-    )
-    args = parser.parse_args()
-
-    results_dir = Path(args.results_dir).resolve()
-    output_path = Path(args.output).resolve()
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-
+def plot_results(results_dir: Path, output_path: Path):
     fig, axes = plt.subplots(2, 7, figsize=(14, 3))
     axes = axes.flatten()
 
@@ -255,7 +235,45 @@ def main():
 
     fig.tight_layout(rect=[0, 0.05, 1, 0.96])
     fig.savefig(output_path, bbox_inches="tight", dpi=300)
+    plt.close(fig)
     print(f"Saved {output_path}")
+
+
+def main():
+    script_dir = Path(__file__).resolve().parent
+    repo_root = script_dir.parent.parent
+    run_results_root = repo_root / "evaluation" / "run_results"
+    figs_dir = repo_root / "evaluation" / "figs"
+    figs_dir.mkdir(parents=True, exist_ok=True)
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--results-root",
+        default=str(run_results_root),
+        help="Root directory containing size subdirectories such as min or small.",
+    )
+    parser.add_argument(
+        "--output-dir",
+        default=str(figs_dir),
+        help="Directory where output PDFs will be written.",
+    )
+    args = parser.parse_args()
+
+    results_root = Path(args.results_root).resolve()
+    output_dir = Path(args.output_dir).resolve()
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    size_dirs = sorted(
+        path for path in results_root.iterdir()
+        if path.is_dir() and any(path.glob("*-time.csv"))
+    )
+    if not size_dirs:
+        raise SystemExit(f"No result directories with *-time.csv found under {results_root}")
+
+    script_stem = Path(__file__).stem
+    for results_dir in size_dirs:
+        output_path = output_dir / f"{script_stem}.{results_dir.name}.pdf"
+        plot_results(results_dir, output_path)
 
 
 if __name__ == "__main__":

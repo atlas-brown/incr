@@ -145,8 +145,8 @@ The default quick path is `easy + min`, which runs the 12 easier benchmarks with
 To run the easier suite with tiny inputs and collect both Bash and Incr timings:
 
 ```sh
-cd evaluation/benchmarks
-bash ./run_all.sh --mode=easy --size=min --run-mode=both
+cd evaluation
+bash ./benchmarks/run_all.sh --mode=easy --size=min --run-mode=both
 ```
 
 This command will:
@@ -174,6 +174,19 @@ To print a human-readable timing summary:
 cd evaluation/benchmarks
 python3 ./show_results.py --size min
 ```
+
+To plot the results:
+
+```sh
+cd evaluation
+python3 ./scripts/perf-bars-color.py
+```
+
+This script automatically scans `evaluation/run_results`, plots each available size (for example, `min` or `small`), and writes size-specific PDFs under `evaluation/figs`.
+
+An example plot showing the subset of results using minimal inputs:
+
+![Example performance plot](evaluation/figs/perf-bars-color.min.png)
 
 ### Closer-to-paper path (~2--4 hours, machine dependent)
 
