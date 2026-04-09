@@ -34,7 +34,7 @@ fi
 
 script=$1
 shift
-cache_dir=/tmp/incr_cache
+cache_dir=${1:-/tmp/incr_cache}
 
 [ -z "$script" ] && echo "Usage: $0 <script>" && exit 1
 
