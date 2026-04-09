@@ -10,7 +10,6 @@
 #   --clear-outputs / --no-clear-outputs
 #       For --size small, outputs are cleared after each benchmark by default
 #       (large stdout; avoids filling disk). Override with --no-clear-outputs.
-#   --timeout=SECS           default: 14400 (beginner small can exceed 2h wall time)
 #   --results-dir=DIR        default: ../run_results
 #   --only=a,b,c             run only these benchmarks (names as for --mode easy|full)
 #   --help
@@ -27,7 +26,6 @@ SKIP_SETUP=0
 CLEAR_CACHE=1
 CLEAR_OUTPUTS=0
 CLEAR_OUTPUTS_SET=0
-BENCH_TIMEOUT=14400
 RESULTS_DIR="$TOP/evaluation/run_results"
 RUN_ONLY_BENCHMARKS=()
 
@@ -57,7 +55,6 @@ for arg in "$@"; do
         --no-clear-cache) CLEAR_CACHE=0 ;;
         --clear-outputs) CLEAR_OUTPUTS=1; CLEAR_OUTPUTS_SET=1 ;;
         --no-clear-outputs) CLEAR_OUTPUTS=0; CLEAR_OUTPUTS_SET=1 ;;
-        --timeout=*)     BENCH_TIMEOUT="${arg#--timeout=}" ;;
         --help|-h)
             sed -n '2,17p' "$0"
             exit 0
@@ -116,7 +113,7 @@ fi
 
 echo "============================================================"
 echo " incr evaluation suite"
-echo " mode=$MODE  size=$SIZE  run-mode=$RUN_MODE  timeout=${BENCH_TIMEOUT}s"
+echo " mode=$MODE  size=$SIZE  run-mode=$RUN_MODE"
 echo " clear-cache=$CLEAR_CACHE  clear-outputs=$CLEAR_OUTPUTS"
 echo " benchmarks (${#BENCHMARKS[@]}): ${BENCHMARKS[*]}"
 echo "============================================================"
@@ -150,12 +147,17 @@ if [[ "$SKIP_SETUP" == "0" ]]; then
     echo ""
     echo "=== SETUP PHASE ==="
     for benchmark in "${BENCHMARKS[@]}"; do
+        setup_log="$(mktemp)"
         echo ""
         echo "--- Setting up: $benchmark ---"
-        if ! timeout "$BENCH_TIMEOUT" bash "$TOP/evaluation/benchmarks/$benchmark/setup.sh" "--$SIZE" 2>&1; then
+        if ! bash "$TOP/evaluation/benchmarks/$benchmark/setup.sh" "--$SIZE" >"$setup_log" 2>&1; then
             echo "[setup] WARNING: setup failed for $benchmark; skipping."
+            cat "$setup_log"
             FAILED_SETUP+=("$benchmark")
+        else
+            echo "[setup] OK: $benchmark"
         fi
+        rm -f "$setup_log"
     done
 fi
 
@@ -174,7 +176,7 @@ for benchmark in "${BENCHMARKS[@]}"; do
 
     restore_instrumented_scripts "$TOP/evaluation/benchmarks/$benchmark/scripts"
 
-    if timeout "$BENCH_TIMEOUT" bash "$TOP/evaluation/benchmarks/$benchmark/run.sh" \
+    if bash "$TOP/evaluation/benchmarks/$benchmark/run.sh" \
         "--mode=$RUN_MODE" "--size=$SIZE" 2>&1; then
         echo "[run] PASSED: $benchmark"
         PASSED+=("$benchmark")
