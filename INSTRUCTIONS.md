@@ -78,6 +78,8 @@ This bootstrap script installs the required Ubuntu packages (`git`, `mergerfs`, 
 Alternatively, we provide a Docker image for running Incr on other operating systems:
 
 ```sh
+git clone https://github.com/atlas-brown/incr
+cd incr
 docker build -t incr .
 docker run -it --rm --privileged incr
 ```
