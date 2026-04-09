@@ -8,12 +8,14 @@ The paper makes the following claims that are relevant to artifact evaluation on
 
 This artifact targets the following badge (mirroring [the OSDI26 artifact "evaluation process"](https://www.usenix.org/conference/osdi26/call-for-artifacts)):  
 
-* [x] [Artifact available](#artifact-available): Reviewers are expected to confirm public availability of core components (~5mins) 
+- [ ] [Artifact available](#artifact-available): Reviewers are expected to confirm public availability of core components (~5mins) 
 
 <!-- Additionally, we provide complete instructions to confirm that
 * Incr is [functional](#artifact-functional): functional executables verified via a miniam "Hello world" example (~10mins).
 * Results presented in the papers are [reproducible](#results-reproducible): Incr's efficient incrementalization of diverse shell programs, demonstrated by its performance compared to Bash (Fig.4, ~x hours).  -->
 
+
+<a id="artifact-available"></a>
 # Artifact Available (~5mins)
 Confirm that the paper, code, and automation scripts are all publicly available:
 
