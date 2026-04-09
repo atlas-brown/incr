@@ -20,7 +20,7 @@ This artifact targets the following badge (mirroring [the OSDI26 artifact "evalu
 Confirm that the paper, code, and automation scripts are all publicly available:
 
 1. The artifact code is hosted on [GitHub](https://github.com/atlas-brown/incr).
-2. The artifact is archived in [Zenodo's permanent archive](xxx).
+2. The artifact is archived in [Zenodo's permanent archive](https://zenodo.org/records/19488791).
 
 The current repository includes:
 
@@ -140,7 +140,7 @@ The benchmark harness lives under [evaluation/benchmarks](./evaluation/benchmark
 
 The default quick path is `easy + min`, which runs the 12 easier benchmarks with tiny inputs. The closer-to-paper path is `full + small`, which includes the two more complex benchmarks (`dpt` and `image-annotation`) and uses larger inputs.
 
-### Quick reviewer path (~30--90 mins)
+### Quick reviewer path (~10 mins)
 
 To run the easier suite with tiny inputs and collect both Bash and Incr timings:
 
@@ -186,7 +186,7 @@ This script automatically scans `evaluation/run_results`, plots each available s
 
 An example plot showing the subset of results using minimal inputs:
 
-![Example performance plot](evaluation/figs/perf-bars-color.min.png)
+![Example performance plot](evaluation/figs/perf-bars-color.min.pdf)
 
 ### Closer-to-paper path (~2--4 hours, machine dependent)
 
