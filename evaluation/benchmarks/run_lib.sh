@@ -78,15 +78,37 @@ restore_instrumented_scripts() {
 }
 
 cleanup_overlay_mounts() {
-    local stale
-    stale=$(mount 2>/dev/null | grep "type overlay" | grep "/tmp\." | awk '{print $3}' || true)
-    if [[ -n "$stale" ]]; then
-        echo "$stale" | while IFS= read -r mnt; do
+    local mounts=()
+    local mnt
+
+    if command -v findmnt >/dev/null 2>&1; then
+        while IFS= read -r mnt; do
             [[ -z "$mnt" ]] && continue
-            echo "[cleanup] Unmounting stale overlay: $mnt"
-            sudo umount "$mnt" 2>/dev/null && echo "[cleanup] OK" || true
-        done
+            case "$mnt" in
+                /tmp/*.try-*|"$TOP"/evaluation/benchmarks/*/cache/sandbox_*|"$TOP"/evaluation/benchmarks/*/cache/sandbox_*/temproot/*)
+                    mounts+=("$mnt")
+                    ;;
+            esac
+        done < <(findmnt -rn -o TARGET 2>/dev/null)
+    else
+        while IFS= read -r mnt; do
+            [[ -z "$mnt" ]] && continue
+            case "$mnt" in
+                /tmp/*.try-*|"$TOP"/evaluation/benchmarks/*/cache/sandbox_*|"$TOP"/evaluation/benchmarks/*/cache/sandbox_*/temproot/*)
+                    mounts+=("$mnt")
+                    ;;
+            esac
+        done < <(mount 2>/dev/null | awk '{print $3}')
     fi
+
+    if [[ ${#mounts[@]} -eq 0 ]]; then
+        return
+    fi
+
+    printf '%s\n' "${mounts[@]}" | awk '{ print length, $0 }' | sort -rn | cut -d' ' -f2- | while IFS= read -r mnt; do
+        [[ -z "$mnt" ]] && continue
+        sudo umount "$mnt" 2>/dev/null || sudo umount -l "$mnt" 2>/dev/null || true
+    done
 }
 
 # Best-effort /tmp cleanup (incr try/sort temp files).
