@@ -10,21 +10,20 @@ This artifact targets the following badges (mirroring [the OSDI26 artifact "eval
 
 * [x] [Artifact available](#artifact-available): Reviewers are expected to confirm public availability of core components (~5mins) 
 
-Additionally, we provide complete instructions to confirm that
+<!-- Additionally, we provide complete instructions to confirm that
 * Incr is [functional](#artifact-functional): functional executables verified via a miniam "Hello world" example (~10mins).
-* Results presented in the papers are [reproducible](#results-reproducible): Incr's efficient incrementalization of diverse shell programs, demonstrated by its performance compared to Bash (Fig.4, ~x hours).
+* Results presented in the papers are [reproducible](#results-reproducible): Incr's efficient incrementalization of diverse shell programs, demonstrated by its performance compared to Bash (Fig.4, ~x hours).  -->
 
-**To "kick the tires" for this artifact:** (1) skim this file to understand the artifact structure (2 minutes), and (2) jump straight to the [exercisability](#exercisability) section to build Incr and run a minimal pipeline (5--10 minutes).
+> [!IMPORTANT]
+> AEC Reviewers: **All following steps are optional.**
 
 # Artifact Available (~5mins)
-Confirm Incr is publicly available and that the repository already contains the main implementation and evaluation scaffolding. The final camera-ready artifact should point reviewers to:
+Confirm that the paper, code, and automation scripts are all publicly available:
 
-1. **Primary repository:** `XXX`
-2. **Archival DOI / Zenodo record:** `XXX`
-3. **Paper PDF used by the AEC:** `XXX`
-4. **External benchmark/data sources:** `XXX`
+1. The artifact code is hosted on [Github](https://github.com/atlas-brown/incr)
+2. The artifact is hosted in [Zenodo's permanent archive](xxx)
 
-The current repository already includes:
+<!-- The current repository already includes:
 
 1. the Incr implementation under [src](./src),
 2. the top-level project overview in [README.md](./README.md),
@@ -33,9 +32,9 @@ The current repository already includes:
 5. the Bash behavioral-equivalence harness under [evaluation/bash-ts](./evaluation/bash-ts), and
 6. bundled examples such as [evaluation/war-and-peace](./evaluation/war-and-peace).
 
-Confirm sufficient documentation, key components as described in the paper, and the system's exercisability.
+Confirm sufficient documentation, key components as described in the paper, and the system's exercisability. -->
 
-**Documentation:** The repository already contains the core implementation and the main evaluation entry points:
+**Documentation:** The repository contains the core implementation and the main evaluation entry points:
 
 * [src/main.rs](./src/main.rs): CLI entrypoint that selects an execution strategy for each command.
 * [src/command.rs](./src/command.rs): represents a command invocation and handles spawning child processes.
