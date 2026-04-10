@@ -182,11 +182,11 @@ cd evaluation
 python3 ./scripts/perf-bars-color.py
 ```
 
-This script automatically scans `evaluation/run_results`, plots each available size (for example, `min` or `small`), and writes size-specific PDFs under `evaluation/figs`.
+This script automatically scans `evaluation/run_results`, plots each available size (for example, `min` or `small`), and writes size-specific PNGs under `evaluation/figs`.
 
 An example plot showing the subset of results using minimal inputs:
 
-![Example performance plot](evaluation/figs/perf-bars-color-min.pdf)
+![Example performance plot](evaluation/figs/perf-bars-color-min.png)
 
 ### Closer-to-paper path (~2--4 hours, machine dependent)
 

@@ -272,7 +272,7 @@ def main():
 
     script_stem = Path(__file__).stem
     for results_dir in size_dirs:
-        output_path = output_dir / f"{script_stem}-{results_dir.name}.pdf"
+        output_path = output_dir / f"{script_stem}-{results_dir.name}.png"
         plot_results(results_dir, output_path)
 
 
