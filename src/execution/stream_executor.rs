@@ -220,8 +220,7 @@ fn save_command_data(
     let (read_set, mut write_set) = execution::parse_trace(runtime)?;
     let mut read_dependencies = dependency::get_read_dependencies(&read_set, &write_set)?;
     if let RuntimeType::Sandbox(directory) = &runtime.typ {
-        fs::rename(directory, cache.get_sandbox_directory())?;
-        cache.extract_sandbox_output()?;
+        cache.extract_sandbox_output_from(directory)?;
         if !write_set.is_empty() {
             cache.commit_output()?;
         }

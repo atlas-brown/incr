@@ -102,15 +102,28 @@ impl<'c> CacheCursor<'c> {
     /// and removes the remaining sandbox files.
     pub(crate) fn extract_sandbox_output(&self) -> Result<()> {
         let sandbox_directory = self.directory.join(SANDBOX_DIRECTORY);
+        self.extract_sandbox_output_from(&sandbox_directory)
+    }
+
+    /// Materializes sandbox outputs from an arbitrary runtime sandbox into this cache entry.
+    /// This is used by the streaming executor because its temporary sandbox may be a mounted
+    /// tmpfs inside Docker and therefore cannot be renamed into the cache directory.
+    pub(crate) fn extract_sandbox_output_from(&self, sandbox_directory: &Path) -> Result<()> {
         let output_directory = self.directory.join(OUTPUT_DIRECTORY);
+        let ignore_source = sandbox_directory.join("ignore");
+        let ignore_destination = output_directory.join("ignore");
 
         fs::create_dir_all(&output_directory)?;
-        fs::rename(
-            sandbox_directory.join("upperdir"),
-            output_directory.join("upperdir"),
+        move_or_copy_path(
+            &sandbox_directory.join("upperdir"),
+            &output_directory.join("upperdir"),
         )?;
-        fs::rename(sandbox_directory.join("ignore"), output_directory.join("ignore"))?;
-        remove_sandbox(&sandbox_directory)?;
+        if ignore_source.exists() {
+            move_or_copy_path(&ignore_source, &ignore_destination)?;
+        } else {
+            fs::write(&ignore_destination, b"")?;
+        }
+        let _ = remove_sandbox(&sandbox_directory);
 
         Ok(())
     }
@@ -120,7 +133,7 @@ impl<'c> CacheCursor<'c> {
         let output_directory = self.directory.join(OUTPUT_DIRECTORY);
         let commit_directory = self.directory.join(COMMIT_DIRECTORY);
 
-        ShellCommand::new("cp")
+        let copy_status = ShellCommand::new("cp")
             .args([
                 "-rp",
                 ops::file::path_to_string(&output_directory)?,
@@ -131,6 +144,13 @@ impl<'c> CacheCursor<'c> {
             .stderr(Stdio::null())
             .spawn()?
             .wait()?;
+        if !copy_status.success() {
+            return Err(anyhow::anyhow!(
+                "copy failed: {} -> {}",
+                output_directory.display(),
+                commit_directory.display()
+            ));
+        }
         ShellCommand::new(&self.try_command)
             .args(["commit", ops::file::path_to_string(&commit_directory)?])
             .stdin(Stdio::null())
@@ -186,15 +206,97 @@ pub(crate) fn remove_sandbox(sandbox_directory: &Path) -> Result<()> {
         if !sandbox_directory.exists() {
             return Ok(());
         }
-        ShellCommand::new("sudo")
+        unmount_sandbox_if_needed(sandbox_directory)?;
+        let status = ShellCommand::new("sudo")
             .args(["rm", "-rf", ops::file::path_to_string(sandbox_directory)?])
             .stdin(Stdio::null())
             .stdout(Stdio::null())
             .stderr(Stdio::null())
             .spawn()?
             .wait()?;
+        if !status.success() {
+            return Err(anyhow::anyhow!("failed removing sandbox: {}", sandbox_directory.display()));
+        }
     } else {
         ops::file::remove_directory(sandbox_directory)?;
     }
     Ok(())
+}
+
+fn unmount_sandbox_if_needed(sandbox_directory: &Path) -> Result<()> {
+    let sandbox = ops::file::path_to_string(sandbox_directory)?;
+    let findmnt_status = ShellCommand::new("findmnt")
+        .args(["-n", sandbox])
+        .stdin(Stdio::null())
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .spawn()?
+        .wait()?;
+
+    if !findmnt_status.success() {
+        return Ok(());
+    }
+
+    let status = ShellCommand::new("sudo")
+        .args(["umount", "-l", sandbox])
+        .stdin(Stdio::null())
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .spawn()?
+        .wait()?;
+    if status.success() {
+        Ok(())
+    } else {
+        Err(anyhow::anyhow!("failed unmounting sandbox: {}", sandbox_directory.display()))
+    }
+}
+
+fn move_or_copy_path(source: &Path, destination: &Path) -> Result<()> {
+    if destination.is_dir() {
+        fs::remove_dir_all(destination)?;
+    } else if destination.exists() {
+        fs::remove_file(destination)?;
+    }
+
+    match fs::rename(source, destination) {
+        Ok(()) => Ok(()),
+        Err(error) if matches!(error.raw_os_error(), Some(16 | 18)) => {
+            copy_path(source, destination)?;
+            if source.is_dir() {
+                fs::remove_dir_all(source)?;
+            } else if source.exists() {
+                fs::remove_file(source)?;
+            }
+            Ok(())
+        }
+        Err(error) => Err(error.into()),
+    }
+}
+
+fn copy_path(source: &Path, destination: &Path) -> Result<()> {
+    if source.is_file() {
+        fs::copy(source, destination)?;
+        return Ok(());
+    }
+
+    let status = ShellCommand::new("cp")
+        .args([
+            "-a",
+            ops::file::path_to_string(source)?,
+            ops::file::path_to_string(destination)?,
+        ])
+        .stdin(Stdio::null())
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .spawn()?
+        .wait()?;
+    if status.success() {
+        Ok(())
+    } else {
+        Err(anyhow::anyhow!(
+            "copy failed: {} -> {}",
+            source.display(),
+            destination.display()
+        ))
+    }
 }
