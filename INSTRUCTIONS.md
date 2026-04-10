@@ -156,18 +156,6 @@ This command will:
 3. write timing CSVs and cache-size summaries under `evaluation/run_results/min`, and
 4. best-effort clean temporary `/tmp` artifacts and stale overlay mounts between benchmarks.
 
-To verify that Bash and Incr produced matching outputs for the executed benchmarks:
-
-```sh
-cd evaluation/benchmarks
-bash ./verify_outputs.sh --mode=easy --size=min
-```
-
-Expected outcome:
-
-* the script should end with `OK: all outputs match`
-* any failures usually indicate missing inputs, disk pressure, or a benchmark-specific setup issue.
-
 To print a human-readable timing summary:
 
 ```sh
@@ -186,9 +174,9 @@ This script automatically scans `evaluation/run_results`, plots each available s
 
 An example plot showing the subset of results using minimal inputs:
 
-![Example performance plot](evaluation/figs/perf-bars-color-min.png)
+![Example performance plot](evaluation/figs/perf-bars-color-min.jpg)
 
-### Closer-to-paper path (~2--4 hours, machine dependent)
+### Closer-to-paper path (~3.5 hours, machine dependent)
 
 To run all 14 benchmarks with the larger `small` inputs:
 
@@ -199,13 +187,6 @@ bash ./run_all.sh --mode=full --size=small --run-mode=both
 
 This path most closely matches the paper's re-execution-performance evaluation, subject to machine differences. Runtime varies substantially by machine; the paper measurements were collected on a CloudLab `m510` machine.
 
-To verify outputs on the full suite:
-
-```sh
-cd evaluation/benchmarks
-bash ./verify_outputs.sh --mode=full --size=small
-```
-
 To inspect the aggregated results:
 
 ```sh
@@ -213,14 +194,9 @@ cd evaluation/benchmarks
 python3 ./show_results.py --size small
 ```
 
-If you want to compare your timings to the checked-in baseline data in `evaluation/default_results/default_3`, run:
+An example plot showing the subset of results using small inputs:
 
-```sh
-cd evaluation/benchmarks
-python3 ./compare_to_baseline.py --current ../run_results/small
-```
-
-This comparison is only a sanity check. Ratios near `1.0` mean the current machine is behaving similarly to the machine used for the baseline results; larger deviations are expected on weaker or stronger hardware.
+![Example performance plot](evaluation/figs/perf-bars-color-small.jpg)
 
 ### Notes on benchmark names
 
