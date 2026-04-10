@@ -18,8 +18,6 @@ from matplotlib.path import Path as MplPath
 
 from delta_classification import BENCHMARKS, BENCHMARKS_TO_NAMES, DELTAS
 
-
-
 plt.rcParams["ps.fonttype"] = 42
 plt.rcParams['font.family'] = 'serif'
 plt.rcParams['font.serif'] = ['DejaVu Serif']  # default available
@@ -269,7 +267,7 @@ def main():
 
     script_stem = Path(__file__).stem
     for results_dir in size_dirs:
-        output_path = output_dir / f"{script_stem}-{results_dir.name}.jpg"
+        output_path = output_dir / f"{script_stem}-{results_dir.name}.png"
         plot_results(results_dir, output_path)
 
 
