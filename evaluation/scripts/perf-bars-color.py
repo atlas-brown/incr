@@ -19,13 +19,10 @@ from matplotlib.path import Path as MplPath
 from delta_classification import BENCHMARKS, BENCHMARKS_TO_NAMES, DELTAS
 
 
-plt.rcParams["font.family"] = "Times New Roman"
-plt.rcParams["mathtext.fontset"] = "custom"
-plt.rcParams["mathtext.rm"] = "Times New Roman"
-plt.rcParams["mathtext.it"] = "Times New Roman:italic"
-plt.rcParams["mathtext.bf"] = "Times New Roman:bold"
-plt.rcParams["pdf.fonttype"] = 42
+
 plt.rcParams["ps.fonttype"] = 42
+plt.rcParams['font.family'] = 'serif'
+plt.rcParams['font.serif'] = ['DejaVu Serif']  # default available
 
 CHANGE_TYPE_COLORS = {
     "add": "#a1e2a1",
