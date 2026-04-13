@@ -200,7 +200,7 @@ An example plot showing the subset of results using small inputs:
 
 ### Full evaluation path (~3.5 hours, machine dependent)
 
-Running the full evaluation requires setting up the `dpt` and `image-annotation` benchmarks. For `dpt`, the run script automatically installs Meta's Segment Anything Model along with its Python dependencies. For `image-annotation`, an OpenAI API key is required and can be configured using `llm keys set openai`.
+Running the full evaluation requires setting up the `dpt` and `image-annotation` benchmarks. For `dpt`, the run script automatically installs Meta's Segment Anything Model along with its Python dependencies. For `image-annotation`, an OpenAI API key is required and can be configured using `llm keys set openai`. An API key can be provided to reviewers upon request.
 
 To run all 14 benchmarks with the larger `small` inputs:
 
