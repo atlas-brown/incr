@@ -3,8 +3,9 @@
 incr_shell=${INCR_SHELL:-bash}
 args=""
 flags=""
+parser_flags=""
 
-while getopts "c:o:ueti" opt; do
+while getopts "c:o:uetib" opt; do
     case "$opt" in
         c) cmd_str="$OPTARG" ;;
         o) args="$args -o $OPTARG" ;;
@@ -12,7 +13,8 @@ while getopts "c:o:ueti" opt; do
 	e) flags="$flags -e" ;;
 	t) flags="$flags -t" ;;
 	i) flags="$flags -i" ;;
-        *) echo "Usage: $0 [-c 'cmd'] <script>" >&2; exit 1 ;;
+	b) parser_flags="$parser_flags --bash" ;;
+	        *) echo "Usage: $0 [-b] [-c 'cmd'] <script>" >&2; exit 1 ;;
     esac
 done
 shift $((OPTIND - 1))
@@ -36,7 +38,7 @@ script=$1
 shift
 cache_dir=${1:-/tmp/incr_cache}
 
-[ -z "$script" ] && echo "Usage: $0 <script>" && exit 1
+[ -z "$script" ] && echo "Usage: $0 [-b] <script>" && exit 1
 
 mkdir -p "$cache_dir"
 
@@ -65,7 +67,7 @@ cleanup() {
 }
 trap cleanup EXIT INT TERM
 
-python3 ${TOP}/src/scripts/insert.py --sys-path ${TOP}/target/release/incr --try $TRY_PATH --cache "$cache_dir" "$script" > "$tmp_incr"
+python3 ${TOP}/src/scripts/insert.py $parser_flags --sys-path ${TOP}/target/release/incr --try $TRY_PATH --cache "$cache_dir" "$script" > "$tmp_incr"
 
 # sentinel IS the backup; after this point any kill is recoverable
 cp "$script" "$sentinel"

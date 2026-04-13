@@ -2,7 +2,7 @@
 
 cd "$(dirname "$0")" || exit 1
 
-[ ! -d bash ] && git clone https://github.com/bminor/bash && git -C bash checkout c5c97b3
+[ ! -d bash ] && git clone https://git.savannah.gnu.org/git/bash.git && git -C bash checkout c5c97b3
 ( cd bash && CC=cc ./configure)
 make -C bash -j4
 make -C bash recho zecho printenv xcase -j4
@@ -22,7 +22,7 @@ cd tests || exit 1
 
 run_test() {
   test="$1"
-  target_test="run-$test"
+  target_test="$test"
   [ -z "$target_test" ] && exit 1
   
   # First, run tests with bash
@@ -32,7 +32,7 @@ run_test() {
   
   # Then, run tests with incr
   export THIS_SH=$top/incr.sh
-  $THIS_SH $target_test > ../results.incr
+  $THIS_SH -b $target_test > ../results.incr
   cp ../results.incr "$results_dir"/$test.results.incr
 }
 
