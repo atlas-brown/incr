@@ -89,13 +89,19 @@ It checks that both Incr outputs match the baseline. Clean up with `bash ./evalu
 
 ## Benchmarks
 
-Each benchmark under `evaluation/benchmarks/` has its own setup and execution scripts. The main suite driver is `run_all.sh`:
+Each benchmark under `evaluation/benchmarks/` has its own setup and execution scripts. The main suite driver is `run_all.sh`. To run the benchmarks with minimum inputs to verify that their dependencies are installed correctly:
 
 ```sh
 cd evaluation/benchmarks && ./run_all.sh --mode=easy --size=min --run-mode=both
 ```
 
-Results are written under `evaluation/run_results/`. Use `python3 ./show_results.py --size min` to print a summary, and `bash ./verify_outputs.sh --mode=easy --size=min` to check Bash/Incr output agreement.
+To run the benchmarks with full-sized inputs:
+
+```sh
+cd evaluation/benchmarks && ./run_all.sh --mode=easy --size=small --run-mode=both
+```
+
+Results are written under `evaluation/run_results/`. For a specific input size, use `python3 ./show_results.py --size=[SIZE]` to print a summary and `bash ./verify_outputs.sh --mode=easy --size=[SIZE]` to check Bash/Incr output agreement.
 
 See [INSTRUCTIONS.md](./INSTRUCTIONS.md) for full benchmark setup and the behavioral-equivalence harness.
 
