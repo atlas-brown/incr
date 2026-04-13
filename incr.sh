@@ -36,7 +36,15 @@ fi
 
 script=$1
 shift
-cache_dir=${1:-/tmp/incr_cache}
+
+if [ -n "${INCR_CACHE_DIR:-}" ]; then
+    cache_dir=$INCR_CACHE_DIR
+elif [ $# -gt 0 ]; then
+    cache_dir=$1
+    shift
+else
+    cache_dir=/tmp/incr_cache
+fi
 
 [ -z "$script" ] && echo "Usage: $0 [-b] <script>" && exit 1
 

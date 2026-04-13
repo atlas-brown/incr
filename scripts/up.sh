@@ -12,7 +12,7 @@ install_system_deps() {
     export DEBIAN_FRONTEND=noninteractive
     sudo apt update
     sudo apt upgrade -y
-    sudo apt install -y git mergerfs strace python3-pip curl ca-certificates build-essential pkg-config libssl-dev
+    sudo apt install -y git mergerfs strace python3-pip curl ca-certificates build-essential pkg-config libssl-dev libtool
 }
 
 install_rust() {
@@ -25,7 +25,7 @@ install_rust() {
 
 load_rust_env() {
     if [ -f "$HOME/.cargo/env" ]; then
-        # shellcheck disable=SC1090
+        # shellcheck disable=SC1091
         . "$HOME/.cargo/env"
     fi
 }

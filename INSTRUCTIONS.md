@@ -75,7 +75,9 @@ curl -fsSL https://raw.githubusercontent.com/atlas-brown/incr/main/scripts/up.sh
 cd incr
 ```
 
-This bootstrap script installs the required Ubuntu packages (`git`, `mergerfs`, `strace`, `python3-pip`, `curl`, `ca-certificates`, `build-essential`, `pkg-config`, and `libssl-dev`), installs Rust via `rustup` if needed, clones the repository into `~/incr` when run outside an existing checkout, installs Python dependencies, and builds `target/release/incr`.
+This bootstrap script installs the required Ubuntu packages (`git`, `mergerfs`, `strace`, `python3-pip`, `curl`, `ca-certificates`, `build-essential`, `pkg-config`, `libssl-dev`, and `libtool`), installs Rust via `rustup` if needed, clones the repository into `~/incr` when run outside an existing checkout, installs Python dependencies, and builds `target/release/incr`.
+
+These setup steps are intended for Ubuntu 22.04 specifically. Newer Ubuntu releases may need extra adjustments because of newer Python packaging and compiler behavior.
 
 Alternatively, we provide a Docker image for running Incr on other operating systems:
 
@@ -242,7 +244,7 @@ By default, `run.sh` executes a curated subset of tests that covers the main kno
 1. clones the Bash source tree if needed,
 2. builds Bash and helper binaries,
 3. runs each selected test once under Bash,
-4. runs the same test under Incr, and
+4. runs the same test under Incr using that same built Bash via `INCR_SHELL`, with nested `${THIS_SH}` calls routed through a wrapper that always enables the Bash parser, and
 5. writes paired outputs to `evaluation/bash-ts/results`.
 
 ### Default subset (~10--30 mins)
@@ -256,6 +258,13 @@ This creates files of the form:
 
 * `results/<test>.results.bash`
 * `results/<test>.results.incr`
+
+If you want to suppress known non-semantic diff noise such as line-number drift, shell-wrapper names, or injected `incr` prefixes in pretty-printed functions, use:
+
+```sh
+cd evaluation/bash-ts
+python3 ./filter_diff_noise.py results/run-type.results.incr
+```
 
 To inspect whether any paired outputs differ:
 

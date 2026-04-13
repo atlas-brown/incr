@@ -14,9 +14,11 @@ cd ~/incr
 The bootstrap script installs:
 
 * Rust via `rustup` if needed
-* Ubuntu packages: `git`, `mergerfs`, `strace`, `python3-pip`, `curl`, `ca-certificates`, `build-essential`, `pkg-config`, and `libssl-dev`
+* Ubuntu packages: `git`, `mergerfs`, `strace`, `python3-pip`, `curl`, `ca-certificates`, `build-essential`, `pkg-config`, `libssl-dev`, and `libtool`
 * Python dependencies from `requirements.txt`
 * the release binary via `cargo build --release`
+
+Ubuntu 22.04 is the supported environment for these setup steps. Newer Ubuntu releases may require extra adjustments due to newer Python packaging and toolchain behavior.
 
 If you prefer to install manually on Ubuntu 22.04:
 
@@ -26,7 +28,7 @@ sudo apt update && sudo apt upgrade -y
 ```
 2. Install system dependencies:
 ```sh
-sudo apt install -y git mergerfs strace python3-pip curl ca-certificates build-essential pkg-config libssl-dev
+sudo apt install -y git mergerfs strace python3-pip curl ca-certificates build-essential pkg-config libssl-dev libtool
 ```
 3. Install Rust via `rustup`:
 ```sh

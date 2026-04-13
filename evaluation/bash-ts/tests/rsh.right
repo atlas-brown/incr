@@ -8,7 +8,7 @@
 ./rsh.tests: line 26: PATH: readonly variable
 ./rsh.tests: line 27: SHELL: readonly variable
 ./rsh.tests: line 28: /bin/sh: restricted: cannot specify `/' in command names
-./rsh.tests: line 30: .: ./source.sub3: restricted
+./rsh.tests: line 30: .: ./source3.sub: restricted
 ./rsh.tests: line 33: /tmp/restricted: restricted: cannot redirect output
 ./rsh.tests: line 37: /tmp/restricted: restricted: cannot redirect output
 ./rsh.tests: line 42: command: -p: restricted

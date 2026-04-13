@@ -112,6 +112,14 @@ IGNORE_COMMANDS = [
     r"/bin/sh",
 ]
 AVOID_SET = set(IGNORE_COMMANDS)
+UNSAFE_STARRED_POSITIONAL_PATTERNS = (
+    b"$@",
+    b"$*",
+    b"${@",
+    b"${*",
+)
+BASH_CTLESC = "\x01"
+BASH_CTLNUL = "\x7f"
 
 # Monkey patch
 # TODO: Fix this in libdash
@@ -221,6 +229,9 @@ def transform_ast(ast, sys_path):
     return [transform_node(node, sys_path) for node, _, _, _ in ast]
 
 def transform_bash_node(node, sys_path, state):
+    def contains_starred_positional_expansion(word: bytes) -> bool:
+        return any(pattern in word for pattern in UNSAFE_STARRED_POSITIONAL_PATTERNS)
+
     def handle_command_node(node: BashAST.Command, sys_path):
         match node.type:
             case BashAST.CommandType.CM_SIMPLE:
@@ -240,10 +251,13 @@ def transform_bash_node(node, sys_path, state):
                     return node
                 if cmd_name[0] in ('$', '%'): # Don't append sys to variables or job identifiers
                     return node
+                if any(contains_starred_positional_expansion(word.word) for word in cmd.words):
+                    return node
                 if any([b'<(' in word.word for word in cmd.words]):
                     return node
                 words = [BashAST.WordDesc(c_bash.word_desc(bytes(sys_path, "utf8"), 0))] + cmd.words
                 # ----- INCR -----
+                state.modified = True
                 node_copy = copy.deepcopy(node)
                 node_copy.value.simple_com.words = words
                 return node_copy
@@ -341,6 +355,7 @@ def transform_bash_node(node, sys_path, state):
 class State:
     functions: set[str] = field(default_factory=set)
     aliases: set[str] = field(default_factory=set)
+    modified: bool = False
 
 def transform_bash_ast(ast, sys_path, state):
     nodes = []
@@ -372,6 +387,23 @@ def strip_no_op_lines(code: str):
         lines.append(line)
     return "".join(lines)
 
+
+def dequote_bash_internal_escapes(code: str):
+    result = []
+    i = 0
+    while i < len(code):
+        if (
+            code[i] == BASH_CTLESC
+            and i + 1 < len(code)
+            and code[i + 1] in (BASH_CTLESC, BASH_CTLNUL)
+        ):
+            result.append(code[i + 1])
+            i += 2
+            continue
+        result.append(code[i])
+        i += 1
+    return "".join(result)
+
 def main():
     sys_name = "incr"
     sys_path = "~/incr/target/release/incr"
@@ -383,7 +415,13 @@ def main():
     arg_parser.add_argument("-e", "--execute", action="store_true", help="Execute the transformed script")
     arg_parser.add_argument("--sys-path", help=f"Path to the {sys_name} executable", default=sys_path)
     arg_parser.add_argument("--try-path", help=f"Path to the try.sh script", default=None)
-    arg_parser.add_argument("--cache-path", help="Path to the cache directory", default=None)
+    arg_parser.add_argument(
+        "--cache-path",
+        nargs="?",
+        const="/tmp/incr_cache",
+        default="/tmp/incr_cache",
+        help="Path to the cache directory",
+    )
     arg_parser.add_argument("-d", "--debug", action="store_true", help="Enable debug logging")
     arg_parser.add_argument("--bash", action="store_true", help="Use bash parser (experimental)")
     arg_parser.add_argument("--identity", action="store_true", help=f"Output parsed script without inserting {sys_name}")
@@ -397,10 +435,6 @@ def main():
 
     try:
         if args.bash:
-            # with tempfile.NamedTemporaryFile(delete=False, mode="w+", suffix=".sh") as temp_file:
-            #     temp_file.write(preserve_line_numbers(args.path))
-            #     temp_file.flush()
-            #     args.path = temp_file.name
             original_ast = parse_bash_to_asts(args.path)
             if args.identity:
                 transformed_ast = original_ast
@@ -408,12 +442,18 @@ def main():
                 # Do transform_bash_ast twice to populate function definitions
                 _ = transform_bash_ast(original_ast, sys_path, state)
                 transformed_ast = transform_bash_ast(original_ast, sys_path, state)
-            with tempfile.NamedTemporaryFile(delete=False, mode="wb+", suffix=".sh") as temp_file:
-                libbash.ast_to_bash(transformed_ast, temp_file.name)
-                temp_file.flush()
-                raw_bytes = temp_file.read()
+            if not args.identity and not state.modified:
+                with open(args.path, "rb") as file:
+                    raw_bytes = file.read()
                 transformed_code = raw_bytes.decode("utf-8", errors="replace")
-                transformed_code = strip_no_op_lines(transformed_code)
+            else:
+                with tempfile.NamedTemporaryFile(delete=False, mode="wb+", suffix=".sh") as temp_file:
+                    libbash.ast_to_bash(transformed_ast, temp_file.name)
+                    temp_file.flush()
+                    raw_bytes = temp_file.read()
+                    transformed_code = raw_bytes.decode("utf-8", errors="replace")
+                    transformed_code = dequote_bash_internal_escapes(transformed_code)
+                    transformed_code = strip_no_op_lines(transformed_code)
         else:
             original_ast = parse_shell_to_asts(args.path)
             transformed_ast = transform_ast(original_ast, sys_path)
