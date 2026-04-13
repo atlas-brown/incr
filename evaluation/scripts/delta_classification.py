@@ -1,3 +1,26 @@
+delta_reasons = ["debugging", # D
+                 "wrong_command", # W
+                 "wrong_flag", # W
+                 "cleanup", # C
+                 "exploration", # E
+                 "optimization", # O
+                 "llm_assist", # L
+                 "replacement", # R
+                 "input_source", # I
+                 "feature", # F
+                 "aggregation", # A
+                 "summary", # S
+                 "visualization" # V
+                 ] 
+
+delta_types = [
+    "addition",
+    "deletion",
+    "modification",
+    "control-flow",
+    "black-box"
+]
+
 BENCHMARKS = [
     "dpt",
     "bio",
@@ -29,118 +52,383 @@ BENCHMARKS_TO_NAMES = {
     "spell": "spell",
     "unixfun": "unixgame",
     "weather": "weather",
-    "word-freq": "dict",
+    "word-freq": "dict"
 }
 
 DELTAS = {
     "beginner": [
-        {"change_reason": "wrong_flag", "change_type": "mod"},
-        {"change_reason": "exploration", "change_type": "add"},
-        {"change_reason": "exploration", "change_type": "add"},
-        {"change_reason": "wrong_flag", "change_type": "mod"},
-        {"change_reason": "aggregation", "change_type": "add"},
-        {"change_reason": "optimization", "change_type": "delmod"},
-        {"change_reason": "exploration", "change_type": "mod"},
-        {"change_reason": "wrong_flag", "change_type": "mod"},
-        {"change_reason": "exploration", "change_type": "add"},
-        {"change_reason": "exploration", "change_type": "add"},
-        {"change_reason": "wrong_flag", "change_type": "add"},
-        {"change_reason": "aggregation", "change_type": "add"},
-        {"change_reason": "wrong_flag", "change_type": "mod"},
+        {
+            "change_reason": "wrong_flag",
+            "change_type": "mod"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "wrong_flag",
+            "change_type": "mod"
+        },
+        {
+            "change_reason": "aggregation",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "optimization",
+            "change_type": "delmod"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "mod"
+        },
+        {
+            "change_reason": "wrong_flag",
+            "change_type": "mod"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "wrong_flag",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "aggregation",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "wrong_flag",
+            "change_type": "mod"
+        },
     ],
     "bio": [
-        {"change_reason": "input_source", "change_type": "addmod"},
-        {"change_reason": "feature", "change_type": "add"},
-        {"change_reason": "input_source", "change_type": "mod"},
-        {"change_reason": "debugging", "change_type": "add"},
-        {"change_reason": "exploration", "change_type": "add"},
-        {"change_reason": "exploration", "change_type": "add"},
+        {
+            "change_reason": "input_source",
+            # "change_type": "control-flow"
+            "change_type": "addmod"
+        },
+        {
+            "change_reason": "feature",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "input_source",
+            # "change_type": "control-flow"
+            "change_type": "mod"
+        },
+        {
+            "change_reason": "debugging",
+            # "change_type": "control-flow"
+            "change_type": "add"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
     ],
     "covid": [
-        {"change_reason": "exploration", "change_type": "addmod"},
-        {"change_reason": "exploration", "change_type": "mod"},
-        {"change_reason": "exploration", "change_type": "delmod"},
-        {"change_reason": "exploration", "change_type": "adddel"},
+        {
+            "change_reason": "exploration",
+            "change_type": "addmod"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "mod"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "delmod"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "adddel"
+        },
     ],
     "dpt": [
-        {"change_reason": "o", "change_type": "del"},
-        {"change_reason": "f", "change_type": "mod"},
-        {"change_reason": "f", "change_type": "mod"},
-        {"change_reason": "r", "change_type": "mod"},
-        {"change_reason": "a", "change_type": "add"},
-        {"change_reason": "f", "change_type": "mod"},
-        {"change_reason": "v", "change_type": "add"},
-        {"change_reason": "c", "change_type": "mod"},
-        {"change_reason": "c", "change_type": "mod"},
+        {
+            "change_reason": "o",
+            "change_type": "del"
+        },
+        {
+            "change_reason": "f",
+            "change_type": "mod"
+        },
+        {
+            "change_reason": "f",
+            "change_type": "mod"
+        },
+        {
+            "change_reason": "r",
+            "change_type": "mod"
+        },
+        {
+            "change_reason": "a",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "f",
+            "change_type": "mod"
+        },
+        {
+            "change_reason": "v",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "c",
+            "change_type": "mod"
+        },
+        {
+            "change_reason": "c",
+            "change_type": "mod"
+        }
     ],
     "file-mod": [
-        {"change_reason": "llm_assist", "change_type": "add"},
-        {"change_reason": "debugging", "change_type": "adddel"},
-        {"change_reason": "llm_assist", "change_type": "add"},
-        {"change_reason": "optimization", "change_type": "addmod"},
-        {"change_reason": "llm_assist", "change_type": "add"},
-        {"change_reason": "optimization", "change_type": "adddel"},
+        {
+            "change_reason": "llm_assist",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "debugging",
+            # "change_type": "control-flow"
+            "change_type": "adddel"
+        },
+        {
+            "change_reason": "llm_assist",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "optimization",
+            "change_type": "addmod"
+        },
+        {
+            "change_reason": "llm_assist",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "optimization",
+            "change_type": "adddel"
+        },
     ],
     "image-annotation": [
-        {"change_reason": "debugging", "change_type": "mod"},
-        {"change_reason": "debugging", "change_type": "add"},
-        {"change_reason": "debugging", "change_type": "add"},
-        {"change_reason": "llm_assist", "change_type": "addmod"},
-        {"change_reason": "optimization", "change_type": "mod"},
-        {"change_reason": "debugging", "change_type": "mod"},
+        {
+            "change_reason": "debugging",
+            "change_type": "mod"
+        },
+        {
+            "change_reason": "debugging",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "debugging",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "llm_assist",
+            # "change_type": "control-flow"
+            "change_type": "addmod"
+        },
+        {
+            "change_reason": "optimization",
+            "change_type": "mod"
+        },
+        {
+            "change_reason": "debugging",
+            "change_type": "mod"
+        },
     ],
     "nginx-analysis": [
-        {"change_reason": "exploration", "change_type": "add"},
-        {"change_reason": "aggregation", "change_type": "add"},
-        {"change_reason": "exploration", "change_type": "add"},
-        {"change_reason": "exploration", "change_type": "mod"},
-        {"change_reason": "aggregation", "change_type": "add"},
-        {"change_reason": "exploration", "change_type": "mod"},
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "aggregation",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "replacement",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "debugging",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "aggregation",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "debugging",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "aggregation",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "debugging",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "aggregation",
+            "change_type": "adddel"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "debugging",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "summary",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "aggregation",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "debugging",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "wrong_flag",
+            "change_type": "mod"
+        },
+        {
+            "change_reason": "wrong_command",
+            "change_type": "mod"
+        },
     ],
     "nlp-ngrams": [
-        {"change_reason": "input_source", "change_type": "mod"},
-        {"change_reason": "exploration", "change_type": "add"},
-        {"change_reason": "cleanup", "change_type": "del"},
-        {"change_reason": "optimization", "change_type": "mod"},
-        {"change_reason": "summary", "change_type": "add"},
+        {
+            "change_reason": "feature",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "feature",
+            "change_type": "add"
+        },
     ],
     "nlp-uppercase": [
-        {"change_reason": "replacement", "change_type": "mod"},
-        {"change_reason": "exploration", "change_type": "add"},
-        {"change_reason": "optimization", "change_type": "delmod"},
-        {"change_reason": "summary", "change_type": "add"},
+        {
+            "change_reason": "feature",
+            "change_type": "add"
+        },
     ],
     "poet": [
-        {"change_reason": "exploration", "change_type": "add"},
-        {"change_reason": "input_source", "change_type": "mod"},
-        {"change_reason": "feature", "change_type": "add"},
-        {"change_reason": "summary", "change_type": "add"},
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
     ],
     "spell": [
-        {"change_reason": "wrong_command", "change_type": "mod"},
-        {"change_reason": "exploration", "change_type": "add"},
-        {"change_reason": "cleanup", "change_type": "del"},
-        {"change_reason": "optimization", "change_type": "delmod"},
-        {"change_reason": "summary", "change_type": "add"},
+        {
+            "change_reason": "debugging",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "debugging",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "feature",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "feature",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "debugging",
+            "change_type": "add"
+        },
     ],
     "unixfun": [
-        {"change_reason": "exploration", "change_type": "add"},
-        {"change_reason": "wrong_flag", "change_type": "mod"},
-        {"change_reason": "wrong_flag", "change_type": "mod"},
-        {"change_reason": "aggregation", "change_type": "add"},
-        {"change_reason": "exploration", "change_type": "add"},
-        {"change_reason": "summary", "change_type": "add"},
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "addmod"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "adddel"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "adddel"
+        },
     ],
     "weather": [
-        {"change_reason": "input_source", "change_type": "mod"},
-        {"change_reason": "feature", "change_type": "add"},
-        {"change_reason": "exploration", "change_type": "add"},
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
+        {
+            "change_reason": "exploration",
+            "change_type": "add"
+        },
     ],
     "word-freq": [
-        {"change_reason": "wrong_flag", "change_type": "mod"},
-        {"change_reason": "exploration", "change_type": "add"},
-        {"change_reason": "cleanup", "change_type": "del"},
-        {"change_reason": "optimization", "change_type": "delmod"},
-        {"change_reason": "summary", "change_type": "add"},
-    ],
+        {
+            "change_reason": "summary",
+            "change_type": "add"
+        },
+    ]
 }
+
+# assert all(delta["change_reason"] in delta_reasons for deltas in DELTAS.values() for delta in deltas)

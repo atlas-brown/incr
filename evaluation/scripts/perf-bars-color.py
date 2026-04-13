@@ -91,7 +91,14 @@ def load_series(csv_path: Path):
     if min_len == 0:
         return None
 
-    return bash_times[:min_len], incr_times[:min_len]
+    bash_times = bash_times[:min_len]
+    incr_times = incr_times[:min_len]
+
+    # Drop the first run to avoid counting warm-up effects in the cumulative bars.
+    if min_len <= 1:
+        return None
+
+    return bash_times[1:], incr_times[1:]
 
 
 def plot_results(results_dir: Path, output_path: Path):
