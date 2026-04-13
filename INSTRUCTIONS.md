@@ -3,7 +3,7 @@ The paper makes the following claims that are relevant to artifact evaluation on
 
 1. **Fine-grained dependency tracking**: Incr introduces lightweight interposition probes that capture interactions across the filesystem, shell environment, and other external resources.
 2. **Correct incrementalization via memoization**: Incr enables incrementalization by memoizing dependencies and effects, including both transient data streams and side effects, and safe reuse of prior effects.
-3. **Runtime optimizations**: Incr introduces a series runtime optimizations, including eager stream processing, introspection, and compaction.
+3. **Runtime optimizations**: Incr introduces a series of runtime optimizations, including eager stream processing, introspection, and compaction.
 4. **Optional tuning interface**: Incr optionally accepts crowdsourced annotations and developer configurations to enhance, disable, or relax parts of incrementalization.
 
 This artifact targets the following badge (mirroring [the OSDI26 artifact "evaluation process"](https://www.usenix.org/conference/osdi26/call-for-artifacts)):  
@@ -16,7 +16,7 @@ This artifact targets the following badge (mirroring [the OSDI26 artifact "evalu
 
 
 <a id="artifact-available"></a>
-# Artifact Available (~5mins)
+# Artifact Available (~5 mins)
 Confirm that the paper, code, and automation scripts are all publicly available:
 
 1. The artifact code is hosted on [GitHub](https://github.com/atlas-brown/incr).
@@ -55,7 +55,7 @@ The current repository includes:
 > AEC Reviewers: **All following steps are optional.**
 
 <a name="artifact-functional"></a>
-# Getting Started Instructions (~5mins)
+# Artifact Functional (~10 mins)
 
 This section explains how to set up an environment to run Incr.
 
@@ -67,7 +67,7 @@ Requirements:
 5. `mergerfs`
 6. `sudo` access for sandboxed paths, so Incr can clean up sandbox mount points after execution.
 
-> Note: Installing directly on an Ubuntu machine is the quickest and recommended path. Fall back to Docker if the native installation does not work.
+> Note: Installing directly on a new Ubuntu machine on Cloudlab is the quickest and recommended path. Fall back to Docker if the native installation does not work.
 
 To install Incr on Ubuntu 22.04, run:
 ```sh
@@ -120,7 +120,7 @@ bash ./evaluation/war-and-peace/clean.sh
 Without incr, `sort` on this file takes about a second. The output should be `9ef554d5bf475ce2820592f7f9a10e42`. Incr populates `test_cache/` on the first run. Running it again replays the cached result and completes near-instantly. -->
 
 <a name="results-reproducible"></a>
-# Detailed Instructions (~1--4 hours)
+# Results Reproducible (~1--4 hours)
 
 This section describes the two main reproduction paths we recommend for artifact evaluation:
 
