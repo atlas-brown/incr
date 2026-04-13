@@ -174,7 +174,7 @@ This script automatically scans `evaluation/run_results`, plots each available s
 
 An example plot showing the subset of results using minimal inputs:
 
-![Example performance plot](evaluation/figs/perf-bars-color-min.jpg)
+![Example performance plot](evaluation/figs/perf-bars-color-min-easy.jpg)
 
 ### Simple evaluation path (~2 hours, machine dependent)
 
@@ -196,7 +196,7 @@ python3 ./show_results.py --size small
 
 An example plot showing the subset of results using small inputs:
 
-![Example performance plot](evaluation/figs/perf-bars-color-small.jpg)
+![Example performance plot](evaluation/figs/perf-bars-color-small-easy.jpg)
 
 ### Full evaluation path (~3.5 hours, machine dependent)
 
@@ -220,7 +220,7 @@ python3 ./show_results.py --size small
 
 An example plot showing the subset of results using small inputs:
 
-![Example performance plot](evaluation/figs/perf-bars-color-small.jpg)
+![Example performance plot](evaluation/figs/perf-bars-color-small-full.jpg)
 
 ### Notes on benchmark names
 
