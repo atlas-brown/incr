@@ -138,11 +138,11 @@ The benchmark harness lives under [evaluation/benchmarks](./evaluation/benchmark
 * `--run-mode=bash|incr|both`
 * `--results-dir=DIR`
 
-The default quick path is `easy + min`, which runs the 12 easier benchmarks with tiny inputs. The closer-to-paper path is `full + small`, which includes the two more complex benchmarks (`dpt` and `image-annotation`) and uses larger inputs.
+The initial quick path is `easy + min`, which runs the 12 benchmarks that do not require complex packages to be installed with tiny inputs. The simple path to reproduce ~80% of the paper's results is `easy + small`, which runs these benchmarks on larger inputs. The full evaluation path is `full + small`, which includes the two more complex benchmarks (`dpt` and `image-annotation`).
 
 ### Quick reviewer path (~10 mins)
 
-To run the easier suite with tiny inputs and collect both Bash and Incr timings:
+Running the benchmarks in `min` mode confirms that their dependencies are installed correctly. To run the easier suite with tiny inputs and collect both Bash and Incr timings:
 
 ```sh
 cd evaluation
@@ -176,7 +176,31 @@ An example plot showing the subset of results using minimal inputs:
 
 ![Example performance plot](evaluation/figs/perf-bars-color-min.jpg)
 
-### Closer-to-paper path (~3.5 hours, machine dependent)
+### Simple evaluation path (~2 hours, machine dependent)
+
+To run the 12 simple benchmarks with the larger `small` inputs:
+
+```sh
+cd evaluation/benchmarks
+bash ./run_all.sh --mode=easy --size=small --run-mode=both
+```
+
+This path reproduces ~80% of the paper's re-execution performance evaluation, subject to machine differences. Runtime varies substantially by machine; the paper measurements were collected on a CloudLab `m510` machine.
+
+To inspect the aggregated results:
+
+```sh
+cd evaluation/benchmarks
+python3 ./show_results.py --size small
+```
+
+An example plot showing the subset of results using small inputs:
+
+![Example performance plot](evaluation/figs/perf-bars-color-small.jpg)
+
+### Full evaluation path (~3.5 hours, machine dependent)
+
+Running the full evaluation requires setting up the `dpt` and `image-annotation` benchmarks. For `dpt`, the run script automatically installs Meta's Segment Anything Model along with its Python dependencies. For `image-annotation`, an OpenAI API key is required and can be configured using `llm keys set openai`.
 
 To run all 14 benchmarks with the larger `small` inputs:
 
@@ -185,7 +209,7 @@ cd evaluation/benchmarks
 bash ./run_all.sh --mode=full --size=small --run-mode=both
 ```
 
-This path most closely matches the paper's re-execution-performance evaluation, subject to machine differences. Runtime varies substantially by machine; the paper measurements were collected on a CloudLab `m510` machine.
+This path most closely matches the paper's re-execution performance evaluation, subject to machine differences. Runtime varies substantially by machine; the paper measurements were collected on a CloudLab `m510` machine.
 
 To inspect the aggregated results:
 
