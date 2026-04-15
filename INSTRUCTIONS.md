@@ -247,7 +247,7 @@ By default, `run.sh` executes a curated subset of tests that covers the main kno
 4. runs the same test under Incr using that same built Bash via `INCR_SHELL`, with nested `${THIS_SH}` calls routed through a wrapper that always enables the Bash parser, and
 5. writes paired outputs to `evaluation/bash-ts/results`.
 
-### Default subset (~10--30 mins)
+### Default subset (~5--10 mins)
 
 ```sh
 cd evaluation/bash-ts
@@ -288,7 +288,7 @@ cd evaluation/bash-ts
 bash ./run.sh quote
 ```
 
-### Full suite (~longer; more representative)
+### Full suite (~10--20 mins; more representative)
 
 To run all discovered test categories instead of the curated default subset:
 
