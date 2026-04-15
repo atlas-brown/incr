@@ -20,7 +20,7 @@ This artifact targets the following badge (mirroring [the OSDI26 artifact "evalu
 Confirm that the paper, code, and automation scripts are all publicly available:
 
 1. The artifact code is hosted on [GitHub](https://github.com/atlas-brown/incr).
-2. The artifact is archived in [Zenodo's permanent archive](https://zenodo.org/records/19488791).
+2. The artifact is archived in [Zenodo's permanent archive](https://zenodo.org/records/19488802).
 
 The current repository includes:
 
