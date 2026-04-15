@@ -5,6 +5,8 @@ cd "$(dirname "$0")" || exit 1
 
 bash_git_url="https://git.savannah.gnu.org/git/bash.git"
 bash_git_ref="c5c97b3"
+top=$(git rev-parse --show-toplevel)
+benchmark_run_lib="$top/evaluation/benchmarks/run_lib.sh"
 
 if [ ! -d bash/.git ]; then
   if [ -e bash ]; then
@@ -20,43 +22,89 @@ fi
 
 bash_git_commit="$(git -C bash rev-parse "${bash_git_ref}^{commit}")"
 
-# The vendored bash checkout is a disposable build tree. Reset it before
-# pinning the requested commit so previous configure/build output can't block
-# the checkout.
-git -C bash reset --hard
-git -C bash clean -fdx
-git -C bash checkout --detach "$bash_git_commit"
-
 bash_build_dir="$PWD/bash"
 results_dir="$PWD/results"
 test_timeout_secs="${INCR_BASH_TEST_TIMEOUT_SECS:-60}"
 incr_this_sh="/tmp/bash"
 filter_diff_script="$PWD/filter_diff_noise.py"
 
-# The vendored bash tree may contain stale objects from a different host build.
-# Scrub build artifacts before reconfiguring so the in-repo build stays usable.
-if [ -f "$bash_build_dir/Makefile" ]; then
-  make -C "$bash_build_dir" distclean >/dev/null 2>&1 || true
-fi
-find "$bash_build_dir" \
-  \( -name '*.o' -o -name '*.a' -o -name '*.so' -o -name '*.dylib' \) -delete
-rm -f \
-  "$bash_build_dir/bash" \
-  "$bash_build_dir/bashversion" \
-  "$bash_build_dir/recho" \
-  "$bash_build_dir/zecho" \
-  "$bash_build_dir/printenv" \
+bash_build_artifacts=(
+  "$bash_build_dir/Makefile"
+  "$bash_build_dir/bash"
+  "$bash_build_dir/bashversion"
+  "$bash_build_dir/recho"
+  "$bash_build_dir/zecho"
+  "$bash_build_dir/printenv"
   "$bash_build_dir/xcase"
+)
 
-( cd "$bash_build_dir" && CC=cc ./configure)
-make -C "$bash_build_dir" -j4
-make -C "$bash_build_dir" recho zecho printenv xcase -j4
+has_all_build_artifacts() {
+  for artifact in "${bash_build_artifacts[@]}"; do
+    if [ ! -e "$artifact" ]; then
+      return 1
+    fi
+  done
+  return 0
+}
 
-rm -rf /tmp/cache /tmp/incr_cache /tmp/tstout
+cleanup() {
+  set +e
+  if declare -F cleanup_overlay_mounts >/dev/null 2>&1; then
+    cleanup_overlay_mounts
+  fi
+  if declare -F cleanup_tmp_artifacts >/dev/null 2>&1; then
+    cleanup_tmp_artifacts
+  fi
+  rm -rf /tmp/cache /tmp/incr_cache /tmp/tstout
+}
+
+current_bash_commit=""
+if git -C bash rev-parse --verify HEAD >/dev/null 2>&1; then
+  current_bash_commit="$(git -C bash rev-parse HEAD)"
+fi
+
+if [ "$current_bash_commit" = "$bash_git_commit" ] && has_all_build_artifacts; then
+  echo "Warning: bash build artifacts already exist for $bash_git_commit; no rebuild. Reusing existing artifacts but they may be stale."
+else
+  # The vendored bash checkout is a disposable build tree. Reset it before
+  # pinning the requested commit so previous configure/build output can't block
+  # the checkout.
+  git -C bash reset --hard
+  git -C bash clean -fdx
+  git -C bash checkout --detach "$bash_git_commit"
+
+  # The vendored bash tree may contain stale objects from a different host build.
+  # Scrub build artifacts before reconfiguring so the in-repo build stays usable.
+  if [ -f "$bash_build_dir/Makefile" ]; then
+    make -C "$bash_build_dir" distclean >/dev/null 2>&1 || true
+  fi
+  find "$bash_build_dir" \
+    \( -name '*.o' -o -name '*.a' -o -name '*.so' -o -name '*.dylib' \) -delete
+  rm -f \
+    "$bash_build_dir/bash" \
+    "$bash_build_dir/bashversion" \
+    "$bash_build_dir/recho" \
+    "$bash_build_dir/zecho" \
+    "$bash_build_dir/printenv" \
+    "$bash_build_dir/xcase"
+
+  ( cd "$bash_build_dir" && CC=cc ./configure)
+  make -C "$bash_build_dir" -j4
+  make -C "$bash_build_dir" recho zecho printenv xcase -j4
+fi
+
+if [ -f "$benchmark_run_lib" ]; then
+  # Reuse the benchmark cleanup helpers so stale overlay mounts are detached
+  # before removing local cache directories.
+  . "$benchmark_run_lib"
+  TOP="$top"
+fi
+
+trap cleanup EXIT INT TERM
+cleanup
 rm -f results.*
 mkdir -p "$results_dir"
 rm -f "$results_dir"/*.results.bash "$results_dir"/*.results.incr
-top=$(git rev-parse --show-toplevel)
 export PATH="$PATH:$bash_build_dir"
 export TMPDIR=/tmp
 export BASH_TSTOUT=/tmp/tstout
@@ -146,10 +194,11 @@ tests="run-dollars run-execscript run-func run-getopts run-ifs run-input-test ru
 
 if [ -n "$INCR_BASH_TEST_FULL" ];
 then
+  echo "Running full test suite"
   tests="$all_tests"
+else
+  echo "Running subset of tests (set INCR_BASH_TEST_FULL=1 to run all tests)"
 fi
-
-echo $tests 
 
 for test in $tests; do
 	run_test "${test#./}"

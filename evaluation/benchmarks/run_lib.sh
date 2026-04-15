@@ -85,7 +85,7 @@ cleanup_overlay_mounts() {
         while IFS= read -r mnt; do
             [[ -z "$mnt" ]] && continue
             case "$mnt" in
-                /tmp/*.try-*|"$TOP"/evaluation/benchmarks/*/cache/sandbox_*|"$TOP"/evaluation/benchmarks/*/cache/sandbox_*/temproot/*)
+                /tmp/*.try-*|/tmp/incr_cache/sandbox_*|/tmp/incr_cache/sandbox_*/temproot/*|"$TOP"/evaluation/benchmarks/*/cache/sandbox_*|"$TOP"/evaluation/benchmarks/*/cache/sandbox_*/temproot/*)
                     mounts+=("$mnt")
                     ;;
             esac
@@ -94,7 +94,7 @@ cleanup_overlay_mounts() {
         while IFS= read -r mnt; do
             [[ -z "$mnt" ]] && continue
             case "$mnt" in
-                /tmp/*.try-*|"$TOP"/evaluation/benchmarks/*/cache/sandbox_*|"$TOP"/evaluation/benchmarks/*/cache/sandbox_*/temproot/*)
+                /tmp/*.try-*|/tmp/incr_cache/sandbox_*|/tmp/incr_cache/sandbox_*/temproot/*|"$TOP"/evaluation/benchmarks/*/cache/sandbox_*|"$TOP"/evaluation/benchmarks/*/cache/sandbox_*/temproot/*)
                     mounts+=("$mnt")
                     ;;
             esac
