@@ -141,13 +141,15 @@ if [ -n "$1" ]; then
 	exit 0
 fi
 
-all_tests="$(find . -type f -name "run-*" | sed 's/run-//' | grep -v all | grep -v minimal)"
+all_tests="$(find . -type f -name "run-*" | grep -v all | grep -v minimal)"
 tests="run-dollars run-execscript run-func run-getopts run-ifs run-input-test run-invert run-more-exp run-nquote run-ifs-posix run-posix2 run-posixpat run-precedence run-quote run-read run-rhs-exp run-strip run-tilde run-dynvar run-iquote run-type run-comsub-eof run-comsub-posix"
 
 if [ -n "$INCR_BASH_TEST_FULL" ];
 then
   tests="$all_tests"
 fi
+
+echo $tests 
 
 for test in $tests; do
 	run_test "${test#./}"
