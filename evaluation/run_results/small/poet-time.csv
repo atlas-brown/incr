@@ -1,0 +1,13 @@
+mode,script,time_sec
+bash,poet-1.sh,0.041
+bash,poet-2.sh,66.908
+bash,poet-3.sh,139.868
+bash,poet-4.sh,219.741
+incr,poet-1.sh,0.213
+incr,poet-2.sh,63.369
+incr,poet-3.sh,56.162
+incr,poet-4.sh,4.568
+incr-observe,poet-1.sh,0.219
+incr-observe,poet-2.sh,63.147
+incr-observe,poet-3.sh,55.858
+incr-observe,poet-4.sh,4.439

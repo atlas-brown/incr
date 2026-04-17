@@ -10,8 +10,12 @@ Modes: bash, incr, incr-observe
 
 Usage:
   cd incr/evaluation/analysis
-  python3 compare_default_observe.py --results-dir ../run_results/min
-  python3 compare_default_observe.py --results-dir ../run_results/small --skip-dpt
+  python3 compare_default_observe.py --results-dir run_results/min
+  python3 compare_default_observe.py --results-dir run_results/small --skip-dpt
+  python3 compare_default_observe.py --results-dir observe_results/observe_1/small \\
+      --output-dir observe_results/observe_1/plots
+
+Paths for --results-dir and --output-dir are relative to incr/evaluation/ unless absolute.
 """
 import argparse
 import os
@@ -33,8 +37,9 @@ def main():
         description="Compare incr vs incr-observe timing results from run_all.sh"
     )
     parser.add_argument(
-        "--output-dir", default="plots",
-        help="Output directory for plots (default: plots/)"
+        "--output-dir", default="analysis/plots",
+        help="Output directory for plots, relative to evaluation/ if not absolute "
+             "(default: analysis/plots/)"
     )
     parser.add_argument(
         "--results-dir", default=None,
@@ -71,6 +76,8 @@ def main():
             results_dir = eval_dir / "run_results" / "min"
 
     out_dir = Path(args.output_dir)
+    if not out_dir.is_absolute():
+        out_dir = eval_dir / out_dir
     out_dir.mkdir(parents=True, exist_ok=True)
 
     if not results_dir.exists():
