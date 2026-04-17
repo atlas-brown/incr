@@ -176,11 +176,13 @@ run_benchmark_scripts() {
         cleanup_tmp_artifacts
     }
 
-    # Per-script bash then incr (not all bash first — avoids huge stdout filling disk).
+    # All bash runs first, then all incr runs (grouped by mode, not interleaved per script).
     if [[ "$RUN_MODE" == "both" ]]; then
         for script in "${scripts[@]}"; do
             echo "[run] Running $script with bash..."
             measure "bash" "$script"
+        done
+        for script in "${scripts[@]}"; do
             echo "[run] Running $script with incr..."
             measure "incr" "$script"
         done
