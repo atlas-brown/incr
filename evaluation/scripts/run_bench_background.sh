@@ -1,20 +1,21 @@
 #!/bin/bash
-# Run benchmark suite in background with periodic checks.
-# Usage: bash evaluation/scripts/run_bench_background.sh [default|observe]
-# Run from incr/: bash evaluation/scripts/run_bench_background.sh default
+# Run the evaluation suite in the background (nohup). Logs to evaluation/bench_run.log
+# Run from incr/: bash evaluation/scripts/run_bench_background.sh [extra run_all.sh args...]
+# Default runs EASY / min / all modes (bash + incr + incr-observe).
 set -e
 EVAL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-INCR_DIR="$(cd "$EVAL_DIR/.." && pwd)"
+INCR_ROOT="$(cd "$EVAL_DIR/.." && pwd)"
 
-MODE="${1:-default}"
-LOG="$EVAL_DIR/bench_run_${MODE}.log"
-PID_FILE="/tmp/incr_bench_${MODE}.pid"
+LOG="${EVAL_DIR}/bench_run.log"
+PID_FILE="/tmp/incr_bench_run_all.pid"
 
-echo "Starting benchmark ($MODE) at $(date), log: $LOG"
-nohup bash -c "
-  cd '$INCR_DIR'
-  export INCR_OBSERVE=$([ \"$MODE\" = observe ] && echo 1 || echo 0)
-  bash evaluation/benchmarks/run.sh $MODE 2>&1
-" > "$LOG" 2>&1 &
-echo $! > "$PID_FILE"
-echo "PID: $(cat $PID_FILE), tail -f $LOG to follow"
+if [[ $# -gt 0 ]]; then
+    EXTRA=("$@")
+else
+    EXTRA=(--mode easy --size min --run-mode all)
+fi
+
+echo "Starting evaluation/benchmarks/run_all.sh ${EXTRA[*]} at $(date), log: $LOG"
+nohup bash "$INCR_ROOT/evaluation/benchmarks/run_all.sh" "${EXTRA[@]}" >"$LOG" 2>&1 &
+echo $! >"$PID_FILE"
+echo "PID: $(cat "$PID_FILE"), tail -f $LOG to follow"

@@ -1,40 +1,60 @@
 # incr Evaluation Suite
 
-## Modes
+End-to-end shell benchmarks aligned with `incr/main/benchmarks/` for mergeability. The **canonical entry point** is `evaluation/benchmarks/run_all.sh`.
 
-- **default**: incr with try + strace (fallback, no observe)
-- **observe**: incr with observe when available (~10x faster for write-heavy benchmarks)
+## Run modes (`--run-mode`)
 
-Set `INCR_OBSERVE=0` to force default mode; `INCR_OBSERVE=1` or unset to use observe.
+| Mode | Meaning |
+|------|--------|
+| `bash` | Baseline: plain `bash script.sh` |
+| `incr` | `INCR_OBSERVE=0` — try + strace (no observe) |
+| `incr-observe` | `INCR_OBSERVE=1` — observe when `../observe/target/release/observe` exists |
+| `both` | `bash` then `incr` per script |
+| `all` | `bash`, then `incr`, then `incr-observe` per script (full comparison) |
 
 ## Structure
 
 ```
 evaluation/
-├── run.sh                    # Sequential benchmark run (creates run_results/)
-├── benchmarks/               # Per-benchmark dirs (execute.sh, scripts/, etc.)
-├── scripts/                  # Helper scripts (parallel, verify, monitor, restore)
-├── analysis/                 # Plotting (compare_default_observe.py)
-├── run_results_parallel/     # Results from parallel run (primary baseline)
-└── agent/docs/BENCHMARK_RUN_CONTEXT.md  # Detailed run guide
+├── run.sh                      # Thin wrapper → benchmarks/run_all.sh
+├── benchmarks/
+│   ├── run_all.sh              # Orchestrator (setup + per-benchmark run.sh)
+│   ├── run_lib.sh              # Shared helpers (timing, restore, cleanup)
+│   ├── <benchmark>/run.sh      # Per-benchmark runner
+│   ├── <benchmark>/setup.sh    # install + fetch inputs
+│   ├── <benchmark>/execute.sh  # Legacy manual runner (optional)
+│   └── <benchmark>/scripts/    # Benchmark scripts
+├── run_results/<size>/         # Copied timing CSVs + cache sizes
+├── scripts/                    # verify_outputs, run_parallel, smoke, etc.
+└── analysis/                   # Plotting helpers
 ```
 
-## Running
-
-From `incr/`:
+## Running (from `incr/`)
 
 ```bash
-# Sequential (default + observe)
-bash evaluation/run.sh              # both modes
-bash evaluation/run.sh default       # default only
-bash evaluation/run.sh observe       # observe only
+# EASY suite (12 benchmarks), min inputs, bash + incr + incr-observe
+bash evaluation/benchmarks/run_all.sh --mode easy --size min --run-mode all
 
-# Parallel (faster; --skip-dpt to skip longest benchmark)
-bash evaluation/scripts/run_parallel.sh --skip-dpt
-bash evaluation/scripts/monitor_benchmarks.sh --loop   # monitor
+# Same via wrapper
+bash evaluation/run.sh --mode easy --size min --run-mode all
 
-# Verify outputs match between modes
-bash evaluation/scripts/verify_outputs.sh --min
+# Subset
+bash evaluation/benchmarks/run_all.sh --only covid,bio --size min --run-mode both --skip-setup
+
+# Full suite (+ dpt, image-annotation)
+bash evaluation/benchmarks/run_all.sh --mode full --size small --run-mode both
 ```
 
-Results: `run_results_parallel/` (primary; from run_parallel.sh). See BENCHMARK_RUN_CONTEXT.md for error checking and baseline comparison.
+**Results:** `evaluation/run_results/min/` (or `small/`) — `*-time.csv`, `*-size.txt`.
+
+**War-and-peace** (standalone):
+
+```bash
+bash evaluation/war-and-peace/with_cache.sh
+bash evaluation/war-and-peace/with_cache_observe.sh
+bash evaluation/war-and-peace/without_cache.sh
+```
+
+## Documentation
+
+See `agents/docs/BENCHMARK_RUN_CONTEXT.md` and `agents/docs/EVALUATION_BENCHMARK_SUITE.md`.

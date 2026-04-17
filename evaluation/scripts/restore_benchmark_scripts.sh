@@ -16,8 +16,8 @@ done
 # Restore all benchmark scripts via git (if in repo).
 # Incr overwrites scripts in place; if interrupted, scripts can be left empty or instrumented.
 if [[ -d "$INCR_ROOT/.git" ]]; then
-    # Restore scripts with incr instrumentation
-    grep -rl "target/release/incr --try" "$BENCH_DIR" 2>/dev/null | grep -E '\.sh$' | while read f; do
+    # Restore scripts with incr instrumentation (legacy strace path or current insert.py output)
+    grep -rlE "target/release/incr|incr_script_" "$BENCH_DIR" 2>/dev/null | grep -E '\.sh$' | while read -r f; do
         rel="${f#$INCR_ROOT/}"
         (cd "$INCR_ROOT" && git checkout -- "$rel" 2>/dev/null) && echo "Restored (incr): $rel"
     done

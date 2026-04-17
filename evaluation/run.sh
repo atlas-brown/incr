@@ -1,13 +1,8 @@
 #!/bin/bash
-# Run full evaluation suite in default (try+strace) and/or observe mode.
-# Usage: bash run.sh [default|observe]
-#   default  - run benchmarks with incr in default mode (try+strace)
-#   observe  - run benchmarks with incr using observe
-#   (none)   - run both modes
-#
-# Run from incr/: bash evaluation/run.sh [default|observe]
-# Results: evaluation/run_results/default/ and evaluation/run_results/observe/
+# Thin wrapper around the benchmark orchestrator. Run from incr/:
+#   bash evaluation/run.sh [args...]
+# Arguments are forwarded to evaluation/benchmarks/run_all.sh.
+# Example:
+#   bash evaluation/run.sh --mode easy --size min --run-mode both
 cd "$(dirname "$0")/.." || exit 1
-
-MODE="${1:-}"
-bash evaluation/benchmarks/run.sh "$MODE"
+exec bash evaluation/benchmarks/run_all.sh "$@"

@@ -3,8 +3,9 @@
 incr_shell=${INCR_SHELL:-bash}
 args=""
 flags=""
+parser_flags=""
 
-while getopts "c:o:ueti" opt; do
+while getopts "c:o:uetib" opt; do
     case "$opt" in
         c) cmd_str="$OPTARG" ;;
         o) args="$args -o $OPTARG" ;;
@@ -12,7 +13,8 @@ while getopts "c:o:ueti" opt; do
 	e) flags="$flags -e" ;;
 	t) flags="$flags -t" ;;
 	i) flags="$flags -i" ;;
-        *) echo "Usage: $0 [-c 'cmd'] <script>" >&2; exit 1 ;;
+	b) parser_flags="$parser_flags --bash" ;;
+	        *) echo "Usage: $0 [-b] [-c 'cmd'] <script>" >&2; exit 1 ;;
     esac
 done
 shift $((OPTIND - 1))
@@ -34,10 +36,19 @@ fi
 
 script=$1
 shift
-cache_dir=${1:-/tmp/cache}
 
-[ -z "$script" ] && echo "Usage: $0 <script>" && exit 1
-[ -z "$cache_dir" ] && echo "Usage: $0 <script>" && exit 1
+if [ -n "${INCR_CACHE_DIR:-}" ]; then
+    cache_dir=$INCR_CACHE_DIR
+elif [ $# -gt 0 ]; then
+    cache_dir=$1
+    shift
+else
+    cache_dir=/tmp/incr_cache
+fi
+
+[ -z "$script" ] && echo "Usage: $0 [-b] <script>" && exit 1
+
+mkdir -p "$cache_dir"
 
 TOP=$(git rev-parse --show-toplevel)
 TRY_PATH="$TOP/src/scripts/try.sh"
@@ -46,29 +57,35 @@ OBSERVE_PATH=""
 if [ "${INCR_OBSERVE:-1}" != "0" ] && [ -x "$TOP/../observe/target/release/observe" ]; then
     OBSERVE_PATH="$TOP/../observe/target/release/observe"
 fi
-tmp_incr="$(dirname $script)/incr_script_$(basename $script).sh"
-tmp_orig=$(mktemp)
+tmp_incr="$(dirname "$script")/incr_script_$(basename "$script").sh"
+# Sentinel: presence signals cleanup needed; contents ARE the original script.
+sentinel="${script}.incr_orig"
 
-# Ensure cleanup and preserve the right exit status.
+# Recover from a previous SIGKILL: restore original from sentinel and continue.
+if [ -f "$sentinel" ]; then
+    cp "$sentinel" "$script"
+    rm -f "$sentinel"
+fi
+
 rc=
 cleanup() {
-    # If we recorded the temp script's status, use it; otherwise use last command's.
+    trap '' EXIT INT TERM
     local st=${rc:-$?}
-    # Restore the original script.
-    cp "$tmp_orig" "$script"
-    # Delete all tmp files
-    rm -f "$tmp_orig"
+    if [ -f "$sentinel" ]; then
+        cp "$sentinel" "$script"
+    fi
+    rm -f "$sentinel"
     rm -f "$tmp_incr"
     exit $st
 }
 trap cleanup EXIT INT TERM
 
-python3 ${TOP}/src/scripts/insert.py --sys-path ${TOP}/target/release/incr --try-path "$TRY_PATH" --cache-path "$cache_dir" ${OBSERVE_PATH:+--observe-path "$OBSERVE_PATH"} "$script" > "$tmp_incr"
+# shellcheck disable=SC2086
+python3 ${TOP}/src/scripts/insert.py $parser_flags --sys-path ${TOP}/target/release/incr --try-path "$TRY_PATH" --cache-path "$cache_dir" ${OBSERVE_PATH:+--observe-path "$OBSERVE_PATH"} "$script" > "$tmp_incr"
 
-# Swap the original script with the incrementalized one.
-cp "$script" "$tmp_orig"
+# sentinel IS the backup; after this point any kill is recoverable
+cp "$script" "$sentinel"
 cp "$tmp_incr" "$script"
 
-# $script now is $tmp_incr
 $incr_shell $flags $args -- "$script" "$@"
 rc=$?

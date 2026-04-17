@@ -1,0 +1,10 @@
+mode,script,time_sec
+bash,ngrams-1.sh,0.029
+incr,ngrams-1.sh,1.617
+incr-observe,ngrams-1.sh,0.202
+bash,ngrams-2.sh,0.015
+incr,ngrams-2.sh,0.384
+incr-observe,ngrams-2.sh,0.301
+bash,ngrams-3.sh,0.018
+incr,ngrams-3.sh,0.419
+incr-observe,ngrams-3.sh,0.225

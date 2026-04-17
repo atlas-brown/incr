@@ -1,23 +1,28 @@
 #!/bin/bash
-# Verify default vs observe produce identical outputs for speedup benchmarks.
-# Run from incr/: bash evaluation/scripts/verify_outputs.sh [--min]
-# Uses --small by default; --min for faster run (bio, nlp-ngrams, etc.)
-# Cleans up all artifacts (verify_outputs, benchmark cache/outputs, /tmp) on exit.
+# Verify incr (try+strace) and incr-observe produce identical stdout for each benchmark script.
+# Run from incr/: bash evaluation/scripts/verify_outputs.sh [--min|--small] [--no-cleanup] [--run]
+#
+# By default, compares existing outputs under benchmarks/*/outputs/<size>/*.incr.out vs *.incr-observe.out
+# if present. With --run, first runs: evaluation/benchmarks/run_all.sh --mode easy --run-mode all
+#
+# Cleans verify_outputs dir and /tmp artifacts on exit unless --no-cleanup.
 
 EVAL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+INCR_ROOT="$(cd "$EVAL_DIR/.." && pwd)"
 cd "$EVAL_DIR" || exit 1
 BENCH_DIR="$EVAL_DIR/benchmarks"
 VERIFY_DIR="$EVAL_DIR/verify_outputs"
-SIZE="--small"
+SIZE_NAME="min"
 NO_CLEANUP=false
+DO_RUN=false
 for arg in "$@"; do
-    [[ "$arg" == "--min" ]] && SIZE="--min"
+    [[ "$arg" == "--min" ]] && SIZE_NAME="min"
+    [[ "$arg" == "--small" ]] && SIZE_NAME="small"
     [[ "$arg" == "--no-cleanup" ]] && NO_CLEANUP=true
+    [[ "$arg" == "--run" ]] && DO_RUN=true
 done
-TIMEOUT_PER_BENCH=180
-command -v timeout >/dev/null 2>&1 || TIMEOUT_PER_BENCH=0
 
-mkdir -p "$VERIFY_DIR/default" "$VERIFY_DIR/observe"
+mkdir -p "$VERIFY_DIR"
 
 cleanup() {
     [[ "$NO_CLEANUP" == "true" ]] && return
@@ -25,81 +30,64 @@ cleanup() {
     echo "Cleaning up artifacts..."
     "$EVAL_DIR/scripts/restore_benchmark_scripts.sh" 2>/dev/null || true
     rm -rf "$VERIFY_DIR"
-    for b in beginner bio covid nginx-analysis nlp-uppercase nlp-ngrams poet spell unixfun weather word-freq; do
-        sudo rm -rf "$BENCH_DIR/$b/cache" "$BENCH_DIR/$b/outputs" 2>/dev/null || true
-    done
     rm -rf /tmp/sort* /tmp/tmp* /tmp/cache* /tmp/incr_bench* 2>/dev/null || true
     echo "Done."
 }
 trap cleanup EXIT INT TERM
 
-run_and_save() {
-    local bench=$1 mode=$2
-    export INCR_OBSERVE=$([ "$mode" = "observe" ] && echo 1 || echo 0)
-    sudo rm -rf "$BENCH_DIR/$bench/cache" "$BENCH_DIR/$bench/outputs" 2>/dev/null || true
-    mkdir -p "$BENCH_DIR/$bench/outputs"
-    if [[ "$TIMEOUT_PER_BENCH" -gt 0 ]]; then
-        timeout "$TIMEOUT_PER_BENCH" bash -c "cd '$BENCH_DIR' && bash './$bench/execute.sh' $SIZE --incr-only" >/dev/null 2>&1 || true
-    else
-        (cd "$BENCH_DIR" && bash "./$bench/execute.sh" $SIZE --incr-only) >/dev/null 2>&1
-    fi
-    cp -r "$BENCH_DIR/$bench/outputs" "$VERIFY_DIR/$mode/$bench" 2>/dev/null || true
-}
+if [[ "$DO_RUN" == "true" ]]; then
+    echo "Running full suite (bash + incr + incr-observe)..."
+    bash "$INCR_ROOT/evaluation/benchmarks/run_all.sh" --mode easy --size "$SIZE_NAME" --run-mode all --skip-setup || true
+fi
 
-# Compare outputs, excluding timing.csv and .err
-compare_bench() {
-    local bench=$1
-    local def="$VERIFY_DIR/default/$bench"
-    local obs="$VERIFY_DIR/observe/$bench"
-    local failed=0
-
-    [[ ! -d "$def" ]] && echo "  No default outputs" && return 1
-    [[ ! -d "$obs" ]] && echo "  No observe outputs" && return 1
-
-    while IFS= read -r rel; do
-        [[ -z "$rel" ]] && continue
-        local f1="$def/$rel" f2="$obs/$rel"
-        if [[ ! -f "$f2" ]]; then
-            echo "  MISSING in observe: $rel"
-            ((failed++)) || true
-            continue
-        fi
-        if ! diff -q "$f1" "$f2" >/dev/null 2>&1; then
-            echo "  DIFF: $rel"
-            ((failed++)) || true
-        fi
-    done < <(find "$def" -type f 2>/dev/null | while read f; do
-        rel="${f#$def/}"
-        [[ "$(basename "$rel")" == "timing.csv" ]] && continue
-        [[ "$rel" == *.err ]] && continue
-        echo "$rel"
-    done)
-
-    return $failed
-}
+OUT_SUB="outputs/$SIZE_NAME"
+fail=0
+BENCHMARKS=(beginner bio covid file-mod nginx-analysis nlp-ngrams nlp-uppercase poet spell unixfun weather word-freq)
 
 echo "=============================================="
-echo "Verifying default vs observe output correctness"
-echo "Size: $SIZE | Results: $VERIFY_DIR"
+echo "Verifying incr vs incr-observe stdout ($OUT_SUB)"
 echo "=============================================="
 
-BENCHMARKS=(beginner bio covid nginx-analysis nlp-uppercase nlp-ngrams poet spell unixfun weather word-freq)
 for bench in "${BENCHMARKS[@]}"; do
+    od="$BENCH_DIR/$bench/$OUT_SUB"
+    if [[ ! -d "$od" ]]; then
+        echo ">>> $bench: skip (no $OUT_SUB)"
+        continue
+    fi
     echo ""
     echo ">>> $bench"
-    echo "  Running default..."
-    run_and_save "$bench" "default"
-    echo "  Running observe..."
-    run_and_save "$bench" "observe"
-    echo "  Comparing..."
-    if compare_bench "$bench"; then
-        echo "  OK: outputs match"
+    bench_fail=0
+    shopt -s nullglob
+    for f in "$od"/*.incr.out; do
+        [[ -f "$f" ]] || continue
+        base="${f%.incr.out}"
+        obs="${base}.incr-observe.out"
+        if [[ ! -f "$obs" ]]; then
+            echo "  MISSING incr-observe: $(basename "$obs")"
+            bench_fail=1
+            continue
+        fi
+        if ! diff -q "$f" "$obs" >/dev/null 2>&1; then
+            echo "  DIFF: $(basename "$f") vs $(basename "$obs")"
+            diff "$f" "$obs" | head -15
+            bench_fail=1
+        fi
+    done
+    shopt -u nullglob
+
+    if [[ "$bench_fail" -eq 0 ]]; then
+        echo "  OK"
     else
-        echo "  FAIL: outputs differ"
+        echo "  FAIL"
+        fail=1
     fi
 done
 
 echo ""
 echo "=============================================="
-echo "Verification complete. Artifacts will be cleaned on exit."
-echo "=============================================="
+if [[ "$fail" -eq 0 ]]; then
+    echo "All incr vs incr-observe stdout outputs match."
+else
+    echo "Some outputs differ or were missing."
+    exit 1
+fi

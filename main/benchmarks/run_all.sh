@@ -69,16 +69,16 @@ fi
 EASY_BENCHMARKS=(
     beginner
     bio
-    # covid
-    # file-mod
-    # nginx-analysis
-    # nlp-ngrams
-    # nlp-uppercase
-    # poet
-    # spell
-    # unixfun
-    # weather
-    # word-freq
+    covid
+    file-mod
+    nginx-analysis
+    nlp-ngrams
+    nlp-uppercase
+    poet
+    spell
+    unixfun
+    weather
+    word-freq
 )
 
 COMPLEX_BENCHMARKS=(

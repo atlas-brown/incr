@@ -2,23 +2,35 @@
 
 Helper scripts for running and verifying benchmarks. Run from `incr/` root.
 
-All scripts that run benchmarks **clean up on exit** (including Ctrl+C): they restore any benchmark scripts left in incr-instrumented state and remove stray artifacts.
+Scripts that drive benchmarks **clean up on exit** (including Ctrl+C): they call `restore_benchmark_scripts.sh` and remove caches/temp files where noted.
+
+## Primary workflow
+
+| Command | Purpose |
+|---------|---------|
+| `bash evaluation/benchmarks/run_all.sh ...` | **Canonical** full orchestrator (setup, per-benchmark `run.sh`, results under `run_results/`) |
+| `bash evaluation/run.sh ...` | Thin wrapper; forwards all args to `run_all.sh` |
+
+## Helper scripts
 
 | Script | Purpose |
 |--------|---------|
-| `run_parallel.sh` | Run all benchmarks in parallel (default + observe). `--skip-dpt` to skip longest. Cleans up on exit. |
-| `monitor_benchmarks.sh` | Poll status of parallel run. `--loop` to refresh every 60s. |
-| `verify_outputs.sh` | Verify default vs observe produce identical outputs. `--min` for faster run, `--no-cleanup` to keep artifacts. Cleans up on exit. |
-| `run_smoke_min.sh` | Quick smoke test with `--min` inputs. Cleans up on exit. |
-| `restore_benchmark_scripts.sh` | Restore benchmark scripts if left in incr mode. Removes `incr_script_*` files. Run manually if needed. |
-| `run_bench_background.sh` | Run sequential benchmark suite in background. |
-| `check_bench_progress.sh` | Check progress of background run. |
+| `run_smoke_min.sh` | Runs `run_all.sh --mode easy --size min --run-mode all` (optional extra args) |
+| `verify_outputs.sh` | Diff `*.incr.out` vs `*.incr-observe.out` under `benchmarks/*/outputs/<size>/`. Use `--run` to invoke `run_all` first |
+| `run_parallel.sh` | Runs one `run_all.sh --only <bench>` per benchmark in parallel batches (heuristic; not the default) |
+| `run_bench_background.sh` | `nohup run_all.sh` with log under `evaluation/bench_run.log` |
+| `restore_benchmark_scripts.sh` | Restore instrumented scripts via git + remove `incr_script_*` / sentinels |
+| `monitor_benchmarks.sh` | Poll parallel logs (adjust paths if you change `run_parallel.sh`) |
+| `check_bench_progress.sh` | Progress helper for background runs |
 
 ## Quick start
 
 ```bash
 cd incr
-bash evaluation/scripts/run_parallel.sh --skip-dpt
-# In another terminal:
-bash evaluation/scripts/monitor_benchmarks.sh --loop
+bash evaluation/benchmarks/run_all.sh --mode easy --size min --run-mode all
+```
+
+```bash
+# Optional: parallel (after inputs are built)
+bash evaluation/scripts/run_parallel.sh --min --run-mode both --skip-dpt
 ```

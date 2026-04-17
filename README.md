@@ -28,7 +28,7 @@ Transform and run a bash script so each command is executed incrementally:
 ```
 
 - **script**: Path to your bash script
-- **cache_dir**: Optional; defaults to `/tmp/cache`
+- **cache_dir**: Optional; defaults to `/tmp/incr_cache` (or set `INCR_CACHE_DIR`)
 - **observe**: Auto-enabled when `../observe/target/release/observe` exists
 
 incr.sh uses `insert.py` to wrap each command with incr, then runs the transformed script. Re-run the script; unchanged commands replay from cache.
@@ -123,33 +123,31 @@ docker run -it --rm -v $(pwd):/app --privileged incr
 
 ```bash
 # Integration tests (incr + observe)
-bash agent/test_incr_observe.sh
+bash agents/test_incr_observe.sh
 
 # Benchmark: strace vs observe
-bash agent/run_bench.sh
-python3 agent/benchmarks/plot.py agent/benchmarks/results.txt   # requires matplotlib
+bash agents/run_bench.sh
+python3 agents/benchmarks/plot.py agents/benchmarks/results.txt   # requires matplotlib
 ```
 
-See `agent/README.md` for details.
+See `agents/README.md` for details.
 
 ---
 
 ## Evaluation suite
 
-The `evaluation/` directory contains benchmarks. Run from `incr/`:
+The `evaluation/` directory contains Koala-style benchmarks. **Entry point:** `evaluation/benchmarks/run_all.sh` (or `evaluation/run.sh`, which forwards arguments).
 
 ```bash
-# Benchmarks (default mode = try+strace, observe mode = observe)
-bash evaluation/run.sh              # run both modes
-bash evaluation/run.sh default      # default mode only
-bash evaluation/run.sh observe      # observe mode only
+# EASY suite (12 benchmarks), min inputs: bash + incr (try+strace) + incr-observe
+bash evaluation/benchmarks/run_all.sh --mode easy --size min --run-mode all
 
 # War-and-peace (word count pipeline)
-bash evaluation/war-and-peace/with_cache.sh         # default (try+strace)
-bash evaluation/war-and-peace/with_cache_observe.sh # observe
-bash evaluation/war-and-peace/without_cache.sh     # baseline (no incr)
+bash evaluation/war-and-peace/with_cache.sh
+bash evaluation/war-and-peace/with_cache_observe.sh
+bash evaluation/war-and-peace/without_cache.sh
 ```
 
-Results: `evaluation/run_results/default/` and `evaluation/run_results/observe/`.
+Results: `evaluation/run_results/<min|small>/`. See `evaluation/README.md` and `agents/docs/EVALUATION_BENCHMARK_SUITE.md`.
 
-For Koala benchmarks, clone https://github.com/kbensh/koala and manually insert `target/release/incr` invocations into the benchmark scripts.
+For Koala upstream scripts, clone https://github.com/kbensh/koala and manually insert `target/release/incr` invocations where needed.
