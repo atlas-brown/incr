@@ -8,9 +8,13 @@ DB_FILE="$OUTPUT_DIR/db.$MODE.txt"
 CLASS_FILE="$OUTPUT_DIR/classifications.$MODE.txt"
 mkdir -p "$IMG_DIR"
 
-wget "https://atlas-group.cs.brown.edu/data/dpt/dpt.zip" -O images.zip
-unzip -o images.zip -d "$IMG_DIR"
-rm images.zip
+if [[ "$RUN_SIZE" == "min" ]]; then
+    cp "${IMG_DIR%dpt}dpt.ref"/*.jpg "$IMG_DIR/"
+else
+    wget "https://atlas-group.cs.brown.edu/data/dpt/dpt.zip" -O images.zip
+    unzip -o images.zip -d "$IMG_DIR"
+    rm images.zip
+fi
 mogrify -resize 1024x1024\> "$IMG_DIR"/*.jpg
 
 for img in "$IMG_DIR"/*.jpg; do
