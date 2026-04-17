@@ -37,34 +37,31 @@ if [ ! -d "$models_dir" ]; then
 fi
 
 if [[ "$size" == "min" ]]; then
-    if [ -d "$min_dir" ]; then
-        echo "Data already downloaded and extracted."
-    else
-        cp -r "${BENCHMARK_DIR}"/min_inputs/dpt.min "$INPUT_DIR"
+    if ! ls "$min_dir/dpt.ref"/*.jpg &>/dev/null 2>&1; then
+        mkdir -p "$min_dir/dpt.ref"
+        ls "${BENCHMARK_DIR}/min_inputs/jpg.min/jpg/"*.jpg | sort | head -2 | \
+            xargs -I{} cp {} "$min_dir/dpt.ref/"
+        echo "Min reference images prepared ($(ls "$min_dir/dpt.ref/"*.jpg | wc -l) images)."
     fi
+    mkdir -p "$min_dir/dpt"
+    cp "$min_dir/dpt.ref/"*.jpg "$min_dir/dpt/"
+    echo "Min working images ready ($(ls "$min_dir/dpt/"*.jpg | wc -l) images)."
 fi
 
 if [[ "$size" == "small" ]]; then
-    if [ -d "$small_dir" ]; then
-        echo "Data already downloaded and extracted."
+    if ls "$small_dir/dpt"/*.jpg &>/dev/null 2>&1; then
+        echo "Small image data already prepared."
     else
-        mkdir -p "$small_dir"
-        wget --no-check-certificate "${URL}/pl-06-P_F-A_N-20250401T083751Z-001.zip" -O "${INPUT_DIR}/small.zip"
-        unzip -q "${INPUT_DIR}/small.zip" -d "${INPUT_DIR}/tmp_small"
-        mv "${INPUT_DIR}/tmp_small"/*/* "$small_dir"
-        rm -r "${INPUT_DIR}/tmp_small" "${INPUT_DIR}/small.zip"
+        mkdir -p "$small_dir/dpt"
+        tmpdir=$(mktemp -d)
+        wget --no-check-certificate "https://atlas-group.cs.brown.edu/data/dpt/dpt.zip" \
+            -O "$tmpdir/dpt.zip"
+        unzip -q "$tmpdir/dpt.zip" -d "$tmpdir/dpt"
+        find "$tmpdir/dpt" -name "*.jpg" | sort | head -10 | \
+            xargs -I{} cp {} "$small_dir/dpt/"
+        rm -rf "$tmpdir"
+        echo "Small images prepared ($(ls "$small_dir/dpt/"*.jpg | wc -l) images)."
     fi
-    input_dir="$INPUT_DIR/dpt.small"
-    mkdir -p "$input_dir/images"
-    i=0
-    for f in "$input_dir"/*.png; do
-        i=$((i + 1))
-        if [ "$i" -le 3 ]; then
-            mv "$f" "$input_dir/images"
-        elif [ "$i" -gt 6 ]; then
-            rm "$f"
-        fi
-    done
 fi
 
 # if [[ "$size" == "full" ]]; then

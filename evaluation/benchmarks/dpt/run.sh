@@ -23,8 +23,6 @@ sudo bash "$BENCHMARK_DIR/clean.sh" 2>/dev/null || true
 cleanup() {
     restore_instrumented_scripts "$SCRIPT_DIR"
     cleanup_tmp_artifacts
-    # dpt creates a dpt/ subdir in inputs during runs; clean it up
-    rm -rf "$INPUT_DIR/dpt" 2>/dev/null || true
 }
 trap cleanup EXIT INT TERM
 
@@ -34,6 +32,7 @@ case "$RUN_SIZE" in
     full)  suffix=".full" ;;
 esac
 export IMG_DIR="$INPUT_DIR/dpt${suffix}"
+export RUN_SIZE
 export OUTPUT_DIR
 TIME_FILE="$OUTPUT_DIR/timing.csv"
 
