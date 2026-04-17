@@ -39,7 +39,7 @@ fi
 if [[ "$size" == "min" ]]; then
     if ! ls "$min_dir/dpt.ref"/*.jpg &>/dev/null 2>&1; then
         mkdir -p "$min_dir/dpt.ref"
-        ls "${BENCHMARK_DIR}/min_inputs/jpg.min/jpg/"*.jpg | sort | head -2 | \
+        ls "${BENCHMARK_DIR}/min_inputs/jpg.min/jpg/"*.jpg | sort | head -1 | \
             xargs -I{} cp {} "$min_dir/dpt.ref/"
         echo "Min reference images prepared ($(ls "$min_dir/dpt.ref/"*.jpg | wc -l) images)."
     fi

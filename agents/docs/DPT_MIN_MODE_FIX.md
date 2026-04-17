@@ -35,7 +35,7 @@ never wired up.
 if [[ "$size" == "min" ]]; then
     if ! ls "$min_dir/dpt.ref"/*.jpg &>/dev/null 2>&1; then
         mkdir -p "$min_dir/dpt.ref"
-        ls "${BENCHMARK_DIR}/min_inputs/jpg.min/jpg/"*.jpg | sort | head -2 | \
+        ls "${BENCHMARK_DIR}/min_inputs/jpg.min/jpg/"*.jpg | sort | head -1 | \
             xargs -I{} cp {} "$min_dir/dpt.ref/"
         echo "Min reference images prepared ($(ls "$min_dir/dpt.ref/"*.jpg | wc -l) images)."
     fi
@@ -49,7 +49,7 @@ The idempotency check only guards the one-time population of `dpt.ref/`. The `dp
 is always refreshed from `dpt.ref/` — this handles the case where `clean.sh` removed `dpt/` but
 left `dpt.ref/` intact.
 
-To change the number of min images, adjust `head -2`.
+To change the number of min images, adjust `head -1`.
 
 ### 2. `fetch.sh` — small mode
 
@@ -178,8 +178,8 @@ On each script execution (min mode):
 - The `min_inputs/dpt.min/pl-06-P_F-A_N-1.png` file (PNG medical image) is no longer used by
   `fetch.sh`. It can be removed from `min_inputs/` to avoid confusion, but doing so is not
   strictly required.
-- The `min_inputs/jpg.min/jpg/` directory contains 5 JPEG photos; currently only 2 are used
-  (`head -2` in `fetch.sh`). Adjust as needed.
+- The `min_inputs/jpg.min/jpg/` directory contains 5 JPEG photos; currently only 1 is used
+  (`head -1` in `fetch.sh`). Adjust as needed.
 - `$MODE` (uppercase) used in output filenames (`db.$MODE.txt`) is a pre-existing variable that
   comes from `run_lib.sh`'s `export mode` (lowercase). This produces filenames like `db..txt`
   with an empty MODE field. This is unchanged from the original scripts on both branches.
