@@ -32,7 +32,7 @@ fi
 cleanup_on_exit() {
     echo ""
     echo "Cleaning up (parallel run)..."
-    "$EVAL_DIR/scripts/restore_benchmark_scripts.sh" 2>/dev/null || true
+    "$EVAL_DIR/scripts/restore_sentinels.sh" 2>/dev/null || true
     for bench in "${ALL_BENCHMARKS[@]}"; do
         sudo rm -rf "$EVAL_DIR/benchmarks/$bench/cache" "$EVAL_DIR/benchmarks/$bench/outputs" 2>/dev/null || true
     done
@@ -40,7 +40,7 @@ cleanup_on_exit() {
 }
 trap cleanup_on_exit EXIT INT TERM
 
-"$EVAL_DIR/scripts/restore_benchmark_scripts.sh" 2>/dev/null || true
+"$EVAL_DIR/scripts/restore_sentinels.sh" 2>/dev/null || true
 
 echo "Cleaning benchmark dirs..."
 for bench in "${ALL_BENCHMARKS[@]}"; do

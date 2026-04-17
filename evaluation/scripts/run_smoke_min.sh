@@ -8,7 +8,7 @@ INCR_ROOT="$(cd "$EVAL_DIR/.." && pwd)"
 
 cleanup_on_exit() {
     echo ""
-    "$EVAL_DIR/scripts/restore_benchmark_scripts.sh" 2>/dev/null || true
+    "$EVAL_DIR/scripts/restore_sentinels.sh" 2>/dev/null || true
     rm -rf /tmp/sort* /tmp/tmp* /tmp/cache* /tmp/incr_bench* 2>/dev/null || true
 }
 trap cleanup_on_exit EXIT INT TERM

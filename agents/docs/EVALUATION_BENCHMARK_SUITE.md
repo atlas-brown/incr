@@ -174,7 +174,7 @@ bash evaluation/run.sh --run-mode all           # bash + incr + incr-observe
 
 ```bash
 cd incr
-bash evaluation/scripts/restore_benchmark_scripts.sh
+bash evaluation/scripts/restore_sentinels.sh
 ```
 
 ### Full artifact cleanup
@@ -232,7 +232,7 @@ rm -rf /tmp/sort* /tmp/tmp* /tmp/incr_bench* /tmp/incr_cache
 
 | Issue | Fix |
 |-------|-----|
-| Instrumented scripts left behind | `bash evaluation/scripts/restore_benchmark_scripts.sh` |
+| Instrumented scripts left behind | `bash evaluation/scripts/restore_sentinels.sh` |
 | `insert.py: unrecognized arguments` | Ensure incr.sh uses `--try-path` / `--cache-path` / `--observe-path` |
 | Observe not used | Ensure `observe/target/release/observe` exists and is executable |
 | Benchmark finishes in ~3s (wrong) | Missing Python deps: `pip install libbash libdash shasta` |
@@ -252,7 +252,7 @@ cd ../observe && cargo build --release
 pip install --user libbash libdash shasta
 
 # 3. Restore scripts (if prior interrupted run)
-cd incr && bash evaluation/scripts/restore_benchmark_scripts.sh
+cd incr && bash evaluation/scripts/restore_sentinels.sh
 
 # 4. Run EASY benchmarks (min inputs, fast)
 bash evaluation/run.sh --mode easy --size min --run-mode all

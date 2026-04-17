@@ -2,7 +2,7 @@
 
 Helper scripts for running and verifying benchmarks. Run from `incr/` root.
 
-Scripts that drive benchmarks **clean up on exit** (including Ctrl+C): they call `restore_benchmark_scripts.sh` and remove caches/temp files where noted.
+`run_all.sh` calls `restore_instrumented_scripts()` from `run_lib.sh` before each benchmark (sentinel-based recovery). Helper scripts invoke [`restore_sentinels.sh`](restore_sentinels.sh) on exit to do the same across all `benchmarks/*/scripts/` dirs.
 
 ## Primary workflow
 
@@ -19,7 +19,7 @@ Scripts that drive benchmarks **clean up on exit** (including Ctrl+C): they call
 | `verify_outputs.sh` | Diff `*.incr.out` vs `*.incr-observe.out` under `benchmarks/*/outputs/<size>/`. Use `--run` to invoke `run_all` first |
 | `run_parallel.sh` | Runs one `run_all.sh --only <bench>` per benchmark in parallel batches (heuristic; not the default) |
 | `run_bench_background.sh` | `nohup run_all.sh` with log under `evaluation/bench_run.log` |
-| `restore_benchmark_scripts.sh` | Restore instrumented scripts via git + remove `incr_script_*` / sentinels |
+| `restore_sentinels.sh` | Restore from `*.incr_orig` sentinels + remove `incr_script_*` (no git); use after a rare interrupted run |
 | `monitor_benchmarks.sh` | Poll parallel logs (adjust paths if you change `run_parallel.sh`) |
 | `check_bench_progress.sh` | Progress helper for background runs |
 

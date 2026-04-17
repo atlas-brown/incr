@@ -8,7 +8,7 @@ This document summarizes lessons learned from running the evaluation benchmark s
 
 - **Primary entry point:** `bash evaluation/benchmarks/run_all.sh` (or `bash evaluation/run.sh`, same args). Results: `evaluation/run_results/<min|small>/`.
 - **`--run-mode`:** `incr` = try+strace (`INCR_OBSERVE=0`); `incr-observe` = observe (`INCR_OBSERVE=1`); `all` = bash + incr + incr-observe per script. Compare `*.incr.out` vs `*.incr-observe.out` or use `evaluation/scripts/verify_outputs.sh`.
-- **Always run `restore_benchmark_scripts.sh`** after a failed/interrupted run — incr uses sentinel files (`*.incr_orig`) and can leave scripts instrumented.
+- **Rare interrupted run:** `incr.sh` keeps `<script>.incr_orig` sentinels; `run_all.sh` restores them before each benchmark. If needed manually: `bash evaluation/scripts/restore_sentinels.sh` (no git).
 - **Setup:** `run_all.sh` runs each benchmark’s `setup.sh` (unless `--skip-setup`). bio/dpt need `install.sh` deps for full correctness.
 - **Parallel:** `evaluation/scripts/run_parallel.sh` is optional (batches per-benchmark `run_all --only …`). Not the canonical path.
 - **Heavy / optional:** `image-annotation` (API keys), `dpt` (long). EASY mode has 12 benchmarks including `file-mod` (min inputs generated via ffmpeg in `setup.sh`).
@@ -92,7 +92,6 @@ Results are written to `evaluation/run_results/min/`. Per-benchmark `outputs/min
 
 ```bash
 cd incr
-bash evaluation/scripts/restore_benchmark_scripts.sh
 # Optional parallel (logs only; copies timing via run_all internals)
 bash evaluation/scripts/run_parallel.sh --min --run-mode both --skip-dpt
 ```
@@ -191,7 +190,7 @@ If a script's time is **much shorter** than expected (e.g. 10x+), the run likely
 
 ### 4.4 Common Failure Causes
 
-- **Empty scripts**: Incr overwrites scripts in place. If interrupted, scripts can be left empty. Run `restore_benchmark_scripts.sh`.
+- **Empty scripts**: Rare; `incr.sh` uses sentinels. If needed: `git checkout` the affected file or re-run `restore_sentinels.sh` + verify file is non-empty.
 - **word-freq <1s**: Usually means wf.sh or top-n.sh was empty, or resource contention when too many benchmarks ran at once. Restore scripts and use run_parallel (which runs word-freq first).
 - **Missing Python deps**: Benchmarks finish in seconds. `pip install libbash libdash shasta`.
 - **Missing benchmark deps**: bio (samtools), dpt (torchvision), file-mod (ffmpeg). Run install.sh.
@@ -241,19 +240,16 @@ bash evaluation/scripts/verify_outputs.sh --no-cleanup  # keep artifacts for ins
 
 ---
 
-## 6. Restore Benchmark Scripts
+## 6. Restore instrumented scripts (sentinels)
 
-Incr overwrites benchmark scripts in place. If a run is interrupted (kill, Ctrl+C), scripts can be left empty or instrumented. **Always run restore before benchmarking:**
+`incr.sh` writes `<script>.incr_orig` before instrumenting; on the next `incr.sh` invocation or via `run_lib.sh`’s `restore_instrumented_scripts()`, the original is restored. `run_all.sh` calls that before every benchmark.
+
+For a manual pass over all `benchmarks/*/scripts/`:
 
 ```bash
 cd incr
-bash evaluation/scripts/restore_benchmark_scripts.sh
+bash evaluation/scripts/restore_sentinels.sh
 ```
-
-This script:
-- Restores scripts with incr instrumentation (git checkout)
-- Restores empty `.sh` files (e.g. word-freq wf.sh, top-n.sh)
-- Removes stray `incr_script_*` temp files
 
 ---
 
@@ -358,7 +354,7 @@ python3 compare_default_observe.py --results-dir ../run_results/min --skip-dpt
 
 | Symptom | Cause | Fix |
 |---------|-------|-----|
-| word-freq <1s, empty output | Empty scripts or resource contention | `restore_benchmark_scripts.sh`; use run_parallel (word-freq first) |
+| word-freq <1s, empty output | Empty scripts or resource contention | `restore_sentinels.sh`; use run_parallel (word-freq first) |
 | Benchmark finishes in seconds | Missing Python deps (libbash, libdash, shasta) | `pip install libbash libdash shasta` |
 | file-mod ~12s total | ffmpeg not installed | `apt install ffmpeg` or run file-mod/install.sh |
 | bio fails immediately | samtools not installed | `bash benchmarks/bio/install.sh` |
@@ -378,9 +374,9 @@ cd ../observe && cargo build --release
 # 2. Python deps (required for incr.sh)
 pip install --user libbash libdash shasta
 
-# 3. Restore scripts (in case of prior interrupted runs)
+# 3. (Optional) Restore sentinels if a prior run was interrupted
 cd incr
-bash evaluation/scripts/restore_benchmark_scripts.sh
+bash evaluation/scripts/restore_sentinels.sh
 
 # 4. Run EASY benchmarks at min size (fast smoke test)
 bash evaluation/benchmarks/run_all.sh --mode easy --size min --run-mode all
@@ -410,8 +406,8 @@ bash evaluation/benchmarks/run_all.sh --mode easy --size small --run-mode all
 ```bash
 cd incr
 
-# Restore any instrumented benchmark scripts first
-bash evaluation/scripts/restore_benchmark_scripts.sh
+# Optional: restore sentinels if needed
+bash evaluation/scripts/restore_sentinels.sh
 
 # Remove caches and outputs for all benchmarks
 for d in evaluation/benchmarks/*/; do
@@ -439,6 +435,6 @@ rm -rf /tmp/sort* /tmp/tmp* /tmp/incr_bench* /tmp/incr_cache
 | `evaluation/benchmarks/<name>/execute.sh` | Raw benchmark script (run by `run_lib.sh` via `incr.sh`) |
 | `evaluation/scripts/run_parallel.sh` | Optional heuristic parallel runner (`--only` per benchmark) |
 | `evaluation/scripts/verify_outputs.sh` | Diff `*.incr.out` vs `*.incr-observe.out` |
-| `evaluation/scripts/restore_benchmark_scripts.sh` | Restore scripts left instrumented by interrupted runs |
+| `evaluation/scripts/restore_sentinels.sh` | Manual sentinel restore across all `benchmarks/*/scripts/` |
 | `evaluation/run_results/<size>/` | Timing CSVs and cache sizes written by `run_all.sh` |
 | `evaluation/analysis/compare_default_observe.py` | Generate plots; `--skip-dpt`, `--results-dir` |

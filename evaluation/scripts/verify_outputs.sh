@@ -28,7 +28,7 @@ cleanup() {
     [[ "$NO_CLEANUP" == "true" ]] && return
     echo ""
     echo "Cleaning up artifacts..."
-    "$EVAL_DIR/scripts/restore_benchmark_scripts.sh" 2>/dev/null || true
+    "$EVAL_DIR/scripts/restore_sentinels.sh" 2>/dev/null || true
     rm -rf "$VERIFY_DIR"
     rm -rf /tmp/sort* /tmp/tmp* /tmp/cache* /tmp/incr_bench* 2>/dev/null || true
     echo "Done."

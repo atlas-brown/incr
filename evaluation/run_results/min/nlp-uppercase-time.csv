@@ -1,7 +1,0 @@
-mode,script,time_sec
-bash,uppercase_by_token.sh,0.016
-incr,uppercase_by_token.sh,0.709
-incr-observe,uppercase_by_token.sh,0.142
-bash,uppercase_by_type.sh,0.01
-incr,uppercase_by_type.sh,0.265
-incr-observe,uppercase_by_type.sh,0.151
