@@ -1,0 +1,16 @@
+mode,script,time_sec
+bash,1.sh,34.632
+bash,2.sh,34.666
+bash,3.sh,44.537
+bash,4.sh,16.743
+bash,5.sh,6.1
+incr,1.sh,21.854
+incr,2.sh,2.179
+incr,3.sh,26.043
+incr,4.sh,3.925
+incr,5.sh,10.433
+incr-observe,1.sh,22.395
+incr-observe,2.sh,2.277
+incr-observe,3.sh,25.543
+incr-observe,4.sh,4.21
+incr-observe,5.sh,10.051
