@@ -1,9 +1,10 @@
 #!/bin/bash
-# Verify incr (try+strace) and incr-observe produce identical stdout for each benchmark script.
+# Verify all run modes (bash, incr, incr-observe) produce identical stdout for each benchmark script.
 # Run from incr/: bash evaluation/scripts/verify_outputs.sh [--min|--small] [--no-cleanup] [--run]
 #
-# By default, compares existing outputs under benchmarks/*/outputs/<size>/*.incr.out vs *.incr-observe.out
-# if present. With --run, first runs: evaluation/benchmarks/run_all.sh --mode easy --run-mode all
+# Compares all available mode outputs under benchmarks/*/outputs/<size>/ using bash as the
+# reference. If bash output is absent, the first mode found is used as reference.
+# With --run, first runs: evaluation/benchmarks/run_all.sh --mode easy --run-mode all
 #
 # Cleans verify_outputs dir and /tmp artifacts on exit unless --no-cleanup.
 
@@ -36,7 +37,7 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 if [[ "$DO_RUN" == "true" ]]; then
-    echo "Running full suite (bash + incr + incr-observe)..."
+    echo "Running full suite (all modes)..."
     bash "$INCR_ROOT/evaluation/benchmarks/run_all.sh" --mode easy --size "$SIZE_NAME" --run-mode all --skip-setup || true
 fi
 
@@ -45,7 +46,7 @@ fail=0
 BENCHMARKS=(beginner bio covid file-mod nginx-analysis nlp-ngrams nlp-uppercase poet spell unixfun weather word-freq)
 
 echo "=============================================="
-echo "Verifying incr vs incr-observe stdout ($OUT_SUB)"
+echo "Verifying all mode outputs ($OUT_SUB)"
 echo "=============================================="
 
 for bench in "${BENCHMARKS[@]}"; do
@@ -58,23 +59,51 @@ for bench in "${BENCHMARKS[@]}"; do
     echo ">>> $bench"
     bench_fail=0
     shopt -s nullglob
-    for f in "$od"/*.incr.out; do
-        [[ -f "$f" ]] || continue
-        base="${f%.incr.out}"
-        obs="${base}.incr-observe.out"
-        if [[ ! -f "$obs" ]]; then
-            echo "  MISSING incr-observe: $(basename "$obs")"
-            bench_fail=1
-            continue
-        fi
-        if ! diff -q "$f" "$obs" >/dev/null 2>&1; then
-            echo "  DIFF: $(basename "$f") vs $(basename "$obs")"
-            diff "$f" "$obs" | head -15
-            bench_fail=1
-        fi
-    done
-    shopt -u nullglob
 
+    # Collect unique script basenames from all *.*.out files
+    declare -A scripts_seen
+    for f in "$od"/*.out; do
+        [[ -f "$f" ]] || continue
+        fname=$(basename "$f")
+        # strip trailing .<mode>.out to get script name
+        script_name="${fname%.*}"      # strips .out
+        script_name="${script_name%.*}" # strips .<mode>
+        scripts_seen["$script_name"]=1
+    done
+
+    for script_name in $(echo "${!scripts_seen[@]}" | tr ' ' '\n' | sort); do
+        # Collect all mode outputs for this script
+        modes=()
+        for f in "$od/${script_name}".*.out; do
+            [[ -f "$f" ]] || continue
+            fname=$(basename "$f")
+            mode="${fname#"${script_name}."}"
+            mode="${mode%.out}"
+            modes+=("$mode")
+        done
+
+        [[ ${#modes[@]} -lt 2 ]] && continue  # need at least 2 modes to compare
+
+        # Use bash as reference if present, else first mode alphabetically
+        ref_mode="bash"
+        if [[ ! -f "$od/${script_name}.bash.out" ]]; then
+            ref_mode=$(echo "${modes[@]}" | tr ' ' '\n' | sort | head -1)
+        fi
+        ref_file="$od/${script_name}.${ref_mode}.out"
+
+        for mode in $(echo "${modes[@]}" | tr ' ' '\n' | sort); do
+            [[ "$mode" == "$ref_mode" ]] && continue
+            cmp_file="$od/${script_name}.${mode}.out"
+            if ! diff -q "$ref_file" "$cmp_file" >/dev/null 2>&1; then
+                echo "  DIFF: ${script_name}.${ref_mode}.out vs ${script_name}.${mode}.out"
+                diff "$ref_file" "$cmp_file" | head -15
+                bench_fail=1
+            fi
+        done
+    done
+    unset scripts_seen
+
+    shopt -u nullglob
     if [[ "$bench_fail" -eq 0 ]]; then
         echo "  OK"
     else
@@ -86,7 +115,7 @@ done
 echo ""
 echo "=============================================="
 if [[ "$fail" -eq 0 ]]; then
-    echo "All incr vs incr-observe stdout outputs match."
+    echo "All mode outputs match."
 else
     echo "Some outputs differ or were missing."
     exit 1

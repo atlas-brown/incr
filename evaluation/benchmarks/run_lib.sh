@@ -181,11 +181,21 @@ run_benchmark_scripts() {
         cleanup_tmp_artifacts
     }
 
-    # Per-script bash then incr (not all bash first — avoids huge stdout filling disk).
+    clear_cache() {
+        rm -rf "$cache_dir"
+        mkdir -p "$cache_dir"
+        echo "[run] Cache cleared: $cache_dir"
+    }
+
+    # All runs grouped by mode (not interleaved per script).
+    # Cache is cleared before each incr/incr-observe group so each starts cold.
     if [[ "$RUN_MODE" == "both" ]]; then
         for script in "${scripts[@]}"; do
             echo "[run] Running $script with bash..."
             measure "bash" "$script"
+        done
+        clear_cache
+        for script in "${scripts[@]}"; do
             echo "[run] Running $script with incr..."
             measure "incr" "$script"
         done
@@ -193,8 +203,14 @@ run_benchmark_scripts() {
         for script in "${scripts[@]}"; do
             echo "[run] Running $script with bash..."
             measure "bash" "$script"
+        done
+        clear_cache
+        for script in "${scripts[@]}"; do
             echo "[run] Running $script with incr..."
             measure "incr" "$script"
+        done
+        clear_cache
+        for script in "${scripts[@]}"; do
             echo "[run] Running $script with incr-observe..."
             measure "incr-observe" "$script"
         done
@@ -204,11 +220,13 @@ run_benchmark_scripts() {
             measure "bash" "$script"
         done
     elif [[ "$RUN_MODE" == "incr-observe" ]]; then
+        clear_cache
         for script in "${scripts[@]}"; do
             echo "[run] Running $script with incr-observe..."
             measure "incr-observe" "$script"
         done
     else
+        clear_cache
         for script in "${scripts[@]}"; do
             echo "[run] Running $script with incr..."
             measure "incr" "$script"
