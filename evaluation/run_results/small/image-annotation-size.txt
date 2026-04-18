@@ -1,0 +1,1 @@
+14901635	/users/jxia3/atlas/incr/evaluation/benchmarks/image-annotation/cache
