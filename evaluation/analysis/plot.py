@@ -101,4 +101,5 @@ mode_patches = [
 #figure.add_artist(legend1)  # Add iteration legend first
 figure.legend(handles=mode_patches, title="Mode", loc="upper right")
 figure.tight_layout()
-figure.savefig("plot.png", bbox_inches="tight")
+figure.savefig("plot.pdf", bbox_inches="tight", format="pdf")
+figure.savefig("plot.png", bbox_inches="tight", format="png")

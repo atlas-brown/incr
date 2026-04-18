@@ -160,7 +160,7 @@ def main():
 
         for ext in ["pdf", "png"]:
             out_path = out_dir / f"default_vs_observe.{ext}"
-            fig.savefig(out_path, bbox_inches="tight", dpi=150)
+            fig.savefig(out_path, bbox_inches="tight", dpi=150, format=ext)
             print(f"Saved {out_path}")
         plt.close()
     else:

@@ -5,7 +5,8 @@ import matplotlib
 from matplotlib.patches import Patch
 import argparse
 import os
-import seaborn as sns
+from pathlib import Path
+from typing import Optional
 
 BENCHMARKS = [
     "beginner",
@@ -26,9 +27,108 @@ sysname = "SaSh"
 figsize = (7, 4)
 color_scheme = ["#AA4465", "#FFA69E", "#998650", "#93E1D8"]
 
-figure, axes = plt.subplots(figsize=figsize)
+
+def _savefig_pdf_png(output_path: str, dpi: int = 300, fig=None) -> None:
+    """Write ``<stem>.pdf`` and ``<stem>.png`` (path suffix ignored)."""
+    p = Path(output_path)
+    base = p.parent / p.stem
+    f = fig if fig is not None else plt.gcf()
+    f.savefig(str(base) + ".pdf", bbox_inches="tight", dpi=dpi, format="pdf")
+    f.savefig(str(base) + ".png", bbox_inches="tight", dpi=dpi, format="png")
+
+
+def _discover_benchmarks(results_dir: Path) -> list:
+    return sorted(
+        p.stem.replace("-time", "")
+        for p in results_dir.glob("*-time.csv")
+    )
+
+
+def _script_order(df: pd.DataFrame, modes: list) -> list:
+    if "bash" in df["mode"].values:
+        return df[df["mode"] == "bash"]["script"].tolist()
+    ref = modes[0]
+    return df[df["mode"] == ref]["script"].tolist()
+
+
+def plot_stacked_runtime_modes(
+    output_path,
+    results_dir: Path,
+    modes: list,
+    title: Optional[str] = None,
+    figsize=None,
+):
+    """
+    Grouped stacked bars per benchmark: one stacked bar per mode (script order = bash order).
+    Each segment is one script / iteration, same color index across modes.
+    """
+    results_dir = Path(results_dir)
+    benchmarks = _discover_benchmarks(results_dir)
+    if not benchmarks:
+        raise ValueError(f"No *-time.csv files in {results_dir}")
+
+    if figsize is None:
+        figsize = (max(10.0, len(benchmarks) * 0.55), 6.0)
+
+    cmap = matplotlib.colormaps.get_cmap("tab10")
+    fig, ax = plt.subplots(figsize=figsize)
+
+    max_iters = 1
+    for b in benchmarks:
+        df = pd.read_csv(results_dir / f"{b}-time.csv")
+        order = _script_order(df, modes)
+        max_iters = max(max_iters, len(order))
+
+    n_b = len(benchmarks)
+    n_m = len(modes)
+    x = np.arange(n_b, dtype=float)
+    bar_w = 0.8 / max(n_m, 1)
+    offsets = [(j - (n_m - 1) / 2.0) * bar_w for j in range(n_m)]
+
+    for m_idx, mode in enumerate(modes):
+        for i, b in enumerate(benchmarks):
+            df = pd.read_csv(results_dir / f"{b}-time.csv")
+            order = _script_order(df, modes)
+            if mode not in df["mode"].values:
+                continue
+            mdf = df[df["mode"] == mode].set_index("script")
+            times = []
+            for s in order:
+                if s in mdf.index:
+                    times.append(float(mdf.loc[s, "time_sec"]))
+            bottom = 0.0
+            x_pos = x[i] + offsets[m_idx]
+            for j, t in enumerate(times):
+                color = cmap(j % 10)
+                ax.bar(
+                    x_pos,
+                    t,
+                    bar_w,
+                    bottom=bottom,
+                    color=color,
+                    alpha=0.9,
+                    edgecolor="black",
+                    linewidth=0.8,
+                )
+                bottom += t
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(benchmarks, rotation=45, ha="right")
+    ax.set_ylabel("Cumulative time (s)")
+    if title:
+        ax.set_title(title)
+    iter_patches = [
+        Patch(facecolor=cmap(i % 10), edgecolor="black", label=f"Iter {i + 1}")
+        for i in range(max_iters)
+    ]
+    ax.legend(handles=iter_patches, title="Script order (stacked)", loc="upper right", fontsize=9)
+    fig.tight_layout()
+    _savefig_pdf_png(output_path, dpi=300, fig=fig)
+    plt.close(fig)
 
 def plot_speedup_ridgeline(output_path="speedup_ridgeline.pdf"):
+    import seaborn as sns
+
     sns.set_theme(style="white", rc={"axes.facecolor": (0, 0, 0, 0)})
 
     all_data = []
@@ -92,94 +192,26 @@ def plot_speedup_ridgeline(output_path="speedup_ridgeline.pdf"):
     g.set_xlabels("Speedup (bash / incremental)")
     g.despine(bottom=True, left=True)
 
-    plt.savefig(output_path, bbox_inches="tight", dpi=300, format="pdf")
+    _savefig_pdf_png(output_path, dpi=300, fig=g.figure)
     plt.close()
 
 
-def plot_runtime(output_path):
-
-    width = 0.35  # Bar width
-    all_colors = matplotlib.colormaps.get_cmap("tab10")
-
-    for i, benchmark in enumerate(BENCHMARKS):
-        data = pd.read_csv(f"../results/{benchmark}-time.csv")
-
-        # Get per-iteration times
-        bash_times = data[data["mode"] == "bash"]["time_sec"].values
-        incr_times = data[data["mode"] == "incr"]["time_sec"].values
-
-        num_iters = min(len(bash_times), len(incr_times))
-        colors = [all_colors(j % 10) for j in range(num_iters)]
-
-        # X offset for this benchmark
-        x_base = i * 3
-
-        # Stack bash (left)
-        bash_bottom = 0
-        for j in range(num_iters):
-            axes.bar(
-                x_base - width / 2,
-                bash_times[j],
-                width,
-                bottom=bash_bottom,
-                color=colors[j],
-                alpha=0.9,
-                edgecolor="black",
-                linewidth=0.8,
-            )
-            bash_bottom += bash_times[j]
-
-        # Stack incr (right)
-        incr_bottom = 0
-        for j in range(num_iters):
-            axes.bar(
-                x_base + width / 2,
-                incr_times[j],
-                width,
-                bottom=incr_bottom,
-                color=colors[j],
-                alpha=0.9,
-                edgecolor="black",
-                linewidth=0.8,
-            )
-            incr_bottom += incr_times[j]
-
-# X-axis labels
-    axes.set_xticks([i * 3 for i in range(len(BENCHMARKS))])
-    axes.set_xticklabels(BENCHMARKS, rotation=30, ha="right")
-
-    axes.set_ylabel("Cumulative Time (s)")
-    axes.set_title(None)
-
-    # --- Legend setup ---
-    # Iteration colors
-    # get the max number of iterations across all benchmarks
-    num_iters = max(
-        pd.read_csv(f"../results/{benchmark}-time.csv")["mode"].value_counts().max()
-        for benchmark in BENCHMARKS
+def plot_runtime(output_path, results_dir=None):
+    """Legacy: bash + incr stacked bars (same layout as before, dynamic benchmarks)."""
+    if results_dir is None:
+        results_dir = Path(__file__).resolve().parent.parent / "results"
+    plot_stacked_runtime_modes(
+        output_path,
+        Path(results_dir),
+        ["bash", "incr"],
+        title="Stacked runtime (bash vs incr)",
     )
-    iter_patches = [
-        Patch(facecolor=all_colors(i % 10), edgecolor="black", label=f"Iter {i+1}")
-        for i in range(num_iters)
-    ]
-
-    # Mode indicators
-    mode_patches = [
-        Patch(facecolor="gray", label="bash (left)"),
-        Patch(facecolor="lightgray", label="incr (right)")
-    ]
-
-    # Combine legends (iteration colors + mode)
-    #legend1 = figure.legend(handles=iter_patches, title="Iteration", loc="upper right")
-    #figure.add_artist(legend1)  # Add iteration legend first
-    figure.legend(handles=mode_patches, title="Mode", loc="upper right")
-
-    figure.tight_layout()
-    plt.savefig(output_path, format="pdf")
 
 
 
 def plot_speedup_pdf(output_path="speedup_pdf_all.pdf"):
+    import seaborn as sns
+
     sns.set_theme(
         style="white",
         rc={
@@ -234,10 +266,12 @@ def plot_speedup_pdf(output_path="speedup_pdf_all.pdf"):
     plt.grid(True, linestyle="--", alpha=0.2)
     sns.despine(left=False, bottom=False)
     plt.tight_layout(pad=0.6)
-    plt.savefig(output_path, bbox_inches="tight", dpi=300, format="pdf")
+    _savefig_pdf_png(output_path, dpi=300)
     plt.close()
 
 def plot_speedup_dots(output_path="speedup_dots.pdf"):
+    import seaborn as sns
+
     sns.set_theme(
         style="white",
         rc={
@@ -306,10 +340,12 @@ def plot_speedup_dots(output_path="speedup_dots.pdf"):
     plt.grid(True, linestyle="--", alpha=0.25)
     sns.despine()
     plt.tight_layout(pad=0.6)
-    plt.savefig(output_path, bbox_inches="tight", dpi=300, format="pdf")
+    _savefig_pdf_png(output_path, dpi=300)
     plt.close()
 
 def plot_stacked_runtime_grid(output_path="stacked_runtime_grid.pdf"):
+    import seaborn as sns
+
     sns.set_theme(
         style="white",
         rc={
@@ -422,10 +458,13 @@ def plot_stacked_runtime_grid(output_path="stacked_runtime_grid.pdf"):
 
     # Very compact layout
     plt.tight_layout(pad=0.4, w_pad=0.25, h_pad=0.15)
-    plt.savefig(output_path, bbox_inches="tight", dpi=300, format="pdf")
+    _savefig_pdf_png(output_path, dpi=300, fig=fig)
     plt.close()
 
 def plot_program_change_graph(output_path="program_change_graphs.pdf"):
+    import networkx as nx
+    import seaborn as sns
+
     sns.set_theme(style="white", font="serif")
 
     # Placeholder categories
@@ -515,8 +554,32 @@ def plot_program_change_graph(output_path="program_change_graphs.pdf"):
         fig.delaxes(axes[r, c])
 
     plt.tight_layout(pad=1.0, w_pad=0.4, h_pad=0.4)
-    plt.savefig(output_path, bbox_inches="tight", dpi=300, format="pdf")
+    _savefig_pdf_png(output_path, dpi=300, fig=fig)
     plt.close()
+
+def emit_stacked_runtime_variants(output_dir: str, results_dir: Path) -> None:
+    """incr-only, incr-observe-only, and bash+incr+incr-observe stacked runtime (PDF + PNG each)."""
+    os.makedirs(output_dir, exist_ok=True)
+    rd = Path(results_dir)
+    plot_stacked_runtime_modes(
+        os.path.join(output_dir, "stacked_runtime_incr.pdf"),
+        rd,
+        ["incr"],
+        title="Stacked runtime (incr only)",
+    )
+    plot_stacked_runtime_modes(
+        os.path.join(output_dir, "stacked_runtime_incr_observe.pdf"),
+        rd,
+        ["incr-observe"],
+        title="Stacked runtime (incr-observe only)",
+    )
+    plot_stacked_runtime_modes(
+        os.path.join(output_dir, "stacked_runtime_all_modes.pdf"),
+        rd,
+        ["bash", "incr", "incr-observe"],
+        title="Stacked runtime (bash, incr, incr-observe)",
+    )
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -528,10 +591,34 @@ def main():
         help="Directory to save plots",
         default="plots",
     )
+    parser.add_argument(
+        "--results-dir",
+        type=str,
+        default=None,
+        help="Directory containing <benchmark>-time.csv (for stacked runtime / legacy runtime)",
+    )
+    parser.add_argument(
+        "--stacked-runtime-only",
+        action="store_true",
+        help="Only emit stacked_runtime_{incr,incr_observe,all_modes}.{pdf,png}",
+    )
     args = parser.parse_args()
 
+    eval_dir = Path(__file__).resolve().parent.parent
+    if args.results_dir:
+        results_dir = Path(args.results_dir)
+        if not results_dir.is_absolute():
+            results_dir = eval_dir / results_dir
+    else:
+        results_dir = eval_dir / "run_results" / "small"
+        if not results_dir.exists():
+            results_dir = eval_dir / "results"
+
     # Ensure the output directory exists
-    os.makedirs(args.output_dir, exist_ok=True)
+    out_dir = args.output_dir
+    if not os.path.isabs(out_dir):
+        out_dir = str(eval_dir / out_dir)
+    os.makedirs(out_dir, exist_ok=True)
 
     plt.rcParams.update({
         #"text.usetex": True, # doesnt work in container
@@ -540,12 +627,16 @@ def main():
         "font.size": 12,
     })
 
-    plot_runtime(os.path.join(args.output_dir, "runtime.pdf"))
-    plot_speedup_ridgeline(os.path.join(args.output_dir, "speedup_ridgeline.pdf"))
-    plot_speedup_pdf(os.path.join(args.output_dir, "speedup_grid.pdf"))
-    plot_stacked_runtime_grid(os.path.join(args.output_dir, "absolute_time_bars.pdf"))
-    plot_speedup_dots(os.path.join(args.output_dir, "speedup_dots.pdf"))
-    plot_program_change_graph(os.path.join(args.output_dir, "program_change_graphs.pdf"))
+    if args.stacked_runtime_only:
+        emit_stacked_runtime_variants(out_dir, results_dir)
+        return
+
+    plot_runtime(os.path.join(out_dir, "runtime.pdf"), results_dir=results_dir)
+    plot_speedup_ridgeline(os.path.join(out_dir, "speedup_ridgeline.pdf"))
+    plot_speedup_pdf(os.path.join(out_dir, "speedup_grid.pdf"))
+    plot_stacked_runtime_grid(os.path.join(out_dir, "absolute_time_bars.pdf"))
+    plot_speedup_dots(os.path.join(out_dir, "speedup_dots.pdf"))
+    plot_program_change_graph(os.path.join(out_dir, "program_change_graphs.pdf"))
 
 if __name__ == "__main__":
     main()
