@@ -1,0 +1,30 @@
+Benchmarks: ['beginner', 'bio', 'covid', 'dpt', 'file-mod', 'image-annotation', 'nginx-analysis', 'nlp-ngrams', 'nlp-uppercase', 'poet', 'spell', 'unixfun', 'weather', 'word-freq']
+=== First script (cold start) vs bash ===
+       benchmark                script  bash_s  incr_s incr/bash   obs_s obs/bash
+        beginner        beginner-01.sh  35.387  35.017     0.99x  35.075    0.99x
+             bio              bio-1.sh   4.856   8.706     1.79x   6.477    1.33x
+           covid                  1.sh  34.632  21.854     0.63x  22.395    0.65x
+             dpt              dpt_1.sh 317.292 410.318     1.29x 368.603    1.16x
+        file-mod         file-mod-1.sh   3.335  18.403     5.52x   5.447    1.63x
+image-annotation image-annotation-1.sh  98.878 328.924     3.33x 267.416    2.70x
+  nginx-analysis            nginx-1.sh   1.936   6.203     3.20x   3.532    1.82x
+      nlp-ngrams           ngrams-1.sh  28.568  30.633     1.07x  29.195    1.02x
+   nlp-uppercase uppercase_by_token.sh  29.187  30.704     1.05x  30.067    1.03x
+            poet             poet-1.sh   0.041   0.213     5.20x   0.219    5.34x
+           spell            spell-1.sh   7.933   9.176     1.16x   8.653    1.09x
+         unixfun                  7.sh   9.648  12.458     1.29x  11.775    1.22x
+         weather   temp-analytics-1.sh  10.237   4.035     0.39x   4.039    0.39x
+       word-freq                 wf.sh  19.563   8.410     0.43x   8.317    0.43x
+incr vs bash (first script): max slowdown 5.52x, mean slowdown 1.95x, min slowdown 0.39x
+incr-observe vs bash (first script): max slowdown 5.34x, mean slowdown 1.49x, min slowdown 0.39x
+=== Per-script speedup vs bash (bash / mode) ===
+incr:
+  count: 99
+  max speedup:  193.93x
+  mean speedup: 23.28x
+  min speedup > 1: 1.01x
+incr-observe:
+  count: 99
+  max speedup:  256.76x
+  mean speedup: 31.62x
+  min speedup > 1: 1.01x

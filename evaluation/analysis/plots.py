@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import matplotlib
-from matplotlib.patches import Patch
 import argparse
 import os
 from pathlib import Path
@@ -73,12 +72,6 @@ def plot_stacked_runtime_modes(
     cmap = matplotlib.colormaps.get_cmap("tab10")
     fig, ax = plt.subplots(figsize=figsize)
 
-    max_iters = 1
-    for b in benchmarks:
-        df = pd.read_csv(results_dir / f"{b}-time.csv")
-        order = _script_order(df, modes)
-        max_iters = max(max_iters, len(order))
-
     n_b = len(benchmarks)
     n_m = len(modes)
     x = np.arange(n_b, dtype=float)
@@ -117,11 +110,6 @@ def plot_stacked_runtime_modes(
     ax.set_ylabel("Cumulative time (s)")
     if title:
         ax.set_title(title)
-    iter_patches = [
-        Patch(facecolor=cmap(i % 10), edgecolor="black", label=f"Iter {i + 1}")
-        for i in range(max_iters)
-    ]
-    ax.legend(handles=iter_patches, title="Script order (stacked)", loc="upper right", fontsize=9)
     fig.tight_layout()
     _savefig_pdf_png(output_path, dpi=300, fig=fig)
     plt.close(fig)
@@ -558,20 +546,20 @@ def plot_program_change_graph(output_path="program_change_graphs.pdf"):
     plt.close()
 
 def emit_stacked_runtime_variants(output_dir: str, results_dir: Path) -> None:
-    """incr-only, incr-observe-only, and bash+incr+incr-observe stacked runtime (PDF + PNG each)."""
+    """bash vs incr, bash vs incr-observe, and all three modes (PDF + PNG each)."""
     os.makedirs(output_dir, exist_ok=True)
     rd = Path(results_dir)
     plot_stacked_runtime_modes(
         os.path.join(output_dir, "stacked_runtime_incr.pdf"),
         rd,
-        ["incr"],
-        title="Stacked runtime (incr only)",
+        ["bash", "incr"],
+        title="Stacked runtime (bash vs incr)",
     )
     plot_stacked_runtime_modes(
         os.path.join(output_dir, "stacked_runtime_incr_observe.pdf"),
         rd,
-        ["incr-observe"],
-        title="Stacked runtime (incr-observe only)",
+        ["bash", "incr-observe"],
+        title="Stacked runtime (bash vs incr-observe)",
     )
     plot_stacked_runtime_modes(
         os.path.join(output_dir, "stacked_runtime_all_modes.pdf"),
