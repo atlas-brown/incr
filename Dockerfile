@@ -18,7 +18,8 @@ RUN apt-get update \
     automake \
     mergerfs \
     sudo \
-    vim
+    vim \
+    unzip
 
 # Add deadsnakes PPA and install Python 3.10
 RUN add-apt-repository ppa:deadsnakes/ppa && \
