@@ -12,7 +12,7 @@ install_system_deps() {
     export DEBIAN_FRONTEND=noninteractive
     sudo apt update
     sudo apt upgrade -y
-    sudo apt install -y git mergerfs strace python3-pip curl ca-certificates build-essential pkg-config libssl-dev libtool
+    sudo apt install -y git mergerfs strace python3-pip python3-venv curl ca-certificates build-essential pkg-config libssl-dev libtool
 }
 
 install_rust() {
@@ -44,6 +44,26 @@ prepare_repo() {
     pwd
 }
 
+install_python_deps() {
+    python_cmd="${INCR_PYTHON:-python3}"
+
+    if ! need_cmd "$python_cmd"; then
+        echo "$python_cmd not found" >&2
+        exit 1
+    fi
+
+    if ! "$python_cmd" -c 'import sys; raise SystemExit(0 if sys.version_info >= (3, 10) else 1)'; then
+        echo "$python_cmd must be Python 3.10 or newer" >&2
+        exit 1
+    fi
+
+    if [ ! -x ".venv/bin/python" ]; then
+        "$python_cmd" -m venv .venv
+    fi
+
+    ./.venv/bin/python -m pip install --no-cache-dir -r requirements.txt
+}
+
 main() {
     install_system_deps
     install_rust
@@ -57,12 +77,13 @@ main() {
     REPO_DIR="$(prepare_repo)"
     cd "$REPO_DIR"
 
-    pip3 install --no-cache-dir -r requirements.txt
+    install_python_deps
     cargo build --release
 
     cat <<EOF
 Incr setup complete.
 Repository: $REPO_DIR
+Python: $REPO_DIR/.venv/bin/python
 Binary: $REPO_DIR/target/release/incr
 EOF
 }

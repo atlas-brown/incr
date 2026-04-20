@@ -14,11 +14,11 @@ cd ~/incr
 The bootstrap script installs:
 
 * Rust via `rustup` if needed
-* Ubuntu packages: `git`, `mergerfs`, `strace`, `python3-pip`, `curl`, `ca-certificates`, `build-essential`, `pkg-config`, `libssl-dev`, and `libtool`
-* Python dependencies from `requirements.txt`
+* Ubuntu packages: `git`, `mergerfs`, `strace`, `python3-pip`, `python3-venv`, `curl`, `ca-certificates`, `build-essential`, `pkg-config`, `libssl-dev`, and `libtool`
+* Python dependencies from `requirements.txt` in a repo-local `.venv`
 * the release binary via `cargo build --release`
 
-Ubuntu 22.04 is the supported environment for these setup steps. Newer Ubuntu releases may require extra adjustments due to newer Python packaging and toolchain behavior.
+Ubuntu 22.04 and newer Ubuntu releases with PEP 668 externally managed Python environments are supported by these setup steps.
 
 If you prefer to install manually on Ubuntu 22.04:
 
@@ -28,7 +28,7 @@ sudo apt update && sudo apt upgrade -y
 ```
 2. Install system dependencies:
 ```sh
-sudo apt install -y git mergerfs strace python3-pip curl ca-certificates build-essential pkg-config libssl-dev libtool
+sudo apt install -y git mergerfs strace python3-pip python3-venv curl ca-certificates build-essential pkg-config libssl-dev libtool
 ```
 3. Install Rust via `rustup`:
 ```sh
@@ -36,7 +36,8 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 4. Install Python dependencies:
 ```sh
-pip3 install --no-cache-dir -r requirements.txt
+python3 -m venv .venv
+./.venv/bin/python -m pip install --no-cache-dir -r requirements.txt
 ```
 5. Build the release binary:
 ```sh

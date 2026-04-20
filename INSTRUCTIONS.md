@@ -60,24 +60,25 @@ The current repository includes:
 This section explains how to set up an environment to run Incr.
 
 Requirements:
-1. Ubuntu 22.04
+1. Ubuntu 22.04 or newer
 2. Rust 
-3. Python 3 
+3. Python 3.10 or newer
 4. `strace`
 5. `mergerfs`
-6. `sudo` access for sandboxed paths, so Incr can clean up sandbox mount points after execution.
+6. `python3-venv`, so setup can install Python dependencies into a repo-local `.venv`
+7. `sudo` access for sandboxed paths, so Incr can clean up sandbox mount points after execution.
 
 > Note: Installing directly on a new Ubuntu machine on Cloudlab is the quickest and recommended path. Fall back to Docker if the native installation does not work.
 
-To install Incr on Ubuntu 22.04, run:
+To install Incr on Ubuntu 22.04 or newer, run:
 ```sh
 curl -fsSL https://raw.githubusercontent.com/atlas-brown/incr/main/scripts/up.sh | sh
 cd incr
 ```
 
-This bootstrap script installs the required Ubuntu packages (`git`, `mergerfs`, `strace`, `python3-pip`, `curl`, `ca-certificates`, `build-essential`, `pkg-config`, `libssl-dev`, and `libtool`), installs Rust via `rustup` if needed, clones the repository into `~/incr` when run outside an existing checkout, installs Python dependencies, and builds `target/release/incr`.
+This bootstrap script installs the required Ubuntu packages (`git`, `mergerfs`, `strace`, `python3-pip`, `python3-venv`, `curl`, `ca-certificates`, `build-essential`, `pkg-config`, `libssl-dev`, and `libtool`), installs Rust via `rustup` if needed, clones the repository into `~/incr` when run outside an existing checkout, installs Python dependencies into a repo-local `.venv`, and builds `target/release/incr`.
 
-These setup steps are intended for Ubuntu 22.04 specifically. Newer Ubuntu releases may need extra adjustments because of newer Python packaging and compiler behavior.
+These setup steps support Ubuntu 22.04 and newer Ubuntu releases with PEP 668 externally managed Python environments.
 
 Alternatively, we provide a Docker image for running Incr on other operating systems:
 
