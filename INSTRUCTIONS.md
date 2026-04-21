@@ -163,14 +163,14 @@ To print a human-readable timing summary:
 
 ```sh
 cd evaluation/benchmarks
-python3 ./show_results.py --size min
+../../.venv/bin/python3 ./show_results.py --size min
 ```
 
 To plot the results:
 
 ```sh
 cd evaluation
-python3 ./scripts/perf-bars-color.py
+../.venv/bin/python3 ./scripts/perf-bars-color.py
 ```
 
 This script automatically scans `evaluation/run_results`, plots each available size (for example, `min` or `small`), and writes size-specific PNGs under `evaluation/figs`.
@@ -194,7 +194,7 @@ To inspect the aggregated results:
 
 ```sh
 cd evaluation/benchmarks
-python3 ./show_results.py --size small
+../../.venv/bin/python3 ./show_results.py --size small
 ```
 
 An example plot showing the subset of results using small inputs:
@@ -218,7 +218,7 @@ To inspect the aggregated results:
 
 ```sh
 cd evaluation/benchmarks
-python3 ./show_results.py --size small
+../../.venv/bin/python3 ./show_results.py --size small
 ```
 
 An example plot showing the subset of results using small inputs:
@@ -264,7 +264,7 @@ If you want to suppress known non-semantic diff noise such as line-number drift,
 
 ```sh
 cd evaluation/bash-ts
-python3 ./filter_diff_noise.py results/run-type.results.incr
+../../.venv/bin/python3 ./filter_diff_noise.py results/run-type.results.incr
 ```
 
 To inspect whether any paired outputs differ:
@@ -306,7 +306,7 @@ The repository also includes [evaluation/bash-ts/categories.py](./evaluation/bas
 
 ```sh
 cd evaluation/bash-ts
-python3 ./categories.py
+../../.venv/bin/python3 ./categories.py
 ```
 
 This is useful for understanding the coverage categories discussed in the paper, but it is not required for running the equivalence checks.
