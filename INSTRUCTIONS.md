@@ -323,3 +323,7 @@ For the Bash test suite:
 * `run.sh` should populate `evaluation/bash-ts/results`;
 * most paired Bash/Incr result files should match exactly;
 * any remaining mismatches should be limited to the known divergence classes documented in the paper draft.
+
+# Contact
+
+For questions or bug reports, please contact `incrsh@googlegroups.com` or, better yet, [open an issue on GitHub](https://github.com/atlas-brown/incr/issues/new).
