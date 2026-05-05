@@ -59,15 +59,24 @@ The current repository includes:
 
 This section explains how to set up an environment to run Incr.
 
+Docker setup (Recommended for AEC reviewers):
+
+```sh
+git clone https://github.com/atlas-brown/incr
+cd incr
+docker build -t incr .
+docker run -it --rm --privileged incr
+```
+
+Alternative setup: native Ubuntu 22.04
+
 Requirements:
 1. Ubuntu 22.04
-2. Rust 
-3. Python 3 
+2. Rust
+3. Python 3
 4. `strace`
 5. `mergerfs`
 6. `sudo` access for sandboxed paths, so Incr can clean up sandbox mount points after execution.
-
-> Note: Installing directly on a new Ubuntu machine on Cloudlab is the quickest and recommended path. Fall back to Docker if the native installation does not work.
 
 To install Incr on Ubuntu 22.04, run:
 ```sh
@@ -78,15 +87,6 @@ cd incr
 This bootstrap script installs the required Ubuntu packages (`git`, `mergerfs`, `strace`, `python3-pip`, `curl`, `ca-certificates`, `build-essential`, `pkg-config`, `libssl-dev`, and `libtool`), installs Rust via `rustup` if needed, clones the repository into `~/incr` when run outside an existing checkout, installs Python dependencies, and builds `target/release/incr`.
 
 These setup steps are intended for Ubuntu 22.04 specifically. Newer Ubuntu releases may need extra adjustments because of newer Python packaging and compiler behavior.
-
-Alternatively, we provide a Docker image for running Incr on other operating systems:
-
-```sh
-git clone https://github.com/atlas-brown/incr
-cd incr
-docker build -t incr .
-docker run -it --rm --privileged incr
-```
 
 To run a "hello world" example:
 
