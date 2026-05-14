@@ -3,8 +3,9 @@ FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH="/root/.cargo/bin:${PATH}"
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+RUN apt-get -o Acquire::Retries=5 update \
+    && apt-get install -y --no-install-recommends --fix-missing \
+    -o Acquire::Retries=5 \
     build-essential \
     ca-certificates \
     git \
@@ -25,7 +26,8 @@ RUN apt-get update \
     mergerfs \
     sudo \
     vim \
-    unzip
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly
 RUN pip3 install uv
