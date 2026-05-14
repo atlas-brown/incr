@@ -1,35 +1,34 @@
-FROM ubuntu:latest
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PATH="/root/.cargo/bin:${PATH}"
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     build-essential \
+    ca-certificates \
     git \
     strace \
+    python3 \
     python3-dev \
     python3-pip \
     python3-venv \
-    rustup \
+    pkg-config \
     software-properties-common \
     wget \
     curl \
-    libstdc++6  \
+    libssl-dev \
+    libstdc++6 \
     libtool \
-    m4 \ 
+    m4 \
     automake \
     mergerfs \
     sudo \
     vim \
     unzip
 
-# Add deadsnakes PPA and install Python 3.10
-RUN add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
-    apt-get install -y python3.10 python3.10-venv
-
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
-RUN python3 -m ensurepip --upgrade
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly
 RUN pip3 install uv
-RUN rustup default nightly 
 
 COPY . /app
 WORKDIR /app
