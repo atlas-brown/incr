@@ -115,9 +115,18 @@ kc_cleanup_tmp_artifacts() {
 # Single idempotent teardown. Wired to EXIT/INT/TERM/HUP in run.sh and called
 # explicitly between benchmarks. Safe to call any number of times.
 kc_aggressive_cleanup() {
-    local name dir
+    local name dir sentinel
     for name in "${KC_VISITED_BENCHMARKS[@]:-}"; do
-        kc_restore_instrumented_scripts "$KOALA_REPO/$name/scripts"
+        # Recursively restore scripts across the entire benchmark tree. Some
+        # benchmarks (ci-cd) spread scripts across nested subdirectories rather
+        # than a single scripts/ directory, so we use find instead of a fixed-
+        # depth glob.
+        while IFS= read -r sentinel; do
+            [[ -f "$sentinel" ]] || continue
+            cp "$sentinel" "${sentinel%.incr_orig}" 2>/dev/null || true
+            rm -f "$sentinel"
+        done < <(find "$KOALA_REPO/$name" -name '*.incr_orig' 2>/dev/null)
+        find "$KOALA_REPO/$name" -name 'incr_script_*.sh' -delete 2>/dev/null || true
     done
     kc_cleanup_overlay_mounts
     for dir in "${KC_VISITED_CACHE_DIRS[@]:-}"; do

@@ -44,6 +44,8 @@ compatible with how `incr` runs them:
 
 ## Patched files and which limitation each one addresses
 
+### nlp / analytics / bio
+
 | Patched file                                   | Limitation(s) | Edit summary                                                                                                                                                                                                                                                                                                       |
 | ---------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `nlp/scripts/bigrams.sh`                       | (1)           | `pure_func` inlined into the `for input` loop body.                                                                                                                                                                                                                                                                |
@@ -55,6 +57,8 @@ compatible with how `incr` runs them:
 | `analytics/scripts/nginx.sh`                   | (1), (3)      | `pure_func` inlined. The eight pipelines that used to share a single `{ … } > $logname` group redirect now each write with `>> $logname` after an initial `: > $logname` truncate.                                                                                                                                  |
 | `analytics/scripts/pcaps.sh`                   | (1), (3)      | Same shape of edit as `nginx.sh`: `pure_func` inlined, `{ … } > $logname` replaced with `: >` + `>>` appends. Also folds the now-redundant `egrep` invocations into `grep -E`.                                                                                                                                       |
 | `bio/scripts/bio.sh`                           | (2)           | Outer `cat $IN_NAME \| while read s_line` rewritten as `while read … done < "$IN_NAME"`. Inner `cut … \| sort \| uniq \| while read chr` rewritten as `chromosomes=$(cut … \| sort -u)` plus `for chr in $chromosomes; do …`. Same observable output; no commands inside the inner loop have to consume stdin anymore. |
+
+The `ci-cd` patch is purely additive (output capture only) and does not change any test logic. All other patches preserve the script's observable behavior under `bash` identically to the upstream version.
 
 In every case the script's behavior under unmodified `bash` is identical to
 the upstream version — the suite runs `bash mode` first and only marks a
@@ -70,6 +74,8 @@ is empty.
 | `oneliners/scripts/diff.sh`     | `mkfifo s1 s2` + two backgrounded writers. Limitation (4).                                   |
 | `oneliners/scripts/set-diff.sh` | Same shape as `diff.sh`. Limitation (4).                                                     |
 | `oneliners/scripts/bi-grams.sh` | Sources `bi-gram.aux.sh`, which defines `bigrams_aux` (limitation 1) and uses mkfifo+& internally (limitation 4). |
+| `ci-cd/makeself/test/*`         | Every makeself test script defines helper functions (`testDefault`, `testGzip`, `setUp`, `tearDown`, …) and calls them as bare top-level commands. incr wraps those call sites and attempts to `exec` the function name as an external binary. The pattern is pervasive across all 11 test scripts and not fixable with a small patch. Limitation (1). |
+| `ci-cd/riker/xz-clang`         | Requires `clang`, which is not installed.                                                     |
 
 These are skipped by the per-benchmark runners under
 `incr/evaluation/koala_correctness/benchmarks/`.
