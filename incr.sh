@@ -50,7 +50,7 @@ fi
 
 mkdir -p "$cache_dir"
 
-TOP=$(git rev-parse --show-toplevel)
+TOP="${INCR_TOP:-$(git rev-parse --show-toplevel)}"
 TRY_PATH="$TOP/src/scripts/try.sh"
 tmp_incr="$(dirname "$script")/incr_script_$(basename "$script").sh"
 # Sentinel: presence signals cleanup needed; contents ARE the original script.

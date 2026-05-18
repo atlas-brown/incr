@@ -1,0 +1,21 @@
+#!/bin/bash
+if [[ -z "${KC_DIR:-}" ]]; then
+    set -euo pipefail
+    cd "$(dirname "${BASH_SOURCE[0]}")"
+    source ../../lib.sh
+    KC_RUN_ID="${KC_RUN_ID:-$(date +%Y%m%d-%H%M%S)-standalone}"
+    KC_SIZE="${KC_SIZE:-min}"
+    mkdir -p "$KC_WORK_DIR" "$KC_RESULTS_DIR/$KC_RUN_ID"
+    trap 'kc_aggressive_cleanup' EXIT INT TERM HUP
+fi
+
+# At --min, koala's bio execute.sh only runs the `bio` script (samtools
+# pipeline) and exits before the heavy teraseq pipeline.
+kc_run_benchmark \
+    --name bio \
+    --size "$KC_SIZE" \
+    --deps samtools,minimap2 \
+    --timeout-min 600 \
+    --timeout-small 2400 \
+    --timeout-full 10800 \
+    --scripts bio
