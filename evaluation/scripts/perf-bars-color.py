@@ -32,6 +32,7 @@ CHANGE_TYPE_COLORS = {
 }
 DEFAULT_COLOR = "#999999"
 INCR_EDGE = "black"
+ALT_DARK_GREYS = ("#2f2f2f", "#555555")
 
 
 def bezier_point(t, p0, p1, p2, p3):
@@ -101,7 +102,7 @@ def load_series(csv_path: Path):
     return bash_times[1:], incr_times[1:]
 
 
-def plot_results(results_dir: Path, output_path: Path):
+def plot_results(results_dir: Path, output_path: Path, alternating_dark_grey: bool = False):
     fig, axes = plt.subplots(2, 7, figsize=(14, 3))
     axes = axes.flatten()
 
@@ -124,7 +125,10 @@ def plot_results(results_dir: Path, output_path: Path):
         incr_bottom = 0.0
 
         for j in range(num_iters):
-            if j < len(benchmark_deltas):
+            if alternating_dark_grey:
+                bash_color = ALT_DARK_GREYS[j % len(ALT_DARK_GREYS)]
+                incr_color = bash_color
+            elif j < len(benchmark_deltas):
                 change_type = benchmark_deltas[j]["change_type"]
                 bash_color = CHANGE_TYPE_COLORS.get(change_type, DEFAULT_COLOR)
                 incr_color = CHANGE_TYPE_COLORS.get(change_type, DEFAULT_COLOR)
@@ -204,31 +208,36 @@ def plot_results(results_dir: Path, output_path: Path):
 
     fig.supylabel("Cumulative time (s)", fontsize=16)
 
-    change_type_patches = [
-        Patch(facecolor="none", edgecolor="none", label="Change Types:"),
-        Patch(facecolor=CHANGE_TYPE_COLORS["add"], edgecolor="black", label="Addition"),
-        Patch(facecolor=CHANGE_TYPE_COLORS["mod"], edgecolor="black", label="Modification"),
-        Patch(facecolor=CHANGE_TYPE_COLORS["del"], edgecolor="black", label="Deletion"),
-    ]
     mode_patches = [
         Patch(facecolor="none", edgecolor="none", label="Systems:"),
         Patch(facecolor="white", edgecolor="black", label="Bash (left bar)"),
         Patch(facecolor="white", edgecolor="black", label="Incr (right bar)"),
     ]
 
-    fig.legend(
-        handles=change_type_patches,
-        loc="lower center",
-        bbox_to_anchor=(0.27, -0.15),
-        fontsize=14,
-        ncols=4,
-        title_fontsize=14,
-        frameon=False,
-    )
+    if not alternating_dark_grey:
+        change_type_patches = [
+            Patch(facecolor="none", edgecolor="none", label="Change Types:"),
+            Patch(facecolor=CHANGE_TYPE_COLORS["add"], edgecolor="black", label="Addition"),
+            Patch(facecolor=CHANGE_TYPE_COLORS["mod"], edgecolor="black", label="Modification"),
+            Patch(facecolor=CHANGE_TYPE_COLORS["del"], edgecolor="black", label="Deletion"),
+        ]
+        fig.legend(
+            handles=change_type_patches,
+            loc="lower center",
+            bbox_to_anchor=(0.27, -0.15),
+            fontsize=14,
+            ncols=4,
+            title_fontsize=14,
+            frameon=False,
+        )
+        mode_anchor = (0.75, -0.15)
+    else:
+        mode_anchor = (0.5, -0.15)
+
     fig.legend(
         handles=mode_patches,
         loc="lower center",
-        bbox_to_anchor=(0.75, -0.15),
+        bbox_to_anchor=mode_anchor,
         fontsize=14,
         ncols=3,
         title_fontsize=14,
@@ -259,6 +268,11 @@ def main():
         default=str(figs_dir),
         help="Directory where output PDFs will be written.",
     )
+    parser.add_argument(
+        "--alternating-dark-grey",
+        action="store_true",
+        help="Render slices in alternating dark-grey shades instead of change-type colors.",
+    )
     args = parser.parse_args()
 
     results_root = Path(args.results_root).resolve()
@@ -275,7 +289,11 @@ def main():
     script_stem = Path(__file__).stem
     for results_dir in size_dirs:
         output_path = output_dir / f"{script_stem}-{results_dir.name}.png"
-        plot_results(results_dir, output_path)
+        plot_results(
+            results_dir,
+            output_path,
+            alternating_dark_grey=args.alternating_dark_grey,
+        )
 
 
 if __name__ == "__main__":
