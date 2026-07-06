@@ -32,8 +32,10 @@ RUN apt-get -o Acquire::Retries=5 update \
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly
 RUN pip3 install uv
 
-COPY . /app
 WORKDIR /app
+
+COPY Cargo.toml Cargo.lock pyproject.toml requirements.txt /app/
+COPY src /app/src
 
 RUN uv pip install --system -r pyproject.toml
 RUN cargo build --release

@@ -26,7 +26,7 @@ The current repository includes:
 
 1. the Incr implementation under [src](./src),
 2. the top-level project overview in [README.md](./README.md),
-3. the executable entrypoint [incr.sh](./incr.sh),
+3. the executable entrypoint [incr.sh](./src/incr.sh),
 4. the benchmark drivers under [evaluation/benchmarks](./evaluation/benchmarks),
 5. the Bash behavioral-equivalence harness under [evaluation/bash-ts](./evaluation/bash-ts).
 
@@ -78,20 +78,14 @@ Requirements:
 5. `mergerfs`
 6. `sudo` access for sandboxed paths, so Incr can clean up sandbox mount points after execution.
 
-To install Incr on Ubuntu 22.04, run:
-```sh
-curl -fsSL https://raw.githubusercontent.com/atlas-brown/incr/main/scripts/up.sh | sh
-cd incr
-```
-
-This bootstrap script installs the required Ubuntu packages (`git`, `mergerfs`, `strace`, `python3-pip`, `curl`, `ca-certificates`, `build-essential`, `pkg-config`, `libssl-dev`, and `libtool`), installs Rust via `rustup` if needed, clones the repository into `~/incr` when run outside an existing checkout, installs Python dependencies, and builds `target/release/incr`.
+Install the required packages and tools, then clone the repository, install Python dependencies from `requirements.txt`, and build `target/release/incr`.
 
 These setup steps are intended for Ubuntu 22.04 specifically. Newer Ubuntu releases may need extra adjustments because of newer Python packaging and compiler behavior.
 
 To run a "hello world" example:
 
 ```sh
-bash ./incr.sh ./evaluation/hello-world.sh
+bash ./src/incr.sh ./evaluation/hello-world.sh
 ```
 
 **Minimal incrementalization example (war-and-peace):** A word-frequency pipeline over a large text.

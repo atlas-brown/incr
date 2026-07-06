@@ -150,7 +150,7 @@ run_benchmark_scripts() {
 
         # stdin from pipe never closes in some runners; ffmpeg etc. would block.
         if [[ "$mode" == "incr" ]]; then
-            { time "$TOP/incr.sh" "$SCRIPT_DIR/$script" "$cache_dir" \
+            { time "$TOP/src/incr.sh" "$SCRIPT_DIR/$script" "$cache_dir" \
                 < /dev/null >"$out_file" 2>"$err_file"; } 2>"$time_log"
         else
             { time bash "$SCRIPT_DIR/$script" < /dev/null >"$out_file" 2>"$err_file"; } 2>"$time_log"

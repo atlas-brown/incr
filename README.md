@@ -1,6 +1,10 @@
 # incr
 
+Quick Jump: [Quick Start](#quick-start) | [Setup](#setup) | [Benchmarks](#benchmarks) | [Citing](#citing-incr) | [License & Contributing](#license--contributing)
+
 Bolt-on incremental execution for the shell. Incr wraps shell commands to track their file dependencies and memoize their results, so that unchanged commands are skipped on re-execution and their outputs are replayed from cache.
+
+![Incr overview](docs/overview.png)
 
 ## Setup
 
@@ -9,25 +13,59 @@ The default path is Docker. Clone the repo, then run Incr through the top-level 
 ```sh
 git clone https://github.com/atlas-brown/incr
 cd incr
-chmod +x ./incr
-sudo install -m 755 ./incr /usr/local/bin/incr
+make install
 incr ./evaluation/hello-world.sh
 ```
 
-The first run builds a local Docker image named `incr`. Later runs reuse that image and keep the incrementalization cache in `./.incr-cache` in whatever directory you launch `incr` from.
+The wrapper runs `ghcr.io/atlas-brown/incr:latest` by default.
 
-If you prefer native setup on Ubuntu 22.04, use [up.sh](./up.sh) or install the dependencies manually. The native path remains Ubuntu-specific because it relies on `strace`, `mergerfs`, Rust, Python packages, and privileged cleanup behavior.
+If you prefer native setup on Ubuntu 22.04, install the dependencies manually.
 
 See [INSTRUCTIONS.md](./INSTRUCTIONS.md) for full evaluation instructions.
 
 ### Docker
 
 ```sh
-docker build -t incr .
-docker run -it --rm --privileged incr
+docker run -it --rm --privileged ghcr.io/atlas-brown/incr:latest
 ```
 
 Toggle `DEBUG` and `DEBUG_LOGS` in `src/config.rs` for debug output.
+
+### Manual Installation
+
+Native installation is optional. On Ubuntu 22.04, you need these packages installed:
+
+- `git`
+- `mergerfs`
+- `strace`
+- `python3`
+- `python3-pip`
+- `build-essential`
+- `pkg-config`
+- `libssl-dev`
+- `libtool`
+- Rust via `cargo`
+
+Then clone and build Incr:
+
+```sh
+git clone https://github.com/atlas-brown/incr
+cd incr
+pip3 install --no-cache-dir -r requirements.txt
+cargo build --release
+```
+
+To use the Docker wrapper from your `PATH`, run:
+
+```sh
+make install
+```
+
+To use Incr natively from the checkout, run:
+
+```sh
+bash ./src/incr.sh myscript.sh
+```
 
 ## Quick Start
 

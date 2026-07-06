@@ -3,7 +3,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 TOP="$(git rev-parse --show-toplevel)"
-INCR="$TOP/incr.sh"
+INCR="$TOP/src/incr.sh"
 export INPUT="$TOP/evaluation/war-and-peace/book-large.txt"
 
 baseline_file="$(mktemp)"

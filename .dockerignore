@@ -1,0 +1,8 @@
+**
+!Dockerfile
+!Cargo.toml
+!Cargo.lock
+!pyproject.toml
+!requirements.txt
+!src/
+!src/**

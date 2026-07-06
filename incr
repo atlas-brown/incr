@@ -1,9 +1,8 @@
 #!/bin/sh
 set -eu
 
-IMAGE="${INCR_IMAGE:-incr}"
-REPO_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
-WORK_DIR="$(pwd)"
+image="${INCR_IMAGE:-ghcr.io/atlas-brown/incr:latest}"
+work_dir="$(pwd)"
 
 if ! command -v docker >/dev/null 2>&1; then
     echo "docker is required to run incr" >&2
@@ -15,12 +14,8 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-cache_dir="${INCR_CACHE_DIR:-$WORK_DIR/.incr-cache}"
+cache_dir="${INCR_CACHE_DIR:-$work_dir/.incr-cache}"
 mkdir -p "$cache_dir"
-
-if ! docker image inspect "$IMAGE" >/dev/null 2>&1; then
-    docker build -t "$IMAGE" "$REPO_DIR"
-fi
 
 docker_tty_flags=""
 if [ -t 0 ] && [ -t 1 ]; then
@@ -30,9 +25,9 @@ elif [ -t 0 ]; then
 fi
 
 exec docker run --rm ${docker_tty_flags} --privileged \
-    -v "$WORK_DIR:$WORK_DIR" \
+    -v "$work_dir:$work_dir" \
     -v "$cache_dir:$cache_dir" \
-    -w "$WORK_DIR" \
+    -w "$work_dir" \
     -e INCR_CACHE_DIR="$cache_dir" \
-    "$IMAGE" \
-    /app/incr.sh "$@"
+    "$image" \
+    /app/src/incr.sh "$@"
