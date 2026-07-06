@@ -4,44 +4,19 @@ Bolt-on incremental execution for the shell. Incr wraps shell commands to track 
 
 ## Setup
 
-The quickest path is Ubuntu 22.04 with the bootstrap script:
+The default path is Docker. Clone the repo, then run Incr through the top-level `incr` wrapper:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/atlas-brown/incr/main/scripts/up.sh | sh
-cd ~/incr
+git clone https://github.com/atlas-brown/incr
+cd incr
+chmod +x ./incr
+sudo install -m 755 ./incr /usr/local/bin/incr
+incr ./evaluation/hello-world.sh
 ```
 
-The bootstrap script installs:
+The first run builds a local Docker image named `incr`. Later runs reuse that image and keep the incrementalization cache in `./.incr-cache` in whatever directory you launch `incr` from.
 
-* Rust via `rustup` if needed
-* Ubuntu packages: `git`, `mergerfs`, `strace`, `python3-pip`, `curl`, `ca-certificates`, `build-essential`, `pkg-config`, `libssl-dev`, and `libtool`
-* Python dependencies from `requirements.txt`
-* the release binary via `cargo build --release`
-
-Ubuntu 22.04 is the supported environment for these setup steps. Newer Ubuntu releases may require extra adjustments due to newer Python packaging and toolchain behavior.
-
-If you prefer to install manually on Ubuntu 22.04:
-
-1. Update packages:
-```sh
-sudo apt update && sudo apt upgrade -y
-```
-2. Install system dependencies:
-```sh
-sudo apt install -y git mergerfs strace python3-pip curl ca-certificates build-essential pkg-config libssl-dev libtool
-```
-3. Install Rust via `rustup`:
-```sh
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
-4. Install Python dependencies:
-```sh
-pip3 install --no-cache-dir -r requirements.txt
-```
-5. Build the release binary:
-```sh
-cargo build --release
-```
+If you prefer native setup on Ubuntu 22.04, use [up.sh](./up.sh) or install the dependencies manually. The native path remains Ubuntu-specific because it relies on `strace`, `mergerfs`, Rust, Python packages, and privileged cleanup behavior.
 
 See [INSTRUCTIONS.md](./INSTRUCTIONS.md) for full evaluation instructions.
 
@@ -54,56 +29,17 @@ docker run -it --rm --privileged incr
 
 Toggle `DEBUG` and `DEBUG_LOGS` in `src/config.rs` for debug output.
 
-## Architecture
-
-`incr` intercepts shell command execution to memoize results. On re-execution, it replays cached stdout/stderr and file outputs when the command's inputs, environment, and file dependencies are unchanged, using strace and an OverlayFS sandbox to track side effects.
-
-- **`src/main.rs`** - CLI entrypoint that selects an execution strategy for each command.
-- **`src/command.rs`** - Represents a command invocation and handles spawning child processes.
-- **`src/execution/`** - Execution engines that manage tracing, caching, and replaying command results.
-- **`src/cache/`** - Stores and retrieves memoized outputs and file dependency information.
-- **`src/config.rs`** - Runtime and compile-time configuration constants.
-- **`src/scripts/`** - Helper scripts for parsing trace output and rewriting shell scripts to use incr.
-
 ## Quick Start
 
 To sanity-check the install with a minimal example:
 
 ```sh
-./incr.sh ./evaluation/hello-world.sh
+incr ./evaluation/hello-world.sh
 ```
 
-This should print the same `Hello, world!`-style output as the underlying shell script, while exercising the `incr.sh` entrypoint.
-
-The `evaluation/war-and-peace` pipeline counts word frequencies. Run the combined harness:
-
-```sh
-./evaluation/war-and-peace/test.sh
-```
-
-This runs:
-
-1. the baseline Bash pipeline,
-2. a cold Incr run, and
-3. a warm Incr run that should reuse cached results.
-
-It checks that both Incr outputs match the baseline. Clean up with `bash ./evaluation/war-and-peace/clean.sh`.
+This should print the same `Hello, world!`-style output as the underlying shell script, while exercising the Docker-backed `incr` entrypoint.
 
 ## Benchmarks
-
-Each benchmark under `evaluation/benchmarks/` has its own setup and execution scripts. The main suite driver is `run_all.sh`. To run the benchmarks with minimum inputs to verify that their dependencies are installed correctly:
-
-```sh
-cd evaluation/benchmarks && ./run_all.sh --mode=easy --size=min --run-mode=both
-```
-
-To run the benchmarks with full-sized inputs:
-
-```sh
-cd evaluation/benchmarks && ./run_all.sh --mode=easy --size=small --run-mode=both
-```
-
-Results are written under `evaluation/run_results/`. For a specific input size, use `python3 ./show_results.py --size=[SIZE]` to print a summary and `bash ./verify_outputs.sh --mode=easy --size=[SIZE]` to check Bash/Incr output agreement.
 
 See [INSTRUCTIONS.md](./INSTRUCTIONS.md) for full benchmark setup and the behavioral-equivalence harness.
 
