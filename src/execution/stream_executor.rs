@@ -4,6 +4,10 @@ use std::fs;
 use std::io::{self, ErrorKind, IsTerminal, Read};
 use std::process::{Child, ChildStdin};
 use std::sync::mpsc;
+use std::sync::{
+    Arc,
+    atomic::{AtomicBool, Ordering},
+};
 use std::thread::{self, JoinHandle};
 use xxhash_rust::xxh3::Xxh3;
 
@@ -13,13 +17,14 @@ use crate::command::{self, ChildContext, Command, Runtime, RuntimeType};
 use crate::config::{BUFFER_SIZE, Config, TraceType};
 use crate::execution;
 use crate::execution::dependency;
-use crate::execution::run::{self, OutputMetadata, OutputResult};
+use crate::execution::run::{self, OutputMetadata, OutputResult, StdinResult};
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
 #[derive(Debug)]
 struct StdinContext {
     hash: u64,
-    thread: Option<JoinHandle<Result<()>>>,
+    broken_pipe: bool,
+    thread: Option<JoinHandle<Result<StdinResult>>>,
 }
 
 #[derive(Clone, Debug)]
@@ -42,6 +47,14 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     let stdin_context = capture_stdin(child.stdin.take().unwrap())?;
     let cache = CacheCursor::from_hash(config, command, stdin_context.hash)?;
     cache.create_directory()?;
+
+    if stdin_context.broken_pipe {
+        let exit_code = child.wait()?.code().unwrap_or(1);
+        let _ = run::join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)?;
+        run::clean_child_runtime(&runtime)?;
+        cache.clean()?;
+        return Ok(ExitCode(exit_code));
+    }
 
     let cache_status = load_cache_data(&cache, child, &runtime)?;
     let outputs = match run::join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
@@ -118,28 +131,47 @@ fn capture_stdin(child_stdin: ChildStdin) -> Result<StdinContext> {
     if process_stdin.is_terminal() {
         return Ok(StdinContext {
             hash: ops::data::hash_bytes(&[]),
+            broken_pipe: false,
             thread: None,
         });
     }
 
     let (send_channel, receive_channel) = mpsc::channel::<Vec<_>>();
-    let stdin_thread = thread::spawn(|| run::forward_stdin(receive_channel, child_stdin));
+    let stdin_broken = Arc::new(AtomicBool::new(false));
+    let stdin_thread = thread::spawn({
+        let stdin_broken = Arc::clone(&stdin_broken);
+        move || {
+            let result = run::forward_stdin(receive_channel, child_stdin)?;
+            if result == StdinResult::BrokenPipe {
+                stdin_broken.store(true, Ordering::Release);
+            }
+            Ok(result)
+        }
+    });
     let mut chunk = [0; BUFFER_SIZE];
     let mut hasher = Xxh3::new();
 
     loop {
+        if stdin_broken.load(Ordering::Acquire) {
+            break;
+        }
         let count = match process_stdin.read(&mut chunk) {
             Ok(0) => break,
             Ok(count) => count,
             Err(error) if error.kind() == ErrorKind::Interrupted => continue,
             Err(error) => return Err(error.into()),
         };
-        send_channel.send(chunk[..count].to_vec())?;
+        if send_channel.send(chunk[..count].to_vec()).is_err() {
+            break;
+        }
         hasher.update(&chunk[..count]);
     }
+    let broken_pipe = stdin_broken.load(Ordering::Acquire);
+    drop(send_channel);
 
     Ok(StdinContext {
         hash: hasher.digest(),
+        broken_pipe,
         thread: Some(stdin_thread),
     })
 }

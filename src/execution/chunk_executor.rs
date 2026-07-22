@@ -129,7 +129,7 @@ enum StartResult {
 #[derive(Debug)]
 struct StdinContext {
     hash: u64,
-    thread: JoinHandle<Result<()>>,
+    thread: JoinHandle<Result<run::StdinResult>>,
 }
 
 /// Chunk executor: splits stdin at content-defined boundaries (via [`LineChunker`]) and

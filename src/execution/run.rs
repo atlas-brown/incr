@@ -24,31 +24,32 @@ pub(crate) enum OutputResult {
     BrokenPipe,
 }
 
-/// Drains a channel of byte chunks into a child's stdin. Silently absorbs broken-pipe errors
-/// (the child may exit before consuming all input).
-pub(crate) fn forward_stdin<C>(channel: Receiver<C>, mut child_stdin: ChildStdin) -> Result<()>
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) enum StdinResult {
+    Completed,
+    BrokenPipe,
+}
+
+/// Drains a channel of byte chunks into a child's stdin.
+pub(crate) fn forward_stdin<C>(channel: Receiver<C>, mut child_stdin: ChildStdin) -> Result<StdinResult>
 where
     C: AsRef<[u8]>,
 {
-    let mut broken = false;
     for chunk in channel {
-        if broken {
-            continue;
-        }
         if let Err(error) = child_stdin.write_all(chunk.as_ref()) {
             if error.kind() != ErrorKind::BrokenPipe {
                 return Err(error.into());
             }
-            broken = true;
+            return Ok(StdinResult::BrokenPipe);
         };
     }
-    Ok(())
+    Ok(StdinResult::Completed)
 }
 
 /// Joins the stdin/stdout/stderr capture threads and returns output lengths.
 /// Returns `None` if a broken pipe was encountered.
 pub(crate) fn join_stream_threads(
-    stdin_thread: Option<JoinHandle<Result<()>>>,
+    stdin_thread: Option<JoinHandle<Result<StdinResult>>>,
     stdout_thread: JoinHandle<Result<ChildResult>>,
     stderr_thread: JoinHandle<Result<ChildResult>>,
 ) -> Result<Option<OutputMetadata>> {
