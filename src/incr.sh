@@ -51,7 +51,9 @@ fi
 mkdir -p "$cache_dir"
 
 TOP=$(git rev-parse --show-toplevel)
-TRY_PATH="$TOP/src/scripts/try.sh"
+INCR_TOP=${INCR_TOP:-$TOP}
+TRY_PATH="${INCR_TRY_PATH:-$INCR_TOP/src/scripts/try.sh}"
+SYS_PATH="${INCR_SYS_PATH:-$INCR_TOP/target/release/incr}"
 tmp_incr="$(dirname "$script")/incr_script_$(basename "$script").sh"
 # Sentinel: presence signals cleanup needed; contents ARE the original script.
 sentinel="${script}.incr_orig"
@@ -75,7 +77,7 @@ cleanup() {
 }
 trap cleanup EXIT INT TERM
 
-python3 ${TOP}/src/scripts/insert.py $parser_flags --sys-path ${TOP}/target/release/incr --try $TRY_PATH --cache "$cache_dir" "$script" > "$tmp_incr"
+python3 "$INCR_TOP/src/scripts/insert.py" $parser_flags --sys-path "$SYS_PATH" --try "$TRY_PATH" --cache "$cache_dir" "$script" > "$tmp_incr"
 
 # sentinel IS the backup; after this point any kill is recoverable
 cp "$script" "$sentinel"

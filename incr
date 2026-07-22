@@ -29,5 +29,7 @@ exec docker run --rm ${docker_tty_flags} --privileged \
     -v "$cache_dir:$cache_dir" \
     -w "$work_dir" \
     -e INCR_CACHE_DIR="$cache_dir" \
+    -e INCR_SYS_PATH=/app/target/release/incr \
+    -e INCR_TRY_PATH=/app/src/scripts/try.sh \
     "$image" \
-    /app/src/incr.sh "$@"
+    "$work_dir/src/incr.sh" "$@"
