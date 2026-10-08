@@ -62,7 +62,7 @@ echo "" | ./target/release/incr -t ./src/scripts/try.sh -c /tmp/cache --observe 
 Observe traces commands on the live filesystem, avoiding the fallback's per-command
 mergerfs sandbox setup. This also preserves live shared-file and FIFO interactions.
 Actual speedups depend on the workload and whether its effects can safely replay;
-see the minimum-input qualification results under `qualification/results/`.
+see the [minimum-input qualification results](qualification/results/2026-10-08/EVALUATION.md).
 
 ### Enabling observe
 

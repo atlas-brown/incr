@@ -888,3 +888,85 @@ benchmark component checks, 405 Observe assertions and both replay probes. The f
 Source review coverage is complete; final measurements/publication remain required.
 The benchmark driver now records the Observe effect policy explicitly. Final timing
 comparisons will use --effect-policy final, retaining the earlier live-policy baseline.
+
+Source commits are pushed: Observe main 1817725972558eb8e67495bb4eeffe5e10314810;
+Incr observe 119e668fdcb0 (full revision in final-build.json). Both messages contain
+only brief subjects. No execution caches, bytecode or result-directory artifacts
+were included in these source commits.
+
+The complete Bash differential suite passes all 83 cases (166 native/candidate
+records). Job-control and trap tests contain intentional waits and completed within
+their individual deadlines. Build/source/dependency/input fingerprints were recorded
+for frozen snapshot b21d57dc13686230ee36. The final ordinary benchmark matrix has
+started serially with three pairs per case and explicit Observe final-output policy.
+Real-model DPT follows only after ordinary validation. Results are being saved in
+qualification/results/2026-10-08; final report and evidence commit remain pending.
+
+### Final measurement monitoring
+
+The ordinary matrix has passed 480 completed records with no Bash, updated try or
+Observe validation failures. Pinned main reproduces warm bio mismatches; its invalid
+runs will be excluded from speed comparisons. Runtime sources and measured binaries
+remain fixed. Updated the progress reader to accept an explicit results directory
+instead of silently reading the previous evaluation date, and corrected the source
+review tracker to the final 405 Observe assertions. These are harness/documentation
+changes only.
+
+The ordinary matrix passed its halfway point (1,120/2,064 records) with zero
+Bash/updated-try/Observe failures. File-modification cases show working final-output
+replay: completed warm Observe samples are about 0.2–0.3s versus 2–5s for updated
+try in these cases. These are preliminary case-level timings, not an aggregate.
+Added OPTIMIZATIONS.md to map assumptions, implementation and behavioral coverage.
+The later real-model matrix is expected to take roughly 80 minutes based on the
+previous frozen baseline; it will run once, serially, after ordinary validation.
+
+### Ordinary final matrix complete
+
+All 2,064 scheduled measurements across 86 entrypoints completed. Bash, updated
+try and Observe each pass all 516 measurements. Pinned main has 374 valid and 142
+invalid measurements; the driver exits 1 because those baseline failures remain
+visible. Every candidate raw record passes status, timeout and descendant checks;
+record identities are unique and complete. Observe uses the final-output policy.
+The real-model DPT matrix now starts serially, one cold/warm pair per mode and
+variant. No source changes or competing tests/builds will run during it.
+
+DPT variant 1 completed all eight measurements. Bash, updated try and Observe
+pass cold/warm validation; pinned main warm is invalid. Observe takes 66.28s cold
+and 66.43s warm versus updated try 69.50s/66.42s: no meaningful warm-model speedup.
+The final report will separate model and ordinary results rather than imply that
+the ordinary speedups apply to model inference. Remaining variants continue
+serially under the existing deadlines.
+
+DPT midpoint: 40/80 measurements, five complete variants. Bash, updated try and
+Observe each pass 10/10; pinned main has five valid cold and five invalid warm
+runs. No candidate timeouts or cleanup failures. Model timings remain close
+between Observe and updated try. The report now separates all/ordinary/DPT
+aggregates and uses descriptive loop variables; measured runtime sources and
+binaries are unchanged.
+
+### Final qualification complete
+
+All 2,144 measurements across 96 benchmark entrypoints are present and unique.
+Bash, updated try and Observe each pass 536/536. Pinned main has 384 valid and
+152 invalid runs: 146 require descendant cleanup and 29 have filesystem mismatches,
+with overlap. Both benchmark drivers exit 1 solely because baseline failures remain
+visible; the candidate qualification report is true. Independently rechecked all
+1,608 reference/candidate raw records against native output/effects/status and
+cleanup evidence. Published source and binary hashes exactly match the frozen build.
+
+Observe versus updated try: all-case geometric means 5.787x cold / 2.148x warm;
+sum-of-medians speedups 1.278x / 1.112x. Ordinary-only geometric means are
+7.073x / 2.343x, with 15.705x warm file-modification and 8.739x warm word-frequency
+speedups. DPT is 1.031x / 1.019x on single samples, without meaningful model-cache
+acceleration. Two cold and six warm case medians are slower than updated try; worst
+warm ratio 0.951x. Plain Bash remains faster overall at minimum size, and the
+27 fully valid main warm ordinary cases favor main by about 7% geometrically.
+The final evaluation documents these regressions and remaining assumptions.
+
+Cleanup removed 2.3 GB of disposable benchmark fixtures/caches, Bash execution
+fixtures, obsolete build 8bcf3a4ad33c026f3990, Python bytecode, old progress state and
+the redundant Node download archive. No owned benchmark processes, mounts or
+recovery snapshots remained. Kept the frozen baseline/final builds, pinned main
+checkout, reusable dependencies/models and saved evidence for reproduction.
+Completed the expanded plan and final evaluation documentation. Curated evidence
+and documentation are being published together with a brief subject-only commit.

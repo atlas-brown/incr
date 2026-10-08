@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "/users/jxia3/atlas/observe/target/release/observe",
+    "--output",
+    "/users/jxia3/atlas/incr/qualification/.work/thread-exec-m7lbw9ax/report.json",
+    "--",
+    "python3",
+    "-c",
+    "import os,sys,threading; worker=threading.Thread(target=lambda:os.execv(\"/bin/cat\",[\"cat\",sys.argv[1]])); worker.start(); worker.join()",
+    "/users/jxia3/atlas/incr/qualification/.work/thread-exec-m7lbw9ax/input"
+  ],
+  "returncode": 1,
+  "elapsed_sec": 0.05912486699889996,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "79d6d6b39e68ca95477caa7553bf0dc3f77d505569456110b4f42569c028b5a2",
+  "stderr_sha256": "de63293c3669a3b9e3c666383aa7d41ebb81fd1e7389a1b0119f2bbdba8a9b6f",
+  "stdout": "thread exec\n",
+  "stderr": "Error: waitpid\n\nCaused by:\n    ECHILD: No child processes\n"
+}

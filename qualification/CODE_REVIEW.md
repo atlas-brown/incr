@@ -42,7 +42,7 @@ Status is review coverage, not qualification. Pending entries remain required wo
 | observe/src/main.rs | Reviewed | Buffered typed reports avoid clones and tiny writes; raw Unix arguments preserved; existing format/exit/option tests pass |
 | observe/src/proc_helpers.rs | Reviewed | Removed stale FD cache; O_PATH avoids blocking; preserved parent components and literal deleted suffix; bounded pathname read rejects partial strings |
 | observe/src/seccomp.rs | Reviewed | Condensed filter builder; alternate ABI tag forces live execution; native 32-bit output and replay barrier tested |
-| observe/src/snapshot.rs | Reviewed | Restoration phases handle nested rename and file/tree exchanges; failed open/rmdir preserve initial state; full Observe suite passes 403 assertions |
+| observe/src/snapshot.rs | Reviewed | Restoration phases handle nested rename and file/tree exchanges; failed open/rmdir preserve initial state; full Observe suite passes 405 assertions |
 | observe/src/state.rs | Reviewed | Shared snapshot serialization and first-read dependency capture; removed descriptor cache state |
 | observe/src/syscall.rs | Reviewed | Metadata, truncate, rename, xattr and async coverage audited; negative effects and failed snapshots fixed; unsupported effects carry barriers |
 | observe/src/tracer.rs | Reviewed | Exec TID tracking, SIGTERM startup retry, ABI tag handling and bounded error-path child cleanup; signal/error/multiprocess checks pass |

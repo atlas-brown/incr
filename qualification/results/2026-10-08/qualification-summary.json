@@ -1,0 +1,3511 @@
+{
+  "effect_policies": [
+    "final"
+  ],
+  "qualified": true,
+  "records": 2144,
+  "expected_records": 2144,
+  "cases": 96,
+  "missing_cases": [],
+  "invalid_records": [
+    {
+      "benchmark": "beginner",
+      "script": "beginner-06.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.15769606400135672,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 163204,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-06.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.17175570800100104,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 163204,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-06.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.13746113900197088,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 163204,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-13.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.14089942800274002,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 185392,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-13.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.2026698670015321,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 185392,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-13.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.20237431599889533,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 185392,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-14.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.12790033900091657,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 185392,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-14.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.14205199299976812,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 185392,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-1.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.3201941639999859,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 4233340,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-1.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.2576706200015906,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 4233340,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-1.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.24094926600082545,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 4233340,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-2.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.2547724260002724,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 4233379,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-2.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.26805089399931603,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 4233379,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-2.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.2812156899999536,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 4233379,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-3.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 2.0839782360017125,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 6286890,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-3.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 2.166621470998507,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 6286890,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-3.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 2.1033214359995327,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 6286890,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4-0.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 2.1545375250025245,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 6286901,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4-0.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 2.096645604000514,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 6286901,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4-0.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 2.0329518350008584,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 6286901,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 2.0053914460004307,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 6286901,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 2.0752390480010945,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 6286901,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 2.1270047969992447,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 6286901,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-5.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 2.0723193170015293,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 6290433,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-5.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 2.1228747210006986,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 6290433,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-5.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 2.1652860380017955,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 6290433,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-6.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 2.8092565890001424,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 6335210,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-6.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 2.797448715999053,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 6335210,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-6.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 3.1410002839984372,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 6335247,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "covid",
+      "script": "1.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.13467607200072962,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 919293,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "covid",
+      "script": "1.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.2016839620009705,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 919293,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "covid",
+      "script": "1.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.19978969800285995,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 919293,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "covid",
+      "script": "2.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.1589308840011654,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 944188,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "covid",
+      "script": "2.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.2014950399970985,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 944188,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "covid",
+      "script": "2.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.20019365699772607,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 944188,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "covid",
+      "script": "3.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.18168266500288155,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 1065430,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "covid",
+      "script": "3.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.13724961700063432,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 1065430,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "covid",
+      "script": "3.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.20534032000068692,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 1065430,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "covid",
+      "script": "4.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.2321563650002645,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 882037,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "covid",
+      "script": "4.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.14460079800119274,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 882037,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "covid",
+      "script": "4.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.2193612570008554,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 882037,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "covid",
+      "script": "5.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.14509549099966534,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 749578,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-1.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.3927902220020769,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 232713,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-1.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.5068149190010445,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 232727,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-1.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.42900503800046863,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 232713,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-2.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.7933414940016519,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 389919,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-2.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.744462882001244,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 389919,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-2.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.7694725100009236,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 389926,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-3.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.4065341019995685,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 379356,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-3.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.47251118599888287,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 379356,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-3.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.46321574399917154,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 379349,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-4.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.4585670720007329,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 523360,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-4.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.37439802499648067,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 523360,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-4.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.48178822599948035,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 523360,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-5.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.44559035600104835,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 523360,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-5.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.41560969299825956,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 523360,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-5.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.393683359001443,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 523360,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-6.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.560573047001526,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 269676,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-6.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.5051851149983122,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 269676,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-6.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.4811847029995988,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 269676,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-7.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.4230593210013467,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 381382,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-7.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.39590460500039626,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 381382,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-7.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.39869274599914206,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 381382,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-1.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.39424158000110765,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 172735,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-1.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.3325231820017507,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 172735,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-1.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.37928060500053107,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 172735,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-12.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.22457235699766898,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 18309,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-13.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.2296268880018033,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 19360,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-14.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.16088579899951583,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 19402,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-16.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.30899308399966685,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 21525,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-17.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.1835237409977708,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 40204,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-17.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.1741316600018763,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 40204,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-17.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.2327487279981142,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 40204,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-18.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.25896390799971414,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 65515,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-18.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.2934691259979445,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 65515,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-19.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.18322820699904696,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 69960,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-19.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.27671265399840195,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 69960,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-19.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.24591330700059189,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 69960,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-2.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.37841679399934947,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 174383,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-2.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.31048312300117686,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 174383,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-20.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.2697512619997724,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 75072,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-20.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.18285309600105393,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 75072,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-20.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.3183247329980077,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 75072,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-21.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.318452941999567,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 75072,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-21.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.21221917399816448,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 75072,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-21.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.27536128900101176,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 75072,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-22.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.19045789099982358,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 75072,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-22.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.28861253099967143,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 75072,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-22.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.2611357860005228,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 75072,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-3.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.4417941409992636,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 176181,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-3.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.34014702499916893,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 176181,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-3.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.3489316230006807,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 176181,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-4.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.3629301729997678,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 176331,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-4.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.3193854390010529,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 176331,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-4.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.4057698590004293,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 176331,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-8.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.1962059910001699,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 12975,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-1.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.2627359680009249,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 17693,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-1.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.33601436499884585,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 17693,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-2.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.3002356580000196,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 36597,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-3.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.27533804700215114,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 38257,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "nlp-uppercase",
+      "script": "uppercase_by_type.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.15385427000001073,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 10557,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-2.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.14552689899937832,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 15233,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-3.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.1418259339989163,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 18438,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-4.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.24746053600028972,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 21643,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-4.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.23611680799876922,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 21643,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-4.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.13181910400089691,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 21643,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-5.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.1899013570000534,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 24848,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-6.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.21694752400071593,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 1984507,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-6.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.17069972999888705,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 1984507,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-6.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.2012118910024583,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 1984507,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-7.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.16311230800056364,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 1984661,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-7.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.2801318359997822,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 1984661,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "12.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.19676502699803677,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 15982269,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "12.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.15452300200195168,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 15982269,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "12.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.15829106800083537,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 15982269,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required",
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "7.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.14348837500074296,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 10199793,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "7.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.17263717199966777,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 10199793,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "7.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.1389551610009221,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 10199793,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "8.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.14023028099836665,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 9699574,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "8.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.13979538100102218,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 9699574,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "8.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.14201513399893884,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 9699574,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "9.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.14431202599735116,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 10735247,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "9.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.14165012999728788,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 10735247,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "9.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.14472165900224354,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 10735247,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-1.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.1999562290002359,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 626,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-2.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.15336333600134822,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 1010,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-2.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.1506231259991182,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 1010,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-3.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.15344028300023638,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 2066,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-3.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.15182041699881665,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 2066,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "weather",
+      "script": "tuft-weather-2.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.15626237600008608,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 64061,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "weather",
+      "script": "tuft-weather-2.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.29138386200065725,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 64061,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "weather",
+      "script": "tuft-weather-3.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.5273347049987933,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 649807,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "weather",
+      "script": "tuft-weather-3.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.5302849670006253,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 649807,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "weather",
+      "script": "tuft-weather-3.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.45981642300102976,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 649807,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.2131350529998599,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 39648279,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.16990068800078006,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 39648279,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.19288500499897054,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 39648279,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.17623407400242286,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 39633264,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "mode": "main",
+      "repetition": 1,
+      "phase": "warm",
+      "elapsed_sec": 0.19459231200016802,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 39633264,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.22950546799984295,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 39633264,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "filesystem mismatch"
+      ]
+    },
+    {
+      "benchmark": "web-search",
+      "script": "engine.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.9345498959992256,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 376935,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "web-search",
+      "script": "engine.sh",
+      "mode": "main",
+      "repetition": 2,
+      "phase": "warm",
+      "elapsed_sec": 0.9583186350027972,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 376935,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-ordinary",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_1.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 0.3933879869982775,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 2184567,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-dpt",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_2.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 18.239661454997986,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 2095862,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-dpt",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3a.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 17.803934714000206,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 2096982,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-dpt",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3b.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 16.961273241002345,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 2101632,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-dpt",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_4.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 17.984611546999076,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 2102448,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-dpt",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5a.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 18.66609668000092,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 2104729,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-dpt",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5b.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 18.18681221999941,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 2104730,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-dpt",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5c.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 17.761244978999457,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 2202767,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-dpt",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5d.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 18.01433844300118,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 2202767,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-dpt",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5e.sh",
+      "mode": "main",
+      "repetition": 0,
+      "phase": "warm",
+      "elapsed_sec": 18.294217919999937,
+      "returncode": 0,
+      "timeout": false,
+      "cache_bytes": 2342238,
+      "effect_policy": null,
+      "valid": false,
+      "source": "final-dpt",
+      "failure_reasons": [
+        "descendant cleanup required"
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "all",
+      "matched_cases": 96,
+      "speedup": 0.15572310160748543,
+      "reference_sum_sec": 595.090670933012,
+      "observe_sum_sec": 716.3295971209918,
+      "summed_time_speedup": 0.8307498019413794
+    },
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "beginner",
+      "matched_cases": 14,
+      "speedup": 0.04528107695587132,
+      "reference_sum_sec": 0.11043343901110347,
+      "observe_sum_sec": 2.4545753380007227,
+      "summed_time_speedup": 0.04499085332660951
+    },
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "bio",
+      "matched_cases": 7,
+      "speedup": 0.5564867552603763,
+      "reference_sum_sec": 2.762907855994854,
+      "observe_sum_sec": 4.358332914998755,
+      "summed_time_speedup": 0.6339368538109125
+    },
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "covid",
+      "matched_cases": 5,
+      "speedup": 0.11009874840259559,
+      "reference_sum_sec": 0.09992874799718265,
+      "observe_sum_sec": 0.8602607849970809,
+      "summed_time_speedup": 0.11616099413100847
+    },
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "dpt",
+      "matched_cases": 10,
+      "speedup": 0.8494613091689323,
+      "reference_sum_sec": 577.6695023480061,
+      "observe_sum_sec": 680.0666703379975,
+      "summed_time_speedup": 0.8494306919362783
+    },
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "file-mod",
+      "matched_cases": 7,
+      "speedup": 0.4691308042760823,
+      "reference_sum_sec": 1.970013967005798,
+      "observe_sum_sec": 4.191705219000141,
+      "summed_time_speedup": 0.4699791287984966
+    },
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "nginx-analysis",
+      "matched_cases": 22,
+      "speedup": 0.09294742120063194,
+      "reference_sum_sec": 0.5112318140018033,
+      "observe_sum_sec": 4.631068192000384,
+      "summed_time_speedup": 0.11039176984802232
+    },
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "nlp-ngrams",
+      "matched_cases": 3,
+      "speedup": 0.11211289150292571,
+      "reference_sum_sec": 0.06681752999793389,
+      "observe_sum_sec": 0.5741511859996535,
+      "summed_time_speedup": 0.11637619433215664
+    },
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "nlp-uppercase",
+      "matched_cases": 2,
+      "speedup": 0.05156679892026529,
+      "reference_sum_sec": 0.023956307999469573,
+      "observe_sum_sec": 0.4542781849995663,
+      "summed_time_speedup": 0.052734885342320466
+    },
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "ordinary",
+      "matched_cases": 86,
+      "speedup": 0.12784381575036213,
+      "reference_sum_sec": 17.421168585005944,
+      "observe_sum_sec": 36.26292678299433,
+      "summed_time_speedup": 0.480412645379073
+    },
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "poet",
+      "matched_cases": 4,
+      "speedup": 0.07518726599812846,
+      "reference_sum_sec": 0.056742747001408134,
+      "observe_sum_sec": 0.7592482220024976,
+      "summed_time_speedup": 0.07473543612884677
+    },
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "spell",
+      "matched_cases": 7,
+      "speedup": 0.08070083679027572,
+      "reference_sum_sec": 0.17985383000268484,
+      "observe_sum_sec": 1.3656822819939407,
+      "summed_time_speedup": 0.13169522104372064
+    },
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "unixfun",
+      "matched_cases": 6,
+      "speedup": 0.28974224338891535,
+      "reference_sum_sec": 0.5766491479989782,
+      "observe_sum_sec": 1.8034472460021789,
+      "summed_time_speedup": 0.3197482761291047
+    },
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "weather",
+      "matched_cases": 6,
+      "speedup": 0.11560573633262099,
+      "reference_sum_sec": 6.970998361994134,
+      "observe_sum_sec": 10.73738967999816,
+      "summed_time_speedup": 0.6492265410633145
+    },
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "web-search",
+      "matched_cases": 1,
+      "speedup": 0.8728937875807681,
+      "reference_sum_sec": 1.0136450940008217,
+      "observe_sum_sec": 1.1612467730010394,
+      "summed_time_speedup": 0.8728937875807681
+    },
+    {
+      "reference": "bash",
+      "phase": "cold",
+      "benchmark": "word-freq",
+      "matched_cases": 2,
+      "speedup": 1.05548946274643,
+      "reference_sum_sec": 3.0779897419997724,
+      "observe_sum_sec": 2.9115407600002072,
+      "summed_time_speedup": 1.0571686937329887
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "all",
+      "matched_cases": 96,
+      "speedup": 0.19664755414795995,
+      "reference_sum_sec": 599.6740950699932,
+      "observe_sum_sec": 709.5798706009882,
+      "summed_time_speedup": 0.8451114806316182
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "beginner",
+      "matched_cases": 14,
+      "speedup": 0.05365945324704877,
+      "reference_sum_sec": 0.12003436400482315,
+      "observe_sum_sec": 2.202603742996871,
+      "summed_time_speedup": 0.05449657678394024
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "bio",
+      "matched_cases": 7,
+      "speedup": 0.5223466834250206,
+      "reference_sum_sec": 2.641807099997095,
+      "observe_sum_sec": 4.544216321999556,
+      "summed_time_speedup": 0.5813559286796103
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "covid",
+      "matched_cases": 5,
+      "speedup": 0.14822216027652035,
+      "reference_sum_sec": 0.13345287199990707,
+      "observe_sum_sec": 0.8997967040013464,
+      "summed_time_speedup": 0.1483144708204081
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "dpt",
+      "matched_cases": 10,
+      "speedup": 0.8565782731029676,
+      "reference_sum_sec": 582.005209925992,
+      "observe_sum_sec": 679.4413200239978,
+      "summed_time_speedup": 0.8565937819404854
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "file-mod",
+      "matched_cases": 7,
+      "speedup": 1.1757988849690921,
+      "reference_sum_sec": 1.9106622990002506,
+      "observe_sum_sec": 1.629411849000462,
+      "summed_time_speedup": 1.1726085704926703
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "nginx-analysis",
+      "matched_cases": 22,
+      "speedup": 0.10511986899972782,
+      "reference_sum_sec": 0.5832504210047773,
+      "observe_sum_sec": 4.8285775179974735,
+      "summed_time_speedup": 0.12079135497583669
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "nlp-ngrams",
+      "matched_cases": 3,
+      "speedup": 0.1330743504586256,
+      "reference_sum_sec": 0.08367780599655816,
+      "observe_sum_sec": 0.6327018999945722,
+      "summed_time_speedup": 0.13225470952003782
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "nlp-uppercase",
+      "matched_cases": 2,
+      "speedup": 0.06238584372509971,
+      "reference_sum_sec": 0.02548132599622477,
+      "observe_sum_sec": 0.40758453600210487,
+      "summed_time_speedup": 0.06251789198423656
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "ordinary",
+      "matched_cases": 86,
+      "speedup": 0.16572082819497452,
+      "reference_sum_sec": 17.66888514400125,
+      "observe_sum_sec": 30.138550576990383,
+      "summed_time_speedup": 0.5862553044435641
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "poet",
+      "matched_cases": 4,
+      "speedup": 0.09300309533701705,
+      "reference_sum_sec": 0.06400858699998935,
+      "observe_sum_sec": 0.6724721909959044,
+      "summed_time_speedup": 0.09518399103641029
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "spell",
+      "matched_cases": 7,
+      "speedup": 0.0953055405289772,
+      "reference_sum_sec": 0.16545399000460748,
+      "observe_sum_sec": 1.1757573569993838,
+      "summed_time_speedup": 0.140721203247971
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "unixfun",
+      "matched_cases": 6,
+      "speedup": 0.47425626724334863,
+      "reference_sum_sec": 0.581507139999303,
+      "observe_sum_sec": 1.0589181139985158,
+      "summed_time_speedup": 0.5491521320789476
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "weather",
+      "matched_cases": 6,
+      "speedup": 0.11609071888840158,
+      "reference_sum_sec": 7.05169661799664,
+      "observe_sum_sec": 10.594450349002727,
+      "summed_time_speedup": 0.6656028756282224
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "web-search",
+      "matched_cases": 1,
+      "speedup": 1.1207527924311989,
+      "reference_sum_sec": 1.1195132970024133,
+      "observe_sum_sec": 0.9988940510011162,
+      "summed_time_speedup": 1.1207527924311989
+    },
+    {
+      "reference": "bash",
+      "phase": "warm",
+      "benchmark": "word-freq",
+      "matched_cases": 2,
+      "speedup": 6.434746639983895,
+      "reference_sum_sec": 3.1883393239986617,
+      "observe_sum_sec": 0.4931659430003492,
+      "summed_time_speedup": 6.465043600945502
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "all",
+      "matched_cases": 96,
+      "speedup": 1.871070679466375,
+      "reference_sum_sec": 841.8659194319771,
+      "observe_sum_sec": 716.3295971209918,
+      "summed_time_speedup": 1.1752493863376994
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "beginner",
+      "matched_cases": 14,
+      "speedup": 0.9832296890535704,
+      "reference_sum_sec": 2.6089367699933064,
+      "observe_sum_sec": 2.4545753380007227,
+      "summed_time_speedup": 1.0628872251761123
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "bio",
+      "matched_cases": 7,
+      "speedup": 14.286868180162372,
+      "reference_sum_sec": 78.00002386700362,
+      "observe_sum_sec": 4.358332914998755,
+      "summed_time_speedup": 17.89675671598527
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "covid",
+      "matched_cases": 5,
+      "speedup": 1.0350272369159743,
+      "reference_sum_sec": 0.9036965379964386,
+      "observe_sum_sec": 0.8602607849970809,
+      "summed_time_speedup": 1.0504913786108534
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "dpt",
+      "matched_cases": 10,
+      "speedup": 1.01236926362246,
+      "reference_sum_sec": 688.4842826950007,
+      "observe_sum_sec": 680.0666703379975,
+      "summed_time_speedup": 1.0123776281416932
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "file-mod",
+      "matched_cases": 7,
+      "speedup": 5.979584190188714,
+      "reference_sum_sec": 25.605870352999773,
+      "observe_sum_sec": 4.191705219000141,
+      "summed_time_speedup": 6.108700162629186
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "nginx-analysis",
+      "matched_cases": 22,
+      "speedup": 1.6137564668030042,
+      "reference_sum_sec": 11.091210263992252,
+      "observe_sum_sec": 4.631068192000384,
+      "summed_time_speedup": 2.394957233225585
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "nlp-ngrams",
+      "matched_cases": 3,
+      "speedup": 9.797239227535004,
+      "reference_sum_sec": 5.6144190760023776,
+      "observe_sum_sec": 0.5741511859996535,
+      "summed_time_speedup": 9.778642303467723
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "nlp-uppercase",
+      "matched_cases": 2,
+      "speedup": 3.463384839714244,
+      "reference_sum_sec": 1.5749056139975437,
+      "observe_sum_sec": 0.4542781849995663,
+      "summed_time_speedup": 3.466830823054044
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "ordinary",
+      "matched_cases": 86,
+      "speedup": 2.009591474093168,
+      "reference_sum_sec": 153.38163673697636,
+      "observe_sum_sec": 36.26292678299433,
+      "summed_time_speedup": 4.22970924699066
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "poet",
+      "matched_cases": 4,
+      "speedup": 0.8529411413666467,
+      "reference_sum_sec": 0.6402823639982671,
+      "observe_sum_sec": 0.7592482220024976,
+      "summed_time_speedup": 0.8433109824209253
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "spell",
+      "matched_cases": 7,
+      "speedup": 2.688140041881359,
+      "reference_sum_sec": 3.8624053280000226,
+      "observe_sum_sec": 1.3656822819939407,
+      "summed_time_speedup": 2.828187330922083
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "unixfun",
+      "matched_cases": 6,
+      "speedup": 1.4383334907786847,
+      "reference_sum_sec": 2.6876256659961655,
+      "observe_sum_sec": 1.8034472460021789,
+      "summed_time_speedup": 1.490271296792298
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "weather",
+      "matched_cases": 6,
+      "speedup": 0.9553086716841019,
+      "reference_sum_sec": 13.539746602997184,
+      "observe_sum_sec": 10.73738967999816,
+      "summed_time_speedup": 1.2609905206494754
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "web-search",
+      "matched_cases": 1,
+      "speedup": 4.361491596580839,
+      "reference_sum_sec": 5.064768042000651,
+      "observe_sum_sec": 1.1612467730010394,
+      "summed_time_speedup": 4.361491596580839
+    },
+    {
+      "reference": "main",
+      "phase": "cold",
+      "benchmark": "word-freq",
+      "matched_cases": 2,
+      "speedup": 0.7514855515939444,
+      "reference_sum_sec": 2.1877462519987603,
+      "observe_sum_sec": 2.9115407600002072,
+      "summed_time_speedup": 0.7514049887450672
+    },
+    {
+      "reference": "main",
+      "phase": "warm",
+      "benchmark": "all",
+      "matched_cases": 27,
+      "speedup": 0.9349577218459234,
+      "reference_sum_sec": 4.261998189009319,
+      "observe_sum_sec": 4.577466155002185,
+      "summed_time_speedup": 0.9310824033842112
+    },
+    {
+      "reference": "main",
+      "phase": "warm",
+      "benchmark": "beginner",
+      "matched_cases": 11,
+      "speedup": 0.951416264413967,
+      "reference_sum_sec": 1.5713651000041864,
+      "observe_sum_sec": 1.652348968997103,
+      "summed_time_speedup": 0.950988640709432
+    },
+    {
+      "reference": "main",
+      "phase": "warm",
+      "benchmark": "nginx-analysis",
+      "matched_cases": 7,
+      "speedup": 0.8969067274165464,
+      "reference_sum_sec": 1.2469475159959984,
+      "observe_sum_sec": 1.397764259003452,
+      "summed_time_speedup": 0.8921014455506397
+    },
+    {
+      "reference": "main",
+      "phase": "warm",
+      "benchmark": "nlp-uppercase",
+      "matched_cases": 1,
+      "speedup": 0.6920772473914836,
+      "reference_sum_sec": 0.14503830000103335,
+      "observe_sum_sec": 0.20956952500273474,
+      "summed_time_speedup": 0.6920772473914836
+    },
+    {
+      "reference": "main",
+      "phase": "warm",
+      "benchmark": "ordinary",
+      "matched_cases": 27,
+      "speedup": 0.9349577218459234,
+      "reference_sum_sec": 4.261998189009319,
+      "observe_sum_sec": 4.577466155002185,
+      "summed_time_speedup": 0.9310824033842112
+    },
+    {
+      "reference": "main",
+      "phase": "warm",
+      "benchmark": "poet",
+      "matched_cases": 4,
+      "speedup": 0.8671687719103569,
+      "reference_sum_sec": 0.5791349570026796,
+      "observe_sum_sec": 0.6724721909959044,
+      "summed_time_speedup": 0.8612028344919422
+    },
+    {
+      "reference": "main",
+      "phase": "warm",
+      "benchmark": "spell",
+      "matched_cases": 1,
+      "speedup": 1.3754656855888012,
+      "reference_sum_sec": 0.19748416800212,
+      "observe_sum_sec": 0.14357622299939976,
+      "summed_time_speedup": 1.3754656855888012
+    },
+    {
+      "reference": "main",
+      "phase": "warm",
+      "benchmark": "unixfun",
+      "matched_cases": 2,
+      "speedup": 0.9074817602924196,
+      "reference_sum_sec": 0.3228094990045065,
+      "observe_sum_sec": 0.35519753400149057,
+      "summed_time_speedup": 0.9088168359951279
+    },
+    {
+      "reference": "main",
+      "phase": "warm",
+      "benchmark": "weather",
+      "matched_cases": 1,
+      "speedup": 1.3595066896408547,
+      "reference_sum_sec": 0.19921864899879438,
+      "observe_sum_sec": 0.14653745400210028,
+      "summed_time_speedup": 1.3595066896408547
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "all",
+      "matched_cases": 96,
+      "speedup": 5.786795511633148,
+      "reference_sum_sec": 915.25958107099,
+      "observe_sum_sec": 716.3295971209918,
+      "summed_time_speedup": 1.2777073357704607
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "beginner",
+      "matched_cases": 14,
+      "speedup": 5.067596830242772,
+      "reference_sum_sec": 12.675168745994597,
+      "observe_sum_sec": 2.4545753380007227,
+      "summed_time_speedup": 5.163894768175522
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "bio",
+      "matched_cases": 7,
+      "speedup": 3.0065409450358684,
+      "reference_sum_sec": 22.88086437700258,
+      "observe_sum_sec": 4.358332914998755,
+      "summed_time_speedup": 5.249912024448714
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "covid",
+      "matched_cases": 5,
+      "speedup": 8.413632808972933,
+      "reference_sum_sec": 7.511855792999995,
+      "observe_sum_sec": 0.8602607849970809,
+      "summed_time_speedup": 8.732068140273865
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "dpt",
+      "matched_cases": 10,
+      "speedup": 1.0305230944158292,
+      "reference_sum_sec": 700.9304609729988,
+      "observe_sum_sec": 680.0666703379975,
+      "summed_time_speedup": 1.030679037137097
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "file-mod",
+      "matched_cases": 7,
+      "speedup": 6.0962261044634,
+      "reference_sum_sec": 26.017374745999405,
+      "observe_sum_sec": 4.191705219000141,
+      "summed_time_speedup": 6.206871281899303
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "nginx-analysis",
+      "matched_cases": 22,
+      "speedup": 14.87636692140198,
+      "reference_sum_sec": 79.28631449999011,
+      "observe_sum_sec": 4.631068192000384,
+      "summed_time_speedup": 17.120524080588517
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "nlp-ngrams",
+      "matched_cases": 3,
+      "speedup": 11.827870583177786,
+      "reference_sum_sec": 6.83110998200209,
+      "observe_sum_sec": 0.5741511859996535,
+      "summed_time_speedup": 11.897754717877065
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "nlp-uppercase",
+      "matched_cases": 2,
+      "speedup": 6.750657892949939,
+      "reference_sum_sec": 3.0736342370037164,
+      "observe_sum_sec": 0.4542781849995663,
+      "summed_time_speedup": 6.765973666568759
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "ordinary",
+      "matched_cases": 86,
+      "speedup": 7.072539677665115,
+      "reference_sum_sec": 214.3291200979911,
+      "observe_sum_sec": 36.26292678299433,
+      "summed_time_speedup": 5.910419789902391
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "poet",
+      "matched_cases": 4,
+      "speedup": 7.540495353425401,
+      "reference_sum_sec": 6.054689242002496,
+      "observe_sum_sec": 0.7592482220024976,
+      "summed_time_speedup": 7.974584683298183
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "spell",
+      "matched_cases": 7,
+      "speedup": 6.409451188093545,
+      "reference_sum_sec": 8.659375940002064,
+      "observe_sum_sec": 1.3656822819939407,
+      "summed_time_speedup": 6.340695822280928
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "unixfun",
+      "matched_cases": 6,
+      "speedup": 5.028284860929549,
+      "reference_sum_sec": 9.00573803899897,
+      "observe_sum_sec": 1.8034472460021789,
+      "summed_time_speedup": 4.9936243263907985
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "weather",
+      "matched_cases": 6,
+      "speedup": 7.048452659992629,
+      "reference_sum_sec": 25.83106856899758,
+      "observe_sum_sec": 10.73738967999816,
+      "summed_time_speedup": 2.4057121273260904
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "web-search",
+      "matched_cases": 1,
+      "speedup": 1.4926899822694915,
+      "reference_sum_sec": 1.7333814250014257,
+      "observe_sum_sec": 1.1612467730010394,
+      "summed_time_speedup": 1.4926899822694915
+    },
+    {
+      "reference": "try",
+      "phase": "cold",
+      "benchmark": "word-freq",
+      "matched_cases": 2,
+      "speedup": 1.6381354170062659,
+      "reference_sum_sec": 4.768544501996075,
+      "observe_sum_sec": 2.9115407600002072,
+      "summed_time_speedup": 1.6378079151451534
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "all",
+      "matched_cases": 96,
+      "speedup": 2.1480530880954594,
+      "reference_sum_sec": 789.3947752089844,
+      "observe_sum_sec": 709.5798706009882,
+      "summed_time_speedup": 1.1124819177020846
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "beginner",
+      "matched_cases": 14,
+      "speedup": 1.3101653544428462,
+      "reference_sum_sec": 2.8944594509994204,
+      "observe_sum_sec": 2.202603742996871,
+      "summed_time_speedup": 1.3141081141818127
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "bio",
+      "matched_cases": 7,
+      "speedup": 2.55064194734955,
+      "reference_sum_sec": 20.390203846003715,
+      "observe_sum_sec": 4.544216321999556,
+      "summed_time_speedup": 4.487067164318351
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "covid",
+      "matched_cases": 5,
+      "speedup": 1.4254581460920324,
+      "reference_sum_sec": 1.2915342779997445,
+      "observe_sum_sec": 0.8997967040013464,
+      "summed_time_speedup": 1.4353623126828123
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "dpt",
+      "matched_cases": 10,
+      "speedup": 1.0191749394590783,
+      "reference_sum_sec": 692.6731901499952,
+      "observe_sum_sec": 679.4413200239978,
+      "summed_time_speedup": 1.0194746326666297
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "file-mod",
+      "matched_cases": 7,
+      "speedup": 15.704939274751233,
+      "reference_sum_sec": 25.83656240599521,
+      "observe_sum_sec": 1.629411849000462,
+      "summed_time_speedup": 15.856373219480547
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "nginx-analysis",
+      "matched_cases": 22,
+      "speedup": 2.6999233448469133,
+      "reference_sum_sec": 15.7963680289904,
+      "observe_sum_sec": 4.8285775179974735,
+      "summed_time_speedup": 3.2714330400853813
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "nlp-ngrams",
+      "matched_cases": 3,
+      "speedup": 5.30069868184397,
+      "reference_sum_sec": 3.3448535519964935,
+      "observe_sum_sec": 0.6327018999945722,
+      "summed_time_speedup": 5.286618472340906
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "nlp-uppercase",
+      "matched_cases": 2,
+      "speedup": 1.1484390668954207,
+      "reference_sum_sec": 0.46789822899881983,
+      "observe_sum_sec": 0.40758453600210487,
+      "summed_time_speedup": 1.1479783644107722
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "ordinary",
+      "matched_cases": 86,
+      "speedup": 2.3425870606014856,
+      "reference_sum_sec": 96.72158505898915,
+      "observe_sum_sec": 30.138550576990383,
+      "summed_time_speedup": 3.2092314728908145
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "poet",
+      "matched_cases": 4,
+      "speedup": 1.234726420587937,
+      "reference_sum_sec": 0.8285183409971069,
+      "observe_sum_sec": 0.6724721909959044,
+      "summed_time_speedup": 1.2320484803544134
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "spell",
+      "matched_cases": 7,
+      "speedup": 1.2806499110778047,
+      "reference_sum_sec": 1.5170673710017581,
+      "observe_sum_sec": 1.1757573569993838,
+      "summed_time_speedup": 1.2902894989093854
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "unixfun",
+      "matched_cases": 6,
+      "speedup": 2.5376926401899853,
+      "reference_sum_sec": 3.6005988149991026,
+      "observe_sum_sec": 1.0589181139985158,
+      "summed_time_speedup": 3.4002618024949087
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "weather",
+      "matched_cases": 6,
+      "speedup": 1.4346024119333003,
+      "reference_sum_sec": 15.408447981008067,
+      "observe_sum_sec": 10.594450349002727,
+      "summed_time_speedup": 1.454388616060529
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "web-search",
+      "matched_cases": 1,
+      "speedup": 1.0269409523170563,
+      "reference_sum_sec": 1.0258052079989284,
+      "observe_sum_sec": 0.9988940510011162,
+      "summed_time_speedup": 1.0269409523170563
+    },
+    {
+      "reference": "try",
+      "phase": "warm",
+      "benchmark": "word-freq",
+      "matched_cases": 2,
+      "speedup": 8.738600297878477,
+      "reference_sum_sec": 4.319267552000383,
+      "observe_sum_sec": 0.4931659430003492,
+      "summed_time_speedup": 8.758243778397578
+    }
+  ]
+}

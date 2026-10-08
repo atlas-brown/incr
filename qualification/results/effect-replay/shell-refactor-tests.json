@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "python3",
+    "qualification/shell_ast_tests.py",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.7047041120022186,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "2997026a14861faf1e01aee099a818253b605ef87ed311b699e0144e3171b604",
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 4 tests in 0.599s\n\nOK\n"
+}

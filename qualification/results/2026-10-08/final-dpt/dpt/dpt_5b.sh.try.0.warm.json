@@ -1,0 +1,56 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr/incr.sh",
+    "/users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/scripts/dpt_5b.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 69.2948585669983,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "bfd2c875e2f2df61e2e46009024a9b77f49abb39ad83753e01d52dccfc55badb",
+  "stdout": "",
+  "stderr": "WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\nI0000 00:00:1791448138.930566     153 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.\nTo enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.\n/users/jxia3/atlas/incr/qualification/.venv/lib/python3.10/site-packages/keras/src/layers/convolutional/base_conv.py:113: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.\n  super().__init__(activity_regularizer=activity_regularizer, **kwargs)\nE0000 00:00:1791448201.144326     153 node_def_util.cc:682] NodeDef mentions attribute use_unbounded_threadpool which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; attr=metadata:string,default=\"\"> This may be expected if your graph generating binary is newer  than this binary. Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}\n",
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr",
+  "effect_policy": null,
+  "runtime_settings": {
+    "LC_ALL": "C",
+    "RUN_SIZE": "min",
+    "OMP_NUM_THREADS": "8",
+    "TF_NUM_INTRAOP_THREADS": "2",
+    "TF_NUM_INTEROP_THREADS": "2",
+    "MPLBACKEND": "Agg"
+  },
+  "fixture_profile": "supplied --min",
+  "benchmark": "dpt",
+  "script": "dpt_5b.sh",
+  "mode": "try",
+  "repetition": 0,
+  "phase": "warm",
+  "effects": {
+    "outputs/classifications.qualification.txt": {
+      "mode": 420,
+      "kind": "file",
+      "content": "758d9135afcfc6754cccb80f02f6ec01ccd45aab9c56c1a54c007bc89f727c91"
+    },
+    "outputs/db.qualification.txt": {
+      "mode": 420,
+      "kind": "file",
+      "content": "551519519981960c4b73ec71be0b0d29926c535fd1b043e70698a063cb8939eb"
+    },
+    "tmp/torchinductor_jxia3": {
+      "mode": 493,
+      "kind": "directory"
+    }
+  },
+  "small_text_outputs": {
+    "outputs/classifications.qualification.txt": "\n76 426 33 37 Z7 0.19246159493923187\n0 176 89 46 Aa1 0.24103355407714844\n0 236 55 32 F34 0.3996089994907379\n0 143 89 79 O29 0.2502303123474121\n0 270 52 25 H8 0.41097694635391235\n12 426 162 55 U36 0.44705653190612793\n260 395 47 71 U7 0.2604570984840393\n0 109 80 74 N5 0.6421140432357788\n0 236 54 61 D21 0.21568948030471802\n537 0 46 29 G14 0.38789936900138855\n123 0 26 26 X1 0.20520353317260742\n0 143 89 160 X1 0.1479596048593521\n346 121 94 78 N16 0.124979168176651\n90 231 65 32 Z1 0.19086387753486633\n589 184 38 39 Z1 0.6352977156639099\n700 0 97 160 U7 0.3455387055873871\n204 213 62 27 X1 0.3262365758419037\n99 197 62 38 Aa1 0.3324798345565796\n201 341 82 59 Z4 0.31281042098999023\n113 431 61 43 Z1 0.31247615814208984\n9 54 49 46 N17 0.3744625449180603\n705 185 33 25 H8 0.3170190751552582\n602 65 16 20 H8 0.835006058216095\n490 128 22 18 Z7 0.19599002599716187\n115 454 27 20 H8 0.41063907742500305\n",
+    "outputs/db.qualification.txt": "g: Aa1 c: 0.24103355407714844 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: Aa1 c: 0.3324798345565796 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: D21 c: 0.21568948030471802 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: F34 c: 0.3996089994907379 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: G14 c: 0.38789936900138855 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: H8 c: 0.3170190751552582 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: H8 c: 0.41063907742500305 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: H8 c: 0.41097694635391235 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: H8 c: 0.835006058216095 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: N16 c: 0.124979168176651 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: N17 c: 0.3744625449180603 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: N5 c: 0.6421140432357788 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: O29 c: 0.2502303123474121 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: U36 c: 0.44705653190612793 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: U7 c: 0.2604570984840393 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: U7 c: 0.3455387055873871 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: X1 c: 0.1479596048593521 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: X1 c: 0.20520353317260742 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: X1 c: 0.3262365758419037 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: Z1 c: 0.19086387753486633 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: Z1 c: 0.31247615814208984 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: Z1 c: 0.6352977156639099 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: Z4 c: 0.31281042098999023 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: Z7 c: 0.19246159493923187 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\ng: Z7 c: 0.19599002599716187 /users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/inputs/dpt.min/dpt/100401.jpg\n"
+  },
+  "cache_entries_retained": 2,
+  "cache_entries_written": 5,
+  "cache_bytes": 2817129
+}

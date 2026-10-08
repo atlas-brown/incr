@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+    "-c",
+    "import matplotlib.font_manager"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 1.1514430659990467,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "",
+  "stderr": ""
+}

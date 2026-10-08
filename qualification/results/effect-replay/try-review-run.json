@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "python3",
+    "qualification/try_tests.py",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.7427985100002843,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "ec4744130aef107c0171a31ab84fd9989c801231eb4b5041675d4b82e84fff69",
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 5 tests in 0.635s\n\nOK\n"
+}

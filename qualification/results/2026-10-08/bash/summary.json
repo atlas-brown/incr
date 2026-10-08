@@ -1,0 +1,1330 @@
+[
+  {
+    "case": "alias",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.10286885299865389,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "alias",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 1.0011789439995482,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "appendop",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.0816290270013269,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "appendop",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.4608527749987843,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "arith",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.18263027899956796,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "arith",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 1.427537461000611,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "arith-for",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.2678358080011094,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "arith-for",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.4388549100003729,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "array",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.40880722099973354,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "array",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 5.140141799998673,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "array2",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.13281487700078287,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "array2",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.6262021170005028,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "assoc",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 2.2466219639973133,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "assoc",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 5.040270417997817,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "attr",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.07109018199844286,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "attr",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.594107870998414,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "braces",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.07692617700013216,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "braces",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.20285225800034823,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "builtins",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 1.2198197150028136,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "builtins",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 3.3064161559996137,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "case",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.09890666300270823,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "case",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 0.7113177520004683,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "casemod",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.07572540899855085,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "casemod",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.2472711820009863,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "complete",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.0670277499993972,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "complete",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.29692828900078894,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "comsub",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.191106504000345,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "comsub",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 1.127383054998063,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "comsub-eof",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.09417359399958514,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "comsub-eof",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 1.1521590769989416,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "comsub-posix",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.24854518799838843,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "comsub-posix",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 1.1210130559993559,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "cond",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.0853829970001243,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "cond",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.6891940799978329,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "coproc",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 3.086878311998589,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "coproc",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 3.2463805150000553,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "cprint",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.06905898400145816,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "cprint",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.3530631420035206,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "dbg-support",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.10217967800053884,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "dbg-support",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.32622552899920265,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "dbg-support2",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.070361246001994,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "dbg-support2",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.1804539679978916,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "dirstack",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.11581676000059815,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "dirstack",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.4626505999985966,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "dollars",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.8437113680010953,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "dollars",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 5.24988773899895,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "dynvar",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 2.082188476000738,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "dynvar",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 2.221781723001186,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "errors",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.2337341339989507,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "errors",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 1.8744606189975457,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "execscript",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.503202580002835,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "execscript",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 3.348416486998758,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "exp-tests",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.4810784049986978,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "exp-tests",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 2.6470886150018487,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "exportfunc",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.15504419599892572,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "exportfunc",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 21.73735172599845,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "extglob",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.1479497869986517,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "extglob",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 1.2297922899997502,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "extglob2",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.0764712630007125,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "extglob2",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.21528858900273917,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "extglob3",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.1119796140010294,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "extglob3",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.2123965960017813,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "func",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 5.155971729000157,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "func",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 5.980181271999754,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "getopts",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.10983814100109157,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "getopts",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 2.874616180000885,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "glob-test",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.3942342150003242,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "glob-test",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 2.233487771001819,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "globstar",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.1672588019973773,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "globstar",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.7826996969997708,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "heredoc",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.18792546600161586,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "heredoc",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 1.4169477120012743,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "herestr",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.10190033999970183,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "herestr",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.33321063599942136,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "histexpand",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.15290670200192835,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "histexpand",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 1.1152504470010172,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "history",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.12998645400148234,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "history",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 1.0644688739994308,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "ifs",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.0857271069980925,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "ifs",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.3437730099976761,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "ifs-posix",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 10.506089612001233,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "ifs-posix",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 11.240485236001405,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "input-test",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.07415972499802592,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "input-test",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.20271061899984488,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "intl",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.41343811600017943,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "intl",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 1.2977068209984282,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "invert",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.08592487900023116,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "invert",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.28150446500148973,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "iquote",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.16639633399972809,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "iquote",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.4055861740016553,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "jobs",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 62.17579893999937,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "jobs",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 63.34026231600001,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "lastpipe",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.10700924999764538,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "lastpipe",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.7027564410018385,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "mapfile",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.08056966199728777,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "mapfile",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.45856822099813144,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "more-exp",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.3412474430006114,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "more-exp",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 1.433429297998373,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "nameref",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.2331317839998519,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "nameref",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 4.064883450002526,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "new-exp",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.5997976689977804,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "new-exp",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 3.212872978001542,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "nquote",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.15798534599889535,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "nquote",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.9207822919997852,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "nquote1",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.14177415599988308,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "nquote1",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.2475107639984344,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "nquote2",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.14390558800005238,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "nquote2",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.2596152379992418,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "nquote3",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.131596229999559,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "nquote3",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.22865476799779572,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "nquote4",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.14827073299966287,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "nquote4",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.24433122399932472,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "nquote5",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.11309628500021063,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "nquote5",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.21027040900298744,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "parser",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.09731668499807711,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "parser",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.4713587109981745,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "posix2",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.1153680470015388,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "posix2",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 0.47069239299889887,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "posixexp",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.8309892339966609,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "posixexp",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 2.9713340169982985,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "posixexp2",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.09460630800094805,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "posixexp2",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 0.3256506249999802,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "posixpat",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.0661600150015147,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "posixpat",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.18028990400125622,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "posixpipe",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.06357908000063617,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "posixpipe",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.2148546680000436,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "precedence",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.08000469800026622,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "precedence",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.2734970730016357,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "printf",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.09897146999719553,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "printf",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 0.7409950620021846,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "procsub",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 2.516441865998786,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "procsub",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 2.998083698999835,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "quote",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.21547414499946171,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "quote",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 1.129147888001171,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "quotearray",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.10085021299892105,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "quotearray",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.9101282869996794,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "read",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 6.336846415000764,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "read",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 7.392623961997742,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "redir",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.3732307470017986,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "redir",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 1.9566750680023688,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "rhs-exp",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.12112123599945335,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "rhs-exp",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.7551120370007993,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "rsh",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.10153500399974291,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "rsh",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.43261815900041256,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "set-e",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.2114455699993414,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "set-e",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.864668308000546,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "set-x",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.07155190600315109,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "set-x",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.31939722199967946,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "shopt",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.15223808299924713,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "shopt",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.623162734998914,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "strip",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.07128474300043308,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "strip",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.19034807100251783,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "test",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 3.1442236190014228,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "test",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 3.5370609750025324,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "tilde",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.0659319369988225,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "tilde",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.18838550500004203,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "tilde2",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.06967393499871832,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "tilde2",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.34431177499936894,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "trap",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 15.117237223999837,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "trap",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 16.09428630000184,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "type",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.10794015200008289,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "type",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 0.8744741260015871,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "varenv",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.2149897780000174,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "varenv",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 3.5695635929987475,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "vredir",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.09872553800232708,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "vredir",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 1.3935863219994644,
+    "timeout": false,
+    "matches_bash": true
+  }
+]

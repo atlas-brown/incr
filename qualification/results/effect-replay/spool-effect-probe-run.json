@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "python3",
+    "qualification/effect_replay_probe.py",
+    "--policy",
+    "final",
+    "--expect-hit",
+    "--results",
+    "qualification/results/effect-replay/spool-effect-probe.json"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 3.167378362002637,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "bc61d7b728c560ec235878cc14cc43d27a7b8ca4fa79226c4a334cfb157eb2df",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "overwrite cold valid=True cache_retained=False seconds=0.406\noverwrite warm valid=True cache_retained=True seconds=0.082\noverwrite changed valid=True cache_retained=False seconds=0.416\noverwrite older-candidate valid=True cache_retained=True seconds=0.075\nrename cold valid=True cache_retained=False seconds=0.406\nrename warm valid=True cache_retained=True seconds=0.138\nrename changed valid=True cache_retained=False seconds=0.401\nrename older-candidate valid=True cache_retained=True seconds=0.072\ntree cold valid=True cache_retained=False seconds=0.434\ntree warm valid=True cache_retained=True seconds=0.071\ntree changed valid=True cache_retained=False seconds=0.451\ntree older-candidate valid=True cache_retained=True seconds=0.091\n",
+  "stderr": ""
+}

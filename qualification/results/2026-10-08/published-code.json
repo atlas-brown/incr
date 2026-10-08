@@ -1,0 +1,23 @@
+{
+  "incr": {
+    "commit": "119e668fdcb090649980107dd4cec1eee2f9cb14",
+    "source_sha256": "29c026e55c9af03656edea2d78f884d80baaacb3afbf05b8e7f000ac46c2d3b5",
+    "binary_sha256": "b3cb1561fd684bb7e6c2a157568b20f9300a0240fddc25f64ea78fb4681e6eb9",
+    "matches_measured_source": true,
+    "matches_measured_binary": true
+  },
+  "observe": {
+    "commit": "1817725972558eb8e67495bb4eeffe5e10314810",
+    "source_sha256": "35bddae1a23a5999335be46a9e8f55a1c48e7ba1e59c1151ded3501e3672db08",
+    "binary_sha256": "66a2cd9e27de28e17979c90859ccdc4eceb3949120962e9b33f5581dc600ca11",
+    "matches_measured_source": true,
+    "matches_measured_binary": true
+  },
+  "incr-main-qualification": {
+    "commit": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+    "source_sha256": "4afc79a780c394f8f142c3423f2590da1a06799e62cdf12ef34fe9031ad22215",
+    "binary_sha256": "a0b5741ec10bf5227d38c720502ce842b6189456a96f4bc49ca49c70d4681d54",
+    "matches_measured_source": true,
+    "matches_measured_binary": true
+  }
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "argv": [
+      "bash",
+      "-o",
+      "pipefail",
+      "-c",
+      "/usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/effect-probe-g9g0o8ah/producer.py | /users/jxia3/atlas/incr/target/release/incr --cache /users/jxia3/atlas/incr/qualification/.work/effect-probe-g9g0o8ah/cache-overwrite --try /users/jxia3/atlas/incr/src/scripts/try.sh --observe /users/jxia3/atlas/observe/target/release/observe --effect-policy live -- /usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/effect-probe-g9g0o8ah/worker.py overwrite"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.41758080600084213,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "dbea9325179efe46ea2add94f7b6b745ca983fabb208dc6d34aa064623d7ee23",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "first\nsecond\n",
+    "stderr": "",
+    "scenario": "overwrite",
+    "phase": "cold",
+    "valid": true,
+    "cache_metadata_retained": false,
+    "entries": 1
+  },
+  {
+    "argv": [
+      "bash",
+      "-o",
+      "pipefail",
+      "-c",
+      "/usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/effect-probe-g9g0o8ah/producer.py | /users/jxia3/atlas/incr/target/release/incr --cache /users/jxia3/atlas/incr/qualification/.work/effect-probe-g9g0o8ah/cache-overwrite --try /users/jxia3/atlas/incr/src/scripts/try.sh --observe /users/jxia3/atlas/observe/target/release/observe --effect-policy live -- /usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/effect-probe-g9g0o8ah/worker.py overwrite"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.4113894580004853,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "dbea9325179efe46ea2add94f7b6b745ca983fabb208dc6d34aa064623d7ee23",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "first\nsecond\n",
+    "stderr": "",
+    "scenario": "overwrite",
+    "phase": "warm",
+    "valid": true,
+    "cache_metadata_retained": false,
+    "entries": 1
+  },
+  {
+    "argv": [
+      "bash",
+      "-o",
+      "pipefail",
+      "-c",
+      "/usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/effect-probe-g9g0o8ah/producer.py | /users/jxia3/atlas/incr/target/release/incr --cache /users/jxia3/atlas/incr/qualification/.work/effect-probe-g9g0o8ah/cache-rename --try /users/jxia3/atlas/incr/src/scripts/try.sh --observe /users/jxia3/atlas/observe/target/release/observe --effect-policy live -- /usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/effect-probe-g9g0o8ah/worker.py rename"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.4450232919989503,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "dbea9325179efe46ea2add94f7b6b745ca983fabb208dc6d34aa064623d7ee23",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "first\nsecond\n",
+    "stderr": "",
+    "scenario": "rename",
+    "phase": "cold",
+    "valid": true,
+    "cache_metadata_retained": false,
+    "entries": 1
+  },
+  {
+    "argv": [
+      "bash",
+      "-o",
+      "pipefail",
+      "-c",
+      "/usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/effect-probe-g9g0o8ah/producer.py | /users/jxia3/atlas/incr/target/release/incr --cache /users/jxia3/atlas/incr/qualification/.work/effect-probe-g9g0o8ah/cache-rename --try /users/jxia3/atlas/incr/src/scripts/try.sh --observe /users/jxia3/atlas/observe/target/release/observe --effect-policy live -- /usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/effect-probe-g9g0o8ah/worker.py rename"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.43250708499908797,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "dbea9325179efe46ea2add94f7b6b745ca983fabb208dc6d34aa064623d7ee23",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "first\nsecond\n",
+    "stderr": "",
+    "scenario": "rename",
+    "phase": "warm",
+    "valid": true,
+    "cache_metadata_retained": false,
+    "entries": 1
+  }
+]

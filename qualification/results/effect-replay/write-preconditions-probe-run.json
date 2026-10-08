@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "python3",
+    "qualification/effect_replay_probe.py",
+    "--policy",
+    "final",
+    "--expect-hit",
+    "--results",
+    "qualification/results/effect-replay/write-preconditions-probe.json"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 3.134400013997947,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "44dc89037b4ca32c6294aa542ed8001f891c53933db665a19993f906283f84c4",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "overwrite cold valid=True cache_retained=False seconds=0.378\noverwrite warm valid=True cache_retained=True seconds=0.073\noverwrite changed valid=True cache_retained=False seconds=0.442\noverwrite older-candidate valid=True cache_retained=True seconds=0.080\nrename cold valid=True cache_retained=False seconds=0.450\nrename warm valid=True cache_retained=True seconds=0.114\nrename changed valid=True cache_retained=False seconds=0.421\nrename older-candidate valid=True cache_retained=True seconds=0.076\ntree cold valid=True cache_retained=False seconds=0.401\ntree warm valid=True cache_retained=True seconds=0.088\ntree changed valid=True cache_retained=False seconds=0.409\ntree older-candidate valid=True cache_retained=True seconds=0.084\n",
+  "stderr": ""
+}

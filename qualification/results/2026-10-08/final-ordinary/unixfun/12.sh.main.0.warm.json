@@ -1,0 +1,55 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr-main-qualification/src/incr.sh",
+    "/users/jxia3/atlas/incr/qualification/.work/benchmarks/unixfun/run/scripts/12.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.19676502699803677,
+  "timeout": false,
+  "leaked_descendants": true,
+  "remaining_descendants": [],
+  "diagnostics": [
+    {
+      "pid": 3586807,
+      "status": "Name:\thead\nState:\tZ (zombie)\nTgid:\t3586807\nNgid:\t0\nPid:\t3586807\nPPid:\t2659826\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t3586807\nNSpid:\t3586807\nNSpgid:\t3586775\nNSsid:\t3586739\nThreads:\t1\nSigQ:\t0/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000100\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t0000000000000000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t1\nSeccomp:\t2\nSeccomp_filters:\t1\nSpeculation_Store_Bypass:\tthread force mitigated\nSpeculationIndirectBranch:\tconditional force disabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t24\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    },
+    {
+      "pid": 3586806,
+      "status": "Name:\tawk\nState:\tZ (zombie)\nTgid:\t3586806\nNgid:\t0\nPid:\t3586806\nPPid:\t2659826\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t3586806\nNSpid:\t3586806\nNSpgid:\t3586773\nNSsid:\t3586739\nThreads:\t1\nSigQ:\t0/255725\nSigPnd:\t0000000000000100\nShdPnd:\t0000000000000100\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000001000\nSigCgt:\t00000000000004c0\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t1\nSeccomp:\t2\nSeccomp_filters:\t1\nSpeculation_Store_Bypass:\tthread force mitigated\nSpeculationIndirectBranch:\tconditional force disabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t61\nnonvoluntary_ctxt_switches:\t2\n",
+      "wait": "0"
+    }
+  ],
+  "stdout_sha256": "852a478ece1b66d04d107ae488dd476a5a43b317f62729e25152e4bfba096cac",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "P\n",
+  "stderr": "",
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr",
+  "effect_policy": null,
+  "runtime_settings": {
+    "LC_ALL": "C",
+    "RUN_SIZE": "min",
+    "OMP_NUM_THREADS": "2",
+    "TF_NUM_INTRAOP_THREADS": "2",
+    "TF_NUM_INTEROP_THREADS": "2",
+    "MPLBACKEND": "Agg"
+  },
+  "fixture_profile": "supplied --min",
+  "benchmark": "unixfun",
+  "script": "12.sh",
+  "mode": "main",
+  "repetition": 0,
+  "phase": "warm",
+  "effects": {
+    "tmp/sort4PgFIV": {
+      "mode": 384,
+      "kind": "file",
+      "content": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "small_text_outputs": {},
+  "cache_entries_retained": 10,
+  "cache_entries_written": 0,
+  "cache_bytes": 15982269
+}

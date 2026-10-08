@@ -1,0 +1,29 @@
+{
+  "records": 2144,
+  "unique_expected_measurements": 2144,
+  "all_expected_measurements_present": true,
+  "candidate_stdout_stderr_filesystem_status_and_cleanup_match": true,
+  "fast_matrix_groups_passed": 24,
+  "frozen_binaries_match": true,
+  "modes": {
+    "bash": {
+      "valid": 536,
+      "invalid": 0
+    },
+    "main": {
+      "valid": 384,
+      "invalid": 152
+    },
+    "try": {
+      "valid": 536,
+      "invalid": 0
+    },
+    "observe": {
+      "valid": 536,
+      "invalid": 0
+    }
+  },
+  "reference_and_candidate_raw_records_revalidated": 1608,
+  "bash_cases_matching_normalized_native_output": 83,
+  "bash_records": 166
+}

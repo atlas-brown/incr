@@ -53,11 +53,11 @@ minimum-size matrix is a baseline, not completion of this expanded goal.
 
 - [x] Finish and publish the current frozen-build qualification, including raw
   measurements and cleanup evidence. Preserve this baseline for comparison.
-- [ ] Build tiny deterministic experiments for cache reuse after live writes:
+- [x] Build tiny deterministic experiments for cache reuse after live writes:
   private output, append/read-modify-write, open descriptors/hardlinks, FIFO and
   shared-file producer/consumer handshakes, concurrent writers, slow/infinite stdin,
   and stdin-dependent output. Demonstrate the safety boundary of final-file replay.
-- [ ] Compare concrete implementation approaches: lookup before effects when input
+- [x] Compare concrete implementation approaches: lookup before effects when input
   is already available; bounded coordination at an effect boundary; operation-level
   replay with applied-prefix accounting; and explicit private-output contracts.
   Reject approaches that hide interactions, deadlock feedback pipelines, duplicate
@@ -66,12 +66,12 @@ minimum-size matrix is a baseline, not completion of this expanded goal.
   speedups, and retain live execution for cases that cannot be replayed safely.
 - [x] Review every source module in both repositories, record the coverage and
   findings, and simplify dead paths, duplicated code and fragile lifecycle logic.
-- [ ] Audit each optimization against pinned main: streaming, batch, chunking,
+- [x] Audit each optimization against pinned main: streaming, batch, chunking,
   compression, annotations, introspection, short-circuiting and concurrent caches.
   Add focused behavioral tests for enabled optimizations and justify any restriction.
-- [ ] Run the full fast regression matrix and shell/Observe suites on stabilized
+- [x] Run the full fast regression matrix and shell/Observe suites on stabilized
   code, then rerun all minimum-size benchmark correctness and timing comparisons.
-- [ ] Commit and push tested source and final curated evidence with brief subject-only
+- [x] Commit and push tested source and final curated evidence with brief subject-only
   messages (Observe main, Incr observe); remove owned execution artifacts and verify
   no owned mounts/processes remain. Preserve reusable dependencies and models.
 
@@ -93,3 +93,11 @@ interaction equivalence. Validate pre-write inputs, quiesce/terminate writers be
 installation, preserve meaningful final file semantics, and demonstrate actual reuse.
 
 Additional user requirements: optimize across explicit assumption levels; perform comprehensive module-level consolidation and cleanup, including legacy/dead paths, clear function and variable names (avoid single-letter names), consistent style, and removal of verbose/redundant comments and LLM-like prose. Refactor alongside behavioral coverage; do not trade correctness or an optimization away merely to simplify implementation.
+
+Final evidence: `results/2026-10-08/EVALUATION.md` and `MEASUREMENTS.md`. All 96
+entrypoints and 2,144 scheduled measurements are complete; every Bash, updated-try
+and Observe record is valid. Live interactions and explicit final-output assumptions
+are distinguished in `OPTIMIZATIONS.md`. External concurrent mutation remains outside
+the final-output contract. `cleanup.json` records removed artifacts and retained
+reproduction dependencies. The evidence publication is the commit containing this
+completed plan; runtime source commits were published before measurement.

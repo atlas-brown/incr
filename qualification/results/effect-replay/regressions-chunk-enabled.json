@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "python3",
+    "qualification/regressions.py",
+    "--effect-policy",
+    "final",
+    "--annotations",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 2.9542842379996728,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "036fb9c990cff005ab398982b642ddbc9d2a49577e7b92c075c8501804b853b2",
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 35 tests in 2.847s\n\nOK\n"
+}

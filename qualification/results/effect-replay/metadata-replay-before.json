@@ -1,0 +1,54 @@
+[
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/target/release/incr",
+      "-b",
+      "--cache",
+      "/users/jxia3/atlas/incr/qualification/.work/metadata-replay-osw42j_e/cache",
+      "--observe",
+      "/users/jxia3/atlas/observe/target/release/observe",
+      "--",
+      "python3",
+      "-c",
+      "import os; os.chmod(\"file\",0o600)"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.03501296399917919,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "",
+    "stderr": "",
+    "expected_content": "first",
+    "actual_content": "first"
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/target/release/incr",
+      "-b",
+      "--cache",
+      "/users/jxia3/atlas/incr/qualification/.work/metadata-replay-osw42j_e/cache",
+      "--observe",
+      "/users/jxia3/atlas/observe/target/release/observe",
+      "--",
+      "python3",
+      "-c",
+      "import os; os.chmod(\"file\",0o600)"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.002992842000821838,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "",
+    "stderr": "",
+    "expected_content": "second",
+    "actual_content": "first"
+  }
+]

@@ -1,0 +1,75 @@
+{
+  "argv": [
+    "sudo",
+    "-n",
+    "unshare",
+    "-m",
+    "--",
+    "bash",
+    "-c",
+    "mount --make-rprivate / && mount --bind \"$1\" /tmp && shift && exec \"$@\"",
+    "private-tmp",
+    "/users/jxia3/atlas/incr/qualification/.work/bash-suite/run/tmp",
+    "setpriv",
+    "--reuid",
+    "20012",
+    "--regid",
+    "4431",
+    "--init-groups",
+    "env",
+    "-i",
+    "HOME=/users/jxia3",
+    "USER=jxia3",
+    "LOGNAME=jxia3",
+    "TERM=dumb",
+    "PATH=/users/jxia3/atlas/incr/qualification/.work/bash-suite/helpers:/users/jxia3/atlas/incr/qualification/.work/bash-src:/usr/local/bin:/usr/bin:/bin",
+    "LC_ALL=C",
+    "THIS_SH=/users/jxia3/atlas/incr/qualification/.work/bash-suite/bash",
+    "BUILD_DIR=/users/jxia3/atlas/incr/qualification/.work/bash-src",
+    "TMPDIR=/tmp",
+    "BASH_TSTOUT=/tmp/tstout",
+    "INCR_CACHE_DIR=/users/jxia3/atlas/incr/qualification/.work/bash-suite/run/cache",
+    "INCR_SHELL=/users/jxia3/atlas/incr/qualification/.work/bash-src/bash",
+    "INCR_PYTHON=/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+    "INCR_TOP=/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr",
+    "INCR_OBSERVE=1",
+    "INCR_SYS_PATH=/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr/target/release/incr",
+    "INCR_TRY_PATH=/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr/src/scripts/try.sh",
+    "INCR_OBSERVE_PATH=/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/observe/target/release/observe",
+    "/users/jxia3/atlas/incr/qualification/.work/bash-src/bash",
+    "run-posixexp"
+  ],
+  "returncode": 1,
+  "elapsed_sec": 2.9713340169982985,
+  "timeout": false,
+  "leaked_descendants": true,
+  "remaining_descendants": [],
+  "diagnostics": [
+    {
+      "pid": 2644704,
+      "status": "Name:\tbash\nState:\tZ (zombie)\nTgid:\t2644704\nNgid:\t0\nPid:\t2644704\nPPid:\t2606918\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t2644704\nNSpid:\t2644704\nNSpgid:\t2644547\nNSsid:\t2644547\nThreads:\t1\nSigQ:\t0/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000004\nSigCgt:\t0000000000010002\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t1\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    },
+    {
+      "pid": 2644745,
+      "status": "Name:\tbash\nState:\tZ (zombie)\nTgid:\t2644745\nNgid:\t0\nPid:\t2644745\nPPid:\t2606918\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t2644745\nNSpid:\t2644745\nNSpgid:\t2644547\nNSsid:\t2644547\nThreads:\t1\nSigQ:\t0/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000004\nSigCgt:\t0000000000010002\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t1\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    },
+    {
+      "pid": 2644780,
+      "status": "Name:\tbash\nState:\tZ (zombie)\nTgid:\t2644780\nNgid:\t0\nPid:\t2644780\nPPid:\t2606918\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t2644780\nNSpid:\t2644780\nNSpgid:\t2644547\nNSsid:\t2644547\nThreads:\t1\nSigQ:\t0/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000004\nSigCgt:\t0000000000010002\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t1\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    }
+  ],
+  "stdout_sha256": "bca5d32b9d9f7bc1918e0eaf48574079c93e2c74cf6e92875be8bae077dd7088",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "307a308\n> ./posixexp.tests: line 97: unexpected EOF while looking for matching `}'\n",
+  "stderr": "",
+  "test_outputs": [
+    "a\nb\na b\nargv[1] = <a>\nargv[2] = <b>\nargv[3] = <x>\nargv[4] = <a>\nargv[5] = <b>\nargv[1] = <a\\ b>\nargv[2] = <x>\nargv[3] = <a\\ b>\nargv[1] = <foo 'bar' baz>\nargv[1] = <a b  c d>\nargv[1] = <a b  c d>\nargv[1] = <foo ax{{{}b c d{} bar>\nargv[2] = <}>\nargv[3] = <baz>\nargv[1] = <'foo'>\nargv[1] = <'foo'>\nargv[1] = <$a>\nargv[1] = <'foo'>\nargv[1] = <foo*bar>\nargv[1] = <foo*bar>\nargv[1] = <foo*bar'}>\nargv[1] = <x'>\n<.> <x> <.> <> <.> <x> <.> \n<x> <.> <w> <.> <x> <.> <w> <.> \n<x> <.> <w> <.> <x> <.> <w> <.> \n<x> <.> <w> <.> <x> <.> <w> <.> \n<.> <w> <.> <> <.> <w> <.> \n<.> <w> <.> <> <.> <w> <.> \n<x> <.> <x> <.> <x> <.> <x> <.> \n<x> <.> <w> <.> <x> <.> <w> <.> \n<x> <.> <w> <.> <x> <.> <w> <.> \n<x> <.> <w> <.> <x> <.> <w> <.> \nargv[1] = <'bar>\nargv[1] = <foo 'bar baz>\nargv[1] = <}z>\nargv[1] = <''z}>\nargv[1] = <1>\nargv[2] = <2>\nargv[1] = <1>\nargv[2] = <2>\nargv[1] = <1>\nargv[2] = <2>\nargv[1] = <1 2>\nargv[1] = <1>\nargv[2] = <2>\nargv[1] = <1 2>\nargv[1] = <1>\nargv[2] = <2>\nargv[1] = <1 2>\nargv[1] = <1>\nargv[2] = <2>\nargv[1] = <1 2>\nargv[1] = <1>\nargv[2] = <2>\nargv[1] = <1 2>\nargv[1] = <1>\nargv[2] = <2>\nargv[1] = <1>\nargv[2] = <2>\nargv[1] = <1>\nargv[2] = <2>\nargv[1] = <12>\nargv[1] = <1 2>\nargv[1] = <1 2>\nargv[1] = <1 2>\nargv[1] = <1 2>\nargv[1] = <1 2>\nargv[1] = <1 2>\nargv[1] = <12>\nargv[1] = <12>\nargv[1] = <12>\nargv[1] = <12>\nargv[1] = <12>\nargv[1] = <12>\nargv[1] = <1 2>\nargv[1] = <1 2>\nargv[1] = <12>\nargv[1] = <12>\nnormal IFS\nargv[1] = <abc>\nargv[2] = <def>\nargv[3] = <ghi>\nargv[4] = <jkl>\nargv[1] = <abc>\nargv[2] = <def>\nargv[3] = <ghi>\nargv[4] = <jkl>\nargv[1] = <abc>\nargv[2] = <def>\nargv[3] = <ghi>\nargv[4] = <jkl>\nnull IFS\nargv[1] = < abc>\nargv[2] = <def ghi>\nargv[3] = <jkl >\nargv[1] = < abc def ghi jkl >\nargv[1] = < abc>\nargv[2] = <def ghi>\nargv[3] = <jkl >\nnon-standard IFS\nargv[1] = < abc>\nargv[2] = <def ghi>\nargv[3] = <jkl >\nargv[1] = < abc def ghi jkl >\nargv[1] = < abc def ghi jkl >\nunset IFS\nargv[1] = < abc>\nargv[2] = <def ghi>\nargv[3] = <jkl >\nargv[1] = < abc def ghi jkl >\nargv[1] = < abc def ghi jkl >\n\n001: IFS = (unset): unset -v foo; set -- ${foo=$*}\nsoh stx etx del   / soh stx etx del\n\n002: IFS = (unset): unset -v foo; set -- ${foo=\"$*\"}\nsoh stx etx del   / soh stx etx del\n\n003: IFS = (unset): unset -v foo; set -- \"${foo=$*}\"\nsoh stx etx del   / soh stx etx del\n\n004: IFS = (unset): foo=; set -- ${foo:=$*}\nsoh stx etx del   / soh stx etx del\n\n005: IFS = (unset): foo=; set -- ${foo:=\"$*\"}\nsoh stx etx del   / soh stx etx del\n\n006: IFS = (unset): foo=; set -- \"${foo:=$*}\"\nsoh stx etx del   / soh stx etx del\n\n007: IFS = (unset): unset -v foo; set -- ${foo=$@}\nsoh stx etx del   / soh stx etx del\n\n008: IFS = (unset): unset -v foo; set -- ${foo=\"$@\"}\nsoh stx etx del   / soh stx etx del\n\n009: IFS = (unset): unset -v foo; set -- \"${foo=$@}\"\nsoh stx etx del   / soh stx etx del\n\n010: IFS = (unset): foo=; set -- ${foo:=$@}\nsoh stx etx del   / soh stx etx del\n\n011: IFS = (unset): foo=; set -- ${foo:=\"$@\"}\nsoh stx etx del   / soh stx etx del\n\n012: IFS = (unset): foo=; set -- \"${foo:=$@}\"\nsoh stx etx del   / soh stx etx del\n\n013: IFS = (null): unset -v foo; set -- ${foo=$*}\nsoh stx etx del   / soh stx etx del\n\n014: IFS = (null): unset -v foo; set -- ${foo=\"$*\"}\nsoh stx etx del   / soh stx etx del\n\n015: IFS = (null): unset -v foo; set -- \"${foo=$*}\"\nsoh stx etx del   / soh stx etx del\n\n016: IFS = (null): foo=; set -- ${foo:=$*}\nsoh stx etx del   / soh stx etx del\n\n017: IFS = (null): foo=; set -- ${foo:=\"$*\"}\nsoh stx etx del   / soh stx etx del\n\n018: IFS = (null): foo=; set -- \"${foo:=$*}\"\nsoh stx etx del   / soh stx etx del\n\n019: IFS = (null): unset -v foo; set -- ${foo=$@}\nsoh stx etx del   / soh stx etx del\n\n020: IFS = (null): unset -v foo; set -- ${foo=\"$@\"}\nsoh stx etx del   / soh stx etx del\n\n021: IFS = (null): unset -v foo; set -- \"${foo=$@}\"\nsoh stx etx del   / soh stx etx del\n\n022: IFS = (null): foo=; set -- ${foo:=$@}\nsoh stx etx del   / soh stx etx del\n\n023: IFS = (null): foo=; set -- ${foo:=\"$@\"}\nsoh stx etx del   / soh stx etx del\n\n024: IFS = (null): foo=; set -- \"${foo:=$@}\"\nsoh stx etx del   / soh stx etx del\n\n025: IFS = x: unset -v foo; set -- ${foo=$*}\nsoh stx etx del   / soh stx etx del\n\n026: IFS = x: unset -v foo; set -- ${foo=\"$*\"}\nsoh stx etx del   / soh stx etx del\n\n027: IFS = x: unset -v foo; set -- \"${foo=$*}\"\nsoh stx etx del   / soh stx etx del\n\n028: IFS = x: foo=; set -- ${foo:=$*}\nsoh stx etx del   / soh stx etx del\n\n029: IFS = x: foo=; set -- ${foo:=\"$*\"}\nsoh stx etx del   / soh stx etx del\n\n030: IFS = x: foo=; set -- \"${foo:=$*}\"\nsoh stx etx del   / soh stx etx del\n\n031: IFS = x: unset -v foo; set -- ${foo=$@}\nsoh stx etx del   / soh stx etx del\n\n032: IFS = x: unset -v foo; set -- ${foo=\"$@\"}\nsoh stx etx del   / soh stx etx del\n\n033: IFS = x: unset -v foo; set -- \"${foo=$@}\"\nsoh stx etx del   / soh stx etx del\n\n034: IFS = x: foo=; set -- ${foo:=$@}\nsoh stx etx del   / soh stx etx del\n\n035: IFS = x: foo=; set -- ${foo:=\"$@\"}\nsoh stx etx del   / soh stx etx del\n\n036: IFS = x: foo=; set -- \"${foo:=$@}\"\nsoh stx etx del   / soh stx etx del\n\n037: IFS = sp  ht  nl: unset -v foo; set -- ${foo=$*}\nsoh stx etx del   / soh stx etx del\n\n038: IFS = sp  ht  nl: unset -v foo; set -- ${foo=\"$*\"}\nsoh stx etx del   / soh stx etx del\n\n039: IFS = sp  ht  nl: unset -v foo; set -- \"${foo=$*}\"\nsoh stx etx del   / soh stx etx del\n\n040: IFS = sp  ht  nl: foo=; set -- ${foo:=$*}\nsoh stx etx del   / soh stx etx del\n\n041: IFS = sp  ht  nl: foo=; set -- ${foo:=\"$*\"}\nsoh stx etx del   / soh stx etx del\n\n042: IFS = sp  ht  nl: foo=; set -- \"${foo:=$*}\"\nsoh stx etx del   / soh stx etx del\n\n043: IFS = sp  ht  nl: unset -v foo; set -- ${foo=$@}\nsoh stx etx del   / soh stx etx del\n\n044: IFS = sp  ht  nl: unset -v foo; set -- ${foo=\"$@\"}\nsoh stx etx del   / soh stx etx del\n\n045: IFS = sp  ht  nl: unset -v foo; set -- \"${foo=$@}\"\nsoh stx etx del   / soh stx etx del\n\n046: IFS = sp  ht  nl: foo=; set -- ${foo:=$@}\nsoh stx etx del   / soh stx etx del\n\n047: IFS = sp  ht  nl: foo=; set -- ${foo:=\"$@\"}\nsoh stx etx del   / soh stx etx del\n\n048: IFS = sp  ht  nl: foo=; set -- \"${foo:=$@}\"\nsoh stx etx del   / soh stx etx del\nargv[1] = <^A^B^C^?>\nargv[1] = <^A^B^C^?>\nargv[1] = <^A^B^C^?>\nargv[1] = <^A^B^C^?>\nargv[1] = <^A^B^C^?>\nargv[1] = <^A^B^C^?>\nargv[1] = <^A^B^C^?>\nargv[1] = <^A^B^C^?>\nargv[1] = <a>\nargv[2] = <b>\nargv[1] = <a>\nargv[2] = <b>\nargv[1] = <a>\nargv[2] = <b>\nargv[1] = <a>\nargv[2] = <b>\n[  abc    def  ghi  jkl /  abc    def  ghi  jkl ]\n[  abc    def  ghi  jkl ]\n[  abc    def  ghi  jkl /  abc    def  ghi  jkl /  abc    def  ghi  jkl ]\n1: OK\n2: $'not'\n3: OK\n4: OK\n5: tOK\nOK\nOK\n$'not'\nOK\ntOK\n6: $'not\\ttoo\\nbad'\nOKa\t'\tb\nOKa\t'\tb\n7: OK\n8: OKa\t'\tb\n9: OKa\t\"\tb\n10: OKa\t\"\tb\ntOK\ntOK\ntOK\ntOK\n./posixexp7.sub: line 69: ${'x1'%'t'}: bad substitution\n./posixexp7.sub: line 70: ${'x1'%'t'}: bad substitution\n./posixexp7.sub: line 73: ${'x1'%'t'}: bad substitution\n./posixexp7.sub: line 74: ${'x1'%'t'}: bad substitution\n\"A\"\nA\nargv[1] = <\"A\">\nargv[1] = <A>\nargv[1] = <A>\n"
+  ],
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr",
+  "case": "posixexp",
+  "mode": "observe",
+  "matches_bash": true
+}

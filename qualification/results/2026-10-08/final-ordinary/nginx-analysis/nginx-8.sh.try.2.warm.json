@@ -1,0 +1,38 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr/incr.sh",
+    "/users/jxia3/atlas/incr/qualification/.work/benchmarks/nginx-analysis/run/scripts/nginx-8.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.2946046329998353,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "9d3627173074a2f5a0a7b07bca428225fd1ed2e14b4fea1151fff4403510133b",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "    219 200\n    175 \n     70 304\n     18 404\n     15 \"-\"\n     12 499\n      9 502\n      6 301\n      5 403\n      4 206\n      3 172\n      1 400\n      1 302\n     12 /favicon.ico\n      1 /www/2016-03-10/17-47-35.csv\n      1 /untitled.svg\n      1 /aphrodite/2016-05-09-162613-01-0sci1rt2qkfnb+rppojk/eu/eros-partner/2016-04,2016-05=all=monthly.csv\n      1 /aphrodite/2016-05-09-161604-01-uxoz2zb0dg10l1xhmgim/eu/eros-partner/2016-04,2016-05=all=monthly.csv\n      1 /aphrodite/2016-05-09-153751-01-uxgadcudzsk3vghkrnct\n      1 /2016-04-25-102102-qryrevbdpv$wg1nzbr6u/01/eu/eros-partner/2016-03,2016-04=all=monthly.csv\n",
+  "stderr": "",
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr",
+  "effect_policy": null,
+  "runtime_settings": {
+    "LC_ALL": "C",
+    "RUN_SIZE": "min",
+    "OMP_NUM_THREADS": "2",
+    "TF_NUM_INTRAOP_THREADS": "2",
+    "TF_NUM_INTEROP_THREADS": "2",
+    "MPLBACKEND": "Agg"
+  },
+  "fixture_profile": "supplied --min",
+  "benchmark": "nginx-analysis",
+  "script": "nginx-8.sh",
+  "mode": "try",
+  "repetition": 2,
+  "phase": "warm",
+  "effects": {},
+  "small_text_outputs": {},
+  "cache_entries_retained": 9,
+  "cache_entries_written": 0,
+  "cache_bytes": 21696
+}

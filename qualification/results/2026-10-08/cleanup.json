@@ -1,0 +1,22 @@
+{
+  "time_utc": "2026-10-08T09:02:18.306938+00:00",
+  "removed": [
+    "qualification/.work/benchmarks",
+    "qualification/.work/bash-suite",
+    "qualification/.work/builds/8bcf3a4ad33c026f3990",
+    "qualification/.work/node-v22.20.0-linux-x64.tar.xz",
+    "qualification/.work/progress.json",
+    "qualification/__pycache__",
+    "qualification/.work/builds/b21d57dc13686230ee36/incr/src/scripts/__pycache__"
+  ],
+  "owned_mounts_remaining": [],
+  "benchmark_processes_remaining": [],
+  "recovery_snapshots_remaining": [],
+  "retained_for_reproduction": [
+    "frozen baseline bad83b650932aabad3a9 and final b21d57dc13686230ee36 snapshots",
+    "clean pinned main worktree",
+    "reusable Bash/Node/Python dependencies and model/input downloads",
+    "release binaries",
+    "saved qualification evidence"
+  ]
+}

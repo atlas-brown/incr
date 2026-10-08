@@ -1,0 +1,48 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr/incr.sh",
+    "/users/jxia3/atlas/incr/qualification/.work/benchmarks/nlp-uppercase/run/scripts/uppercase_by_type.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.23015276799924322,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "d117fa006ba9208500b2930ce69cbde436c647afa917cb7396a9bc9111a46dd2",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "done\n",
+  "stderr": "",
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr",
+  "effect_policy": "final",
+  "runtime_settings": {
+    "LC_ALL": "C",
+    "RUN_SIZE": "min",
+    "OMP_NUM_THREADS": "2",
+    "TF_NUM_INTRAOP_THREADS": "2",
+    "TF_NUM_INTEROP_THREADS": "2",
+    "MPLBACKEND": "Agg"
+  },
+  "fixture_profile": "supplied --min",
+  "benchmark": "nlp-uppercase",
+  "script": "uppercase_by_type.sh",
+  "mode": "observe",
+  "repetition": 2,
+  "phase": "cold",
+  "effects": {
+    "outputs/6_1_2": {
+      "mode": 493,
+      "kind": "directory"
+    },
+    "outputs/6_1_2/sample.txt.qualification.out": {
+      "mode": 420,
+      "kind": "file",
+      "content": "6f3e559bbd93fa2f9b25cbd9b5f348a4b20c902d8e6498de5c28d73df8e2f571"
+    }
+  },
+  "small_text_outputs": {},
+  "cache_entries_retained": 0,
+  "cache_entries_written": 7,
+  "cache_bytes": 12400
+}

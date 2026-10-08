@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "python3",
+    "qualification/regressions.py",
+    "--effect-policy",
+    "final",
+    "--batch",
+    "-q"
+  ],
+  "returncode": 1,
+  "elapsed_sec": 2.998918553999829,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3f54c65f9e0c2a2a828047620f509a69da9f9ba91f67fbf5f346bbd87fd3655",
+  "stdout": "",
+  "stderr": "======================================================================\nFAIL: test_closed_output_preserves_completed_effects (__main__.Regressions)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/users/jxia3/atlas/incr/qualification/regressions.py\", line 409, in test_closed_output_preserves_completed_effects\n    self.assertEqual(previous_entries, entries, \"warm test did not reuse the cache\")\nAssertionError: {Posi[66 chars]ache/batch_319405456835108509/data.incr'): 1791437357843161589} != {Posi[66 chars]ache/batch_319405456835108509/data.incr'): 1791437357903162661}\n- {PosixPath('/users/jxia3/atlas/incr/qualification/.work/case-a6b2zyjj/cache/batch_319405456835108509/data.incr'): 1791437357843161589}\n?                                                                                                                             ^^    ---\n\n+ {PosixPath('/users/jxia3/atlas/incr/qualification/.work/case-a6b2zyjj/cache/batch_319405456835108509/data.incr'): 1791437357903162661}\n?                                                                                                                             ^^   +++\n : warm test did not reuse the cache\n\n----------------------------------------------------------------------\nRan 37 tests in 2.862s\n\nFAILED (failures=1, skipped=2)\n"
+}

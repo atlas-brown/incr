@@ -1,0 +1,130 @@
+[
+  {
+    "case": "dollars",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.6664659510024649,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "dollars",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 5.270733161996759,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "func",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 5.155099488001724,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "func",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 5.960011815001053,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "getopts",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.11598896099894773,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "getopts",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 2.79880577899894,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "ifs",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.07775656900048489,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "ifs",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.4253991909972683,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "invert",
+    "mode": "bash",
+    "returncode": 0,
+    "elapsed_sec": 0.07383061300060945,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "invert",
+    "mode": "observe",
+    "returncode": 0,
+    "elapsed_sec": 0.24046972200085293,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "quote",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.17787949299963657,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "quote",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 1.1658914330000698,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "read",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 6.17247668300115,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "read",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 7.56441857399841,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "comsub-posix",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.22708875000171247,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "comsub-posix",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 1.0669258439993428,
+    "timeout": false,
+    "matches_bash": true
+  }
+]

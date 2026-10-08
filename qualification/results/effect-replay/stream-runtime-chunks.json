@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "python3",
+    "qualification/chunk_tests.py",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 13.162198643996817,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e90b75ffc599aa68d87e76304f725aa37a7a43c7afdcfaa94fea98c242b4f8f2",
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 9 tests in 13.014s\n\nOK\n"
+}

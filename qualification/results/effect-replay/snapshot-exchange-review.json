@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "bash",
+    "../observe/tests/run_tests.sh",
+    "t_snapshot"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 22.09995175199947,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "d2c5223abb94a54fd21228fe670f1ee748933f04efde0540e6590d9579637668",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "  t_snapshot_dirs\n  t_snapshot_files\n  t_snapshot_filtering\n  t_snapshot_kill\n  t_snapshot_metadata\n  t_snapshot_symlinks\n\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n  6 files, 113 assertions: 113 passed, 0 failed\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n",
+  "stderr": ""
+}

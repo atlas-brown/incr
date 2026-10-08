@@ -1,7 +1,7 @@
 # Effectful streaming replay investigation
 
-Status: implemented prototype; expanded correctness and performance qualification in progress. This extends the frozen
-qualification baseline at Incr 7990ee6 / Observe b993d58.
+Status: implemented and qualified on the minimum-input matrix. Final evidence is in
+`results/2026-10-08/`; the earlier Incr 7990ee6 / Observe b993d58 baseline is preserved.
 
 ## User-authorized contract
 
@@ -69,7 +69,7 @@ Use subsecond deterministic work in development tests, with process-tree deadlin
 Run real models only after the fast correctness/performance experiments stabilize.
 
 
-## Prototype evidence and remaining review
+## Development findings and retained limits
 
 The first prototype implements candidate validation before execution with a
 separate `--effect-policy final` cache namespace; `live` remains the default during
@@ -87,10 +87,10 @@ and evidence are tracked in QUALIFICATION_LOG.md. They do not close the cases be
   cached write set. Newly created paths are cleaned; unexpected preexisting writes
   now use selective pre-write restoration with tested contents/mode/mtime recovery.
 - Candidate validation considers eight recent inputs and bounds hint retention to
-  64 entries. Held cache leases protect selected payloads; broader concurrent
-  cache qualification remains in the final test matrix.
+  64 entries. Held cache leases protect selected payloads; concurrent
+  cache qualification passes in the final fast matrix.
 - Capture/replay is shared by batch and streaming, and wrapper policy selection
-  is available. Module-level cleanup remains tracked in CODE_REVIEW.md.
+  is available. Completed module-level cleanup is tracked in CODE_REVIEW.md.
 
 
 ## Selective restoration during cancellation

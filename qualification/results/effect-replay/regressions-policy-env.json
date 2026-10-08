@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "python3",
+    "qualification/regressions.py",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 2.8563248700011172,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "bc0b759af88498ccd7319a43ddf0334cb662001c0b373a5f2537ca416f078405",
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 35 tests in 2.752s\n\nOK\n"
+}

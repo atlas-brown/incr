@@ -1,0 +1,537 @@
+[
+  {
+    "family": "beginner",
+    "script": "beginner-01.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "beginner",
+    "script": "beginner-02.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "beginner",
+    "script": "beginner-03.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "beginner",
+    "script": "beginner-04.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "beginner",
+    "script": "beginner-05.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "beginner",
+    "script": "beginner-06.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "beginner",
+    "script": "beginner-07.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "beginner",
+    "script": "beginner-08.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "beginner",
+    "script": "beginner-09.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "beginner",
+    "script": "beginner-10.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "beginner",
+    "script": "beginner-11.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "beginner",
+    "script": "beginner-12.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "beginner",
+    "script": "beginner-13.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "beginner",
+    "script": "beginner-14.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "bio",
+    "script": "bio-1.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "bio",
+    "script": "bio-2.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "bio",
+    "script": "bio-3.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "bio",
+    "script": "bio-4-0.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "bio",
+    "script": "bio-4.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "bio",
+    "script": "bio-5.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "bio",
+    "script": "bio-6.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "covid",
+    "script": "1.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "covid",
+    "script": "2.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "covid",
+    "script": "3.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "covid",
+    "script": "4.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "covid",
+    "script": "5.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "dpt",
+    "script": "dpt_1.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "dpt",
+    "script": "dpt_2.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "dpt",
+    "script": "dpt_3a.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "dpt",
+    "script": "dpt_3b.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "dpt",
+    "script": "dpt_4.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "dpt",
+    "script": "dpt_5a.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "dpt",
+    "script": "dpt_5b.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "dpt",
+    "script": "dpt_5c.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "dpt",
+    "script": "dpt_5d.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "dpt",
+    "script": "dpt_5e.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "dpt",
+    "script": "dpt_reference.sh",
+    "classification": "legacy reference/download helper; not the min runner"
+  },
+  {
+    "family": "file-mod",
+    "script": "file-mod-1.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "file-mod",
+    "script": "file-mod-2.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "file-mod",
+    "script": "file-mod-3.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "file-mod",
+    "script": "file-mod-4.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "file-mod",
+    "script": "file-mod-5.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "file-mod",
+    "script": "file-mod-6.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "file-mod",
+    "script": "file-mod-7.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "image-annotation",
+    "script": "image-annotation-1.sh",
+    "classification": "user-excluded (API credential)"
+  },
+  {
+    "family": "image-annotation",
+    "script": "image-annotation-2.sh",
+    "classification": "user-excluded (API credential)"
+  },
+  {
+    "family": "image-annotation",
+    "script": "image-annotation-3.sh",
+    "classification": "user-excluded (API credential)"
+  },
+  {
+    "family": "image-annotation",
+    "script": "image-annotation-4.sh",
+    "classification": "user-excluded (API credential)"
+  },
+  {
+    "family": "image-annotation",
+    "script": "image-annotation-5.sh",
+    "classification": "user-excluded (API credential)"
+  },
+  {
+    "family": "image-annotation",
+    "script": "image-annotation-6.sh",
+    "classification": "user-excluded (API credential)"
+  },
+  {
+    "family": "image-annotation",
+    "script": "image-annotation-7.sh",
+    "classification": "user-excluded (API credential)"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-1.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-10.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-11.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-12.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-13.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-14.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-15.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-16.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-17.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-18.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-19.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-2.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-20.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-21.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-22.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-3.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-4.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-5.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-6.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-7.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-8.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nginx-analysis",
+    "script": "nginx-9.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nlp-ngrams",
+    "script": "ngrams-1.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nlp-ngrams",
+    "script": "ngrams-2.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nlp-ngrams",
+    "script": "ngrams-3.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nlp-uppercase",
+    "script": "uppercase_by_token.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "nlp-uppercase",
+    "script": "uppercase_by_type.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "poet",
+    "script": "poet-1.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "poet",
+    "script": "poet-2.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "poet",
+    "script": "poet-3.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "poet",
+    "script": "poet-4.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "spell",
+    "script": "spell-1.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "spell",
+    "script": "spell-2.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "spell",
+    "script": "spell-3.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "spell",
+    "script": "spell-4.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "spell",
+    "script": "spell-5.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "spell",
+    "script": "spell-6.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "spell",
+    "script": "spell-7.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "unixfun",
+    "script": "10.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "unixfun",
+    "script": "11.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "unixfun",
+    "script": "12.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "unixfun",
+    "script": "7.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "unixfun",
+    "script": "8.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "unixfun",
+    "script": "9.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "weather",
+    "script": "temp-analytics-1.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "weather",
+    "script": "temp-analytics-2.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "weather",
+    "script": "temp-analytics-3.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "weather",
+    "script": "tuft-weather-1.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "weather",
+    "script": "tuft-weather-2.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "weather",
+    "script": "tuft-weather-3.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "web-search",
+    "script": "crawl.sh",
+    "classification": "helper (crawl/index called by engine; query is separate interactive tool)"
+  },
+  {
+    "family": "web-search",
+    "script": "engine.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "web-search",
+    "script": "index.sh",
+    "classification": "helper (crawl/index called by engine; query is separate interactive tool)"
+  },
+  {
+    "family": "web-search",
+    "script": "query.sh",
+    "classification": "helper (crawl/index called by engine; query is separate interactive tool)"
+  },
+  {
+    "family": "word-freq",
+    "script": "top-n.sh",
+    "classification": "benchmark"
+  },
+  {
+    "family": "word-freq",
+    "script": "wf.sh",
+    "classification": "benchmark"
+  }
+]

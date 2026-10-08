@@ -1,0 +1,122 @@
+[
+  {
+    "case": "live-stream",
+    "valid": true,
+    "elapsed_sec": 3.4903716440021526
+  },
+  {
+    "case": "live-compressed",
+    "valid": true,
+    "elapsed_sec": 3.5374673910009733
+  },
+  {
+    "case": "live-full",
+    "valid": true,
+    "elapsed_sec": 3.321655739997368
+  },
+  {
+    "case": "live-annotations",
+    "valid": true,
+    "elapsed_sec": 3.5143879679999372
+  },
+  {
+    "case": "live-batch",
+    "valid": true,
+    "elapsed_sec": 3.331054618000053
+  },
+  {
+    "case": "live-batch-compressed",
+    "valid": true,
+    "elapsed_sec": 3.243896349998977
+  },
+  {
+    "case": "live-full-compressed",
+    "valid": true,
+    "elapsed_sec": 3.495686160000332
+  },
+  {
+    "case": "live-annotations-compressed",
+    "valid": true,
+    "elapsed_sec": 3.4947077249998983
+  },
+  {
+    "case": "final-stream",
+    "valid": true,
+    "elapsed_sec": 3.3762975899990124
+  },
+  {
+    "case": "final-compressed",
+    "valid": true,
+    "elapsed_sec": 3.4882557170021755
+  },
+  {
+    "case": "final-full",
+    "valid": true,
+    "elapsed_sec": 3.5301009960021474
+  },
+  {
+    "case": "final-annotations",
+    "valid": true,
+    "elapsed_sec": 3.4504987979998987
+  },
+  {
+    "case": "final-batch",
+    "valid": true,
+    "elapsed_sec": 3.397343208998791
+  },
+  {
+    "case": "final-batch-compressed",
+    "valid": true,
+    "elapsed_sec": 3.457690879000438
+  },
+  {
+    "case": "final-full-compressed",
+    "valid": true,
+    "elapsed_sec": 3.5496078279975336
+  },
+  {
+    "case": "final-annotations-compressed",
+    "valid": true,
+    "elapsed_sec": 3.5927322739989904
+  },
+  {
+    "case": "chunks",
+    "valid": true,
+    "elapsed_sec": 13.077102174000174
+  },
+  {
+    "case": "shell-ast",
+    "valid": true,
+    "elapsed_sec": 0.8018299320028746
+  },
+  {
+    "case": "strace",
+    "valid": true,
+    "elapsed_sec": 0.24657236900020507
+  },
+  {
+    "case": "try",
+    "valid": true,
+    "elapsed_sec": 0.8124277790011547
+  },
+  {
+    "case": "benchmark-components",
+    "valid": true,
+    "elapsed_sec": 3.753777195997827
+  },
+  {
+    "case": "observe",
+    "valid": true,
+    "elapsed_sec": 31.70984068100006
+  },
+  {
+    "case": "speculative-restore",
+    "valid": true,
+    "elapsed_sec": 0.6494294379990606
+  },
+  {
+    "case": "effect-replay",
+    "valid": true,
+    "elapsed_sec": 3.000529518001713
+  }
+]

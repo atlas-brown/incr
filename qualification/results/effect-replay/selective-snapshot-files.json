@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "bash",
+    "../observe/tests/run_tests.sh",
+    "t_snapshot_files"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.3639725639986864,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "4fa00ba196b068c051cd9b0ff8b168be352a8c1eed9ad8b19f9057a56719b109",
+  "stderr_sha256": "16bf68d69587792ffb3922fe6c17987412aee210101e499b8cc5e3a25220cbff",
+  "stdout": "  t_snapshot_files\n\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n  1 files, 25 assertions: 25 passed, 0 failed\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n",
+  "stderr": "--- observe: file access report ---\nReads:\n  /etc/ld.so.cache\n  /users/jxia3/atlas/incr\n  /usr/bin/dash\n  /usr/lib/x86_64-linux-gnu/libc.so.6\nWrites:\n  /tmp/observe_tests_2588947/t_snapshot_files/excluded\n  /tmp/observe_tests_2588947/t_snapshot_files/protected\n"
+}

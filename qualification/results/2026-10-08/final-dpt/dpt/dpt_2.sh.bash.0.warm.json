@@ -1,0 +1,49 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/scripts/dpt_2.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 58.49724574300126,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "3f71c9e8416a593713c078fb431249b295609d00c521f362b3e6ace382df957a",
+  "stdout": "",
+  "stderr": "WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\nI0000 00:00:1791445524.952777 3708522 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.\nTo enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.\n/users/jxia3/atlas/incr/qualification/.venv/lib/python3.10/site-packages/keras/src/layers/convolutional/base_conv.py:113: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.\n  super().__init__(activity_regularizer=activity_regularizer, **kwargs)\nE0000 00:00:1791445579.167436 3708522 node_def_util.cc:682] NodeDef mentions attribute use_unbounded_threadpool which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; attr=metadata:string,default=\"\"> This may be expected if your graph generating binary is newer  than this binary. Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}\n",
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr",
+  "effect_policy": null,
+  "runtime_settings": {
+    "LC_ALL": "C",
+    "RUN_SIZE": "min",
+    "OMP_NUM_THREADS": "8",
+    "TF_NUM_INTRAOP_THREADS": "2",
+    "TF_NUM_INTEROP_THREADS": "2",
+    "MPLBACKEND": "Agg"
+  },
+  "fixture_profile": "supplied --min",
+  "benchmark": "dpt",
+  "script": "dpt_2.sh",
+  "mode": "bash",
+  "repetition": 0,
+  "phase": "warm",
+  "effects": {
+    "outputs/db.qualification.txt": {
+      "mode": 420,
+      "kind": "file",
+      "content": "4621f547c7a72265817476520f6116eb3eed323a536575a5179278a0129bf7a7"
+    },
+    "tmp/torchinductor_jxia3": {
+      "mode": 493,
+      "kind": "directory"
+    }
+  },
+  "small_text_outputs": {
+    "outputs/db.qualification.txt": "g: Aa1\ng: Aa1\ng: D21\ng: F34\ng: G14\ng: H8\ng: H8\ng: H8\ng: H8\ng: N16\ng: N17\ng: N5\ng: O29\ng: U36\ng: U7\ng: U7\ng: X1\ng: X1\ng: X1\ng: Z1\ng: Z1\ng: Z1\ng: Z4\ng: Z7\ng: Z7\n"
+  },
+  "cache_entries_retained": 0,
+  "cache_entries_written": 0,
+  "cache_bytes": 0
+}

@@ -1,0 +1,3 @@
+2539139 execve("/usr/bin/cat", ["cat", "/users/jxia3/atlas/incr/qualification/.work/trace-path-e8squg59/caf\303\251, quote\" and parenthesis)=name"], 0x7ffdc7060ab8 /* 47 vars */) = 0
+2539139 openat(AT_FDCWD</users/jxia3/atlas/incr>, "/users/jxia3/atlas/incr/qualification/.work/trace-path-e8squg59/caf\303\251, quote\" and parenthesis)=name", O_RDONLY) = 3</users/jxia3/atlas/incr/qualification/.work/trace-path-e8squg59/caf\303\251, quote\" and parenthesis)=name>
+2539139 newfstatat(3</users/jxia3/atlas/incr/qualification/.work/trace-path-e8squg59/caf\303\251, quote\" and parenthesis)=name>, "", {st_mode=S_IFREG|0644, st_size=4, ...}, AT_EMPTY_PATH) = 0

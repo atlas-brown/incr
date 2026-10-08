@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "qualification/effect_replay_probe.py",
+    "--policy",
+    "final",
+    "--expect-hit",
+    "--results",
+    "qualification/results/2026-10-08/fast-matrix/effect-replay-cases.json"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 3.000529518001713,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "1bbfe60120708392948e3a3be47252d36c241d1cb475914c5c1a0f5f1bbd7935",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "overwrite cold valid=True cache_retained=False seconds=0.390\noverwrite warm valid=True cache_retained=True seconds=0.075\noverwrite changed valid=True cache_retained=False seconds=0.384\noverwrite older-candidate valid=True cache_retained=True seconds=0.079\nrename cold valid=True cache_retained=False seconds=0.413\nrename warm valid=True cache_retained=True seconds=0.079\nrename changed valid=True cache_retained=False seconds=0.432\nrename older-candidate valid=True cache_retained=True seconds=0.072\ntree cold valid=True cache_retained=False seconds=0.398\ntree warm valid=True cache_retained=True seconds=0.072\ntree changed valid=True cache_retained=False seconds=0.421\ntree older-candidate valid=True cache_retained=True seconds=0.079\n",
+  "stderr": ""
+}

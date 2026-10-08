@@ -1,0 +1,105 @@
+{
+  "argv": [
+    "sudo",
+    "-n",
+    "unshare",
+    "-m",
+    "--",
+    "bash",
+    "-c",
+    "mount --make-rprivate / && mount --bind \"$1\" /tmp && shift && exec \"$@\"",
+    "private-tmp",
+    "/users/jxia3/atlas/incr/qualification/.work/bash-suite/run/tmp",
+    "setpriv",
+    "--reuid",
+    "20012",
+    "--regid",
+    "4431",
+    "--init-groups",
+    "env",
+    "-i",
+    "HOME=/users/jxia3",
+    "USER=jxia3",
+    "LOGNAME=jxia3",
+    "TERM=dumb",
+    "PATH=/users/jxia3/atlas/incr/qualification/.work/bash-suite/helpers:/users/jxia3/atlas/incr/qualification/.work/bash-src:/usr/local/bin:/usr/bin:/bin",
+    "LC_ALL=C",
+    "THIS_SH=/users/jxia3/atlas/incr/qualification/.work/bash-suite/bash",
+    "BUILD_DIR=/users/jxia3/atlas/incr/qualification/.work/bash-src",
+    "TMPDIR=/tmp",
+    "BASH_TSTOUT=/tmp/tstout",
+    "INCR_CACHE_DIR=/users/jxia3/atlas/incr/qualification/.work/bash-suite/run/cache",
+    "INCR_SHELL=/users/jxia3/atlas/incr/qualification/.work/bash-src/bash",
+    "INCR_PYTHON=/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+    "INCR_TOP=/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr",
+    "INCR_OBSERVE=1",
+    "INCR_SYS_PATH=/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr/target/release/incr",
+    "INCR_TRY_PATH=/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr/src/scripts/try.sh",
+    "INCR_OBSERVE_PATH=/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/observe/target/release/observe",
+    "/users/jxia3/atlas/incr/qualification/.work/bash-src/bash",
+    "run-jobs"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 63.34026231600001,
+  "timeout": false,
+  "leaked_descendants": true,
+  "remaining_descendants": [],
+  "diagnostics": [
+    {
+      "pid": 2639977,
+      "status": "Name:\tsleep\nState:\tZ (zombie)\nTgid:\t2639977\nNgid:\t0\nPid:\t2639977\nPPid:\t2606918\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t2639977\nNSpid:\t2639977\nNSpgid:\t2639977\nNSsid:\t2639949\nThreads:\t1\nSigQ:\t2/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000100\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t0000000000000000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    },
+    {
+      "pid": 2639997,
+      "status": "Name:\tbash\nState:\tZ (zombie)\nTgid:\t2639997\nNgid:\t0\nPid:\t2639997\nPPid:\t2606918\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t2639997\nNSpid:\t2639997\nNSpgid:\t2639949\nNSsid:\t2639949\nThreads:\t1\nSigQ:\t2/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000100\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000006\nSigCgt:\t0000000000000000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t1\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    },
+    {
+      "pid": 2640100,
+      "status": "Name:\tbash\nState:\tZ (zombie)\nTgid:\t2640100\nNgid:\t0\nPid:\t2640100\nPPid:\t2606918\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t2640100\nNSpid:\t2640100\nNSpgid:\t2639949\nNSsid:\t2639949\nThreads:\t1\nSigQ:\t2/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000001\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000006\nSigCgt:\t0000000000010000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t1\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    },
+    {
+      "pid": 2640112,
+      "status": "Name:\tsleep\nState:\tZ (zombie)\nTgid:\t2640112\nNgid:\t0\nPid:\t2640112\nPPid:\t2606918\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t2640112\nNSpid:\t2640112\nNSpgid:\t2640112\nNSsid:\t2639949\nThreads:\t1\nSigQ:\t2/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t0000000000000000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    },
+    {
+      "pid": 2640114,
+      "status": "Name:\tsleep\nState:\tZ (zombie)\nTgid:\t2640114\nNgid:\t0\nPid:\t2640114\nPPid:\t2606918\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t2640114\nNSpid:\t2640114\nNSpgid:\t2640114\nNSsid:\t2639949\nThreads:\t1\nSigQ:\t2/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t0000000000000000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    },
+    {
+      "pid": 2640141,
+      "status": "Name:\tbash\nState:\tZ (zombie)\nTgid:\t2640141\nNgid:\t0\nPid:\t2640141\nPPid:\t2606918\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t2640141\nNSpid:\t2640141\nNSpgid:\t2640141\nNSsid:\t2639949\nThreads:\t1\nSigQ:\t2/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t0000000000010000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    },
+    {
+      "pid": 2640144,
+      "status": "Name:\tbash\nState:\tZ (zombie)\nTgid:\t2640144\nNgid:\t0\nPid:\t2640144\nPPid:\t2606918\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t2640144\nNSpid:\t2640144\nNSpgid:\t2640144\nNSsid:\t2639949\nThreads:\t1\nSigQ:\t2/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t0000000000010000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    },
+    {
+      "pid": 2640146,
+      "status": "Name:\tbash\nState:\tZ (zombie)\nTgid:\t2640146\nNgid:\t0\nPid:\t2640146\nPPid:\t2606918\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t2640146\nNSpid:\t2640146\nNSpgid:\t2640146\nNSsid:\t2639949\nThreads:\t1\nSigQ:\t2/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t0000000000010000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    },
+    {
+      "pid": 2640191,
+      "status": "Name:\tsleep\nState:\tZ (zombie)\nTgid:\t2640191\nNgid:\t0\nPid:\t2640191\nPPid:\t2606918\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t2640191\nNSpid:\t2640191\nNSpgid:\t2640191\nNSsid:\t2639949\nThreads:\t1\nSigQ:\t2/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000004000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t0000000000000000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t2\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    }
+  ],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "6842e6f39bacfc77d075b325431f4af4964c0193bd81103db17206b9b29ba5f8",
+  "stdout": "",
+  "stderr": "warning: some of these tests may fail if job control has not been compiled\nwarning: into the shell\nwarning: there may be a message regarding a cat process dying due to a\nwarning: SIGHUP.  Please disregard.\n",
+  "test_outputs": [
+    "./jobs2.sub: line 9: fg: job 1 started without job control\nfg: 1\nWaiting for job 0\njob 0 returns 0\nWaiting for job 1\njob 1 returns 0\nWaiting for job 2\njob 2 returns 0\nWaiting for job 3\njob 3 returns 0\nWaiting for job 4\njob 4 returns 0\nWaiting for job 5\njob 5 returns 0\nWaiting for job 6\njob 6 returns 0\nWaiting for job 7\njob 7 returns 0\n[1]   Running                 sleep 2 &\n[2]   Running                 sleep 2 &\n[3]   Running                 sleep 2 &\n[4]-  Running                 sleep 2 &\n[5]+  Running                 ( sleep 2; exit 4 ) &\n4\n0\ni killed it\n12\n[1]-  Running                 sleep 20 &\n[3]+  Running                 sleep 20 &\n5: ok 1\n./jobs5.sub: line 40: wait: %8: no such job\n2: ok 2\n2: ok 3\n127\n./jobs5.sub: line 71: declare: wpid: not found\nchild1 exit status 0\n[1]+ Running sleep 20 &\n./jobs7.sub: line 5: fg: no current jobs\n[1]+ Running sleep 20 &\n0\n./jobs.tests: line 40: wait: %1: no such job\n./jobs.tests: line 45: fg: no job control\nwait-for-pid\nwait-errors\n./jobs.tests: line 58: wait: `1-1': not a pid or valid job spec\n./jobs.tests: line 59: wait: `-4': not a pid or valid job spec\nwait-for-background-pids\nasync list wait-for-background-pids\nasync list wait for child\nforked\nwait-when-no-children\nposix jobs output\n[1]+  Done                    sleep 1\nwait-for-job\n./jobs.tests: line 84: wait: %2: no such job\n127\nasync list wait-for-job\nforked\nfg-bg 1\nsleep 2\nfg-bg 2\nsleep 2\nfg-bg 3\nsleep 2\nfg-bg 4\nsleep 2\nfg-bg 5\n./jobs.tests: line 111: fg: %2: no such job\n./jobs.tests: line 112: bg: job 1 already in background\nfg-bg 6\n./jobs.tests: line 119: fg: -s: invalid option\nfg: usage: fg [job_spec]\n./jobs.tests: line 120: bg: -s: invalid option\nbg: usage: bg [job_spec ...]\n./jobs.tests: line 125: disown: -s: invalid option\ndisown: usage: disown [-h] [-ar] [jobspec ... | pid ...]\n./jobs.tests: line 129: disown: %1: no such job\n./jobs.tests: line 132: disown: %2: no such job\nwait-for-non-child\n./jobs.tests: line 135: wait: pid 1 is not a child of this shell\n127\n3 -- 1 2 3 -- 1 - 2 - 3\n[1]   Running                 sleep 300 &\n[2]-  Running                 sleep 350 &\n[3]+  Running                 sleep 400 &\nrunning jobs:\n[1]   Running                 sleep 300 &\n[2]-  Running                 sleep 350 &\n[3]+  Running                 sleep 400 &\n./jobs.tests: line 152: kill: %4: no such job\n./jobs.tests: line 154: jobs: %4: no such job\ncurrent job:\n[3]+  Running                 sleep 400 &\nprevious job:\n[2]-  Running                 sleep 350 &\nafter kill -STOP\nrunning jobs:\n[1]   Running                 sleep 300 &\n[3]-  Running                 sleep 400 &\nstopped jobs:\n[2]+  Stopped                 sleep 350\nafter disown\n[2]+  Stopped                 sleep 350\n[3]-  Running                 sleep 400 &\nrunning jobs:\n[3]-  Running                 sleep 400 &\nstopped jobs:\n[2]+  Stopped                 sleep 350\nafter kill -s CONT\nrunning jobs:\n[2]+  Running                 sleep 350 &\n[3]-  Running                 sleep 400 &\nstopped jobs:\nafter kill -STOP, backgrounding %3:\n[3]+ sleep 400 &\nkilling...\ndone\nafter KILL -STOP, foregrounding %1\nsleep 4\ndone\n"
+  ],
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/b21d57dc13686230ee36/incr",
+  "case": "jobs",
+  "mode": "observe",
+  "matches_bash": true
+}
