@@ -1,301 +1,255 @@
 use anyhow::Result;
-use bytes::{Bytes, BytesMut};
-use rand::Rng;
 use std::collections::VecDeque;
 use std::fs;
-use std::io;
+use std::io::{self, ErrorKind, Read};
 use std::process::ChildStdin;
 use std::sync::Arc;
 use std::sync::mpsc::{self, Receiver, SyncSender};
 use std::thread::{self, JoinHandle};
 use xxhash_rust::xxh3::Xxh3;
 
-use crate::cache::chunk_cache::CacheCursor;
+use crate::cache::batch_cache::CacheCursor;
 use crate::command::{self, ChildContext, Command, Runtime, RuntimeType};
-use crate::config::{CHUNK_GRANULARITY, CHUNK_SIZES, CHUNK_WORKERS, Config, TraceType};
-use crate::execution::run::{self, OutputMetadata, OutputResult};
-use crate::ops::chunk::{LineChunker, LineReader};
+use crate::config::{BUFFER_SIZE, CHUNK_SIZES, CHUNK_WORKERS, Config};
+use crate::execution::{dependency, record, run};
+use crate::ops::chunk::ContentChunker;
 use crate::ops::thread::{ReadySignal, SignalReceiver, SignalSender};
-use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
+use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode};
 
-#[derive(Debug)]
+type Worker = JoinHandle<Result<i32>>;
+
 struct WorkerPool {
-    context: Arc<WorkerContext>,
-    max_workers: usize,
-    channel_capacity: usize,
-
-    processing: VecDeque<JoinHandle<Result<ChunkResult>>>,
-    current_thread: Option<JoinHandle<Result<ChunkResult>>>,
-    current_channel: Option<SyncSender<Bytes>>,
-    next_signal: Option<SignalReceiver>,
-    data: BytesMut,
+    config: Arc<Config>,
+    command: Arc<Command>,
+    workers: VecDeque<Worker>,
+    input: Option<SyncSender<Vec<u8>>>,
+    previous_output: Option<SignalReceiver>,
 }
 
 impl WorkerPool {
-    fn new(context: WorkerContext, max_workers: usize, channel_capacity: usize) -> Self {
-        assert!(max_workers > 0 && channel_capacity > 0);
-        Self {
-            context: Arc::new(context),
-            max_workers,
-            channel_capacity,
-
-            processing: VecDeque::with_capacity(max_workers),
-            current_thread: None,
-            current_channel: None,
-            next_signal: None,
-            data: BytesMut::new(),
-        }
-    }
-
-    fn send_lines(&mut self, lines: &[u8]) -> Result<()> {
-        let channel = self.current_channel.as_ref().unwrap();
-        self.data.extend_from_slice(lines);
-        let lines = self.data.split();
-        channel.send(lines.freeze())?;
-        Ok(())
-    }
-
-    fn start_worker(&mut self) -> Result<StartResult> {
-        assert!(self.current_thread.is_none() && self.current_channel.is_none());
-        assert!(self.processing.len() <= self.max_workers);
-
-        if self.processing.len() == self.max_workers {
-            let worker_thread = self.processing.pop_front().unwrap();
-            if ops::thread::join(worker_thread)?? == ChunkResult::BrokenPipe {
-                return Ok(StartResult::BrokenPipe);
+    fn start(&mut self) -> Result<i32> {
+        self.input.take();
+        if self.workers.len() == CHUNK_WORKERS {
+            let status = ops::thread::join(self.workers.pop_front().unwrap())??;
+            if status != 0 {
+                return Ok(status);
             }
         }
-        let (send_channel, receive_channel) = mpsc::sync_channel(self.channel_capacity);
-        let (send_signal, receive_signal) = ops::thread::create_signal();
-
-        self.current_thread = Some(thread::spawn({
-            let context = Arc::clone(&self.context);
-            let receive_signal = self.next_signal.take();
-            move || {
-                process_chunk(
-                    &context.config,
-                    &context.command,
-                    &context.cache,
-                    receive_channel,
-                    receive_signal,
-                    send_signal,
-                )
-            }
+        let (sender, receiver) = mpsc::sync_channel(2);
+        let (completed, next_output) = ops::thread::create_signal();
+        let previous_output = self.previous_output.take();
+        let config = Arc::clone(&self.config);
+        let command = Arc::clone(&self.command);
+        self.workers.push_back(thread::spawn(move || {
+            let _completion = CompletionSignal(completed);
+            process_chunk(&config, &command, receiver, previous_output)
         }));
-        self.current_channel = Some(send_channel);
-        self.next_signal = Some(receive_signal);
-
-        Ok(StartResult::Started)
+        self.input = Some(sender);
+        self.previous_output = Some(next_output);
+        Ok(0)
     }
 
-    fn detach_worker(&mut self) {
-        assert!(self.current_thread.is_some() && self.current_channel.is_some());
-        self.processing.push_back(self.current_thread.take().unwrap());
-        self.current_channel.take();
-    }
-
-    fn join(self) -> Result<ChunkResult> {
-        assert!(self.current_thread.is_none() && self.current_channel.is_none());
-        for worker_thread in self.processing {
-            if ops::thread::join(worker_thread)?? == ChunkResult::BrokenPipe {
-                return Ok(ChunkResult::BrokenPipe);
+    fn finish(&mut self) -> Result<i32> {
+        self.input.take();
+        let mut status = 0;
+        while let Some(worker) = self.workers.pop_front() {
+            let worker_status = ops::thread::join(worker)??;
+            if status == 0 {
+                status = worker_status;
             }
         }
-        Ok(ChunkResult::Completed)
+        Ok(status)
     }
 }
 
-#[derive(Clone, Debug)]
-struct WorkerContext {
-    config: Config,
-    command: Command,
-    cache: CacheCursor,
+impl Drop for WorkerPool {
+    fn drop(&mut self) {
+        self.input.take();
+        for worker in self.workers.drain(..) {
+            let _ = worker.join();
+        }
+    }
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
-enum ChunkResult {
-    Completed,
-    BrokenPipe,
+struct CompletionSignal(SignalSender);
+impl Drop for CompletionSignal {
+    fn drop(&mut self) {
+        self.0.signal_ready();
+    }
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
-enum StartResult {
-    Started,
-    BrokenPipe,
-}
-
-#[derive(Debug)]
-struct StdinContext {
-    hash: u64,
-    thread: JoinHandle<Result<run::StdinResult>>,
+struct TemporaryOutput(Runtime);
+impl Drop for TemporaryOutput {
+    fn drop(&mut self) {
+        let _ = fs::remove_file(&self.0.stdout_file);
+        let _ = fs::remove_file(&self.0.stderr_file);
+    }
 }
 
 pub(crate) fn execute(config: Config, command: Command) -> Result<ExitCode> {
-    let cache = CacheCursor::new(&config, &command)?;
-    cache.create_directory()?;
-
-    let context = WorkerContext {
-        config,
-        command,
-        cache,
+    let chunk_mode =
+        crate::annotation::chunk_mode(&command, config.assume_text).expect("eligible chunk command");
+    let mut pool = WorkerPool {
+        config: Arc::new(config),
+        command: Arc::new(command),
+        workers: VecDeque::new(),
+        input: None,
+        previous_output: None,
     };
-    let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);
-    let mut worker_pool = WorkerPool::new(context, CHUNK_WORKERS, channel_capacity);
-    worker_pool.start_worker()?;
-
-    {
-        let mut stdin_reader = LineReader::new(io::stdin().lock(), CHUNK_GRANULARITY);
-        let mut stdin_chunker = LineChunker::new(CHUNK_SIZES);
-        let mut stdin_closed = false;
-
-        while !stdin_closed {
-            stdin_closed = stdin_reader.read()?;
-            while let Some(lines) = stdin_reader.next_lines() {
-                worker_pool.send_lines(lines)?;
-                if !stdin_chunker.update(lines) {
-                    continue;
-                }
-                worker_pool.detach_worker();
-                if worker_pool.start_worker()? == StartResult::BrokenPipe {
-                    return Ok(BROKEN_PIPE_CODE);
+    pool.start()?;
+    let mut input = io::stdin().lock();
+    let mut buffer = [0; BUFFER_SIZE];
+    let mut chunker = ContentChunker::new(CHUNK_SIZES);
+    let align_lines = matches!(chunk_mode, crate::annotation::ChunkMode::Lines);
+    loop {
+        let length = match input.read(&mut buffer) {
+            Ok(0) => break,
+            Ok(length) => length,
+            Err(error) if error.kind() == ErrorKind::Interrupted => continue,
+            Err(error) => return Err(error.into()),
+        };
+        let mut remaining = &buffer[..length];
+        while !remaining.is_empty() {
+            let boundary = chunker.next_boundary(remaining, align_lines);
+            let length = boundary.unwrap_or(remaining.len());
+            if pool
+                .input
+                .as_ref()
+                .unwrap()
+                .send(remaining[..length].to_vec())
+                .is_err()
+            {
+                let status = pool.finish()?;
+                return Ok(if status == 0 {
+                    BROKEN_PIPE_CODE
+                } else {
+                    ExitCode(status)
+                });
+            }
+            remaining = &remaining[length..];
+            if boundary.is_some() {
+                let status = pool.start()?;
+                if status != 0 {
+                    return Ok(ExitCode(status));
                 }
             }
-            stdin_reader.drain();
         }
-        worker_pool.detach_worker();
     }
-
-    match worker_pool.join()? {
-        ChunkResult::Completed => Ok(ExitCode(0)),
-        ChunkResult::BrokenPipe => Ok(BROKEN_PIPE_CODE),
-    }
+    Ok(ExitCode(pool.finish()?))
 }
 
 fn process_chunk(
     config: &Config,
     command: &Command,
-    cache: &CacheCursor,
-    stdin_channel: Receiver<Bytes>,
-    receive_signal: Option<SignalReceiver>,
-    send_signal: SignalSender,
-) -> Result<ChunkResult> {
-    let runtime = create_child_runtime(config)?;
+    input: Receiver<Vec<u8>>,
+    previous_output: Option<SignalReceiver>,
+) -> Result<i32> {
+    let identifier = rand::random::<u128>();
+    let output = TemporaryOutput(Runtime {
+        kind: RuntimeType::Nothing,
+        stdout_file: config.cache_directory.join(format!("stdout_{identifier}.incr")),
+        stderr_file: config.cache_directory.join(format!("stderr_{identifier}.incr")),
+        effect_gate: None,
+        snapshot_directory: None,
+    });
+    let runtime = &output.0;
     let ChildContext {
         mut child,
         stdout_thread,
         stderr_thread,
-    } = match &receive_signal {
-        Some(signal) => command::spawn_with_signal(config, command, &runtime, signal)?,
-        None => command::spawn(config, command, &runtime)?,
+    } = match &previous_output {
+        Some(signal) => command::spawn_with_signal(config, command, runtime, signal)?,
+        None => command::spawn(config, command, runtime)?,
     };
-
-    let stdin_context = forward_stdin(stdin_channel, child.stdin.take().unwrap())?;
-    let cache_valid = cache.chunk_exists(stdin_context.hash);
-    if cache_valid {
+    let (input_hash, input_thread) =
+        forward_stdin(input, child.stdin.take().unwrap(), &config.cache_directory)?;
+    let cache = CacheCursor::from_hash(config, command, input_hash)?;
+    let cached = cache
+        .load_data()?
+        .filter(|data| dependency::check_cache_valid(&cache, data).unwrap_or(false));
+    let status = if cached.is_some() {
         if child.try_wait()?.is_none() {
             command::kill_child(&child)?;
-            child.wait()?;
         }
-        run::clean_child_runtime(&runtime)?;
-    } else {
         child.wait()?;
-    }
-
-    let outputs = match run::join_stream_threads(Some(stdin_context.thread), stdout_thread, stderr_thread)? {
-        Some(outputs) => outputs,
-        None => {
-            run::clean_child_runtime(&runtime)?;
-            return Ok(ChunkResult::BrokenPipe);
-        }
+        0
+    } else {
+        command::exit_code(child.wait()?)
     };
-
-    if cache_valid {
-        debug_log!(
-            "Chunk cache valid: {} {:?} {}",
-            command.name,
-            command.arguments,
-            stdin_context.hash,
-        );
-        if let Some(signal) = receive_signal {
+    let Some(outputs) = run::join_stream_threads(Some(input_thread), stdout_thread, stderr_thread)? else {
+        return Ok(BROKEN_PIPE_CODE.0);
+    };
+    if outputs.broken_pipe {
+        return Ok(BROKEN_PIPE_CODE.0);
+    }
+    if let Some(cached) = cached {
+        if let Some(signal) = previous_output {
             signal.wait_until_ready();
         }
-        output_cached_data(config, cache, send_signal, stdin_context.hash, &outputs)
-    } else {
-        debug_log!(
-            "Chunk cache invalid: {} {:?} {}",
-            command.name,
-            command.arguments,
-            stdin_context.hash,
-        );
-        send_signal.signal_ready();
-        save_chunk_data(cache, stdin_context.hash, &runtime)
+        return Ok(run::replay(config, &cache, &cached, &outputs)?.0);
     }
+    cache.create_directory()?;
+    cache.clean()?;
+    let data = record::capture(config, &cache, runtime, status)?;
+    cache.save_data(&data)?;
+    Ok(status)
 }
 
-fn create_child_runtime(config: &Config) -> Result<Runtime> {
-    assert!(config.trace_type == TraceType::Nothing);
-    let key = rand::rng().random_range(0..u64::MAX);
-    let stdout_file = config.cache_directory.join(format!("stdout_{key}.incr"));
-    let stderr_file = config.cache_directory.join(format!("stderr_{key}.incr"));
-    Ok(Runtime {
-        typ: RuntimeType::Nothing,
-        stdout_file,
-        stderr_file,
-        effect_gate: None,
-    })
-}
-
-fn forward_stdin(stdin_channel: Receiver<Bytes>, child_stdin: ChildStdin) -> Result<StdinContext> {
-    let channel_capacity = CHUNK_SIZES.average / (2 * CHUNK_GRANULARITY);
-    let (send_channel, receive_channel) = mpsc::sync_channel::<Bytes>(channel_capacity);
-    let stdin_thread = thread::spawn(|| run::forward_stdin(receive_channel, child_stdin));
-
+fn forward_stdin(
+    input: Receiver<Vec<u8>>,
+    child_stdin: ChildStdin,
+    directory: &std::path::Path,
+) -> Result<(u64, JoinHandle<Result<run::ForwardResult>>)> {
+    let (sender, receiver) = ops::spool::create(directory);
+    let worker = thread::spawn(|| receiver.forward(child_stdin));
     let mut hasher = Xxh3::new();
-    for lines in stdin_channel {
-        hasher.update(&lines);
-        send_channel.send(lines)?;
+    for bytes in input {
+        hasher.update(&bytes);
+        if !sender.send(&bytes)? {
+            break;
+        }
     }
-
-    Ok(StdinContext {
-        hash: hasher.digest(),
-        thread: stdin_thread,
-    })
+    Ok((hasher.digest(), worker))
 }
 
-fn output_cached_data(
-    config: &Config,
-    cache: &CacheCursor,
-    send_signal: SignalSender,
-    stdin_hash: u64,
-    outputs: &OutputMetadata,
-) -> Result<ChunkResult> {
-    let stdout_file = cache.get_stdout_file(stdin_hash);
-    let stderr_file = cache.get_stderr_file(stdin_hash);
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::config::{EffectPolicy, TraceType};
 
-    let stdout_completed = run::output_data(
-        &stdout_file,
-        outputs.stdout_length,
-        false, // TODO: load
-        &mut io::stdout().lock(),
-    )? == OutputResult::Completed;
-    let stderr_completed = run::output_data(
-        &stderr_file,
-        outputs.stderr_length,
-        false, // TODO: load
-        &mut io::stderr().lock(),
-    )? == OutputResult::Completed;
-
-    if config.short_circuit && (!stdout_completed || !stderr_completed) {
-        Ok(ChunkResult::BrokenPipe)
-    } else {
-        send_signal.signal_ready();
-        Ok(ChunkResult::Completed)
+    #[test]
+    fn preserves_nonzero_status_on_cold_and_cached_chunks() -> Result<()> {
+        let directory = std::env::temp_dir().join(format!("incr-chunk-status-{}", rand::random::<u128>()));
+        fs::create_dir(&directory)?;
+        let result = (|| -> Result<()> {
+            let config = Config {
+                try_command: String::new(),
+                cache_directory: directory.clone(),
+                trace_type: TraceType::Nothing,
+                observe_command: None,
+                effect_policy: EffectPolicy::Live,
+                assume_text: false,
+                batch_executor: false,
+                short_circuit: false,
+                compress_output: true,
+                full_tracing: false,
+                enable_annotations: true,
+                skip_introspection: true,
+            };
+            let environment =
+                std::collections::HashMap::from([("PATH".to_owned(), "/usr/bin:/bin".to_owned())]);
+            let command = command::create(vec!["sh".into(), "-c".into(), "exit 7".into()], &environment)?;
+            for _ in 0..2 {
+                let (sender, receiver) = mpsc::channel();
+                drop(sender);
+                anyhow::ensure!(
+                    process_chunk(&config, &command, receiver, None)? == 7,
+                    "lost child exit status"
+                );
+            }
+            Ok(())
+        })();
+        fs::remove_dir_all(directory)?;
+        result
     }
-}
-
-fn save_chunk_data(cache: &CacheCursor, stdin_hash: u64, runtime: &Runtime) -> Result<ChunkResult> {
-    cache.create_chunk_directory(stdin_hash)?;
-    fs::rename(&runtime.stdout_file, cache.get_stdout_file(stdin_hash))?;
-    fs::rename(&runtime.stderr_file, cache.get_stderr_file(stdin_hash))?;
-    Ok(ChunkResult::Completed)
 }

@@ -64,6 +64,7 @@ def main():
                                             sum(v[1] for v in paired_times[(mode, phase, family)]))
                    for (mode, phase, family), values in sorted(ratios.items())]
     (args.results / 'aggregate-comparisons.json').write_text(json.dumps(comparisons, indent=2) + '\n')
+    policies = sorted({record.get('effect_policy', 'live') for record in records if record['mode'] == 'observe'})
     counts = Counter((r['mode'], r['valid']) for r in records)
     failures = [r for r in records if not r['valid']]
     for r in failures:
@@ -84,15 +85,16 @@ def main():
     required = {(r['family'], r['script']) for r in inventory if r['classification'] == 'benchmark'}
     seen = {(r['benchmark'], r['script']) for r in records}
     missing = sorted(required - seen)
-    qualified = (len(records) == expected_total and not missing and len(lookup) == 96 * 4 * 2
+    qualified = (len(policies) == 1 and len(records) == expected_total and not missing and len(lookup) == 96 * 4 * 2
                  and all(r['complete'] for r in stats if r['mode'] in ['bash', 'try', 'observe']))
-    summary = dict(qualified=qualified, records=len(records), expected_records=expected_total,
+    summary = dict(effect_policies=policies, qualified=qualified, records=len(records), expected_records=expected_total,
                    cases=len(seen), missing_cases=missing, invalid_records=failures,
                    comparisons=comparisons)
     (args.results / 'qualification-summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     lines = ['# Minimum-input benchmark measurements', '',
              '**' + ('Complete candidate qualification' if qualified else 'Incomplete qualification') + '**', '',
              f'{len(records)}/{expected_total} scheduled measurements; {len(seen)}/96 benchmark entrypoints.', '',
+             'Observe effect policy: ' + ', '.join(policies) + '.', '',
              'Image annotation is excluded at the user’s request. Ordinary cases use three cold/warm pairs; '
              'DPT uses one pair with the real models and one image. DPT timings are single samples. '
              'Weather plotting uses one city-year; web search uses one real page. Other inputs use the supplied minimum.', '',

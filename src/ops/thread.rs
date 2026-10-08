@@ -70,7 +70,9 @@ pub(crate) fn create_signal() -> (SignalSender, SignalReceiver) {
 }
 
 pub(crate) fn join<T>(thread: JoinHandle<T>) -> Result<T> {
-    thread.join().map_err(|e| anyhow!("{e:?}"))
+    thread
+        .join()
+        .map_err(|panic| anyhow!("worker panicked: {panic:?}"))
 }
 
 pub(crate) fn parallel_process<T, F, O>(data: &[T], function: F) -> Result<Vec<O>>
@@ -79,19 +81,23 @@ where
     F: Fn(&[T]) -> Result<O> + Sync,
     O: Send,
 {
-    let num_chunks = data.len().div_ceil(PARALLEL_SIZE);
-    if num_chunks <= 1 {
+    let chunk_count = data.len().div_ceil(PARALLEL_SIZE);
+    if chunk_count <= 1 {
         return Ok(vec![function(data)?]);
     }
 
     thread::scope(|scope| {
-        let mut threads = Vec::with_capacity(num_chunks);
-        let mut results = Vec::with_capacity(num_chunks);
+        let mut threads = Vec::with_capacity(chunk_count);
+        let mut results = Vec::with_capacity(chunk_count);
         for chunk in data.chunks(PARALLEL_SIZE) {
             threads.push(scope.spawn(|| function(chunk)));
         }
         for thread in threads {
-            results.push(thread.join().map_err(|e| anyhow!("{e:?}"))??);
+            results.push(
+                thread
+                    .join()
+                    .map_err(|panic| anyhow!("worker panicked: {panic:?}"))??,
+            );
         }
         Ok(results)
     })

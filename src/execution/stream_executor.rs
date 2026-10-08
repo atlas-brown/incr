@@ -4,7 +4,6 @@ use std::fs;
 use std::io::{self, ErrorKind, IsTerminal, Read};
 use std::os::fd::AsRawFd;
 use std::process::{Child, ChildStdin};
-use std::sync::mpsc;
 use std::sync::{
     Arc,
     atomic::{AtomicBool, Ordering},
@@ -18,14 +17,14 @@ use crate::command::{self, ChildContext, Command, Runtime, RuntimeType};
 use crate::config::{BUFFER_SIZE, Config, TraceType};
 use crate::execution;
 use crate::execution::dependency;
-use crate::execution::run::{self, OutputMetadata, OutputResult, StdinResult};
+use crate::execution::run::{self, ForwardResult};
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
 #[derive(Debug)]
 struct StdinContext {
     hash: u64,
     broken_pipe: bool,
-    thread: Option<JoinHandle<Result<StdinResult>>>,
+    thread: Option<JoinHandle<Result<ForwardResult>>>,
 }
 
 #[derive(Clone, Debug)]
@@ -35,12 +34,26 @@ enum CacheStatus {
 }
 
 pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
+    let candidates = crate::cache::candidates::validate(config, command)?;
     let mut runtime = create_child_runtime(config)?;
-    if config.observe_command.is_some() && !matches!(runtime.typ, RuntimeType::Nothing) {
+    if config.observe_command.is_some() && !matches!(runtime.kind, RuntimeType::Nothing) {
         runtime.effect_gate = Some(Arc::new(crate::effect_gate::EffectGate::create(
             runtime.stdout_file.with_extension("gate"),
         )?));
     }
+    if !candidates.is_empty() && runtime.effect_gate.is_some() {
+        runtime.snapshot_directory = Some(runtime.stdout_file.with_extension("snapshot"));
+    }
+    let _cleanup = run::TemporaryRuntime(&runtime);
+    if let Some(directory) = &runtime.snapshot_directory {
+        let mut excluded = candidates[0].data.write_outputs.clone();
+        for candidate in &candidates[1..] {
+            excluded.retain(|path| candidate.data.write_outputs.contains(path));
+        }
+        fs::create_dir_all(directory)?;
+        fs::write(directory.join("exclude.json"), serde_json::to_vec(&excluded)?)?;
+    }
+
     let ChildContext {
         mut child,
         stdout_thread,
@@ -48,19 +61,25 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     } = command::spawn(config, command, &runtime)?;
 
     let child_stdin = child.stdin.take().unwrap();
-    let stdin_context = capture_stdin(child_stdin, &mut child)?;
-    let cache = CacheCursor::from_hash(config, command, stdin_context.hash)?;
+    let stdin_context = capture_stdin(child_stdin, &mut child, &config.cache_directory)?;
+    let selected = candidates
+        .into_iter()
+        .find(|candidate| candidate.stdin_hash == stdin_context.hash);
+    let (cache, prevalidated) = match selected {
+        Some(candidate) => (candidate.cache, Some(candidate.data)),
+        None => (CacheCursor::from_hash(config, command, stdin_context.hash)?, None),
+    };
     cache.create_directory()?;
 
     if stdin_context.broken_pipe {
-        let exit_code = child.wait()?.code().unwrap_or(1);
+        let exit_code = command::exit_code(child.wait()?);
         run::join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)?;
         run::clean_child_runtime(&runtime)?;
         cache.clean()?;
         return Ok(ExitCode(exit_code));
     }
 
-    let cache_status = load_cache_data(&cache, child, &runtime)?;
+    let cache_status = load_cache_data(config, &cache, child, &runtime, prevalidated)?;
     let outputs = match run::join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
         Some(outputs) => outputs,
         None => {
@@ -77,7 +96,8 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
                 command.arguments,
                 stdin_context.hash,
             );
-            output_cached_data(config, &cache, &cached_data, &outputs)
+            run::clean_child_runtime(&runtime)?;
+            run::replay(config, &cache, &cached_data, &outputs)
         }
         CacheStatus::Invalid(exit_code) => {
             debug_log!(
@@ -86,7 +106,12 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
                 command.arguments,
                 stdin_context.hash,
             );
-            save_command_data(config, command, cache, &runtime, exit_code)
+            let status = save_command_data(config, command, cache, &runtime, exit_code)?;
+            Ok(if outputs.broken_pipe {
+                BROKEN_PIPE_CODE
+            } else {
+                status
+            })
         }
     }
 }
@@ -98,10 +123,11 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
 
     if config.trace_type == TraceType::Nothing {
         return Ok(Runtime {
-            typ: RuntimeType::Nothing,
+            kind: RuntimeType::Nothing,
             stdout_file,
             stderr_file,
             effect_gate: None,
+            snapshot_directory: None,
         });
     }
     if config.trace_type == TraceType::TraceFile {
@@ -111,19 +137,21 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
             config.cache_directory.join(format!("trace_{key}.txt"))
         };
         return Ok(Runtime {
-            typ: RuntimeType::TraceFile(trace_file),
+            kind: RuntimeType::TraceFile(trace_file),
             stdout_file,
             stderr_file,
             effect_gate: None,
+            snapshot_directory: None,
         });
     }
     if config.trace_type == TraceType::Observe {
         let trace_file = config.cache_directory.join(format!("observe_{key}.json"));
         return Ok(Runtime {
-            typ: RuntimeType::Observe(trace_file),
+            kind: RuntimeType::Observe(trace_file),
             stdout_file,
             stderr_file,
             effect_gate: None,
+            snapshot_directory: None,
         });
     }
 
@@ -136,14 +164,19 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
     fs::create_dir_all(&sandbox_directory)?;
 
     Ok(Runtime {
-        typ: RuntimeType::Sandbox(sandbox_directory),
+        kind: RuntimeType::Sandbox(sandbox_directory),
         stdout_file,
         stderr_file,
         effect_gate: None,
+        snapshot_directory: None,
     })
 }
 
-fn capture_stdin(child_stdin: ChildStdin, child: &mut Child) -> Result<StdinContext> {
+fn capture_stdin(
+    child_stdin: ChildStdin,
+    child: &mut Child,
+    directory: &std::path::Path,
+) -> Result<StdinContext> {
     let mut process_stdin = io::stdin().lock();
     if process_stdin.is_terminal() {
         return Ok(StdinContext {
@@ -153,13 +186,13 @@ fn capture_stdin(child_stdin: ChildStdin, child: &mut Child) -> Result<StdinCont
         });
     }
 
-    let (send_channel, receive_channel) = mpsc::channel::<Vec<_>>();
+    let (sender, receiver) = ops::spool::create(directory);
     let stdin_broken = Arc::new(AtomicBool::new(false));
     let stdin_thread = thread::spawn({
         let stdin_broken = Arc::clone(&stdin_broken);
         move || {
-            let result = run::forward_stdin(receive_channel, child_stdin)?;
-            if result == StdinResult::BrokenPipe {
+            let result = receiver.forward(child_stdin)?;
+            if result == ForwardResult::BrokenPipe {
                 stdin_broken.store(true, Ordering::Release);
             }
             Ok(result)
@@ -200,13 +233,14 @@ fn capture_stdin(child_stdin: ChildStdin, child: &mut Child) -> Result<StdinCont
             Err(error) if error.kind() == ErrorKind::Interrupted => continue,
             Err(error) => return Err(error.into()),
         };
-        if send_channel.send(chunk[..count].to_vec()).is_err() {
+        if !sender.send(&chunk[..count])? {
+            stdin_broken.store(true, Ordering::Release);
             break;
         }
         hasher.update(&chunk[..count]);
     }
     let broken_pipe = stdin_broken.load(Ordering::Acquire);
-    drop(send_channel);
+    drop(sender);
 
     Ok(StdinContext {
         hash: hasher.digest(),
@@ -215,7 +249,62 @@ fn capture_stdin(child_stdin: ChildStdin, child: &mut Child) -> Result<StdinCont
     })
 }
 
-fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, runtime: &Runtime) -> Result<CacheStatus> {
+fn load_cache_data(
+    config: &Config,
+    cache: &CacheCursor<'_>,
+    mut child: command::ManagedChild,
+    runtime: &Runtime,
+    prevalidated: Option<CacheData>,
+) -> Result<CacheStatus> {
+    if let Some(data) = prevalidated {
+        let before_effects = runtime
+            .effect_gate
+            .as_ref()
+            .is_none_or(|gate| gate.claim_replay());
+        if before_effects {
+            if child.try_wait()?.is_none() {
+                command::kill_child(&child)?;
+                child.wait()?;
+            }
+            command::reap_children();
+            return Ok(CacheStatus::Valid(data));
+        }
+        if runtime
+            .effect_gate
+            .as_ref()
+            .is_some_and(|gate| gate.has_live_effects())
+        {
+            // Attachment and the first effect prove Observe's termination handler
+            // is active. Before attachment, signalling can lose the report.
+            let restoration = (|| -> Result<()> {
+                command::stop_observed_child(&mut child)?;
+                let mut trace = execution::parse_trace(runtime)?;
+                trace.apply_effect_policy(config.effect_policy);
+                anyhow::ensure!(
+                    trace.replay_barriers.is_empty(),
+                    "speculative execution performed unsupported effects: {:?}",
+                    trace.replay_barriers
+                );
+                let restored = restore_speculative_snapshot(config, runtime)?;
+                cleanup_speculative_paths(&trace, &data, &restored)
+            })();
+            if let Err(error) = restoration {
+                if let Some(directory) = &runtime.snapshot_directory
+                    && directory.is_dir()
+                {
+                    let recovery = directory.with_extension("recovery");
+                    fs::rename(directory, &recovery)?;
+                    return Err(
+                        error.context(format!("recovery snapshot retained at {}", recovery.display()))
+                    );
+                }
+                return Err(error);
+            }
+            return Ok(CacheStatus::Valid(data));
+        }
+        // An unresponsive/unattached tracer remains live; never require a report
+        // from a process whose tracing handshake has not completed.
+    }
     let cached_data = match cache.load_data()? {
         Some(cached_data) => {
             if dependency::check_cache_valid(cache, &cached_data)?
@@ -242,43 +331,11 @@ fn load_cache_data(cache: &CacheCursor<'_>, mut child: Child, runtime: &Runtime)
             Ok(CacheStatus::Valid(cached_data))
         }
         None => {
-            let exit_code = child.wait()?.code().unwrap_or(1);
+            let exit_code = command::exit_code(child.wait()?);
             cache.clean()?;
             Ok(CacheStatus::Invalid(ExitCode(exit_code)))
         }
     }
-}
-
-fn output_cached_data(
-    config: &Config,
-    cache: &CacheCursor<'_>,
-    cached_data: &CacheData,
-    outputs: &OutputMetadata,
-) -> Result<ExitCode> {
-    let stdout_file = cache.get_stdout_file();
-    let stderr_file = cache.get_stderr_file();
-
-    let stdout_completed = run::output_data(
-        &stdout_file,
-        outputs.stdout_length,
-        cached_data.compressed_output,
-        &mut io::stdout().lock(),
-    )? == OutputResult::Completed;
-    let stderr_completed = run::output_data(
-        &stderr_file,
-        outputs.stderr_length,
-        cached_data.compressed_output,
-        &mut io::stderr().lock(),
-    )? == OutputResult::Completed;
-
-    if config.short_circuit && (!stdout_completed || !stderr_completed) {
-        return Ok(BROKEN_PIPE_CODE);
-    }
-    if !cached_data.write_outputs.is_empty() {
-        cache.commit_output()?;
-    }
-
-    Ok(ExitCode(cached_data.exit_code))
 }
 
 fn save_command_data(
@@ -288,64 +345,74 @@ fn save_command_data(
     runtime: &Runtime,
     exit_code: ExitCode,
 ) -> Result<ExitCode> {
-    let mut trace = execution::parse_trace(runtime)?;
-    let mut read_dependencies = if config.observe_command.is_some() {
-        trace
-            .reads
-            .iter()
-            .map(|path| {
-                (
-                    path.clone(),
-                    trace
-                        .initial_dependencies
-                        .get(path)
-                        .cloned()
-                        .unwrap_or(crate::cache::DependencyKey::Uncacheable),
-                )
-            })
-            .collect()
-    } else {
-        dependency::get_read_dependencies(&trace.reads, &trace.writes)?
-    };
-    let mut write_set = trace.writes;
-    match &runtime.typ {
-        RuntimeType::Sandbox(directory) => {
-            fs::rename(directory, cache.get_sandbox_directory())?;
-            cache.extract_sandbox_output()?;
-            if !write_set.is_empty() {
-                cache.commit_output()?;
-            }
-        }
-        RuntimeType::Observe(_) | RuntimeType::TraceFile(_) if config.observe_command.is_some() => {
-            if trace.replay_barriers.is_empty()
-                && let Err(error) = cache.capture_observe_output(&write_set)
-            {
-                // The live command succeeded; unsupported output metadata
-                // prevents reuse, rather than changing its observable status.
-                debug_log!("Cannot capture output for reuse: {error:#}");
-                trace.replay_barriers.push("uncapturable-output".to_owned());
-            }
-            // Observe already executed on the live filesystem. Replaying here
-            // duplicates effects and can overwrite another command's changes.
-        }
-        _ => {}
-    }
-    if config.observe_command.is_none() {
-        dependency::filter_dependencies(&mut read_dependencies, &mut write_set)?;
-    }
-
-    let cache_data = CacheData {
-        replay_barriers: trace.replay_barriers,
-        exit_code: exit_code.0,
-        read_dependencies,
-        write_outputs: write_set,
-        compressed_output: config.compress_output,
-    };
-
-    fs::rename(&runtime.stdout_file, cache.get_stdout_file())?;
-    fs::rename(&runtime.stderr_file, cache.get_stderr_file())?;
+    let cache_data = execution::record::capture(config, &cache, runtime, exit_code.0)?;
     cache.save_data(&cache_data)?;
     dependency::save_introspection(config, command, &cache_data)?;
 
     Ok(exit_code)
+}
+
+#[derive(serde::Deserialize)]
+struct SnapshotManifest {
+    entries: Vec<SnapshotEntry>,
+}
+
+#[derive(serde::Deserialize)]
+struct SnapshotEntry {
+    path: std::path::PathBuf,
+}
+
+fn restore_speculative_snapshot(
+    config: &Config,
+    runtime: &Runtime,
+) -> Result<std::collections::HashSet<std::path::PathBuf>> {
+    let Some(directory) = &runtime.snapshot_directory else {
+        return Ok(std::collections::HashSet::new());
+    };
+    let manifest: SnapshotManifest = serde_json::from_slice(&fs::read(directory.join("manifest.json"))?)?;
+    let restored: std::collections::HashSet<_> =
+        manifest.entries.into_iter().map(|entry| entry.path).collect();
+    if !restored.is_empty() {
+        let observe = config
+            .observe_command
+            .as_deref()
+            .ok_or_else(|| anyhow::anyhow!("snapshot restoration requires Observe"))?;
+        command::restore_snapshot(observe, directory)?;
+    }
+    Ok(restored)
+}
+
+fn cleanup_speculative_paths(
+    trace: &execution::Trace,
+    cached: &CacheData,
+    restored: &std::collections::HashSet<std::path::PathBuf>,
+) -> Result<()> {
+    use crate::cache::DependencyKey;
+    fn absent(key: &DependencyKey) -> bool {
+        match key {
+            DependencyKey::DoesNotExist => true,
+            DependencyKey::All(keys) => keys.iter().any(absent),
+            _ => false,
+        }
+    }
+    let mut extra: Vec<_> = trace.writes.difference(&cached.write_outputs).collect();
+    extra.sort_by_key(|path| std::cmp::Reverse(path.components().count()));
+    for path in extra {
+        if restored.contains(path) {
+            continue;
+        }
+        if !trace.initial_dependencies.get(path).is_some_and(absent) {
+            anyhow::bail!(
+                "unexpected speculative write to preexisting path: {}",
+                path.display()
+            );
+        }
+        match fs::symlink_metadata(path) {
+            Ok(metadata) if metadata.is_dir() => fs::remove_dir(path)?,
+            Ok(_) => fs::remove_file(path)?,
+            Err(error) if error.kind() == ErrorKind::NotFound => (),
+            Err(error) => return Err(error.into()),
+        }
+    }
+    Ok(())
 }

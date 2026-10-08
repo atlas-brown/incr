@@ -1,11 +1,12 @@
 pub(crate) mod batch_executor;
 pub(crate) mod chunk_executor;
 pub(crate) mod dependency;
+pub(crate) mod record;
 pub(crate) mod run;
 pub(crate) mod skip_executor;
 pub(crate) mod stream_executor;
 
-use anyhow::{Result, anyhow};
+use anyhow::Result;
 use std::collections::{HashMap, HashSet};
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -25,7 +26,7 @@ pub(crate) fn get_trace_type(
     if annotation::check_pure(command) {
         return TraceType::Nothing;
     }
-    if annotation::check_stateless(command) || annotation::check_read_only(command) {
+    if annotation::check_read_only(command) {
         return TraceType::TraceFile;
     }
     // Observe records unexpected writes and arbitrates live effects. strace's
@@ -48,43 +49,50 @@ pub(crate) struct Trace {
     pub(crate) replay_barriers: Vec<String>,
     pub(crate) reads: HashSet<PathBuf>,
     pub(crate) writes: HashSet<PathBuf>,
+    pub(crate) initial_file_ids: HashMap<PathBuf, (u64, u64)>,
     pub(crate) initial_dependencies: HashMap<PathBuf, crate::cache::DependencyKey>,
 }
 
 pub(crate) fn parse_trace(runtime: &Runtime) -> Result<Trace> {
-    let trace_file = match &runtime.typ {
+    let trace_file = match &runtime.kind {
         RuntimeType::Sandbox(directory) => directory.join("upperdir").join("tmp").join(TRACE_FILE),
         RuntimeType::TraceFile(file) | RuntimeType::Observe(file) => file.clone(),
         RuntimeType::Nothing => return Ok(Trace::default()),
     };
-    let mut trace = if trace_file.extension().is_some_and(|e| e == "json") {
+    let mut trace = if trace_file
+        .extension()
+        .is_some_and(|extension| extension == "json")
+    {
         scripts::parse_observe(&trace_file)?
     } else {
-        let (reads, writes) = scripts::parse_trace(&trace_file).map_err(|e| anyhow!("{e}"))?;
-        Trace {
-            reads,
-            writes,
-            ..Trace::default()
-        }
+        scripts::parse_trace(&trace_file)?
     };
     if trace_file.exists() {
         fs::remove_file(&trace_file)?;
     }
 
-    trace.reads.retain(|p| {
-        !EXCLUDED_PATHS.iter().any(|e| {
-            ops::file::path_to_string(p)
-                .map(|p| p.starts_with(e))
+    let tracked = |path: &PathBuf| {
+        !EXCLUDED_PATHS.iter().any(|excluded| {
+            ops::file::path_to_string(path)
+                .map(|path| path.starts_with(excluded))
                 .unwrap_or(true)
         })
-    });
-    trace.writes.retain(|p| {
-        !EXCLUDED_PATHS.iter().any(|e| {
-            ops::file::path_to_string(p)
-                .map(|p| p.starts_with(e))
-                .unwrap_or(true)
-        })
-    });
+    };
+    trace.reads.retain(tracked);
+    trace.writes.retain(tracked);
 
     Ok(trace)
+}
+
+impl Trace {
+    pub(crate) fn apply_effect_policy(&mut self, policy: crate::config::EffectPolicy) {
+        if policy == crate::config::EffectPolicy::FinalOutputs {
+            self.replay_barriers.retain(|reason| {
+                !matches!(
+                    reason.as_str(),
+                    "rename preserves inode identity" | "unlink may replace an existing inode"
+                )
+            });
+        }
+    }
 }

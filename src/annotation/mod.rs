@@ -1,17 +1,9 @@
 pub(crate) mod rules;
 
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 
-use crate::annotation::rules::{
-    Condition, IGNORE_COMMANDS, PURE_COMMANDS, READ_ONLY_COMMANDS, STATELESS_COMMANDS,
-};
+use crate::annotation::rules::IGNORE_COMMANDS;
 use crate::command::Command;
-
-#[derive(Clone, Debug)]
-struct CommandArguments {
-    values: Vec<String>,
-    flags: HashSet<String>,
-}
 
 pub(crate) fn skip_command(command: &Command, environment: &HashMap<String, String>) -> bool {
     IGNORE_COMMANDS.contains(&command.name.as_str())
@@ -22,24 +14,52 @@ pub(crate) fn check_pure(command: &Command) -> bool {
     if !command.standard_tool {
         return false;
     }
-    // File operands and output flags make otherwise stream-only commands impure.
-    // Keep only forms whose complete argument grammar is known here.
     match command.name.as_str() {
-        "basename" => check_conditions(PURE_COMMANDS, command),
-        // sort may spill to TMPDIR even without file operands. It needs tracing.
-        "sort" => false,
+        "basename" => true,
         "uniq" => command
             .arguments
             .iter()
-            .all(|a| matches!(a.as_str(), "-c" | "-d" | "-u" | "-i")),
-        "rev" => command.arguments.is_empty(),
-        "tr" => command.arguments.iter().all(|a| !a.starts_with("--")),
+            .all(|argument| matches!(argument.as_str(), "-c" | "-d" | "-u" | "-i")),
+        "rev" | "cat" => command.arguments.is_empty(),
+        "tr" => command
+            .arguments
+            .iter()
+            .all(|argument| !argument.starts_with("--")),
         _ => false,
     }
 }
 
-pub(crate) fn check_stateless(command: &Command) -> bool {
-    check_conditions(STATELESS_COMMANDS, command)
+#[derive(Clone, Copy)]
+pub(crate) enum ChunkMode {
+    Bytes,
+    Lines,
+}
+
+pub(crate) fn chunk_mode(command: &Command, assume_text: bool) -> Option<ChunkMode> {
+    if !command.standard_tool {
+        return None;
+    }
+    match command.name.as_str() {
+        "cat" if command.arguments.is_empty() => Some(ChunkMode::Bytes),
+        "tr" if command.arguments.len() == 2
+            && command.arguments.iter().all(|argument| {
+                !argument.is_empty() && argument.bytes().all(|byte| byte.is_ascii_alphanumeric())
+            }) =>
+        {
+            Some(ChunkMode::Bytes)
+        }
+        "rev"
+            if assume_text
+                && command.arguments.is_empty()
+                && matches!(
+                    command.environment.get("LC_ALL").map(String::as_str),
+                    Some("C" | "POSIX")
+                ) =>
+        {
+            Some(ChunkMode::Lines)
+        }
+        _ => None,
+    }
 }
 
 pub(crate) fn check_read_only(command: &Command) -> bool {
@@ -47,12 +67,10 @@ pub(crate) fn check_read_only(command: &Command) -> bool {
         return false;
     }
     match command.name.as_str() {
-        // These languages can write files or launch arbitrary programs based
-        // on stdin, so a prior read-only execution is not a proof of purity.
-        "awk" | "sed" => false,
-        "find" => !command.arguments.iter().any(|a| {
+        "cat" | "comm" | "head" | "paste" | "tail" => true,
+        "find" => !command.arguments.iter().any(|argument| {
             matches!(
-                a.as_str(),
+                argument.as_str(),
                 "-exec"
                     | "-execdir"
                     | "-ok"
@@ -64,51 +82,6 @@ pub(crate) fn check_read_only(command: &Command) -> bool {
                     | "-fls"
             )
         }),
-        _ => check_conditions(READ_ONLY_COMMANDS, command),
+        _ => false,
     }
-}
-
-fn check_conditions(conditions: &[Condition], command: &Command) -> bool {
-    if conditions.iter().all(|c| c.name != command.name) {
-        return false;
-    }
-    let arguments = parse_arguments(&command.arguments);
-    conditions
-        .iter()
-        .any(|c| check_condition(c, command, &arguments.values, &arguments.flags))
-}
-
-fn check_condition(
-    condition: &Condition,
-    command: &Command,
-    values: &[String],
-    flags: &HashSet<String>,
-) -> bool {
-    condition.name == command.name
-        && condition.disallowed_flags.iter().all(|&f| !flags.contains(f))
-        && values.len() <= condition.max_arguments
-}
-
-fn parse_arguments(arguments: &[String]) -> CommandArguments {
-    let mut values = Vec::new();
-    let mut flags = HashSet::new();
-
-    for argument in arguments {
-        if argument.starts_with("--") && argument.len() >= 3 {
-            match argument.find("=") {
-                Some(index) => flags.insert(argument[2..index].to_lowercase()),
-                None => flags.insert(argument[2..].to_lowercase()),
-            };
-        } else if let Some(short) = argument.strip_prefix('-').filter(|s| !s.is_empty()) {
-            // Iterate characters: byte slicing panics on non-ASCII arguments.
-            let short = short.split_once('=').map_or(short, |(name, _)| name);
-            for flag in short.chars() {
-                flags.insert(flag.to_string());
-            }
-        } else {
-            values.push(argument.clone());
-        }
-    }
-
-    CommandArguments { values, flags }
 }

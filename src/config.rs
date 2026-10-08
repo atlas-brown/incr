@@ -24,14 +24,13 @@ pub(crate) const CHUNK_SIZES: ChunkSizes = ChunkSizes {
     average: 4_000_000,
     maximum: 16_000_000,
 };
-pub(crate) const CHUNK_GRANULARITY: usize = 16;
 pub(crate) const COMPRESSION_LEVEL: i32 = 1;
 pub(crate) const BUFFER_SIZE: usize = 65_536;
 pub(crate) const PARALLEL_SIZE: usize = 1000;
 
 pub(crate) const SUDO_SANDBOX: bool = true;
 pub(crate) const DEBUG: bool = false;
-pub(crate) const DEBUG_LOGS: bool = DEBUG && true;
+pub(crate) const DEBUG_LOGS: bool = DEBUG;
 pub(crate) const DEBUG_LOG_PATH: &str = "incr/debug_log.txt";
 
 pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
@@ -59,17 +58,19 @@ pub(crate) const OBSERVE_READ_EXCLUDED_PATHS: &[&str] = &["/dev", "/proc", "/sys
 
 #[derive(Clone, Debug)]
 pub(crate) struct Config {
-    pub(crate) try_command: String,             // Bash try command string
-    pub(crate) cache_directory: PathBuf,        // Directory to store cache data
-    pub(crate) trace_type: TraceType,           // Type of tracing to use
-    pub(crate) observe_command: Option<String>, // Path to observe binary; when Some, use observe for tracing
+    pub(crate) try_command: String,
+    pub(crate) cache_directory: PathBuf,
+    pub(crate) trace_type: TraceType,
+    pub(crate) observe_command: Option<String>,
 
-    pub(crate) batch_executor: bool,     // Run using the batch executor
-    pub(crate) short_circuit: bool,      // Exit after a downstream failure
-    pub(crate) compress_output: bool,    // Compress stdout and stderr
-    pub(crate) full_tracing: bool,       // Run without selective activation
-    pub(crate) enable_annotations: bool, // Run with annotations
-    pub(crate) skip_introspection: bool, // Disable command introspection
+    pub(crate) effect_policy: EffectPolicy,
+    pub(crate) assume_text: bool,
+    pub(crate) batch_executor: bool,
+    pub(crate) short_circuit: bool,
+    pub(crate) compress_output: bool,
+    pub(crate) full_tracing: bool,
+    pub(crate) enable_annotations: bool,
+    pub(crate) skip_introspection: bool,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -96,4 +97,12 @@ pub(crate) struct ChunkSizes {
     pub(crate) minimum: usize,
     pub(crate) average: usize,
     pub(crate) maximum: usize,
+}
+
+/// Whether intermediate regular-file states are part of the execution contract.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, clap::ValueEnum, bincode::Encode)]
+pub(crate) enum EffectPolicy {
+    Live,
+    #[value(name = "final")]
+    FinalOutputs,
 }

@@ -1,5 +1,5 @@
 use anyhow::Result;
-use bincode::config::{Configuration, Fixint, LittleEndian, NoLimit};
+use bincode::config::{Configuration, Fixint, Limit, LittleEndian};
 use bincode::{Decode, Encode};
 use serde::Serialize;
 use serde::de::DeserializeOwned;
@@ -11,12 +11,13 @@ use xxhash_rust::xxh3::Xxh3;
 use crate::config::{BUFFER_SIZE, DEBUG};
 use crate::ops;
 
-const BINCODE_CONFIG: Configuration<LittleEndian, Fixint, NoLimit> = bincode::config::standard()
+const BINCODE_CONFIG: Configuration<LittleEndian, Fixint, Limit<67108864>> = bincode::config::standard()
     .with_little_endian()
-    .with_fixed_int_encoding();
+    .with_fixed_int_encoding()
+    .with_limit::<67108864>();
 
 pub(crate) fn hash_bytes(bytes: &[u8]) -> u64 {
-    let mut hasher = Box::new(Xxh3::new());
+    let mut hasher = Xxh3::new();
     hasher.update(bytes);
     hasher.digest()
 }
@@ -25,7 +26,7 @@ pub(crate) fn hash_stream<S>(stream: &mut S) -> Result<u64>
 where
     S: Read,
 {
-    let mut hasher = Box::new(Xxh3::new());
+    let mut hasher = Xxh3::new();
     io::copy(stream, &mut hasher)?;
     Ok(hasher.digest())
 }

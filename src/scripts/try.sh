@@ -19,9 +19,7 @@ export TRY_COMMAND
 # 1 -- consistency error/failure
 # 2 -- input error
 
-################################################################################
 # Tries to detect a setting for TRY_SHELL
-################################################################################
 
 set_TRY_SHELL() {
   # case: TRY_SHELL set to an executable
@@ -46,9 +44,7 @@ set_TRY_SHELL() {
 }
 
 
-################################################################################
 # Run a command (in `$@`) in an overlay (in `$SANDBOX_DIR`)
-################################################################################
 
 try() {
     set_TRY_SHELL
@@ -202,7 +198,7 @@ then
 fi
 
 # actually mount the overlays
-for mountpoint in $(cat "$UPDATED_DIRS_AND_MOUNTS")
+while IFS= read -r mountpoint
 do
     pure_mountpoint=${mountpoint##*:}
 
@@ -215,7 +211,7 @@ do
     ## Symlinks
     if [ -L "$pure_mountpoint" ]
     then
-        ln -s $(readlink "$pure_mountpoint") "$SANDBOX_DIR/temproot/$pure_mountpoint"
+        ln -s "$(readlink "$pure_mountpoint")" "$SANDBOX_DIR/temproot/$pure_mountpoint"
         continue
     fi
 
@@ -254,7 +250,7 @@ do
             printf "%s: Warning: Failed mounting $mountpoint as an overlay via $UNION_HELPER, see \"$try_mount_log\"\n" "$TRY_COMMAND" >&2
         fi
     fi
-done
+done < "$UPDATED_DIRS_AND_MOUNTS"
 
 ## Mount a few select devices in /dev
 mkdir -p "$SANDBOX_DIR/temproot/dev" "$SANDBOX_DIR/temproot/dev/pts"
@@ -263,7 +259,7 @@ mount_devices "$SANDBOX_DIR"
 ## Check if chroot_executable exists, #29
 if ! [ -f "$SANDBOX_DIR/temproot/$chroot_executable" ]
 then
-    cp $chroot_executable "$SANDBOX_DIR/temproot/$chroot_executable"
+    cp "$chroot_executable" "$SANDBOX_DIR/temproot/$chroot_executable"
 fi
 
 unshare --root="$SANDBOX_DIR/temproot" "$TRY_SHELL" "$chroot_executable"
@@ -338,7 +334,6 @@ EOF
         fi
     done <"$DIRS_AND_MOUNTS"
 
-    ################################################################################
     # commit?
 
     case "$NO_COMMIT" in
@@ -360,9 +355,7 @@ EOF
     esac
 }
 
-################################################################################
 # Summarize the overlay in `$SANDBOX_DIR`
-################################################################################
 
 if type try-summary >/dev/null 2>&1
 then
@@ -409,9 +402,7 @@ else
     }
 fi
 
-################################################################################
 # Commit the results of an overlay in `$SANDBOX_DIR`
-################################################################################
 
 if type try-commit >/dev/null 2>&1
 then
@@ -423,7 +414,7 @@ else
     commit() {
         if ! [ -d "$SANDBOX_DIR" ]
         then
-            error "could not find directory $SANDBOX_DIR" "$TRY_COMMAND" 2
+            error "could not find directory $SANDBOX_DIR" 2
         elif ! [ -d "$SANDBOX_DIR/upperdir" ]
         then
             error "could not find directory $SANDBOX_DIR/upperdir" 1
@@ -433,7 +424,7 @@ else
         summary_output=$(process_changes "$SANDBOX_DIR" "$changed_files")
 
         TRY_EXIT_STATUS=0
-        echo "$summary_output" | while IFS= read -r summary_line; do
+        while IFS= read -r summary_line; do
             local_file="$(echo "$summary_line" | cut -c 4-)"
             changed_file="$SANDBOX_DIR/upperdir$local_file"
             case $summary_line in
@@ -451,13 +442,13 @@ else
                 warn "couldn't commit $changed_file"
                 TRY_EXIT_STATUS=1
             fi
-        done
+        done <<EOF
+$summary_output
+EOF
     }
 fi
 
-################################################################################
 ## Defines which changes we want to ignore in the summary and commit
-################################################################################
 
 ignore_changes() {
     ignore_file="$1"
@@ -465,9 +456,7 @@ ignore_changes() {
     grep -v -f "$ignore_file"
 }
 
-################################################################################
 ## Lists all upperdir changes in raw format
-################################################################################
 
 find_upperdir_changes() {
     sandbox_dir="$1"
@@ -476,7 +465,6 @@ find_upperdir_changes() {
     find "$sandbox_dir/upperdir/" -type f -o \( -type c -size 0 \) -o -type d -o -type l | ignore_changes "$ignore_file"
 }
 
-################################################################################
 # Processes upperdir changes to an internal format that can be processed by summary and commit
 #
 # Output format:
@@ -492,7 +480,6 @@ find_upperdir_changes() {
 #     - ad: Added a file
 #
 #     PATH is the local/host path (i.e., without the upper
-################################################################################
 
 process_changes() {
     sandbox_dir="$1"
@@ -503,29 +490,23 @@ process_changes() {
         local_file="${changed_file#"$sandbox_dir/upperdir"}"
         if [ -L "$changed_file" ]
         then
-            # // TRYCASE(symlink, *)
             echo "ln $local_file"
         elif [ -d "$changed_file" ]
         then
             if ! [ -e "$local_file" ]
             then
-                # // TRYCASE(dir, nonexist)
                 echo "md $local_file"
                 continue
             fi
 
             if [ "$(getfattr --absolute-names --only-values --e text -n user.overlay.opaque "$changed_file" 2>/dev/null)" = "y" ]
             then
-                # // TRYCASE(opaque, *)
-                # // TRYCASE(dir, dir)
                 echo "rd $local_file"
                 continue
             fi
 
             if ! [ -d "$local_file" ]
             then
-                # // TRYCASE(dir, file)
-                # // TRYCASE(dir, symlink)
                 echo "rd $local_file"
                 continue
             fi
@@ -533,25 +514,19 @@ process_changes() {
             # must be a directory, but not opaque---leave it!
         elif [ -c "$changed_file" ] && ! [ -s "$changed_file" ] && [ "$(stat -c %t,%T "$changed_file")" = "0,0" ]
         then
-            # // TRYCASE(whiteout, *)
             echo "de $local_file"
         elif [ -f "$changed_file" ]
         then
             if [ -f "$changed_file" ] && getfattr --absolute-names -d "$changed_file" 2>/dev/null | grep -q -e "user.overlay.whiteout"
             then
-                # // TRYCASE(whiteout, *)
                 echo "de $local_file"
                 continue
             fi
 
             if [ -e "$local_file" ]
             then
-                # // TRYCASE(file, file)
-                # // TRYCASE(file, dir)
-                # // TRYCASE(file, symlink)
                 echo "mo $local_file"
             else
-                # // TRYCASE(file, nonexist)
                 echo "ad $local_file"
             fi
         fi
@@ -560,9 +535,7 @@ $changed_files
 EOF
 }
 
-################################################################################
 # Returns 0 if a sandbox is empty (fresh for use) or pre-existing and well formed
-################################################################################
 
 sandbox_valid_or_empty() {
     sandbox_dir="$1"
@@ -577,8 +550,6 @@ sandbox_valid_or_empty() {
     # Validity requirements:
     # - no file exists in the temproot tree, i.e., all directories are empty
     #
-    # TODO: Make this validity assertion tighter
-    # KK 2023-06-28 workdir seems to be non-empty after a single use, is that expected?
     if [ "$(find "$sandbox_dir/temproot" -depth -not -type d)" ]
     then
         return 1
@@ -587,9 +558,7 @@ sandbox_valid_or_empty() {
     return 0
 }
 
-################################################################################
 # Emit a warning
-################################################################################
 
 warn() {
     msg="$1"
@@ -597,9 +566,7 @@ warn() {
     printf "%s: %s\n" "$TRY_COMMAND" "$msg" >&2
 }
 
-################################################################################
 # Emit a warning and exit
-################################################################################
 
 error() {
     msg="$1"
@@ -609,9 +576,7 @@ error() {
     exit "$exit_status"
 }
 
-################################################################################
 # Argument parsing
-################################################################################
 
 usage() {
     cat >&2 <<EOF
@@ -634,9 +599,7 @@ Subcommands:
 EOF
 }
 
-################################################################################
 # Main entry point
-################################################################################
 
 # "interactive" - show nothing, interactively prompt on commit
 # "show"        - show the resulting directory on stdout when we're done
@@ -657,6 +620,9 @@ if [ -n "${TRY_IGNORE_FILE:-}" ]; then
 else
     IGNORE_FILE="$(mktemp --suffix ".try-$EXECID")"
 fi
+
+temporary_ignore_file=$IGNORE_FILE
+trap 'rm -f -- "$temporary_ignore_file"' EXIT
 
 while getopts ":yvnhxi:D:U:L:" opt
 do
@@ -701,12 +667,12 @@ fi
 TRY_EXIT_STATUS=1
 case "$1" in
     (summary) : "${SANDBOX_DIR=$2}"
+              [ ! -f "$SANDBOX_DIR/ignore" ] || IGNORE_FILE="$SANDBOX_DIR/ignore"
               summary
-              rm "$IGNORE_FILE" # we didn't move it to the sandbox, so clean up
               ;;
     (commit)  : "${SANDBOX_DIR=$2}"
+              [ ! -f "$SANDBOX_DIR/ignore" ] || IGNORE_FILE="$SANDBOX_DIR/ignore"
               commit
-              rm "$IGNORE_FILE" # we didn't move it to the sandbox, so clean up
               ;;
     (explore) : "${SANDBOX_DIR=$2}"
               set_TRY_SHELL

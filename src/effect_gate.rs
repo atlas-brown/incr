@@ -52,6 +52,11 @@ impl EffectGate {
         })
     }
 
+    pub(crate) fn has_live_effects(&self) -> bool {
+        let state = unsafe { &*self.mapping.as_ptr().cast::<AtomicU32>().add(1) };
+        state.load(Ordering::SeqCst) == 2
+    }
+
     /// Win the race against the first live effect. A losing execution must finish.
     pub(crate) fn claim_replay(&self) -> bool {
         let state = unsafe { &*self.mapping.as_ptr().cast::<AtomicU32>().add(1) };

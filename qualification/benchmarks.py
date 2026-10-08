@@ -195,7 +195,7 @@ def restore_fixture(source, destination):
                 shutil.copystat(source, destination)
 
 
-def execute(name, script, mode, repetition, phase, fixture, results, timeout=None):
+def execute(name, script, mode, repetition, phase, fixture, results, timeout=None, effect_policy="live"):
     directory = WORK / name / "run"
     if phase == "warm" and directory.exists():
         restore_fixture(fixture, directory)
@@ -217,6 +217,7 @@ def execute(name, script, mode, repetition, phase, fixture, results, timeout=Non
     env["INCR_PYTHON"] = str(ROOT / "qualification/.venv/bin/python")
     env["INCR_CACHE_DIR"] = str(cache)
     env["INCR_OBSERVE"] = "1" if mode == "observe" else "0"
+    env["INCR_EFFECT_POLICY"] = effect_policy if mode == "observe" else "live"
     if mode == "bash":
         command = ["bash", str(directory / "scripts" / script)]
     elif mode == "main":
@@ -230,6 +231,7 @@ def execute(name, script, mode, repetition, phase, fixture, results, timeout=Non
     before = manifest(directory)
     record = run(command, cwd=directory, env=env, timeout=timeout or (900 if name == "dpt" else 300))
     record["candidate_snapshot"] = str(CANDIDATE)
+    record["effect_policy"] = effect_policy if mode == "observe" else None
     record["runtime_settings"] = {key: env[key] for key in
         ("LC_ALL", "RUN_SIZE", "OMP_NUM_THREADS", "TF_NUM_INTRAOP_THREADS", "TF_NUM_INTEROP_THREADS", "MPLBACKEND")}
     record["fixture_profile"] = "one city-year" if name == "weather" and script.startswith("tuft") else "one real HTML page plus stop sentinel" if name == "web-search" else "supplied --min"
@@ -270,6 +272,7 @@ def main():
     parser.add_argument("--modes", default="bash,main,try,observe")
     parser.add_argument("--repetitions", type=int, default=3)
     parser.add_argument("--timeout", type=float)
+    parser.add_argument("--effect-policy", choices=["live", "final"], default="live")
     parser.add_argument("--append", action="store_true", help="append new, disjoint cases to saved results")
     parser.add_argument("--results", type=Path, required=True)
     args = parser.parse_args()
@@ -295,7 +298,7 @@ def main():
                 for mode in order:
                     for phase in ("cold", "warm"):
                         print(f"RUN {name}/{script} {mode} {repetition} {phase}", flush=True)
-                        r = execute(name, script, mode, repetition, phase, fixture, args.results, args.timeout)
+                        r = execute(name, script, mode, repetition, phase, fixture, args.results, args.timeout, args.effect_policy)
                         key = (r["returncode"], r["stdout_sha256"], stderr_key(r["stderr"], name), r.get("effects"))
                         if reference is None:
                             reference = key
@@ -303,7 +306,7 @@ def main():
                                  and not r["remaining_descendants"] and "validation_error" not in r)
                         valid = valid and r["returncode"] == 0
                         valid = valid and not re.search(r"No such file or directory|Traceback \(most recent|command not found|\[E::|failed to open|Error:", r["stderr"], re.I)
-                        summary.append({k: r[k] for k in ("benchmark", "script", "mode", "repetition", "phase", "elapsed_sec", "returncode", "timeout", "cache_bytes")})
+                        summary.append({k: r[k] for k in ("benchmark", "script", "mode", "repetition", "phase", "elapsed_sec", "returncode", "timeout", "cache_bytes", "effect_policy")})
                         summary[-1]["valid"] = valid
                         print(f"{'PASS' if valid else 'FAIL'} {r['elapsed_sec']:.3f}s rc={r['returncode']}", flush=True)
                         (args.results / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")

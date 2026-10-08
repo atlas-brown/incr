@@ -60,6 +60,20 @@ class Regressions(unittest.TestCase):
         self.assertEqual(script.stat().st_mtime_ns, stamp)
         self.assertFalse(list(self.cache.glob("incr-script.*")))
 
+    def test_wrapper_preserves_old_marker_text(self):
+        script = self.work / "marker.sh"
+        source = b"printf '%s\\n' incr__no_op | rev\n"
+        script.write_bytes(source)
+        environment = dict(os.environ, INCR_CACHE_DIR=str(self.cache), INCR_OBSERVE="1",
+                           INCR_PYTHON=str(ROOT / "qualification/.venv/bin/python"))
+        result = run([str(ROOT / "incr.sh"), "-b", str(script)], cwd=self.work,
+                     env=environment, timeout=5)
+        self.assertFalse(result["timeout"], result)
+        self.assertFalse(result["leaked_descendants"], result)
+        self.assertEqual((result["returncode"], result["stdout"], result["stderr"]),
+                         (0, "po_on__rcni\n", ""), result)
+        self.assertEqual(script.read_bytes(), source)
+
     def test_wrapper_readonly_source_and_argv0(self):
         script = self.work / "script with spaces.sh"
         original = b'printf "%s\\n" "$0" "$1" | cat\n'
@@ -132,6 +146,68 @@ class Regressions(unittest.TestCase):
             tool.write_text("#!/bin/sh\nprintf replacement\n")
             tool.chmod(0o755)
             self.assertEqual(self.invoke(["rev"], stdin=b"one\n")["stdout"], "replacement")
+
+    def test_metadata_write_preserves_changed_content(self):
+        path = self.work / "file"
+        command = ["python3", "-c", "import os; os.chmod('file', 0o600)"]
+        for content in (b"first", b"second", b"second"):
+            path.write_bytes(content)
+            path.chmod(0o640)
+            self.invoke(command)
+            self.assertEqual(path.read_bytes(), content)
+            self.assertEqual(path.stat().st_mode & 0o777, 0o600)
+
+    def test_path_truncate_preserves_changed_prefix(self):
+        path = self.work / "file"
+        command = ["python3", "-c", "import os; os.truncate('file', 3)"]
+        for content in (b"first", b"second", b"second"):
+            path.write_bytes(content)
+            self.invoke(command)
+            self.assertEqual(path.read_bytes(), content[:3])
+
+    def test_relative_cache_without_try_override(self):
+        result = run([str(INCR), "--cache", "relative-cache", "--observe", str(OBSERVE),
+                      "--", "cat"], stdin=b"relative cache", cwd=self.work, timeout=5)
+        self.assertEqual((result["returncode"], result["stdout"]), (0, "relative cache"), result)
+        self.assertTrue((self.work / "relative-cache").is_dir())
+
+    def test_failed_metadata_write_invalidation(self):
+        command = ["python3", "-c", "import os; os.chmod('missing-mode', 0o600)"]
+        self.invoke(command, expected=1)
+        path = self.work / "missing-mode"
+        path.write_bytes(b"new input")
+        self.invoke(command)
+        self.assertEqual(path.stat().st_mode & 0o777, 0o600)
+        self.assertEqual(path.read_bytes(), b"new input")
+
+    def test_extended_attribute_invalidation(self):
+        path = self.work / "attribute-file"
+        path.write_bytes(b"content")
+        command = ["python3", "-c", "import os; print(os.getxattr('attribute-file', 'user.incr-test').decode())"]
+        for value in (b"first", b"second", b"second"):
+            os.setxattr(path, "user.incr-test", value)
+            self.assertEqual(self.invoke(command)["stdout"], value.decode() + "\n")
+
+    def test_slow_stdin_spill_and_reuse(self):
+        import hashlib
+        content = bytes(range(251)) * 25000
+        command = ["python3", "-c", "import hashlib,sys,time; time.sleep(.15); print(hashlib.sha256(sys.stdin.buffer.read()).hexdigest())"]
+        expected = hashlib.sha256(content).hexdigest() + "\n"
+        self.assertEqual(self.invoke(command, stdin=content)["stdout"], expected)
+        entries = {path: path.stat().st_mtime_ns for path in self.cache.rglob("data.incr")}
+        self.assertTrue(entries)
+        self.assertEqual(self.invoke(command, stdin=content)["stdout"], expected)
+        self.assertEqual({path: path.stat().st_mtime_ns for path in entries}, entries)
+        self.assertFalse(list(self.cache.glob("buffer-*.tmp")))
+
+    def test_failed_tracer_launch_cleans_runtime(self):
+        result = run([str(INCR), "-f", "--cache", str(self.cache),
+                      "--observe", str(self.work / "missing-observe"), "--", "cat"],
+                     stdin=b"input", cwd=self.work, timeout=5)
+        self.assertEqual(result["returncode"], 1, result)
+        self.assertFalse(result["timeout"], result)
+        self.assertFalse(result["leaked_descendants"], result)
+        self.assertEqual(list(self.cache.iterdir()), [])
 
     def test_creation_collision(self):
         self.invoke(["mkdir", "empty"])
@@ -342,6 +418,28 @@ finally:
             link.symlink_to(target)
             self.assertEqual(self.invoke(["cat", "link"])["stdout"], expected)
 
+    def test_symlink_parent_component_invalidation(self):
+        directory = self.work / "real"
+        (directory / "nested").mkdir(parents=True)
+        (self.work / "alias").symlink_to(directory / "nested")
+        link = directory / "link"
+        for target in ["first", "first", "second"]:
+            if not link.is_symlink() or os.readlink(link) != target:
+                link.unlink(missing_ok=True)
+                link.symlink_to(target)
+            result = self.invoke(["readlink", "alias/../link"])
+            self.assertEqual(result["stdout"], target + "\n")
+
+    def test_symlink_metadata_invalidation(self):
+        link = self.work / "link"
+        link.symlink_to("unchanged-target")
+        for seconds in [1000, 1000, 2000]:
+            if link.lstat().st_mtime_ns != seconds * 1_000_000_000:
+                os.utime(link, ns=(seconds * 1_000_000_000, seconds * 1_000_000_000),
+                         follow_symlinks=False)
+            result = self.invoke(["stat", "-c", "%Y", "link"])
+            self.assertEqual(result["stdout"], f"{seconds}\n")
+
     def test_directory_rename(self):
         for _ in range(2):
             source = self.work / "source"
@@ -378,6 +476,39 @@ finally:
         self.invoke(command, stdin=b"write\n")
         self.assertEqual((self.work / "output").read_text(), "data\n")
 
+    def test_worker_thread_exec(self):
+        program = ('import os,threading; '
+                   'worker=threading.Thread(target=lambda:os.execv("/bin/cat",["cat","input"])); '
+                   'worker.start(); worker.join()')
+        for content in ["first", "first", "changed"]:
+            source = self.work / "input"
+            if not source.exists() or source.read_text() != content:
+                source.write_text(content)
+            result = self.invoke(["python3", "-c", program])
+            self.assertEqual((result["stdout"], result["stderr"]), (content, ""))
+
+    def test_closed_output_preserves_completed_effects(self):
+        import shlex
+        (self.work / "outputs").mkdir()
+        command = [str(INCR), *MODE, "--try", str(ROOT / "src/scripts/try.sh"),
+                   "--observe", str(OBSERVE), "--cache", str(self.cache), "--",
+                   "bash", "-c", "printf done > outputs/output; head -c 1048576 /dev/zero"]
+        pipeline = shlex.join(command) + " | head -c 1"
+        previous_entries = None
+        for _ in range(2):
+            result = run(["bash", "-o", "pipefail", "-c", pipeline], cwd=self.work, timeout=5)
+            self.assertFalse(result["timeout"], result)
+            self.assertFalse(result["leaked_descendants"], result)
+            self.assertFalse(result["remaining_descendants"], result)
+            self.assertEqual((result["returncode"], result["stdout"], result["stderr"]),
+                             (141, "\0", ""), result)
+            self.assertEqual((self.work / "outputs/output").read_text(), "done")
+            (self.work / "outputs/output").unlink()
+            entries = {path: path.stat().st_mtime_ns for path in self.cache.glob("batch_*/data.incr")}
+            if "-b" in MODE and previous_entries is not None:
+                self.assertEqual(previous_entries, entries, "warm test did not reuse the cache")
+            previous_entries = entries
+
     def test_infinite_producer(self):
         if "-b" in MODE:
             self.skipTest("batch mode intentionally requires finite stdin")
@@ -392,6 +523,7 @@ finally:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("--effect-policy", choices=["live", "final"])
     parser.add_argument("--batch", action="store_true")
     parser.add_argument("--binary", type=Path)
     parser.add_argument("--compress", action="store_true")
@@ -400,6 +532,8 @@ if __name__ == "__main__":
     args, rest = parser.parse_known_args()
     if args.batch:
         MODE = ["-b"]
+    if args.effect_policy:
+        MODE += ["--effect-policy", args.effect_policy]
     if args.compress:
         MODE.append("-z")
     if args.full:

@@ -1,6 +1,6 @@
 # Effectful streaming replay investigation
 
-Status: design and experiments pending implementation. This extends the frozen
+Status: implemented prototype; expanded correctness and performance qualification in progress. This extends the frozen
 qualification baseline at Incr 7990ee6 / Observe b993d58.
 
 ## User-authorized contract
@@ -11,9 +11,9 @@ be preserved under that policy. Keep a live-interaction policy for programs whos
 correctness depends on shared-file/FIFO handshakes. Never describe final-output
 parity as proof of arbitrary interaction equivalence.
 
-## Current limitation
+## Baseline limitation
 
-The stream executor starts a child before it finishes hashing stdin. It validates
+The baseline stream executor starts a child before it finishes hashing stdin. It validates
 a cache entry only afterward. Observe's effect gate prevents cancellation after
 any effect starts, and replay barriers exclude unlink/rename operations entirely.
 These rules preserve live interactions but also prevent useful final-output reuse.
@@ -41,9 +41,9 @@ files rather than their original input state.
    before speculative execution. Useful supplementary optimization; it does not
    alone solve long streaming inputs or justify converting all execution to batch.
 
-Start with approach 1 because it directly addresses original-state validation and
-retains continuous execution/streaming without an effect-boundary wait. Treat this
-as a hypothesis to test, not a completed design.
+Implemented approach 1: it validates original state while retaining continuous
+execution and streaming without waiting at an effect boundary. The alternatives
+remain comparisons, not implemented guarantees.
 
 ## Required safety and performance experiments
 
@@ -67,3 +67,47 @@ as a hypothesis to test, not a completed design.
 
 Use subsecond deterministic work in development tests, with process-tree deadlines.
 Run real models only after the fast correctness/performance experiments stabilize.
+
+
+## Prototype evidence and remaining review
+
+The first prototype implements candidate validation before execution with a
+separate `--effect-policy final` cache namespace; `live` remains the default during
+qualification. On the deterministic early-write probe, overwrite and rename/unlink
+warm runs retain cache metadata and drop from roughly 0.45s to 0.13s. Focused policy, chunk, compression and lifecycle tests pass; exact run counts
+and evidence are tracked in QUALIFICATION_LOG.md. They do not close the cases below.
+
+- Directory metadata invalidation: an interpreter reading its script directory
+  can invalidate a candidate when that same directory contains changing outputs.
+  Keep metadata correctness; investigate precise dependency semantics rather than
+  silently ignoring directory timestamps.
+- Final-state replacement now distinguishes overwriting an inode from replacing a
+  pathname. External hard-link regression tests cover both cases.
+- Partial reports must account for speculative temporary paths absent from the
+  cached write set. Newly created paths are cleaned; unexpected preexisting writes
+  now use selective pre-write restoration with tested contents/mode/mtime recovery.
+- Candidate validation considers eight recent inputs and bounds hint retention to
+  64 entries. Held cache leases protect selected payloads; broader concurrent
+  cache qualification remains in the final test matrix.
+- Capture/replay is shared by batch and streaming, and wrapper policy selection
+  is available. Module-level cleanup remains tracked in CODE_REVIEW.md.
+
+
+## Selective restoration during cancellation
+
+A speculative execution can touch a preexisting temporary path that the cached run
+did not touch, then normally restore it before finishing. Final outputs can still
+be deterministic even when those intermediate paths vary. Cancelling after that
+write requires restoring its original contents, mode and mtime. The selective
+snapshot implementation now does this; speculative_restore_test.py forces the
+intermediate write only during warm execution and verifies repeated actual hits.
+
+Implemented: enable pre-write snapshots only when prevalidated candidates
+exist. Exclude exact paths common to every candidate's write set, since the selected
+cache entry will install their final state. Other paths are captured before effects. Stop
+and reap all writers, restore the speculative snapshots, then install the selected
+cached output. Exclusion must use the intersection of candidate paths, not their
+union, because the stdin hash has not selected a candidate yet. Tests cover preexisting
+contents, metadata and new temporary paths. Exclusions use exact paths shared by
+all candidates. Failed restoration retains a recovery snapshot and reports an
+error. This is confined to the explicit final-output policy.

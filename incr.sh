@@ -4,7 +4,6 @@ incr_shell=${INCR_SHELL:-/bin/bash}
 # A native launcher can preserve exec -a's argv[0] across the script interpreter.
 incr_shell_argv0=${INCR_ARGV0:-$0}
 unset INCR_ARGV0
-args=()
 flags=()
 parser_flags=()
 has_command=0
@@ -55,11 +54,11 @@ if ((has_command)); then
     fi
     cmd_str=$1
     shift
-    exec -a "$incr_shell_argv0" "$incr_shell" "${flags[@]}" "${args[@]}" -c "$cmd_str" "$@"
+    exec -a "$incr_shell_argv0" "$incr_shell" "${flags[@]}" -c "$cmd_str" "$@"
 fi
 
 if ((read_stdin)) || (($# == 0)); then
-    exec -a "$incr_shell_argv0" "$incr_shell" "${flags[@]}" "${args[@]}" -s -- "$@"
+    exec -a "$incr_shell_argv0" "$incr_shell" "${flags[@]}" -s -- "$@"
 fi
 
 script=$1
@@ -80,7 +79,7 @@ fi
 # cannot be parsed as text. Preserve its status instead of a parser error.
 if [ ! -f "$script" ] || [ ! -r "$script" ] ||
    ! LC_ALL=C command -p grep -Iq . "$script"; then
-    exec -a "$incr_shell_argv0" "$incr_shell" "${flags[@]}" "${args[@]}" -- "$script" "$@"
+    exec -a "$incr_shell_argv0" "$incr_shell" "${flags[@]}" -- "$script" "$@"
 fi
 
 # These modes expose startup/source details or suppress BASH_ENV. Execute
@@ -88,7 +87,7 @@ fi
 for flag in "${flags[@]}"; do
     case "$flag" in
         -p|-i|-r|-n|-v|-x|-l|-a|-t|--restricted|--verbose|--login|privileged|noexec|verbose|xtrace|onecmd|allexport)
-            exec -a "$incr_shell_argv0" "$incr_shell" "${flags[@]}" "${args[@]}" -- "$script" "$@" ;;
+            exec -a "$incr_shell_argv0" "$incr_shell" "${flags[@]}" -- "$script" "$@" ;;
     esac
 done
 command -p mkdir -p "$cache_dir"
@@ -108,19 +107,19 @@ fi
 # Each invocation owns a transformed copy. The caller's script is never
 # rewritten, so parallel invocations and interruption cannot corrupt it.
 tmp_dir=$(command -p mktemp -d "$cache_dir/incr-script.XXXXXXXX") || exit 1
-command -p mkdir -- "$tmp_dir/script" || exit 1
 tmp_incr="$tmp_dir/script/$(command -p basename -- "$script")"
 tmp_body="$tmp_dir/body"
 cleanup() {
-    local st=$1
+    local status=$1
     trap '' EXIT INT TERM
     command -p rm -f -- "$tmp_incr" "$tmp_body"
     command -p rmdir -- "$tmp_dir/script" "$tmp_dir"
-    exit "$st"
+    exit "$status"
 }
 trap 'cleanup "$?"' EXIT
 trap 'cleanup 130' INT
 trap 'cleanup 143' TERM
+command -p mkdir -- "$tmp_dir/script" || exit 1
 
 transform_args=(--sys-path "$SYS_PATH" --try-path "$TRY_PATH" --cache-path "$cache_dir")
 transform_args+=("${parser_flags[@]}")
@@ -132,7 +131,7 @@ fi
 if command -p cmp -s -- "$script" "$tmp_body"; then
     command -p rm -f -- "$tmp_incr" "$tmp_body"
     command -p rmdir -- "$tmp_dir/script" "$tmp_dir"
-    exec -a "$incr_shell_argv0" "$incr_shell" "${flags[@]}" "${args[@]}" -- "$script" "$@"
+    exec -a "$incr_shell_argv0" "$incr_shell" "${flags[@]}" -- "$script" "$@"
 fi
 
 # A real script preserves Bash's top-level error and control-flow semantics.
@@ -140,5 +139,5 @@ fi
 # Source-introspective scripts take the native path above.
 printf 'BASH_ARGV0=%q\n' "$script" > "$tmp_incr"
 command -p cat -- "$tmp_body" >> "$tmp_incr"
-"$incr_shell" "${flags[@]}" "${args[@]}" -- "$tmp_incr" "$@"
+"$incr_shell" "${flags[@]}" -- "$tmp_incr" "$@"
 exit "$?"

@@ -103,20 +103,33 @@ Static tool annotations apply only to resolved system tools, so custom PATH prog
 with the same names are traced. Commands using inherited extra file descriptors or non-UTF-8 arguments/environment
 execute directly. Unrepresentable dependency paths prevent reuse.
 
-Streaming execution starts the command while consuming stdin. An effect gate lets
-Incr cancel and replay only before Observe permits the first live write. After that
-point the command finishes normally, without rollback or a second application of
-its writes. Batch mode requires finite stdin and checks the cache before execution.
-Cache writers use a nonblocking per-entry lock; competing invocations execute with
-private temporary entries instead of waiting on each other.
+Streaming execution starts the command while consuming stdin. The default
+`--effect-policy live` permits cache cancellation only before the first live effect.
+Use `--effect-policy final`, or `INCR_EFFECT_POLICY=final` with the wrapper, when only
+final regular-file outputs matter. That policy validates candidates before execution,
+selects one by the complete stdin hash, stops all writers, and installs cached outputs.
+It does not preserve intermediate file observations or concurrent external writes.
+Use `live` for shared-file handshakes. FIFO dependencies prevent cache reuse.
 
-Regular-file content, modes, empty directories and symlinks can replay after all
-saved payloads have been validated. Operations requiring inode or metadata history
-(rename, unlink, hard-link creation, ownership/timestamp changes and special-file
-creation) currently force live execution. This is conservative: it preserves those
-operations but reduces warm-run reuse. Cache key version 12 and Observe dependency
-protocol 3 invalidate incompatible entries. External network state, clocks, random
-sources and arbitrary concurrent changes are not general memoization inputs.
+Both policies validate saved payloads before replay. File replay distinguishes
+in-place writes from pathname replacement so existing hard-link aliases receive the
+correct final contents. Final policy also supports rename/unlink outputs; ownership,
+timestamp and special-file operations still require live execution. Cache key version
+20, effect manifest version 3 and Observe dependency protocol 5 reject incompatible
+entries. External network state, clocks and randomness are not general memoization inputs.
+
+With `-a`, plain `cat` and simple alphanumeric `tr` translations can reuse independent
+chunks. `--assume-text` (or `INCR_ASSUME_TEXT=true`) additionally enables line-wise
+`rev` in the C/POSIX locale, assuming NUL-free ASCII input. Do not enable that
+assumption for arbitrary binary input. Chunk caches validate payloads and preserve
+output order, compression and command status.
+
+Streaming stdin buffering keeps at most 1 MiB queued in memory and spills excess
+input to an unlinked temporary file. Hashing can continue while a child reads
+slowly, and closing the process releases the spill file.
+
+Batch mode requires finite stdin and checks the cache before execution. Cache writers
+use nonblocking entry locks; contending commands execute with private temporary entries.
 
 The wrapper creates an owned transformed copy and never rewrites the input script.
 Use `INCR_CACHE_DIR=/path/to/cache ./incr.sh -b script.sh args...` for the Bash parser
@@ -182,3 +195,10 @@ bash evaluation/war-and-peace/without_cache.sh
 Results: `evaluation/run_results/<min|small>/`. See `evaluation/README.md` and `agents/docs/EVALUATION_BENCHMARK_SUITE.md`.
 
 For Koala upstream scripts, clone https://github.com/kbensh/koala and manually insert `target/release/incr` invocations where needed.
+
+When final-output streaming selects a prevalidated candidate, unexpected speculative
+paths are restored from selective pre-write snapshots before cached outputs are
+installed. Paths written by every candidate are excluded from backups. All writers
+must stop first. Failed restoration returns an error and retains a `.recovery`
+snapshot for inspection; it never silently discards the backup. The policy still
+assumes deterministic final outputs and no concurrent external mutations.

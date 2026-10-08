@@ -2,6 +2,7 @@ pub(crate) mod chunk;
 pub(crate) mod data;
 pub(crate) mod file;
 pub(crate) mod serialize_bytes;
+pub(crate) mod spool;
 pub(crate) mod thread;
 
 use std::env;
@@ -38,15 +39,14 @@ pub(crate) struct ExitCode(pub(crate) i32);
 
 pub(crate) fn initialize_log_file() {
     if DEBUG_LOGS {
-        let log_file = env::home_dir().unwrap().join(DEBUG_LOG_PATH);
-        LOG_FILE.get_or_init(|| {
-            let file = OpenOptions::new()
-                .append(true)
-                .create(true)
-                .open(log_file)
-                .unwrap();
-            Mutex::new(file)
-        });
+        let Some(directory) = env::home_dir() else { return };
+        let path = directory.join(DEBUG_LOG_PATH);
+        if let Some(parent) = path.parent() {
+            let _ = std::fs::create_dir_all(parent);
+        }
+        if let Ok(file) = OpenOptions::new().append(true).create(true).open(path) {
+            let _ = LOG_FILE.set(Mutex::new(file));
+        }
     }
 }
 
@@ -57,6 +57,9 @@ pub(crate) fn log_line(line: &str) {
         .format(&TIME_FORMAT)
         .unwrap();
     let line = format!("[{timestamp}] {line}\n");
-    let mut file = LOG_FILE.get().unwrap().lock().unwrap();
-    file.write_all(line.as_bytes()).unwrap();
+    if let Some(file) = LOG_FILE.get()
+        && let Ok(mut file) = file.lock()
+    {
+        let _ = file.write_all(line.as_bytes());
+    }
 }

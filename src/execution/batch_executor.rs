@@ -7,12 +7,12 @@ use crate::command::{self, ChildContext, Command, Runtime, RuntimeType};
 use crate::config::{Config, TraceType};
 use crate::execution;
 use crate::execution::dependency;
-use crate::execution::run::{self, OutputResult};
+use crate::execution::run::{self, OutputMetadata};
 use crate::ops::{BROKEN_PIPE_CODE, ExitCode, debug_log};
 
 #[derive(Clone, Debug)]
 enum CommandResult {
-    Completed(CacheData),
+    Completed { data: CacheData, broken_pipe: bool },
     BrokenPipe,
 }
 
@@ -31,19 +31,23 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
         && dependency::check_cache_valid(&cache, &cached_data)?
     {
         debug_log!("Cache valid: {} {:?}", command.name, command.arguments);
-        return output_cached_data(config, &cache, &cached_data);
+        return run::replay(config, &cache, &cached_data, &OutputMetadata::default());
     }
     debug_log!("Cache invalid: {} {:?}", command.name, command.arguments);
 
     cache.clean()?;
-    let cache_data = match run_command(config, command, &cache, &stdin)? {
-        CommandResult::Completed(data) => data,
+    let (cache_data, broken_pipe) = match run_command(config, command, &cache, &stdin)? {
+        CommandResult::Completed { data, broken_pipe } => (data, broken_pipe),
         CommandResult::BrokenPipe => return Ok(BROKEN_PIPE_CODE),
     };
     cache.save_data(&cache_data)?;
     dependency::save_introspection(config, command, &cache_data)?;
 
-    Ok(ExitCode(cache_data.exit_code))
+    Ok(if broken_pipe {
+        BROKEN_PIPE_CODE
+    } else {
+        ExitCode(cache_data.exit_code)
+    })
 }
 
 fn run_command(
@@ -68,68 +72,20 @@ fn run_command(
         }
     }
 
-    let exit_code = child.wait()?.code().unwrap_or(1);
-    if run::join_stream_threads(None, stdout_thread, stderr_thread)?.is_none() {
+    let exit_code = command::exit_code(child.wait()?);
+    let Some(outputs) = run::join_stream_threads(None, stdout_thread, stderr_thread)? else {
         run::clean_child_runtime(&runtime)?;
         return Ok(CommandResult::BrokenPipe);
-    }
-
-    let mut trace = execution::parse_trace(&runtime)?;
-    let mut read_dependencies = if config.observe_command.is_some() {
-        trace
-            .reads
-            .iter()
-            .map(|path| {
-                (
-                    path.clone(),
-                    trace
-                        .initial_dependencies
-                        .get(path)
-                        .cloned()
-                        .unwrap_or(crate::cache::DependencyKey::Uncacheable),
-                )
-            })
-            .collect()
-    } else {
-        dependency::get_read_dependencies(&trace.reads, &trace.writes)?
     };
-    let mut write_set = trace.writes;
-    match &runtime.typ {
-        RuntimeType::Sandbox(_) => {
-            cache.extract_sandbox_output()?;
-            if !write_set.is_empty() {
-                cache.commit_output()?;
-            }
-        }
-        RuntimeType::Observe(_) | RuntimeType::TraceFile(_) if config.observe_command.is_some() => {
-            if trace.replay_barriers.is_empty()
-                && let Err(error) = cache.capture_observe_output(&write_set)
-            {
-                // The live command succeeded; unsupported output metadata
-                // prevents reuse, rather than changing its observable status.
-                debug_log!("Cannot capture output for reuse: {error:#}");
-                trace.replay_barriers.push("uncapturable-output".to_owned());
-            }
-            // Observe already executed on the live filesystem. Replaying here
-            // duplicates effects and can overwrite another command's changes.
-        }
-        _ => {}
-    }
-    if config.observe_command.is_none() {
-        dependency::filter_dependencies(&mut read_dependencies, &mut write_set)?;
-    }
 
-    Ok(CommandResult::Completed(CacheData {
-        replay_barriers: trace.replay_barriers,
-        exit_code,
-        read_dependencies,
-        write_outputs: write_set,
-        compressed_output: config.compress_output,
-    }))
+    Ok(CommandResult::Completed {
+        data: execution::record::capture(config, cache, &runtime, exit_code)?,
+        broken_pipe: outputs.broken_pipe,
+    })
 }
 
 fn create_child_runtime(config: &Config, cache: &CacheCursor<'_>) -> Runtime {
-    let typ = match config.trace_type {
+    let kind = match config.trace_type {
         TraceType::Sandbox => RuntimeType::Sandbox(cache.get_sandbox_directory()),
         TraceType::TraceFile => {
             if config.observe_command.is_some() {
@@ -142,33 +98,10 @@ fn create_child_runtime(config: &Config, cache: &CacheCursor<'_>) -> Runtime {
         TraceType::Nothing => RuntimeType::Nothing,
     };
     Runtime {
-        typ,
+        kind,
         stdout_file: cache.get_stdout_file(),
         stderr_file: cache.get_stderr_file(),
         effect_gate: None,
+        snapshot_directory: None,
     }
-}
-
-fn output_cached_data(config: &Config, cache: &CacheCursor<'_>, data: &CacheData) -> Result<ExitCode> {
-    let stdout_completed = run::output_data(
-        &cache.get_stdout_file(),
-        0,
-        data.compressed_output,
-        &mut io::stdout().lock(),
-    )? == OutputResult::Completed;
-    let stderr_completed = run::output_data(
-        &cache.get_stderr_file(),
-        0,
-        data.compressed_output,
-        &mut io::stderr().lock(),
-    )? == OutputResult::Completed;
-
-    if config.short_circuit && (!stdout_completed || !stderr_completed) {
-        return Ok(BROKEN_PIPE_CODE);
-    }
-    if !data.write_outputs.is_empty() {
-        cache.commit_output()?;
-    }
-
-    Ok(ExitCode(data.exit_code))
 }

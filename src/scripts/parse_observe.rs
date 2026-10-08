@@ -21,6 +21,8 @@ struct Report {
 enum ObservedDependency {
     Absent,
     File {
+        device: u64,
+        inode: u64,
         modified: u64,
         changed_sec: i64,
         changed_nsec: i64,
@@ -35,6 +37,10 @@ enum ObservedDependency {
     },
     Symlink {
         target: PathBuf,
+        modified: u64,
+        changed_sec: i64,
+        changed_nsec: i64,
+        mode: u32,
     },
     Uncacheable,
 }
@@ -49,18 +55,22 @@ enum Write {
 pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
     let report: Report = serde_json::from_slice(&std::fs::read(path)?)
         .with_context(|| format!("decode Observe report {}", path.display()))?;
-    if report.dependency_version != 3 {
+    if report.dependency_version != 5 {
         anyhow::bail!("unsupported Observe dependency protocol");
     }
-    let tracked =
-        |p: &Path| p.is_absolute() && !OBSERVE_READ_EXCLUDED_PATHS.iter().any(|root| p.starts_with(root));
+    let tracked = |path: &Path| {
+        path.is_absolute()
+            && !OBSERVE_READ_EXCLUDED_PATHS
+                .iter()
+                .any(|root| path.starts_with(root))
+    };
     let mut trace = Trace {
         replay_barriers: report.replay_barriers,
         ..Trace::default()
     };
     trace
         .reads
-        .extend(report.reads.into_iter().filter(|p| tracked(p)));
+        .extend(report.reads.into_iter().filter(|path| tracked(path)));
     for (path, observed) in report.dependencies {
         if !tracked(&path) {
             continue;
@@ -68,18 +78,23 @@ pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
         let key = match observed {
             ObservedDependency::Absent => DependencyKey::DoesNotExist,
             ObservedDependency::File {
+                device,
+                inode,
                 modified,
                 changed_sec,
                 changed_nsec,
                 size,
                 mode,
-            } => DependencyKey::FileState {
-                modified: modified.into(),
-                changed_sec,
-                changed_nsec,
-                size,
-                mode,
-            },
+            } => {
+                trace.initial_file_ids.insert(path.clone(), (device, inode));
+                DependencyKey::FileState {
+                    modified: modified.into(),
+                    changed_sec,
+                    changed_nsec,
+                    size,
+                    mode,
+                }
+            }
             ObservedDependency::Directory {
                 modified,
                 changed_sec,
@@ -91,7 +106,19 @@ pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
                 changed_nsec,
                 mode,
             },
-            ObservedDependency::Symlink { target } => DependencyKey::Symlink(target),
+            ObservedDependency::Symlink {
+                target,
+                modified,
+                changed_sec,
+                changed_nsec,
+                mode,
+            } => DependencyKey::SymlinkState {
+                target,
+                modified: modified.into(),
+                changed_sec,
+                changed_nsec,
+                mode,
+            },
             ObservedDependency::Uncacheable => DependencyKey::Uncacheable,
         };
         trace.initial_dependencies.insert(path, key);
@@ -108,7 +135,9 @@ pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
             let key = match hash.as_str() {
                 "nonexistent" => DependencyKey::DoesNotExist,
                 "unreadable" => DependencyKey::Uncacheable,
-                h => DependencyKey::Hash(u64::from_str_radix(h, 16).context("invalid pre-write hash")?),
+                hexadecimal => DependencyKey::Hash(
+                    u64::from_str_radix(hexadecimal, 16).context("invalid pre-write hash")?,
+                ),
             };
             let key = match trace.initial_dependencies.remove(&path) {
                 Some(initial) => DependencyKey::All(vec![initial, key]),

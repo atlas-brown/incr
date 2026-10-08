@@ -21,6 +21,7 @@ pub(crate) struct CacheCursor<'c> {
     directory: PathBuf,
     try_command: String,
     observe: bool,
+    candidate_directory: Option<PathBuf>,
     debug_info: CacheInfo<'c>,
     _lease: Arc<CacheLease>,
 }
@@ -72,7 +73,9 @@ impl<'c> CacheCursor<'c> {
         debug_info: CacheInfo<'c>,
     ) -> Result<Self> {
         let key_data = ops::data::encode_to_bytes(&CacheKey {
-            version: 12,
+            version: 20,
+            assume_text: config.assume_text,
+            effect_policy: config.effect_policy,
             observe: config.observe_command.is_some(),
             full_tracing: config.full_tracing,
             umask: fs::read_to_string("/proc/self/status")?
@@ -118,6 +121,14 @@ impl<'c> CacheCursor<'c> {
             }),
             try_command: config.try_command.clone(),
             observe: config.observe_command.is_some(),
+            candidate_directory: (config.observe_command.is_some()
+                && config.effect_policy == crate::config::EffectPolicy::FinalOutputs)
+                .then(|| {
+                    config
+                        .cache_directory
+                        .join("candidates")
+                        .join(command.hash.to_string())
+                }),
             debug_info,
         })
     }
@@ -160,11 +171,6 @@ impl<'c> CacheCursor<'c> {
         cache::create_directory(&self.directory, debug_info)
     }
 
-    pub(crate) fn extract_sandbox_output(&self) -> Result<()> {
-        let sandbox_directory = self.directory.join(SANDBOX_DIRECTORY);
-        self.extract_sandbox_output_from(&sandbox_directory)
-    }
-
     /// Materializes sandbox outputs from an arbitrary runtime sandbox into this cache entry.
     /// This is used by the streaming executor because its temporary sandbox may be a mounted
     /// tmpfs inside Docker and therefore cannot be renamed into the cache directory.
@@ -188,8 +194,12 @@ impl<'c> CacheCursor<'c> {
         Ok(())
     }
 
-    pub(crate) fn capture_observe_output(&self, write_set: &HashSet<PathBuf>) -> Result<()> {
-        cache::effects::capture(&self.directory.join(OUTPUT_DIRECTORY), write_set)
+    pub(crate) fn capture_observe_output(
+        &self,
+        write_set: &HashSet<PathBuf>,
+        replaced_paths: &HashSet<PathBuf>,
+    ) -> Result<()> {
+        cache::effects::capture(&self.directory.join(OUTPUT_DIRECTORY), write_set, replaced_paths)
     }
 
     pub(crate) fn commit_output(&self) -> Result<()> {
@@ -268,7 +278,14 @@ impl<'c> CacheCursor<'c> {
             data: data.clone(),
             output_hashes: self.output_hashes()?,
         };
-        ops::data::encode_to_file(&entry, &self.directory, DATA_FILE.to_owned())
+        ops::data::encode_to_file(&entry, &self.directory, DATA_FILE.to_owned())?;
+        if self._lease.transient.is_none()
+            && data.replay_barriers.is_empty()
+            && let Some(directory) = &self.candidate_directory
+        {
+            super::candidates::record(directory, self.debug_info.stdin_hash);
+        }
+        Ok(())
     }
 }
 
@@ -293,6 +310,8 @@ struct CacheInfo<'c> {
 #[derive(Clone, Debug, Encode)]
 struct CacheKey {
     version: u32,
+    effect_policy: crate::config::EffectPolicy,
+    assume_text: bool,
     observe: bool,
     full_tracing: bool,
     umask: String,

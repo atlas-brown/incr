@@ -9,7 +9,7 @@ use std::path::{Path, PathBuf};
 use crate::config::{BUFFER_SIZE, DEBUG_FILE};
 
 pub(crate) mod batch_cache;
-pub(crate) mod chunk_cache;
+pub(crate) mod candidates;
 pub(crate) mod effects;
 
 #[derive(Clone, Debug, Decode, Deserialize, Encode, Serialize)]
@@ -39,9 +39,13 @@ pub(crate) enum DependencyKey {
         changed_nsec: i64,
         mode: u32,
     },
-    Timestamp(u128),
-    Directory(u128),
-    Symlink(PathBuf),
+    SymlinkState {
+        target: PathBuf,
+        modified: u128,
+        changed_sec: i64,
+        changed_nsec: i64,
+        mode: u32,
+    },
     Hash(u64),
 }
 

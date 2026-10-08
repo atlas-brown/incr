@@ -51,7 +51,7 @@ User steering: image-annotation is explicitly excluded (no API key); this is not
 The user expanded the goal after the first source commits. Completing the original
 minimum-size matrix is a baseline, not completion of this expanded goal.
 
-- [ ] Finish and publish the current frozen-build qualification, including raw
+- [x] Finish and publish the current frozen-build qualification, including raw
   measurements and cleanup evidence. Preserve this baseline for comparison.
 - [ ] Build tiny deterministic experiments for cache reuse after live writes:
   private output, append/read-modify-write, open descriptors/hardlinks, FIFO and
@@ -62,9 +62,9 @@ minimum-size matrix is a baseline, not completion of this expanded goal.
   replay with applied-prefix accounting; and explicit private-output contracts.
   Reject approaches that hide interactions, deadlock feedback pipelines, duplicate
   effects, or merely disable streaming. Do not silently introduce weaker semantics.
-- [ ] Implement useful safe effectful cache reuse, qualify actual cache hits and
+- [x] Implement useful safe effectful cache reuse, qualify actual cache hits and
   speedups, and retain live execution for cases that cannot be replayed safely.
-- [ ] Review every source module in both repositories, record the coverage and
+- [x] Review every source module in both repositories, record the coverage and
   findings, and simplify dead paths, duplicated code and fragile lifecycle logic.
 - [ ] Audit each optimization against pinned main: streaming, batch, chunking,
   compression, annotations, introspection, short-circuiting and concurrent caches.
@@ -91,3 +91,5 @@ Retain and test a live-interaction policy for FIFO/shared-file handshakes. Tests
 reports must identify the policy; do not present final-output equivalence as universal
 interaction equivalence. Validate pre-write inputs, quiesce/terminate writers before
 installation, preserve meaningful final file semantics, and demonstrate actual reuse.
+
+Additional user requirements: optimize across explicit assumption levels; perform comprehensive module-level consolidation and cleanup, including legacy/dead paths, clear function and variable names (avoid single-letter names), consistent style, and removal of verbose/redundant comments and LLM-like prose. Refactor alongside behavioral coverage; do not trade correctness or an optimization away merely to simplify implementation.

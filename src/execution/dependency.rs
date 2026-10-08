@@ -33,36 +33,9 @@ pub(crate) fn get_read_dependencies(
     let results = ops::thread::parallel_process(&paths, |chunk| {
         let mut dependencies = Vec::with_capacity(chunk.len());
         for &path in chunk {
-            if let Ok(metadata) = fs::symlink_metadata(path) {
-                if metadata.file_type().is_symlink() {
-                    dependencies.push((path.clone(), DependencyKey::Symlink(fs::read_link(path)?)));
-                    continue;
-                }
-                if metadata.is_dir() {
-                    if let Some(timestamp) = get_modified_timestamp(path)? {
-                        dependencies.push((path.clone(), DependencyKey::Directory(timestamp)));
-                    }
-                    continue;
-                }
-                if !metadata.is_file() {
-                    dependencies.push((path.clone(), DependencyKey::Uncacheable));
-                    continue;
-                }
-            }
-            if !path.exists() {
-                dependencies.push((path.clone(), DependencyKey::DoesNotExist));
-                continue;
-            }
-            if !path.is_file() {
-                continue;
-            }
-            if !write_set.contains(path) {
-                if let Some(timestamp) = get_modified_timestamp(path)? {
-                    dependencies.push((path.clone(), DependencyKey::Timestamp(timestamp)));
-                }
-            } else if let Some(hash) = get_file_hash(path)? {
-                dependencies.push((path.clone(), DependencyKey::Hash(hash)));
-            }
+            let key =
+                capture_dependency(path, write_set.contains(path)).unwrap_or(DependencyKey::Uncacheable);
+            dependencies.push((path.clone(), key));
         }
         Ok(dependencies)
     })?;
@@ -75,20 +48,66 @@ pub(crate) fn get_read_dependencies(
     Ok(dependencies)
 }
 
+fn capture_dependency(path: &Path, written: bool) -> Result<DependencyKey> {
+    let metadata = match fs::symlink_metadata(path) {
+        Ok(metadata) => metadata,
+        Err(error) if error.kind() == ErrorKind::NotFound => return Ok(DependencyKey::DoesNotExist),
+        Err(error) => return Err(error.into()),
+    };
+    let modified = metadata.modified()?.duration_since(UNIX_EPOCH)?.as_nanos();
+    let changed_sec = metadata.ctime();
+    let changed_nsec = metadata.ctime_nsec();
+    let mode = metadata.mode();
+    Ok(if metadata.is_symlink() {
+        DependencyKey::SymlinkState {
+            target: fs::read_link(path)?,
+            modified,
+            changed_sec,
+            changed_nsec,
+            mode,
+        }
+    } else if metadata.is_dir() {
+        DependencyKey::DirectoryState {
+            modified,
+            changed_sec,
+            changed_nsec,
+            mode,
+        }
+    } else if metadata.is_file() {
+        let state = DependencyKey::FileState {
+            modified,
+            changed_sec,
+            changed_nsec,
+            size: metadata.len(),
+            mode,
+        };
+        if written {
+            match get_file_hash(path)? {
+                Some(hash) => DependencyKey::All(vec![state, DependencyKey::Hash(hash)]),
+                None => DependencyKey::Uncacheable,
+            }
+        } else {
+            state
+        }
+    } else {
+        DependencyKey::Uncacheable
+    })
+}
+
 pub(crate) fn filter_dependencies(
     read_dependencies: &mut HashMap<PathBuf, DependencyKey>,
     write_set: &mut HashSet<PathBuf>,
 ) -> Result<()> {
     let removed = read_dependencies
         .iter()
-        .filter_map(|(p, k)| {
-            let excluded = DYNAMIC_EXCLUDED_PATHS.iter().any(|e| {
-                ops::file::path_to_string(p)
-                    .map(|p| p.starts_with(e))
+        .filter_map(|(path, key)| {
+            let excluded = DYNAMIC_EXCLUDED_PATHS.iter().any(|excluded| {
+                ops::file::path_to_string(path)
+                    .map(|path| path.starts_with(excluded))
                     .unwrap_or(false)
             });
-            if excluded && k == &DependencyKey::DoesNotExist && !p.exists() {
-                Some(p.clone())
+            if excluded && key == &DependencyKey::DoesNotExist && !path.exists() {
+                Some(path.clone())
             } else {
                 None
             }
@@ -113,7 +132,7 @@ fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Re
         }
         Ok(true)
     })?;
-    Ok(results.into_iter().all(|r| r))
+    Ok(results.into_iter().all(|valid| valid))
 }
 
 fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
@@ -134,13 +153,13 @@ fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
             size,
             mode,
         } => {
-            let m = fs::symlink_metadata(path)?;
-            m.is_file()
-                && m.len() == *size
-                && m.mode() == *mode
-                && m.ctime() == *changed_sec
-                && m.ctime_nsec() == *changed_nsec
-                && m.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() == *modified
+            let metadata = fs::symlink_metadata(path)?;
+            metadata.is_file()
+                && metadata.len() == *size
+                && metadata.mode() == *mode
+                && metadata.ctime() == *changed_sec
+                && metadata.ctime_nsec() == *changed_nsec
+                && metadata.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() == *modified
         }
         DependencyKey::DirectoryState {
             modified,
@@ -148,34 +167,32 @@ fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
             changed_nsec,
             mode,
         } => {
-            let m = fs::symlink_metadata(path)?;
-            m.is_dir()
-                && m.mode() == *mode
-                && m.ctime() == *changed_sec
-                && m.ctime_nsec() == *changed_nsec
-                && m.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() == *modified
+            let metadata = fs::symlink_metadata(path)?;
+            metadata.is_dir()
+                && metadata.mode() == *mode
+                && metadata.ctime() == *changed_sec
+                && metadata.ctime_nsec() == *changed_nsec
+                && metadata.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() == *modified
         }
-        DependencyKey::Directory(timestamp) => {
-            path.is_dir() && get_modified_timestamp(path)? == Some(*timestamp)
+        DependencyKey::SymlinkState {
+            target,
+            modified,
+            changed_sec,
+            changed_nsec,
+            mode,
+        } => {
+            let metadata = fs::symlink_metadata(path)?;
+            metadata.file_type().is_symlink()
+                && metadata.mode() == *mode
+                && metadata.ctime() == *changed_sec
+                && metadata.ctime_nsec() == *changed_nsec
+                && metadata.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() == *modified
+                && fs::read_link(path)? == *target
         }
-        DependencyKey::Symlink(target) => fs::read_link(path).ok().as_ref() == Some(target),
         DependencyKey::DoesNotExist => matches!(fs::symlink_metadata(path),
-            Err(e) if e.kind() == ErrorKind::NotFound),
-        DependencyKey::Timestamp(timestamp) => {
-            path.is_file() && get_modified_timestamp(path)? == Some(*timestamp)
-        }
+            Err(error) if error.kind() == ErrorKind::NotFound),
         DependencyKey::Hash(hash) => path.is_file() && get_file_hash(path)? == Some(*hash),
     })
-}
-
-fn get_modified_timestamp(file_path: &Path) -> Result<Option<u128>> {
-    let metadata = match fs::metadata(file_path) {
-        Ok(metadata) => metadata,
-        Err(error) if error.kind() == ErrorKind::PermissionDenied => return Ok(None),
-        Err(error) => return Err(error.into()),
-    };
-    let timestamp = metadata.modified()?.duration_since(UNIX_EPOCH)?.as_micros();
-    Ok(Some(timestamp))
 }
 
 fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {

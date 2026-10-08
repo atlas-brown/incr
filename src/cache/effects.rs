@@ -13,10 +13,21 @@ const MANIFEST: &str = "effects.json";
 #[serde(tag = "kind", rename_all = "snake_case")]
 enum Effect {
     Missing,
-    Directory { mode: u32 },
-    Symlink { target: PathBuf },
-    File { source: String, mode: u32, hash: u64 },
-    HardLink { target: PathBuf },
+    Directory {
+        mode: u32,
+    },
+    Symlink {
+        target: PathBuf,
+    },
+    File {
+        source: String,
+        mode: u32,
+        hash: u64,
+        replace: bool,
+    },
+    HardLink {
+        target: PathBuf,
+    },
 }
 
 #[derive(Serialize, Deserialize)]
@@ -31,7 +42,11 @@ struct Manifest {
     entries: Vec<Entry>,
 }
 
-pub(crate) fn capture(directory: &Path, writes: &HashSet<PathBuf>) -> Result<()> {
+pub(crate) fn capture(
+    directory: &Path,
+    writes: &HashSet<PathBuf>,
+    replaced_paths: &HashSet<PathBuf>,
+) -> Result<()> {
     fs::create_dir_all(directory)?;
     let mut paths: Vec<_> = writes.iter().collect();
     paths.sort();
@@ -39,14 +54,16 @@ pub(crate) fn capture(directory: &Path, writes: &HashSet<PathBuf>) -> Result<()>
     let mut entries = Vec::new();
     for path in paths {
         let effect = match fs::symlink_metadata(path) {
-            Err(e) if e.kind() == std::io::ErrorKind::NotFound => Effect::Missing,
-            Err(e) => return Err(e).with_context(|| format!("capture {}", path.display())),
-            Ok(m) if m.file_type().is_symlink() => Effect::Symlink {
+            Err(error) if error.kind() == std::io::ErrorKind::NotFound => Effect::Missing,
+            Err(error) => return Err(error).with_context(|| format!("capture {}", path.display())),
+            Ok(metadata) if metadata.file_type().is_symlink() => Effect::Symlink {
                 target: fs::read_link(path)?,
             },
-            Ok(m) if m.is_dir() => Effect::Directory { mode: m.mode() },
-            Ok(m) if m.is_file() => {
-                let inode = (m.dev(), m.ino());
+            Ok(metadata) if metadata.is_dir() => Effect::Directory {
+                mode: metadata.mode(),
+            },
+            Ok(metadata) if metadata.is_file() => {
+                let inode = (metadata.dev(), metadata.ino());
                 if let Some(target) = inodes.get(&inode) {
                     Effect::HardLink {
                         target: PathBuf::clone(target),
@@ -58,7 +75,8 @@ pub(crate) fn capture(directory: &Path, writes: &HashSet<PathBuf>) -> Result<()>
                     Effect::File {
                         hash: crate::ops::data::hash_stream(&mut fs::File::open(directory.join(&source))?)?,
                         source,
-                        mode: m.mode(),
+                        mode: metadata.mode(),
+                        replace: replaced_paths.contains(path),
                     }
                 }
             }
@@ -69,7 +87,7 @@ pub(crate) fn capture(directory: &Path, writes: &HashSet<PathBuf>) -> Result<()>
             effect,
         });
     }
-    let manifest = Manifest { version: 2, entries };
+    let manifest = Manifest { version: 3, entries };
     let pending = directory.join("effects.pending");
     fs::write(&pending, serde_json::to_vec(&manifest)?)?;
     fs::rename(pending, directory.join(MANIFEST))?;
@@ -78,17 +96,17 @@ pub(crate) fn capture(directory: &Path, writes: &HashSet<PathBuf>) -> Result<()>
 
 fn remove(path: &Path) -> Result<()> {
     match fs::symlink_metadata(path) {
-        Ok(m) if m.is_dir() => fs::remove_dir_all(path)?,
+        Ok(metadata) if metadata.is_dir() => fs::remove_dir_all(path)?,
         Ok(_) => fs::remove_file(path)?,
-        Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
-        Err(e) => return Err(e.into()),
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => (),
+        Err(error) => return Err(error.into()),
     }
     Ok(())
 }
 
 fn load_validated(directory: &Path) -> Result<Manifest> {
     let manifest: Manifest = serde_json::from_slice(&fs::read(directory.join(MANIFEST))?)?;
-    if manifest.version != 2 {
+    if manifest.version != 3 {
         bail!("unsupported filesystem effect version");
     }
     let mut seen = HashSet::new();
@@ -143,7 +161,7 @@ pub(crate) fn replay(directory: &Path) -> Result<()> {
         match &entry.effect {
             Effect::Missing => (),
             Effect::Directory { .. } => {
-                if fs::symlink_metadata(path).is_ok_and(|m| !m.is_dir()) {
+                if fs::symlink_metadata(path).is_ok_and(|metadata| !metadata.is_dir()) {
                     remove(path)?;
                 }
                 fs::create_dir_all(path)?;
@@ -152,11 +170,16 @@ pub(crate) fn replay(directory: &Path) -> Result<()> {
                 remove(path)?;
                 symlink(target, path)?;
             }
-            Effect::File { source, mode, .. } => {
+            Effect::File {
+                source,
+                mode,
+                replace,
+                ..
+            } => {
                 if Path::new(source).components().count() != 1 {
                     bail!("invalid cached file name");
                 }
-                if fs::symlink_metadata(path).is_ok_and(|m| !m.is_file()) {
+                if *replace || fs::symlink_metadata(path).is_ok_and(|metadata| !metadata.is_file()) {
                     remove(path)?;
                 }
                 fs::copy(directory.join(source), path)?;
@@ -179,4 +202,54 @@ pub(crate) fn replay(directory: &Path) -> Result<()> {
 
 pub(crate) fn exists(directory: &Path) -> bool {
     directory.join(MANIFEST).is_file()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    struct TestDirectory(PathBuf);
+
+    impl Drop for TestDirectory {
+        fn drop(&mut self) {
+            let _ = fs::remove_dir_all(&self.0);
+        }
+    }
+
+    #[test]
+    fn replay_preserves_overwrite_and_replacement_alias_semantics() -> Result<()> {
+        for replace in [false, true] {
+            let fixture =
+                TestDirectory(std::env::temp_dir().join(format!("incr-effects-{}", rand::random::<u128>())));
+            fs::create_dir(&fixture.0)?;
+            let output = fixture.0.join("output");
+            let alias = fixture.0.join("alias");
+            let replacement = fixture.0.join("replacement");
+            let cache = fixture.0.join("cache");
+            fs::write(&output, b"old")?;
+            fs::hard_link(&output, &alias)?;
+            if replace {
+                fs::write(&replacement, b"new")?;
+                fs::rename(&replacement, &output)?;
+            } else {
+                fs::write(&output, b"new")?;
+            }
+            let expected_alias = fs::read(&alias)?;
+            let writes = HashSet::from([output.clone()]);
+            let replacements = if replace { writes.clone() } else { HashSet::new() };
+            capture(&cache, &writes, &replacements)?;
+
+            fs::remove_file(&output)?;
+            fs::write(&alias, b"old")?;
+            fs::hard_link(&alias, &output)?;
+            replay(&cache)?;
+            assert_eq!(fs::read(&output)?, b"new");
+            assert_eq!(fs::read(&alias)?, expected_alias);
+            assert_eq!(
+                fs::metadata(&output)?.ino() == fs::metadata(&alias)?.ino(),
+                !replace
+            );
+        }
+        Ok(())
+    }
 }

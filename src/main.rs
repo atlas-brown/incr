@@ -31,6 +31,18 @@ struct Arguments {
     #[arg(long = "observe")]
     observe_command: Option<String>,
 
+    #[arg(
+        long = "effect-policy",
+        env = "INCR_EFFECT_POLICY",
+        value_enum,
+        default_value = "live"
+    )]
+    effect_policy: crate::config::EffectPolicy,
+
+    /// Assume stdin is NUL-free ASCII text for line-wise chunk optimizations.
+    #[arg(long = "assume-text", env = "INCR_ASSUME_TEXT")]
+    assume_text: bool,
+
     #[arg(short = 'b', long = "batch_executor")]
     batch_executor: bool,
     #[arg(short = 's', long = "short_circuit")]
@@ -87,7 +99,9 @@ fn run() -> Result<ExitCode> {
         return Err(skip_executor::execute(&command));
     }
 
-    let chunk = !config.full_tracing && config.enable_annotations && annotation::check_stateless(&command);
+    let chunk = !config.full_tracing
+        && config.enable_annotations
+        && annotation::chunk_mode(&command, config.assume_text).is_some();
     let command_string = command.join_string()?;
     let result = if chunk {
         chunk_executor::execute(config, command)
@@ -109,21 +123,14 @@ fn parse_input() -> Result<Option<Input>> {
         return Ok(None);
     }
 
-    let (try_command, cache_directory) = match (arguments.try_command, arguments.cache_directory) {
-        (Some(try_command), Some(cache_directory)) => (try_command, PathBuf::from(cache_directory)),
-        (try_command, cache_directory) => {
-            let home_directory =
-                env::home_dir().ok_or_else(|| anyhow!("Could not resolve home directory"))?;
-            let default_try_command = format!(
-                "{}/{}",
-                ops::file::path_to_string(&home_directory)?,
-                DEFAULT_TRY_PATH,
-            );
-            (
-                try_command.unwrap_or(default_try_command),
-                home_directory.join(cache_directory.unwrap_or_else(|| DEFAULT_CACHE_PATH.to_owned())),
-            )
-        }
+    let home_directory = || env::home_dir().ok_or_else(|| anyhow!("Could not resolve home directory"));
+    let try_command = match arguments.try_command {
+        Some(command) => command,
+        None => ops::file::path_to_string(&home_directory()?.join(DEFAULT_TRY_PATH))?.to_owned(),
+    };
+    let cache_directory = match arguments.cache_directory {
+        Some(directory) => PathBuf::from(directory),
+        None => home_directory()?.join(DEFAULT_CACHE_PATH),
     };
 
     // Cache keys currently use UTF-8 strings. Preserve arbitrary Unix bytes by
@@ -131,10 +138,10 @@ fn parse_input() -> Result<Option<Input>> {
     let utf8_arguments = arguments
         .command
         .iter()
-        .map(|s| s.to_str().map(str::to_owned))
+        .map(|argument| argument.to_str().map(str::to_owned))
         .collect::<Option<Vec<_>>>();
     let environment = env::vars_os()
-        .map(|(k, v)| Some((k.into_string().ok()?, v.into_string().ok()?)))
+        .map(|(name, value)| Some((name.into_string().ok()?, value.into_string().ok()?)))
         .collect::<Option<HashMap<_, _>>>();
     let (Some(command_arguments), Some(environment)) = (utf8_arguments, environment) else {
         use std::os::unix::process::CommandExt;
@@ -169,6 +176,8 @@ fn parse_input() -> Result<Option<Input>> {
         trace_type,
         observe_command: arguments.observe_command,
 
+        effect_policy: arguments.effect_policy,
+        assume_text: arguments.assume_text,
         batch_executor: arguments.batch_executor,
         short_circuit: arguments.short_circuit,
         compress_output: arguments.compress_output,

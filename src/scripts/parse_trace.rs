@@ -1,95 +1,97 @@
-#![allow(warnings)]
-#![allow(clippy::all)]
-
-// src/trace_rw.rs
-use std::collections::{HashMap, HashSet};
+use std::cell::RefCell;
+use std::collections::HashMap;
 use std::fs;
 use std::path::{Component, Path, PathBuf};
+use std::rc::Rc;
 
 type Result<T> = std::result::Result<T, String>;
 
-// ---------- tiny helpers for parity with the Python ----------
-
-fn is_absolute(p: &str) -> bool {
-    p.starts_with('/')
+fn is_absolute(path: &str) -> bool {
+    path.starts_with('/')
 }
-fn is_ret_err(ret: &str) -> bool {
-    ret.trim_start().starts_with('-')
+fn failed_syscall(result: &str) -> bool {
+    result.trim_start().starts_with('-')
 }
 
-fn extract_between<'a>(s: &'a str, open: &str, close: &str) -> Option<&'a str> {
-    let start = s.find(open)? + open.len();
-    let end = s.rfind(close)?;
-    (end >= start).then(|| &s[start..end])
+fn delimited_value<'path>(value: &'path str, open: &str, close: &str) -> Option<&'path str> {
+    let start = value.find(open)? + open.len();
+    let end = value.rfind(close)?;
+    (end >= start).then(|| &value[start..end])
 }
 
-fn normalize_path<P: AsRef<Path>>(p: P) -> PathBuf {
-    // Build directly, avoiding lifetime issues with Component<'_> vectors.
-    let mut out = PathBuf::new();
-    for c in p.as_ref().components() {
-        match c {
-            Component::CurDir => {}
-            Component::ParentDir => {
-                let _ = out.pop();
-            }
-            other => out.push(other.as_os_str()),
-        }
-    }
-    if out.as_os_str().is_empty() {
-        PathBuf::from(".")
-    } else {
-        out
-    }
+fn normalize_path<P: AsRef<Path>>(path: P) -> PathBuf {
+    // Preserve parent components: resolving link/.. lexically can change its target.
+    path.as_ref()
+        .components()
+        .filter(|component| *component != Component::CurDir)
+        .collect()
 }
 
-/// Split syscall arg list by commas, but *not* when inside quotes or <> or {}.
-/// Mirrors the Python `arg_regex` behavior, without regex.
-fn split_args(args: &str) -> Vec<String> {
-    let mut out = Vec::new();
-    let mut cur = String::new();
+/// Split arguments outside quoted strings and nested strace structures.
+fn split_args(arguments: &str) -> Vec<String> {
+    let mut output = Vec::new();
+    let mut current_argument = String::new();
     let mut in_quotes = false;
-    let mut angle = 0usize; // depth for <>
-    let mut curly = 0usize; // depth for {}
-    let mut chars = args.chars().peekable();
-
-    while let Some(ch) = chars.next() {
-        match ch {
-            '"' => {
-                cur.push(ch);
+    let mut angle_depth = 0usize; // depth for <>
+    let mut square_depth = 0usize;
+    let mut curly_depth = 0usize; // depth for {}
+    let mut escaped = false;
+    for character in arguments.chars() {
+        if in_quotes && escaped {
+            current_argument.push(character);
+            escaped = false;
+            continue;
+        }
+        if in_quotes && character == '\\' {
+            current_argument.push(character);
+            escaped = true;
+            continue;
+        }
+        match character {
+            '"' if angle_depth == 0 => {
+                current_argument.push(character);
                 in_quotes = !in_quotes;
             }
             '<' if !in_quotes => {
-                angle += 1;
-                cur.push(ch);
+                angle_depth += 1;
+                current_argument.push(character);
             }
-            '>' if !in_quotes && angle > 0 => {
-                angle -= 1;
-                cur.push(ch);
+            '>' if !in_quotes && angle_depth > 0 => {
+                angle_depth -= 1;
+                current_argument.push(character);
             }
             '{' if !in_quotes => {
-                curly += 1;
-                cur.push(ch);
+                curly_depth += 1;
+                current_argument.push(character);
             }
-            '}' if !in_quotes && curly > 0 => {
-                curly -= 1;
-                cur.push(ch);
+            '}' if !in_quotes && curly_depth > 0 => {
+                curly_depth -= 1;
+                current_argument.push(character);
             }
-            ',' if !in_quotes && angle == 0 && curly == 0 => {
-                out.push(cur.trim().to_string());
-                cur.clear();
+            '[' if !in_quotes => {
+                square_depth += 1;
+                current_argument.push(character);
             }
-            _ => cur.push(ch),
+            ']' if !in_quotes && square_depth > 0 => {
+                square_depth -= 1;
+                current_argument.push(character);
+            }
+            ',' if !in_quotes && angle_depth == 0 && curly_depth == 0 && square_depth == 0 => {
+                output.push(current_argument.trim().to_string());
+                current_argument.clear();
+            }
+            _ => current_argument.push(character),
         }
     }
-    if !cur.is_empty() {
-        out.push(cur.trim().to_string());
+    if !current_argument.is_empty() {
+        output.push(current_argument.trim().to_string());
     }
-    out
+    output
 }
 
-/// Like the Python `take_first_arg`: returns (first_arg, rest_string).
-fn take_first_arg(args: &str) -> (String, String) {
-    let parts = split_args(args);
+/// Return the first argument and the remaining argument list.
+fn take_first_arg(arguments: &str) -> (String, String) {
+    let parts = split_args(arguments);
     if parts.is_empty() {
         return (String::new(), String::new());
     }
@@ -102,266 +104,159 @@ fn take_first_arg(args: &str) -> (String, String) {
     (first, rest)
 }
 
-/// Expect a C-quoted string or "NULL". Applies light unescaping akin to Python's `unicode_escape`.
-fn parse_string(s: &str) -> Result<String> {
-    let mut s = s.trim().to_string();
-    if s == "NULL" {
+fn parse_string(value: &str) -> Result<String> {
+    let value = value.trim();
+    if value == "NULL" {
         return Ok(String::new());
     }
-    if s.ends_with("...") {
-        s.truncate(s.len() - 3);
-    }
-    if !(s.starts_with('"') && s.ends_with('"')) {
-        return Err(format!("expected quoted string, got: {s}"));
-    }
-    Ok(unescape_like_python(&s[1..s.len() - 1]))
-}
-
-fn unescape_like_python(s: &str) -> String {
-    // Simple \n \t \r \" \\ and \xHH \uXXXX \UXXXXXXXX handling; otherwise leave escapes as-is.
-    let mut out = String::with_capacity(s.len());
-    let b = s.as_bytes();
-    let mut i = 0;
-    while i < b.len() {
-        if b[i] != b'\\' {
-            out.push(b[i] as char);
-            i += 1;
+    let quoted = value
+        .strip_prefix('"')
+        .and_then(|value| value.strip_suffix('"'))
+        .ok_or_else(|| format!("expected complete quoted string, got: {value}"))?;
+    let mut decoded = Vec::with_capacity(quoted.len());
+    let mut bytes = quoted.bytes().peekable();
+    while let Some(byte) = bytes.next() {
+        if byte != b'\\' {
+            decoded.push(byte);
             continue;
         }
-        i += 1;
-        if i >= b.len() {
-            out.push('\\');
-            break;
-        }
-        match b[i] as char {
-            'n' => {
-                out.push('\n');
-                i += 1;
-            }
-            'r' => {
-                out.push('\r');
-                i += 1;
-            }
-            't' => {
-                out.push('\t');
-                i += 1;
-            }
-            '"' => {
-                out.push('"');
-                i += 1;
-            }
-            '\\' => {
-                out.push('\\');
-                i += 1;
-            }
-            'x' => {
-                i += 1;
-                if i + 1 < b.len() {
-                    if let Ok(v) = u8::from_str_radix(&s[i..i + 2], 16) {
-                        out.push(v as char);
-                        i += 2;
+        let escape = bytes.next().ok_or("incomplete string escape")?;
+        decoded.push(match escape {
+            b'n' => b'\n',
+            b'r' => b'\r',
+            b't' => b'\t',
+            b'b' => 8,
+            b'f' => 12,
+            b'v' => 11,
+            b'a' => 7,
+            b'"' => b'"',
+            b'\\' => b'\\',
+            b'0'..=b'7' => {
+                let mut value = u16::from(escape - b'0');
+                for _ in 0..2 {
+                    if bytes.peek().is_some_and(|byte| matches!(byte, b'0'..=b'7')) {
+                        value = value * 8 + u16::from(bytes.next().unwrap() - b'0');
                     } else {
-                        out.push_str("\\x");
+                        break;
                     }
-                } else {
-                    out.push_str("\\x");
                 }
+                u8::try_from(value).map_err(|_| "invalid octal escape")?
             }
-            'u' => {
-                i += 1;
-                if i + 3 < b.len() {
-                    if let Ok(v) = u32::from_str_radix(&s[i..i + 4], 16) {
-                        if let Some(ch) = char::from_u32(v) {
-                            out.push(ch);
-                            i += 4;
-                        } else {
-                            out.push_str("\\u");
-                        }
-                    } else {
-                        out.push_str("\\u");
-                    }
-                } else {
-                    out.push_str("\\u");
+            b'x' => {
+                let mut value = 0;
+                for _ in 0..2 {
+                    let digit = bytes
+                        .next()
+                        .and_then(|byte| char::from(byte).to_digit(16))
+                        .ok_or("invalid hexadecimal escape")?;
+                    value = value * 16 + digit as u8;
                 }
+                value
             }
-            'U' => {
-                i += 1;
-                if i + 7 < b.len() {
-                    if let Ok(v) = u32::from_str_radix(&s[i..i + 8], 16) {
-                        if let Some(ch) = char::from_u32(v) {
-                            out.push(ch);
-                            i += 8;
-                        } else {
-                            out.push_str("\\U");
-                        }
-                    } else {
-                        out.push_str("\\U");
-                    }
-                } else {
-                    out.push_str("\\U");
-                }
-            }
-            other => {
-                out.push('\\');
-                out.push(other);
-                i += 1;
-            }
-        }
+            _ => return Err(format!("unsupported string escape: {}", char::from(escape))),
+        });
     }
-    out
+    String::from_utf8(decoded).map_err(|_| "non-UTF-8 trace path".to_owned())
 }
 
-fn get_ret_file_path(ret: &str) -> Result<PathBuf> {
-    if is_ret_err(ret) {
-        return Err("get_ret_file_path on error code".into());
+fn returned_path(result: &str) -> Result<PathBuf> {
+    if failed_syscall(result) {
+        return Err("returned_path on error code".into());
     }
-    let ret = ret.trim();
-    let start = ret.find('<').ok_or("no < in ret")? + 1;
-    let end = ret.rfind('>').ok_or("no > in ret")?;
-    Ok(PathBuf::from(&ret[start..end]))
+    let result = result.trim();
+    let start = result.find('<').ok_or("no < in result")? + 1;
+    let end = result.rfind('>').ok_or("no > in result")?;
+    Ok(PathBuf::from(parse_string(&format!(
+        "\"{}\"",
+        &result[start..end]
+    ))?))
 }
 
-fn convert_absolute(cur_dir: &Path, path: &str) -> PathBuf {
+fn absolute_path(directory: &Path, path: &str) -> PathBuf {
     normalize_path(if is_absolute(path) {
         PathBuf::from(path)
     } else {
-        cur_dir.join(path)
+        directory.join(path)
     })
 }
 
-// ---------- RFile / WFile and their "closure" ----------
-
-#[derive(Clone)]
-struct RFile {
-    fname: PathBuf,
-}
-impl RFile {
-    fn new<P: Into<PathBuf>>(p: P) -> Self {
-        Self {
-            fname: normalize_path(p.into()),
-        }
-    }
-    fn closure(&self) -> Vec<FileRecord> {
-        let mut all = vec![FileRecord::Read(self.fname.clone())];
-        if self.fname.to_string_lossy().starts_with('/') {
-            let mut current = self.fname.clone();
-            let mut i = 0usize;
-            while current != Path::new("/") {
-                if let Some(dir) = current.parent() {
-                    all.push(FileRecord::Read(dir.to_path_buf()));
-                    current = dir.to_path_buf();
-                    i += 1;
-                    if i > 512 {
-                        break;
-                    }
-                } else {
-                    break;
-                }
-            }
-        }
-        all
-    }
-}
-
-#[derive(Clone)]
-struct WFile {
-    fname: PathBuf,
-}
-impl WFile {
-    fn new<P: Into<PathBuf>>(p: P) -> Self {
-        Self {
-            fname: normalize_path(p.into()),
-        }
-    }
-    fn closure(&self) -> Vec<FileRecord> {
-        let mut all = vec![FileRecord::Write(self.fname.clone())];
-        if self.fname.to_string_lossy().starts_with('/') {
-            let mut current = self.fname.clone();
-            let mut i = 0usize;
-            while current != Path::new("/") {
-                if let Some(dir) = current.parent() {
-                    all.push(FileRecord::Read(dir.to_path_buf())); // parents marked R (Python behavior)
-                    current = dir.to_path_buf();
-                    i += 1;
-                    if i > 512 {
-                        break;
-                    }
-                } else {
-                    break;
-                }
-            }
-        }
-        all
-    }
-}
-
-#[derive(Clone)]
+#[derive(Clone, Debug, Eq, PartialEq)]
 enum FileRecord {
     Read(PathBuf),
     Write(PathBuf),
 }
 
-// ---------- Context (cwd + unfinished/resumed + CLONE_FS groups) ----------
+impl FileRecord {
+    fn with_parents(self) -> Vec<Self> {
+        let path = match &self {
+            Self::Read(path) | Self::Write(path) => path,
+        };
+        let mut records = vec![self.clone()];
+        if path.is_absolute() {
+            records.extend(
+                path.ancestors()
+                    .skip(1)
+                    .map(|parent| Self::Read(parent.to_owned())),
+            );
+        }
+        records
+    }
+}
 
-#[derive(Default)]
 struct Context {
-    line_dict: HashMap<i32, String>,
-    curdir_dict: HashMap<i32, PathBuf>,
-    pid_group_dict: HashMap<i32, i32>,
-    curdir_fallback: PathBuf,
+    unfinished: HashMap<i32, String>,
+    directories: HashMap<i32, Rc<RefCell<PathBuf>>>,
+    initial_directory: PathBuf,
 }
 
 impl Context {
     fn new() -> Self {
         Self {
-            curdir_fallback: std::env::current_dir().unwrap_or_else(|_| PathBuf::from("/")),
-            ..Default::default()
+            unfinished: HashMap::new(),
+            directories: HashMap::new(),
+            initial_directory: std::env::current_dir().unwrap_or_else(|_| PathBuf::from("/")),
         }
     }
 
-    fn do_clone(&mut self, parent: i32, child: i32) {
-        self.pid_group_dict.insert(child, parent);
+    fn clone_process(&mut self, parent: i32, child: i32, shared_directory: bool) {
+        let directory = self.get_dir(parent);
+        let directory = if shared_directory {
+            Rc::clone(self.directories.get(&parent).unwrap())
+        } else {
+            Rc::new(RefCell::new(directory))
+        };
+        self.directories.insert(child, directory);
     }
 
-    fn set_dir(&mut self, path: PathBuf, pid: Option<i32>) {
-        self.curdir_fallback = path.clone();
-        let mut k = pid;
-        if let Some(p) = pid {
-            if let Some(&leader) = self.pid_group_dict.get(&p) {
-                k = Some(leader);
-            }
-        }
-        if let Some(key) = k {
-            self.curdir_dict.insert(key, path);
-        }
+    fn set_dir(&mut self, path: PathBuf, pid: i32) {
+        self.get_dir(pid);
+        *self.directories.get(&pid).unwrap().borrow_mut() = path;
     }
 
     fn get_dir(&mut self, pid: i32) -> PathBuf {
-        let k = self.pid_group_dict.get(&pid).copied().unwrap_or(pid);
-        self.curdir_dict
-            .entry(k)
-            .or_insert_with(|| self.curdir_fallback.clone());
-        self.curdir_dict.get(&k).unwrap().clone()
+        self.directories
+            .entry(pid)
+            .or_insert_with(|| Rc::new(RefCell::new(self.initial_directory.clone())))
+            .borrow()
+            .clone()
     }
 
-    fn push_half_line(&mut self, pid: i32, l: &str) {
-        if let Some(idx) = l.find("<unfinished") {
-            self.line_dict.insert(pid, l[..idx].trim().to_string());
+    fn push_half_line(&mut self, pid: i32, line: &str) {
+        if let Some(offset) = line.find("<unfinished") {
+            self.unfinished.insert(pid, line[..offset].trim().to_owned());
         }
     }
 
-    fn pop_complete_line(&mut self, pid: i32, l: &str) -> Option<String> {
-        let idx = l.find("resumed>")? + "resumed>".len();
-        let head = self.line_dict.remove(&pid)?;
-        Some(format!("{}{}", head, l[idx..].trim()))
+    fn pop_complete_line(&mut self, pid: i32, line: &str) -> Option<String> {
+        let offset = line.find("resumed>")? + "resumed>".len();
+        let prefix = self.unfinished.remove(&pid)?;
+        Some(format!("{prefix}{}", line[offset..].trim()))
     }
 }
 
-// ---------- syscall group membership (no lazy statics) ----------
-
-fn is_r_first_path(s: &str) -> bool {
+fn reads_first_path(value: &str) -> bool {
     matches!(
-        s,
+        value,
         "execve"
             | "stat"
             | "lstat"
@@ -373,9 +268,9 @@ fn is_r_first_path(s: &str) -> bool {
             | "llistxattr"
     )
 }
-fn is_w_first_path(s: &str) -> bool {
+fn writes_first_path(value: &str) -> bool {
     matches!(
-        s,
+        value,
         "mkdir"
             | "rmdir"
             | "truncate"
@@ -392,9 +287,9 @@ fn is_w_first_path(s: &str) -> bool {
             | "removexattr"
     )
 }
-fn is_r_fd_path(s: &str) -> bool {
+fn reads_descriptor_path(value: &str) -> bool {
     matches!(
-        s,
+        value,
         "fstatat"
             | "newfstatat"
             | "statx"
@@ -405,377 +300,456 @@ fn is_r_fd_path(s: &str) -> bool {
             | "faccessat2"
     )
 }
-fn is_w_fd_path(s: &str) -> bool {
+fn writes_descriptor_path(value: &str) -> bool {
     matches!(
-        s,
-        "unlinkat" | "utimensat" | "mkdirat" | "mknodat" | "fchownat" | "futimeat" | "linkat" | "fchmodat"
+        value,
+        "unlinkat" | "utimensat" | "mkdirat" | "mknodat" | "fchownat" | "futimeat" | "fchmodat" | "fchmodat2"
     )
 }
-fn is_ignored(s: &str) -> bool {
-    matches!(s, "getpid" | "getcwd")
-}
-
-// ---------- parsing primitives ----------
-
 fn strip_pid(line: &str) -> Result<(i32, &str)> {
     let line = line.trim();
-    let (pid_str, rest) = line.split_once(' ').ok_or("expect pid")?;
-    let pid = pid_str.parse::<i32>().map_err(|_| "expect pid".to_string())?;
+    let (process_id, rest) = line.split_once(' ').ok_or("expect pid")?;
+    let pid = process_id.parse::<i32>().map_err(|_| "expect pid".to_string())?;
     Ok((pid, rest))
 }
 
-fn handle_info(l: &str) -> (bool, Option<i32>) {
-    if l.ends_with("+++") {
-        if let Some(s) = l.strip_prefix("+++ exited with ") {
-            if let Some(s2) = s.strip_suffix(" +++") {
-                if let Ok(code) = s2.trim().parse::<i32>() {
-                    return (true, Some(code));
-                }
-            }
-        }
-        if l.contains("killed") {
-            return (true, Some(-1));
-        }
-        (true, None)
-    } else if l.ends_with("---") {
-        (true, None)
+fn first_path(pid: i32, arguments: &str, context: &mut Context) -> Result<PathBuf> {
+    let first = split_args(arguments).first().cloned().ok_or("no arg")?;
+    let path = parse_string(&first)?;
+    Ok(absolute_path(&context.get_dir(pid), &path))
+}
+
+fn write_first_path(pid: i32, arguments: &str, result: &str, context: &mut Context) -> Result<FileRecord> {
+    let path = first_path(pid, arguments, context)?;
+    Ok(if failed_syscall(result) {
+        FileRecord::Read(path)
     } else {
-        (false, None)
-    }
-}
-
-fn get_path_first_path(pid: i32, args: &str, ctx: &mut Context) -> Result<PathBuf> {
-    let first = split_args(args).get(0).cloned().ok_or("no arg")?;
-    let a = parse_string(&first)?;
-    Ok(convert_absolute(&ctx.get_dir(pid), &a))
-}
-
-fn parse_r_first_path(pid: i32, args: &str, _ret: &str, ctx: &mut Context) -> Option<RFile> {
-    match get_path_first_path(pid, args, ctx) {
-        Ok(p) => Some(RFile::new(p)),
-        Err(_) => None,
-    }
-}
-
-fn parse_w_first_path(pid: i32, args: &str, ret: &str, ctx: &mut Context) -> Option<FileRecord> {
-    match get_path_first_path(pid, args, ctx) {
-        Ok(p) => {
-            if is_ret_err(ret) {
-                Some(FileRecord::Read(p))
-            } else {
-                Some(FileRecord::Write(p))
-            }
-        }
-        Err(_) => None,
-    }
-}
-
-fn get_path_at(pid: i32, positions: &[usize], args: &str, ctx: &mut Context) -> Result<Vec<PathBuf>> {
-    let parts = split_args(args);
-    let mut out = Vec::new();
-    for &pos in positions {
-        if let Some(x) = parts.get(pos) {
-            let s = parse_string(x)?;
-            out.push(convert_absolute(&ctx.get_dir(pid), &s));
-        }
-    }
-    Ok(out)
-}
-
-fn parse_rename(pid: i32, args: &str, _ret: &str, ctx: &mut Context) -> Result<Vec<FileRecord>> {
-    let v = get_path_at(pid, &[0, 1], args, ctx)?;
-    if v.len() == 2 {
-        Ok(vec![
-            FileRecord::Write(v[0].clone()),
-            FileRecord::Write(v[1].clone()),
-        ])
-    } else {
-        Ok(vec![])
-    }
-}
-
-fn parse_link(pid: i32, args: &str, _ret: &str, ctx: &mut Context) -> Result<Vec<FileRecord>> {
-    let v = get_path_at(pid, &[0, 1], args, ctx)?;
-    if v.len() == 2 {
-        Ok(vec![
-            FileRecord::Read(v[0].clone()),
-            FileRecord::Write(v[1].clone()),
-        ])
-    } else {
-        Ok(vec![])
-    }
-}
-
-fn parse_chdir(pid: i32, args: &str, ret: &str, ctx: &mut Context) -> Result<Option<RFile>> {
-    let new_path = get_path_first_path(pid, args, ctx)?;
-    if !is_ret_err(ret) {
-        ctx.set_dir(new_path.clone(), Some(pid));
-    }
-    Ok(Some(RFile::new(new_path)))
-}
-
-fn handle_open_flag(flags: &str) -> &'static str {
-    if flags.contains("O_RDONLY") { "r" } else { "w" }
-}
-
-fn handle_open_common(total_path: PathBuf, flags: &str, ret: &str) -> Result<Vec<FileRecord>> {
-    if is_ret_err(ret) {
-        Ok(vec![FileRecord::Read(total_path)])
-    } else if handle_open_flag(flags) == "r" {
-        Ok(vec![
-            FileRecord::Read(total_path),
-            FileRecord::Read(get_ret_file_path(ret)?),
-        ])
-    } else {
-        Ok(vec![
-            FileRecord::Write(total_path),
-            FileRecord::Write(get_ret_file_path(ret)?),
-        ])
-    }
-}
-
-fn parse_openat(args: &str, ret: &str) -> Result<Vec<FileRecord>> {
-    let parts = split_args(args); // bind to extend lifetime
-    if parts.len() < 2 {
-        return Ok(vec![]);
-    }
-    let dfd = &parts[0];
-    let path = parse_string(&parts[1]).unwrap_or_default();
-    if path.is_empty() {
-        return Ok(vec![]);
-    }
-    let total_path = if is_absolute(&path) {
-        PathBuf::from(path)
-    } else if let Some(inside) = extract_between(dfd, "<", ">") {
-        normalize_path(Path::new(inside).join(path))
-    } else {
-        PathBuf::from(path)
-    };
-    let flags = parts.get(2).map(|s| s.as_str()).unwrap_or("");
-    handle_open_common(total_path, flags, ret)
-}
-
-fn parse_open(pid: i32, args: &str, ret: &str, ctx: &mut Context) -> Result<Vec<FileRecord>> {
-    let total_path = match get_path_first_path(pid, args, ctx) {
-        Ok(p) => p,
-        Err(_) => return Ok(vec![]),
-    };
-    let parts = split_args(args); // bind to extend lifetime
-    let flags = parts.get(1).map(|s| s.as_str()).unwrap_or("");
-    handle_open_common(total_path, flags, ret)
-}
-
-fn get_path_from_fd_path(args: &str) -> Result<PathBuf> {
-    let parts = split_args(args);
-    let a0 = parts.get(0).cloned().unwrap_or_default();
-    let a1 = parts.get(1).cloned().unwrap_or_default();
-    let a1s = parse_string(&a1)?;
-    if !a1s.is_empty() && is_absolute(&a1s) {
-        return Ok(normalize_path(a1s));
-    }
-    let pwd = extract_between(&a0, "<", ">").unwrap_or("");
-    Ok(normalize_path(Path::new(pwd).join(a1s)))
-}
-
-fn parse_renameat(_pid: i32, args: &str, _ret: &str, _ctx: &mut Context) -> Result<Vec<FileRecord>> {
-    let path_a = get_path_from_fd_path(args)?;
-    let rest = split_args(args).into_iter().skip(2).collect::<Vec<_>>().join(",");
-    let path_b = get_path_from_fd_path(&rest)?;
-    Ok(vec![FileRecord::Write(path_a), FileRecord::Write(path_b)])
-}
-
-fn parse_r_fd_path(args: &str, _ret: &str) -> Result<RFile> {
-    Ok(RFile::new(get_path_from_fd_path(args)?))
-}
-fn parse_w_fd_path(args: &str, ret: &str) -> Result<FileRecord> {
-    let p = get_path_from_fd_path(args)?;
-    Ok(if is_ret_err(ret) {
-        FileRecord::Read(p)
-    } else {
-        FileRecord::Write(p)
+        FileRecord::Write(path)
     })
 }
 
-fn has_clone_fs(flags: &str) -> bool {
-    // flags look like flags=CLONE_FS|CLONE_SIGHAND|...
-    flags.split('|').any(|f| f.trim() == "CLONE_FS")
-}
-
-fn parse_clone(pid: i32, args: &str, ret: &str, ctx: &mut Context) -> Result<()> {
-    let child: i32 = ret.trim().parse().unwrap_or(-1);
-    if child < 0 {
-        return Ok(());
+fn path_arguments(
+    pid: i32,
+    positions: &[usize],
+    arguments: &str,
+    context: &mut Context,
+) -> Result<Vec<PathBuf>> {
+    let parts = split_args(arguments);
+    let mut output = Vec::new();
+    for &position in positions {
+        let argument = parts.get(position).ok_or("missing path argument")?;
+        let value = parse_string(argument)?;
+        output.push(absolute_path(&context.get_dir(pid), &value));
     }
-    if let Some(idx) = args.find("flags=") {
-        let flags = &args[idx + "flags=".len()..];
-        if has_clone_fs(flags) {
-            ctx.do_clone(pid, child);
-        }
+    Ok(output)
+}
+
+fn parse_rename(pid: i32, arguments: &str, result: &str, context: &mut Context) -> Result<Vec<FileRecord>> {
+    Ok(path_arguments(pid, &[0, 1], arguments, context)?
+        .into_iter()
+        .map(|path| {
+            if failed_syscall(result) {
+                FileRecord::Read(path)
+            } else {
+                FileRecord::Write(path)
+            }
+        })
+        .collect())
+}
+
+fn parse_link(pid: i32, arguments: &str, result: &str, context: &mut Context) -> Result<Vec<FileRecord>> {
+    let paths = path_arguments(pid, &[0, 1], arguments, context)?;
+    Ok(vec![
+        FileRecord::Read(paths[0].clone()),
+        if failed_syscall(result) {
+            FileRecord::Read(paths[1].clone())
+        } else {
+            FileRecord::Write(paths[1].clone())
+        },
+    ])
+}
+
+fn parse_chdir(pid: i32, arguments: &str, result: &str, context: &mut Context) -> Result<PathBuf> {
+    let new_path = first_path(pid, arguments, context)?;
+    if !failed_syscall(result) {
+        context.set_dir(new_path.clone(), pid);
     }
-    Ok(())
+    Ok(normalize_path(new_path))
 }
 
-fn parse_symlinkat(_pid: i32, args: &str, ret: &str) -> Result<FileRecord> {
-    let (_a0, rest) = take_first_arg(args);
-    parse_w_fd_path(&rest, ret)
-}
-fn parse_symlink(pid: i32, args: &str, ret: &str, ctx: &mut Context) -> Result<Option<FileRecord>> {
-    let (_a0, rest) = take_first_arg(args);
-    Ok(parse_w_first_path(pid, &rest, ret, ctx))
-}
-fn parse_inotify_add_watch(pid: i32, args: &str, ret: &str, ctx: &mut Context) -> Result<Option<RFile>> {
-    let (_fd, rest) = take_first_arg(args);
-    Ok(parse_r_first_path(pid, &rest, ret, ctx))
+fn handle_open_common(path: PathBuf, flags: &str, result: &str) -> Result<Vec<FileRecord>> {
+    if failed_syscall(result) {
+        return Ok(vec![FileRecord::Read(path)]);
+    }
+    let written = ["O_WRONLY", "O_RDWR", "O_TRUNC", "O_CREAT", "O_TMPFILE"]
+        .iter()
+        .any(|flag| flags.contains(flag));
+    Ok([path, returned_path(result)?]
+        .into_iter()
+        .map(|path| {
+            if written {
+                FileRecord::Write(path)
+            } else {
+                FileRecord::Read(path)
+            }
+        })
+        .collect())
 }
 
-// ---------- syscall router ----------
+fn parse_openat(pid: i32, arguments: &str, result: &str, context: &mut Context) -> Result<Vec<FileRecord>> {
+    let parts = split_args(arguments);
+    if parts.len() < 3 {
+        return Err("incomplete openat arguments".to_owned());
+    }
+    let total_path = descriptor_path(pid, arguments, context)?;
+    let flags = parts.get(2).map(String::as_str).unwrap_or("");
+    handle_open_common(total_path, flags, result)
+}
+
+fn parse_open(pid: i32, arguments: &str, result: &str, context: &mut Context) -> Result<Vec<FileRecord>> {
+    let total_path = first_path(pid, arguments, context)?;
+    let parts = split_args(arguments);
+    let flags = parts.get(1).map(String::as_str).unwrap_or("");
+    handle_open_common(total_path, flags, result)
+}
+
+fn descriptor_path(pid: i32, arguments: &str, context: &mut Context) -> Result<PathBuf> {
+    let parts = split_args(arguments);
+    let descriptor = parts.first().cloned().unwrap_or_default();
+    let quoted_path = parts.get(1).cloned().unwrap_or_default();
+    let path = parse_string(&quoted_path)?;
+    if !path.is_empty() && is_absolute(&path) {
+        return Ok(normalize_path(path));
+    }
+    let base = match delimited_value(&descriptor, "<", ">") {
+        Some(path) => PathBuf::from(parse_string(&format!("\"{path}\""))?),
+        None if descriptor == "AT_FDCWD" => context.get_dir(pid),
+        None => return Err(format!("unresolved directory descriptor: {descriptor}")),
+    };
+    Ok(normalize_path(base.join(path)))
+}
+
+fn parse_renameat(pid: i32, arguments: &str, result: &str, context: &mut Context) -> Result<Vec<FileRecord>> {
+    let path_a = descriptor_path(pid, arguments, context)?;
+    let rest = split_args(arguments)
+        .into_iter()
+        .skip(2)
+        .collect::<Vec<_>>()
+        .join(",");
+    let path_b = descriptor_path(pid, &rest, context)?;
+    Ok(if failed_syscall(result) {
+        vec![FileRecord::Read(path_a), FileRecord::Read(path_b)]
+    } else {
+        vec![FileRecord::Write(path_a), FileRecord::Write(path_b)]
+    })
+}
+
+fn write_descriptor_path(
+    pid: i32,
+    arguments: &str,
+    result: &str,
+    context: &mut Context,
+) -> Result<FileRecord> {
+    let path = descriptor_path(pid, arguments, context)?;
+    Ok(if failed_syscall(result) {
+        FileRecord::Read(path)
+    } else {
+        FileRecord::Write(path)
+    })
+}
+
+fn parse_clone(pid: i32, arguments: &str, result: &str, context: &mut Context) {
+    if let Ok(child) = result.trim().parse::<i32>()
+        && child > 0
+    {
+        let shared_directory = arguments
+            .split(|character: char| !character.is_ascii_alphanumeric() && character != '_')
+            .any(|flag| flag == "CLONE_FS");
+        context.clone_process(pid, child, shared_directory);
+    }
+}
+
+fn parse_symlinkat(pid: i32, arguments: &str, result: &str, context: &mut Context) -> Result<FileRecord> {
+    let (_, rest) = take_first_arg(arguments);
+    write_descriptor_path(pid, &rest, result, context)
+}
+fn parse_symlink(pid: i32, arguments: &str, result: &str, context: &mut Context) -> Result<FileRecord> {
+    let (_, rest) = take_first_arg(arguments);
+    write_first_path(pid, &rest, result, context)
+}
+fn parse_inotify_add_watch(pid: i32, arguments: &str, context: &mut Context) -> Result<PathBuf> {
+    let (_fd, rest) = take_first_arg(arguments);
+    first_path(pid, &rest, context)
+}
 
 fn parse_syscall(
     pid: i32,
     syscall: &str,
-    args: &str,
-    ret: &str,
-    ctx: &mut Context,
+    arguments: &str,
+    result: &str,
+    context: &mut Context,
 ) -> Result<Vec<FileRecord>> {
-    if is_r_first_path(syscall) {
-        if let Some(rf) = parse_r_first_path(pid, args, ret, ctx) {
-            return Ok(vec![FileRecord::Read(rf.fname)]);
-        }
-        return Ok(vec![]);
+    if reads_first_path(syscall) {
+        return Ok(vec![FileRecord::Read(first_path(pid, arguments, context)?)]);
     }
-    if is_w_first_path(syscall) {
-        if let Some(fr) = parse_w_first_path(pid, args, ret, ctx) {
-            return Ok(vec![fr]);
-        }
-        return Ok(vec![]);
+    if writes_first_path(syscall) {
+        return Ok(vec![write_first_path(pid, arguments, result, context)?]);
     }
 
     match syscall {
-        "openat" => parse_openat(args, ret),
-        "chdir" => Ok(parse_chdir(pid, args, ret, ctx)?
-            .map(|rf| FileRecord::Read(rf.fname))
-            .into_iter()
-            .collect()),
-        "open" => parse_open(pid, args, ret, ctx),
-        s if is_r_fd_path(s) => Ok(vec![FileRecord::Read(parse_r_fd_path(args, ret)?.fname)]),
-        s if is_w_fd_path(s) => Ok(vec![parse_w_fd_path(args, ret)?]),
-        "rename" => parse_rename(pid, args, ret, ctx),
-        "renameat" | "renameat2" => parse_renameat(pid, args, ret, ctx),
-        "symlinkat" => Ok(vec![parse_symlinkat(pid, args, ret)?]),
-        "symlink" | "link" => Ok(parse_symlink(pid, args, ret, ctx)?.into_iter().collect()),
-        "clone" => {
-            parse_clone(pid, args, ret, ctx)?;
+        "openat" | "openat2" => parse_openat(pid, arguments, result, context),
+        "chdir" => Ok(vec![FileRecord::Read(parse_chdir(
+            pid, arguments, result, context,
+        )?)]),
+        "open" => parse_open(pid, arguments, result, context),
+        value if reads_descriptor_path(value) => {
+            Ok(vec![FileRecord::Read(descriptor_path(pid, arguments, context)?)])
+        }
+        value if writes_descriptor_path(value) => {
+            Ok(vec![write_descriptor_path(pid, arguments, result, context)?])
+        }
+        "rename" => parse_rename(pid, arguments, result, context),
+        "renameat" | "renameat2" => parse_renameat(pid, arguments, result, context),
+        "symlinkat" => Ok(vec![parse_symlinkat(pid, arguments, result, context)?]),
+        "linkat" => {
+            let source = descriptor_path(pid, arguments, context)?;
+            let destination_arguments = split_args(arguments)
+                .into_iter()
+                .skip(2)
+                .collect::<Vec<_>>()
+                .join(",");
+            Ok(vec![
+                FileRecord::Read(source),
+                write_descriptor_path(pid, &destination_arguments, result, context)?,
+            ])
+        }
+        "link" => parse_link(pid, arguments, result, context),
+        "symlink" => Ok(vec![parse_symlink(pid, arguments, result, context)?]),
+        "clone" | "clone3" | "fork" | "vfork" => {
+            parse_clone(pid, arguments, result, context);
             Ok(vec![])
         }
-        "inotify_add_watch" => Ok(parse_inotify_add_watch(pid, args, ret, ctx)?
-            .map(|rf| FileRecord::Read(rf.fname))
-            .into_iter()
-            .collect()),
-        s if is_ignored(s) => Ok(vec![]),
-        other => Ok(vec![]),
+        "inotify_add_watch" => Ok(vec![FileRecord::Read(parse_inotify_add_watch(
+            pid, arguments, context,
+        )?)]),
+        "getpid" | "getcwd" => Ok(vec![]),
+        _ => Err(format!("unsupported syscall: {syscall}")),
     }
 }
 
-fn parse_line(l: &str, ctx: &mut Context) -> Result<Option<Vec<FileRecord>>> {
-    let ll = l.trim();
-    if ll.is_empty() {
+fn syscall_fields(line: &str) -> Result<(&str, &str, &str)> {
+    let opening = line.find('(').ok_or("missing syscall arguments")?;
+    let mut quoted = false;
+    let mut escaped = false;
+    let mut angle_depth = 0usize;
+    let mut parentheses = 1usize;
+    for (offset, byte) in line.bytes().enumerate().skip(opening + 1) {
+        if quoted && escaped {
+            escaped = false;
+            continue;
+        }
+        if quoted && byte == b'\\' {
+            escaped = true;
+            continue;
+        }
+        if byte == b'"' && angle_depth == 0 {
+            quoted = !quoted;
+            continue;
+        }
+        if quoted {
+            continue;
+        }
+        match byte {
+            b'<' => angle_depth += 1,
+            b'>' => angle_depth = angle_depth.saturating_sub(1),
+            b'(' if angle_depth == 0 => parentheses += 1,
+            b')' if angle_depth == 0 => {
+                parentheses -= 1;
+                if parentheses == 0 {
+                    let result = line[offset + 1..]
+                        .trim_start()
+                        .strip_prefix('=')
+                        .ok_or("missing syscall result")?;
+                    return Ok((&line[..opening], &line[opening + 1..offset], result.trim()));
+                }
+            }
+            _ => {}
+        }
+    }
+    Err("incomplete syscall record".to_owned())
+}
+
+fn parse_line(line: &str, context: &mut Context) -> Result<Option<Vec<FileRecord>>> {
+    let trimmed = line.trim();
+    if trimmed.is_empty() {
         return Ok(Some(vec![]));
     }
-    let (pid, rest) = strip_pid(ll)?;
-    let (is_info, _exit_opt) = handle_info(rest);
-    if is_info {
+    let (pid, rest) = strip_pid(trimmed)?;
+    if rest.ends_with("+++") || rest.ends_with("---") {
         return Ok(None);
     }
 
     let mut line = rest.to_string();
-    if line.contains("<unfinished") {
-        ctx.push_half_line(pid, &line);
+    if line.ends_with("<unfinished ...>") {
+        context.push_half_line(pid, &line);
         return Ok(Some(vec![]));
-    } else if line.contains("resumed>") {
-        if let Some(total) = ctx.pop_complete_line(pid, &line) {
-            line = total;
-        }
+    } else if line.starts_with("<... ") {
+        line = context
+            .pop_complete_line(pid, &line)
+            .ok_or("resumed syscall without entry")?;
     }
     line = line.trim().to_owned();
 
-    let lparen = match line.find('(') {
-        Some(i) => i,
-        None => return Ok(Some(vec![])),
-    };
-    let equals = match line.rfind('=') {
-        Some(i) => i,
-        None => return Ok(Some(vec![])),
-    };
-    let rparen = match line[..equals].rfind(')') {
-        Some(i) => i,
-        None => return Ok(Some(vec![])),
-    };
-    let syscall = &line[..lparen];
-    let args = &line[lparen + 1..rparen];
-    let ret = &line[equals + 1..];
+    let (syscall, arguments, result) = syscall_fields(&line)?;
 
-    parse_syscall(pid, syscall, args, ret, ctx).map(Some)
+    parse_syscall(pid, syscall, arguments, result, context).map(Some)
 }
 
-fn parse_and_gather_cmd_rw_sets(
-    lines: &[String],
-    ctx: &mut Context,
-) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
-    let mut read_set = HashSet::<PathBuf>::new();
-    let mut write_set = HashSet::<PathBuf>::new();
-
-    for l in lines {
-        let recs_opt = parse_line(l, ctx)?;
-        if let Some(recs) = recs_opt {
-            // filter like Python
-            let filtered = recs.into_iter().filter(|r| {
-                let p = match r {
-                    FileRecord::Read(p) | FileRecord::Write(p) => p,
-                };
-                let s = p.to_string_lossy();
-                !(s.starts_with("/tmp/pash_spec") || s.starts_with("/dev"))
-            });
-            for rec in filtered {
-                let closure: Vec<FileRecord> = match &rec {
-                    FileRecord::Read(p) => RFile::new(p.clone()).closure(),
-                    FileRecord::Write(p) => WFile::new(p.clone()).closure(),
-                };
-                for c in closure {
-                    match c {
-                        FileRecord::Read(p) => {
-                            if p.to_string_lossy() != "/dev/tty" {
-                                read_set.insert(p);
-                            }
-                        }
-                        FileRecord::Write(p) => {
-                            if p.to_string_lossy() != "/dev/tty" {
-                                write_set.insert(p);
-                            }
-                        }
-                    };
+fn gather_dependencies(lines: &str, context: &mut Context) -> crate::execution::Trace {
+    let mut trace = crate::execution::Trace::default();
+    for line in lines.lines() {
+        let records = match parse_line(line, context) {
+            Ok(Some(records)) => records,
+            Ok(None) => continue,
+            Err(reason) => {
+                trace.replay_barriers.push(reason);
+                continue;
+            }
+        };
+        for record in records {
+            let path = match &record {
+                FileRecord::Read(path) | FileRecord::Write(path) => path,
+            };
+            if path.starts_with("/dev") || path.starts_with("/tmp/pash_spec") {
+                continue;
+            }
+            for record in record.with_parents() {
+                match record {
+                    FileRecord::Read(path) => {
+                        trace.reads.insert(path);
+                    }
+                    FileRecord::Write(path) => {
+                        trace.writes.insert(path);
+                    }
                 }
             }
         }
     }
-
-    for entry in &write_set {
-        read_set.insert(entry.to_owned());
+    trace.reads.extend(trace.writes.iter().cloned());
+    if !context.unfinished.is_empty() {
+        trace.replay_barriers.push("unfinished syscalls".to_owned());
     }
-
-    Ok((read_set, write_set))
+    trace.replay_barriers.sort();
+    trace.replay_barriers.dedup();
+    trace
 }
 
-// ---------- public entry point ----------
+pub(crate) fn parse_trace(trace_path: &Path) -> anyhow::Result<crate::execution::Trace> {
+    let data = fs::read_to_string(trace_path)?;
+    Ok(gather_dependencies(&data, &mut Context::new()))
+}
 
-/// Read a trace file and return (read_set, write_set), both as `HashSet<PathBuf>`.
-pub fn parse_trace(trace_path: &Path) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
-    let data = fs::read_to_string(trace_path).map_err(|e| format!("read {:?}: {e}", trace_path))?;
-    let lines: Vec<String> = data.lines().map(|s| s.to_string()).collect();
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-    let mut ctx = Context::new();
-    // match Python: seed context cwd to current process cwd
-    let cwd = std::env::current_dir().unwrap_or_else(|_| PathBuf::from("/"));
-    ctx.set_dir(cwd, None);
+    fn parse(lines: &str) -> crate::execution::Trace {
+        let mut context = Context::new();
+        context.initial_directory = PathBuf::from("/start");
+        gather_dependencies(lines, &mut context)
+    }
 
-    parse_and_gather_cmd_rw_sets(&lines, &mut ctx)
+    #[test]
+    fn strings_preserve_utf8_and_c_escapes() {
+        for spelling in [r#""café""#, r#""caf\303\251""#, r#""caf\xc3\xa9""#] {
+            assert_eq!(parse_string(spelling).unwrap(), "café");
+        }
+        assert_eq!(parse_string(r#""a\",b\\c\n""#).unwrap(), "a\",b\\c\n");
+        assert!(parse_string(r#""truncated"..."#).is_err());
+        assert!(parse_string(r#""\377""#).is_err());
+    }
+
+    #[test]
+    fn quoted_commas_arrays_and_structures_stay_in_their_arguments() {
+        let arguments = split_args(r#""a\",b", [1, 2], {flags=O_RDONLY, mode=0}"#);
+        assert_eq!(arguments, [r#""a\",b""#, "[1, 2]", "{flags=O_RDONLY, mode=0}"]);
+        let trace = parse(r#"1 openat(AT_FDCWD, "a\",b", O_RDONLY) = 3</start/a",b>"#);
+        assert!(trace.replay_barriers.is_empty(), "{:?}", trace.replay_barriers);
+        assert!(trace.reads.contains(Path::new("/start/a\",b")));
+    }
+
+    #[test]
+    fn returned_paths_can_contain_syscall_delimiters() {
+        let trace = parse(r#"1 openat(AT_FDCWD, "file)=name", O_RDONLY) = 3</start/file)=name>"#);
+        assert!(trace.replay_barriers.is_empty());
+        assert!(trace.reads.contains(Path::new("/start/file)=name")));
+    }
+
+    #[test]
+    fn forked_directories_are_copied_and_clone_fs_directories_are_shared() {
+        let trace = parse(
+            r#"1 chdir("/parent") = 0
+1 clone(flags=SIGCHLD) = 2
+2 chdir("child") = 0
+1 stat("parent-file", {}) = 0
+2 clone(flags=CLONE_FS|SIGCHLD) = 3
+3 clone(flags=CLONE_FS|SIGCHLD) = 4
+4 chdir("shared") = 0
+2 newfstatat(AT_FDCWD, "child-file", {}, 0) = 0
+3 newfstatat(AT_FDCWD, "peer-file", {}, 0) = 0"#,
+        );
+        assert!(trace.replay_barriers.is_empty(), "{:?}", trace.replay_barriers);
+        for path in [
+            "/parent/parent-file",
+            "/parent/child/shared/child-file",
+            "/parent/child/shared/peer-file",
+        ] {
+            assert!(trace.reads.contains(Path::new(path)), "{path}");
+        }
+    }
+
+    #[test]
+    fn failed_renames_are_reads_and_links_track_both_paths() {
+        let trace = parse(
+            r#"1 rename("missing", "destination") = -1 ENOENT (No such file or directory)
+1 link("source", "alias") = 0
+1 linkat(AT_FDCWD, "source", AT_FDCWD, "other-alias", 0) = 0"#,
+        );
+        assert!(trace.replay_barriers.is_empty());
+        assert_eq!(
+            trace.writes,
+            [PathBuf::from("/start/alias"), PathBuf::from("/start/other-alias")].into()
+        );
+        for path in ["/start/missing", "/start/destination", "/start/source"] {
+            assert!(trace.reads.contains(Path::new(path)), "{path}");
+        }
+    }
+
+    #[test]
+    fn readonly_create_is_a_write_and_parent_components_are_preserved() {
+        let trace = parse(
+            r#"1 openat(AT_FDCWD, "created", O_RDONLY|O_CREAT, 0666) = 3</start/created>
+1 newfstatat(AT_FDCWD, "link/../input", {}, 0) = 0"#,
+        );
+        assert!(trace.replay_barriers.is_empty());
+        assert!(trace.writes.contains(Path::new("/start/created")));
+        assert!(trace.reads.contains(Path::new("/start/link/../input")));
+    }
+
+    #[test]
+    fn unfinished_calls_resume_and_incomplete_records_block_reuse() {
+        let trace = parse(
+            r#"1 openat(AT_FDCWD, "input", O_RDONLY <unfinished ...>
+1 <... openat resumed>) = 3</start/input>"#,
+        );
+        assert!(trace.replay_barriers.is_empty());
+        assert!(trace.reads.contains(Path::new("/start/input")));
+        for line in [
+            r#"1 openat(AT_FDCWD, "input", O_RDONLY <unfinished ...>"#,
+            r#"1 openat(AT_FDCWD, "truncated"..., O_RDONLY) = -1 ENOENT"#,
+            "1 unknown_file_operation(1) = 0",
+        ] {
+            assert!(!parse(line).replay_barriers.is_empty(), "{line}");
+        }
+    }
 }
