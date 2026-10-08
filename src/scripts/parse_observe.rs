@@ -4,22 +4,38 @@ use crate::config::OBSERVE_READ_EXCLUDED_PATHS;
 use crate::execution::Trace;
 use anyhow::{Context, Result};
 use serde::Deserialize;
-use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 
 #[derive(Deserialize)]
 struct Report {
     dependency_version: u32,
     replay_barriers: Vec<String>,
-    dependencies: HashMap<PathBuf, ObservedDependency>,
-    reads: Vec<PathBuf>,
+    dependencies: Vec<Dependency>,
+    reads: Vec<ReportPath>,
     writes: Vec<Write>,
+}
+
+#[derive(Deserialize)]
+struct ReportPath(#[serde(with = "crate::ops::unix_path")] PathBuf);
+
+#[derive(Deserialize)]
+struct Dependency {
+    #[serde(with = "crate::ops::unix_path")]
+    path: PathBuf,
+    #[serde(flatten)]
+    state: ObservedDependency,
 }
 
 #[derive(Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
 enum ObservedDependency {
     Absent,
+    ParentDirectory {
+        mode: u32,
+        uid: u32,
+        gid: u32,
+        access: u8,
+    },
     File {
         device: u64,
         inode: u64,
@@ -36,6 +52,7 @@ enum ObservedDependency {
         mode: u32,
     },
     Symlink {
+        #[serde(with = "crate::ops::unix_path")]
         target: PathBuf,
         modified: u64,
         changed_sec: i64,
@@ -48,14 +65,18 @@ enum ObservedDependency {
 #[derive(Deserialize)]
 #[serde(untagged)]
 enum Write {
-    Path(PathBuf),
-    Hashed { path: PathBuf, pre_hash: Option<String> },
+    Path(#[serde(with = "crate::ops::unix_path")] PathBuf),
+    Hashed {
+        #[serde(with = "crate::ops::unix_path")]
+        path: PathBuf,
+        pre_hash: Option<String>,
+    },
 }
 
 pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
     let report: Report = serde_json::from_slice(&std::fs::read(path)?)
         .with_context(|| format!("decode Observe report {}", path.display()))?;
-    if report.dependency_version != 5 {
+    if report.dependency_version != 7 {
         anyhow::bail!("unsupported Observe dependency protocol");
     }
     let tracked = |path: &Path| {
@@ -68,15 +89,34 @@ pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
         replay_barriers: report.replay_barriers,
         ..Trace::default()
     };
-    trace
-        .reads
-        .extend(report.reads.into_iter().filter(|path| tracked(path)));
-    for (path, observed) in report.dependencies {
+    trace.reads.extend(
+        report
+            .reads
+            .into_iter()
+            .map(|path| path.0)
+            .filter(|path| tracked(path)),
+    );
+    for Dependency {
+        path,
+        state: observed,
+    } in report.dependencies
+    {
         if !tracked(&path) {
             continue;
         }
         let key = match observed {
             ObservedDependency::Absent => DependencyKey::DoesNotExist,
+            ObservedDependency::ParentDirectory {
+                mode,
+                uid,
+                gid,
+                access,
+            } => DependencyKey::ParentDirectory {
+                mode,
+                uid,
+                gid,
+                access,
+            },
             ObservedDependency::File {
                 device,
                 inode,

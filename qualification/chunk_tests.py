@@ -13,7 +13,7 @@ import unittest
 from bounded import run
 
 ROOT = Path(__file__).resolve().parents[1]
-RESULTS = ROOT / 'qualification/results/effect-replay/chunk-tests.json'
+RESULTS = Path(os.environ.get('INCR_QUALIFICATION_RESULTS', ROOT / 'qualification/.work/test-results')) / 'chunk-tests.json'
 RECORDS = []
 
 
@@ -39,7 +39,7 @@ class ChunkTests(unittest.TestCase):
     def invoke(self, arguments, compressed=False, payload=None, assume_text=False):
         payload = self.payload if payload is None else payload
         result = run(self.command(arguments, compressed, assume_text), stdin=payload, cwd=self.work,
-                     env=dict(os.environ, LC_ALL='C'), timeout=8)
+                     env=dict(os.environ, LC_ALL='C', PWD=str(self.work)), timeout=8)
         result.pop('stdout')
         RECORDS.append(result)
         RESULTS.write_text(json.dumps(RECORDS, indent=2) + '\n')
@@ -81,7 +81,7 @@ class ChunkTests(unittest.TestCase):
         self.check_reuse_and_corruption(['rev'], True, self.payload.translate(table), True)
 
     def test_invalid_text_without_assumption(self):
-        environment = dict(os.environ, LC_ALL='C')
+        environment = dict(os.environ, LC_ALL='C', PWD=str(self.work))
         baseline = run(['rev'], stdin=b'a\xffb\n', env=environment, timeout=2)
         candidate = run(self.command(['rev']), stdin=b'a\xffb\n', env=environment, timeout=2)
         self.assertFalse(candidate['timeout'])
@@ -99,7 +99,7 @@ class ChunkTests(unittest.TestCase):
         pipeline = (shlex.join([sys.executable, '-c', producer, str(payload_file)])
                     + ' | ' + shlex.join(self.command(['cat'])))
         result = run(['bash', '-o', 'pipefail', '-c', pipeline], cwd=self.work,
-                     env=dict(os.environ, LC_ALL='C'), timeout=5)
+                     env=dict(os.environ, LC_ALL='C', PWD=str(self.work)), timeout=5)
         result.pop('stdout')
         RECORDS.append(result)
         RESULTS.write_text(json.dumps(RECORDS, indent=2) + '\n')

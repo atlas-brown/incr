@@ -41,12 +41,13 @@ struct CommandKey<'c> {
     name: &'c str,
     arguments: &'c [String],
     environment: &'c BTreeMap<String, String>,
+    working_directory: &'c [u8],
     executable: Option<ExecutableState>,
 }
 
 #[derive(Clone, Debug, Encode)]
 struct ExecutableState {
-    path: PathBuf,
+    path_bytes: Vec<u8>,
     device: u64,
     inode: u64,
     changed_sec: i64,
@@ -116,19 +117,14 @@ pub(crate) enum ChildResult {
     BrokenPipe,
 }
 
-pub(crate) fn create(mut arguments: Vec<String>, environment: &HashMap<String, String>) -> Result<Command> {
-    assert!(!arguments.is_empty());
-    if arguments.len() == 1 {
-        let command_string = arguments.pop().unwrap();
-        arguments = shlex::split(&command_string).ok_or_else(|| anyhow!("Could not split command"))?
-    }
-    if arguments.is_empty() {
-        return Err(anyhow!("Empty command"));
-    }
-    let name = arguments.remove(0);
+/// Preserve the caller's argument boundaries and fingerprint execution inputs.
+pub(crate) fn create(arguments: Vec<String>, environment: &HashMap<String, String>) -> Result<Command> {
+    let mut arguments = arguments.into_iter();
+    let name = arguments.next().ok_or_else(|| anyhow!("Empty command"))?;
+    let arguments: Vec<_> = arguments.collect();
 
     let excluded_variables = EXCLUDED_VARIABLES.iter().copied().collect::<HashSet<_>>();
-    let mut environment = environment
+    let environment = environment
         .iter()
         .filter_map(|(variable, value)| {
             if !excluded_variables.contains(variable.as_str())
@@ -141,21 +137,20 @@ pub(crate) fn create(mut arguments: Vec<String>, environment: &HashMap<String, S
         })
         .collect::<BTreeMap<_, _>>();
 
-    environment.insert(
-        "PWD".into(),
-        std::env::current_dir()?.to_string_lossy().into_owned(),
-    );
+    let working_directory = std::env::current_dir()?;
 
     let executable = executable_state(&name, &environment);
     let standard_tool = executable.as_ref().is_some_and(|state| {
         ["/usr/bin", "/bin"].iter().any(|directory| {
-            fs::canonicalize(Path::new(directory).join(&name)).ok().as_ref() == Some(&state.path)
+            fs::canonicalize(Path::new(directory).join(&name))
+                .is_ok_and(|path| path.as_os_str().as_bytes() == state.path_bytes)
         })
     });
     let key_data = ops::data::encode_to_bytes(&CommandKey {
         name: &name,
         arguments: &arguments,
         environment: &environment,
+        working_directory: working_directory.as_os_str().as_bytes(),
         executable,
     })?;
     let hash = ops::data::hash_bytes(&key_data);
@@ -197,7 +192,7 @@ fn executable_state(name: &str, environment: &BTreeMap<String, String>) -> Optio
             continue;
         }
         return Some(ExecutableState {
-            path,
+            path_bytes: path.as_os_str().as_bytes().to_vec(),
             device: metadata.dev(),
             inode: metadata.ino(),
             changed_sec: metadata.ctime(),
@@ -492,7 +487,7 @@ impl PendingOutput {
 
     fn forward(self, destination: &mut impl Write) -> Result<bool> {
         drop(self.sender);
-        Ok(self.receiver.forward(destination)? == crate::execution::run::ForwardResult::BrokenPipe)
+        Ok(self.receiver.forward(destination)? == crate::ops::stream::TransferOutcome::BrokenPipe)
     }
 }
 

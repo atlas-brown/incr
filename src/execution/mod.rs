@@ -4,6 +4,7 @@ pub(crate) mod dependency;
 pub(crate) mod record;
 pub(crate) mod run;
 pub(crate) mod skip_executor;
+mod speculation;
 pub(crate) mod stream_executor;
 
 use anyhow::Result;
@@ -14,7 +15,6 @@ use std::path::{Path, PathBuf};
 use crate::annotation;
 use crate::command::{Command, Runtime, RuntimeType};
 use crate::config::{EXCLUDED_PATHS, TRACE_FILE, TraceType};
-use crate::ops;
 use crate::scripts;
 
 pub(crate) fn get_trace_type(
@@ -71,15 +71,8 @@ pub(crate) fn parse_trace(runtime: &Runtime) -> Result<Trace> {
         fs::remove_file(&trace_file)?;
     }
 
-    let tracked = |path: &PathBuf| {
-        !EXCLUDED_PATHS.iter().any(|excluded| {
-            ops::file::path_to_string(path)
-                .map(|path| path.starts_with(excluded))
-                .unwrap_or(true)
-        })
-    };
-    trace.reads.retain(tracked);
-    trace.writes.retain(tracked);
+    trace.reads.retain(|path| is_tracked_path(path));
+    trace.writes.retain(|path| is_tracked_path(path));
 
     Ok(trace)
 }
@@ -93,6 +86,26 @@ impl Trace {
                     "rename preserves inode identity" | "unlink may replace an existing inode"
                 )
             });
+        }
+    }
+}
+
+/// Traces name absolute filesystem entries; pseudo descriptors are not paths.
+fn is_tracked_path(path: &Path) -> bool {
+    path.is_absolute() && !EXCLUDED_PATHS.iter().any(|root| path.starts_with(root))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn excluded_roots_match_whole_components() {
+        for path in ["/process/input", "/proc-results", "/tmp/quote\"/file"] {
+            assert!(is_tracked_path(Path::new(path)), "{path}");
+        }
+        for path in ["/proc", "/proc/self/fd/4", "pipe:[42]", "relative"] {
+            assert!(!is_tracked_path(Path::new(path)), "{path}");
         }
     }
 }

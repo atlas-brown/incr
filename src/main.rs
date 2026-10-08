@@ -13,6 +13,7 @@ use anyhow::{Result, anyhow};
 use clap::Parser;
 use std::collections::HashMap;
 use std::env;
+use std::io::IsTerminal;
 use std::path::PathBuf;
 use std::process;
 
@@ -93,7 +94,11 @@ fn run() -> Result<ExitCode> {
         Some(input) => (input.config, input.command, input.environment),
         None => return Ok(SUCCESS_CODE),
     };
-    if command.inherited_descriptors
+    // Pipes cannot preserve terminal reads, ioctl behavior or interactive output.
+    if std::io::stdin().is_terminal()
+        || std::io::stdout().is_terminal()
+        || std::io::stderr().is_terminal()
+        || command.inherited_descriptors
         || (!config.full_tracing && annotation::skip_command(&command, &environment))
     {
         return Err(skip_executor::execute(&command));

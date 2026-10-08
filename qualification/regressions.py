@@ -102,6 +102,51 @@ class Regressions(unittest.TestCase):
             self.assertEqual(output.stat().st_mode & 0o777, expected)
             output.unlink()
 
+    def test_terminal_input_is_preserved(self):
+        import pty
+        import subprocess
+        master, slave = pty.openpty()
+        command = [str(INCR), *MODE, "--observe", str(OBSERVE), "--cache", str(self.cache),
+                   "--", "python3", "-c",
+                   "import os,sys; print(os.isatty(0)); print(sys.stdin.readline().strip())"]
+        try:
+            with subprocess.Popen(command, stdin=slave, stdout=subprocess.PIPE,
+                                  stderr=subprocess.PIPE, cwd=self.work) as process:
+                os.write(master, b"terminal input\n")
+                try:
+                    output, errors = process.communicate(timeout=3)
+                except subprocess.TimeoutExpired:
+                    process.kill()
+                    process.communicate()
+                    self.fail("terminal invocation exceeded deadline")
+                self.assertEqual((process.returncode, output, errors),
+                                 (0, b"True\nterminal input\n", b""))
+        finally:
+            os.close(master)
+            os.close(slave)
+
+    def test_adversarial_filename_round_trips(self):
+        names = ["space name", "single'quote", 'double"quote', "back\\slash", "line\nbreak",
+                 "tab\tname", "snow-雪", "replacement-�", "$(touch injected)",
+                 "semi;colon", "-leading", "literal (deleted)", "literal <pipe:[42]>"]
+        command = ["python3", "-c",
+                   "import pathlib,sys; source=pathlib.Path(sys.argv[1]); "
+                   "data=source.read_bytes(); pathlib.Path(sys.argv[2]).write_bytes(data); "
+                   "sys.stdout.buffer.write(data)"]
+        for index, name in enumerate(names):
+            with self.subTest(name=name):
+                source = self.work / name
+                destination = self.work / (name + ".output")
+                for generation in range(3):
+                    payload = f"{index}:{generation // 2}\n".encode()
+                    if not source.exists() or source.read_bytes() != payload:
+                        source.write_bytes(payload)
+                    result = self.invoke([*command, str(source), str(destination)])
+                    self.assertEqual(result["stdout"].encode(), payload)
+                    self.assertEqual(destination.read_bytes(), payload)
+                    destination.unlink()
+        self.assertFalse((self.work / "injected").exists())
+
     def test_non_utf8_internal_path(self):
         path = os.fsencode(self.work) + b"/file-\xff"
         command = ["python3", "-c", "import os; print(open(b'file-\\xff').read())"]
@@ -111,6 +156,17 @@ class Regressions(unittest.TestCase):
             self.assertEqual(self.invoke(command)["stdout"], value.decode() + "\n")
         self.invoke(["python3", "-c", "import os; os.symlink(b'file-\\xff', 'link')"])
         self.assertEqual(os.readlink(os.fsencode(self.work / "link")), b"file-\xff")
+
+    def test_byte_outputs_do_not_alias_unicode_neighbors(self):
+        byte_path = os.fsencode(self.work) + b"/output-\xff"
+        unicode_path = self.work / "output-�"
+        unicode_path.write_bytes(b"unrelated")
+        program = "import sys; open(b'output-\\xff','wb').write(sys.stdin.buffer.read())"
+        for payload in (b"first", b"second", b"second"):
+            self.invoke(["python3", "-c", program], stdin=payload)
+            with open(byte_path, "rb") as stream:
+                self.assertEqual(stream.read(), payload)
+            self.assertEqual(unicode_path.read_bytes(), b"unrelated")
 
     def test_corrupt_cached_stream(self):
         command = ["cat", "input"]
@@ -133,6 +189,42 @@ class Regressions(unittest.TestCase):
             for value in ["first", "second"]:
                 (self.work / "input").write_text(value)
                 self.assertEqual(self.invoke(["rev"])["stdout"], value)
+
+    def test_executable_name_is_a_literal_argument(self):
+        for name in ["tool with spaces", "tool'quote", "tool\\slash"]:
+            tool = self.work / name
+            tool.write_text("#!/bin/sh\nprintf literal")
+            tool.chmod(0o755)
+            self.assertEqual(self.invoke([str(tool)])["stdout"], "literal")
+
+    def test_executable_with_byte_target(self):
+        target = os.fsencode(self.work) + b"/tool-\xff"
+        with open(target, "wb") as stream:
+            stream.write(b"#!/bin/sh\nprintf byte-target")
+        os.chmod(target, 0o755)
+        tool = self.work / "tool"
+        os.symlink(target, os.fsencode(tool))
+        self.assertEqual(self.invoke([str(tool)])["stdout"], "byte-target")
+
+    def test_working_directory_bytes_are_distinct(self):
+        original_directory = self.work
+        try:
+            for suffix in [b"\xff", b"\xfe"]:
+                directory = os.fsencode(original_directory) + b"/cwd-" + suffix
+                os.mkdir(directory)
+                self.work = Path(os.fsdecode(directory))
+                result = self.invoke(["python3", "-c", "import os; print(os.getcwdb().hex())"])
+                self.assertEqual(result["stdout"], os.path.realpath(directory).hex() + "\n")
+            self.assertEqual(len(list(self.cache.glob("batch_*"))), 2)
+        finally:
+            self.work = original_directory
+
+    def test_pwd_environment_is_a_dependency(self):
+        from unittest.mock import patch
+        command = ["python3", "-c", "import os,time; time.sleep(.03); print(os.environ['PWD'])"]
+        for value in ["first environment value", "second environment value"]:
+            with patch.dict(os.environ, PWD=value):
+                self.assertEqual(self.invoke(command)["stdout"], value + "\n")
 
     def test_executable_replacement(self):
         from unittest.mock import patch
@@ -439,6 +531,45 @@ finally:
                          follow_symlinks=False)
             result = self.invoke(["stat", "-c", "%Y", "link"])
             self.assertEqual(result["stdout"], f"{seconds}\n")
+
+    def test_parent_retarget_preserves_leaf_identity(self):
+        original = self.work / 'original'
+        other = self.work / 'other'
+        original.mkdir()
+        other.mkdir()
+        (original / 'input').write_text('same inode')
+        os.link(original / 'input', other / 'input')
+        alias = self.work / 'alias'
+        alias.symlink_to(original, target_is_directory=True)
+        program = "import os; descriptor=os.open('alias/input',os.O_RDONLY); print(os.readlink(f'/proc/self/fd/{descriptor}')); os.close(descriptor)"
+        self.assertEqual(self.invoke(['python3', '-c', program])['stdout'], str(original / 'input') + '\n')
+        alias.unlink()
+        alias.symlink_to(other, target_is_directory=True)
+        self.assertEqual(self.invoke(['python3', '-c', program])['stdout'], str(other / 'input') + '\n')
+
+    def test_directory_replaced_by_link_invalidates_resolution(self):
+        directory = self.work / 'directory'
+        moved = self.work / 'moved'
+        directory.mkdir()
+        (directory / 'input').write_text('same inode')
+        program = "import os; descriptor=os.open('directory/input',os.O_RDONLY); print(os.readlink(f'/proc/self/fd/{descriptor}')); os.close(descriptor)"
+        self.assertEqual(self.invoke(['python3', '-c', program])['stdout'], str(directory / 'input') + '\n')
+        directory.rename(moved)
+        directory.symlink_to(moved, target_is_directory=True)
+        self.assertEqual(self.invoke(['python3', '-c', program])['stdout'], str(moved / 'input') + '\n')
+
+    def test_parent_write_permission_invalidation(self):
+        directory = self.work / "directory"
+        directory.mkdir()
+        program = "try:\n open('directory/output','w').write('created')\n print('created')\nexcept PermissionError:\n print('denied')"
+        self.assertEqual(self.invoke(['python3', '-c', program])['stdout'], 'created\n')
+        (directory / 'output').unlink()
+        directory.chmod(0o555)
+        try:
+            self.assertEqual(self.invoke(['python3', '-c', program])['stdout'], 'denied\n')
+            self.assertFalse((directory / 'output').exists())
+        finally:
+            directory.chmod(0o755)
 
     def test_directory_rename(self):
         for _ in range(2):

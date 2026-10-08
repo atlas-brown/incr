@@ -17,8 +17,6 @@ for arg in "$@"; do
     esac
 done
 
-mkdir -p "$INPUT_DIR/comm_$size"
-
 if [ ! -f $INPUT_DIR/1M.txt ]; then
     wget --no-check-certificate "$URL"/dummy/1M.txt
     # Add newline to file
@@ -40,18 +38,6 @@ if [ ! -f $INPUT_DIR/all_cmdsx100.txt ]; then
         cat all_cmds.txt >>all_cmdsx100.txt
     done
 fi
-
-# For uniq-ips
-if [ "$size" = "small" ]; then
-    N=400000 # 400K
-elif [ "$size" = "min" ]; then
-    N=40
-else
-    N=40000000 # 40M
-fi
-
-../scripts/gen_ips.py "$N" >logs-popcount-org_$size.txt
-../scripts/gen_comm.py "$N" "comm_$size"
 
 if [[ "$size" == "small" ]]; then
     if [ ! -f ./10M.txt ]; then

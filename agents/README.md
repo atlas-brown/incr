@@ -1,6 +1,6 @@
-# incr/agent
+# Historical development tools
 
-Agent-generated tooling and documentation for incr development. Use this directory for tests, benchmarks, and architecture docs. For user-facing usage (script mode, observe, fallback), see the main [README.md](../README.md).
+Earlier integration tests, microbenchmarks and design notes. Current qualification lives in [qualification/](../qualification/README.md); dated results here are historical evidence. For user-facing usage (script mode, observe, fallback), see the main [README.md](../README.md).
 
 ## Structure
 

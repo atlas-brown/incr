@@ -50,7 +50,7 @@ pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
     "XDG_SESSION_TYPE",
     "_",
 ];
-pub(crate) const EXCLUDED_PATHS: &[&str] = &["/proc", "pipe:"];
+pub(crate) const EXCLUDED_PATHS: &[&str] = &["/proc"];
 pub(crate) const DYNAMIC_EXCLUDED_PATHS: &[&str] = &["/tmp"];
 
 /// Virtual filesystem paths are excluded; ordinary /tmp inputs remain dependencies.

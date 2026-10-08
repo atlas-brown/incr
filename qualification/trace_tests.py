@@ -9,7 +9,7 @@ import unittest
 from bounded import run
 
 ROOT = Path(__file__).resolve().parents[1]
-RESULTS = ROOT / 'qualification/results/effect-replay/trace-tests.json'
+RESULTS = Path(os.environ.get('INCR_QUALIFICATION_RESULTS', ROOT / 'qualification/.work/test-results')) / 'trace-tests.json'
 RECORDS = []
 
 

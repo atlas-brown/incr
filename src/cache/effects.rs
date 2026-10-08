@@ -7,6 +7,8 @@ use std::fs;
 use std::os::unix::fs::{MetadataExt, PermissionsExt, symlink};
 use std::path::{Path, PathBuf};
 
+use crate::ops::permissions::{TemporaryPermissions, remove_tree};
+
 const MANIFEST: &str = "effects.json";
 
 #[derive(Serialize, Deserialize)]
@@ -54,7 +56,14 @@ pub(crate) fn capture(
     let mut entries = Vec::new();
     for path in paths {
         let effect = match fs::symlink_metadata(path) {
-            Err(error) if error.kind() == std::io::ErrorKind::NotFound => Effect::Missing,
+            Err(error)
+                if matches!(
+                    error.kind(),
+                    std::io::ErrorKind::NotFound | std::io::ErrorKind::NotADirectory
+                ) =>
+            {
+                Effect::Missing
+            }
             Err(error) => return Err(error).with_context(|| format!("capture {}", path.display())),
             Ok(metadata) if metadata.file_type().is_symlink() => Effect::Symlink {
                 target: fs::read_link(path)?,
@@ -94,22 +103,13 @@ pub(crate) fn capture(
     Ok(())
 }
 
-fn remove(path: &Path) -> Result<()> {
-    match fs::symlink_metadata(path) {
-        Ok(metadata) if metadata.is_dir() => fs::remove_dir_all(path)?,
-        Ok(_) => fs::remove_file(path)?,
-        Err(error) if error.kind() == std::io::ErrorKind::NotFound => (),
-        Err(error) => return Err(error.into()),
-    }
-    Ok(())
-}
-
 fn load_validated(directory: &Path) -> Result<Manifest> {
     let manifest: Manifest = serde_json::from_slice(&fs::read(directory.join(MANIFEST))?)?;
     if manifest.version != 3 {
         bail!("unsupported filesystem effect version");
     }
     let mut seen = HashSet::new();
+    let mut regular_files = HashSet::new();
     for entry in &manifest.entries {
         if !entry.path.is_absolute() || !seen.insert(entry.path.clone()) {
             bail!("invalid or duplicate cached output path");
@@ -128,10 +128,17 @@ fn load_validated(directory: &Path) -> Result<Manifest> {
                 bail!("cached output content is incomplete or corrupt");
             }
         }
-        if let Effect::HardLink { target } = &entry.effect
-            && (!seen.contains(target) || target == &entry.path)
-        {
-            bail!("invalid cached hard link target");
+        match &entry.effect {
+            Effect::File { .. } => {
+                regular_files.insert(entry.path.clone());
+            }
+            Effect::HardLink { target } => {
+                if !regular_files.contains(target) || target == &entry.path {
+                    bail!("invalid cached hard link target");
+                }
+                regular_files.insert(entry.path.clone());
+            }
+            _ => (),
         }
     }
     Ok(manifest)
@@ -144,57 +151,84 @@ pub(crate) fn valid(directory: &Path) -> bool {
 pub(crate) fn replay(directory: &Path) -> Result<()> {
     // Validate every payload before applying even the first deletion.
     let manifest = load_validated(directory)?;
-    // Deletions deepest-first, then create parents before children.
+    let managed_paths: HashSet<_> = manifest
+        .entries
+        .iter()
+        .map(|entry| entry.path.as_path())
+        .collect();
     for entry in manifest.entries.iter().rev() {
         if matches!(entry.effect, Effect::Missing) {
-            remove(&entry.path)?;
+            TemporaryPermissions::with_parents(&entry.path, &managed_paths, || remove_tree(&entry.path))?;
         }
     }
     for entry in &manifest.entries {
-        let path = &entry.path;
-        if matches!(entry.effect, Effect::Missing) {
-            continue;
-        }
-        if let Some(parent) = path.parent() {
-            fs::create_dir_all(parent)?;
-        }
-        match &entry.effect {
-            Effect::Missing => (),
-            Effect::Directory { .. } => {
-                if fs::symlink_metadata(path).is_ok_and(|metadata| !metadata.is_dir()) {
-                    remove(path)?;
-                }
-                fs::create_dir_all(path)?;
-            }
-            Effect::Symlink { target } => {
-                remove(path)?;
-                symlink(target, path)?;
-            }
-            Effect::File {
-                source,
-                mode,
-                replace,
-                ..
-            } => {
-                if Path::new(source).components().count() != 1 {
-                    bail!("invalid cached file name");
-                }
-                if *replace || fs::symlink_metadata(path).is_ok_and(|metadata| !metadata.is_file()) {
-                    remove(path)?;
-                }
-                fs::copy(directory.join(source), path)?;
-                fs::set_permissions(path, fs::Permissions::from_mode(*mode))?;
-            }
-            Effect::HardLink { target } => {
-                remove(path)?;
-                fs::hard_link(target, path)?;
-            }
+        if !matches!(entry.effect, Effect::Missing) {
+            TemporaryPermissions::with_parents(&entry.path, &managed_paths, || {
+                replay_entry(directory, entry)
+            })?;
         }
     }
-    // Set directory permissions last so read-only parents don't block child creation.
+    // Children are installed before read-only parent modes become final.
     for entry in manifest.entries.iter().rev() {
         if let Effect::Directory { mode } = entry.effect {
-            fs::set_permissions(&entry.path, fs::Permissions::from_mode(mode))?;
+            TemporaryPermissions::with_parents(&entry.path, &managed_paths, || {
+                fs::set_permissions(&entry.path, fs::Permissions::from_mode(mode))?;
+                Ok(())
+            })?;
+        }
+    }
+    Ok(())
+}
+
+fn replay_entry(directory: &Path, entry: &Entry) -> Result<()> {
+    let path = &entry.path;
+    if let Some(parent) = path.parent() {
+        fs::create_dir_all(parent)?;
+    }
+    match &entry.effect {
+        Effect::Missing => (),
+        Effect::Directory { .. } => {
+            if fs::symlink_metadata(path).is_ok_and(|metadata| !metadata.is_dir()) {
+                remove_tree(path)?;
+            }
+            fs::create_dir_all(path)?;
+        }
+        Effect::Symlink { target } => {
+            remove_tree(path)?;
+            symlink(target, path)?;
+        }
+        Effect::File {
+            source,
+            mode,
+            replace,
+            ..
+        } => {
+            if *replace || fs::symlink_metadata(path).is_ok_and(|metadata| !metadata.is_file()) {
+                remove_tree(path)?;
+            }
+            TemporaryPermissions::with_file(path, || {
+                // Copy bytes without chmod/chown: group access need not imply ownership.
+                let mut source = fs::File::open(directory.join(source))?;
+                let mut destination = fs::File::create(path)?;
+                std::io::copy(&mut source, &mut destination)?;
+                if destination.metadata()?.mode() & 0o7777 != mode & 0o7777 {
+                    destination.set_permissions(fs::Permissions::from_mode(*mode))?;
+                }
+                Ok(())
+            })?;
+        }
+        Effect::HardLink { target } => {
+            let target_metadata = fs::metadata(target)?;
+            let already_linked = fs::symlink_metadata(path).is_ok_and(|metadata| {
+                metadata.is_file()
+                    && metadata.dev() == target_metadata.dev()
+                    && metadata.ino() == target_metadata.ino()
+            });
+            // Parent symlinks can make both paths name the same directory entry.
+            if !already_linked {
+                remove_tree(path)?;
+                fs::hard_link(target, path)?;
+            }
         }
     }
     Ok(())
@@ -205,51 +239,4 @@ pub(crate) fn exists(directory: &Path) -> bool {
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-
-    struct TestDirectory(PathBuf);
-
-    impl Drop for TestDirectory {
-        fn drop(&mut self) {
-            let _ = fs::remove_dir_all(&self.0);
-        }
-    }
-
-    #[test]
-    fn replay_preserves_overwrite_and_replacement_alias_semantics() -> Result<()> {
-        for replace in [false, true] {
-            let fixture =
-                TestDirectory(std::env::temp_dir().join(format!("incr-effects-{}", rand::random::<u128>())));
-            fs::create_dir(&fixture.0)?;
-            let output = fixture.0.join("output");
-            let alias = fixture.0.join("alias");
-            let replacement = fixture.0.join("replacement");
-            let cache = fixture.0.join("cache");
-            fs::write(&output, b"old")?;
-            fs::hard_link(&output, &alias)?;
-            if replace {
-                fs::write(&replacement, b"new")?;
-                fs::rename(&replacement, &output)?;
-            } else {
-                fs::write(&output, b"new")?;
-            }
-            let expected_alias = fs::read(&alias)?;
-            let writes = HashSet::from([output.clone()]);
-            let replacements = if replace { writes.clone() } else { HashSet::new() };
-            capture(&cache, &writes, &replacements)?;
-
-            fs::remove_file(&output)?;
-            fs::write(&alias, b"old")?;
-            fs::hard_link(&alias, &output)?;
-            replay(&cache)?;
-            assert_eq!(fs::read(&output)?, b"new");
-            assert_eq!(fs::read(&alias)?, expected_alias);
-            assert_eq!(
-                fs::metadata(&output)?.ino() == fs::metadata(&alias)?.ino(),
-                !replace
-            );
-        }
-        Ok(())
-    }
-}
+mod tests;

@@ -1,9 +1,12 @@
 pub(crate) mod chunk;
 pub(crate) mod data;
 pub(crate) mod file;
+pub(crate) mod permissions;
 pub(crate) mod serialize_bytes;
 pub(crate) mod spool;
+pub(crate) mod stream;
 pub(crate) mod thread;
+pub(crate) mod unix_path;
 
 use std::env;
 use std::fs::{File, OpenOptions};

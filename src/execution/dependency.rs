@@ -101,11 +101,9 @@ pub(crate) fn filter_dependencies(
     let removed = read_dependencies
         .iter()
         .filter_map(|(path, key)| {
-            let excluded = DYNAMIC_EXCLUDED_PATHS.iter().any(|excluded| {
-                ops::file::path_to_string(path)
-                    .map(|path| path.starts_with(excluded))
-                    .unwrap_or(false)
-            });
+            let excluded = DYNAMIC_EXCLUDED_PATHS
+                .iter()
+                .any(|excluded| path.starts_with(excluded));
             if excluded && key == &DependencyKey::DoesNotExist && !path.exists() {
                 Some(path.clone())
             } else {
@@ -138,6 +136,19 @@ fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Re
 fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
     Ok(match key {
         DependencyKey::Uncacheable => false,
+        DependencyKey::ParentDirectory {
+            mode,
+            uid,
+            gid,
+            access,
+        } => {
+            let metadata = fs::symlink_metadata(path)?;
+            metadata.is_dir()
+                && metadata.mode() == *mode
+                && metadata.uid() == *uid
+                && metadata.gid() == *gid
+                && crate::ops::permissions::effective_access(path)? == *access
+        }
         DependencyKey::All(keys) => {
             for key in keys {
                 if !check_dependency(path, key)? {

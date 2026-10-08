@@ -10,6 +10,7 @@ import unittest
 from bounded import run
 
 ROOT = Path(__file__).resolve().parents[1]
+RESULTS = Path(os.environ.get('INCR_QUALIFICATION_RESULTS', ROOT / 'qualification/.work/test-results')) / 'try-tests.json'
 RECORDS = []
 
 
@@ -87,8 +88,9 @@ class TryTests(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    RESULTS.parent.mkdir(parents=True, exist_ok=True)
     try:
         unittest.main()
     finally:
-        (ROOT / 'qualification/results/effect-replay/try-tests.json').write_text(
+        RESULTS.write_text(
             json.dumps(RECORDS, indent=2) + '\n')

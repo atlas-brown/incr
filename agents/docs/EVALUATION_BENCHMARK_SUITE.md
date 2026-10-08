@@ -1,6 +1,6 @@
 # Evaluation Benchmark Suite
 
-This doc explains how the **evaluation** benchmark suite works: `run_all.sh` orchestrates the same layout as `incr/main/benchmarks/` for mergeability. Use it when setting up a fresh VM.
+This doc explains how the **evaluation** benchmark suite works: `evaluation/benchmarks/run_all.sh` orchestrates the benchmark directories. Use it when setting up a fresh VM.
 
 > **Note**: Distinct from `agents/benchmarks/` (microbenchmarks: strace vs observe). The evaluation suite lives in `evaluation/` and exercises real-world scripts.
 

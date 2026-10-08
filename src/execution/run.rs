@@ -8,6 +8,7 @@ use zstd::Decoder;
 use crate::cache::{CacheData, batch_cache};
 use crate::command::{ChildResult, Runtime, RuntimeType};
 use crate::config::{BUFFER_SIZE, Config};
+use crate::ops::stream::TransferOutcome;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode};
 
 #[derive(Clone, Debug, Default)]
@@ -17,22 +18,10 @@ pub(crate) struct OutputMetadata {
     pub(crate) broken_pipe: bool,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub(crate) enum OutputResult {
-    Completed,
-    BrokenPipe,
-}
-
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub(crate) enum ForwardResult {
-    Completed,
-    BrokenPipe,
-}
-
 /// Joins the stdin/stdout/stderr capture threads and returns output lengths.
 /// Returns `None` when short-circuiting stopped capture before completion.
 pub(crate) fn join_stream_threads(
-    stdin_thread: Option<JoinHandle<Result<ForwardResult>>>,
+    stdin_thread: Option<JoinHandle<Result<TransferOutcome>>>,
     stdout_thread: JoinHandle<Result<ChildResult>>,
     stderr_thread: JoinHandle<Result<ChildResult>>,
 ) -> Result<Option<OutputMetadata>> {
@@ -101,8 +90,9 @@ pub(crate) fn replay(
         data.compressed_output,
         &mut io::stderr().lock(),
     )?;
-    let broken_pipe =
-        forwarded.broken_pipe || stdout == OutputResult::BrokenPipe || stderr == OutputResult::BrokenPipe;
+    let broken_pipe = forwarded.broken_pipe
+        || stdout == TransferOutcome::BrokenPipe
+        || stderr == TransferOutcome::BrokenPipe;
     if (!broken_pipe || !config.short_circuit) && !data.write_outputs.is_empty() {
         cache.commit_output()?;
     }
@@ -121,7 +111,7 @@ pub(crate) fn output_data<D>(
     start_index: usize,
     compressed: bool,
     destination: &mut D,
-) -> Result<OutputResult>
+) -> Result<TransferOutcome>
 where
     D: Write,
 {
@@ -130,7 +120,7 @@ where
         let length = file.metadata()?.len() as usize;
         anyhow::ensure!(start_index <= length, "speculative output exceeds cached output");
         if start_index == length {
-            return Ok(OutputResult::Completed);
+            return Ok(TransferOutcome::Completed);
         }
     }
 
@@ -149,14 +139,14 @@ where
     }
 }
 
-fn output_from_stream<S, D>(source: &mut S, destination: &mut D) -> Result<OutputResult>
+fn output_from_stream<S, D>(source: &mut S, destination: &mut D) -> Result<TransferOutcome>
 where
     S: Read,
     D: Write,
 {
     match io::copy(source, destination).and_then(|_| destination.flush()) {
-        Ok(()) => Ok(OutputResult::Completed),
-        Err(error) if error.kind() == ErrorKind::BrokenPipe => Ok(OutputResult::BrokenPipe),
+        Ok(()) => Ok(TransferOutcome::Completed),
+        Err(error) if error.kind() == ErrorKind::BrokenPipe => Ok(TransferOutcome::BrokenPipe),
         Err(error) => Err(error.into()),
     }
 }

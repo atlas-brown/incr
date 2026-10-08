@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "html-to-text": "^9.0.5",
-    "jsdom": "^27.0.1",
-    "natural": "^8.1.0"
-  }
-}

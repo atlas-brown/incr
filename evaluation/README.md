@@ -1,6 +1,6 @@
 # incr Evaluation Suite
 
-End-to-end shell benchmarks aligned with `incr/main/benchmarks/` for mergeability. The **canonical entry point** is `evaluation/benchmarks/run_all.sh`.
+End-to-end shell benchmarks maintained in this directory. The **canonical entry point** is `evaluation/benchmarks/run_all.sh`.
 
 ## Run modes (`--run-mode`)
 

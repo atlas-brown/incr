@@ -20,6 +20,14 @@ pub(crate) struct Candidate<'a> {
     pub(crate) data: CacheData,
 }
 
+#[derive(Eq, Ord, PartialEq, PartialOrd)]
+struct IndexEntry {
+    modified: SystemTime,
+    stdin_hash: u64,
+    path: PathBuf,
+}
+
+/// Validate candidate inputs before speculative execution can modify them.
 pub(crate) fn validate<'a>(config: &Config, command: &'a Command) -> Result<Vec<Candidate<'a>>> {
     if config.observe_command.is_none() || config.effect_policy != EffectPolicy::FinalOutputs {
         return Ok(Vec::new());
@@ -30,7 +38,8 @@ pub(crate) fn validate<'a>(config: &Config, command: &'a Command) -> Result<Vec<
         .join(command.hash.to_string());
     let keys = recent_entries(&directory);
     let mut candidates = Vec::new();
-    for (_, stdin_hash, _) in keys.into_iter().take(MAX_CANDIDATES) {
+    for entry in keys.into_iter().take(MAX_CANDIDATES) {
+        let stdin_hash = entry.stdin_hash;
         let cache = CacheCursor::from_hash(config, command, stdin_hash)?;
         if let Some(data) = cache.load_data()?
             && dependency::check_cache_valid(&cache, &data)?
@@ -45,7 +54,7 @@ pub(crate) fn validate<'a>(config: &Config, command: &'a Command) -> Result<Vec<
     Ok(candidates)
 }
 
-fn recent_entries(directory: &Path) -> Vec<(SystemTime, u64, PathBuf)> {
+fn recent_entries(directory: &Path) -> Vec<IndexEntry> {
     let Ok(entries) = fs::read_dir(directory) else {
         return Vec::new();
     };
@@ -55,11 +64,11 @@ fn recent_entries(directory: &Path) -> Vec<(SystemTime, u64, PathBuf)> {
             if !entry.file_type().ok()?.is_file() {
                 return None;
             }
-            Some((
-                entry.metadata().ok()?.modified().ok()?,
-                entry.file_name().to_str()?.parse::<u64>().ok()?,
-                entry.path(),
-            ))
+            Some(IndexEntry {
+                modified: entry.metadata().ok()?.modified().ok()?,
+                stdin_hash: entry.file_name().to_str()?.parse::<u64>().ok()?,
+                path: entry.path(),
+            })
         })
         .collect();
     keys.sort_unstable_by(|left, right| right.cmp(left));
@@ -73,8 +82,8 @@ pub(crate) fn record(directory: &Path, stdin_hash: u64) {
     {
         return;
     }
-    for (_, _, path) in recent_entries(directory).into_iter().skip(MAX_INDEX_ENTRIES) {
-        let _ = fs::remove_file(path);
+    for entry in recent_entries(directory).into_iter().skip(MAX_INDEX_ENTRIES) {
+        let _ = fs::remove_file(entry.path);
     }
 }
 

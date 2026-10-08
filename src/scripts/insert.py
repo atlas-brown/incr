@@ -3,6 +3,7 @@ import argparse
 import copy
 from dataclasses import dataclass, field
 import logging
+from pathlib import Path
 import os
 import re
 import shlex
@@ -13,7 +14,6 @@ import tempfile
 
 import libbash
 import libbash.bash_command as BashAST
-import libbash.ctypes_bash_command as c_bash
 import shasta.ast_node as AST
 
 from shell_ast import parse_dash_script
@@ -121,8 +121,16 @@ UNSAFE_STARRED_POSITIONAL_PATTERNS = (
 BASH_CTLESC = "\x01"
 BASH_CTLNUL = "\x7f"
 
-def literal_word(text: str):
-    return [AST.CArgChar(char=ord(character)) for character in text]
+
+def parse_prefix(arguments, use_bash):
+    """Build real argument nodes with the same parser used for the source script."""
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".sh", encoding="utf-8") as source:
+        source.write(shlex.join(arguments) + "\n")
+        source.flush()
+        if use_bash:
+            return libbash.bash_to_ast(source.name)[0].value.simple_com.words
+        return parse_dash_script(source.name)[0][0].arguments
+
 
 DASH_CHILD_FIELDS = {
     AST.PipeNode: ("items",),
@@ -138,25 +146,27 @@ DASH_CHILD_FIELDS = {
 }
 
 
-def transform_node(node, incr_command):
+def transform_node(node, prefix_words):
     if isinstance(node, list):
-        return [transform_node(child, incr_command) for child in node]
+        return [transform_node(child, prefix_words) for child in node]
     fields = DASH_CHILD_FIELDS.get(type(node))
     if fields is None:
         return node
     transformed = copy.copy(node)
     for field_name in fields:
-        setattr(transformed, field_name, transform_node(getattr(node, field_name), incr_command))
+        setattr(transformed, field_name, transform_node(getattr(node, field_name), prefix_words))
     if isinstance(transformed, AST.CommandNode) and transformed.arguments:
         first_word = transformed.arguments[0]
         if all(hasattr(character, "char") for character in first_word):
             command_name = "".join(chr(character.char) for character in first_word)
             if command_name not in AVOID_SET and shutil.which(command_name):
-                transformed.arguments = [literal_word(incr_command), *transformed.arguments]
+                transformed.arguments = [*copy.deepcopy(prefix_words), *transformed.arguments]
     return transformed
 
-def transform_ast(ast, incr_command):
-    return [transform_node(node, incr_command) for node, _, _, _ in ast]
+
+def transform_ast(ast, prefix_words):
+    return [transform_node(node, prefix_words) for node, _, _, _ in ast]
+
 
 BASH_CHILD_FIELDS = {
     BashAST.CommandType.CM_CONNECTION.value: ("connection", ("first", "second")),
@@ -171,11 +181,11 @@ BASH_CHILD_FIELDS = {
 }
 
 
-def transform_bash_node(node, incr_command, state):
+def transform_bash_node(node, prefix_words, state):
     if isinstance(node, BashAST.CondCom):
         transformed = copy.copy(node)
-        transformed.left = transform_bash_node(node.left, incr_command, state)
-        transformed.right = transform_bash_node(node.right, incr_command, state)
+        transformed.left = transform_bash_node(node.left, prefix_words, state)
+        transformed.right = transform_bash_node(node.right, prefix_words, state)
         return transformed
     if not isinstance(node, BashAST.Command):
         return node
@@ -184,8 +194,6 @@ def transform_bash_node(node, incr_command, state):
         if not command.words:
             return node
         name = command.words[0].word.decode("utf8", errors="surrogateescape")
-        if name == "alias" and len(command.words) > 1:
-            state.aliases.add(command.words[1].word.decode("utf8", errors="surrogateescape").split("=", 1)[0])
         if (not name or name in AVOID_SET or "=" in name
                 or name in state.functions or name in state.aliases
                 or name.startswith(("$", "%")) or not shutil.which(name)):
@@ -194,16 +202,15 @@ def transform_bash_node(node, incr_command, state):
                for pattern in (*UNSAFE_STARRED_POSITIONAL_PATTERNS, b"<(")):
             return node
         transformed = copy.deepcopy(node)
-        prefix = BashAST.WordDesc(c_bash.word_desc(incr_command.encode("utf8"), 0))
-        transformed.value.simple_com.words.insert(0, prefix)
+        transformed.value.simple_com.words = [
+            *copy.deepcopy(prefix_words), *transformed.value.simple_com.words,
+        ]
         state.modified = True
         return transformed
-    if node.type == BashAST.CommandType.CM_FUNCTION_DEF:
-        state.functions.add(node.value.function_def.name.word.decode("utf8", errors="surrogateescape"))
     if node.type == BashAST.CommandType.CM_CASE:
         transformed = copy.deepcopy(node)
         for clause in transformed.value.case_com.clauses:
-            clause.action = transform_bash_node(clause.action, incr_command, state)
+            clause.action = transform_bash_node(clause.action, prefix_words, state)
         return transformed
     fields = BASH_CHILD_FIELDS.get(node.type.value)
     if fields is None:
@@ -212,25 +219,83 @@ def transform_bash_node(node, incr_command, state):
     transformed = copy.deepcopy(node)
     command = getattr(transformed.value, attribute)
     for child in children:
-        setattr(command, child, transform_bash_node(getattr(command, child), incr_command, state))
+        setattr(command, child, transform_bash_node(getattr(command, child), prefix_words, state))
     return transformed
 
+
 @dataclass
-class State:
+class TransformState:
     functions: set[str] = field(default_factory=set)
     aliases: set[str] = field(default_factory=set)
     modified: bool = False
+    dynamic_aliases: bool = False
 
-def transform_bash_ast(ast, incr_command, state):
+
+def record_aliases(words, state):
+    if not words:
+        return
+    try:
+        command = shlex.split(words[0].word.decode("utf8", errors="surrogateescape"))
+        offset = 1
+        if command in (["builtin"], ["command"]) and len(words) > 1:
+            command = shlex.split(words[1].word.decode("utf8", errors="surrogateescape"))
+            offset = 2
+    except ValueError:
+        return
+    if command != ["alias"]:
+        return
+    for word in words[offset:]:
+        try:
+            assignments = shlex.split(word.word.decode("utf8", errors="surrogateescape"))
+        except ValueError:
+            state.dynamic_aliases = True
+            continue
+        for assignment in assignments:
+            name, separator, _ = assignment.partition("=")
+            if "$" in name or "`" in name:
+                state.dynamic_aliases = True
+            elif separator:
+                state.aliases.add(name)
+
+
+def collect_bash_bindings(nodes):
+    """Collect shell-local names without constructing a discarded transformed tree."""
+    state = TransformState()
+    pending = list(nodes)
+    while pending:
+        node = pending.pop()
+        if isinstance(node, BashAST.CondCom):
+            pending.extend([node.left, node.right])
+            continue
+        if not isinstance(node, BashAST.Command):
+            continue
+        if node.type == BashAST.CommandType.CM_FUNCTION_DEF:
+            state.functions.add(node.value.function_def.name.word.decode("utf8", errors="surrogateescape"))
+        elif node.type == BashAST.CommandType.CM_SIMPLE:
+            words = node.value.simple_com.words
+            record_aliases(words, state)
+        if node.type == BashAST.CommandType.CM_CASE:
+            pending.extend(clause.action for clause in node.value.case_com.clauses)
+        else:
+            fields = BASH_CHILD_FIELDS.get(node.type.value)
+            if fields:
+                attribute, children = fields
+                command = getattr(node.value, attribute)
+                pending.extend(getattr(command, child) for child in children)
+    return state
+
+
+def transform_bash_ast(ast, prefix_words, state):
     nodes = []
     for node in ast:
-        transformed = transform_bash_node(node, incr_command, state)
+        transformed = transform_bash_node(node, prefix_words, state)
         nodes.append(transformed)
     return nodes
 
 
 def ast_to_code(ast):
     return "\n".join([node.pretty() for node in ast])
+
 
 def dequote_bash_internal_escapes(code: str):
     result = []
@@ -248,7 +313,7 @@ def dequote_bash_internal_escapes(code: str):
         index += 1
     return "".join(result)
 
-def main():
+def parse_arguments():
     program_name = "incr"
     incr_command = "~/incr/target/release/incr"
     arg_parser = argparse.ArgumentParser(
@@ -270,9 +335,10 @@ def main():
     arg_parser.add_argument("-d", "--debug", action="store_true", help="Enable debug logging")
     arg_parser.add_argument("--bash", action="store_true", help="Use bash parser (experimental)")
     arg_parser.add_argument("--identity", action="store_true", help=f"Output parsed script without inserting {program_name}")
-    arguments = arg_parser.parse_args()
-    
-    logging.basicConfig(level=logging.DEBUG if arguments.debug else logging.INFO)
+    return arg_parser.parse_args()
+
+
+def command_prefix(arguments):
     prefix = [arguments.incr_command]
     if arguments.try_path:
         prefix.extend(["--try", arguments.try_path])
@@ -280,13 +346,12 @@ def main():
         prefix.extend(["--cache", arguments.cache_path])
     if arguments.observe_path:
         prefix.extend(["--observe", arguments.observe_path])
-    incr_command = shlex.join(prefix)
 
-    state = State()
-    script_path = arguments.path
+    return prefix
 
-    with open(arguments.path, "rb") as source_file:
-        source_bytes = source_file.read()
+
+def requires_original_source(source_bytes):
+    """Conservatively preserve constructs whose behavior depends on source text."""
     # AST pretty-printing cannot preserve history's source text or the timing
     # of locale-sensitive ANSI-C quote expansion. Keep these native to Bash.
     source_sensitive = (re.search(rb"(?:^|[;\n])\s*(?:history|fc)(?:\s|$)", source_bytes) is not None
@@ -301,62 +366,69 @@ def main():
     source_sensitive = source_sensitive or re.search(
         rb"(?:^|[;\n])\s*(?:declare|typeset)(?:\s+-[a-zA-Z]+)*\s*(?:[;|\n]|$)", source_bytes) is not None
 
-    # Parsing an incomplete here-document can print warnings and then rewrite
-    # its contents. Let the executing shell handle such input exactly once.
+    return source_sensitive
+
+
+def transform_bash_script(arguments, prefix_words, source_bytes):
+    original_ast = libbash.bash_to_ast(arguments.path)
+    state = collect_bash_bindings(original_ast)
+    if state.dynamic_aliases and not arguments.identity:
+        return source_bytes
+    if arguments.identity:
+        transformed_ast = original_ast
+    else:
+        transformed_ast = transform_bash_ast(original_ast, prefix_words, state)
+    if not arguments.identity and not state.modified:
+        return source_bytes
+    with tempfile.NamedTemporaryFile(mode="wb+", suffix=".sh") as temp_file:
+        libbash.ast_to_bash(transformed_ast, temp_file.name)
+        temp_file.flush()
+        raw_bytes = temp_file.read()
+        transformed_code = raw_bytes.decode("utf-8", errors="surrogateescape")
+        transformed_code = dequote_bash_internal_escapes(transformed_code)
+    if not transformed_code.endswith("\n"):
+        transformed_code += "\n"
+    return transformed_code.encode("utf-8", errors="surrogateescape")
+
+
+def transform_script(arguments):
+    source_bytes = Path(arguments.path).read_bytes()
+    # Let the executing shell diagnose incomplete input exactly once.
     checked = subprocess.run([os.environ.get("INCR_SHELL", "bash"), "-n", arguments.path],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
-    if source_sensitive or checked.returncode != 0 or checked.stderr:
-        original = source_bytes
-        if arguments.output:
-            with open(arguments.output, "wb") as output_file:
-                output_file.write(original)
-        else:
-            sys.stdout.buffer.write(original)
-        return
+    if requires_original_source(source_bytes) or checked.returncode != 0 or checked.stderr:
+        return source_bytes
 
+    prefix_words = parse_prefix(command_prefix(arguments), arguments.bash) if not arguments.identity else []
+    if arguments.bash:
+        return transform_bash_script(arguments, prefix_words, source_bytes)
+    original_ast = parse_dash_script(arguments.path)
+    transformed = ([node for node, *_ in original_ast] if arguments.identity
+                   else transform_ast(original_ast, prefix_words))
+    code = ast_to_code(transformed)
+    if not code.endswith("\n"):
+        code += "\n"
+    return code.encode("utf-8", errors="surrogateescape")
+
+
+def main():
+    arguments = parse_arguments()
+    logging.basicConfig(level=logging.DEBUG if arguments.debug else logging.INFO)
     try:
-        if arguments.bash:
-            original_ast = libbash.bash_to_ast(arguments.path)
-            if arguments.identity:
-                transformed_ast = original_ast
-            else:
-                # Do transform_bash_ast twice to populate function definitions
-                _ = transform_bash_ast(original_ast, incr_command, state)
-                state.modified = False
-                transformed_ast = transform_bash_ast(original_ast, incr_command, state)
-            if not arguments.identity and not state.modified:
-                with open(arguments.path, "rb") as file:
-                    raw_bytes = file.read()
-                transformed_code = raw_bytes.decode("utf-8", errors="surrogateescape")
-            else:
-                with tempfile.NamedTemporaryFile(mode="wb+", suffix=".sh") as temp_file:
-                    libbash.ast_to_bash(transformed_ast, temp_file.name)
-                    temp_file.flush()
-                    raw_bytes = temp_file.read()
-                    transformed_code = raw_bytes.decode("utf-8", errors="surrogateescape")
-                    transformed_code = dequote_bash_internal_escapes(transformed_code)
-        else:
-            original_ast = parse_dash_script(arguments.path)
-            transformed_ast = ([node for node, *_ in original_ast] if arguments.identity
-                               else transform_ast(original_ast, incr_command))
-            transformed_code = ast_to_code(transformed_ast)
+        output = transform_script(arguments)
     except Exception as error:
-        print(f"Error inserting {program_name} into script {script_path}: {error}", file=sys.stderr)
+        print(f"Error transforming {arguments.path}: {error}", file=sys.stderr)
         if arguments.debug:
-            raise RuntimeError(f"Error transforming {script_path}") from error
-        sys.exit(1)
-
-    if not transformed_code.endswith("\n") and (arguments.identity or state.modified or not arguments.bash):
-        transformed_code += "\n"
-    output = arguments.output or sys.stdout
+            raise RuntimeError(f"Error transforming {arguments.path}") from error
+        raise SystemExit(1)
 
     if arguments.output:
-        with open(output, "w", encoding="utf-8", errors="surrogateescape") as output_file:
-            output_file.write(transformed_code)
+        Path(arguments.output).write_bytes(output)
     else:
-        sys.stdout.buffer.write(transformed_code.encode("utf-8", errors="surrogateescape"))
+        sys.stdout.buffer.write(output)
     if arguments.execute and arguments.output is not None:
         raise SystemExit(subprocess.run([os.environ.get("INCR_SHELL", "bash"), arguments.output]).returncode)
+
 
 if __name__ == "__main__":
     main()

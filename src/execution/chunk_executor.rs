@@ -199,7 +199,7 @@ fn forward_stdin(
     input: Receiver<Vec<u8>>,
     child_stdin: ChildStdin,
     directory: &std::path::Path,
-) -> Result<(u64, JoinHandle<Result<run::ForwardResult>>)> {
+) -> Result<(u64, JoinHandle<Result<crate::ops::stream::TransferOutcome>>)> {
     let (sender, receiver) = ops::spool::create(directory);
     let worker = thread::spawn(|| receiver.forward(child_stdin));
     let mut hasher = Xxh3::new();

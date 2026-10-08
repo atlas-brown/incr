@@ -8,7 +8,7 @@ use std::path::Path;
 use std::sync::{Arc, Condvar, Mutex};
 
 use crate::config::BUFFER_SIZE;
-use crate::execution::run::ForwardResult;
+use crate::ops::stream::TransferOutcome;
 
 const MEMORY_LIMIT: usize = 1024 * 1024;
 
@@ -36,6 +36,8 @@ pub(crate) struct Sender {
 
 pub(crate) struct Receiver(Arc<Shared>);
 
+/// Create a single-producer channel. Dropping the sender signals EOF; dropping
+/// the receiver cancels delivery. Spill files are unlinked immediately after opening.
 pub(crate) fn create(directory: &Path) -> (Sender, Receiver) {
     let shared = Arc::new(Shared::default());
     (
@@ -48,6 +50,7 @@ pub(crate) fn create(directory: &Path) -> (Sender, Receiver) {
 }
 
 impl Sender {
+    /// Queue bytes in order, returning false when the receiver has closed.
     pub(crate) fn send(&self, bytes: &[u8]) -> Result<bool> {
         let mut state = self.shared.state.lock().unwrap();
         if state.receiver_closed {
@@ -88,7 +91,8 @@ impl Drop for Sender {
 }
 
 impl Receiver {
-    pub(crate) fn forward(self, mut destination: impl Write) -> Result<ForwardResult> {
+    /// Drain through EOF or the first destination error, then close the receiver.
+    pub(crate) fn forward(self, mut destination: impl Write) -> Result<TransferOutcome> {
         let mut buffer = vec![0; BUFFER_SIZE];
         loop {
             let mut state = self.0.state.lock().unwrap();
@@ -109,7 +113,7 @@ impl Receiver {
                     break (None, length);
                 }
                 if state.completed {
-                    return Ok(ForwardResult::Completed);
+                    return Ok(TransferOutcome::Completed);
                 }
                 state = self.0.available.wait(state).unwrap();
             };
@@ -120,7 +124,7 @@ impl Receiver {
             drop(state);
             if let Err(error) = destination.write_all(bytes) {
                 return if error.kind() == ErrorKind::BrokenPipe {
-                    Ok(ForwardResult::BrokenPipe)
+                    Ok(TransferOutcome::BrokenPipe)
                 } else {
                     Err(error.into())
                 };
@@ -162,9 +166,57 @@ mod tests {
         assert_eq!(fs::read_dir(&directory)?.count(), 0);
         drop(sender);
         let mut output = Vec::new();
-        assert_eq!(receiver.forward(&mut output)?, ForwardResult::Completed);
+        assert_eq!(receiver.forward(&mut output)?, TransferOutcome::Completed);
         fs::remove_dir(directory)?;
         assert_eq!(output, input);
+        Ok(())
+    }
+
+    #[test]
+    fn destination_errors_close_the_channel() -> Result<()> {
+        struct FailingWriter(ErrorKind);
+
+        impl Write for FailingWriter {
+            fn write(&mut self, _: &[u8]) -> std::io::Result<usize> {
+                Err(self.0.into())
+            }
+
+            fn flush(&mut self) -> std::io::Result<()> {
+                Ok(())
+            }
+        }
+
+        for error in [ErrorKind::BrokenPipe, ErrorKind::PermissionDenied] {
+            let (sender, receiver) = create(Path::new("unused-spool-directory"));
+            assert!(sender.send(b"queued")?);
+            let result = receiver.forward(FailingWriter(error));
+            if error == ErrorKind::BrokenPipe {
+                assert_eq!(result?, TransferOutcome::BrokenPipe);
+            } else {
+                assert!(result.is_err());
+            }
+            assert!(!sender.send(b"after failure")?);
+        }
+        Ok(())
+    }
+
+    #[test]
+    fn concurrent_delivery_and_empty_eof_complete() -> Result<()> {
+        for count in [0, 1, 128] {
+            let (sender, receiver) = create(Path::new("unused-spool-directory"));
+            let producer = std::thread::spawn(move || -> Result<()> {
+                for sequence in 0..count {
+                    assert!(sender.send(&[sequence as u8; 97])?);
+                    std::thread::yield_now();
+                }
+                Ok(())
+            });
+            let mut output = Vec::new();
+            assert_eq!(receiver.forward(&mut output)?, TransferOutcome::Completed);
+            producer.join().unwrap()?;
+            let expected: Vec<_> = (0..count).flat_map(|sequence| [sequence as u8; 97]).collect();
+            assert_eq!(output, expected);
+        }
         Ok(())
     }
 }

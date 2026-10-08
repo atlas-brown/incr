@@ -41,6 +41,9 @@ Run a single command through incr:
 ./target/release/incr --try ./src/scripts/try.sh --cache /tmp/my_cache [--observe ../observe/target/release/observe] -- <command> [args...]
 ```
 
+Arguments are passed literally, including a lone executable name with spaces. To
+run shell source, pass `bash -c '...'` explicitly.
+
 Example:
 
 ```bash
@@ -101,7 +104,10 @@ first-access state, including failed opens, symlinks, directories and write targ
 File state includes ctime as well as mtime, size and mode. `/tmp` inputs are tracked.
 Static tool annotations apply only to resolved system tools, so custom PATH programs
 with the same names are traced. Commands using inherited extra file descriptors or non-UTF-8 arguments/environment
-execute directly. Unrepresentable dependency paths prevent reuse.
+execute directly. Terminal-connected invocations also execute directly to preserve
+terminal reads and ioctl behavior. Observe reports and snapshots preserve arbitrary
+Unix path bytes; dependency paths that the current binary cache cannot encode
+prevent reuse. Executable and working-directory identities use their exact bytes.
 
 Streaming execution starts the command while consuming stdin. The default
 `--effect-policy live` permits cache cancellation only before the first live effect.
@@ -115,7 +121,7 @@ Both policies validate saved payloads before replay. File replay distinguishes
 in-place writes from pathname replacement so existing hard-link aliases receive the
 correct final contents. Final policy also supports rename/unlink outputs; ownership,
 timestamp and special-file operations still require live execution. Cache key version
-20, effect manifest version 3 and Observe dependency protocol 5 reject incompatible
+22, effect manifest version 3 and Observe dependency protocol 7 reject incompatible
 entries. External network state, clocks and randomness are not general memoization inputs.
 
 With `-a`, plain `cat` and simple alphanumeric `tr` translations can reuse independent
@@ -200,5 +206,7 @@ When final-output streaming selects a prevalidated candidate, unexpected specula
 paths are restored from selective pre-write snapshots before cached outputs are
 installed. Paths written by every candidate are excluded from backups. All writers
 must stop first. Failed restoration returns an error and retains a `.recovery`
-snapshot for inspection; it never silently discards the backup. The policy still
+snapshot for inspection; it never silently discards the backup. Temporary paths
+with non-UTF-8 names can also be restored during speculation even though those
+paths cannot be persisted in the binary cache. The policy still
 assumes deterministic final outputs and no concurrent external mutations.

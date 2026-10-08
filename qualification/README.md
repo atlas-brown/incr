@@ -1,8 +1,10 @@
 # Minimum-size qualification
 
-Start with [PLAN.md](PLAN.md), [AUDIT.md](AUDIT.md), and the dated
-`results/2026-10-07/MEASUREMENTS.md`. Raw failed attempts are retained as diagnostic
-evidence; only `final-ordinary` and `final-dpt` feed the final measurements.
+The current audit is tracked in [SECOND_AUDIT.md](SECOND_AUDIT.md) and
+[the work log](../QUALIFICATION_LOG.md). The completed minimum-input evaluation is
+[results/2026-10-08/EVALUATION.md](results/2026-10-08/EVALUATION.md). Earlier plans,
+measurements and failed attempts remain as historical evidence; use each dated
+report's validity criteria when interpreting its raw results.
 
 ## Fast checks
 

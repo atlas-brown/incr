@@ -2,6 +2,7 @@
 """Serial policy/optimization qualification with bounded subprocess trees."""
 import argparse
 import json
+import os
 from pathlib import Path
 import sys
 
@@ -32,15 +33,24 @@ def main():
                          ('benchmark-components', 'benchmark_tests.py')]:
         cases.append((name, 60, [sys.executable, 'qualification/' + script, '-q']))
     cases.extend([
+        ('readonly-descriptor-limit', 20, ['prlimit', '--nofile=64:64', 'cargo', 'test', 'readonly', '--quiet']),
+        ('foreign-owner-replay', 20, ['cargo', 'test', 'replay_preserves_group_writable_file_ownership',
+                                     '--', '--ignored', '--nocapture']),
         ('observe', 60, ['bash', '../observe/tests/run_tests.sh']),
         ('speculative-restore', 20, [sys.executable, 'qualification/speculative_restore_test.py']),
+        ('speculative-byte-restore', 20, [sys.executable, 'qualification/speculative_restore_test.py',
+                                        '--byte-path', '--results', str(arguments.results / 'speculative-byte-cases.json')]),
+        ('speculative-parent-restore', 20, [sys.executable, 'qualification/speculative_restore_test.py',
+                                          '--parent-link', '--byte-path', '--results',
+                                          str(arguments.results / 'speculative-parent-cases.json')]),
         ('effect-replay', 30, [sys.executable, 'qualification/effect_replay_probe.py', '--policy', 'final',
                                '--expect-hit', '--results', str(arguments.results / 'effect-replay-cases.json')]),
     ])
     summary = []
     for name, timeout, command in cases:
         print('RUN', name, flush=True)
-        result = run(command, cwd=ROOT, timeout=timeout)
+        result = run(command, cwd=ROOT, timeout=timeout,
+                     env=dict(os.environ, INCR_QUALIFICATION_RESULTS=str(arguments.results.resolve())))
         (arguments.results / (name + '.json')).write_text(json.dumps(result, indent=2) + '\n')
         valid = result['returncode'] == 0 and not result['timeout'] and not result['leaked_descendants'] and not result['remaining_descendants']
         summary.append(dict(case=name, valid=valid, elapsed_sec=result['elapsed_sec']))

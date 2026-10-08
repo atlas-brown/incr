@@ -17,14 +17,15 @@ use crate::command::{self, ChildContext, Command, Runtime, RuntimeType};
 use crate::config::{BUFFER_SIZE, Config, TraceType};
 use crate::execution;
 use crate::execution::dependency;
-use crate::execution::run::{self, ForwardResult};
+use crate::execution::run;
+use crate::ops::stream::TransferOutcome;
 use crate::ops::{self, BROKEN_PIPE_CODE, ExitCode, debug_log};
 
 #[derive(Debug)]
 struct StdinContext {
     hash: u64,
     broken_pipe: bool,
-    thread: Option<JoinHandle<Result<ForwardResult>>>,
+    thread: Option<JoinHandle<Result<TransferOutcome>>>,
 }
 
 #[derive(Clone, Debug)]
@@ -192,7 +193,7 @@ fn capture_stdin(
         let stdin_broken = Arc::clone(&stdin_broken);
         move || {
             let result = receiver.forward(child_stdin)?;
-            if result == ForwardResult::BrokenPipe {
+            if result == TransferOutcome::BrokenPipe {
                 stdin_broken.store(true, Ordering::Release);
             }
             Ok(result)
@@ -274,32 +275,7 @@ fn load_cache_data(
             .as_ref()
             .is_some_and(|gate| gate.has_live_effects())
         {
-            // Attachment and the first effect prove Observe's termination handler
-            // is active. Before attachment, signalling can lose the report.
-            let restoration = (|| -> Result<()> {
-                command::stop_observed_child(&mut child)?;
-                let mut trace = execution::parse_trace(runtime)?;
-                trace.apply_effect_policy(config.effect_policy);
-                anyhow::ensure!(
-                    trace.replay_barriers.is_empty(),
-                    "speculative execution performed unsupported effects: {:?}",
-                    trace.replay_barriers
-                );
-                let restored = restore_speculative_snapshot(config, runtime)?;
-                cleanup_speculative_paths(&trace, &data, &restored)
-            })();
-            if let Err(error) = restoration {
-                if let Some(directory) = &runtime.snapshot_directory
-                    && directory.is_dir()
-                {
-                    let recovery = directory.with_extension("recovery");
-                    fs::rename(directory, &recovery)?;
-                    return Err(
-                        error.context(format!("recovery snapshot retained at {}", recovery.display()))
-                    );
-                }
-                return Err(error);
-            }
+            super::speculation::stop_and_restore(config, runtime, &mut child, &data)?;
             return Ok(CacheStatus::Valid(data));
         }
         // An unresponsive/unattached tracer remains live; never require a report
@@ -350,69 +326,4 @@ fn save_command_data(
     dependency::save_introspection(config, command, &cache_data)?;
 
     Ok(exit_code)
-}
-
-#[derive(serde::Deserialize)]
-struct SnapshotManifest {
-    entries: Vec<SnapshotEntry>,
-}
-
-#[derive(serde::Deserialize)]
-struct SnapshotEntry {
-    path: std::path::PathBuf,
-}
-
-fn restore_speculative_snapshot(
-    config: &Config,
-    runtime: &Runtime,
-) -> Result<std::collections::HashSet<std::path::PathBuf>> {
-    let Some(directory) = &runtime.snapshot_directory else {
-        return Ok(std::collections::HashSet::new());
-    };
-    let manifest: SnapshotManifest = serde_json::from_slice(&fs::read(directory.join("manifest.json"))?)?;
-    let restored: std::collections::HashSet<_> =
-        manifest.entries.into_iter().map(|entry| entry.path).collect();
-    if !restored.is_empty() {
-        let observe = config
-            .observe_command
-            .as_deref()
-            .ok_or_else(|| anyhow::anyhow!("snapshot restoration requires Observe"))?;
-        command::restore_snapshot(observe, directory)?;
-    }
-    Ok(restored)
-}
-
-fn cleanup_speculative_paths(
-    trace: &execution::Trace,
-    cached: &CacheData,
-    restored: &std::collections::HashSet<std::path::PathBuf>,
-) -> Result<()> {
-    use crate::cache::DependencyKey;
-    fn absent(key: &DependencyKey) -> bool {
-        match key {
-            DependencyKey::DoesNotExist => true,
-            DependencyKey::All(keys) => keys.iter().any(absent),
-            _ => false,
-        }
-    }
-    let mut extra: Vec<_> = trace.writes.difference(&cached.write_outputs).collect();
-    extra.sort_by_key(|path| std::cmp::Reverse(path.components().count()));
-    for path in extra {
-        if restored.contains(path) {
-            continue;
-        }
-        if !trace.initial_dependencies.get(path).is_some_and(absent) {
-            anyhow::bail!(
-                "unexpected speculative write to preexisting path: {}",
-                path.display()
-            );
-        }
-        match fs::symlink_metadata(path) {
-            Ok(metadata) if metadata.is_dir() => fs::remove_dir(path)?,
-            Ok(_) => fs::remove_file(path)?,
-            Err(error) if error.kind() == ErrorKind::NotFound => (),
-            Err(error) => return Err(error.into()),
-        }
-    }
-    Ok(())
 }

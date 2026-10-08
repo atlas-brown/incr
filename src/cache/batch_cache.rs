@@ -73,7 +73,7 @@ impl<'c> CacheCursor<'c> {
         debug_info: CacheInfo<'c>,
     ) -> Result<Self> {
         let key_data = ops::data::encode_to_bytes(&CacheKey {
-            version: 20,
+            version: 22,
             assume_text: config.assume_text,
             effect_policy: config.effect_policy,
             observe: config.observe_command.is_some(),
@@ -274,6 +274,19 @@ impl<'c> CacheCursor<'c> {
     }
 
     pub(crate) fn save_data(&self, data: &CacheData) -> Result<()> {
+        // Unsupported effects must run again. In particular, the binary cache's
+        // UTF-8 path encoding cannot represent every path in an Observe report.
+        if !data.is_reusable() {
+            let metadata = self
+                .directory
+                .join(ops::file::add_data_extension(DATA_FILE.to_owned()));
+            match fs::remove_file(metadata) {
+                Ok(()) => (),
+                Err(error) if error.kind() == std::io::ErrorKind::NotFound => (),
+                Err(error) => return Err(error.into()),
+            }
+            return Ok(());
+        }
         let entry = CachedEntry {
             data: data.clone(),
             output_hashes: self.output_hashes()?,

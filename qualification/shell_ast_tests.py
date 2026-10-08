@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Small behavioral checks for shell parsing and incremental script generation."""
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -9,7 +10,7 @@ from bounded import run
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON = ROOT / 'qualification/.venv/bin/python'
-RESULTS = ROOT / 'qualification/results/effect-replay/shell-ast-tests.json'
+RESULTS = Path(os.environ.get('INCR_QUALIFICATION_RESULTS', ROOT / 'qualification/.work/test-results')) / 'shell-ast-tests.json'
 RECORDS = []
 
 
@@ -69,6 +70,52 @@ rev
         output.write_text(transformed)
         self.assertEqual(self.invoke(['bash', output]), self.invoke(['bash', source]))
 
+    def test_prefix_arguments_preserve_shell_metacharacters(self):
+        wrapper = self.work / "wrapper space'quote$()"
+        wrapper.write_text("#!/usr/bin/python3\nimport json,sys\nprint(json.dumps(sys.argv[1:]))\n")
+        wrapper.chmod(0o755)
+        source = self.work / "source.sh"
+        source.write_text("rev\n")
+        values = ["try space'quote", "cache\nline$HOME", 'observe"quote\\slash']
+        for parser_flags in [[], ['--bash']]:
+            transformed = self.invoke([PYTHON, ROOT / 'src/scripts/insert.py', *parser_flags,
+                                       '--sys-path', wrapper, '--try-path', values[0],
+                                       '--cache-path', values[1], '--observe-path', values[2], source])
+            output = self.work / 'transformed.sh'
+            output.write_text(transformed)
+            actual = json.loads(self.invoke(['bash', output]))
+            self.assertEqual(actual, ['--try', values[0], '--cache', values[1],
+                                      '--observe', values[2], 'rev'])
+
+    def test_execute_preserved_source(self):
+        source = self.work / 'source.sh'
+        source.write_text('printf executed # LINENO\n')
+        output = self.work / 'preserved.sh'
+        result = self.invoke([PYTHON, ROOT / 'src/scripts/insert.py', '--bash',
+                              '--execute', '--output', output, source])
+        self.assertEqual(result, 'executed')
+        self.assertEqual(output.read_bytes(), source.read_bytes())
+
+    def test_quoted_and_multiple_alias_bindings_remain_native(self):
+        source = self.work / 'aliases.sh'
+        for command in ['alias', "'alias'", 'builtin alias', 'command alias']:
+            source.write_text("shopt -s expand_aliases\n" + command + " 'rev=printf alias' 'sort=printf second'\nrev\nsort\n")
+            transformed = self.invoke([PYTHON, ROOT / 'src/scripts/insert.py', '--bash',
+                                       '--sys-path', '/usr/bin/env', '--cache-path', '', source])
+            output = self.work / 'transformed.sh'
+            output.write_text(transformed)
+            self.assertEqual(self.invoke(['bash', output]), self.invoke(['bash', source]))
+
+    def test_expanded_alias_bindings_preserve_source(self):
+        for binding in ['name=rev; alias "$name=printf dynamic"',
+                        'binding="rev=printf dynamic"; alias "$binding"']:
+            source = self.work / 'aliases.sh'
+            source.write_text('shopt -s expand_aliases\n' + binding + '\nrev\n')
+            transformed = self.invoke([PYTHON, ROOT / 'src/scripts/insert.py', '--bash',
+                                       '--sys-path', '/usr/bin/env', '--cache-path', '', source])
+            self.assertEqual(transformed, source.read_text())
+            self.assertEqual(self.invoke(['bash', source]), 'dynamic')
+
     def test_dash_identity_does_not_insert_incr(self):
         source = self.work / 'source.sh'
         source.write_text('printf abc | rev\n')
@@ -81,4 +128,5 @@ rev
 
 
 if __name__ == '__main__':
+    RESULTS.parent.mkdir(parents=True, exist_ok=True)
     unittest.main()

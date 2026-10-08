@@ -24,6 +24,12 @@ pub(crate) struct CacheData {
 #[derive(Clone, Debug, Decode, Deserialize, Encode, Eq, PartialEq, Serialize)]
 pub(crate) enum DependencyKey {
     DoesNotExist,
+    ParentDirectory {
+        mode: u32,
+        uid: u32,
+        gid: u32,
+        access: u8,
+    },
     Uncacheable,
     All(Vec<DependencyKey>),
     FileState {
@@ -47,6 +53,30 @@ pub(crate) enum DependencyKey {
         mode: u32,
     },
     Hash(u64),
+}
+
+impl CacheData {
+    /// Cache-format limitations belong here, not in the trace's effect barriers:
+    /// a losslessly traced byte path can still be restored after speculation.
+    pub(crate) fn is_reusable(&self) -> bool {
+        self.replay_barriers.is_empty()
+            && self
+                .read_dependencies
+                .iter()
+                .all(|(path, dependency)| path.to_str().is_some() && dependency.is_reusable())
+            && self.write_outputs.iter().all(|path| path.to_str().is_some())
+    }
+}
+
+impl DependencyKey {
+    fn is_reusable(&self) -> bool {
+        match self {
+            Self::Uncacheable => false,
+            Self::SymlinkState { target, .. } => target.to_str().is_some(),
+            Self::All(dependencies) => dependencies.iter().all(Self::is_reusable),
+            _ => true,
+        }
+    }
 }
 
 pub(crate) fn create_directory<D>(directory: &Path, debug_info: Option<&D>) -> Result<()>
