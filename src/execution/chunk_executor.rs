@@ -127,7 +127,7 @@ enum StartResult {
 #[derive(Debug)]
 struct StdinContext {
     hash: u64,
-    thread: JoinHandle<Result<()>>,
+    thread: JoinHandle<Result<run::StdinResult>>,
 }
 
 pub(crate) fn execute(config: Config, command: Command) -> Result<ExitCode> {
@@ -241,6 +241,7 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
         typ: RuntimeType::Nothing,
         stdout_file,
         stderr_file,
+        effect_gate: None,
     })
 }
 

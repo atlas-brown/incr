@@ -648,7 +648,15 @@ NO_COMMIT="interactive"
 #
 # We have to create this temporary up front.
 # We move it to $SANDBOX_DIR/ignore in `try()`, but delete it when we don't move it.
-IGNORE_FILE="$(mktemp --suffix ".try-$EXECID")"
+if [ -n "${TRY_IGNORE_FILE:-}" ]; then
+    # Incr owns this path inside the runtime directory and can clean it even
+    # if speculative execution is cancelled before try() moves the file.
+    IGNORE_FILE=$TRY_IGNORE_FILE
+    : > "$IGNORE_FILE" || exit 1
+    unset TRY_IGNORE_FILE
+else
+    IGNORE_FILE="$(mktemp --suffix ".try-$EXECID")"
+fi
 
 while getopts ":yvnhxi:D:U:L:" opt
 do

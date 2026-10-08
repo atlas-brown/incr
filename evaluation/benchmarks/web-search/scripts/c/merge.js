@@ -68,8 +68,13 @@ rl.on('close', () => {
 
 const printMerged = (err, data) => {
   if (err) {
-    console.error('Error reading file:', err);
-    return;
+    if (err.code === 'ENOENT') {
+      data = '';
+    } else {
+      console.error('Error reading file:', err);
+      process.exitCode = 1;
+      return;
+    }
   }
 
   // Split the data into an array of lines

@@ -78,4 +78,6 @@ for i, (x, y, img) in enumerate(zip(x_vals, y_vals, labels)):
         ax2.text(x, y + 0.02, img, fontsize=6, rotation=45, alpha=0.7, ha='center')
 
 plt.tight_layout(rect=[0, 0, 1, 0.97])
-plt.show()
+# Persist the benchmark output without waiting for an interactive window.
+fig.savefig(path + ".png")
+plt.close(fig)

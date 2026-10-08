@@ -4,6 +4,7 @@ mod annotation;
 mod cache;
 mod command;
 mod config;
+mod effect_gate;
 mod execution;
 mod ops;
 mod scripts;
@@ -44,7 +45,7 @@ struct Arguments {
     skip_introspection: bool,
 
     #[arg(trailing_var_arg = true)]
-    command: Vec<String>,
+    command: Vec<std::ffi::OsString>,
 }
 
 #[derive(Clone, Debug)]
@@ -56,10 +57,20 @@ struct Input {
 
 fn main() {
     ops::initialize_log_file();
-    match run() {
+    // Adopt tracees if a cancelled tracer exits before reaping them.
+    if unsafe { libc::prctl(libc::PR_SET_CHILD_SUBREAPER, 1, 0, 0, 0) } != 0 {
+        eprintln!(
+            "Error: cannot establish child ownership: {}",
+            std::io::Error::last_os_error()
+        );
+        process::exit(FAILURE_CODE.0);
+    }
+    let result = run();
+    command::reap_children();
+    match result {
         Ok(exit_code) => process::exit(exit_code.0),
         Err(error) => {
-            eprintln!("Error: {error}");
+            eprintln!("Error: {error:#}");
             process::exit(FAILURE_CODE.0);
         }
     }
@@ -70,7 +81,9 @@ fn run() -> Result<ExitCode> {
         Some(input) => (input.config, input.command, input.environment),
         None => return Ok(SUCCESS_CODE),
     };
-    if !config.full_tracing && annotation::skip_command(&command, &environment) {
+    if command.inherited_descriptors
+        || (!config.full_tracing && annotation::skip_command(&command, &environment))
+    {
         return Err(skip_executor::execute(&command));
     }
 
@@ -86,7 +99,7 @@ fn run() -> Result<ExitCode> {
 
     match result {
         Ok(code) => Ok(code),
-        Err(error) => Err(anyhow!("({command_string}) {error}")),
+        Err(error) => Err(error.context(format!("({command_string})"))),
     }
 }
 
@@ -113,13 +126,43 @@ fn parse_input() -> Result<Option<Input>> {
         }
     };
 
-    let environment = env::vars().collect::<HashMap<_, _>>();
-    let command = command::create(arguments.command, &environment)?;
-    let trace_type = execution::get_trace_type(
-        &cache_directory,
-        &command,
-        arguments.observe_command.as_deref(),
-    );
+    // Cache keys currently use UTF-8 strings. Preserve arbitrary Unix bytes by
+    // executing such invocations directly instead of rejecting or corrupting them.
+    let utf8_arguments = arguments
+        .command
+        .iter()
+        .map(|s| s.to_str().map(str::to_owned))
+        .collect::<Option<Vec<_>>>();
+    let environment = env::vars_os()
+        .map(|(k, v)| Some((k.into_string().ok()?, v.into_string().ok()?)))
+        .collect::<Option<HashMap<_, _>>>();
+    let (Some(command_arguments), Some(environment)) = (utf8_arguments, environment) else {
+        use std::os::unix::process::CommandExt;
+        let error = std::process::Command::new(&arguments.command[0])
+            .args(&arguments.command[1..])
+            .exec();
+        eprintln!("{}: {error}", arguments.command[0].to_string_lossy());
+        process::exit(if error.kind() == std::io::ErrorKind::NotFound {
+            127
+        } else {
+            126
+        });
+    };
+    let command = command::create(command_arguments, &environment)?;
+    let trace_type = if arguments.full_tracing {
+        if arguments.observe_command.is_some() {
+            crate::config::TraceType::Observe
+        } else {
+            crate::config::TraceType::Sandbox
+        }
+    } else {
+        execution::get_trace_type(
+            &cache_directory,
+            &command,
+            arguments.observe_command.as_deref(),
+            !arguments.skip_introspection,
+        )
+    };
     let config = Config {
         try_command,
         cache_directory,

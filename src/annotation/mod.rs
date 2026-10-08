@@ -19,7 +19,23 @@ pub(crate) fn skip_command(command: &Command, environment: &HashMap<String, Stri
 }
 
 pub(crate) fn check_pure(command: &Command) -> bool {
-    check_conditions(PURE_COMMANDS, command)
+    if !command.standard_tool {
+        return false;
+    }
+    // File operands and output flags make otherwise stream-only commands impure.
+    // Keep only forms whose complete argument grammar is known here.
+    match command.name.as_str() {
+        "basename" => check_conditions(PURE_COMMANDS, command),
+        // sort may spill to TMPDIR even without file operands. It needs tracing.
+        "sort" => false,
+        "uniq" => command
+            .arguments
+            .iter()
+            .all(|a| matches!(a.as_str(), "-c" | "-d" | "-u" | "-i")),
+        "rev" => command.arguments.is_empty(),
+        "tr" => command.arguments.iter().all(|a| !a.starts_with("--")),
+        _ => false,
+    }
 }
 
 pub(crate) fn check_stateless(command: &Command) -> bool {
@@ -27,7 +43,29 @@ pub(crate) fn check_stateless(command: &Command) -> bool {
 }
 
 pub(crate) fn check_read_only(command: &Command) -> bool {
-    check_conditions(READ_ONLY_COMMANDS, command)
+    if !command.standard_tool {
+        return false;
+    }
+    match command.name.as_str() {
+        // These languages can write files or launch arbitrary programs based
+        // on stdin, so a prior read-only execution is not a proof of purity.
+        "awk" | "sed" => false,
+        "find" => !command.arguments.iter().any(|a| {
+            matches!(
+                a.as_str(),
+                "-exec"
+                    | "-execdir"
+                    | "-ok"
+                    | "-okdir"
+                    | "-delete"
+                    | "-fprint"
+                    | "-fprint0"
+                    | "-fprintf"
+                    | "-fls"
+            )
+        }),
+        _ => check_conditions(READ_ONLY_COMMANDS, command),
+    }
 }
 
 fn check_conditions(conditions: &[Condition], command: &Command) -> bool {
@@ -61,13 +99,11 @@ fn parse_arguments(arguments: &[String]) -> CommandArguments {
                 Some(index) => flags.insert(argument[2..index].to_lowercase()),
                 None => flags.insert(argument[2..].to_lowercase()),
             };
-        } else if !argument.starts_with("--") && argument.starts_with("-") && argument.len() >= 2 {
-            if argument.len() >= 3 && &argument[2..3] == "=" {
-                flags.insert(argument[1..2].to_lowercase());
-            } else {
-                for f in 1..argument.len() {
-                    flags.insert(argument[f..f + 1].to_lowercase());
-                }
+        } else if let Some(short) = argument.strip_prefix('-').filter(|s| !s.is_empty()) {
+            // Iterate characters: byte slicing panics on non-ASCII arguments.
+            let short = short.split_once('=').map_or(short, |(name, _)| name);
+            for flag in short.chars() {
+                flags.insert(flag.to_string());
             }
         } else {
             values.push(argument.clone());

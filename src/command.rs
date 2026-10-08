@@ -4,6 +4,8 @@ use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::{self, BufWriter, Error as IoError, ErrorKind, Read, Write};
 use std::iter;
+use std::os::unix::ffi::OsStrExt;
+use std::os::unix::fs::MetadataExt;
 use std::os::unix::process::CommandExt;
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command as ShellCommand, Stdio};
@@ -20,6 +22,8 @@ pub(crate) struct Command {
     pub(crate) arguments: Vec<String>,
     pub(crate) environment: BTreeMap<String, String>,
     pub(crate) hash: u64,
+    pub(crate) inherited_descriptors: bool,
+    pub(crate) standard_tool: bool,
 }
 
 impl Command {
@@ -37,6 +41,20 @@ struct CommandKey<'c> {
     name: &'c str,
     arguments: &'c [String],
     environment: &'c BTreeMap<String, String>,
+    executable: Option<ExecutableState>,
+}
+
+#[derive(Clone, Debug, Encode)]
+struct ExecutableState {
+    path: PathBuf,
+    dev: u64,
+    ino: u64,
+    changed_sec: i64,
+    changed_nsec: i64,
+    modified_sec: i64,
+    modified_nsec: i64,
+    size: u64,
+    mode: u32,
 }
 
 #[derive(Clone, Debug)]
@@ -44,6 +62,7 @@ pub(crate) struct Runtime {
     pub(crate) typ: RuntimeType,
     pub(crate) stdout_file: PathBuf,
     pub(crate) stderr_file: PathBuf,
+    pub(crate) effect_gate: Option<std::sync::Arc<crate::effect_gate::EffectGate>>,
 }
 
 #[derive(Clone, Debug)]
@@ -73,10 +92,13 @@ pub(crate) fn create(mut arguments: Vec<String>, environment: &HashMap<String, S
         let command_string = arguments.pop().unwrap();
         arguments = shlex::split(&command_string).ok_or_else(|| anyhow!("Could not split command"))?
     }
+    if arguments.is_empty() {
+        return Err(anyhow!("Empty command"));
+    }
     let name = arguments.remove(0);
 
     let excluded_variables = EXCLUDED_VARIABLES.iter().copied().collect::<HashSet<_>>();
-    let environment = environment
+    let mut environment = environment
         .iter()
         .filter_map(|(variable, value)| {
             if !excluded_variables.contains(variable.as_str())
@@ -89,10 +111,22 @@ pub(crate) fn create(mut arguments: Vec<String>, environment: &HashMap<String, S
         })
         .collect::<BTreeMap<_, _>>();
 
+    environment.insert(
+        "PWD".into(),
+        std::env::current_dir()?.to_string_lossy().into_owned(),
+    );
+
+    let executable = executable_state(&name, &environment);
+    let standard_tool = executable.as_ref().is_some_and(|state| {
+        ["/usr/bin", "/bin"].iter().any(|directory| {
+            fs::canonicalize(Path::new(directory).join(&name)).ok().as_ref() == Some(&state.path)
+        })
+    });
     let key_data = ops::data::encode_to_bytes(&CommandKey {
         name: &name,
         arguments: &arguments,
         environment: &environment,
+        executable,
     })?;
     let hash = ops::data::hash_bytes(&key_data);
 
@@ -101,7 +135,67 @@ pub(crate) fn create(mut arguments: Vec<String>, environment: &HashMap<String, S
         arguments,
         environment,
         hash,
+        inherited_descriptors: has_inherited_descriptors()?,
+        standard_tool,
     })
+}
+
+// Resolve the executable using execvp's search order. Static annotations only
+// describe the installed system tools, not arbitrary programs with their names.
+fn executable_state(name: &str, environment: &BTreeMap<String, String>) -> Option<ExecutableState> {
+    let candidates = if name.contains('/') {
+        vec![PathBuf::from(name)]
+    } else {
+        std::env::split_paths(environment.get("PATH").map_or("/bin:/usr/bin", String::as_str))
+            .map(|directory| directory.join(name))
+            .collect()
+    };
+    for candidate in candidates {
+        let Ok(c_path) = std::ffi::CString::new(candidate.as_os_str().as_bytes()) else {
+            continue;
+        };
+        if unsafe { libc::access(c_path.as_ptr(), libc::X_OK) } != 0 {
+            continue;
+        }
+        let Ok(path) = fs::canonicalize(candidate) else {
+            continue;
+        };
+        let Ok(m) = fs::metadata(&path) else { continue };
+        if !m.is_file() {
+            continue;
+        }
+        return Some(ExecutableState {
+            path,
+            dev: m.dev(),
+            ino: m.ino(),
+            changed_sec: m.ctime(),
+            changed_nsec: m.ctime_nsec(),
+            modified_sec: m.mtime(),
+            modified_nsec: m.mtime_nsec(),
+            size: m.len(),
+            mode: m.mode(),
+        });
+    }
+    None
+}
+
+/// Extra inherited descriptors carry state/communication outside the stdin
+/// cache key. Do not memoize them. Ignore Rust's own close-on-exec handles.
+fn has_inherited_descriptors() -> Result<bool> {
+    for entry in fs::read_dir("/proc/self/fd")? {
+        let entry = entry?;
+        let Some(fd) = entry.file_name().to_str().and_then(|s| s.parse::<i32>().ok()) else {
+            continue;
+        };
+        if fd <= 2 {
+            continue;
+        }
+        let flags = unsafe { libc::fcntl(fd, libc::F_GETFD) };
+        if flags >= 0 && flags & libc::FD_CLOEXEC == 0 {
+            return Ok(true);
+        }
+    }
+    Ok(false)
 }
 
 pub(crate) fn spawn(config: &Config, command: &Command, runtime: &Runtime) -> Result<ChildContext> {
@@ -119,10 +213,10 @@ where
 {
     if let RuntimeType::Sandbox(directory) = &runtime.typ {
         fs::create_dir_all(directory)?;
-    } else if let RuntimeType::TraceFile(file) | RuntimeType::Observe(file) = &runtime.typ {
-        if let Some(parent) = file.parent() {
-            fs::create_dir_all(parent)?;
-        }
+    } else if let RuntimeType::TraceFile(file) | RuntimeType::Observe(file) = &runtime.typ
+        && let Some(parent) = file.parent()
+    {
+        fs::create_dir_all(parent)?;
     }
 
     let mut child = spawn_child(config, command, runtime)?;
@@ -180,9 +274,13 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
         RuntimeType::Nothing => &command.name,
     };
     let mut child = ShellCommand::new(shell_command);
+    if let Some(gate) = &runtime.effect_gate {
+        child.arg("--effect-gate").arg(&gate.path);
+    }
 
     match &runtime.typ {
         RuntimeType::Sandbox(directory) => {
+            child.env("TRY_IGNORE_FILE", directory.join(".ignore.pending"));
             child.arg("-D");
             child.arg(ops::file::path_to_string(directory)?);
             child.arg(STRACE_COMMAND);
@@ -197,6 +295,8 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
         RuntimeType::TraceFile(file) => {
             if use_observe {
                 child.arg("--json");
+                child.arg("--hash");
+                child.arg("--dependencies");
                 child.arg("--output");
                 child.arg(ops::file::path_to_string(file)?);
                 child.arg("--no-filter");
@@ -217,6 +317,8 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
         }
         RuntimeType::Observe(file) => {
             child.arg("--json");
+            child.arg("--hash");
+            child.arg("--dependencies");
             child.arg("--output");
             child.arg(ops::file::path_to_string(file)?);
             child.arg("--no-filter");
@@ -235,6 +337,10 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
         .stderr(Stdio::piped());
     unsafe {
         child.pre_exec(|| {
+            // A dead owner must not leave a gate-blocked tracer behind.
+            if libc::prctl(libc::PR_SET_PDEATHSIG, libc::SIGKILL) == -1 {
+                return Err(IoError::last_os_error());
+            }
             if libc::setpgid(0, 0) == -1 {
                 Err(IoError::last_os_error())
             } else {
@@ -354,5 +460,29 @@ pub(crate) fn kill_child(child: &Child) -> Result<()> {
         Err(IoError::last_os_error().into())
     } else {
         Ok(())
+    }
+}
+
+/// All execution threads have finished. Reap adopted descendants left by a
+/// cancelled tracer instead of leaving zombies to the host's init process.
+pub(crate) fn reap_children() {
+    let children_path = format!("/proc/self/task/{}/children", std::process::id());
+    let deadline = std::time::Instant::now() + std::time::Duration::from_secs(1);
+    loop {
+        let mut status = 0;
+        while unsafe { libc::waitpid(-1, &mut status, libc::WNOHANG) } > 0 {}
+        let children = fs::read_to_string(&children_path).unwrap_or_default();
+        if children.trim().is_empty() {
+            break;
+        }
+        for pid in children.split_whitespace().filter_map(|p| p.parse::<i32>().ok()) {
+            unsafe {
+                libc::kill(pid, libc::SIGKILL);
+            }
+        }
+        if std::time::Instant::now() >= deadline {
+            break;
+        }
+        std::thread::sleep(std::time::Duration::from_millis(1));
     }
 }

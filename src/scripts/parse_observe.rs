@@ -1,61 +1,122 @@
-//! Parse observe's JSON output into (read_set, write_set).
-
-use std::collections::HashSet;
+//! Strict decoding of Observe reports. Ordinary /tmp files remain dependencies.
+use crate::cache::DependencyKey;
+use crate::config::OBSERVE_READ_EXCLUDED_PATHS;
+use crate::execution::Trace;
+use anyhow::{Context, Result};
+use serde::Deserialize;
+use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 
-use crate::config::OBSERVE_READ_EXCLUDED_PATHS;
-
-type Result<T> = std::result::Result<T, String>;
-
-#[derive(serde::Deserialize)]
-struct ObserveReport {
-    reads: Vec<String>,
-    writes: serde_json::Value,
+#[derive(Deserialize)]
+struct Report {
+    dependency_version: u32,
+    replay_barriers: Vec<String>,
+    dependencies: HashMap<PathBuf, ObservedDependency>,
+    reads: Vec<PathBuf>,
+    writes: Vec<Write>,
 }
 
-/// Parse observe's JSON output and return (read_set, write_set).
-/// Handles both plain writes: ["path1", "path2"] and hash format: [{"path": "...", "pre_hash": "..."}].
-/// Filters out reads under OBSERVE_READ_EXCLUDED_PATHS (/tmp, /dev, /proc, /sys) to avoid
-/// cache invalidation from transient or non-deterministic paths.
-pub fn parse_observe(trace_path: &Path) -> Result<(HashSet<PathBuf>, HashSet<PathBuf>)> {
-    let data = std::fs::read_to_string(trace_path)
-        .map_err(|e| format!("read {:?}: {e}", trace_path))?;
+#[derive(Deserialize)]
+#[serde(tag = "kind", rename_all = "snake_case")]
+enum ObservedDependency {
+    Absent,
+    File {
+        modified: u64,
+        changed_sec: i64,
+        changed_nsec: i64,
+        size: u64,
+        mode: u32,
+    },
+    Directory {
+        modified: u64,
+        changed_sec: i64,
+        changed_nsec: i64,
+        mode: u32,
+    },
+    Symlink {
+        target: PathBuf,
+    },
+    Uncacheable,
+}
 
-    let report: ObserveReport = serde_json::from_str(&data)
-        .map_err(|e| format!("parse observe JSON: {e}"))?;
+#[derive(Deserialize)]
+#[serde(untagged)]
+enum Write {
+    Path(PathBuf),
+    Hashed { path: PathBuf, pre_hash: Option<String> },
+}
 
-    let read_set: HashSet<PathBuf> = report
-        .reads
-        .into_iter()
-        .map(PathBuf::from)
-        .filter(|p| {
-            let s = p.to_string_lossy();
-            !OBSERVE_READ_EXCLUDED_PATHS
-                .iter()
-                .any(|prefix| s.starts_with(prefix))
-        })
-        .collect();
-
-    let write_set: HashSet<PathBuf> = match report.writes {
-        serde_json::Value::Array(arr) => {
-            let mut writes = HashSet::new();
-            for item in arr {
-                match item {
-                    serde_json::Value::String(s) => {
-                        writes.insert(PathBuf::from(s));
-                    }
-                    serde_json::Value::Object(obj) => {
-                        if let Some(serde_json::Value::String(path)) = obj.get("path") {
-                            writes.insert(PathBuf::from(path));
-                        }
-                    }
-                    _ => {}
-                }
-            }
-            writes
-        }
-        _ => HashSet::new(),
+pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
+    let report: Report = serde_json::from_slice(&std::fs::read(path)?)
+        .with_context(|| format!("decode Observe report {}", path.display()))?;
+    if report.dependency_version != 3 {
+        anyhow::bail!("unsupported Observe dependency protocol");
+    }
+    let tracked =
+        |p: &Path| p.is_absolute() && !OBSERVE_READ_EXCLUDED_PATHS.iter().any(|root| p.starts_with(root));
+    let mut trace = Trace {
+        replay_barriers: report.replay_barriers,
+        ..Trace::default()
     };
-
-    Ok((read_set, write_set))
+    trace
+        .reads
+        .extend(report.reads.into_iter().filter(|p| tracked(p)));
+    for (path, observed) in report.dependencies {
+        if !tracked(&path) {
+            continue;
+        }
+        let key = match observed {
+            ObservedDependency::Absent => DependencyKey::DoesNotExist,
+            ObservedDependency::File {
+                modified,
+                changed_sec,
+                changed_nsec,
+                size,
+                mode,
+            } => DependencyKey::FileState {
+                modified: modified.into(),
+                changed_sec,
+                changed_nsec,
+                size,
+                mode,
+            },
+            ObservedDependency::Directory {
+                modified,
+                changed_sec,
+                changed_nsec,
+                mode,
+            } => DependencyKey::DirectoryState {
+                modified: modified.into(),
+                changed_sec,
+                changed_nsec,
+                mode,
+            },
+            ObservedDependency::Symlink { target } => DependencyKey::Symlink(target),
+            ObservedDependency::Uncacheable => DependencyKey::Uncacheable,
+        };
+        trace.initial_dependencies.insert(path, key);
+    }
+    for write in report.writes {
+        let (path, hash) = match write {
+            Write::Path(path) => (path, None),
+            Write::Hashed { path, pre_hash } => (path, pre_hash),
+        };
+        if !tracked(&path) {
+            continue;
+        }
+        if let Some(hash) = hash {
+            let key = match hash.as_str() {
+                "nonexistent" => DependencyKey::DoesNotExist,
+                "unreadable" => DependencyKey::Uncacheable,
+                h => DependencyKey::Hash(u64::from_str_radix(h, 16).context("invalid pre-write hash")?),
+            };
+            let key = match trace.initial_dependencies.remove(&path) {
+                Some(initial) => DependencyKey::All(vec![initial, key]),
+                None => key,
+            };
+            trace.initial_dependencies.insert(path.clone(), key);
+        }
+        trace.writes.insert(path);
+    }
+    Ok(trace)
 }

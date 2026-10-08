@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 import argparse
+import shlex
+import subprocess
+import shutil
 import libbash
 import libbash.bash_command as BashAST
 import libbash.ctypes_bash_command as c_bash
@@ -90,6 +93,10 @@ IGNORE_COMMANDS = [
     "env",
     "ln",
     "mount",
+    "mktemp",
+    "date",
+    "shuf",
+    "uuidgen",
     "printenv",
     "sleep",
     "stat",
@@ -112,6 +119,14 @@ IGNORE_COMMANDS = [
     r"/bin/sh",
 ]
 AVOID_SET = set(IGNORE_COMMANDS)
+UNSAFE_STARRED_POSITIONAL_PATTERNS = (
+    b"$@",
+    b"$*",
+    b"${@",
+    b"${*",
+)
+BASH_CTLESC = "\x01"
+BASH_CTLNUL = "\x7f"
 
 # Monkey patch
 # TODO: Fix this in libdash
@@ -162,7 +177,7 @@ def transform_node(node, sys_path):
             # ----- INCR -----
             if arguments and all(hasattr(c, "char") for c in arguments[0]): # Don't append sys to assignments
                 command_name = "".join(chr(c.char) for c in arguments[0])
-                if command_name not in AVOID_SET: # Don't append sys to unreasonable commands
+                if command_name not in AVOID_SET and shutil.which(command_name): # Let the shell diagnose unresolved commands
                     arguments = [str_to_ast(sys_path)] + arguments
             # ----- INCR -----
 
@@ -221,6 +236,9 @@ def transform_ast(ast, sys_path):
     return [transform_node(node, sys_path) for node, _, _, _ in ast]
 
 def transform_bash_node(node, sys_path, state):
+    def contains_starred_positional_expansion(word: bytes) -> bool:
+        return any(pattern in word for pattern in UNSAFE_STARRED_POSITIONAL_PATTERNS)
+
     def handle_command_node(node: BashAST.Command, sys_path):
         match node.type:
             case BashAST.CommandType.CM_SIMPLE:
@@ -228,22 +246,29 @@ def transform_bash_node(node, sys_path, state):
                 cmd = node.value.simple_com
                 if not len(cmd.words): return node
                 # ----- INCR -----
-                cmd_name = str(cmd.words[0].word, "utf8", errors="replace")
+                cmd_name = str(cmd.words[0].word, "utf8", errors="surrogateescape")
                 logging.debug(f"Handling simple command {cmd_name} {[str(word.word) for word in cmd.words]}")
                 logging.debug(f"State: {state}")
                 if cmd_name == 'alias' and len(cmd.words) > 1:
-                    alias_name = str(cmd.words[1].word, "utf8", errors="replace").split('=')[0]
+                    alias_name = str(cmd.words[1].word, "utf8", errors="surrogateescape").split('=')[0]
                     state.aliases.add(alias_name)
                 if cmd_name in AVOID_SET or '=' in cmd_name: # Don't append sys to built-in commands or assignments
                     return node
                 if cmd_name in state.functions or cmd_name in state.aliases:
                     return node
+                if not shutil.which(cmd_name):
+                    # Commands created or resolved later remain native shell
+                    # calls, preserving command-not-found hooks and status.
+                    return node
                 if cmd_name[0] in ('$', '%'): # Don't append sys to variables or job identifiers
+                    return node
+                if any(contains_starred_positional_expansion(word.word) for word in cmd.words):
                     return node
                 if any([b'<(' in word.word for word in cmd.words]):
                     return node
                 words = [BashAST.WordDesc(c_bash.word_desc(bytes(sys_path, "utf8"), 0))] + cmd.words
                 # ----- INCR -----
+                state.modified = True
                 node_copy = copy.deepcopy(node)
                 node_copy.value.simple_com.words = words
                 return node_copy
@@ -341,6 +366,7 @@ def transform_bash_node(node, sys_path, state):
 class State:
     functions: set[str] = field(default_factory=set)
     aliases: set[str] = field(default_factory=set)
+    modified: bool = False
 
 def transform_bash_ast(ast, sys_path, state):
     nodes = []
@@ -372,6 +398,23 @@ def strip_no_op_lines(code: str):
         lines.append(line)
     return "".join(lines)
 
+
+def dequote_bash_internal_escapes(code: str):
+    result = []
+    i = 0
+    while i < len(code):
+        if (
+            code[i] == BASH_CTLESC
+            and i + 1 < len(code)
+            and code[i + 1] in (BASH_CTLESC, BASH_CTLNUL)
+        ):
+            result.append(code[i + 1])
+            i += 2
+            continue
+        result.append(code[i])
+        i += 1
+    return "".join(result)
+
 def main():
     sys_name = "incr"
     sys_path = "~/incr/target/release/incr"
@@ -383,30 +426,63 @@ def main():
     arg_parser.add_argument("-e", "--execute", action="store_true", help="Execute the transformed script")
     arg_parser.add_argument("--sys-path", help=f"Path to the {sys_name} executable", default=sys_path)
     arg_parser.add_argument("--try-path", help=f"Path to the try.sh script", default=None)
-    arg_parser.add_argument("--cache-path", help="Path to the cache directory", default=None)
-    arg_parser.add_argument("--observe-path", help="Path to the observe binary (enables observe for tracing)", default=None)
+    arg_parser.add_argument(
+        "--cache-path",
+        nargs="?",
+        const="/tmp/incr_cache",
+        default="/tmp/incr_cache",
+        help="Path to the cache directory",
+    )
+    arg_parser.add_argument("--observe-path", help="Observe binary path", default=None)
     arg_parser.add_argument("-d", "--debug", action="store_true", help="Enable debug logging")
     arg_parser.add_argument("--bash", action="store_true", help="Use bash parser (experimental)")
     arg_parser.add_argument("--identity", action="store_true", help=f"Output parsed script without inserting {sys_name}")
     args = arg_parser.parse_args()
     
     logging.basicConfig(level=logging.DEBUG if args.debug else logging.INFO)
-    if args.try_path and args.cache_path:
-        sys_path = f"{args.sys_path} --try {args.try_path} --cache {args.cache_path}"
-        if args.observe_path:
-            sys_path = f"{sys_path} --observe {args.observe_path}"
-    else:
-        sys_path = args.sys_path
+    prefix = [args.sys_path]
+    if args.try_path:
+        prefix.extend(["--try", args.try_path])
+    if args.cache_path:
+        prefix.extend(["--cache", args.cache_path])
+    if args.observe_path:
+        prefix.extend(["--observe", args.observe_path])
+    sys_path = shlex.join(prefix)
 
     state = State()
     script_path = args.path
 
+    with open(args.path, "rb") as source_file:
+        source_bytes = source_file.read()
+    # AST pretty-printing cannot preserve history's source text or the timing
+    # of locale-sensitive ANSI-C quote expansion. Keep these native to Bash.
+    source_sensitive = (re.search(rb"(?:^|[;\n])\s*(?:history|fc)(?:\s|$)", source_bytes) is not None
+                        or b"$'" in source_bytes and re.search(rb"\\(?:[uUxX]|[0-7])", source_bytes) is not None
+                        or re.search(rb"(?:^|[;\n])\s*set\s+(?:-r|-H|-o\s+(?:restricted|history|histexpand))(?:\s|$)", source_bytes) is not None
+                        or re.search(rb"(?:<|\bcat\s+)[^\n;]*\$[\{]?0", source_bytes) is not None)
+
+    source_sensitive = source_sensitive or any(name in source_bytes for name in
+        (b"LINENO", b"BASH_SOURCE", b"BASH_EXECUTION_STRING", b"BASH_ARGV", b"BASH_COMMAND", b"FUNCNAME"))
+    source_sensitive = source_sensitive or bool(os.environ.get("BASH_ENV"))
+    # Variable listings include source-stack arrays even without naming them.
+    source_sensitive = source_sensitive or re.search(
+        rb"(?:^|[;\n])\s*(?:declare|typeset)(?:\s+-[a-zA-Z]+)*\s*(?:[;|\n]|$)", source_bytes) is not None
+
+    # Parsing an incomplete here-document can print warnings and then rewrite
+    # its contents. Let the executing shell handle such input exactly once.
+    checked = subprocess.run([os.environ.get("INCR_SHELL", "bash"), "-n", args.path],
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
+    if source_sensitive or checked.returncode != 0 or checked.stderr:
+        original = source_bytes
+        if args.output:
+            with open(args.output, "wb") as output_file:
+                output_file.write(original)
+        else:
+            sys.stdout.buffer.write(original)
+        return
+
     try:
         if args.bash:
-            # with tempfile.NamedTemporaryFile(delete=False, mode="w+", suffix=".sh") as temp_file:
-            #     temp_file.write(preserve_line_numbers(args.path))
-            #     temp_file.flush()
-            #     args.path = temp_file.name
             original_ast = parse_bash_to_asts(args.path)
             if args.identity:
                 transformed_ast = original_ast
@@ -414,12 +490,18 @@ def main():
                 # Do transform_bash_ast twice to populate function definitions
                 _ = transform_bash_ast(original_ast, sys_path, state)
                 transformed_ast = transform_bash_ast(original_ast, sys_path, state)
-            with tempfile.NamedTemporaryFile(delete=False, mode="wb+", suffix=".sh") as temp_file:
-                libbash.ast_to_bash(transformed_ast, temp_file.name)
-                temp_file.flush()
-                raw_bytes = temp_file.read()
-                transformed_code = raw_bytes.decode("utf-8", errors="replace")
-                transformed_code = strip_no_op_lines(transformed_code)
+            if not args.identity and not state.modified:
+                with open(args.path, "rb") as file:
+                    raw_bytes = file.read()
+                transformed_code = raw_bytes.decode("utf-8", errors="surrogateescape")
+            else:
+                with tempfile.NamedTemporaryFile(mode="wb+", suffix=".sh") as temp_file:
+                    libbash.ast_to_bash(transformed_ast, temp_file.name)
+                    temp_file.flush()
+                    raw_bytes = temp_file.read()
+                    transformed_code = raw_bytes.decode("utf-8", errors="surrogateescape")
+                    transformed_code = dequote_bash_internal_escapes(transformed_code)
+                    transformed_code = strip_no_op_lines(transformed_code)
         else:
             original_ast = parse_shell_to_asts(args.path)
             transformed_ast = transform_ast(original_ast, sys_path)
@@ -428,22 +510,22 @@ def main():
         print(f"Error inserting {sys_name} into script {script_path}: {e}", file=sys.stderr)
         with open(args.path, "rb") as file:
             raw_bytes = file.read()
-            transformed_code = raw_bytes.decode("utf-8", errors="replace")
+            transformed_code = raw_bytes.decode("utf-8", errors="surrogateescape")
         if args.debug:
             raise Exception(f"Error inserting {sys_name} into script {script_path}: {e}")
         sys.exit(1)
 
+    if not transformed_code.endswith("\n") and (args.identity or state.modified or not args.bash):
+        transformed_code += "\n"
     output = args.output or sys.stdout
 
     if args.output:
-        with open(output, "w", encoding="utf-8", errors="replace") as f:
+        with open(output, "w", encoding="utf-8", errors="surrogateescape") as f:
             f.write(transformed_code)
-            f.write("\n")
     else:
-        sys.stdout.buffer.write(transformed_code.encode("utf-8", errors="replace"))
-        sys.stdout.buffer.write(b"\n")
+        sys.stdout.buffer.write(transformed_code.encode("utf-8", errors="surrogateescape"))
     if args.execute and args.output is not None:
-        os.system(f"bash {args.output}")
+        raise SystemExit(subprocess.run([os.environ.get("INCR_SHELL", "bash"), args.output]).returncode)
 
 if __name__ == "__main__":
     main()

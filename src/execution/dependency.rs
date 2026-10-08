@@ -2,6 +2,7 @@ use anyhow::Result;
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::{BufReader, ErrorKind};
+use std::os::unix::fs::{MetadataExt, OpenOptionsExt};
 use std::path::{Path, PathBuf};
 use std::time::UNIX_EPOCH;
 
@@ -12,7 +13,10 @@ use crate::config::{BUFFER_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, INTROSPECT_DIRE
 use crate::ops;
 
 pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {
-    if !cache.data_outputs_exist() || !check_read_dependencies(&data.read_dependencies)? {
+    if !data.replay_barriers.is_empty()
+        || !cache.data_outputs_exist()
+        || !check_read_dependencies(&data.read_dependencies)?
+    {
         return Ok(false);
     }
     if !data.write_outputs.is_empty() && !cache.file_outputs_exist() {
@@ -29,6 +33,22 @@ pub(crate) fn get_read_dependencies(
     let results = ops::thread::parallel_process(&paths, |chunk| {
         let mut dependencies = Vec::with_capacity(chunk.len());
         for &path in chunk {
+            if let Ok(metadata) = fs::symlink_metadata(path) {
+                if metadata.file_type().is_symlink() {
+                    dependencies.push((path.clone(), DependencyKey::Symlink(fs::read_link(path)?)));
+                    continue;
+                }
+                if metadata.is_dir() {
+                    if let Some(timestamp) = get_modified_timestamp(path)? {
+                        dependencies.push((path.clone(), DependencyKey::Directory(timestamp)));
+                    }
+                    continue;
+                }
+                if !metadata.is_file() {
+                    dependencies.push((path.clone(), DependencyKey::Uncacheable));
+                    continue;
+                }
+            }
             if !path.exists() {
                 dependencies.push((path.clone(), DependencyKey::DoesNotExist));
                 continue;
@@ -85,27 +105,67 @@ fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Re
     let dependencies = dependencies.iter().collect::<Vec<_>>();
     let results = ops::thread::parallel_process(&dependencies, |chunk| {
         for (path, key) in chunk {
-            match key {
-                DependencyKey::DoesNotExist => {
-                    if path.exists() {
-                        return Ok(false);
-                    }
-                }
-                DependencyKey::Timestamp(timestamp) => {
-                    if !path.is_file() || get_modified_timestamp(path)? != Some(*timestamp) {
-                        return Ok(false);
-                    }
-                }
-                DependencyKey::Hash(hash) => {
-                    if !path.is_file() || get_file_hash(path)? != Some(*hash) {
-                        return Ok(false);
-                    }
-                }
+            // Files can disappear or become unreadable between probes. That is
+            // a cache miss, not an error in the user's command.
+            if !check_dependency(path, key).unwrap_or(false) {
+                return Ok(false);
             }
         }
         Ok(true)
     })?;
     Ok(results.into_iter().all(|r| r))
+}
+
+fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
+    Ok(match key {
+        DependencyKey::Uncacheable => false,
+        DependencyKey::All(keys) => {
+            for key in keys {
+                if !check_dependency(path, key)? {
+                    return Ok(false);
+                }
+            }
+            true
+        }
+        DependencyKey::FileState {
+            modified,
+            changed_sec,
+            changed_nsec,
+            size,
+            mode,
+        } => {
+            let m = fs::symlink_metadata(path)?;
+            m.is_file()
+                && m.len() == *size
+                && m.mode() == *mode
+                && m.ctime() == *changed_sec
+                && m.ctime_nsec() == *changed_nsec
+                && m.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() == *modified
+        }
+        DependencyKey::DirectoryState {
+            modified,
+            changed_sec,
+            changed_nsec,
+            mode,
+        } => {
+            let m = fs::symlink_metadata(path)?;
+            m.is_dir()
+                && m.mode() == *mode
+                && m.ctime() == *changed_sec
+                && m.ctime_nsec() == *changed_nsec
+                && m.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() == *modified
+        }
+        DependencyKey::Directory(timestamp) => {
+            path.is_dir() && get_modified_timestamp(path)? == Some(*timestamp)
+        }
+        DependencyKey::Symlink(target) => fs::read_link(path).ok().as_ref() == Some(target),
+        DependencyKey::DoesNotExist => matches!(fs::symlink_metadata(path),
+            Err(e) if e.kind() == ErrorKind::NotFound),
+        DependencyKey::Timestamp(timestamp) => {
+            path.is_file() && get_modified_timestamp(path)? == Some(*timestamp)
+        }
+        DependencyKey::Hash(hash) => path.is_file() && get_file_hash(path)? == Some(*hash),
+    })
 }
 
 fn get_modified_timestamp(file_path: &Path) -> Result<Option<u128>> {
@@ -119,11 +179,18 @@ fn get_modified_timestamp(file_path: &Path) -> Result<Option<u128>> {
 }
 
 fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
-    let file = match File::open(file_path) {
+    let file = match fs::OpenOptions::new()
+        .read(true)
+        .custom_flags(libc::O_NONBLOCK)
+        .open(file_path)
+    {
         Ok(file) => file,
         Err(error) if error.kind() == ErrorKind::PermissionDenied => return Ok(None),
         Err(error) => return Err(error.into()),
     };
+    if !file.metadata()?.is_file() {
+        return Ok(None);
+    }
     let mut file_reader = BufReader::with_capacity(BUFFER_SIZE, file);
     Ok(Some(ops::data::hash_stream(&mut file_reader)?))
 }

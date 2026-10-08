@@ -21,8 +21,8 @@ for img in $(find "$IMG_DIR" -type f -name '*.jpg' | sort); do
     cat "$img" |
     python3 scripts/segment.py |
     python3 scripts/classify.py "$img" |
-    tee -a "$CLASS_FILE" |
-    awk -vi="$img" '{print "g:", $5, "c:", $6, i}'
+    awk -vi="$img" '{print "g:", $5, "c:", $6, i}' |
+    tee -a "$CLASS_FILE"
 done | sort > "$DB_FILE"
 
 python3 scripts/plot_3.py "$CLASS_FILE"

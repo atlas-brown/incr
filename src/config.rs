@@ -54,16 +54,14 @@ pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
 pub(crate) const EXCLUDED_PATHS: &[&str] = &["/proc", "pipe:"];
 pub(crate) const DYNAMIC_EXCLUDED_PATHS: &[&str] = &["/tmp"];
 
-/// Paths to exclude from observe-mode read dependencies. Observe runs without sandbox
-/// and traces more paths (e.g. /tmp, /dev) that change between runs, causing cache
-/// invalidation. Filtering these at parse time improves cache hits for observe mode.
-pub(crate) const OBSERVE_READ_EXCLUDED_PATHS: &[&str] = &["/tmp", "/dev", "/proc", "/sys"];
+/// Virtual filesystem paths are excluded; ordinary /tmp inputs remain dependencies.
+pub(crate) const OBSERVE_READ_EXCLUDED_PATHS: &[&str] = &["/dev", "/proc", "/sys"];
 
 #[derive(Clone, Debug)]
 pub(crate) struct Config {
-    pub(crate) try_command: String,       // Bash try command string
-    pub(crate) cache_directory: PathBuf, // Directory to store cache data
-    pub(crate) trace_type: TraceType,    // Type of tracing to use
+    pub(crate) try_command: String,             // Bash try command string
+    pub(crate) cache_directory: PathBuf,        // Directory to store cache data
+    pub(crate) trace_type: TraceType,           // Type of tracing to use
     pub(crate) observe_command: Option<String>, // Path to observe binary; when Some, use observe for tracing
 
     pub(crate) batch_executor: bool,     // Run using the batch executor

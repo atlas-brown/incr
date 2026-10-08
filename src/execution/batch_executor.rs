@@ -74,8 +74,26 @@ fn run_command(
         return Ok(CommandResult::BrokenPipe);
     }
 
-    let (read_set, mut write_set) = execution::parse_trace(&runtime)?;
-    let mut read_dependencies = dependency::get_read_dependencies(&read_set, &write_set)?;
+    let mut trace = execution::parse_trace(&runtime)?;
+    let mut read_dependencies = if config.observe_command.is_some() {
+        trace
+            .reads
+            .iter()
+            .map(|path| {
+                (
+                    path.clone(),
+                    trace
+                        .initial_dependencies
+                        .get(path)
+                        .cloned()
+                        .unwrap_or(crate::cache::DependencyKey::Uncacheable),
+                )
+            })
+            .collect()
+    } else {
+        dependency::get_read_dependencies(&trace.reads, &trace.writes)?
+    };
+    let mut write_set = trace.writes;
     match &runtime.typ {
         RuntimeType::Sandbox(_) => {
             cache.extract_sandbox_output()?;
@@ -83,17 +101,26 @@ fn run_command(
                 cache.commit_output()?;
             }
         }
-        RuntimeType::Observe(_) => {
-            cache.capture_observe_output(&write_set)?;
-            if !write_set.is_empty() {
-                cache.commit_output()?;
+        RuntimeType::Observe(_) | RuntimeType::TraceFile(_) if config.observe_command.is_some() => {
+            if trace.replay_barriers.is_empty()
+                && let Err(error) = cache.capture_observe_output(&write_set)
+            {
+                // The live command succeeded; unsupported output metadata
+                // prevents reuse, rather than changing its observable status.
+                debug_log!("Cannot capture output for reuse: {error:#}");
+                trace.replay_barriers.push("uncapturable-output".to_owned());
             }
+            // Observe already executed on the live filesystem. Replaying here
+            // duplicates effects and can overwrite another command's changes.
         }
         _ => {}
     }
-    dependency::filter_dependencies(&mut read_dependencies, &mut write_set)?;
+    if config.observe_command.is_none() {
+        dependency::filter_dependencies(&mut read_dependencies, &mut write_set)?;
+    }
 
     Ok(CommandResult::Completed(CacheData {
+        replay_barriers: trace.replay_barriers,
         exit_code,
         read_dependencies,
         write_outputs: write_set,
@@ -118,6 +145,7 @@ fn create_child_runtime(config: &Config, cache: &CacheCursor<'_>) -> Runtime {
         typ,
         stdout_file: cache.get_stdout_file(),
         stderr_file: cache.get_stderr_file(),
+        effect_gate: None,
     }
 }
 

@@ -24,27 +24,32 @@ pub(crate) enum OutputResult {
     BrokenPipe,
 }
 
-pub(crate) fn forward_stdin<C>(channel: Receiver<C>, mut child_stdin: ChildStdin) -> Result<()>
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) enum StdinResult {
+    Completed,
+    BrokenPipe,
+}
+
+/// Drains a channel of byte chunks into a child's stdin.
+pub(crate) fn forward_stdin<C>(channel: Receiver<C>, mut child_stdin: ChildStdin) -> Result<StdinResult>
 where
     C: AsRef<[u8]>,
 {
-    let mut broken = false;
     for chunk in channel {
-        if broken {
-            continue;
-        }
         if let Err(error) = child_stdin.write_all(chunk.as_ref()) {
             if error.kind() != ErrorKind::BrokenPipe {
                 return Err(error.into());
             }
-            broken = true;
+            return Ok(StdinResult::BrokenPipe);
         };
     }
-    Ok(())
+    Ok(StdinResult::Completed)
 }
 
+/// Joins the stdin/stdout/stderr capture threads and returns output lengths.
+/// Returns `None` if a broken pipe was encountered.
 pub(crate) fn join_stream_threads(
-    stdin_thread: Option<JoinHandle<Result<()>>>,
+    stdin_thread: Option<JoinHandle<Result<StdinResult>>>,
     stdout_thread: JoinHandle<Result<ChildResult>>,
     stderr_thread: JoinHandle<Result<ChildResult>>,
 ) -> Result<Option<OutputMetadata>> {
@@ -64,21 +69,21 @@ pub(crate) fn join_stream_threads(
     }
 }
 
+/// Removes temporary runtime files (stdout/stderr captures, sandbox, or trace file).
 pub(crate) fn clean_child_runtime(runtime: &Runtime) -> Result<()> {
     ops::file::remove_file(&runtime.stdout_file)?;
     ops::file::remove_file(&runtime.stderr_file)?;
     match &runtime.typ {
         RuntimeType::Sandbox(directory) => batch_cache::remove_sandbox(directory)?,
-        RuntimeType::TraceFile(file) | RuntimeType::Observe(file) => {
-            if file.exists() {
-                ops::file::remove_file(file)?;
-            }
-        }
+        RuntimeType::TraceFile(file) | RuntimeType::Observe(file) => ops::file::remove_file(file)?,
         RuntimeType::Nothing => (),
     }
     Ok(())
 }
 
+/// Replays captured data from a file to a destination stream, skipping the first
+/// `start_index` bytes (which were already forwarded during speculative execution).
+/// Handles both compressed and uncompressed files.
 pub(crate) fn output_data<D>(
     data_file: &Path,
     start_index: usize,

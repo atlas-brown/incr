@@ -10,10 +10,12 @@ use crate::config::{BUFFER_SIZE, DEBUG_FILE};
 
 pub(crate) mod batch_cache;
 pub(crate) mod chunk_cache;
+pub(crate) mod effects;
 
 #[derive(Clone, Debug, Decode, Deserialize, Encode, Serialize)]
 pub(crate) struct CacheData {
     pub(crate) exit_code: i32,
+    pub(crate) replay_barriers: Vec<String>,
     pub(crate) read_dependencies: HashMap<PathBuf, DependencyKey>,
     pub(crate) write_outputs: HashSet<PathBuf>,
     pub(crate) compressed_output: bool,
@@ -22,7 +24,24 @@ pub(crate) struct CacheData {
 #[derive(Clone, Debug, Decode, Deserialize, Encode, Eq, PartialEq, Serialize)]
 pub(crate) enum DependencyKey {
     DoesNotExist,
+    Uncacheable,
+    All(Vec<DependencyKey>),
+    FileState {
+        modified: u128,
+        changed_sec: i64,
+        changed_nsec: i64,
+        size: u64,
+        mode: u32,
+    },
+    DirectoryState {
+        modified: u128,
+        changed_sec: i64,
+        changed_nsec: i64,
+        mode: u32,
+    },
     Timestamp(u128),
+    Directory(u128),
+    Symlink(PathBuf),
     Hash(u64),
 }
 

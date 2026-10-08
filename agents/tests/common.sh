@@ -10,9 +10,8 @@ TRY="./src/scripts/try.sh"
 OBSERVE="../observe/target/release/observe"
 CACHE="/tmp/incr_test_cache_$$"
 TESTDIR="/tmp/incr_test_dir_$$"
-# /tmp reads are excluded from observe's dependency tracking (OBSERVE_READ_EXCLUDED_PATHS).
-# Tests that need observe to track input file reads (e.g. cp invalidation) must put inputs
-# under TESTDIR_OBS, which is outside /tmp.
+# Keep the historical outside-/tmp fixture as additional path coverage.
+# Observe dependency mode now tracks /tmp inputs as well.
 TESTDIR_OBS="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/incr_test_obs_$$"
 
 mkdir -p "$TESTDIR" "$TESTDIR_OBS"

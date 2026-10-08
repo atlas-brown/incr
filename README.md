@@ -13,7 +13,7 @@ cd ../observe && cargo build --release && cd ../incr
 ./incr.sh my_script.sh [/path/to/cache]
 ```
 
-When **observe** is built as a sibling project (`../observe/target/release/observe`), incr.sh automatically uses it for write commands, giving ~10x faster cold runs than the fallback mode (try + strace). incr works without observe; it falls back to try + strace for write commands.
+When **observe** is built as a sibling project (`../observe/target/release/observe`), incr.sh automatically uses it for write commands, avoiding the sandbox setup used by the fallback mode (try + strace). incr works without observe; it falls back to try + strace for write commands.
 
 ---
 
@@ -55,16 +55,14 @@ echo "" | ./target/release/incr -t ./src/scripts/try.sh -c /tmp/cache --observe 
 
 ## Using observe
 
-**observe** is a lightweight ptrace-based tracer that records file reads/writes. incr uses it instead of strace + the try overlayfs sandbox for commands that write files.
+**observe** is a lightweight ptrace-based tracer that records file reads/writes. incr uses it instead of strace + the try filesystem sandbox for commands that write files.
 
 ### Why use observe?
 
-| Mode | Write commands | Cold run | Warm run |
-|------|----------------|----------|----------|
-| **Fallback**: try + strace | Overlayfs sandbox + strace | ~250 ms | ~35 ms |
-| **observe** | Direct execution + trace | **~23 ms** | **~18 ms** |
-
-For write-heavy workloads, observe gives ~10x faster cold runs. The fallback (try + strace) uses full overlayfs isolation and works without building observe.
+Observe traces commands on the live filesystem, avoiding the fallback's per-command
+mergerfs sandbox setup. This also preserves live shared-file and FIFO interactions.
+Actual speedups depend on the workload and whether its effects can safely replay;
+see the minimum-input qualification results under `qualification/results/`.
 
 ### Enabling observe
 
@@ -80,20 +78,53 @@ For write-heavy workloads, observe gives ~10x faster cold runs. The fallback (tr
 ### When observe is used
 
 - **Write commands** (echo > file, cp, sed -i, etc.): Use Observe mode (replaces Sandbox)
-- **Read-only commands** (cat, sed to stdout): Use TraceFile with observe for lighter tracing
-- **Pure commands** (grep, wc): No tracing
+- **Known read-only tool forms** (e.g. cat or head): Use TraceFile with observe for lighter tracing
+- **Known stream-only system-tool forms** (e.g. stdin-only `rev`): No tracing
 
 ### Fallback: try + strace
 
 When observe is **not** available (not built or not passed via `--observe`), incr falls back to **try + strace**:
 
-- **Write commands**: Run inside a **try** overlayfs sandbox. The command executes in an isolated overlay; strace records file access; try commit applies changes to the real filesystem. Requires `mergerfs` (or `unionfs`) and `try.sh`.
+- **Write commands**: Run inside a **try** filesystem sandbox. The command executes in an isolated overlay; strace records file access; try commit applies changes to the real filesystem. Requires `mergerfs` (or `unionfs`) and `try.sh`.
 - **Read-only commands**: Use **strace** to trace file reads (TraceFile mode). No sandbox.
-- **Pure commands**: No tracing (Nothing mode).
+- **Known stream-only system-tool forms**: No tracing (Nothing mode).
 
-This fallback works without the observe project. It is slower for write commands (~250 ms cold vs ~23 ms with observe) but provides full isolation via the try overlay. Use it when observe is unavailable or when you need the sandbox’s stronger isolation guarantees.
+This fallback works without the observe project. It adds sandbox setup and commit overhead. Use it when Observe is unavailable; its overlay is not a security boundary.
 
 ---
+
+## Cache correctness and execution limits
+
+Incr reuses deterministic command output when its arguments, environment, working
+directory, executable identity, umask, stdin and recorded filesystem dependencies match. Observe reports
+first-access state, including failed opens, symlinks, directories and write targets.
+File state includes ctime as well as mtime, size and mode. `/tmp` inputs are tracked.
+Static tool annotations apply only to resolved system tools, so custom PATH programs
+with the same names are traced. Commands using inherited extra file descriptors or non-UTF-8 arguments/environment
+execute directly. Unrepresentable dependency paths prevent reuse.
+
+Streaming execution starts the command while consuming stdin. An effect gate lets
+Incr cancel and replay only before Observe permits the first live write. After that
+point the command finishes normally, without rollback or a second application of
+its writes. Batch mode requires finite stdin and checks the cache before execution.
+Cache writers use a nonblocking per-entry lock; competing invocations execute with
+private temporary entries instead of waiting on each other.
+
+Regular-file content, modes, empty directories and symlinks can replay after all
+saved payloads have been validated. Operations requiring inode or metadata history
+(rename, unlink, hard-link creation, ownership/timestamp changes and special-file
+creation) currently force live execution. This is conservative: it preserves those
+operations but reduces warm-run reuse. Cache key version 12 and Observe dependency
+protocol 3 invalidate incompatible entries. External network state, clocks, random
+sources and arbitrary concurrent changes are not general memoization inputs.
+
+The wrapper creates an owned transformed copy and never rewrites the input script.
+Use `INCR_CACHE_DIR=/path/to/cache ./incr.sh -b script.sh args...` for the Bash parser
+and unambiguous script arguments. Source/history introspection and interpreter modes
+that cannot preserve semantics through transformation execute natively. Those paths
+are correct passthroughs, not accelerated cases. Parser source locations can refer
+to the private transformed copy. Set `INCR_OBSERVE=0` to force try/strace, or `1` to
+require Observe; `INCR_OBSERVE_PATH` selects its executable.
 
 ## Development Setup
 
