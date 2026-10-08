@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/agents/tests/t_incr_basic.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 1.7604483639997852,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "06e6786c24687f538ace0ded4ef1ebd9e85a596c906991a9be8f3e9151256930",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "1. TraceFile (strace) - cat\n2. TraceFile (observe) - cat\n3. Sandbox (no observe) - write\n4. Observe mode - write\n  t_incr_basic: OK\n",
+  "stderr": ""
+}

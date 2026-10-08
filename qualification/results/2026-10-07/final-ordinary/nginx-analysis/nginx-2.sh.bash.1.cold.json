@@ -1,0 +1,36 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/qualification/.work/benchmarks/nginx-analysis/run/scripts/nginx-2.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.008570394000344095,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "f56b1f5906956d80e2f8cc8a8beb7cc7195e787a0345e4ff918874cf8a3e1b72",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "200\n200\n200\n404\n301\n400\n400\n400\n400\n400\n301\n400\n400\n400\n400\n400\n400\n400\n502\n499\n499\n499\n499\n499\n499\n499\n502\n502\n499\n499\n499\n499\n502\n499\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n302\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n200\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n200\n304\n200\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n304\n200\n304\n304\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n304\n304\n304\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n301\n200\n200\n200\n200\n200\n200\n200\n200\n404\n404\n301\n200\n200\n404\n404\n301\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n200\n404\n404\n200\n301\n200\n404\n502\n200\n200\n200\n200\n502\n200\n502\n200\n502\n200\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n400\n400\n400\n400\n400\n400\n400\n200\n200\n200\n502\n200\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n403\n404\n403\n200\n403\n403\n200\n206\n206\n200\n206\n206\n200\n200\n200\n200\n403\n404\n404\n200\n200\n200\n200\n404\n404\n200\n404\n404\n404\n404\n404\n200\n200\n200\n200\n200\n200\n200\n200\n",
+  "stderr": "",
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr",
+  "runtime_settings": {
+    "LC_ALL": "C",
+    "RUN_SIZE": "min",
+    "OMP_NUM_THREADS": "2",
+    "TF_NUM_INTRAOP_THREADS": "2",
+    "TF_NUM_INTEROP_THREADS": "2",
+    "MPLBACKEND": "Agg"
+  },
+  "fixture_profile": "supplied --min",
+  "benchmark": "nginx-analysis",
+  "script": "nginx-2.sh",
+  "mode": "bash",
+  "repetition": 1,
+  "phase": "cold",
+  "effects": {},
+  "small_text_outputs": {},
+  "cache_entries_retained": 0,
+  "cache_entries_written": 0,
+  "cache_bytes": 0
+}

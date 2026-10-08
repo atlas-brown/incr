@@ -1,0 +1,90 @@
+{
+  "argv": [
+    "sudo",
+    "-n",
+    "unshare",
+    "-m",
+    "--",
+    "bash",
+    "-c",
+    "mount --make-rprivate / && mount --bind \"$1\" /tmp && shift && exec \"$@\"",
+    "private-tmp",
+    "/users/jxia3/atlas/incr/qualification/.work/bash-suite/run/tmp",
+    "setpriv",
+    "--reuid",
+    "20012",
+    "--regid",
+    "4431",
+    "--init-groups",
+    "env",
+    "-i",
+    "HOME=/users/jxia3",
+    "USER=jxia3",
+    "LOGNAME=jxia3",
+    "TERM=dumb",
+    "PATH=/users/jxia3/atlas/incr/qualification/.work/bash-suite/helpers:/users/jxia3/atlas/incr/qualification/.work/bash-src:/usr/local/bin:/usr/bin:/bin",
+    "LC_ALL=C",
+    "THIS_SH=/users/jxia3/atlas/incr/qualification/.work/bash-suite/bash",
+    "BUILD_DIR=/users/jxia3/atlas/incr/qualification/.work/bash-src",
+    "TMPDIR=/tmp",
+    "BASH_TSTOUT=/tmp/tstout",
+    "INCR_CACHE_DIR=/users/jxia3/atlas/incr/qualification/.work/bash-suite/run/cache",
+    "INCR_SHELL=/users/jxia3/atlas/incr/qualification/.work/bash-src/bash",
+    "INCR_PYTHON=/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+    "INCR_TOP=/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr",
+    "INCR_OBSERVE=0",
+    "INCR_SYS_PATH=/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr/target/release/incr",
+    "INCR_TRY_PATH=/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr/src/scripts/try.sh",
+    "INCR_OBSERVE_PATH=/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/observe/target/release/observe",
+    "/users/jxia3/atlas/incr/qualification/.work/bash-src/bash",
+    "run-redir"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.4458192929996585,
+  "timeout": false,
+  "leaked_descendants": true,
+  "remaining_descendants": [],
+  "diagnostics": [
+    {
+      "pid": 1313797,
+      "status": "Name:\tbash\nState:\tZ (zombie)\nTgid:\t1313797\nNgid:\t0\nPid:\t1313797\nPPid:\t1260761\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t1313797\nNSpid:\t1313797\nNSpgid:\t1313737\nNSsid:\t1313737\nThreads:\t1\nSigQ:\t0/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000006\nSigCgt:\t0000000000010000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t1\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    },
+    {
+      "pid": 1313798,
+      "status": "Name:\tsleep\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t1313798\nNgid:\t0\nPid:\t1313798\nPPid:\t1260761\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t64\nGroups:\t0 4431 \nNStgid:\t1313798\nNSpid:\t1313798\nNSpgid:\t1313737\nNSsid:\t1313737\nVmPeak:\t    2792 kB\nVmSize:\t    2792 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1092 kB\nVmRSS:\t    1092 kB\nRssAnon:\t      88 kB\nRssFile:\t    1004 kB\nRssShmem:\t       0 kB\nVmData:\t     224 kB\nVmStk:\t     132 kB\nVmExe:\t      16 kB\nVmLib:\t    1796 kB\nVmPTE:\t      48 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t1\nThreads:\t1\nSigQ:\t0/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000006\nSigCgt:\t0000000000000000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t1\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "hrtimer_nanosleep"
+    },
+    {
+      "pid": 1313801,
+      "status": "Name:\tsleep\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t1313801\nNgid:\t0\nPid:\t1313801\nPPid:\t1260761\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t64\nGroups:\t0 4431 \nNStgid:\t1313801\nNSpid:\t1313801\nNSpgid:\t1313737\nNSsid:\t1313737\nVmPeak:\t    2792 kB\nVmSize:\t    2792 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1040 kB\nVmRSS:\t    1040 kB\nRssAnon:\t      88 kB\nRssFile:\t     952 kB\nRssShmem:\t       0 kB\nVmData:\t     224 kB\nVmStk:\t     132 kB\nVmExe:\t      16 kB\nVmLib:\t    1796 kB\nVmPTE:\t      44 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t1\nThreads:\t1\nSigQ:\t0/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000006\nSigCgt:\t0000000000000000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t1\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "hrtimer_nanosleep"
+    },
+    {
+      "pid": 1313803,
+      "status": "Name:\tbash\nState:\tZ (zombie)\nTgid:\t1313803\nNgid:\t0\nPid:\t1313803\nPPid:\t1260761\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t1313803\nNSpid:\t1313803\nNSpgid:\t1313737\nNSsid:\t1313737\nThreads:\t1\nSigQ:\t0/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000006\nSigCgt:\t0000000000010000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t1\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    },
+    {
+      "pid": 1313804,
+      "status": "Name:\tsleep\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t1313804\nNgid:\t0\nPid:\t1313804\nPPid:\t1260761\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t64\nGroups:\t0 4431 \nNStgid:\t1313804\nNSpid:\t1313804\nNSpgid:\t1313737\nNSsid:\t1313737\nVmPeak:\t    2792 kB\nVmSize:\t    2792 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1036 kB\nVmRSS:\t    1036 kB\nRssAnon:\t      84 kB\nRssFile:\t     952 kB\nRssShmem:\t       0 kB\nVmData:\t     224 kB\nVmStk:\t     132 kB\nVmExe:\t      16 kB\nVmLib:\t    1796 kB\nVmPTE:\t      48 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t1\nThreads:\t1\nSigQ:\t0/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000006\nSigCgt:\t0000000000000000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t1\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "hrtimer_nanosleep"
+    },
+    {
+      "pid": 1313806,
+      "status": "Name:\tsleep\nUmask:\t0022\nState:\tS (sleeping)\nTgid:\t1313806\nNgid:\t0\nPid:\t1313806\nPPid:\t1260761\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t64\nGroups:\t0 4431 \nNStgid:\t1313806\nNSpid:\t1313806\nNSpgid:\t1313737\nNSsid:\t1313737\nVmPeak:\t    2792 kB\nVmSize:\t    2792 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t    1032 kB\nVmRSS:\t    1032 kB\nRssAnon:\t      88 kB\nRssFile:\t     944 kB\nRssShmem:\t       0 kB\nVmData:\t     224 kB\nVmStk:\t     132 kB\nVmExe:\t      16 kB\nVmLib:\t    1796 kB\nVmPTE:\t      48 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t1\nThreads:\t1\nSigQ:\t0/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000006\nSigCgt:\t0000000000000000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t1\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "hrtimer_nanosleep"
+    }
+  ],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "2c6c560d6632e235259e340ab3e9abdc6b014f3237a7923d1b8aa9df912aaa1d",
+  "stdout": "",
+  "stderr": "warning: the text of a system error message may vary between systems and\nwarning: produce diff output.\nwarning: if the text of an error message concerning `redir1.*' not being\nwarning: found or messages concerning bad file descriptors produce diff\nwarning: output, please do not consider it a test failure\n",
+  "test_outputs": [
+    "abc\n./redir.tests: line 28: /tmp/redir-test: cannot overwrite existing file\nabc\ndef\ndef\n./redir.tests: line 44: $z: ambiguous redirect\nPoint 1\nPoint 2\nto a\nto b\nPoint 3\nto a\nto a\nto b\nto b\nPoint 4\nto c\nPoint 5\nthis is redir1.sub\nthis is redir2.sub\nread line1 \"ab\"\nread line2 \"root\"\nread line3 \"cd\"\nread line4 \"daemon\"\nfrom stdin: aa\nto stdout\n./redir4.sub: line 45: $fd: ambiguous redirect\n./redir4.sub: line 46: $fd: ambiguous redirect\nerr-and-out:\nto stdout\nto stderr\nerr-and-out:\nto stdout\nto stderr\n0 -- 3 0\n0 -- 4 0\nab\ncd\nef\ngh\nij\nkl\n0\nab\ncd\ncd\n./redir.tests: line 170: redir1.*: No such file or directory\n#   This program is free software: you can redistribute it and/or modify\n#   it under the terms of the GNU General Public License as published by\n#   the Free Software Foundation, either version 3 of the License, or\n#   (at your option) any later version.\n#\n#   This program is distributed in the hope that it will be useful,\n#   but WITHOUT ANY WARRANTY; without even the implied warranty of\n#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n#   GNU General Public License for more details.\n#\n#   You should have received a copy of the GNU General Public License\n#   along with this program.  If not, see <http://www.gnu.org/licenses/>.\n#\n# tests of ksh93-like dup-and-close redirection operators\nexec 9<$0\n\nf()\n{\nexec 5<$0\n\nexec 0<&5-\n\nwhile read line; do\necho \"$line\"\ndone\n}\n\nf\n\ntypeset -f f\n\n# make sure it was closed\nread -u 5 foo 2>&1 | grep -q 'invalid file descriptor'\necho after read\n\nexec 5<&0\n\nexec <&-\n\nread abcde 2>&1 | grep -q 'read error'\n\nexec 0<&9-\nread line\necho $line\nf () \n{ \n    exec 5< $0;\n    exec 0<&5-;\n    while read line; do\n        echo \"$line\";\n    done\n}\nafter read\n# This program is free software: you can redistribute it and/or modify\n/\n/\n/\n0\n0\n0\nbefore block\nafter block\nc1 is 1\nc2 is 2\nc3 is 3\nc4 is 4\nfd 10\nfd 8\nfd 10\nfd 8\n1\n2\n3\n4\n1\n2\n3\n4\ncat /tmp/foo\nwhatsis\nhey\nto stdout\nto stderr\n\nto stdout\nto stderr\n\nto stderr\nto stdout\n\nto stderr\nhey\nto stdout\nlogfunc is a function\nlogfunc () \n{ \n    echo \"$@\" &>> $TMPDIR/log\n}\nfoo\nbix is a function\nbix () \n{ \n    echo foo 2>&1 | cat\n}\nfoo\n::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n1\n7\nafter: 42\n./redir11.sub: line 53: $(ss= declare -i ss): ambiguous redirect\nafter: 42\na+=3\nfoo\nfoo\n./redir11.sub: line 75: 42: No such file or directory\n42\n"
+  ],
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr",
+  "case": "redir",
+  "mode": "bash",
+  "matches_bash": true
+}

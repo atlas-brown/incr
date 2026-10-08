@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "bash",
+    "tests/run_tests.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 30.033336580999276,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "d43bdc3c47d02985768a0bfa9e3fbcfd6a65db19f18ea868e741a68604652d38",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "  t_basic\n  t_compiled\n  t_concurrent\n  t_dependencies\n  t_edge\n  t_effect_gate\n  t_errors\n  t_exit_codes\n  t_fd_lifecycle\n  t_file_ops\n  t_filtering\n  t_hash_edge\n  t_hash_existing\n  t_hash_new_files\n  t_json\n  t_large_scale\n  t_metadata\n  t_multiprocess\n  t_open_flags\n  t_output\n  t_paths\n  t_pipes\n  t_programs\n  t_python_ops\n  t_readwrite\n  t_seccomp_correctness\n  t_signal\n  t_snapshot_dirs\n  t_snapshot_files\n  t_snapshot_filtering\n  t_snapshot_kill\n  t_snapshot_metadata\n  t_snapshot_symlinks\n  t_special_chars\n\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n  34 files, 378 assertions: 378 passed, 0 failed\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n",
+  "stderr": ""
+}

@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/agents/tests/t_incr_invalidation.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.09042711200072517,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "127a16af460abb80734a975848ac5722f082e9ec3e41c6b2e35559908749d76b",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "6. cp + cache invalidation\n  t_incr_invalidation: OK\n",
+  "stderr": ""
+}

@@ -1,0 +1,53 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr-main-qualification/src/incr.sh",
+    "/users/jxia3/atlas/incr/qualification/.work/benchmarks/nlp-uppercase/run/scripts/uppercase_by_type.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.15432236500055296,
+  "timeout": false,
+  "leaked_descendants": true,
+  "remaining_descendants": [],
+  "diagnostics": [
+    {
+      "pid": 2151665,
+      "status": "Name:\tstrace\nState:\tZ (zombie)\nTgid:\t2151665\nNgid:\t0\nPid:\t2151665\nPPid:\t1317016\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t2151665\nNSpid:\t2151665\nNSpgid:\t2151655\nNSsid:\t2151638\nThreads:\t1\nSigQ:\t0/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000100\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t0000000000000000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t1\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    }
+  ],
+  "stdout_sha256": "d117fa006ba9208500b2930ce69cbde436c647afa917cb7396a9bc9111a46dd2",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "done\n",
+  "stderr": "",
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr",
+  "runtime_settings": {
+    "LC_ALL": "C",
+    "RUN_SIZE": "min",
+    "OMP_NUM_THREADS": "2",
+    "TF_NUM_INTRAOP_THREADS": "2",
+    "TF_NUM_INTEROP_THREADS": "2",
+    "MPLBACKEND": "Agg"
+  },
+  "fixture_profile": "supplied --min",
+  "benchmark": "nlp-uppercase",
+  "script": "uppercase_by_type.sh",
+  "mode": "main",
+  "repetition": 0,
+  "phase": "warm",
+  "effects": {
+    "outputs/6_1_2": {
+      "mode": 493,
+      "kind": "directory"
+    },
+    "outputs/6_1_2/sample.txt.qualification.out": {
+      "mode": 420,
+      "kind": "file",
+      "content": "6f3e559bbd93fa2f9b25cbd9b5f348a4b20c902d8e6498de5c28d73df8e2f571"
+    }
+  },
+  "small_text_outputs": {},
+  "cache_entries_retained": 7,
+  "cache_entries_written": 0,
+  "cache_bytes": 10557
+}

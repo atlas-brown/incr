@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/agents/tests/t_incr_batch.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.06428923299972666,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "48c70c6d3bc260291f7cafeda8b643be54776f3c537208e41b1a550e9886e760",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "5. Batch executor + observe\n  t_incr_batch: OK\n",
+  "stderr": ""
+}

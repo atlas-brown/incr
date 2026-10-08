@@ -1,0 +1,63 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr/incr.sh",
+    "/users/jxia3/atlas/incr/qualification/.work/benchmarks/web-search/run/scripts/engine.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 1.1543889549993764,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "7d28de27e8dc68b0c9e00c99964316a62f38e22de606b172a13255f52d736f79",
+  "stdout": "",
+  "stderr": "[engine] crawling \u02d0/_/_/\u02d0.html\n[engine] indexing \u02d0/_/_/\u02d0.html\n",
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr",
+  "runtime_settings": {
+    "LC_ALL": "C",
+    "RUN_SIZE": "min",
+    "OMP_NUM_THREADS": "2",
+    "TF_NUM_INTRAOP_THREADS": "2",
+    "TF_NUM_INTEROP_THREADS": "2",
+    "MPLBACKEND": "Agg"
+  },
+  "fixture_profile": "one real HTML page plus stop sentinel",
+  "benchmark": "web-search",
+  "script": "engine.sh",
+  "mode": "observe",
+  "repetition": 0,
+  "phase": "warm",
+  "effects": {
+    "outputs/content.txt": {
+      "mode": 420,
+      "kind": "file",
+      "content": "be3e95c2a07b8550ebe890b4f39414bfa9ff143ae2ec2d524c67d157c390c11d"
+    },
+    "outputs/global-index.txt": {
+      "mode": 384,
+      "kind": "file",
+      "content": "85633d638c183fb1f23048704b44920a2c1564950c1b709a31e2516079337e4f"
+    },
+    "outputs/urls.txt": {
+      "mode": 420,
+      "kind": "file",
+      "content": "b7794ddec44121fe9b1036bcd0a781eacf39abdac4c76a0bc0b47fc731ab81b1"
+    },
+    "outputs/visited.txt": {
+      "mode": 420,
+      "kind": "file",
+      "content": "82d80f33850582c758bd0e00b6eea4c66ea05cee38e31da4aed8b5de43009a6b"
+    }
+  },
+  "small_text_outputs": {
+    "outputs/content.txt": "Redirecting to Colon (punctuation)\n[../../../../articles/c/o/l/Colon_%28punctuation%29.html]\n",
+    "outputs/global-index.txt": "articl colon punctuat | \u02d0/_/_/\u02d0.html 1\narticl colon | \u02d0/_/_/\u02d0.html 1\narticl | \u02d0/_/_/\u02d0.html 1\ncolon punctuat articl | \u02d0/_/_/\u02d0.html 1\ncolon punctuat | \u02d0/_/_/\u02d0.html 2\ncolon | \u02d0/_/_/\u02d0.html 2\npunctuat articl colon | \u02d0/_/_/\u02d0.html 1\npunctuat articl | \u02d0/_/_/\u02d0.html 1\npunctuat | \u02d0/_/_/\u02d0.html 2\nredirect colon punctuat | \u02d0/_/_/\u02d0.html 1\nredirect colon | \u02d0/_/_/\u02d0.html 1\nredirect | \u02d0/_/_/\u02d0.html 1\n",
+    "outputs/urls.txt": "\u02d0/_/_/\u02d0.html\nstop\n",
+    "outputs/visited.txt": "\u02d0/_/_/\u02d0.html\n"
+  },
+  "cache_entries_retained": 1,
+  "cache_entries_written": 0,
+  "cache_bytes": 1156
+}

@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/agents/tests/t_incr_pure.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.8429291929996907,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "31ba2f9582a5448e24039c6ff0c24ec4a30e7dbfacc32a80f1d442687ad87ce2",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "7. grep (pure)\n  t_incr_pure: OK\n",
+  "stderr": ""
+}

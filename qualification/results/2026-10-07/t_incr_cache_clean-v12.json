@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/agents/tests/t_incr_cache_clean.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.05981021600018721,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "8549ad6ceaa78e1991d8904e3fa928487a1ade34321b936cf68605956e5a2a97",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "22. Cache clean does not touch cwd files\n  t_incr_cache_clean: OK\n",
+  "stderr": ""
+}

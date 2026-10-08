@@ -308,7 +308,7 @@ def main():
                         print(f"{'PASS' if valid else 'FAIL'} {r['elapsed_sec']:.3f}s rc={r['returncode']}", flush=True)
                         (args.results / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     with (args.results / "timings.csv").open("w") as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(summary[0]))
+        writer = csv.DictWriter(stream, fieldnames=list(summary[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(summary)
     raise SystemExit(0 if all(r["valid"] for r in summary) else 1)

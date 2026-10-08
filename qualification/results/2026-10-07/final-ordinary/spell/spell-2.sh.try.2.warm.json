@@ -1,0 +1,37 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr/incr.sh",
+    "/users/jxia3/atlas/incr/qualification/.work/benchmarks/spell/run/scripts/spell-2.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.32273954799893545,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "13ac8929b00859dd8d0f247edb78eb9abb9d193121032e52021356dd6484305f",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "The\nProject\nGutenberg\nEBook\nof\nSample\nText\nby\nAnonymous\nThis\nis\na\nminimal\nsample\ntext\nfile\nfor\ntesting\npurposes\nIt\ncontains\nenough\nEnglish\nwords\nto\nexercise\nthe\nNLP\nbenchmark\nscripts\nCHAPTER\nI\nIt\nwas\nthe\nbest\nof\ntimes\nit\nwas\nthe\nworst\nof\ntimes\nit\nwas\nthe\nage\nof\nwisdom\nit\nwas\nthe\nage\nof\nfoolishness\nit\nwas\nthe\nepoch\nof\nbelief\nit\nwas\nthe\nepoch\nof\nincredulity\nit\nwas\nthe\nseason\nof\nLight\nit\nwas\nthe\nseason\nof\nDarkness\nit\nwas\nthe\nspring\nof\nhope\nit\nwas\nthe\nwinter\nof\ndespair\nwe\nhad\neverything\nbefore\nus\nwe\nhad\nnothing\nbefore\nus\nwe\nwere\nall\ngoing\ndirect\nto\nHeaven\nwe\nwere\nall\ngoing\ndirect\nthe\nother\nway\nThere\nis\nno\npoint\nin\nusing\na\nlot\nof\nwords\nwhen\na\nfew\nwill\ndo\nThe\nquick\nbrown\nfox\njumps\nover\nthe\nlazy\ndog\nPack\nmy\nbox\nwith\nfive\ndozen\nliquor\njugs\nHow\nvividly\nglistening\nmoonlight\ndapples\nquiet\nwater\nBright\nstars\nsparkle\nabove\nrolling\nmeadows\nat\nnight\nThe\nwandering\npilgrim\nsought\nwisdom\nin\ndistant\nmountains\nEvery\nword\nhas\nmeaning\nbeyond\nmere\nletters\non\na\npage\nCHAPTER\nII\nOnce\nupon\na\ntime\nin\na\nland\nfar\naway\nthere\nlived\na\nwise\nold\nwizard\nHe\nhad\nspent\nmany\nyears\nstudying\nthe\nancient\narts\nof\nlanguage\nand\nletters\nHis\nlibrary\ncontained\nthousands\nof\nbooks\nfilled\nwith\nstories\nand\npoems\nEvery\nmorning\nhe\nwould\nread\naloud\nfrom\nhis\nfavorite\nvolumes\nThe\nsun\nrises\nin\nthe\neast\nand\nsets\nin\nthe\nwest\nBirds\nsing\nsweetly\nin\nthe\nbranches\nof\ntall\ntrees\nRivers\nflow\ndownhill\ntoward\nthe\nsea\nalways\nfinding\ntheir\npath\nMountains\nstand\nfirm\nagainst\nthe\npassing\nstorms\nof\ncenturies\nChildren\nlaugh\nand\nplay\nin\ngardens\nfull\nof\nflowers\nCHAPTER\nIII\nWords\nare\nthe\nbuilding\nblocks\nof\nall\nhuman\ncommunication\nLanguage\nallows\nus\nto\nshare\nthoughts\nfeelings\nand\nideas\nPoetry\ncaptures\nthe\nbeauty\nof\nthe\nworld\nin\ncarefully\nchosen\nwords\nStories\ntransport\nus\nto\nplaces\nwe\nhave\nnever\nbeen\nReading\nexpands\nthe\nmind\nand\nenriches\nthe\nspirit\nThe\nalphabet\ncontains\ntwenty\nsix\nletters\nin\nEnglish\nEach\nletter\ncan\nbe\ncombined\nwith\nothers\nto\nform\nwords\nWords\ncombine\ninto\nsentences\nthat\nexpress\ncomplete\nthoughts\nSentences\nform\nparagraphs\nthat\ndevelop\nideas\nover\nseveral\nlines\nParagraphs\nform\nchapters\nthat\nexplore\ntopics\nin\ndepth\nKnowledge\nis\nthe\ngreatest\ntreasure\none\ncan\nacquire\nA\ngood\nbook\nis\na\nfriend\nthat\nnever\ndisappoints\nThe\npen\nis\nmightier\nthan\nthe\nsword\nmany\nhave\nsaid\nReading\none\ngood\nbook\nleads\nnaturally\nto\nthe\nnext\nEvery\npage\nturned\nis\na\nstep\nforward\nin\nunderstanding\nCHAPTER\nIV\nIn\nthe\nbeginning\nwas\nthe\nword\nand\nthe\nword\nwas\nwith\nlight\nAll\nthings\nwere\nmade\nthrough\nthe\npower\nof\nlanguage\nWithout\nwords\nthe\nworld\nwould\nbe\ndark\nand\nsilent\nWith\nwords\nwe\nbuild\ncivilizations\nand\npass\nwisdom\nto\nour\nchildren\nThe\nwritten\nword\npreserves\nknowledge\nacross\ngenerations\nSimple\nwords\ncarry\nthe\ndeepest\nmeanings\noften\nLove\nhope\npeace\nfreedom\ntruth\njustice\nmercy\ncompassion\ngrace\nThese\nwords\nhave\nmoved\nnations\nand\nchanged\nthe\ncourse\nof\nhistory\nA\nsingle\npoem\ncan\noutlast\nan\nempire\nif\nit\nspeaks\nto\nthe\nheart\nLiterature\nis\nthe\nrecord\nof\nhumanity\ns\nhighest\naspirations\nThe\nharvest\nmoon\nhung\nlow\nover\nthe\nautumn\nfields\nFarmers\ngathered\nthe\nlast\nof\nthe\nseason\ns\nbounty\nGeese\nflew\nsouth\nin\nlong\nformations\nacross\nthe\npale\nsky\nThe\nsmell\nof\nwoodsmoke\ndrifted\nthrough\nthe\ncooling\nair\nWinter\nwas\ncoming\nbut\nthe\nmemory\nof\nsummer\nremained\nwarm\n",
+  "stderr": "",
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr",
+  "runtime_settings": {
+    "LC_ALL": "C",
+    "RUN_SIZE": "min",
+    "OMP_NUM_THREADS": "2",
+    "TF_NUM_INTRAOP_THREADS": "2",
+    "TF_NUM_INTEROP_THREADS": "2",
+    "MPLBACKEND": "Agg"
+  },
+  "fixture_profile": "supplied --min",
+  "benchmark": "spell",
+  "script": "spell-2.sh",
+  "mode": "try",
+  "repetition": 2,
+  "phase": "warm",
+  "effects": {},
+  "small_text_outputs": {},
+  "cache_entries_retained": 4,
+  "cache_entries_written": 0,
+  "cache_bytes": 18601
+}

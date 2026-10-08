@@ -1,0 +1,37 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr/incr.sh",
+    "/users/jxia3/atlas/incr/qualification/.work/benchmarks/nginx-analysis/run/scripts/nginx-18.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.6809540769991145,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "8b7d0128320e26648187d8b8a801e47d48fbc62cc7d7d3e2231f9cf189ddc563",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "    219 200\n    175 \n     70 304\n     18 404\n     15 \"-\"\n     12 499\n      9 502\n      6 301\n      5 403\n      4 206\n      3 172\n      1 400\n      1 302\n     12 /favicon.ico\n      1 /www/2016-03-10/17-47-35.csv\n      1 /untitled.svg\n      1 /aphrodite/2016-05-09-162613-01-0sci1rt2qkfnb+rppojk/eu/eros-partner/2016-04,2016-05=all=monthly.csv\n      1 /aphrodite/2016-05-09-161604-01-uxoz2zb0dg10l1xhmgim/eu/eros-partner/2016-04,2016-05=all=monthly.csv\n      1 /aphrodite/2016-05-09-153751-01-uxgadcudzsk3vghkrnct\n      1 /2016-04-25-102102-qryrevbdpv$wg1nzbr6u/01/eu/eros-partner/2016-03,2016-04=all=monthly.csv\n      7 /\n      2 /favicon.ico\n    190 \n      3 $\\xB9Kr\\xF0\\xD6Z\\x10Pe\\xFEwq?|\\xCD\\x80\\x0F>g\\xDB\\xBB\\xAB\\xA2)8\\xD1\\xB6/\\xD10\\xE3\\x00\\x1E\\xC0+\\xC0/\\x00\\x9E\\xCC\\x14\\xCC\\x13\\xC0\n     33 /\n     14 /2016-03-09/16-53-58.csv\n      1 /2016-03-10/17-47-35.csv\n      3 /2016-03-10/18-09-27.csv\n      1 /2016-04-25-102102-qryrevbdpv$wg1nzbr6u/01/eu/eros-partner/2016-03,2016-04=all=monthly.csv\n      1 /Untitled.svg\n      1 /aphrodite/2016-05-09-153751-01-uxgadcudzsk3vghkrnct\n      1 /aphrodite/2016-05-09-161604-01-uxoz2zb0dg10l1xhmgim/eu/eros-partner/2016-04,2016-05=all=monthly.csv\n      1 /aphrodite/2016-05-09-162613-01-0sci1rt2qkfnb+rppojk/eu/eros-partner/2016-04,2016-05=all=monthly.csv\n      1 /aphrodite/2016-05-09-163545-01-ipam4ea$+ergir8ca6y4/eu/eros-partner/2016-04,2016-05=all=monthly.csv\n      1 /aphrodite/2016-05-09-165048-01-+7t+mjmflsgyru98wb4q/eu/eros-partner/2016-04,2016-05=all=monthly.csv\n      1 /aphrodite/2016-05-09-165420-01-xy$ocodamcst+$fmnmdf/eu/eros-partner/2016-04,2016-05=all=monthly.csv\n      1 /aphrodite/2016-05-09-170245-01-6ekoffxc3w1uejleq92o/eu/eros-partner/2016-04,2016-05=all=monthly.csv\n      1 /aphrodite/2016-05-09-170326-01-iztthfuj3jmrspt4j1ex/eu/eros-partner/2016-04,2016-05=all=monthly.csv\n      1 /aphrodite/2016-05-10-084420-01-n0mxsllyzjgdu3j3a5sz/eu/eros-partner/2016-04,2016-05=all=monthly.csv\n      1 /aphrodite/2016-05-10-095822-01-9h150ct4wu9eds1o8yte/eu/eros-partner/2016-04,2016-05=all=monthly.csv\n      1 /aphrodite/2016-05-11-071048-01-itf2kjrvtlxbbfd2msbs/eu/eros-partner/2016-04,2016-05=all=monthly.csv\n     10 /chronos/atlas/versions\n      5 /chronos/reflections/datatables\n      6 /dashboard\n     25 /favicon.ico\n      1 /login\n      2 /nginx-logo.png\n      2 /poweredby.png\n     10 /purs/app.js\n      3 /static/css/awesome-bootstrap-checkbox.css\n      4 /static/css/bootstrap-theme.min.css\n      4 /static/css/bootstrap.min.css\n      3 /static/css/checkbox-build.css\n      3 /static/css/dashboard.css\n      3 /static/css/datatables/dataTables.bootstrap.css\n      3 /static/css/datatables/dataTables.min.css\n      3 /static/css/detail.css\n      3 /static/css/extensions.css\n      3 /static/css/font-awesome.css\n      3 /static/css/graph.css\n      3 /static/css/jquery.easy-pie-chart.css\n      3 /static/css/legend.css\n      3 /static/css/morris.css\n      4 /static/css/screen.css\n      3 /static/css/select2/select2-bootstrap.css\n      3 /static/css/select2/select2.css\n      3 /static/css/select2/select2.png\n      4 /static/css/yamm.css\n      2 /static/fonts/fontawesome-webfont.woff?v=4.1.0\n      2 /static/fonts/glyphicons-halflings-regular.woff\n      3 /static/img/clock.png\n      3 /static/img/cpu.png\n      3 /static/img/database.png\n      3 /static/img/datatables/sort_asc.png\n      3 /static/img/datatables/sort_both.png\n      2 /static/img/favicon.ico\n      3 /static/img/harddisk.png\n      3 /static/img/locked.png\n      3 /static/img/memory.png\n      3 /static/img/notepad.png\n      3 /static/img/region/RGN_au.png\n      3 /static/img/region/RGN_eu.png\n      3 /static/img/region/RGN_uk.png\n      3 /static/img/region/RGN_us.png\n      3 /static/img/region/globe.png\n      3 /static/js/atlas.js\n      4 /static/js/base.js\n      4 /static/js/bootstrap.min.js\n      3 /static/js/d3/d3.v2.js\n      5 /static/js/datatables/dataTables.bootstrap.js\n      5 /static/js/datatables/dataTables.min.js\n      3 /static/js/graph.js\n      3 /static/js/hermes/all-videos.js\n      5 /static/js/hermes/paginator.js\n      3 /static/js/hermes/search-video-by-org.js\n      3 /static/js/hermes/search-video.js\n      3 /static/js/hourglass.js\n      4 /static/js/jquery.cookie.js\n      3 /static/js/jquery.easypiechart.min.js\n      3 /static/js/json.js\n      3 /static/js/jwplayer.js\n      3 /static/js/login.js\n      3 /static/js/moment.min.js\n      3 /static/js/morris.min.js\n      4 /static/js/navbar.js\n      3 /static/js/noty.min.js\n      3 /static/js/raphael.min.js\n      3 /static/js/readable-range.js\n      3 /static/js/reflections.js\n      3 /static/js/reflections/search-reflection.js\n      3 /static/js/reflections/search-reflections-by-org-name.js\n      3 /static/js/reflections/search-reflections-by-uid.js\n      3 /static/js/rickshaw/rickshaw.min.js\n      3 /static/js/select2/select2.min.js\n      3 /static/js/typeahead.min.js\n      4 /static/js/underscore.js\n      4 /static/js/underscore.string.min.js\n      1 /untitled.svg\n      1 /www/2016-03-10/17-47-35.csv\n      1 \\x22\\x97\\x92\\xE2\\x8Fa\\xFD\n",
+  "stderr": "",
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr",
+  "runtime_settings": {
+    "LC_ALL": "C",
+    "RUN_SIZE": "min",
+    "OMP_NUM_THREADS": "2",
+    "TF_NUM_INTRAOP_THREADS": "2",
+    "TF_NUM_INTEROP_THREADS": "2",
+    "MPLBACKEND": "Agg"
+  },
+  "fixture_profile": "supplied --min",
+  "benchmark": "nginx-analysis",
+  "script": "nginx-18.sh",
+  "mode": "try",
+  "repetition": 2,
+  "phase": "warm",
+  "effects": {},
+  "small_text_outputs": {},
+  "cache_entries_retained": 26,
+  "cache_entries_written": 0,
+  "cache_bytes": 79247
+}

@@ -1,0 +1,832 @@
+[
+  {
+    "reference": "bash",
+    "phase": "cold",
+    "benchmark": "all",
+    "matched_cases": 96,
+    "speedup": 0.13831159842899168,
+    "reference_sum_sec": 596.4459443760124,
+    "observe_sum_sec": 735.873245662001,
+    "summed_time_speedup": 0.8105281009903303
+  },
+  {
+    "reference": "bash",
+    "phase": "cold",
+    "benchmark": "beginner",
+    "matched_cases": 14,
+    "speedup": 0.03943928067497013,
+    "reference_sum_sec": 0.09917331299948273,
+    "observe_sum_sec": 2.532730267998886,
+    "summed_time_speedup": 0.03915668172506965
+  },
+  {
+    "reference": "bash",
+    "phase": "cold",
+    "benchmark": "bio",
+    "matched_cases": 7,
+    "speedup": 0.5181130402484059,
+    "reference_sum_sec": 2.807122586001242,
+    "observe_sum_sec": 4.854441139998016,
+    "summed_time_speedup": 0.5782586512115767
+  },
+  {
+    "reference": "bash",
+    "phase": "cold",
+    "benchmark": "covid",
+    "matched_cases": 5,
+    "speedup": 0.1031037967113672,
+    "reference_sum_sec": 0.10796990500421089,
+    "observe_sum_sec": 1.0008671799987496,
+    "summed_time_speedup": 0.10787635678526872
+  },
+  {
+    "reference": "bash",
+    "phase": "cold",
+    "benchmark": "dpt",
+    "matched_cases": 10,
+    "speedup": 0.832482203793114,
+    "reference_sum_sec": 578.7670655559978,
+    "observe_sum_sec": 695.2625870749998,
+    "summed_time_speedup": 0.8324438511654945
+  },
+  {
+    "reference": "bash",
+    "phase": "cold",
+    "benchmark": "file-mod",
+    "matched_cases": 7,
+    "speedup": 0.31169531956639024,
+    "reference_sum_sec": 2.0062944410055934,
+    "observe_sum_sec": 6.406926945999658,
+    "summed_time_speedup": 0.313144578971402
+  },
+  {
+    "reference": "bash",
+    "phase": "cold",
+    "benchmark": "nginx-analysis",
+    "matched_cases": 22,
+    "speedup": 0.08434217417699481,
+    "reference_sum_sec": 0.519348149002326,
+    "observe_sum_sec": 5.504212397001538,
+    "summed_time_speedup": 0.09435467084904733
+  },
+  {
+    "reference": "bash",
+    "phase": "cold",
+    "benchmark": "nlp-ngrams",
+    "matched_cases": 3,
+    "speedup": 0.12706236441750246,
+    "reference_sum_sec": 0.08199540100213198,
+    "observe_sum_sec": 0.6437554800013459,
+    "summed_time_speedup": 0.12737041244598113
+  },
+  {
+    "reference": "bash",
+    "phase": "cold",
+    "benchmark": "nlp-uppercase",
+    "matched_cases": 2,
+    "speedup": 0.05322676987813385,
+    "reference_sum_sec": 0.024821813000016846,
+    "observe_sum_sec": 0.4714378349999606,
+    "summed_time_speedup": 0.05265129600813418
+  },
+  {
+    "reference": "bash",
+    "phase": "cold",
+    "benchmark": "poet",
+    "matched_cases": 4,
+    "speedup": 0.07546288837373506,
+    "reference_sum_sec": 0.05571304100158159,
+    "observe_sum_sec": 0.7278828420021455,
+    "summed_time_speedup": 0.07654122035399945
+  },
+  {
+    "reference": "bash",
+    "phase": "cold",
+    "benchmark": "spell",
+    "matched_cases": 7,
+    "speedup": 0.06048489247316988,
+    "reference_sum_sec": 0.1611021719982091,
+    "observe_sum_sec": 1.4622101169989037,
+    "summed_time_speedup": 0.11017716956360649
+  },
+  {
+    "reference": "bash",
+    "phase": "cold",
+    "benchmark": "unixfun",
+    "matched_cases": 6,
+    "speedup": 0.26535119343374597,
+    "reference_sum_sec": 0.5611337120008102,
+    "observe_sum_sec": 1.9278536530000565,
+    "summed_time_speedup": 0.29106655016452837
+  },
+  {
+    "reference": "bash",
+    "phase": "cold",
+    "benchmark": "weather",
+    "matched_cases": 6,
+    "speedup": 0.09236498636794996,
+    "reference_sum_sec": 7.1364483990000736,
+    "observe_sum_sec": 11.013706833002288,
+    "summed_time_speedup": 0.6479606282614941
+  },
+  {
+    "reference": "bash",
+    "phase": "cold",
+    "benchmark": "web-search",
+    "matched_cases": 1,
+    "speedup": 0.8616196344652471,
+    "reference_sum_sec": 0.9900340909989609,
+    "observe_sum_sec": 1.1490384520002408,
+    "summed_time_speedup": 0.8616196344652471
+  },
+  {
+    "reference": "bash",
+    "phase": "cold",
+    "benchmark": "word-freq",
+    "matched_cases": 2,
+    "speedup": 1.0729620538274263,
+    "reference_sum_sec": 3.1277217970000493,
+    "observe_sum_sec": 2.9155954439993366,
+    "summed_time_speedup": 1.0727557567828196
+  },
+  {
+    "reference": "bash",
+    "phase": "warm",
+    "benchmark": "all",
+    "matched_cases": 96,
+    "speedup": 0.1823455589748794,
+    "reference_sum_sec": 603.1428352659987,
+    "observe_sum_sec": 730.5988701799997,
+    "summed_time_speedup": 0.8255458089024975
+  },
+  {
+    "reference": "bash",
+    "phase": "warm",
+    "benchmark": "beginner",
+    "matched_cases": 14,
+    "speedup": 0.05274724612198621,
+    "reference_sum_sec": 0.11898740300057398,
+    "observe_sum_sec": 2.2119888669994907,
+    "summed_time_speedup": 0.05379204424386525
+  },
+  {
+    "reference": "bash",
+    "phase": "warm",
+    "benchmark": "bio",
+    "matched_cases": 7,
+    "speedup": 0.4390692663347567,
+    "reference_sum_sec": 2.524073407998003,
+    "observe_sum_sec": 5.055093660997045,
+    "summed_time_speedup": 0.49931288661824036
+  },
+  {
+    "reference": "bash",
+    "phase": "warm",
+    "benchmark": "covid",
+    "matched_cases": 5,
+    "speedup": 0.13461491067411435,
+    "reference_sum_sec": 0.1274206489979406,
+    "observe_sum_sec": 0.9540361650033446,
+    "summed_time_speedup": 0.1335595585074009
+  },
+  {
+    "reference": "bash",
+    "phase": "warm",
+    "benchmark": "dpt",
+    "matched_cases": 10,
+    "speedup": 0.841102046725016,
+    "reference_sum_sec": 585.811986794999,
+    "observe_sum_sec": 696.4888679449978,
+    "summed_time_speedup": 0.8410931082408356
+  },
+  {
+    "reference": "bash",
+    "phase": "warm",
+    "benchmark": "file-mod",
+    "matched_cases": 7,
+    "speedup": 1.1164974747170517,
+    "reference_sum_sec": 1.9581260480026685,
+    "observe_sum_sec": 1.774883324998882,
+    "summed_time_speedup": 1.1032421232555678
+  },
+  {
+    "reference": "bash",
+    "phase": "warm",
+    "benchmark": "nginx-analysis",
+    "matched_cases": 22,
+    "speedup": 0.11425913968412431,
+    "reference_sum_sec": 0.5863171170021815,
+    "observe_sum_sec": 4.622435378998489,
+    "summed_time_speedup": 0.1268416038147438
+  },
+  {
+    "reference": "bash",
+    "phase": "warm",
+    "benchmark": "nlp-ngrams",
+    "matched_cases": 3,
+    "speedup": 0.1093760347970304,
+    "reference_sum_sec": 0.07368922800014843,
+    "observe_sum_sec": 0.6927672269994218,
+    "summed_time_speedup": 0.10636939094148276
+  },
+  {
+    "reference": "bash",
+    "phase": "warm",
+    "benchmark": "nlp-uppercase",
+    "matched_cases": 2,
+    "speedup": 0.07440093456970295,
+    "reference_sum_sec": 0.03299099399919214,
+    "observe_sum_sec": 0.44247804100086796,
+    "summed_time_speedup": 0.07455961865264049
+  },
+  {
+    "reference": "bash",
+    "phase": "warm",
+    "benchmark": "poet",
+    "matched_cases": 4,
+    "speedup": 0.0859776934428741,
+    "reference_sum_sec": 0.05609097199885582,
+    "observe_sum_sec": 0.6453239150014269,
+    "summed_time_speedup": 0.08691909705334847
+  },
+  {
+    "reference": "bash",
+    "phase": "warm",
+    "benchmark": "spell",
+    "matched_cases": 7,
+    "speedup": 0.08213834138351485,
+    "reference_sum_sec": 0.17968314500285487,
+    "observe_sum_sec": 1.3599199000000226,
+    "summed_time_speedup": 0.13212774149628362
+  },
+  {
+    "reference": "bash",
+    "phase": "warm",
+    "benchmark": "unixfun",
+    "matched_cases": 6,
+    "speedup": 0.3564816530916905,
+    "reference_sum_sec": 0.579609761998654,
+    "observe_sum_sec": 1.5275812200015935,
+    "summed_time_speedup": 0.3794297510400458
+  },
+  {
+    "reference": "bash",
+    "phase": "warm",
+    "benchmark": "weather",
+    "matched_cases": 6,
+    "speedup": 0.12343727794906084,
+    "reference_sum_sec": 6.857147618000454,
+    "observe_sum_sec": 10.900927507000233,
+    "summed_time_speedup": 0.6290425850091205
+  },
+  {
+    "reference": "bash",
+    "phase": "warm",
+    "benchmark": "web-search",
+    "matched_cases": 1,
+    "speedup": 0.8837238354830433,
+    "reference_sum_sec": 1.0003896759990312,
+    "observe_sum_sec": 1.1320161749990802,
+    "summed_time_speedup": 0.8837238354830433
+  },
+  {
+    "reference": "bash",
+    "phase": "warm",
+    "benchmark": "word-freq",
+    "matched_cases": 2,
+    "speedup": 1.1592396541227716,
+    "reference_sum_sec": 3.2363224509990687,
+    "observe_sum_sec": 2.7905508530020597,
+    "summed_time_speedup": 1.1597432268677168
+  },
+  {
+    "reference": "main",
+    "phase": "cold",
+    "benchmark": "all",
+    "matched_cases": 95,
+    "speedup": 1.7226250356245123,
+    "reference_sum_sec": 852.2116495590035,
+    "observe_sum_sec": 735.4769887470002,
+    "summed_time_speedup": 1.1587196643784587
+  },
+  {
+    "reference": "main",
+    "phase": "cold",
+    "benchmark": "beginner",
+    "matched_cases": 14,
+    "speedup": 1.0095396182961949,
+    "reference_sum_sec": 2.748824705001425,
+    "observe_sum_sec": 2.532730267998886,
+    "summed_time_speedup": 1.0853207464422476
+  },
+  {
+    "reference": "main",
+    "phase": "cold",
+    "benchmark": "bio",
+    "matched_cases": 7,
+    "speedup": 13.23608926495788,
+    "reference_sum_sec": 78.18697373399755,
+    "observe_sum_sec": 4.854441139998016,
+    "summed_time_speedup": 16.106277010916543
+  },
+  {
+    "reference": "main",
+    "phase": "cold",
+    "benchmark": "covid",
+    "matched_cases": 5,
+    "speedup": 0.9399861229985154,
+    "reference_sum_sec": 0.9424887999994098,
+    "observe_sum_sec": 1.0008671799987496,
+    "summed_time_speedup": 0.9416722007015829
+  },
+  {
+    "reference": "main",
+    "phase": "cold",
+    "benchmark": "dpt",
+    "matched_cases": 10,
+    "speedup": 1.0039507603603042,
+    "reference_sum_sec": 698.2120057620014,
+    "observe_sum_sec": 695.2625870749998,
+    "summed_time_speedup": 1.0042421651068698
+  },
+  {
+    "reference": "main",
+    "phase": "cold",
+    "benchmark": "file-mod",
+    "matched_cases": 7,
+    "speedup": 3.961724637076466,
+    "reference_sum_sec": 25.960093717001655,
+    "observe_sum_sec": 6.406926945999658,
+    "summed_time_speedup": 4.051879151394189
+  },
+  {
+    "reference": "main",
+    "phase": "cold",
+    "benchmark": "nginx-analysis",
+    "matched_cases": 21,
+    "speedup": 1.3737102306722817,
+    "reference_sum_sec": 10.634608822998416,
+    "observe_sum_sec": 5.1079554820007615,
+    "summed_time_speedup": 2.081969754919025
+  },
+  {
+    "reference": "main",
+    "phase": "cold",
+    "benchmark": "nlp-ngrams",
+    "matched_cases": 3,
+    "speedup": 8.682903969321384,
+    "reference_sum_sec": 5.554413202000433,
+    "observe_sum_sec": 0.6437554800013459,
+    "summed_time_speedup": 8.628141234601717
+  },
+  {
+    "reference": "main",
+    "phase": "cold",
+    "benchmark": "nlp-uppercase",
+    "matched_cases": 2,
+    "speedup": 3.5877153733829954,
+    "reference_sum_sec": 1.6334133219988871,
+    "observe_sum_sec": 0.4714378349999606,
+    "summed_time_speedup": 3.4647480552744003
+  },
+  {
+    "reference": "main",
+    "phase": "cold",
+    "benchmark": "poet",
+    "matched_cases": 4,
+    "speedup": 0.9039090720013088,
+    "reference_sum_sec": 0.6562479750009516,
+    "observe_sum_sec": 0.7278828420021455,
+    "summed_time_speedup": 0.9015846192992377
+  },
+  {
+    "reference": "main",
+    "phase": "cold",
+    "benchmark": "spell",
+    "matched_cases": 7,
+    "speedup": 2.486012067753652,
+    "reference_sum_sec": 3.9451760399970226,
+    "observe_sum_sec": 1.4622101169989037,
+    "summed_time_speedup": 2.698091056909286
+  },
+  {
+    "reference": "main",
+    "phase": "cold",
+    "benchmark": "unixfun",
+    "matched_cases": 6,
+    "speedup": 1.3487481177827572,
+    "reference_sum_sec": 2.701742331004425,
+    "observe_sum_sec": 1.9278536530000565,
+    "summed_time_speedup": 1.4014250131487267
+  },
+  {
+    "reference": "main",
+    "phase": "cold",
+    "benchmark": "weather",
+    "matched_cases": 6,
+    "speedup": 0.9444668303924625,
+    "reference_sum_sec": 13.456122666002557,
+    "observe_sum_sec": 11.013706833002288,
+    "summed_time_speedup": 1.221761471413206
+  },
+  {
+    "reference": "main",
+    "phase": "cold",
+    "benchmark": "web-search",
+    "matched_cases": 1,
+    "speedup": 4.712204412806278,
+    "reference_sum_sec": 5.41450406399963,
+    "observe_sum_sec": 1.1490384520002408,
+    "summed_time_speedup": 4.712204412806278
+  },
+  {
+    "reference": "main",
+    "phase": "cold",
+    "benchmark": "word-freq",
+    "matched_cases": 2,
+    "speedup": 0.7428271692188088,
+    "reference_sum_sec": 2.1650344179997774,
+    "observe_sum_sec": 2.9155954439993366,
+    "summed_time_speedup": 0.7425702432261964
+  },
+  {
+    "reference": "main",
+    "phase": "warm",
+    "benchmark": "all",
+    "matched_cases": 28,
+    "speedup": 0.9899544124721162,
+    "reference_sum_sec": 4.798160459002247,
+    "observe_sum_sec": 4.77924085700306,
+    "summed_time_speedup": 1.0039587044397362
+  },
+  {
+    "reference": "main",
+    "phase": "warm",
+    "benchmark": "beginner",
+    "matched_cases": 11,
+    "speedup": 0.936625887188055,
+    "reference_sum_sec": 1.5925240540000232,
+    "observe_sum_sec": 1.7079050830006963,
+    "summed_time_speedup": 0.9324429500508571
+  },
+  {
+    "reference": "main",
+    "phase": "warm",
+    "benchmark": "nginx-analysis",
+    "matched_cases": 8,
+    "speedup": 1.1265119210818653,
+    "reference_sum_sec": 1.6553778070010594,
+    "observe_sum_sec": 1.4490407629982656,
+    "summed_time_speedup": 1.142395610442217
+  },
+  {
+    "reference": "main",
+    "phase": "warm",
+    "benchmark": "nlp-ngrams",
+    "matched_cases": 1,
+    "speedup": 1.593341143670827,
+    "reference_sum_sec": 0.31165721700017457,
+    "observe_sum_sec": 0.19559980499980156,
+    "summed_time_speedup": 1.593341143670827
+  },
+  {
+    "reference": "main",
+    "phase": "warm",
+    "benchmark": "poet",
+    "matched_cases": 4,
+    "speedup": 0.9991697341619237,
+    "reference_sum_sec": 0.6486183580000215,
+    "observe_sum_sec": 0.6453239150014269,
+    "summed_time_speedup": 1.0051050998142341
+  },
+  {
+    "reference": "main",
+    "phase": "warm",
+    "benchmark": "spell",
+    "matched_cases": 1,
+    "speedup": 0.7169805615098439,
+    "reference_sum_sec": 0.12359818900040409,
+    "observe_sum_sec": 0.17238708500008215,
+    "summed_time_speedup": 0.7169805615098439
+  },
+  {
+    "reference": "main",
+    "phase": "warm",
+    "benchmark": "unixfun",
+    "matched_cases": 2,
+    "speedup": 0.689967454326077,
+    "reference_sum_sec": 0.316342413001621,
+    "observe_sum_sec": 0.47279801000149746,
+    "summed_time_speedup": 0.6690857539789964
+  },
+  {
+    "reference": "main",
+    "phase": "warm",
+    "benchmark": "weather",
+    "matched_cases": 1,
+    "speedup": 1.1017447098494606,
+    "reference_sum_sec": 0.15004242099894327,
+    "observe_sum_sec": 0.13618619600129023,
+    "summed_time_speedup": 1.1017447098494606
+  },
+  {
+    "reference": "try",
+    "phase": "cold",
+    "benchmark": "all",
+    "matched_cases": 96,
+    "speedup": 5.140383425452891,
+    "reference_sum_sec": 914.9155756699938,
+    "observe_sum_sec": 735.873245662001,
+    "summed_time_speedup": 1.243305937623706
+  },
+  {
+    "reference": "try",
+    "phase": "cold",
+    "benchmark": "beginner",
+    "matched_cases": 14,
+    "speedup": 4.750552940056905,
+    "reference_sum_sec": 12.249910376998741,
+    "observe_sum_sec": 2.532730267998886,
+    "summed_time_speedup": 4.836642311175684
+  },
+  {
+    "reference": "try",
+    "phase": "cold",
+    "benchmark": "bio",
+    "matched_cases": 7,
+    "speedup": 2.6430144208842012,
+    "reference_sum_sec": 22.41504351599815,
+    "observe_sum_sec": 4.854441139998016,
+    "summed_time_speedup": 4.6174302807608685
+  },
+  {
+    "reference": "try",
+    "phase": "cold",
+    "benchmark": "covid",
+    "matched_cases": 5,
+    "speedup": 7.284061656400332,
+    "reference_sum_sec": 7.507361730997218,
+    "observe_sum_sec": 1.0008671799987496,
+    "summed_time_speedup": 7.500857137713914
+  },
+  {
+    "reference": "try",
+    "phase": "cold",
+    "benchmark": "dpt",
+    "matched_cases": 10,
+    "speedup": 1.0106522163404261,
+    "reference_sum_sec": 703.058453499998,
+    "observe_sum_sec": 695.2625870749998,
+    "summed_time_speedup": 1.0112128375234395
+  },
+  {
+    "reference": "try",
+    "phase": "cold",
+    "benchmark": "file-mod",
+    "matched_cases": 7,
+    "speedup": 3.9264169384481904,
+    "reference_sum_sec": 25.68500750000021,
+    "observe_sum_sec": 6.406926945999658,
+    "summed_time_speedup": 4.008943400866675
+  },
+  {
+    "reference": "try",
+    "phase": "cold",
+    "benchmark": "nginx-analysis",
+    "matched_cases": 22,
+    "speedup": 12.646723310187186,
+    "reference_sum_sec": 78.23368536700036,
+    "observe_sum_sec": 5.504212397001538,
+    "summed_time_speedup": 14.213420508557912
+  },
+  {
+    "reference": "try",
+    "phase": "cold",
+    "benchmark": "nlp-ngrams",
+    "matched_cases": 3,
+    "speedup": 10.575073941488192,
+    "reference_sum_sec": 6.828189371000917,
+    "observe_sum_sec": 0.6437554800013459,
+    "summed_time_speedup": 10.606805818548748
+  },
+  {
+    "reference": "try",
+    "phase": "cold",
+    "benchmark": "nlp-uppercase",
+    "matched_cases": 2,
+    "speedup": 6.874787849429147,
+    "reference_sum_sec": 3.1300486480013205,
+    "observe_sum_sec": 0.4714378349999606,
+    "summed_time_speedup": 6.63936666856953
+  },
+  {
+    "reference": "try",
+    "phase": "cold",
+    "benchmark": "poet",
+    "matched_cases": 4,
+    "speedup": 8.063863340824108,
+    "reference_sum_sec": 6.186500967000029,
+    "observe_sum_sec": 0.7278828420021455,
+    "summed_time_speedup": 8.499308693667206
+  },
+  {
+    "reference": "try",
+    "phase": "cold",
+    "benchmark": "spell",
+    "matched_cases": 7,
+    "speedup": 5.673075800329128,
+    "reference_sum_sec": 8.571783699997468,
+    "observe_sum_sec": 1.4622101169989037,
+    "summed_time_speedup": 5.862210636040822
+  },
+  {
+    "reference": "try",
+    "phase": "cold",
+    "benchmark": "unixfun",
+    "matched_cases": 6,
+    "speedup": 4.729070803456977,
+    "reference_sum_sec": 9.038939259000472,
+    "observe_sum_sec": 1.9278536530000565,
+    "summed_time_speedup": 4.688602397248567
+  },
+  {
+    "reference": "try",
+    "phase": "cold",
+    "benchmark": "weather",
+    "matched_cases": 6,
+    "speedup": 6.407621748102608,
+    "reference_sum_sec": 25.833647108998775,
+    "observe_sum_sec": 11.013706833002288,
+    "summed_time_speedup": 2.3455905900444813
+  },
+  {
+    "reference": "try",
+    "phase": "cold",
+    "benchmark": "web-search",
+    "matched_cases": 1,
+    "speedup": 1.3195537489295717,
+    "reference_sum_sec": 1.5162179970011493,
+    "observe_sum_sec": 1.1490384520002408,
+    "summed_time_speedup": 1.3195537489295717
+  },
+  {
+    "reference": "try",
+    "phase": "cold",
+    "benchmark": "word-freq",
+    "matched_cases": 2,
+    "speedup": 1.5987165956523242,
+    "reference_sum_sec": 4.660786628001006,
+    "observe_sum_sec": 2.9155954439993366,
+    "summed_time_speedup": 1.5985711040924737
+  },
+  {
+    "reference": "try",
+    "phase": "warm",
+    "benchmark": "all",
+    "matched_cases": 96,
+    "speedup": 1.8133396704581977,
+    "reference_sum_sec": 788.6284163280015,
+    "observe_sum_sec": 730.5988701799997,
+    "summed_time_speedup": 1.0794273691303478
+  },
+  {
+    "reference": "try",
+    "phase": "warm",
+    "benchmark": "beginner",
+    "matched_cases": 14,
+    "speedup": 1.1831624020301241,
+    "reference_sum_sec": 2.6158915100031663,
+    "observe_sum_sec": 2.2119888669994907,
+    "summed_time_speedup": 1.1825970505681431
+  },
+  {
+    "reference": "try",
+    "phase": "warm",
+    "benchmark": "bio",
+    "matched_cases": 7,
+    "speedup": 2.062695778100962,
+    "reference_sum_sec": 19.386513800999637,
+    "observe_sum_sec": 5.055093660997045,
+    "summed_time_speedup": 3.835045421725366
+  },
+  {
+    "reference": "try",
+    "phase": "warm",
+    "benchmark": "covid",
+    "matched_cases": 5,
+    "speedup": 1.3982528496238404,
+    "reference_sum_sec": 1.3439177560012467,
+    "observe_sum_sec": 0.9540361650033446,
+    "summed_time_speedup": 1.4086654209765048
+  },
+  {
+    "reference": "try",
+    "phase": "warm",
+    "benchmark": "dpt",
+    "matched_cases": 10,
+    "speedup": 1.008682281212822,
+    "reference_sum_sec": 702.8581044220009,
+    "observe_sum_sec": 696.4888679449978,
+    "summed_time_speedup": 1.0091447785745602
+  },
+  {
+    "reference": "try",
+    "phase": "warm",
+    "benchmark": "file-mod",
+    "matched_cases": 7,
+    "speedup": 11.830769058932473,
+    "reference_sum_sec": 21.406665402002545,
+    "observe_sum_sec": 1.774883324998882,
+    "summed_time_speedup": 12.060885975147707
+  },
+  {
+    "reference": "try",
+    "phase": "warm",
+    "benchmark": "nginx-analysis",
+    "matched_cases": 22,
+    "speedup": 2.709767153407079,
+    "reference_sum_sec": 15.433156930001132,
+    "observe_sum_sec": 4.622435378998489,
+    "summed_time_speedup": 3.33875017487966
+  },
+  {
+    "reference": "try",
+    "phase": "warm",
+    "benchmark": "nlp-ngrams",
+    "matched_cases": 3,
+    "speedup": 4.8337697102382124,
+    "reference_sum_sec": 3.282254073999866,
+    "observe_sum_sec": 0.6927672269994218,
+    "summed_time_speedup": 4.737888782955671
+  },
+  {
+    "reference": "try",
+    "phase": "warm",
+    "benchmark": "nlp-uppercase",
+    "matched_cases": 2,
+    "speedup": 1.0364404646211778,
+    "reference_sum_sec": 0.46207466700070654,
+    "observe_sum_sec": 0.44247804100086796,
+    "summed_time_speedup": 1.0442883582550486
+  },
+  {
+    "reference": "try",
+    "phase": "warm",
+    "benchmark": "poet",
+    "matched_cases": 4,
+    "speedup": 1.3004012294691607,
+    "reference_sum_sec": 0.8429762559990195,
+    "observe_sum_sec": 0.6453239150014269,
+    "summed_time_speedup": 1.3062839240928419
+  },
+  {
+    "reference": "try",
+    "phase": "warm",
+    "benchmark": "spell",
+    "matched_cases": 7,
+    "speedup": 1.0929890751141493,
+    "reference_sum_sec": 1.5025871009966068,
+    "observe_sum_sec": 1.3599199000000226,
+    "summed_time_speedup": 1.1049085324779657
+  },
+  {
+    "reference": "try",
+    "phase": "warm",
+    "benchmark": "unixfun",
+    "matched_cases": 6,
+    "speedup": 1.3448445799630782,
+    "reference_sum_sec": 1.9626598279992322,
+    "observe_sum_sec": 1.5275812200015935,
+    "summed_time_speedup": 1.2848153684405632
+  },
+  {
+    "reference": "try",
+    "phase": "warm",
+    "benchmark": "weather",
+    "matched_cases": 6,
+    "speedup": 1.5230381855706288,
+    "reference_sum_sec": 15.385405757999251,
+    "observe_sum_sec": 10.900927507000233,
+    "summed_time_speedup": 1.411385017295017
+  },
+  {
+    "reference": "try",
+    "phase": "warm",
+    "benchmark": "web-search",
+    "matched_cases": 1,
+    "speedup": 0.9535420684256185,
+    "reference_sum_sec": 1.07942504499988,
+    "observe_sum_sec": 1.1320161749990802,
+    "summed_time_speedup": 0.9535420684256185
+  },
+  {
+    "reference": "try",
+    "phase": "warm",
+    "benchmark": "word-freq",
+    "matched_cases": 2,
+    "speedup": 0.36773145049874706,
+    "reference_sum_sec": 1.0667837779983529,
+    "observe_sum_sec": 2.7905508530020597,
+    "summed_time_speedup": 0.38228429947825987
+  }
+]

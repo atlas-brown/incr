@@ -1,0 +1,34 @@
+{
+  "case": "dpt/dpt_1.sh",
+  "mode": "observe",
+  "inspection": "Known replay-barrier strings in completed cache metadata; not a complete binary decoder",
+  "entries": [
+    {
+      "entry": "batch_17757241998392844245",
+      "barriers": [
+        "unlink may replace an existing inode"
+      ]
+    },
+    {
+      "entry": "batch_18418499227257963616",
+      "barriers": [
+        "unlink may replace an existing inode"
+      ]
+    },
+    {
+      "entry": "batch_2255786032632854759",
+      "barriers": [
+        "unlink may replace an existing inode",
+        "rename preserves inode identity"
+      ]
+    },
+    {
+      "entry": "batch_5148634981785628093",
+      "barriers": []
+    },
+    {
+      "entry": "batch_6058397527738278144",
+      "barriers": []
+    }
+  ]
+}

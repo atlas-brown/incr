@@ -1,0 +1,53 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr-main-qualification/src/incr.sh",
+    "/users/jxia3/atlas/incr/qualification/.work/benchmarks/nlp-ngrams/run/scripts/ngrams-3.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.32129832999999053,
+  "timeout": false,
+  "leaked_descendants": true,
+  "remaining_descendants": [],
+  "diagnostics": [
+    {
+      "pid": 2134108,
+      "status": "Name:\tstrace\nState:\tZ (zombie)\nTgid:\t2134108\nNgid:\t0\nPid:\t2134108\nPPid:\t1317016\nTracerPid:\t0\nUid:\t20012\t20012\t20012\t20012\nGid:\t4431\t4431\t4431\t4431\nFDSize:\t0\nGroups:\t0 4431 \nNStgid:\t2134108\nNSpid:\t2134108\nNSpgid:\t2134094\nNSsid:\t2134079\nThreads:\t1\nSigQ:\t0/255725\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000100\nSigBlk:\t0000000000000000\nSigIgn:\t0000000000000000\nSigCgt:\t0000000000000000\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tffff\nCpus_allowed_list:\t0-15\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t7\nnonvoluntary_ctxt_switches:\t0\n",
+      "wait": "0"
+    }
+  ],
+  "stdout_sha256": "d117fa006ba9208500b2930ce69cbde436c647afa917cb7396a9bc9111a46dd2",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "done\n",
+  "stderr": "",
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr",
+  "runtime_settings": {
+    "LC_ALL": "C",
+    "RUN_SIZE": "min",
+    "OMP_NUM_THREADS": "2",
+    "TF_NUM_INTRAOP_THREADS": "2",
+    "TF_NUM_INTEROP_THREADS": "2",
+    "MPLBACKEND": "Agg"
+  },
+  "fixture_profile": "supplied --min",
+  "benchmark": "nlp-ngrams",
+  "script": "ngrams-3.sh",
+  "mode": "main",
+  "repetition": 0,
+  "phase": "warm",
+  "effects": {
+    "outputs/8.2_2": {
+      "mode": 493,
+      "kind": "directory"
+    },
+    "outputs/8.2_2/sample.txt.qualification.out": {
+      "mode": 420,
+      "kind": "file",
+      "content": "7f893c5e1e837fc8c62ee757fb1d37c470d96f7a4f66a04db99e0a224a064147"
+    }
+  },
+  "small_text_outputs": {},
+  "cache_entries_retained": 9,
+  "cache_entries_written": 3,
+  "cache_bytes": 38257
+}

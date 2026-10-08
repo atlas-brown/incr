@@ -1,0 +1,18 @@
+[
+  {
+    "case": "printf",
+    "mode": "bash",
+    "returncode": 1,
+    "elapsed_sec": 0.13251455099998566,
+    "timeout": false,
+    "matches_bash": true
+  },
+  {
+    "case": "printf",
+    "mode": "observe",
+    "returncode": 1,
+    "elapsed_sec": 0.7920537559994045,
+    "timeout": false,
+    "matches_bash": true
+  }
+]

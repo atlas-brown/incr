@@ -1,0 +1,19 @@
+{
+  "time_utc": "2026-10-08T04:40:23.593906+00:00",
+  "removed": [
+    "qualification/.work/benchmarks",
+    "qualification/.work/bash-suite",
+    "obsolete qualification/.work/builds snapshots",
+    "src/scripts/__pycache__",
+    "qualification/__pycache__"
+  ],
+  "owned_mounts_remaining": [],
+  "benchmark_processes_remaining": [],
+  "retained_for_expanded_goal": [
+    "frozen bad83b650932aabad3a9 baseline snapshot",
+    "clean pinned main worktree",
+    "reusable Bash/Node/Python dependencies and model/input downloads",
+    "release binaries",
+    "saved results and historical local diagnostics"
+  ]
+}

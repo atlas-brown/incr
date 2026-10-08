@@ -1,0 +1,49 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr/incr.sh",
+    "/users/jxia3/atlas/incr/qualification/.work/benchmarks/dpt/run/scripts/dpt_3a.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 68.5973909080003,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "97141915e327f5ad0ff7bb08fcc449474d5d78db85cf5ffb85d160c77554236e",
+  "stdout": "",
+  "stderr": "WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\nI0000 00:00:1791430758.672897 2404658 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.\nTo enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.\n/users/jxia3/atlas/incr/qualification/.venv/lib/python3.10/site-packages/keras/src/layers/convolutional/base_conv.py:113: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.\n  super().__init__(activity_regularizer=activity_regularizer, **kwargs)\nE0000 00:00:1791430821.267811 2404658 node_def_util.cc:682] NodeDef mentions attribute use_unbounded_threadpool which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; attr=metadata:string,default=\"\"> This may be expected if your graph generating binary is newer  than this binary. Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}\n",
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr",
+  "runtime_settings": {
+    "LC_ALL": "C",
+    "RUN_SIZE": "min",
+    "OMP_NUM_THREADS": "8",
+    "TF_NUM_INTRAOP_THREADS": "2",
+    "TF_NUM_INTEROP_THREADS": "2",
+    "MPLBACKEND": "Agg"
+  },
+  "fixture_profile": "supplied --min",
+  "benchmark": "dpt",
+  "script": "dpt_3a.sh",
+  "mode": "observe",
+  "repetition": 0,
+  "phase": "cold",
+  "effects": {
+    "outputs/db.qualification.txt": {
+      "mode": 420,
+      "kind": "file",
+      "content": "5d50e74936f80add43d69fb78beec8bdcceab5590ef8671519d24161e39c930b"
+    },
+    "tmp/torchinductor_jxia3": {
+      "mode": 493,
+      "kind": "directory"
+    }
+  },
+  "small_text_outputs": {
+    "outputs/db.qualification.txt": "g: Aa1 c: 0.24103355407714844\ng: Aa1 c: 0.3324798345565796\ng: D21 c: 0.21568948030471802\ng: F34 c: 0.3996089994907379\ng: G14 c: 0.38789936900138855\ng: H8 c: 0.3170190751552582\ng: H8 c: 0.41063907742500305\ng: H8 c: 0.41097694635391235\ng: H8 c: 0.835006058216095\ng: N16 c: 0.124979168176651\ng: N17 c: 0.3744625449180603\ng: N5 c: 0.6421140432357788\ng: O29 c: 0.2502303123474121\ng: U36 c: 0.44705653190612793\ng: U7 c: 0.2604570984840393\ng: U7 c: 0.3455387055873871\ng: X1 c: 0.1479596048593521\ng: X1 c: 0.20520353317260742\ng: X1 c: 0.3262365758419037\ng: Z1 c: 0.19086387753486633\ng: Z1 c: 0.31247615814208984\ng: Z1 c: 0.6352977156639099\ng: Z4 c: 0.31281042098999023\ng: Z7 c: 0.19246159493923187\ng: Z7 c: 0.19599002599716187\n"
+  },
+  "cache_entries_retained": 0,
+  "cache_entries_written": 4,
+  "cache_bytes": 2446668
+}

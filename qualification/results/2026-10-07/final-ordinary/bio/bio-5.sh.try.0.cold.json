@@ -1,0 +1,153 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr/incr.sh",
+    "/users/jxia3/atlas/incr/qualification/.work/benchmarks/bio/run/scripts/bio-5.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.77083131299878,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "cc3cbfc1412b6000bd4deedd10b64e357b0c28843784ccc23362b0743b0ab03e",
+  "stderr_sha256": "99e5ea38d9ee37eadb1ca11ce2357e76a4d5ada98121370ed56670546aed731d",
+  "stdout": "Processing HG00614_SYNTH_MIN...\n",
+  "stderr": "[main_samview] region \"chrY\" specifies an invalid region or unknown reference. Continue anyway.\n",
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr",
+  "runtime_settings": {
+    "LC_ALL": "C",
+    "RUN_SIZE": "min",
+    "OMP_NUM_THREADS": "2",
+    "TF_NUM_INTRAOP_THREADS": "2",
+    "TF_NUM_INTEROP_THREADS": "2",
+    "MPLBACKEND": "Agg"
+  },
+  "fixture_profile": "supplied --min",
+  "benchmark": "bio",
+  "script": "bio-5.sh",
+  "mode": "try",
+  "repetition": 0,
+  "phase": "cold",
+  "effects": {
+    "outputs/CHS_HG00614_SYNTH_MIN_1.bam": {
+      "mode": 420,
+      "kind": "file",
+      "content": "7362f2cd98e0e0d5708b4258129bc1a8bae0a75d059d9b804a312d8011e846e8"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_1.bam.bai": {
+      "mode": 420,
+      "kind": "file",
+      "content": "16ad96d88814395e6edf760bebdea9995c8e4a0e1c864cec2ab232499243ef92"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_10.bam": {
+      "mode": 420,
+      "kind": "file",
+      "content": "a86bb49dfb7599c078757226da4a210a4eb73fa3900d4a735d61194ddf12ea14"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_10.bam.bai": {
+      "mode": 420,
+      "kind": "file",
+      "content": "06d4b46c46e799fd11a48ac8d2617993433d17f5e819e05f4e308aff1a3d27e5"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_11.bam": {
+      "mode": 420,
+      "kind": "file",
+      "content": "3392b380ea72d777723b323843b4090645d615fd55e34000eb092fb794844348"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_11.bam.bai": {
+      "mode": 420,
+      "kind": "file",
+      "content": "ceb0401c288e6f179c64eabd03da52a3a1afb5c283755c0380550e2d755a9c02"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_17.bam": {
+      "mode": 420,
+      "kind": "file",
+      "content": "53376835c1e8e9ad2e74ba9511a294e91a40a971ab1dbe62b40357b38efe7d86"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_17.bam.bai": {
+      "mode": 420,
+      "kind": "file",
+      "content": "233e4608b92caa937626bcde99784ab53f58732c80f6a79ac785ed8f14c0d137"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_19.bam": {
+      "mode": 420,
+      "kind": "file",
+      "content": "f8fe11bfa3185a6a53565df20c8767a28bcb255c167f82f79ebee5f2b552ae66"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_19.bam.bai": {
+      "mode": 420,
+      "kind": "file",
+      "content": "0ce55f08e3ac27da9a85420bd4dc165e1926d04b0465a23f4f7711302b7bc80f"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_2.bam": {
+      "mode": 420,
+      "kind": "file",
+      "content": "a60cdf7144df0d5440336da38f49ce80e6f6afc5f076704377862c461a4f30a9"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_2.bam.bai": {
+      "mode": 420,
+      "kind": "file",
+      "content": "06cbd00bcce12e8e25decde1a77138863bdf7fb4425042eb40a5742e07537dc8"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_4.bam": {
+      "mode": 420,
+      "kind": "file",
+      "content": "8aec3e3042bd4057498b5302afdef2bbb706873a9e7856396af02eb721bdc2d6"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_4.bam.bai": {
+      "mode": 420,
+      "kind": "file",
+      "content": "5bf214991b6d0102732bec4ab89d433a73e96143b7471f206e0daf30412212a4"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_7.bam": {
+      "mode": 420,
+      "kind": "file",
+      "content": "d63af876b509672bb1cce657352a4a5e2468eaf7ea495a86f2a3573ab95c80b5"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_7.bam.bai": {
+      "mode": 420,
+      "kind": "file",
+      "content": "bca1121d6b051e213ebb306d5b7fc3a8e1c7a2ef46c962af59e1239219c13f8a"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_X.bam": {
+      "mode": 420,
+      "kind": "file",
+      "content": "a9bde31a68930126c023f6ab2359a9994b287bd31d80be614a2ffd37fc4a3401"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_X.bam.bai": {
+      "mode": 420,
+      "kind": "file",
+      "content": "502e9b126c38b4ea528c86a760f1fb972facb5fb019afb4959b98c678c2fcf29"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_Y.bam": {
+      "mode": 420,
+      "kind": "file",
+      "content": "c0b4954b828d8e38daf8b7d6cf3c7390f7a1c56c28317064645bbc6e64ac8414"
+    },
+    "outputs/CHS_HG00614_SYNTH_MIN_Y.bam.bai": {
+      "mode": 420,
+      "kind": "file",
+      "content": "72d631b10e2329e15eac7bbfe505c67acd7138aa00885839aca75ffdb46f58ce"
+    },
+    "outputs/HG00614_SYNTH_MIN_corrected.bam": {
+      "mode": 420,
+      "kind": "file",
+      "content": "178d8b480a043cea4e5fffdb636bc33926e19bfe3db1648bcc1c4eb68b3a2502"
+    },
+    "outputs/HG00614_SYNTH_MIN_corrected.bam.bai": {
+      "mode": 420,
+      "kind": "file",
+      "content": "a6527a7ab0095368528b20edd88da79d117f6e98a32ab2e84a37a9c795818b12"
+    },
+    "outputs/read_counts.tsv": {
+      "mode": 420,
+      "kind": "file",
+      "content": "4064869f009297ecab14a6d1a22d1523201bbecc0340394f789f5dd800c7bffb"
+    }
+  },
+  "small_text_outputs": {},
+  "cache_entries_retained": 0,
+  "cache_entries_written": 0,
+  "cache_bytes": 0
+}

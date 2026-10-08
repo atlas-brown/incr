@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/agents/tests/t_incr_edge.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.23197378300028504,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "9558f0d147a9e9ddfd877e02792f308f55ee312f54a11269a0fcf17071495301",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "9. Stream + head (BrokenPipe)\n10. Cache hit + head (BrokenPipe)\n11. Observe write\n12. No trace file leak\n  t_incr_edge: OK\n",
+  "stderr": ""
+}

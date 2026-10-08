@@ -41,7 +41,7 @@ def main():
                           min_sec=min(valid) if valid else None, max_sec=max(valid) if valid else None))
     if stats:
         with (args.results / 'aggregate-timings.csv').open('w') as stream:
-            writer = csv.DictWriter(stream, fieldnames=list(stats[0])); writer.writeheader(); writer.writerows(stats)
+            writer = csv.DictWriter(stream, fieldnames=list(stats[0]), lineterminator="\n"); writer.writeheader(); writer.writerows(stats)
     lookup = {(r['benchmark'], r['script'], r['mode'], r['phase']): r for r in stats}
     ratios = defaultdict(list)
     paired_times = defaultdict(list)

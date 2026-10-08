@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/agents/tests/t_incr_observe_robust.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.39363907300048595,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "96da21b9a951d24d0bf12d8e6886784bbd6718888a11257bfadd5ef5cbeaa274",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "13. Exit code propagation\n14. Stderr capture\n15. TraceFile (observe) - sed\n16. Command failure (non-zero)\n17. Stdin passed to command\n18. Append vs overwrite\n19. mkdir\n20. Batch: different stdin = different cache\n21. Read-only (cat) - no writes in cache\n  t_incr_observe_robust: OK\n",
+  "stderr": ""
+}

@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/agents/tests/t_incr_multi.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.04901121300008526,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "aef7b41f8ab522810e34b6713ca4a91793e3bbac099f1aa7db9d72831e10b896",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "8. Multi-file write\n  t_incr_multi: OK\n",
+  "stderr": ""
+}

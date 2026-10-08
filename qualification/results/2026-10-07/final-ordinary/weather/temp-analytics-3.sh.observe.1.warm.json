@@ -1,0 +1,57 @@
+{
+  "argv": [
+    "bash",
+    "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr/incr.sh",
+    "/users/jxia3/atlas/incr/qualification/.work/benchmarks/weather/run/scripts/temp-analytics-3.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.1512451010003133,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "",
+  "stderr": "",
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/bad83b650932aabad3a9/incr",
+  "runtime_settings": {
+    "LC_ALL": "C",
+    "RUN_SIZE": "min",
+    "OMP_NUM_THREADS": "2",
+    "TF_NUM_INTRAOP_THREADS": "2",
+    "TF_NUM_INTEROP_THREADS": "2",
+    "MPLBACKEND": "Agg"
+  },
+  "fixture_profile": "supplied --min",
+  "benchmark": "weather",
+  "script": "temp-analytics-3.sh",
+  "mode": "observe",
+  "repetition": 1,
+  "phase": "warm",
+  "effects": {
+    "outputs/statistics.min/average.txt": {
+      "mode": 420,
+      "kind": "file",
+      "content": "c85dc33420355dbd41a5e2eb27f6cd6c3a348b5733b21f02d0cb9a7b8435ebbb"
+    },
+    "outputs/statistics.min/max.txt": {
+      "mode": 420,
+      "kind": "file",
+      "content": "7c7a3476902e29bd3c383ef1622ed3b247c2a8ed1f8c3acfc4f35b5519dd7ccf"
+    },
+    "outputs/statistics.min/min.txt": {
+      "mode": 420,
+      "kind": "file",
+      "content": "dffb839159add040d4e63ade990a3602e230b5e28dcad84d78f5f11c52cb7e47"
+    }
+  },
+  "small_text_outputs": {
+    "outputs/statistics.min/average.txt": "81.6\n",
+    "outputs/statistics.min/max.txt": "0122\n",
+    "outputs/statistics.min/min.txt": "0036\n"
+  },
+  "cache_entries_retained": 7,
+  "cache_entries_written": 0,
+  "cache_bytes": 4558
+}
