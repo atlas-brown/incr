@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "cargo",
+    "test"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 1.3190951140059042,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "64c76cde713f7da61f4bcd15e329fe3b6204050dcf3cc0ca8f8357e78bfae7d2",
+  "stderr_sha256": "6ef5e6da2b9f511e3444c9080750535d36e547e1a3e74a43a4c571a0454e02a8",
+  "stdout": "\nrunning 5 tests\ntest proc_helpers::tests::tracee_root_preserves_kernel_path_resolution ... ok\ntest unix_path::tests::null_bytes_are_rejected ... ok\ntest unix_path::tests::byte_paths_do_not_collide_with_unicode_or_escape_sequences ... ok\ntest snapshot::restore::tests::missing_payload_does_not_delete_other_entries ... ok\ntest snapshot::restore::tests::payload_cannot_escape_snapshot_directory ... ok\n\ntest result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+  "stderr": "   Compiling observe v0.1.0 (/users/jxia3/atlas/observe)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.29s\n     Running unittests src/main.rs (target/debug/deps/observe-dcef437d7e089152)\n"
+}

@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "prlimit",
+    "--nofile=64:64",
+    "cargo",
+    "test",
+    "replay_many_readonly_files",
+    "--",
+    "--nocapture"
+  ],
+  "returncode": 101,
+  "elapsed_sec": 0.1306799790036166,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "92619a52a335f0f9274a691a7ecf2c76c350b5c2bfa9ada296a2fdbfc2bc5397",
+  "stderr_sha256": "20f47f6588294f00a262b9524959a7a9cc3773de2276ff180fadfd2c63a9edb0",
+  "stdout": "\nrunning 1 test\ntest cache::effects::tests::replay_many_readonly_files ... FAILED\n\nfailures:\n\nfailures:\n    cache::effects::tests::replay_many_readonly_files\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 23 filtered out; finished in 0.02s\n\n",
+  "stderr": "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.08s\n     Running unittests src/main.rs (target/debug/deps/incr-89c90ac342faa306)\nError: Too many open files (os error 24)\nerror: test failed, to rerun pass `--bin incr`\n"
+}

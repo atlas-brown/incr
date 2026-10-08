@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "python3",
+    "tests/path_tests.py",
+    "PathTests.test_restore_child_before_parent_link_retarget",
+    "-q"
+  ],
+  "returncode": 1,
+  "elapsed_sec": 0.1290572939979029,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "740626dc19bb34f213a40ffda490ecb30bd9655bbd31ca1522799c0cd9b4640d",
+  "stdout": "",
+  "stderr": "======================================================================\nFAIL: test_restore_child_before_parent_link_retarget (__main__.PathTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/users/jxia3/atlas/observe/tests/path_tests.py\", line 130, in test_restore_child_before_parent_link_retarget\n    self.assertEqual(list(other.iterdir()), [])\nAssertionError: Lists differ: [PosixPath('/tmp/observe-path-20mn_xi1/other/child')] != []\n\nFirst list contains 1 additional elements.\nFirst extra element 0:\nPosixPath('/tmp/observe-path-20mn_xi1/other/child')\n\n- [PosixPath('/tmp/observe-path-20mn_xi1/other/child')]\n+ []\n\n----------------------------------------------------------------------\nRan 1 test in 0.040s\n\nFAILED (failures=1)\n"
+}

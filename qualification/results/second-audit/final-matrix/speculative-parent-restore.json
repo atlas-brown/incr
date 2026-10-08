@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "qualification/speculative_restore_test.py",
+    "--parent-link",
+    "--byte-path",
+    "--results",
+    "qualification/results/second-audit/final-matrix/speculative-parent-cases.json"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.7090705599985085,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "0a1720c20d14a4927cbc145eef3991213fe29e02129b2b56ccf28cf0870d5ab0",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "cold valid=True cache_reused=False\nwarm valid=True cache_reused=True\nwarm-again valid=True cache_reused=True\n",
+  "stderr": ""
+}

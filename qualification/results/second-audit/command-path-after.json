@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "python3",
+    "qualification/regressions.py",
+    "Regressions.test_executable_name_is_a_literal_argument",
+    "Regressions.test_executable_with_byte_target",
+    "Regressions.test_pwd_environment_is_a_dependency",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.3529865800010157,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "dddf0bd738d6fe5eb96a25b3ed77805bbab7bb0bc4ac0fc313966a5dc9d3f7d9",
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 3 tests in 0.232s\n\nOK\n"
+}

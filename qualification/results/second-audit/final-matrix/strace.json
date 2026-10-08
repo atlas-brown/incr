@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "qualification/trace_tests.py",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.22305852000135928,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "3797d4dc44446b5510c21ec118a7bf0d49cd53b42000d2dd62e6dc5b8230c9e5",
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 3 tests in 0.129s\n\nOK\n"
+}

@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "cargo",
+    "test"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 1.2224486410050304,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "aba03b7fff7e692b886b3f0874fc96191fe6679a4e125d0195cb3236bef44dd4",
+  "stderr_sha256": "e73359781fdbaa9596574c41a01a625c99c462c195804a2f221861d4ff852d2f",
+  "stdout": "\nrunning 6 tests\ntest proc_helpers::tests::tracee_root_preserves_kernel_path_resolution ... ok\ntest unix_path::tests::null_bytes_are_rejected ... ok\ntest unix_path::tests::byte_paths_do_not_collide_with_unicode_or_escape_sequences ... ok\ntest snapshot::restore::tests::incomplete_capture_is_rejected_before_deletion ... ok\ntest snapshot::restore::tests::missing_payload_does_not_delete_other_entries ... ok\ntest snapshot::restore::tests::payload_cannot_escape_snapshot_directory ... ok\n\ntest result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+  "stderr": "   Compiling observe v0.1.0 (/users/jxia3/atlas/observe)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.19s\n     Running unittests src/main.rs (target/debug/deps/observe-dcef437d7e089152)\n"
+}

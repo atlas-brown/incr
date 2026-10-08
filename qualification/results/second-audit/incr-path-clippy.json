@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "cargo",
+    "clippy",
+    "--all-targets",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 1.7333565919980174,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "d87985dba91318d0096e1277b0cf9e57c3c76e84e3b0d2f412446161db9a6ed1",
+  "stdout": "",
+  "stderr": "    Checking incr v0.1.0 (/users/jxia3/atlas/incr)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.67s\n"
+}

@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "python3",
+    "qualification/regressions.py",
+    "Regressions.test_working_directory_bytes_are_distinct",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.2230544859994552,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "0d91c2721075468243bee8b8d284892baef8cebfc4dcc2b0030e554dc8f234b9",
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 1 test in 0.121s\n\nOK\n"
+}

@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "python3",
+    "qualification/fast_matrix.py",
+    "--results",
+    "qualification/results/second-audit/matrix"
+  ],
+  "returncode": 1,
+  "elapsed_sec": 144.8879815830005,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "9cb92fded18b7acffa3dd395fc3e45a566c9bb9182dcac7b01738e7b1d412947",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "RUN live-stream\nPASS 8.457\nRUN live-compressed\nPASS 8.164\nRUN live-full\nPASS 8.285\nRUN live-annotations\nPASS 8.169\nRUN live-batch\nPASS 7.902\nRUN live-batch-compressed\nPASS 8.258\nRUN live-full-compressed\nPASS 8.228\nRUN live-annotations-compressed\nPASS 7.988\nRUN final-stream\nPASS 8.137\nRUN final-compressed\nPASS 8.13\nRUN final-full\nPASS 8.242\nRUN final-annotations\nPASS 8.135\nRUN final-batch\nPASS 8.237\nRUN final-batch-compressed\nPASS 8.491\nRUN final-full-compressed\nPASS 8.385\nRUN final-annotations-compressed\nPASS 8.34\nRUN chunks\nFAIL 13.174\n ======================================================================\nFAIL: test_cache_reuse_with_fragmented_producer (__main__.ChunkTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/users/jxia3/atlas/incr/qualification/chunk_tests.py\", line 111, in test_cache_reuse_with_fragmented_producer\n    self.assertEqual(before, {path: path.stat().st_mtime_ns\nAssertionError: {Posi[362 chars]atch_6874237681292093334/data.incr'): 17914699[713 chars]9614} != {Posi[362 chars]atch_1340032611401918709/data.incr'): 17914699[1843 chars]9614}\nDiff is 2309 characters long. Set self.maxDiff to None to see it.\n\n----------------------------------------------------------------------\nRan 9 tests in 13.065s\n\nFAILED (failures=1)\n\n",
+  "stderr": ""
+}

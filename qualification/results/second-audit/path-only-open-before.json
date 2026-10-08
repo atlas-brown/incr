@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "python3",
+    "tests/path_tests.py",
+    "PathTests.test_path_only_open_ignores_write_flags",
+    "-q"
+  ],
+  "returncode": 1,
+  "elapsed_sec": 0.11922170699835988,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "490e66ee06741291e81b37bc0f358a172040a41c4d5c54ff6cb99c46339fd9e3",
+  "stdout": "",
+  "stderr": "======================================================================\nFAIL: test_path_only_open_ignores_write_flags (__main__.PathTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/users/jxia3/atlas/observe/tests/path_tests.py\", line 95, in test_path_only_open_ignores_write_flags\n    self.assertEqual(report[\"writes\"], [])\nAssertionError: Lists differ: [{'path': '/tmp/observe-path-55ayt8zc/file', 'pre_hash': 'b4536590bb2b4581'}] != []\n\nFirst list contains 1 additional elements.\nFirst extra element 0:\n{'path': '/tmp/observe-path-55ayt8zc/file', 'pre_hash': 'b4536590bb2b4581'}\n\n- [{'path': '/tmp/observe-path-55ayt8zc/file', 'pre_hash': 'b4536590bb2b4581'}]\n+ []\n\n----------------------------------------------------------------------\nRan 1 test in 0.037s\n\nFAILED (failures=1)\n"
+}

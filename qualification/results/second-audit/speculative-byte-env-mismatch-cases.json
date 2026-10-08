@@ -1,0 +1,76 @@
+[
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/target/release/incr",
+      "--cache",
+      "/users/jxia3/atlas/incr/qualification/.work/restore-probe-x6obrwmr/cache",
+      "--observe",
+      "/users/jxia3/atlas/observe/target/release/observe",
+      "--effect-policy",
+      "final",
+      "--",
+      "/usr/bin/python3",
+      "/users/jxia3/atlas/incr/qualification/.work/restore-probe-x6obrwmr/worker.py"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.43630921600561123,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "38164fbd17603d73f696b8b4d72664d735bb6a7c88577687fd2ae33fd6964153",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "AB",
+    "stderr": "",
+    "phase": "cold",
+    "valid": true,
+    "cache_reused": false,
+    "qualification_note": "Warm PWD differed from cold PWD; old metadata-only cache_reused check is insufficient."
+  },
+  {
+    "argv": [
+      "bash",
+      "-o",
+      "pipefail",
+      "-c",
+      "/usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/restore-probe-x6obrwmr/producer.py | /users/jxia3/atlas/incr/target/release/incr --cache /users/jxia3/atlas/incr/qualification/.work/restore-probe-x6obrwmr/cache --observe /users/jxia3/atlas/observe/target/release/observe --effect-policy final -- /usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/restore-probe-x6obrwmr/worker.py"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.3912950259982608,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "38164fbd17603d73f696b8b4d72664d735bb6a7c88577687fd2ae33fd6964153",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "AB",
+    "stderr": "",
+    "phase": "warm",
+    "valid": true,
+    "cache_reused": true,
+    "qualification_note": "Warm PWD differed from cold PWD; old metadata-only cache_reused check is insufficient."
+  },
+  {
+    "argv": [
+      "bash",
+      "-o",
+      "pipefail",
+      "-c",
+      "/usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/restore-probe-x6obrwmr/producer.py | /users/jxia3/atlas/incr/target/release/incr --cache /users/jxia3/atlas/incr/qualification/.work/restore-probe-x6obrwmr/cache --observe /users/jxia3/atlas/observe/target/release/observe --effect-policy final -- /usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/restore-probe-x6obrwmr/worker.py"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.41990228299982846,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "38164fbd17603d73f696b8b4d72664d735bb6a7c88577687fd2ae33fd6964153",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "AB",
+    "stderr": "",
+    "phase": "warm-again",
+    "valid": true,
+    "cache_reused": true,
+    "qualification_note": "Warm PWD differed from cold PWD; old metadata-only cache_reused check is insufficient."
+  }
+]

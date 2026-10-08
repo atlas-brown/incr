@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "python3",
+    "qualification/shell_ast_tests.py",
+    "ShellAstTests.test_prefix_arguments_preserve_shell_metacharacters",
+    "-q"
+  ],
+  "returncode": 1,
+  "elapsed_sec": 0.21025625900074374,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e0c63d93ceea92f2b7ed3ee667a71bae1aff80008bb5fa6a1a4fc4738530882f",
+  "stdout": "",
+  "stderr": "======================================================================\nFAIL: test_prefix_arguments_preserve_shell_metacharacters (__main__.ShellAstTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/users/jxia3/atlas/incr/qualification/shell_ast_tests.py\", line 85, in test_prefix_arguments_preserve_shell_metacharacters\n    actual = json.loads(self.invoke(['bash', output]))\n  File \"/users/jxia3/atlas/incr/qualification/shell_ast_tests.py\", line 31, in invoke\n    self.assertEqual((result['returncode'], result['stderr']), (0, ''), result)\nAssertionError: Tuples differ: (127, \"/users/jxia3/atlas/incr/qualificati[165 chars]y\\n\") != (0, '')\n\nFirst differing element 0:\n127\n0\n\n+ (0, '')\n- (127,\n-  '/users/jxia3/atlas/incr/qualification/.work/shell-ast-4vn2roib/transformed.sh: '\n-  'line 1: '\n-  '/users/jxia3/atlas/incr/qualification/.work/shell-ast-4vn2roib/wrapper '\n-  \"space'quote\\\\$(): No such file or directory\\n\") : {'argv': ['bash', '/users/jxia3/atlas/incr/qualification/.work/shell-ast-4vn2roib/transformed.sh'], 'returncode': 127, 'elapsed_sec': 0.004008905001683161, 'timeout': False, 'leaked_descendants': False, 'remaining_descendants': [], 'diagnostics': [], 'stdout_sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'stderr_sha256': 'dba486a2abf486dde5bd95ecc3cf76686c65a031f8a44b694cd3b0327a01cf6c', 'stdout': '', 'stderr': \"/users/jxia3/atlas/incr/qualification/.work/shell-ast-4vn2roib/transformed.sh: line 1: /users/jxia3/atlas/incr/qualification/.work/shell-ast-4vn2roib/wrapper space'quote\\\\$(): No such file or directory\\n\"}\n\n----------------------------------------------------------------------\nRan 1 test in 0.114s\n\nFAILED (failures=1)\n"
+}

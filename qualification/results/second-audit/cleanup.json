@@ -1,0 +1,30 @@
+{
+  "removed": [
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/.work/benchmarks/word-freq",
+      "logical_bytes": 575706884
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/.work/benchmarks/file-mod",
+      "logical_bytes": 1894804
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/.work/bash-suite",
+      "logical_bytes": 1133470
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/.work/builds/701d9d6fb14370b14460",
+      "logical_bytes": 4642681
+    }
+  ],
+  "remaining_build_snapshots": [
+    "a949fb71519e3ce9e7a4",
+    "b21d57dc13686230ee36",
+    "bad83b650932aabad3a9"
+  ],
+  "temporary_fixture_paths": {
+    "incr-effects-*": [],
+    "observe-path-*": [],
+    "observe-runner-*": []
+  }
+}

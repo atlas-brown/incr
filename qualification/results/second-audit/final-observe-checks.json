@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "bash",
+    "-c",
+    "set -e\ncargo fmt --all -- --check\ncargo test --quiet\ncargo clippy --all-targets -- -D warnings\ngit diff --check"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 1.2298818900017068,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "22d87af914729fe047364dbddbc8bc24879ef53efc891d357f26cca3420b49e0",
+  "stderr_sha256": "99f71393b9903dca098310bb446022a4bdee195ea9996f351a787195555210a6",
+  "stdout": "\nrunning 6 tests\n......\ntest result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+  "stderr": "    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.06s\n"
+}

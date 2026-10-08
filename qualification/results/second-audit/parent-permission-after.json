@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "python3",
+    "qualification/regressions.py",
+    "--effect-policy",
+    "final",
+    "Regressions.test_parent_write_permission_invalidation",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.19744752300175605,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "57debfaf38050af3298b8f395697ba5b2ea738fb24569a8066374738e68b8e84",
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 1 test in 0.094s\n\nOK\n"
+}

@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "python3",
+    "tests/path_tests.py",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.7241896439954871,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "a5cc44093e698b1e8045230957b1568292ac3aff1bcb478c0825a41a0a166445",
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 11 tests in 0.627s\n\nOK\n"
+}

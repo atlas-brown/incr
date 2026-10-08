@@ -1,0 +1,31 @@
+{
+  "argv": [
+    "python3",
+    "qualification/benchmarks.py",
+    "--only",
+    "file-mod",
+    "--scripts",
+    "file-mod-1.sh",
+    "--modes",
+    "bash,try,observe",
+    "--repetitions",
+    "3",
+    "--timeout",
+    "10",
+    "--effect-policy",
+    "final",
+    "--append",
+    "--results",
+    "qualification/results/second-audit/measurements"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 18.33998675300245,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "c2f0dbcd8de1cd1bcce717b06f0ad98627c4feabc85e86e0670a426bbd51c942",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "RUN file-mod/file-mod-1.sh bash 0 cold\nPASS 0.231s rc=0\nRUN file-mod/file-mod-1.sh bash 0 warm\nPASS 0.266s rc=0\nRUN file-mod/file-mod-1.sh try 0 cold\nPASS 2.239s rc=0\nRUN file-mod/file-mod-1.sh try 0 warm\nPASS 2.260s rc=0\nRUN file-mod/file-mod-1.sh observe 0 cold\nPASS 0.615s rc=0\nRUN file-mod/file-mod-1.sh observe 0 warm\nPASS 0.189s rc=0\nRUN file-mod/file-mod-1.sh try 1 cold\nPASS 2.290s rc=0\nRUN file-mod/file-mod-1.sh try 1 warm\nPASS 2.232s rc=0\nRUN file-mod/file-mod-1.sh observe 1 cold\nPASS 0.598s rc=0\nRUN file-mod/file-mod-1.sh observe 1 warm\nPASS 0.253s rc=0\nRUN file-mod/file-mod-1.sh bash 1 cold\nPASS 0.310s rc=0\nRUN file-mod/file-mod-1.sh bash 1 warm\nPASS 0.284s rc=0\nRUN file-mod/file-mod-1.sh observe 2 cold\nPASS 0.548s rc=0\nRUN file-mod/file-mod-1.sh observe 2 warm\nPASS 0.255s rc=0\nRUN file-mod/file-mod-1.sh bash 2 cold\nPASS 0.242s rc=0\nRUN file-mod/file-mod-1.sh bash 2 warm\nPASS 0.221s rc=0\nRUN file-mod/file-mod-1.sh try 2 cold\nPASS 2.372s rc=0\nRUN file-mod/file-mod-1.sh try 2 warm\nPASS 2.279s rc=0\n",
+  "stderr": ""
+}

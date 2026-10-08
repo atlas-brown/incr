@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "python3",
+    "qualification/regressions.py",
+    "Regressions.test_terminal_input_is_preserved",
+    "-q"
+  ],
+  "returncode": 1,
+  "elapsed_sec": 0.1545399879978504,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "5833f37719947b901b195810d97fcdaba6ee1fd92c5a67fe558100f298e261fc",
+  "stdout": "",
+  "stderr": "======================================================================\nFAIL: test_terminal_input_is_preserved (__main__.Regressions)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/users/jxia3/atlas/incr/qualification/regressions.py\", line 122, in test_terminal_input_is_preserved\n    self.assertEqual((process.returncode, output, errors),\nAssertionError: Tuples differ: (0, b'False\\n\\n', b'') != (0, b'True\\nterminal input\\n', b'')\n\nFirst differing element 1:\nb'False\\n\\n'\nb'True\\nterminal input\\n'\n\n- (0, b'False\\n\\n', b'')\n+ (0, b'True\\nterminal input\\n', b'')\n\n----------------------------------------------------------------------\nRan 1 test in 0.043s\n\nFAILED (failures=1)\n"
+}

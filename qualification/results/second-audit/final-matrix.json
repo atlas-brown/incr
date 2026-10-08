@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "python3",
+    "qualification/fast_matrix.py",
+    "--results",
+    "qualification/results/second-audit/final-matrix"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 198.88923508599692,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "9a37595daa45fa4d9f34dc9450c41f05fb2063876ab049b9c4bc11a9e2788777",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "RUN live-stream\nPASS 8.904\nRUN live-compressed\nPASS 8.479\nRUN live-full\nPASS 8.491\nRUN live-annotations\nPASS 8.43\nRUN live-batch\nPASS 8.505\nRUN live-batch-compressed\nPASS 9.07\nRUN live-full-compressed\nPASS 8.907\nRUN live-annotations-compressed\nPASS 9.046\nRUN final-stream\nPASS 8.732\nRUN final-compressed\nPASS 8.909\nRUN final-full\nPASS 8.766\nRUN final-annotations\nPASS 8.827\nRUN final-batch\nPASS 8.724\nRUN final-batch-compressed\nPASS 8.954\nRUN final-full-compressed\nPASS 9.012\nRUN final-annotations-compressed\nPASS 8.825\nRUN chunks\nPASS 12.835\nRUN shell-ast\nPASS 2.002\nRUN strace\nPASS 0.223\nRUN try\nPASS 0.856\nRUN benchmark-components\nPASS 3.5\nRUN readonly-descriptor-limit\nPASS 1.721\nRUN foreign-owner-replay\nPASS 0.134\nRUN observe\n[bounded] running 30s: bash\nPASS 31.764\nRUN speculative-restore\nPASS 0.615\nRUN speculative-byte-restore\nPASS 0.681\nRUN speculative-parent-restore\nPASS 0.709\nRUN effect-replay\nPASS 3.115\n",
+  "stderr": ""
+}

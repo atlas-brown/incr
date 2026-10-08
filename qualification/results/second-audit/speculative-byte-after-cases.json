@@ -1,0 +1,73 @@
+[
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/target/release/incr",
+      "--cache",
+      "/users/jxia3/atlas/incr/qualification/.work/restore-probe-ym4wttmm/cache",
+      "--observe",
+      "/users/jxia3/atlas/observe/target/release/observe",
+      "--effect-policy",
+      "final",
+      "--",
+      "/usr/bin/python3",
+      "/users/jxia3/atlas/incr/qualification/.work/restore-probe-ym4wttmm/worker.py"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.3759926729981089,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "38164fbd17603d73f696b8b4d72664d735bb6a7c88577687fd2ae33fd6964153",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "AB",
+    "stderr": "",
+    "phase": "cold",
+    "valid": true,
+    "cache_reused": false
+  },
+  {
+    "argv": [
+      "bash",
+      "-o",
+      "pipefail",
+      "-c",
+      "/usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/restore-probe-ym4wttmm/producer.py | /users/jxia3/atlas/incr/target/release/incr --cache /users/jxia3/atlas/incr/qualification/.work/restore-probe-ym4wttmm/cache --observe /users/jxia3/atlas/observe/target/release/observe --effect-policy final -- /usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/restore-probe-ym4wttmm/worker.py"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.07850127299752785,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "38164fbd17603d73f696b8b4d72664d735bb6a7c88577687fd2ae33fd6964153",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "AB",
+    "stderr": "",
+    "phase": "warm",
+    "valid": true,
+    "cache_reused": true
+  },
+  {
+    "argv": [
+      "bash",
+      "-o",
+      "pipefail",
+      "-c",
+      "/usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/restore-probe-ym4wttmm/producer.py | /users/jxia3/atlas/incr/target/release/incr --cache /users/jxia3/atlas/incr/qualification/.work/restore-probe-ym4wttmm/cache --observe /users/jxia3/atlas/observe/target/release/observe --effect-policy final -- /usr/bin/python3 /users/jxia3/atlas/incr/qualification/.work/restore-probe-ym4wttmm/worker.py"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.1186892359983176,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "38164fbd17603d73f696b8b4d72664d735bb6a7c88577687fd2ae33fd6964153",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "AB",
+    "stderr": "",
+    "phase": "warm-again",
+    "valid": true,
+    "cache_reused": true
+  }
+]

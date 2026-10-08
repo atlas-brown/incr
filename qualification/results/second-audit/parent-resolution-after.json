@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "python3",
+    "qualification/regressions.py",
+    "--effect-policy",
+    "final",
+    "Regressions.test_parent_retarget_preserves_leaf_identity",
+    "Regressions.test_directory_replaced_by_link_invalidates_resolution",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.3312964099968667,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "fe689b52b0a75ba7c8c3ce4894cc5cbb52fa0221d84e188bbb34801c568d0dad",
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 2 tests in 0.212s\n\nOK\n"
+}

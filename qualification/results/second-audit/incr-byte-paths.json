@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "python3",
+    "qualification/regressions.py",
+    "Regressions.test_non_utf8_internal_path",
+    "Regressions.test_adversarial_filename_round_trips",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 4.481376746000024,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "7b20a85ae54ac23f932648b2a16a4201e2ab48bb941dd4424574af48149a1fcf",
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 2 tests in 4.357s\n\nOK\n"
+}

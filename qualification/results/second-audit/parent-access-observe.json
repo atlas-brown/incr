@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "bash",
+    "tests/run_tests.sh"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 31.276229180999508,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "a680bb62aeb0d2a90572822f534eb911cb5843e5dd7a29a4c1312435eb941f38",
+  "stderr_sha256": "020e1805036aa84ec39ec4a4dd532cdfc23744c1418814999165ae0add95a228",
+  "stdout": "  t_basic\n\n  t_compiled\n\n  t_concurrent\n\n  t_dependencies\n\n  t_edge\n\n  t_effect_gate\n\n  t_errors\n\n  t_exit_codes\n\n  t_fd_lifecycle\n\n  t_file_ops\n\n  t_filtering\n\n  t_hash_edge\n\n  t_hash_existing\n\n  t_hash_new_files\n\n  t_json\n\n  t_large_scale\n\n  t_metadata\n\n  t_multiprocess\n\n  t_open_flags\n\n  t_output\n\n  t_path_bytes\n\n  t_paths\n\n  t_pipes\n\n  t_programs\n\n  t_python_ops\n\n  t_readwrite\n\n  t_runner\n\n  t_seccomp_correctness\n\n  t_signal\n\n  t_snapshot_dirs\n\n  t_snapshot_files\n\n  t_snapshot_filtering\n\n  t_snapshot_kill\n\n  t_snapshot_metadata\n\n  t_snapshot_symlinks\n\n  t_special_chars\n\n\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n  36 files, 407 assertions: 407 passed, 0 failed\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n",
+  "stderr": "----------------------------------------------------------------------\nRan 15 tests in 0.901s\n\nOK\n----------------------------------------------------------------------\nRan 3 tests in 0.093s\n\nOK\n--- observe: file access report ---\nReads:\n  /etc/ld.so.cache\n  /users/jxia3/atlas/observe\n  /usr/bin/dash\n  /usr/lib/x86_64-linux-gnu/libc.so.6\nWrites:\n  /tmp/observe_tests_3921225/t_snapshot_files/excluded\n  /tmp/observe_tests_3921225/t_snapshot_files/protected\n"
+}

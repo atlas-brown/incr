@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "cargo",
+    "test",
+    "replay_preserves_group_writable_file_ownership",
+    "--",
+    "--ignored",
+    "--nocapture"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 1.4960862279986031,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "353047322dd529d5ebc0551d5c5e837036af2903502a6baa327cfa1c2d08b157",
+  "stderr_sha256": "26918068f1bdee5b97bf6e7eb371f56d2d77c7c38c70bce87e80c3dd7cceeecc",
+  "stdout": "\nrunning 1 test\ntest cache::effects::tests::replay_preserves_group_writable_file_ownership ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 28 filtered out; finished in 0.02s\n\n",
+  "stderr": "   Compiling incr v0.1.0 (/users/jxia3/atlas/incr)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.45s\n     Running unittests src/main.rs (target/debug/deps/incr-89c90ac342faa306)\n"
+}

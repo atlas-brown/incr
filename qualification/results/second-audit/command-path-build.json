@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "cargo",
+    "build",
+    "--release"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 4.60043372400105,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "02b10f9f178f815d4b133c4aa90b76ae3ebba119bd61fc0b426b537bbfaf21e6",
+  "stdout": "",
+  "stderr": "   Compiling incr v0.1.0 (/users/jxia3/atlas/incr)\n    Finished `release` profile [optimized] target(s) in 4.57s\n"
+}

@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "bash",
+    "-c",
+    "set -e\ncargo fmt --all -- --check\ncargo test --quiet\ncargo clippy --all-targets -- -D warnings\ngit diff --check"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 2.153651540997089,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e790667c9cbb1bb60a858a9c67aa1f079f96bc4ab5c5e9e4d235e788a8e60ef3",
+  "stderr_sha256": "33644d00cf183cc99fa67bca054e32e6bd7f55fff38c8e435f0c87d6e2e60dd8",
+  "stdout": "\nrunning 29 tests\ni............................\ntest result: ok. 28 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.21s\n\n",
+  "stderr": "    Checking incr v0.1.0 (/users/jxia3/atlas/incr)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.01s\n"
+}

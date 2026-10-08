@@ -1,0 +1,96 @@
+[
+  {
+    "argv": [
+      "sh",
+      "/users/jxia3/atlas/incr/src/scripts/try.sh",
+      "commit",
+      "/users/jxia3/atlas/incr/qualification/.work/try-review-mvpe4l_6/sandbox with spaces"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.023130512003262993,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "sh",
+      "/users/jxia3/atlas/incr/src/scripts/try.sh",
+      "commit",
+      "/users/jxia3/atlas/incr/qualification/.work/try-review-d3m6fccd/sandbox with spaces"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.023830158002965618,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "sh",
+      "/users/jxia3/atlas/incr/src/scripts/try.sh",
+      "commit",
+      "/users/jxia3/atlas/incr/qualification/.work/try-review-rlia8u_l/sandbox with spaces"
+    ],
+    "returncode": 1,
+    "elapsed_sec": 0.03824529299890855,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "cdc6bb291d3afd38da9f85dab9defce905e26b4e483cbd6deb41fa12529b6826",
+    "stdout": "",
+    "stderr": "mv: cannot move '/users/jxia3/atlas/incr/qualification/.work/try-review-rlia8u_l/sandbox with spaces/upperdir/users/jxia3/atlas/incr/qualification/.work/try-review-rlia8u_l/readonly/new-file' to '/users/jxia3/atlas/incr/qualification/.work/try-review-rlia8u_l/readonly/new-file': Permission denied\ntry.sh: couldn't commit /users/jxia3/atlas/incr/qualification/.work/try-review-rlia8u_l/sandbox with spaces/upperdir/users/jxia3/atlas/incr/qualification/.work/try-review-rlia8u_l/readonly/new-file\n"
+  },
+  {
+    "argv": [
+      "sh",
+      "/users/jxia3/atlas/incr/src/scripts/try.sh",
+      "-h"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.01259068999934243,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "054c120129bf09450e62d0ced408afaeb490efc7acc2cb8f3ada003516ee4ccd",
+    "stdout": "",
+    "stderr": "Usage: try.sh [-nvhyx] [-i PATTERN] [-D DIR] [-U PATH] [-L dir1:dir2:...] CMD [ARG ...]\n\n  -n                don't commit or prompt for commit (overrides -y)\n  -y                assume yes to all prompts (overrides -n)\n  -x                prevent network access (by unsharing the network namespace)\n  -i PATTERN        ignore paths that match PATTERN on summary and commit\n  -D DIR            work in DIR (implies -n)\n  -U PATH           path to unionfs helper (e.g., mergerfs, unionfs-fuse)\n  -L dir1:dir2:...  specify multiple lower directories to merge (colon-separated, implies -n)\n  -v                show version information (and exit)\n  -h                show this usage message (and exit)\n\nSubcommands:\n  try.sh summary DIR   show the summary for the overlay in DIR\n  try.sh commit DIR    commit the overlay in DIR\n  try.sh explore DIR   start a shell inside the overlay in DIR\n"
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/target/release/incr",
+      "--try",
+      "/users/jxia3/atlas/incr/src/scripts/try.sh",
+      "--cache",
+      "/users/jxia3/atlas/incr/qualification/.work/try-review-i_1zftne/cache",
+      "--",
+      "sh",
+      "-c",
+      "cat input > output; printf done"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.6286790710000787,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "a4c3ed04a95a3da14a9d235c83d868bed7c0f45cf7f3faa751ee8f50598d2211",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "done",
+    "stderr": ""
+  }
+]

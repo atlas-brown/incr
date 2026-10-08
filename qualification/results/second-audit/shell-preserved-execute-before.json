@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "python3",
+    "qualification/shell_ast_tests.py",
+    "ShellAstTests.test_execute_preserved_source",
+    "-q"
+  ],
+  "returncode": 1,
+  "elapsed_sec": 0.210015900003782,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "701bc03c3130ada04c819a0b5af390f6a9da6b8218053f5a6904eaf1d1e57272",
+  "stdout": "",
+  "stderr": "======================================================================\nFAIL: test_execute_preserved_source (__main__.ShellAstTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/users/jxia3/atlas/incr/qualification/shell_ast_tests.py\", line 95, in test_execute_preserved_source\n    self.assertEqual(result, 'executed')\nAssertionError: '' != 'executed'\n+ executed\n\n----------------------------------------------------------------------\nRan 1 test in 0.104s\n\nFAILED (failures=1)\n"
+}

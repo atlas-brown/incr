@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "cargo",
+    "test",
+    "replay_preserves_group_writable_file_ownership",
+    "--",
+    "--ignored",
+    "--nocapture"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.13379793700005393,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "353047322dd529d5ebc0551d5c5e837036af2903502a6baa327cfa1c2d08b157",
+  "stderr_sha256": "4ed908038d601a7051eb98a1a11f98ee1b47eafe78e218cd774ef8f409b3d253",
+  "stdout": "\nrunning 1 test\ntest cache::effects::tests::replay_preserves_group_writable_file_ownership ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 28 filtered out; finished in 0.02s\n\n",
+  "stderr": "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.08s\n     Running unittests src/main.rs (target/debug/deps/incr-89c90ac342faa306)\n"
+}

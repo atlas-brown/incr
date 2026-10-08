@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "qualification/regressions.py",
+    "--effect-policy",
+    "live",
+    "--batch",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 8.504637596997782,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "a2f162e383012a78543a74896051bdea2936d6e3fa89a8adb8bacfe4cbff30a0",
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 57 tests in 8.385s\n\nOK (skipped=2)\n"
+}

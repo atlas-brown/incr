@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "cargo",
+    "test",
+    "replay_populates_existing_readonly_directory",
+    "--",
+    "--nocapture"
+  ],
+  "returncode": 101,
+  "elapsed_sec": 2.09329472900572,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "3da375cba937f0d066b57ef0c4782a60f50039573b6cd3a28669b84c4fa5ee52",
+  "stderr_sha256": "5340e48ff350671c839edcfe3f15ab4b758e5cb476d444790144cd584659b136",
+  "stdout": "\nrunning 1 test\ntest cache::effects::tests::replay_populates_existing_readonly_directory ... FAILED\n\nfailures:\n\nfailures:\n    cache::effects::tests::replay_populates_existing_readonly_directory\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 18 filtered out; finished in 0.00s\n\n",
+  "stderr": "   Compiling incr v0.1.0 (/users/jxia3/atlas/incr)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.05s\n     Running unittests src/main.rs (target/debug/deps/incr-89c90ac342faa306)\nError: Permission denied (os error 13)\nerror: test failed, to rerun pass `--bin incr`\n"
+}

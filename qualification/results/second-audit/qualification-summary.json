@@ -1,0 +1,15 @@
+{
+  "qualified_code_commits": {
+    "incr": "8f3c769cedfd22c4d3612560921661ff67665478",
+    "observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+  },
+  "matrix_groups_passed": 28,
+  "bash_cases": 23,
+  "bash_runs_passed": 46,
+  "measurement_runs_passed": 54,
+  "speedup_geometric_mean": {
+    "cold": 2.1023138497746996,
+    "warm": 7.797857416769889
+  },
+  "comparison": "current try backend versus current Observe, three minimum-input workloads, three repetitions, final effect policy"
+}

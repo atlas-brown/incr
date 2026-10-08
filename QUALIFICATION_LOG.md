@@ -970,3 +970,314 @@ recovery snapshots remained. Kept the frozen baseline/final builds, pinned main
 checkout, reusable dependencies/models and saved evidence for reproduction.
 Completed the expanded plan and final evaluation documentation. Curated evidence
 and documentation are being published together with a brief subject-only commit.
+
+## Second comprehensive audit
+
+Started a new user-requested round focused on correctness, fast bounded stress and
+clean component APIs, names, function sizes, organization and comments. The previous
+minimum-size measurements remain unchanged. This round will use tiny fixtures and
+fast test groups, without repeating real-model or full benchmark runs. The working
+plan and coverage tracker are in qualification/SECOND_AUDIT.md. Both repositories
+started clean at Incr ad0f6d4 and Observe 1817725.
+
+User steering added a dedicated path/quoting audit: replace hacky string manipulation
+and escaping with filesystem-aware paths, structured arguments and correct parsing;
+cover adversarial filenames and symlink traversal with tiny bounded tests.
+
+The first focused fixes now pass: Incr validates hard-link effect targets before
+any deletion and treats children below a replaced directory as absent; Observe
+preflights snapshot payloads and rejects missing or escaping payloads before
+restoration mutates files. Each had a failing unit reproduction saved under
+qualification/results/second-audit. Incr path exclusions now compare whole path
+components. Shared transfer outcomes moved into ops, and speculative restoration
+moved out of stream orchestration. Observe snapshot restoration and open handling
+have dedicated modules; snapshot types now live with snapshots. Syscall names and
+classification were simplified without changing dispatch semantics.
+
+A PTY reproduction showed terminal input becoming EOF (False/empty instead of
+True/typed input). Terminal-connected invocations now preserve native execution;
+the focused regression passes after rebuilding. Corrected the tracee-root join for
+multiple leading slashes, with a unit test preserving symlink/.. traversal.
+
+The byte-path probe found an unresolved snapshot correctness issue: successful
+revert leaves a non-UTF-8 file modified because lossy conversion captures another
+pathname. byte-path-before.json records the reproduction. This remains an active
+path-boundary investigation, not a passed qualification. Broad stress, remaining
+module review, final checks and publication are still pending.
+
+Checkpoint validation: rebuilt both release binaries after the module changes.
+All 49 final-policy stream regressions passed in 7.63 seconds, including 39 tiny
+adversarial-filename invocations (13 names, three generations each) and the new
+terminal case. All 405 Observe integration assertions passed in 30.93 seconds.
+Neither group timed out or left descendants. The Incr component refactor unit run
+passed 18 tests; Observe passed three units (snapshot preflight and rooted joins).
+Pre-write hashing now shares one lazy implementation across path/descriptor/open
+handling without introducing post-create dependency captures. Strict Clippy passed
+for Observe; Incr result is saved separately. The non-UTF-8 snapshot reproduction
+remains unresolved and is not covered by the passing legacy integration suite.
+Incr Clippy identified a redundant unit expression in the new absence-handling
+match arm; removed it and reran the strict check successfully. Both repositories
+now pass Clippy with warnings denied at this checkpoint. No commits or pushes have
+been made in this second round yet; the path correctness work is still in progress.
+
+Replaced Observe's internal pathname strings with Path/PathBuf throughout proc
+resolution, syscall tracking, dependencies and snapshot capture/restoration. JSON
+paths preserve UTF-8 strings and encode other Unix bytes as explicit byte objects;
+dependency protocol 6 uses a list of path/state records rather than string-keyed
+maps. Removed the replacement-character heuristic. Incr now decodes this format
+and uses cache version 21. Its existing UTF-8 binary cache restriction is explicit:
+byte paths run live and uncacheable metadata is not serialized. Snapshots and
+Observe reports retain exact bytes regardless of cache eligibility.
+
+Five new end-to-end path tests passed in 0.37 seconds, including the original
+byte/Unicode collision reproduction, byte symlink targets, renamed byte children,
+byte working directories, and a legitimate Unicode replacement character. The
+Observe unit suite includes lossless codec round trips and null-byte rejection.
+
+Snapshot bookkeeping now belongs to a Snapshot component rather than TracerState.
+Capture failures are explicit manifest failures, replacing the fake pathname used
+for unsupported syscall ABIs. Restore rejects incomplete captures before mutation.
+OpenArguments captures open/openat/openat2/creat flags once at syscall entry for
+consistent gate, snapshot and exit handling. Seven focused path/open tests pass,
+and the updated Observe integration suite passed 406 top-level assertions (including
+that seven-case Python group) in 31.37 seconds. Fifty Incr regressions also passed.
+
+Three additional command-path reproductions failed before the fixes: a lone
+executable name containing spaces was split into multiple arguments; a UTF-8
+executable symlink with a byte-named target failed with InvalidPathCharacters; and
+changing PWD could replay the old environment value. Command construction now
+preserves literal argv, fingerprints executable path bytes, and keys the actual
+working-directory bytes separately from the supplied environment. All three
+focused regressions pass after rebuilding. Documented explicit bash -c usage for
+shell source instead of implicit parsing of a lone argument.
+
+Further bounded regressions found read-only output replay failures in Incr and
+Observe. Both now temporarily grant the required owner permissions, install final
+modes on success, and restore prior permissions on failure. O_PATH descriptors
+pin changed inodes during cleanup, avoiding pathname replacement and inode-reuse
+races. Tests cover read-only directories/files, hard-link preservation, cleanup
+after replay errors, and permission restoration after a rename. Observe's focused
+path/open/permission suite now has nine passing cases, including a reproduced
+O_PATH bug: ignored O_WRONLY/O_TRUNC flags no longer count as filesystem writes.
+
+Kept binary-cache eligibility separate from trace effect barriers. Byte paths
+remain unpersistable in the current binary cache but can be restored during
+speculative execution. The new byte-path streaming probe passes cold plus two
+warm cache replays with restored content, mode and mtime and no snapshot leaks.
+During this check, fixed a weakness in the probe itself: a warm shell changed PWD,
+and unchanged old metadata could falsely imply reuse when the new invocation did
+not save metadata. Cold/warm environments now match and cache-directory identity
+is checked too. The misleading diagnostic run is explicitly marked excluded from
+qualification, under speculative-byte-env-mismatch*.json.
+
+Latest checkpoint: all 54 Incr final-policy regressions passed in 8.12 seconds;
+406 Observe integration assertions passed in 31.30 seconds. A final snapshot
+review then replaced suppressed/duplicate rename-directory read failures with
+explicit capture failures; the focused ten-case Observe path/open/permission
+suite passes on that build. Current Rust units pass (23 Incr, six Observe), and
+both strict Clippy checks pass. The strengthened byte-path speculative probe
+measured 0.376 seconds cold and 0.079/0.119 seconds for verified warm replays;
+these are targeted correctness timings, not a new benchmark-wide speedup claim.
+Source and binary fingerprints are saved in second-audit/checkpoint.json.
+
+Temporary fixtures were removed by the tests and the owned compiler diagnostic
+file was deleted. No test processes remain. Remaining work is explicitly listed
+in SECOND_AUDIT.md: finish module/style review, resource-limit and concurrency
+stress, auxiliary-file cleanup, final fast matrix and lightweight measurements,
+then commit and push both repositories. Nothing from this second round has been
+committed or pushed yet.
+
+### Scoped permission cleanup and path-alias regressions
+
+The small-descriptor stress test reproduced EMFILE while restoring 80 read-only
+files at RLIMIT_NOFILE=64. Permission guards in both repositories now live only
+for the active file operation or ancestor chain, rather than the full manifest.
+Pinned inode cleanup remains intact; recursive removal does not follow symlinks.
+The Incr focused resource test and Observe's 11-case path suite passed afterward.
+Effect tests were moved into their own module; fixed one missed fixture setup
+from that extraction before rerunning all units.
+
+A new Incr regression reproduced replay deleting its own hard-link source when
+two names refer to the same directory entry through a parent symlink. Replay now
+leaves an already-correct inode link intact. Added channel tests for concurrent
+ordered delivery, empty EOF, broken pipe and other receiver errors. All 27 Incr
+unit tests pass in 0.17 seconds on these changes.
+
+Observe's parent-link dependency test then reproduced a missing dependency:
+reading alias/input recorded the leaf but omitted alias itself. Parent-link
+tracking now follows link targets without string normalization, memoizes checked
+parents and bounds symlink traversal. Direct and chained-link qualification is
+in progress. Further review must still cover ordinary-directory replacement,
+snapshot aliases, and end-to-end invalidation; the new unit-level evidence does
+not establish complete path-resolution qualification yet.
+
+Direct and chained parent-link tests now pass with the full 13-case Observe path
+suite in 0.93 seconds, with no timed-out or leaked descendants. Both repositories
+pass strict Clippy after formatting. The release Incr rebuild and cross-mode
+regression checkpoint follow; this is still an intermediate audit checkpoint.
+
+The current release rebuild completed in 4.81 seconds. All 54 final-policy Incr
+regressions passed in 8.16 seconds against the parent-link/scoped-permission
+changes, without leaked descendants. No test processes remain from this checkpoint.
+No commits or pushes have been made yet in this second audit round.
+
+### Snapshot parent aliases and tracer organization
+
+A tiny Observe regression reproduced restoration creating a stray directory
+under a retargeted parent symlink. Snapshot entry paths now resolve parents at
+capture time while preserving the final entry (including a symlink) itself.
+Missing descendants resolve from their nearest existing ancestor without lexical
+`..` rewriting. A second test checks that cleanup of a newly created file does
+not delete an unrelated file behind the retargeted link. All 15 focused path
+cases passed in 1.15 seconds; the Observe integration suite then passed in 32.55
+seconds with no leaked descendants.
+
+Split ptrace event transitions into tracer/events.rs, leaving wait/termination
+ownership in tracer.rs. Syscall state is retained only when an exit is requested
+and removed after consumption. Missing entry/exit data now invalidates reuse and
+snapshots, and unknown entries still participate in the live-effect gate. Signal
+forwarding shares the resume decision needed to preserve syscall-exit stops.
+The lifecycle integration rerun is in progress.
+
+The shell test runner previously parsed absent result markers as empty counts;
+an interrupted file could be reported as successful. It now requires a complete
+numeric summary and successful runner status, rejects empty selections, and
+bounds every file to 35 seconds plus a two-second kill grace. Replaced repeated
+grep/cut subprocess parsing and single-letter counters with shell parsing and
+named counts. The outer process-tree supervisor still supplies overall bounds
+and checks descendant cleanup.
+
+The tracer refactor and bounded runner passed the full Observe suite in 31.01
+seconds with no leaked descendants; all 54 Incr final-policy regressions passed
+in 8.47 seconds. Added three tiny runner self-tests for explicit abort, empty
+selection, and count preservation (0.08 seconds), included in the integration
+suite. Reviewed the tracked main/benchmark and agents directories: they contain
+historical suites/documentation and are not disposable runtime artifacts. No
+bulk deletion has been made; consolidation requires checking their callers.
+
+The cross-mode checkpoint passed all 16 policy/executor/compression variants
+before stopping at a chunk-reuse assertion. Its cold and shell-driven warm runs
+had different PWD values; aligning the test environments fixed the assertion.
+All nine chunk groups then passed in 11.93 seconds. The stopped matrix remains
+recorded as an intermediate failed checkpoint, not a final pass.
+
+Extended descriptor stress to 80 read-only two-level directory trees, removed
+under RLIMIT_NOFILE=64 in 0.14 seconds. Fixture cleanup uses the same non-following
+permission-aware remover so a failing assertion cannot strand read-only trees.
+
+Snapshot manifests now explicitly map logical aliases to captured physical
+entries. Incr recognizes those aliases only after successful restoration of their
+targets, and validates even empty snapshots instead of bypassing capture failures.
+The new streaming probe combines a parent symlink with a byte-named unexpected
+write and checks contents, mode, mtime and actual cache identity. An initial run
+under concurrent chunk-test load completed correctly without reuse; an isolated
+rerun verified both warm replays (0.081/0.084 seconds versus 0.371 seconds cold).
+This remains a targeted timing result, not a benchmark-wide speedup claim.
+The 15 Observe path cases pass with the alias manifest (0.94 seconds).
+
+Updated the qualification README to point to the current audit and the latest
+completed evaluation. Remaining work includes shell-transform/API cleanup,
+end-to-end parent invalidation stress, final full fast qualification, lightweight
+measurements, evidence curation and the authorized commits/pushes.
+
+Latest checks pass: 28 Incr units, six Observe units, strict Clippy in both repos.
+Updated the three manifest-writing unit fixtures for the new alias parameter
+before the Observe rerun. All test/build sessions from this checkpoint have
+finished. The fast matrix now includes the combined parent-link/byte-path probe;
+final qualification and publication remain pending.
+
+### Shell prefix and binding cleanup
+
+A new adversarial-prefix test failed because insert.py treated the entire quoted
+prefix as one synthetic argument. The Dash pretty-printer changed a dollar sign
+inside the executable pathname. Prefixes now go through the selected shell parser
+once and are inserted as actual argument nodes. Both parsers preserve spaces,
+quotes, newlines, dollar signs and backslashes in executable/configuration paths.
+
+Split argument parsing, source-preservation checks, transformation and output
+handling into separate functions. This also fixes --execute being silently
+ignored on the source-preserving path (reproduced before the change). Replaced
+the discarded full first transformation with a binding-collection pass. Quoted,
+multiple, builtin-qualified and command-qualified aliases now retain native
+resolution; runtime-expanded alias definitions keep their original source.
+All eight focused shell cases pass in 2.00 seconds. A curated Bash differential
+run is now checking the broader parser refactor.
+
+Chunk and shell test details now go to a caller-selected results directory (or
+a disposable .work default). Restored the older effect-replay evidence files to
+their committed contents after copying this round's overwritten test details to
+second-audit; subsequent matrix runs no longer rewrite historical evidence.
+
+### Parent-access qualification
+
+A new regression reproduced stale stdout followed by a replay failure when a
+previously writable output directory became read-only. Observe now records parent
+mode, ownership and effective read/write/search access, including ACL access
+decisions, separately from directory listing timestamps. Incr validates that
+state before reuse. Parent symlinks retain their own dependency state. Explicit
+directory reads upgrade the lightweight parent record to full directory state.
+Observe dependency protocol is now 7; Incr cache version is 22, rejecting older
+entries that lack these conditions.
+
+The permission regression passes, as do two end-to-end resolution checks with
+unchanged leaf inodes (retargeted parent links and a directory replaced by a link).
+The 55-case checkpoint regression suite passed in 8.63 seconds before those two
+additional cases; the full Observe suite passed in 31.28 seconds with no leaked
+descendants. Streaming restoration through a parent link with a byte-named file
+still validates both warm cache replays. The curated Bash differential suite
+passed all 24 cases (48 native/candidate executions) in 87.78 seconds.
+
+All work in this round remains uncommitted. Final qualification, lightweight
+measurements, evidence curation and the authorized pushes are still required.
+
+Current Rust checks pass (28 Incr units, six Observe units and strict Clippy in
+both repositories). The worktree whitespace check is clean after removing a
+trailing space in the probe. All sessions from this checkpoint are finished.
+Remaining review includes non-owner/group-writable replay behavior and final
+module organization; these must be resolved before publication.
+
+### Ownership and final organization review
+
+The privileged-fixture unit reproduced failure replaying a root-owned file that
+was writable through the caller's group. Permission helpers now honor effective
+access, with a fast path for ordinary owned files. Incr copies bytes without
+applying unnecessary mode changes; the same file retains its owner and mode.
+The focused test passes. It is explicitly ignored in ordinary cargo test runs
+and invoked by the qualification matrix, since fixture setup needs sudo.
+Observe also avoids redundant ownership/mode/mtime setters and byte restoration
+no longer relies on fs::copy applying permissions. Exact rollback of another
+owner's changed mtime still requires the relevant OS privilege; documented this
+constraint rather than silently discarding metadata.
+
+Moved shared Observe permission operations out of snapshots and extracted report
+formatting from main. Consolidated Incr module declarations, clarified syscall
+comments and BPF argument names, and added a compile-time jump-offset bound.
+
+Removed the unused tracked main/ tree after checking active callers and comparing
+all 620 files: 569 matched canonical counterparts; 58,338,809 bytes were retired.
+The inventory is saved with this round's evidence and Git retains the originals.
+No unrelated untracked files were removed. Two dangling word-frequency generator
+calls produced inputs not consumed by its current scripts and were removed.
+Benchmark component checks passed in 3.52 seconds.
+
+Runtime review is complete for this round. Remaining work is the final bounded
+qualification, small real-workload measurements, evidence cleanup and the
+authorized commits/pushes.
+
+### Final second-audit qualification and publication
+
+Final matrix: 28/28 groups, 198.9 seconds. Final Bash differential: 23 cases
+(46 runs), 88.9 seconds, all matched. Correction: earlier prose counted this
+curated list as 24 cases; the authoritative JSON contains 23. Observe integration
+passed 407 assertions across 36 files. Rust tests, formatting and strict Clippy
+passed in both repos; the matrix explicitly ran the foreign-owner test.
+
+All 54 minimum-workload measurements validated. Geometric-mean speedups over the
+current try backend were 2.10x cold and 7.80x warm on the three selected workloads.
+The final report documents assumptions and coverage limits. Runtime commits
+`8f3c769cedfd22c4d3612560921661ff67665478` (Incr observe) and
+`b5ad47a8d6155559d01f0fca616e72ab19d749e6` (Observe main) were pushed successfully.
+Removed 583,377,839 logical bytes of disposable work; no owned temporary test
+fixtures remained. Source and binary fingerprints still match the final tests.
+Evidence is saved under qualification/results/second-audit and accompanies this
+log in the final evidence commit.

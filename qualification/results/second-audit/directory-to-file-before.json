@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/users/jxia3/atlas/incr/target/release/incr",
+    "--observe",
+    "/users/jxia3/atlas/observe/target/release/observe",
+    "--cache",
+    "/users/jxia3/atlas/incr/qualification/.work/audit-ramqktnp/cache",
+    "--effect-policy",
+    "final",
+    "--",
+    "bash",
+    "-c",
+    "rm -r data/tree; printf new > data/tree"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.017708966006466653,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "",
+  "stderr": ""
+}

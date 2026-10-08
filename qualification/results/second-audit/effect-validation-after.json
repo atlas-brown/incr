@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "cargo",
+    "test",
+    "--",
+    "--nocapture"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 1.8399097290021018,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "c454832dab7c7663cf69b61799d4f66c5633d83519cc919017b2ce80e44ba9c4",
+  "stderr_sha256": "d2ca6fbd4244c6c073c530c5075e45c9b146613ade9411cf8aa4c2f54a3c19c5",
+  "stdout": "\nrunning 18 tests\ntest execution::tests::excluded_roots_match_whole_components ... ok\ntest ops::chunk::tests::repeated_bytes_still_have_bounded_chunks ... ok\ntest cache::effects::tests::invalid_hard_link_is_rejected_before_deletion ... ok\ntest cache::effects::tests::replaced_directory_children_are_absent ... ok\ntest ops::spool::tests::closed_receiver_stops_producer ... ok\ntest scripts::parse_trace::tests::readonly_create_is_a_write_and_parent_components_are_preserved ... ok\ntest scripts::parse_trace::tests::strings_preserve_utf8_and_c_escapes ... ok\ntest scripts::parse_trace::tests::forked_directories_are_copied_and_clone_fs_directories_are_shared ... ok\ntest scripts::parse_trace::tests::failed_renames_are_reads_and_links_track_both_paths ... ok\ntest scripts::parse_trace::tests::returned_paths_can_contain_syscall_delimiters ... ok\ntest scripts::parse_trace::tests::quoted_commas_arrays_and_structures_stay_in_their_arguments ... ok\ntest scripts::parse_trace::tests::unfinished_calls_resume_and_incomplete_records_block_reuse ... ok\ntest command::tests::dropping_running_child_stops_and_reaps_it ... ok\ntest cache::effects::tests::replay_preserves_overwrite_and_replacement_alias_semantics ... ok\ntest execution::chunk_executor::tests::preserves_nonzero_status_on_cold_and_cached_chunks ... ok\ntest cache::candidates::tests::index_retention_ignores_unrelated_entries ... ok\ntest ops::chunk::tests::boundaries_do_not_depend_on_read_sizes ... ok\ntest ops::spool::tests::spilled_input_preserves_order_and_cleans_path ... ok\n\ntest result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.20s\n\n",
+  "stderr": "   Compiling incr v0.1.0 (/users/jxia3/atlas/incr)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.61s\n     Running unittests src/main.rs (target/debug/deps/incr-89c90ac342faa306)\n"
+}

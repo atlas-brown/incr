@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "cargo",
+    "build",
+    "--release"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 2.20846430399979,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "34effcbf239bc772f892d73a316b8fb98bd61330fd4fd582d190d6a3b796666a",
+  "stdout": "",
+  "stderr": "   Compiling observe v0.1.0 (/users/jxia3/atlas/observe)\n    Finished `release` profile [optimized] target(s) in 2.19s\n"
+}

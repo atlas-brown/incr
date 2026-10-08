@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "python3",
+    "tests/path_tests.py",
+    "PathTests.test_restore_readonly_file_and_directory",
+    "-q"
+  ],
+  "returncode": 1,
+  "elapsed_sec": 0.12765908999426756,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "eeb05d12f65c912e2bbfff5c56facfbd3aa23b8b08475d935599dc05db531f3f",
+  "stdout": "",
+  "stderr": "======================================================================\nFAIL: test_restore_readonly_file_and_directory (__main__.PathTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/users/jxia3/atlas/observe/tests/path_tests.py\", line 129, in test_restore_readonly_file_and_directory\n    self.revert()\n  File \"/users/jxia3/atlas/observe/tests/path_tests.py\", line 38, in revert\n    self.assertEqual(result.returncode, 0, result.stderr)\nAssertionError: 1 != 0 : b'observe revert: /tmp/observe-path-1w_e3g2z/tree/file: Permission denied (os error 13)\\nError: could not restore 1 snapshot entries\\n'\n\n----------------------------------------------------------------------\nRan 1 test in 0.039s\n\nFAILED (failures=1)\n"
+}

@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "cargo",
+    "test",
+    "cache::effects",
+    "--",
+    "--nocapture"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 1.63926397600153,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "8e83e8809650b45d79630e0f26a8ba35da6a63b06e59ee42b60b2f785f8bfca1",
+  "stderr_sha256": "7a7f93d2d6b31d4eee0489aa7d0f9ec52cbb1b9e826f8f3e3dd593ccae635f47",
+  "stdout": "\nrunning 6 tests\ntest cache::effects::tests::replay_failure_restores_directory_permissions ... ok\ntest cache::effects::tests::replaced_directory_children_are_absent ... ok\ntest cache::effects::tests::replay_updates_readonly_file_without_breaking_aliases ... ok\ntest cache::effects::tests::replay_populates_existing_readonly_directory ... ok\ntest cache::effects::tests::invalid_hard_link_is_rejected_before_deletion ... ok\ntest cache::effects::tests::replay_preserves_overwrite_and_replacement_alias_semantics ... ok\n\ntest result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 15 filtered out; finished in 0.00s\n\n",
+  "stderr": "   Compiling incr v0.1.0 (/users/jxia3/atlas/incr)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.59s\n     Running unittests src/main.rs (target/debug/deps/incr-89c90ac342faa306)\n"
+}

@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "cargo",
+    "test",
+    "replay_preserves_group_writable_file_ownership",
+    "--",
+    "--ignored",
+    "--nocapture"
+  ],
+  "returncode": 101,
+  "elapsed_sec": 1.6115341359982267,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "dd1493953293a30af496e67a2a8df564d82cfa59856bc9d634940d77c91296b6",
+  "stderr_sha256": "f0803284bb2a82d807f75307d2e13deecd9ccf2f8de2dbbd48f5715a1dafcbd7",
+  "stdout": "\nrunning 1 test\ntest cache::effects::tests::replay_preserves_group_writable_file_ownership ... FAILED\n\nfailures:\n\nfailures:\n    cache::effects::tests::replay_preserves_group_writable_file_ownership\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 28 filtered out; finished in 0.03s\n\n",
+  "stderr": "   Compiling incr v0.1.0 (/users/jxia3/atlas/incr)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.54s\n     Running unittests src/main.rs (target/debug/deps/incr-89c90ac342faa306)\nError: Operation not permitted (os error 1)\nerror: test failed, to rerun pass `--bin incr`\n"
+}

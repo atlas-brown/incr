@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "qualification/chunk_tests.py",
+    "-q"
+  ],
+  "returncode": 1,
+  "elapsed_sec": 13.17407903700223,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "d0fa8378a009f391f1117f540201c9972b09fe18eb8ae47cf7e206d724455300",
+  "stdout": "",
+  "stderr": "======================================================================\nFAIL: test_cache_reuse_with_fragmented_producer (__main__.ChunkTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/users/jxia3/atlas/incr/qualification/chunk_tests.py\", line 111, in test_cache_reuse_with_fragmented_producer\n    self.assertEqual(before, {path: path.stat().st_mtime_ns\nAssertionError: {Posi[362 chars]atch_6874237681292093334/data.incr'): 17914699[713 chars]9614} != {Posi[362 chars]atch_1340032611401918709/data.incr'): 17914699[1843 chars]9614}\nDiff is 2309 characters long. Set self.maxDiff to None to see it.\n\n----------------------------------------------------------------------\nRan 9 tests in 13.065s\n\nFAILED (failures=1)\n"
+}

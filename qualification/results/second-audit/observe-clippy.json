@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "cargo",
+    "clippy",
+    "--all-targets",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.9422884000014164,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "8e16e769b64739187dc194d0329093f4984c2b61b99372c3eb642df6d1f2f921",
+  "stdout": "",
+  "stderr": "    Blocking waiting for file lock on package cache\n    Blocking waiting for file lock on package cache\n    Checking observe v0.1.0 (/users/jxia3/atlas/observe)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.88s\n"
+}

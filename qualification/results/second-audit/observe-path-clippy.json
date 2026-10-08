@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "cargo",
+    "clippy",
+    "--all-targets",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.9359369200028596,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "c6350e62698ed072c70752c4c532512ab63fff91d5a998a9a67a4a8655b5e03d",
+  "stdout": "",
+  "stderr": "    Checking observe v0.1.0 (/users/jxia3/atlas/observe)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.83s\n"
+}

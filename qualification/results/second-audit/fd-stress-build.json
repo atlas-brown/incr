@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "cargo",
+    "test",
+    "--no-run"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 1.54388079400087,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "57b2b4387aab136b7250c62c21c70d0d8b33a3064a0f54c8a33ff2e5fc812226",
+  "stdout": "",
+  "stderr": "   Compiling incr v0.1.0 (/users/jxia3/atlas/incr)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.51s\n  Executable unittests src/main.rs (target/debug/deps/incr-89c90ac342faa306)\n"
+}

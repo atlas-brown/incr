@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "prlimit",
+    "--nofile=64:64",
+    "cargo",
+    "test",
+    "replay_many_readonly_files",
+    "--",
+    "--nocapture"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.14642152700253064,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "6dfaca7fdda395def3c35e90d9aa5d2962ae6f211605c7b70c20ed9d1d996a7d",
+  "stderr_sha256": "cb3dbf742e4f51cd79980c34284ce5d6f762d6930771673d19571673389f69c0",
+  "stdout": "\nrunning 1 test\ntest cache::effects::tests::replay_many_readonly_files ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 23 filtered out; finished in 0.03s\n\n",
+  "stderr": "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.09s\n     Running unittests src/main.rs (target/debug/deps/incr-89c90ac342faa306)\n"
+}

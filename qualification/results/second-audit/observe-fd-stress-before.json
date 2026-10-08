@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "python3",
+    "tests/path_tests.py",
+    "PathTests.test_many_readonly_files_with_small_descriptor_limit",
+    "-q"
+  ],
+  "returncode": 1,
+  "elapsed_sec": 0.1880640060044243,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "34841f1140da02ea8045c25ba7667db4294f181af75ff4071f07e41eea7822e9",
+  "stdout": "",
+  "stderr": "======================================================================\nFAIL: test_many_readonly_files_with_small_descriptor_limit (__main__.PathTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/users/jxia3/atlas/observe/tests/path_tests.py\", line 156, in test_many_readonly_files_with_small_descriptor_limit\n    self.assertEqual(result.returncode, 0, result.stderr)\nAssertionError: 1 != 0 : b'Error: Too many open files (os error 24)\\n'\n\n----------------------------------------------------------------------\nRan 1 test in 0.103s\n\nFAILED (failures=1)\n"
+}

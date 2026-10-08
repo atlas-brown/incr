@@ -1,0 +1,4342 @@
+[
+  {
+    "path": "main/benchmarks/.gitignore",
+    "bytes": 33,
+    "sha256": "f9f1abe0b5dd10575569b01fe3b20ab365ca07ff3f604b21444a1d324438ce47",
+    "active_counterpart": "evaluation/benchmarks/.gitignore",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/beginner/clean.sh",
+    "bytes": 71,
+    "sha256": "e7d4838b2ab08fd4c54a10d195d7e970bc9854fe407553c8e07d0a1a5c2b2a59",
+    "active_counterpart": "evaluation/benchmarks/beginner/clean.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/beginner/execute.sh",
+    "bytes": 1995,
+    "sha256": "0a31deba6740a191f9801c56fb547282506541285b341fbd05ed37110631ac04",
+    "active_counterpart": "evaluation/benchmarks/beginner/execute.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/fetch.sh",
+    "bytes": 2380,
+    "sha256": "3034a0d926792d1816123a1828615157c05e4c7209a394fb71de0ee2fe54a437",
+    "active_counterpart": "evaluation/benchmarks/beginner/fetch.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/beginner/install.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/beginner/install.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/min_inputs/nginx-logs/log0",
+    "bytes": 80954,
+    "sha256": "0525a591d0143e01192562f6f985d7b042cba97a82e2b145380655785983a57e",
+    "active_counterpart": "evaluation/benchmarks/beginner/min_inputs/nginx-logs/log0",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/run.sh",
+    "bytes": 1423,
+    "sha256": "948392e29ecc257dbdd145db5c213393d3ec58899d2a01db5379fc4c709a8b17",
+    "active_counterpart": "evaluation/benchmarks/beginner/run.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/scripts/beginner-01.sh",
+    "bytes": 37,
+    "sha256": "dbf33cae98b1a5ee6bf95ae9bb19e6e553137af95adb055b836a5f112279c266",
+    "active_counterpart": "evaluation/benchmarks/beginner/scripts/beginner-01.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/scripts/beginner-02.sh",
+    "bytes": 34,
+    "sha256": "04cd66a725034bb82f5ddb4c30ad6bb55370917357b4329ab5110748cc21379a",
+    "active_counterpart": "evaluation/benchmarks/beginner/scripts/beginner-02.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/scripts/beginner-03.sh",
+    "bytes": 44,
+    "sha256": "67e1382bf81ad19682305f90972d0cf791a8282e36a749979ee48cd951eb1274",
+    "active_counterpart": "evaluation/benchmarks/beginner/scripts/beginner-03.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/scripts/beginner-04.sh",
+    "bytes": 59,
+    "sha256": "6c17f0d5346ed0151e537ae85674b0922a549a4bf68fdb80d18f8216132fccc5",
+    "active_counterpart": "evaluation/benchmarks/beginner/scripts/beginner-04.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/scripts/beginner-05.sh",
+    "bytes": 62,
+    "sha256": "07bad5a3b2a3e1b753f0d4c2aa2a2e27c941cc9e289adfb70619a7ce52e5cc8b",
+    "active_counterpart": "evaluation/benchmarks/beginner/scripts/beginner-05.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/scripts/beginner-06.sh",
+    "bytes": 70,
+    "sha256": "aba41759a2b4ecf236ba4c0d6a13baada4e374fd21358af1f2aeb7e5e22950df",
+    "active_counterpart": "evaluation/benchmarks/beginner/scripts/beginner-06.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/scripts/beginner-07.sh",
+    "bytes": 65,
+    "sha256": "221e5aed664f4efd4c5aa76bd37b9d4a6bd857d1662f115ee489a51f6447f454",
+    "active_counterpart": "evaluation/benchmarks/beginner/scripts/beginner-07.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/scripts/beginner-08.sh",
+    "bytes": 62,
+    "sha256": "bf7c4e2a62216334e3d01fa4bcca855778bd922ccdfd5fdf15ce25516ff6cdf8",
+    "active_counterpart": "evaluation/benchmarks/beginner/scripts/beginner-08.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/scripts/beginner-09.sh",
+    "bytes": 63,
+    "sha256": "3bf6ed21db5894d53a2890a9725853a3b98dfbf139e128dcf40fe5e64478f9b4",
+    "active_counterpart": "evaluation/benchmarks/beginner/scripts/beginner-09.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/scripts/beginner-10.sh",
+    "bytes": 84,
+    "sha256": "77f9f0f00c3388f6b9091eff9e2e718afb2ec333d6850443d1161d09c249314d",
+    "active_counterpart": "evaluation/benchmarks/beginner/scripts/beginner-10.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/scripts/beginner-11.sh",
+    "bytes": 94,
+    "sha256": "3b0a28fb86bd8ed527c280db2adcfbb76d51b56a7c7d950915604499f976c5e2",
+    "active_counterpart": "evaluation/benchmarks/beginner/scripts/beginner-11.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/scripts/beginner-12.sh",
+    "bytes": 95,
+    "sha256": "62295558fb4265ce08c492ec76884c950882ea6ef17b4c5fca5ffd998bd301ad",
+    "active_counterpart": "evaluation/benchmarks/beginner/scripts/beginner-12.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/scripts/beginner-13.sh",
+    "bytes": 108,
+    "sha256": "72cbabfa11505df629d7befe1c607f4a323e60152f8663e07981fdb7f40986c9",
+    "active_counterpart": "evaluation/benchmarks/beginner/scripts/beginner-13.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/scripts/beginner-14.sh",
+    "bytes": 108,
+    "sha256": "72cbabfa11505df629d7befe1c607f4a323e60152f8663e07981fdb7f40986c9",
+    "active_counterpart": "evaluation/benchmarks/beginner/scripts/beginner-14.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/beginner/setup.sh",
+    "bytes": 559,
+    "sha256": "c40a66520aa97461fd1a4f5f85b7c0b175527b18adfb17d61a535cc0ec05a47e",
+    "active_counterpart": "evaluation/benchmarks/beginner/setup.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/.gitignore",
+    "bytes": 15,
+    "sha256": "71c6eb122e358b6947b5642410c92d74da70020d17984f41fc3c542fcf67bc23",
+    "active_counterpart": "evaluation/benchmarks/bio/.gitignore",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/Gene_locs.txt",
+    "bytes": 656,
+    "sha256": "69a7f1b536819345aa6b04f467ea05c4e65cb6ba49b1516232db720c0e3eb64d",
+    "active_counterpart": "evaluation/benchmarks/bio/Gene_locs.txt",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/README.md",
+    "bytes": 1173,
+    "sha256": "9d25c743f10960a154947b4e717086a24305753980518ba987ef2919d22cec5a",
+    "active_counterpart": "evaluation/benchmarks/bio/README.md",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/clean.sh",
+    "bytes": 99,
+    "sha256": "d5b6aa960730637b0a1e84b34c852cf1d49ece6e6efa6d1b385b055f52e84463",
+    "active_counterpart": "evaluation/benchmarks/bio/clean.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/bio/execute.sh",
+    "bytes": 2039,
+    "sha256": "290c52f3f75fbd9cf9207c2eb4a8c390e11031610f79c4d23ce2bd89d0249dd8",
+    "active_counterpart": "evaluation/benchmarks/bio/execute.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/fetch.sh",
+    "bytes": 2262,
+    "sha256": "f1937984295aa50bc24dbb3ea2bd6f88b4cc6886368123dd0d302e0614922402",
+    "active_counterpart": "evaluation/benchmarks/bio/fetch.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12155_1.hash",
+    "bytes": 65,
+    "sha256": "b89118521dda022933aa3be4e32aef288a17819d9978bdc3df53feff392cf1fd",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12155_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12155_10.hash",
+    "bytes": 65,
+    "sha256": "06d1b8c02d09dbec8f2933b28b14a10744177d1766cb486cbae248021019e3f0",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12155_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12155_11.hash",
+    "bytes": 65,
+    "sha256": "3818fed74b959d8ab13e65d972a8d07b680d3e5b59666f73a10e600a5a2291cc",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12155_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12155_17.hash",
+    "bytes": 65,
+    "sha256": "afe9c2734369447f01fe280a495832e3a54bb87bb3d38e27f337f31ca4acd134",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12155_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12155_19.hash",
+    "bytes": 65,
+    "sha256": "c395625ca66f59d7743121035a84e8ed32c6a9d439d6cf32eb42f75c36d0fbce",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12155_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12155_2.hash",
+    "bytes": 65,
+    "sha256": "c71b6f92301665df2c27f0c06008b94f9f4455cf9a29f34b1a75e27a8ea23477",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12155_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12155_4.hash",
+    "bytes": 65,
+    "sha256": "a612d073d4c776fe9e2c1fd0d3e5503bcb408bbace35ec7204fab0a122ee2342",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12155_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12155_7.hash",
+    "bytes": 65,
+    "sha256": "1d10193b6c2915ce03de1729cc62b9bfcaeb3d85e939efeb03346354fe6623db",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12155_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12155_X.hash",
+    "bytes": 65,
+    "sha256": "bcbe542fe2bf4f00b2fee2e26d6c0a57c55d1c817b5f57f2b1ac1e1fb61b990a",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12155_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12155_Y.hash",
+    "bytes": 65,
+    "sha256": "5974469c606d3976d493d7d17be5cc027f78de0fc3d345d494474dc8c760dc26",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12155_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12546_1.hash",
+    "bytes": 65,
+    "sha256": "83106457a13f7750ef04caedc4529ece8eca15b7c59c7026568c5c92c67749b6",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12546_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12546_10.hash",
+    "bytes": 65,
+    "sha256": "102c1565cbe82f761c18dfb16d606fb7f86095b8123ec1a2e60d3d93fefe383f",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12546_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12546_11.hash",
+    "bytes": 65,
+    "sha256": "d7c56c2df216de2e5753d30f88dd02d2037213e79c022cb6bd20b2450407ad87",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12546_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12546_17.hash",
+    "bytes": 65,
+    "sha256": "2c78baceb959e36644869311763cc11f9af8a771404756cbfdcaf90439a6329f",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12546_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12546_19.hash",
+    "bytes": 65,
+    "sha256": "ecb80b9957f5c7c83857401b7e8bf6044cda69fb2b89bbb9b19f9f0be0d01350",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12546_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12546_2.hash",
+    "bytes": 65,
+    "sha256": "e92ec2a7577b976891c95230bd406f718e9d5f46ecd7279f758ba52bb099c418",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12546_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12546_4.hash",
+    "bytes": 65,
+    "sha256": "993f8ae9a288c14ac787e823d5c02099c8ca5d161156ad9d7fc52df47b23a591",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12546_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12546_7.hash",
+    "bytes": 65,
+    "sha256": "200ab7da0903250efb97d7c15e4bf4a6f50c67effd3e9c2671cbe43010460bc8",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12546_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12546_X.hash",
+    "bytes": 65,
+    "sha256": "3cf789b80583b1cdbb64de414f0d7641bdc0dd5d2c6afb02dd01d144fd7930d1",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12546_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12546_Y.hash",
+    "bytes": 65,
+    "sha256": "8ff4fbbacc8278a5344a8fd3e9ff5f8d9bac25bc2dc0936574dc6ed366fbba51",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12546_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12707_1.hash",
+    "bytes": 65,
+    "sha256": "ed895866480780b1312c2ad744f97f10e409107be8e9e504f752fec1407b447b",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12707_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12707_10.hash",
+    "bytes": 65,
+    "sha256": "144a1d8d351628640b8ddff84d85be9f59a1483d9bf633c117692200d5cb4110",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12707_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12707_11.hash",
+    "bytes": 65,
+    "sha256": "e2cde7a48e2ea8307501451acddcc10755fa71658dc06b5a9e22a393338b367e",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12707_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12707_17.hash",
+    "bytes": 65,
+    "sha256": "2876922d70b1f6a0208d1e79f94dd19e0cc2b63b0a17333662687438537fd7c1",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12707_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12707_19.hash",
+    "bytes": 65,
+    "sha256": "f359726a1356c9ddb23ddce5abb3733d850d042742bee19681fd8bdf39429320",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12707_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12707_2.hash",
+    "bytes": 65,
+    "sha256": "8462472e857003c01a44db1e9cb934b475452947ce9c827698fd964506dca3cf",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12707_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12707_4.hash",
+    "bytes": 65,
+    "sha256": "ca774176f3dc5995b1701b5c52ab21fc6f49aefa2da02a502e758d4ac03414dd",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12707_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12707_7.hash",
+    "bytes": 65,
+    "sha256": "bfe3ae24d75e4f618c87fdb7fcdba9fcb8628455ddbdb6549d9d72c74a423a27",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12707_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12707_X.hash",
+    "bytes": 65,
+    "sha256": "c206f6fa5aaebaa673237ab78fe60c9b7b35da9fe28e70fb5f7a0755e5072bf9",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12707_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12707_Y.hash",
+    "bytes": 65,
+    "sha256": "b85c34fbe5d13d0f054bd250925b6ac6f7881ab67fb8626374d764f4edc09f67",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12707_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12818_1.hash",
+    "bytes": 65,
+    "sha256": "0324078bcf54d29cf043091222e7103bbc066c94a4aa5a0ec2a3699cb003764a",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12818_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12818_10.hash",
+    "bytes": 65,
+    "sha256": "e2f9d3ed2c4b0e5db5b87e4221bbf6ae2536c47e680be0559172ff422d993c4f",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12818_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12818_11.hash",
+    "bytes": 65,
+    "sha256": "a6984a00ff8f927f4310400df7a893addbf565fae879709fb365ad5efe571621",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12818_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12818_17.hash",
+    "bytes": 65,
+    "sha256": "74ef608de1027c08d8eb0d9b586856ef06df49934430f45b916d05cec0864a70",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12818_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12818_19.hash",
+    "bytes": 65,
+    "sha256": "142a0e59d7633edaaf96b278fd2e2f45f99b9a0dc61bd4278d8009ef1ff368e0",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12818_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12818_2.hash",
+    "bytes": 65,
+    "sha256": "7725a1940f4a796fec52d13b52c3936548bdc167a8b35ed0826267046c4e4720",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12818_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12818_4.hash",
+    "bytes": 65,
+    "sha256": "91ceab228e710fcbc09b6eb8d3f601698fccd2a2d31aea5e740dd61dc236d296",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12818_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12818_7.hash",
+    "bytes": 65,
+    "sha256": "595bea313f0bc4920d69ae490e129568a5b1323177cafef5b85b3ea6ca561c45",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12818_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12818_X.hash",
+    "bytes": 65,
+    "sha256": "5b3c2ff6ffab8e134ba70327515910fc243c10e3fba03463bdad52e590b7411d",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12818_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CEU_NA12818_Y.hash",
+    "bytes": 65,
+    "sha256": "1dcc0c82c68fa0e9440aee8e72209edb1d5e0c69aee043701ab5348729f61707",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CEU_NA12818_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00408_1.hash",
+    "bytes": 65,
+    "sha256": "07ea1d3438d7d2efdb6ad8698acc1e22fc49f3753126878597b31061edcde901",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00408_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00408_10.hash",
+    "bytes": 65,
+    "sha256": "e1b9e9c3b5793e3f2250a7fe20636b4b596b5037684c1961118c343c7be8e9f7",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00408_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00408_11.hash",
+    "bytes": 65,
+    "sha256": "dcea1c0f4eaa85a6c558d7284f1b5b93faf78dd1b67b481d91248158fecb328d",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00408_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00408_17.hash",
+    "bytes": 65,
+    "sha256": "e03f1c2e0640e91eebec54068b2e92d89760207353efd56a0a9b770585cd8416",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00408_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00408_19.hash",
+    "bytes": 65,
+    "sha256": "ff1dee81a2d903a5c5893b64e96f49251cf12129b0d01ec23771fe5bc3e86334",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00408_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00408_2.hash",
+    "bytes": 65,
+    "sha256": "0790d016a7294c5ccaef466712cbc7fa33c0ae664b9f4f0814fe7baf17ee161c",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00408_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00408_4.hash",
+    "bytes": 65,
+    "sha256": "176390f99edf363ad979335dfae8fbd7682587744a827d4af128a02706033933",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00408_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00408_7.hash",
+    "bytes": 65,
+    "sha256": "ccd8af4d5cbee865bce65873c165c42c6f805e16fbf297c80d3afcb83d2256fa",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00408_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00408_X.hash",
+    "bytes": 65,
+    "sha256": "68288407476cd5f9936d2d5ac3222e7dea0d09e7da3d12fb58dbc69a21d47d6c",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00408_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00408_Y.hash",
+    "bytes": 65,
+    "sha256": "d7e5fdcdae99522cbd3e02c894a209108f366b5746fcf59146e6ea7c9845e17d",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00408_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00476_1.hash",
+    "bytes": 65,
+    "sha256": "1939c8f1b0bc8bb8120edbab35098a5240ed9fce04d15ad3ef6a46ae59769d41",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00476_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00476_10.hash",
+    "bytes": 65,
+    "sha256": "00f93f9a578cad92df1fcc50622490df9b8069c9814f1a84acaa0a7cb25e2d6b",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00476_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00476_11.hash",
+    "bytes": 65,
+    "sha256": "77032f56dd69f35aa3f7615905f7a72fd85371e0f2e0d7da3dbdc2965b31368a",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00476_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00476_17.hash",
+    "bytes": 65,
+    "sha256": "cb155ae5fb2f0598b7410a4341144d9e5760f1ee1096b162f38e0fc8e93c9d1a",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00476_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00476_19.hash",
+    "bytes": 65,
+    "sha256": "41821881c2f5eccae7eb1071d1f33720c6c0a13aaf900afe2bf64aa68f52848d",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00476_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00476_2.hash",
+    "bytes": 65,
+    "sha256": "15ffa59a3a17a097dff0cb67da33961657a777d5a34cdf03240523134777f7ee",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00476_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00476_4.hash",
+    "bytes": 65,
+    "sha256": "1785dbc96d07bf49111aeb2fad8e7cd8c5b23aa2c0b5900065a799a64008cdbc",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00476_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00476_7.hash",
+    "bytes": 65,
+    "sha256": "2feaf460f1d164b1019e9fa0be52e0e4822d43ca4756df0ab3f2603135d7d87a",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00476_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00476_X.hash",
+    "bytes": 65,
+    "sha256": "ab5de17910f29083e93824a86db47371b4f38a20c4832217511b3ed019d9fa50",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00476_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00476_Y.hash",
+    "bytes": 65,
+    "sha256": "86fb3b389c3243e90242d4dd0a5aedd9690b84f399b600e0b86e037c6d3895c8",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00476_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00690_1.hash",
+    "bytes": 65,
+    "sha256": "f1dcf38b6e7a20cddcfa59c24ab3e528b41a056e4b2a5ab2fe1cf2b89c717316",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00690_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00690_10.hash",
+    "bytes": 65,
+    "sha256": "ff5326f6ba05faa5cc7d9e5bfbd5583eed421a21f2fd9731dba3845bc89e3234",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00690_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00690_11.hash",
+    "bytes": 65,
+    "sha256": "135c85814923cf95fcee090fec9202500459d1edbf710f3f410ea3fdc178feab",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00690_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00690_17.hash",
+    "bytes": 65,
+    "sha256": "67f5bc074be0f04ce456522a5c91aa45eefe9353a9619b20c4bbdaf703d14372",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00690_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00690_19.hash",
+    "bytes": 65,
+    "sha256": "9dc95ab4d6efd7261eb4ace4a50cd3fe1324a41633b4d55843e76d5939108280",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00690_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00690_2.hash",
+    "bytes": 65,
+    "sha256": "f70846b16d14433d61d83942c2e2cde95fe84f394fee0344f82008710d6dd3d5",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00690_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00690_4.hash",
+    "bytes": 65,
+    "sha256": "3cd5fe496a44a0ea6758778115ae5991b01fa619116d60b473a59ddc40ee5cb8",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00690_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00690_7.hash",
+    "bytes": 65,
+    "sha256": "8ab39ce91842347fdeda6ba259934c50b58191a1cb8a191376f42d25f34c82df",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00690_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00690_X.hash",
+    "bytes": 65,
+    "sha256": "0da14de8f0d8834952e86fa3b739e6b8c87cf142119133071f5033859f9430ce",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00690_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/CHS_HG00690_Y.hash",
+    "bytes": 65,
+    "sha256": "57afedd4366181adb7a837c35cfa075c51a9f70a8dcbe6cc2cbedf43085bae83",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/CHS_HG00690_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/HG00408_corrected.hash",
+    "bytes": 65,
+    "sha256": "6cd77f23e3d2a71c91e5174ba061c6e771fc67f85befae6f7bea76858b85e0eb",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/HG00408_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/HG00476_corrected.hash",
+    "bytes": 65,
+    "sha256": "6ee4c7f02b96edbc9c6c188549fff230a9e4eed6c10330a21a410711b3e4beb6",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/HG00476_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/HG00690_corrected.hash",
+    "bytes": 65,
+    "sha256": "fae147efcdbcd6bd8d3713862c1b1da0e0ddfbcfd8a5b80a895c09fca04671d4",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/HG00690_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/HG02605_corrected.hash",
+    "bytes": 65,
+    "sha256": "540dd0039568db243ccf1bb4027e90407da5ec4cc21cd185a52164198561aaef",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/HG02605_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/HG02729_corrected.hash",
+    "bytes": 65,
+    "sha256": "fb1868529ecedcfb3ef98da199ace8991cb63db0451d093cf27377c474409c11",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/HG02729_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/HG02787_corrected.hash",
+    "bytes": 65,
+    "sha256": "39b3e81592058b9967465783f90e0eabbc8d9f3806cf09b5841795ca9ec3c9ab",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/HG02787_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/NA12155_corrected.hash",
+    "bytes": 65,
+    "sha256": "ed531ca67957cfbef45f1594241cffabdeaf8f05ced997d6986d382821c3a2aa",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/NA12155_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/NA12546_corrected.hash",
+    "bytes": 65,
+    "sha256": "f89c99144d8724e927939bb3b0c8d7fae9297e50d86b35cc49fb84b6d2b77fd8",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/NA12546_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/NA12707_corrected.hash",
+    "bytes": 65,
+    "sha256": "9fac7dbda2d5456c3e59eb0adc9e9888becdd6baa3e00d27146ec325ef1c09e1",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/NA12707_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/NA12818_corrected.hash",
+    "bytes": 65,
+    "sha256": "beb11bece3be71917c54089447dee456fec90dcc8a800f235d1462bce369d61e",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/NA12818_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02605_1.hash",
+    "bytes": 65,
+    "sha256": "8090b0802f8e43caafc8cfbac1b2b7069f91b744b96beaaf78914592d39ea616",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02605_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02605_10.hash",
+    "bytes": 65,
+    "sha256": "efe6d85bb547e2a542e33949259330bd53c0de7b7a4aec197893144fb8019cf8",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02605_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02605_11.hash",
+    "bytes": 65,
+    "sha256": "45c985f0dd0eff02eef2b3d7768f5a9ecbe6e7e333c837ee5874aec43da1b1d4",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02605_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02605_17.hash",
+    "bytes": 65,
+    "sha256": "33685cc264aba3b0b951874c19b169ea88b56e61849ca685edccd2ec28f24ece",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02605_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02605_19.hash",
+    "bytes": 65,
+    "sha256": "937af6ff5c0495eb57c4f94a1eb2f61c2da6ede94cf778640ad5f7c87fbff2c9",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02605_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02605_2.hash",
+    "bytes": 65,
+    "sha256": "14b8da9a0c5b33f77e0e2a76f2e169c0afdb61bf8be11c1f3d9cacaf82fd7b93",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02605_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02605_4.hash",
+    "bytes": 65,
+    "sha256": "05f5bed0586a1b3f9d724f0305c8e414f75fed2df3126c76f33e981f1c4abecc",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02605_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02605_7.hash",
+    "bytes": 65,
+    "sha256": "252606bcbe6ffee051cddd5734c2b50c78ed68e22d8e9c16583acbc20fff7f2e",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02605_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02605_X.hash",
+    "bytes": 65,
+    "sha256": "e4ffd776fa033deb5501c6b2041b760eacdf66d7024a7fcbfc2ecea0a539c171",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02605_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02605_Y.hash",
+    "bytes": 65,
+    "sha256": "0a0d34aeb367c8a8e1d218b5429e6d0b0cf7b89fb4bac2334024163a11e9bf6e",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02605_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02729_1.hash",
+    "bytes": 65,
+    "sha256": "cbea8fb21fe5866729d45c06a0ed282a7aafe4cc168a4e3eed524b62eddeb954",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02729_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02729_10.hash",
+    "bytes": 65,
+    "sha256": "3949be63b05823e67436135b9cc75a441c07f2c07f3c4a3142d0e78aaedb49fb",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02729_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02729_11.hash",
+    "bytes": 65,
+    "sha256": "a002ea7ce12b94b125d57753d2d82f748c58fe9963134ce9b0a390e0523bb18a",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02729_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02729_17.hash",
+    "bytes": 65,
+    "sha256": "9048a29d155d474c499b0411b0dc982789cbe076f1bbe382a1a537c3e27766cd",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02729_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02729_19.hash",
+    "bytes": 65,
+    "sha256": "826644417558a769394e2740b79631b317bc3079c32b1a1565e47058b3934d3e",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02729_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02729_2.hash",
+    "bytes": 65,
+    "sha256": "2f93a1deef46356983aab71c72032149153c3ca0fca34d4eab5e02582d312320",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02729_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02729_4.hash",
+    "bytes": 65,
+    "sha256": "b97cb46c6bcd570c21c7c08bdb282481e74f32a3056ee3ca66369275674147b3",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02729_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02729_7.hash",
+    "bytes": 65,
+    "sha256": "a0742d4b8640e920db147d4b0f086382f00b59aa1c2b9178991438d10a86d751",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02729_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02729_X.hash",
+    "bytes": 65,
+    "sha256": "32ec72d467347de30e87a6444fa0063afbda96476cf8d53c700ff190cacdf110",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02729_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02729_Y.hash",
+    "bytes": 65,
+    "sha256": "b9bf8e11848fbc9c839a677550a085978e34458e468dbddc4d9d9c29f4026caa",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02729_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02787_1.hash",
+    "bytes": 65,
+    "sha256": "47049a53b76db57153669a0278e9bfed89974ce65a385ba6d1d10b0c09ddffd1",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02787_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02787_10.hash",
+    "bytes": 65,
+    "sha256": "4d6b2e1a566551a4ad470404b4593c464fd8ea70f575570462d23120e6a3a99d",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02787_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02787_11.hash",
+    "bytes": 65,
+    "sha256": "2cbf3127cdea62440651555e63bdaeeb9aeb8408a33696136b752dbee6f5c41b",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02787_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02787_17.hash",
+    "bytes": 65,
+    "sha256": "5709d75ea66832001649a5d19e128841c547124bdc14506a02f9e9854ea76ebc",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02787_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02787_19.hash",
+    "bytes": 65,
+    "sha256": "9e7ec34584f40f0ab03e9b65c3a4353c284d0808ee9ae19de7731d00e071d9f3",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02787_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02787_2.hash",
+    "bytes": 65,
+    "sha256": "e19bb061c733028f043f3546bacd0f745f778c2611614665721b528660b55959",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02787_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02787_4.hash",
+    "bytes": 65,
+    "sha256": "fbfba6426c6fcabab8e190c3b2e23663f051dec4151cd8a12897ed6a831657d0",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02787_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02787_7.hash",
+    "bytes": 65,
+    "sha256": "95e64c06da3ae00bc92459b38179528058aaee1b3f158cc6ce3972b891a9010e",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02787_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02787_X.hash",
+    "bytes": 65,
+    "sha256": "84dbe5920b09389722b7d5786964629e72e02c2a83b5748f4448406db46947cf",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02787_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/full/PJL_HG02787_Y.hash",
+    "bytes": 65,
+    "sha256": "5e2503c5eb446750fc8f5ee4f9ffb491d5faf9a288e7582821ce6e79291ec819",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/full/PJL_HG02787_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_1.hash",
+    "bytes": 65,
+    "sha256": "2bab7007ba547c3b1e0b31312db214f95870e4957bf9cc581f9cbb5d7a3a6fc7",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_10.hash",
+    "bytes": 65,
+    "sha256": "e245f7738f2d97fe82311f0ef4470306e6c331093775a60a13b295c933686fb5",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_11.hash",
+    "bytes": 65,
+    "sha256": "a238e54f35426e08581683f535280249f4448258856c9243a5c4d4ed3ac1840b",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_17.hash",
+    "bytes": 65,
+    "sha256": "f492d99332bbe4a681b1525efd04f890fe3c43bba8c532531a0fb830d9d6ff7e",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_19.hash",
+    "bytes": 65,
+    "sha256": "78cd6dafb852ff98355cc5b3ac0071e80d84db84ff315e046b87cccde4be18ab",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_2.hash",
+    "bytes": 65,
+    "sha256": "6539953337fe47d9dc32674dabb8c113c509b38725853383bab0d6b513b3517e",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_4.hash",
+    "bytes": 65,
+    "sha256": "3f60d2caf075c94176889b6b07d164825bebbca9bc1c831dbd9b49dc7c4d4abb",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_7.hash",
+    "bytes": 65,
+    "sha256": "3ae800bd56c976dba5d76f279b9a18dc20ab0634ff2d502b51606e6de7c7000a",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_X.hash",
+    "bytes": 65,
+    "sha256": "6eefbf62b46d3da4a4d06cbc59d2a917b9ec6c04d76a41894b4d2eee338b5ad3",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_Y.hash",
+    "bytes": 65,
+    "sha256": "3d525aa95035ac6c736ea6c9030ccce3ac6e08e063ad66da5d17ce0623d8c892",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/min/CHS_HG00614_SYNTH_MIN_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/min/HG00614_SYNTH_MIN_corrected.hash",
+    "bytes": 65,
+    "sha256": "6e19a6d70f9b3eacb4cfd764374387960a5ee7e3262815bc09248242ec3c2ecc",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/min/HG00614_SYNTH_MIN_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA10852_1.hash",
+    "bytes": 65,
+    "sha256": "bf4bebd8084971f6d9c4c809454569641f5c29a33fdaf45e12ad3cf730964163",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA10852_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA10852_10.hash",
+    "bytes": 65,
+    "sha256": "de3cfc39f5d86e0e640077da91ff150cc0f13e647def625ff850e43f66430e66",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA10852_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA10852_11.hash",
+    "bytes": 65,
+    "sha256": "abe68b05b620c9cd194a14fba53326c18a24e2fde7e0acc2cf7747a2e81de3e6",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA10852_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA10852_17.hash",
+    "bytes": 65,
+    "sha256": "359393ce8bcc551db316ebec9980041355559e6f8f3570502f909525afe202c1",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA10852_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA10852_19.hash",
+    "bytes": 65,
+    "sha256": "95004a6275e2f43f2a2b8d1a300e26f13d7b45a84105839b5e887dbd73c84ade",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA10852_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA10852_2.hash",
+    "bytes": 65,
+    "sha256": "4646912bdf2889e1f72321b0919a4f49f2bee87cf3ee0c7d215e553572f7c193",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA10852_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA10852_4.hash",
+    "bytes": 65,
+    "sha256": "73a3cf5566d0887403699a2457bf6bbf14a07a01a2c2b452f77051b9c5cf4a76",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA10852_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA10852_7.hash",
+    "bytes": 65,
+    "sha256": "bcbb2d5a43fa6678f1603000ac9e9bdc395282331f7dd3f37bc896a54bafdcae",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA10852_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA10852_X.hash",
+    "bytes": 65,
+    "sha256": "8dae51ba3b90a053b32d42777bfa001922036d3a3698d48e58c9df8388594492",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA10852_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA10852_Y.hash",
+    "bytes": 65,
+    "sha256": "93ec2eefe67091252e6d86ce62aaa93b570b104d9edc23848c40a7c0e0043a71",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA10852_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12828_1.hash",
+    "bytes": 65,
+    "sha256": "61fb35560fe27815db34c3667e260b0178df7cff4148067f96a603d8dcfc4e2f",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12828_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12828_10.hash",
+    "bytes": 65,
+    "sha256": "e37740ef7ca82d5c60de62e55326185237887874f27bf1f5af7af23121c01af3",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12828_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12828_11.hash",
+    "bytes": 65,
+    "sha256": "f74d687d159896c101e58cd48cd66ffb85d07833750e28444302fa88fa0cf4c9",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12828_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12828_17.hash",
+    "bytes": 65,
+    "sha256": "30626c740307a2557ae1c1ff2b5f6c7001bb948450436c8ea319400795cdb348",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12828_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12828_19.hash",
+    "bytes": 65,
+    "sha256": "bd28051cf4da8146db8f3f1591bf0933533561423631b8605e39988844bfb1b1",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12828_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12828_2.hash",
+    "bytes": 65,
+    "sha256": "eaeba5c8e1423a97d1658d89b6d59a9c6a5502a44923280993351b0bdf18cfd9",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12828_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12828_4.hash",
+    "bytes": 65,
+    "sha256": "f098b9098d49998b96ae0dd6acf0ab383f1cc238702ba129f94b3a25bbea5511",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12828_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12828_7.hash",
+    "bytes": 65,
+    "sha256": "86bdfd15bf66233f3ef3468de9e0c75908b36b1ba9f84100123262e8a86290a1",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12828_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12828_X.hash",
+    "bytes": 65,
+    "sha256": "f3ed776fece76b2d60bbd05f0418f113ceafa8827bf2278c2f92eb5796e4dc41",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12828_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12828_Y.hash",
+    "bytes": 65,
+    "sha256": "a82700ea3c6c12147462d0b855e0695abb8c8a7d8b82fb9827024bd7c808f40d",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12828_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12843_1.hash",
+    "bytes": 65,
+    "sha256": "2243a51c3a6f01216475357990b5ad7b16808f62716bebb554d519d6eda97219",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12843_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12843_10.hash",
+    "bytes": 65,
+    "sha256": "d75e64498a307806cce75fe8df5ec8594fbcc2a36c04eeda77b1ee6367288d00",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12843_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12843_11.hash",
+    "bytes": 65,
+    "sha256": "c0b4b37e2aa85f29e3cc3e6a0a1674466cbe29a406d9d66003879b8de195d86f",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12843_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12843_17.hash",
+    "bytes": 65,
+    "sha256": "d71f9eaa7ca5c61a83e8dc347a0bd2c472a9769bedb91c9eef0b4a0d0ad3834d",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12843_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12843_19.hash",
+    "bytes": 65,
+    "sha256": "e82cf1981087bed1d4ac8910571780f6140021c80276da867fa4008e3ce9b8e8",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12843_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12843_2.hash",
+    "bytes": 65,
+    "sha256": "966a3a40c867e924bc13fdaab4431edc485d49827149e60ef53fae9a30dd81d4",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12843_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12843_4.hash",
+    "bytes": 65,
+    "sha256": "8a181009cd37d60d96390c1f613799238772abc28369fec76f068c44759fbc54",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12843_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12843_7.hash",
+    "bytes": 65,
+    "sha256": "eec192a8f1d44f63fe68505e7d1b00ac3a2ad0e3b56d55a6e7cc5a6c1e6a397b",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12843_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12843_X.hash",
+    "bytes": 65,
+    "sha256": "749d6b1952d7a699ac37f11f0dae78776bdd9bd24b6a518d61cbb0e689f81c31",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12843_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CEU_NA12843_Y.hash",
+    "bytes": 65,
+    "sha256": "a62bd011955f948b463a3e46b157e8d4f425a59d09f5daa7afde6f09aece4245",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CEU_NA12843_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00421_1.hash",
+    "bytes": 65,
+    "sha256": "d1a05436688e6aa11037789e4db6dec363abff8e0c81337a1bcafad1a39cbc53",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00421_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00421_10.hash",
+    "bytes": 65,
+    "sha256": "1a5b775bbc894751ae9885b5aa63e4b35b6d33840b4ad65832af1414da5d01ac",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00421_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00421_11.hash",
+    "bytes": 65,
+    "sha256": "308ef8c321121753a23df286953781d343be56b5eb1c1484d9fa824c90842071",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00421_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00421_17.hash",
+    "bytes": 65,
+    "sha256": "2947cf4a23b82f1cf49c248dd02bd62e7bf395841d8928494fe3b82fa8aa0b1a",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00421_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00421_19.hash",
+    "bytes": 65,
+    "sha256": "77e2434b851fda3ff69735f852e7fd28e606f9b6b936750432aecb14f5ace426",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00421_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00421_2.hash",
+    "bytes": 65,
+    "sha256": "f3e637f717760ea7d8d2a7adbcc64fa820f3a4bf1de9cc0b807b8c81c5d5cd73",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00421_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00421_4.hash",
+    "bytes": 65,
+    "sha256": "1aa6bd2710bec74319770138360e7542adbdf9ce9b4307f4d03b6b6fff8fa4f0",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00421_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00421_7.hash",
+    "bytes": 65,
+    "sha256": "17284b4a963da5768c1b64f3423306716638840dc1e4f881ac9bf415564fc67e",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00421_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00421_X.hash",
+    "bytes": 65,
+    "sha256": "6dab7abc59b357fd286579f92df1dfbc05a83a31088fd80fc2e9422fb0d50d03",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00421_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00421_Y.hash",
+    "bytes": 65,
+    "sha256": "c3b90793ef46972916eb943784f7259e08680a1e40a8f50bf3e17498f9f60ed6",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00421_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00559_1.hash",
+    "bytes": 65,
+    "sha256": "bccfde4bc9bb74dbcc0cf2dbf0e8b600071a7bb8167a01a8fa98f339e474690e",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00559_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00559_10.hash",
+    "bytes": 65,
+    "sha256": "af403b26e0986662d9692e068ce9504d701209b5d0ea0e2ada0e375fce76afee",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00559_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00559_11.hash",
+    "bytes": 65,
+    "sha256": "e7702c248f62bef805b865581a6e7cf42ea2ff6fa66b552c4763b765614a4c74",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00559_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00559_17.hash",
+    "bytes": 65,
+    "sha256": "089982a2647ba43067b279d4b704e8602b539ad818266931b95ce86112c6683d",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00559_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00559_19.hash",
+    "bytes": 65,
+    "sha256": "45c38dfad26a6537955cff73d484842ab9199c37aad1c51dde70fe86ba7f93c4",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00559_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00559_2.hash",
+    "bytes": 65,
+    "sha256": "7cb39d9926b5ad00dd8d861d025f75e980175775388f6af5438e06ceeb9876b0",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00559_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00559_4.hash",
+    "bytes": 65,
+    "sha256": "da8c652d210e1108446360489f71e92a6d05fc7c66c9080189efe07468ad4c96",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00559_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00559_7.hash",
+    "bytes": 65,
+    "sha256": "62cbc9ffc065352bbd6d2802fee6e9fec964c4e8b1f55c8bd287acadee169c09",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00559_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00559_X.hash",
+    "bytes": 65,
+    "sha256": "b02c6a8259bb3a441513f3045874e1073cd53ea2d73225241897f61f857f45ca",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00559_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00559_Y.hash",
+    "bytes": 65,
+    "sha256": "e33ab57ee5195bd8bd74658fdabbc4813cb3dbb46d40f4d8dbe2ffe555413f0e",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00559_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00614_1.hash",
+    "bytes": 65,
+    "sha256": "5a4a0e32564471571986c4729b67eba4f2d3e7cf9ed18e3e19497d3508053c66",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00614_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00614_10.hash",
+    "bytes": 65,
+    "sha256": "67a1756e1d3941008966d5491528c37938ce9fe050c5f59bc9ae2c3cbcb32061",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00614_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00614_11.hash",
+    "bytes": 65,
+    "sha256": "53734176eb328d6f3a4570c8b1f3fd8109bc4b1518be005c43273830c8002f6a",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00614_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00614_17.hash",
+    "bytes": 65,
+    "sha256": "c4fb129c5f06bcd55988b2bacc244943a7a32cdea2e7a54583f4ad5b4a26d1d3",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00614_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00614_19.hash",
+    "bytes": 65,
+    "sha256": "b5d3fa0aefa3fd86d0a884c364d8312a7320330d358744190a97158c12efd35a",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00614_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00614_2.hash",
+    "bytes": 65,
+    "sha256": "65a722f74ab7d4c641d72253deed29efe7e95c264f6eeedf82b0318eaf22bab4",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00614_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00614_4.hash",
+    "bytes": 65,
+    "sha256": "953483cf763623f0ff9de991b6f2457ebcbe47f1b95af2b68376ecb21d896ffb",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00614_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00614_7.hash",
+    "bytes": 65,
+    "sha256": "dd697b0e7ed91d3ee6f9df206bd7636170c0bb453b9237ac998384a17255d829",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00614_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00614_X.hash",
+    "bytes": 65,
+    "sha256": "b3bef602019151609d632645f60311bb219ee4344b934a66a6879a5e6371be38",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00614_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/CHS_HG00614_Y.hash",
+    "bytes": 65,
+    "sha256": "9cfa83c6e62900bf0acd3f208b486bfb1565a582837a1064b561e416274ece60",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/CHS_HG00614_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/HG00421_corrected.hash",
+    "bytes": 65,
+    "sha256": "670782acc3f0227e5deeb7554deed7b4028e5d560c1acc10726cf01a9f43b34b",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/HG00421_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/HG00559_corrected.hash",
+    "bytes": 65,
+    "sha256": "d91eb645e021b56cfbb56ebf24b2f180e2c36ce48058bd718e8f3bbf472f4bb3",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/HG00559_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/HG00614_corrected.hash",
+    "bytes": 65,
+    "sha256": "d2e77c5d3baf48dc62fc9fe909ede40cab120c2ea1fbb27b75668ebfdbe14b45",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/HG00614_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/HG01941_corrected.hash",
+    "bytes": 65,
+    "sha256": "b54d6064d25b952f361e4d95e86040ab345d527cae148c13999d5eee54c30c98",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/HG01941_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/HG01942_corrected.hash",
+    "bytes": 65,
+    "sha256": "1ec82e6968356b8dd38dc18492eb198e6270e476b0e343d868db7755133b3b87",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/HG01942_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/HG02491_corrected.hash",
+    "bytes": 65,
+    "sha256": "5e8c4773e9efc2341835ec7c6151da0553a58daf6fd15bd72496c85879df3d1f",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/HG02491_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/NA10852_corrected.hash",
+    "bytes": 65,
+    "sha256": "0f916a5eeb5bc6dc5090aaa1ca57015085f611575040ed4712a2ce25ccea2fb8",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/NA10852_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/NA12828_corrected.hash",
+    "bytes": 65,
+    "sha256": "e12dc5387be1b329c34c583cc68a5bbfe575fa59fca567dde81122f3cae3ff1f",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/NA12828_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/NA12843_corrected.hash",
+    "bytes": 65,
+    "sha256": "7818d05fa90c4a9ef68a0ab58813a1de459181c25e09f074bfe02dc7041d9245",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/NA12843_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/NA18500_corrected.hash",
+    "bytes": 65,
+    "sha256": "ec364c1b4de83d0ed2ed783589b339df9c3d8cdd6eaa4643c459f6908a7fe072",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/NA18500_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/NA18924_corrected.hash",
+    "bytes": 65,
+    "sha256": "d202001ee5ffe41c9073a2cbca8897940404ca5bcd833ce06b64059bd6e506b1",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/NA18924_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/NA19160_corrected.hash",
+    "bytes": 65,
+    "sha256": "a08185f6cae8f463704b1386c8b082e1a387ad76bd1244325072e470c3c60b72",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/NA19160_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/NA19172_corrected.hash",
+    "bytes": 65,
+    "sha256": "cd3fc0355cfbfbcec045350e1888a795776afca0ebda6a9dbfc744e225f64c6f",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/NA19172_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/NA19189_corrected.hash",
+    "bytes": 65,
+    "sha256": "594f5d37cdcc450de889a663105a90e18d3923d0b6cb031171a17d765fcc078d",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/NA19189_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/NA19236_corrected.hash",
+    "bytes": 65,
+    "sha256": "9fef7205811c92253f0629e2c8682ec8e7997aac98d51f45c8e6c16fc6326eca",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/NA19236_corrected.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01941_1.hash",
+    "bytes": 65,
+    "sha256": "33557627f073a28c23d5088675a99464c5c3b9c3fd68e146d62d2f7af94bd7ce",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01941_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01941_10.hash",
+    "bytes": 65,
+    "sha256": "f99e0b478175a43a2032e0e22e9fb1f672ed7a58d99003921b62d461bb7acb00",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01941_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01941_11.hash",
+    "bytes": 65,
+    "sha256": "7113da35f77f919b72d847c7f02da0a642112bca4cfd665610276c86592abae5",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01941_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01941_17.hash",
+    "bytes": 65,
+    "sha256": "ce031fb824902a3547eff21e325bd661a055918bf2702bfe7bffe6deeba4ecd4",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01941_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01941_19.hash",
+    "bytes": 65,
+    "sha256": "54084c47893237b1e7c03202dd4c2d4e19d4d3fd3042b421a95dd5b903341559",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01941_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01941_2.hash",
+    "bytes": 65,
+    "sha256": "91ec155f788785e3b4a6987d793eedc72ef5996a666b94aa61b162c259d6bcdd",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01941_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01941_4.hash",
+    "bytes": 65,
+    "sha256": "ae103c4613e659e76c57fc0423b02ba658c0a55e32b8f1ae26cb1943ee320112",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01941_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01941_7.hash",
+    "bytes": 65,
+    "sha256": "74c4b664f24e4f3dbf66212d3f1303dcba416ef7a0c6bb03adf07039e3bdf1ae",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01941_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01941_X.hash",
+    "bytes": 65,
+    "sha256": "6bd0a8b4fc183752df7fe36f21850e284479356742c7512a12940f1d7339c837",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01941_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01941_Y.hash",
+    "bytes": 65,
+    "sha256": "ed3361f56371a2267d39d4460ceda2a9c8c0c4ed7a3e9f62d39410940abf7a27",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01941_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01942_1.hash",
+    "bytes": 65,
+    "sha256": "b49f2c616e32b56df1461ca13325591e1a3656471cacc703f598d227683c5bf7",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01942_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01942_10.hash",
+    "bytes": 65,
+    "sha256": "d26bc0e1bf9eb6a3431b61918c2a6749a9b7feb9c2c89a3a4c5481bec177d518",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01942_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01942_11.hash",
+    "bytes": 65,
+    "sha256": "cc401664e7cec1093e4d0597762464daf9cf43d473fc4509375a27751a1f4a38",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01942_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01942_17.hash",
+    "bytes": 65,
+    "sha256": "fa6a8058091ee72f7e26e92528badcb9664e54f584ea07157693f0ea18351744",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01942_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01942_19.hash",
+    "bytes": 65,
+    "sha256": "69321ef027bbf3ec4e09038b46cf7b36f0ec62d259df0ece4d7d8d4d7f7b0e34",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01942_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01942_2.hash",
+    "bytes": 65,
+    "sha256": "0194f4f7dc83fcbe5a5ea5463128a4efd536ba984935a30fb75fb5a1aa457549",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01942_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01942_4.hash",
+    "bytes": 65,
+    "sha256": "4563d33a4823a33443654aed9ea071b95ddb91c9afb6d82b614b1a2d388ff833",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01942_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01942_7.hash",
+    "bytes": 65,
+    "sha256": "45b084b770c2e40ba9ebc43bb8ac2763095b3630e7f68b455f51add51a4b9cca",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01942_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01942_X.hash",
+    "bytes": 65,
+    "sha256": "dcdb40bfc6fe1b784c34f1a230bc8f25f95f3e5a2f36fb744e97ea821ff0c5bb",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01942_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PEL_HG01942_Y.hash",
+    "bytes": 65,
+    "sha256": "77b102786ad2012bba24b24ab82f0d72137613d4122d061df933f1b6ac55fa0d",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PEL_HG01942_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PJL_HG02491_1.hash",
+    "bytes": 65,
+    "sha256": "1ad4354b5dd17c4570c59bcbd2e6099dafa9f1be2749c5acd23cabb6ff17cfaa",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PJL_HG02491_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PJL_HG02491_10.hash",
+    "bytes": 65,
+    "sha256": "fdeb7652b3fc2e719fcd15aefaba9c1992882cc64188c23ccb59f68dea06fa55",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PJL_HG02491_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PJL_HG02491_11.hash",
+    "bytes": 65,
+    "sha256": "6a1551876c4a3b2316086ba24463b7e3f2b71301c9582367560464e9a1bb60ad",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PJL_HG02491_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PJL_HG02491_17.hash",
+    "bytes": 65,
+    "sha256": "5b7541f1f7e6bbd7fbb326e5ec627ed1ceb4dd863e28eb56b45f9a721a45f871",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PJL_HG02491_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PJL_HG02491_19.hash",
+    "bytes": 65,
+    "sha256": "8b9f53f033e7608167fdbd3b39a0c434005fa3c140a3dd76f4657d26c8efa90f",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PJL_HG02491_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PJL_HG02491_2.hash",
+    "bytes": 65,
+    "sha256": "c9f576999aa267b0a4a109e8bdca94d811bc31ff67b47710cff9e80b401f202e",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PJL_HG02491_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PJL_HG02491_4.hash",
+    "bytes": 65,
+    "sha256": "8efaf3084b4a4c30579b9231df32a11dfd1a1fad1943a128e4df411cb836137a",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PJL_HG02491_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PJL_HG02491_7.hash",
+    "bytes": 65,
+    "sha256": "57d33c9a5cad30abec8be32ae772aab22538186f20e81f22cccffbe08fe6e1c7",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PJL_HG02491_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PJL_HG02491_X.hash",
+    "bytes": 65,
+    "sha256": "a3c0ca874bdd52a1cb4a0ddc9a05076822bf3d5ee3a97ab8dd22f8a4373f42c4",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PJL_HG02491_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/PJL_HG02491_Y.hash",
+    "bytes": 65,
+    "sha256": "965b67d609fbd0d6bd0f7628e7d67ced8e543761b7e2190dd351c5f5ba7695b4",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/PJL_HG02491_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18500_1.hash",
+    "bytes": 65,
+    "sha256": "03fb3056d76942adf578398c81c62ed33ca971e7bcad6ff2d26a23746814c1c9",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18500_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18500_10.hash",
+    "bytes": 65,
+    "sha256": "a5a204369f89f813cc72e92e77bf5d33152792efa796c4f79b9b1c79b19d3834",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18500_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18500_11.hash",
+    "bytes": 65,
+    "sha256": "f03300eb347a2e8067ead0c6dfb7cd5c0abe70a1443fefbd95cd868ce1154408",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18500_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18500_17.hash",
+    "bytes": 65,
+    "sha256": "b0ec029014b6090e203b405898266f780f3ecf4cfa05ab4a86c2ced810b0b196",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18500_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18500_19.hash",
+    "bytes": 65,
+    "sha256": "8ff6417564816e586b563747e7a86e887053ea3b140b1b8b9aebb1f575db364e",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18500_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18500_2.hash",
+    "bytes": 65,
+    "sha256": "44de7d6900ca02db690cf8c100f8902b2bf414be263787a73e7bdcb53c528610",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18500_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18500_4.hash",
+    "bytes": 65,
+    "sha256": "fab4e129c3e7c8cb9238716f25c39d4075bda9cdb8742d977b3185e7613fa243",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18500_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18500_7.hash",
+    "bytes": 65,
+    "sha256": "e33744fa97539835c9f2f0cc72a29f73f939c4f8fa33102d2bdf71f5226f43e5",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18500_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18500_X.hash",
+    "bytes": 65,
+    "sha256": "8cfa03f9abdc81d71c0978bb04fc4c7f86a0cc5467c429ab183336d0cff38115",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18500_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18500_Y.hash",
+    "bytes": 65,
+    "sha256": "44fefff9a68c593f9deb38a9c8a273d010f56a3946e37c02f68b918c81f0d357",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18500_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18924_1.hash",
+    "bytes": 65,
+    "sha256": "dde9c7b80075480ee191060b1f85566f8cc3debf98cdf9a5a925c0b259fa018c",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18924_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18924_10.hash",
+    "bytes": 65,
+    "sha256": "f2f54fbaf88f88957457562cc76f1b4d78577fcbfefd0970235977793022694d",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18924_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18924_11.hash",
+    "bytes": 65,
+    "sha256": "87ff4912f9f3d564cd52a96efb5a58afcc5d7ad1ae1325d60667f62f8479a5dc",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18924_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18924_17.hash",
+    "bytes": 65,
+    "sha256": "7ca9aeb6888761b3e4dee3be6c0ca707156dcd96e0b718f67e0665d5cace425d",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18924_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18924_19.hash",
+    "bytes": 65,
+    "sha256": "378b413590c4f1a1cc47ebcc0940e535fba199ac3ee7cf1aabb9cf8af1a1adbf",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18924_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18924_2.hash",
+    "bytes": 65,
+    "sha256": "96f2b651a95397769a3a82c0923cc007bdab53a5873d780128f01bdfa8b1ef53",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18924_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18924_4.hash",
+    "bytes": 65,
+    "sha256": "439edec355b6930a70cc4ce5dbd535f6042876182305cc581a3007cf0b6c1262",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18924_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18924_7.hash",
+    "bytes": 65,
+    "sha256": "45324817f802a0e32dae265d793f3f3bd9adbb974e8ba9f9d852ab5ff13b5e10",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18924_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18924_X.hash",
+    "bytes": 65,
+    "sha256": "e31ad3b3f32a5fb14d8510f336342a9f1d51a2a1eecd96dd7f7301ba16e03acb",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18924_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA18924_Y.hash",
+    "bytes": 65,
+    "sha256": "dba14774423eea0bba2eb8c487a592a0afe64de93880e3897cd2bd6fe5a6a7b3",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA18924_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19160_1.hash",
+    "bytes": 65,
+    "sha256": "3f4403e22e52cb750c403bbe2b414e40f3594db937823685904ba49bd4d80dc1",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19160_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19160_10.hash",
+    "bytes": 65,
+    "sha256": "577cadbb0a98b86238ea1133c1e0073b046f627dd4c454c7901e8a1ba8c3f9a4",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19160_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19160_11.hash",
+    "bytes": 65,
+    "sha256": "d033f9e125b56aaf39c2ff4b8d14a171fecdaecb20d6b4d2ab0e859897d5d0c1",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19160_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19160_17.hash",
+    "bytes": 65,
+    "sha256": "5b237df3f938ad98b9f74f7992669dfaa0a93ba5470b56d1ee09c413cce051b9",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19160_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19160_19.hash",
+    "bytes": 65,
+    "sha256": "765241d30212cd8f7655d092d63ebe14cb5c01e60886e4dd34ce662ef87fb084",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19160_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19160_2.hash",
+    "bytes": 65,
+    "sha256": "7f21ca8d3ec63c9e8a20281d5f4b62adaa75f6fcc6e0baf287f9a1ce569ff11b",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19160_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19160_4.hash",
+    "bytes": 65,
+    "sha256": "ad8594fe2ca6cfb8520062371b58a7ea1d5aff27a8653edcd9758bf8e716a763",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19160_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19160_7.hash",
+    "bytes": 65,
+    "sha256": "89d337e7a99d96f09da53f732bd4d2a844406f1e50504caa3e1757f0317a6b60",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19160_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19160_X.hash",
+    "bytes": 65,
+    "sha256": "e496dba05c0b6c67a1f26038d1c0f479aef50b25c66b69e458eb49442f9ea80a",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19160_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19160_Y.hash",
+    "bytes": 65,
+    "sha256": "b4eca2d7ca4bba2ab131af195c8eead26bce29d5e970bfc8b9556ca00f14f787",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19160_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19172_1.hash",
+    "bytes": 65,
+    "sha256": "2c85a2d19d276ff51bf1341db889285f576d1597c85df74692afe8258fb69220",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19172_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19172_10.hash",
+    "bytes": 65,
+    "sha256": "2f3972eca0ac60175eb54ca083c485bb40a08e9aca88923cc9e081192d45a8e9",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19172_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19172_11.hash",
+    "bytes": 65,
+    "sha256": "9f0e5d7444cbcf8676fe3b82e931828d3635e82ee1bfda3d227d7f78144ccf61",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19172_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19172_17.hash",
+    "bytes": 65,
+    "sha256": "48d86e122cf5d0cd52c3676e0aabafbf90e31565853580093412210b16272eee",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19172_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19172_19.hash",
+    "bytes": 65,
+    "sha256": "e4d4c239e0e9d3ecc31affee4af1312bf695b00ea910fd6a607f798c5609b667",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19172_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19172_2.hash",
+    "bytes": 65,
+    "sha256": "be806c571f6c9627de738863a4b46a5297f609db5984f2c0e40f15a4a6fd6a03",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19172_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19172_4.hash",
+    "bytes": 65,
+    "sha256": "1fd4c2db1fb00defac5f176a913fcb2992ad51c2b2292c6c1e034763243909ed",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19172_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19172_7.hash",
+    "bytes": 65,
+    "sha256": "8b961edc24d996375da09e6d1c1a1364f7f459db1375e2d2ada9906598a9b6b1",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19172_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19172_X.hash",
+    "bytes": 65,
+    "sha256": "984993c291848b3a468a1bb2ab95f9d06f187fe7d2ea501b11efe00cf8ad2763",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19172_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19172_Y.hash",
+    "bytes": 65,
+    "sha256": "ee8dd29a6f92c66300b532d647f9651b894766008c64a33e847b1c494334de16",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19172_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19189_1.hash",
+    "bytes": 65,
+    "sha256": "5e391c06b2212ce5f78af0173dbcc722e7d5a9e870acbc22aedae5df403130be",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19189_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19189_10.hash",
+    "bytes": 65,
+    "sha256": "4a4c8e00f9753c88376b0b2e82664962486abe02a5ffb6ef5c6e8f45038cdea1",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19189_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19189_11.hash",
+    "bytes": 65,
+    "sha256": "ab800b4e4a54c17ceff965aa8afd103c6fc9c8eb1e149c1c7a5d799744d74717",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19189_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19189_17.hash",
+    "bytes": 65,
+    "sha256": "3c5f9b361faaa543fdbbde6356ec9fa8e159022a8a6b7b913007eaf4dbc02e4a",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19189_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19189_19.hash",
+    "bytes": 65,
+    "sha256": "bd10d090f6c2bff7e4ce2c5133e85006b799e84c7b265f8ecfe94ff2b96f177e",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19189_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19189_2.hash",
+    "bytes": 65,
+    "sha256": "7087ee71e5572a512089b9459a13deffea1658e2eba3f2d0b2906dd6e7374b94",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19189_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19189_4.hash",
+    "bytes": 65,
+    "sha256": "1b0295dca3976fb843c56e65ab222ad5326651049bcc189278e239ee00b7d261",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19189_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19189_7.hash",
+    "bytes": 65,
+    "sha256": "724d2850c77ea51c51057f094e09c6d3187c4137c83c8a1743c84b662f88bd02",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19189_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19189_X.hash",
+    "bytes": 65,
+    "sha256": "a3502707a27d2191a24e749fc7b0332d34e2dc47b283f1c623de8cb58f1ef216",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19189_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19189_Y.hash",
+    "bytes": 65,
+    "sha256": "bd88231de4ea5cf7ca23b358b719e2f9062bf163f3db132681bedc82039bc056",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19189_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19236_1.hash",
+    "bytes": 65,
+    "sha256": "85400df692ae79510823d66c35774783863ee537582f3b1a28938e6b92e393ba",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19236_1.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19236_10.hash",
+    "bytes": 65,
+    "sha256": "439dd0991bef6b412bc7845c3f653f14fbea932eb2723a46fba297dcb10198e8",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19236_10.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19236_11.hash",
+    "bytes": 65,
+    "sha256": "07ada79156e683115d2a1a0424f22791ec7184896ec4e6c534f12d7f0d5e8868",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19236_11.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19236_17.hash",
+    "bytes": 65,
+    "sha256": "0922361e5142e256c13fd21cec2b999100c2ef8ab2e3f2efb7653de8a0123439",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19236_17.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19236_19.hash",
+    "bytes": 65,
+    "sha256": "ca0847cc0a012519293a05ae96b610682048e464a404abbda8afa70a3cdeccca",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19236_19.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19236_2.hash",
+    "bytes": 65,
+    "sha256": "c220d38a042f58a1f3b1f1af43d0fa21952125a8d4123686a9aa98b43e552b79",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19236_2.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19236_4.hash",
+    "bytes": 65,
+    "sha256": "58867186d093620618cd1da26ebc57fe8a5195787e555d71128829ae70c24b83",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19236_4.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19236_7.hash",
+    "bytes": 65,
+    "sha256": "c1efc60efe81a7b5d20d0333652fd6c278ccb4bdbb10c40281a956fa6aa07a12",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19236_7.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19236_X.hash",
+    "bytes": 65,
+    "sha256": "23f7837eca360ba47bd48b697862663bed513326f914d7a6fd7669e3aff026eb",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19236_X.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/hashes/small/YRI_NA19236_Y.hash",
+    "bytes": 65,
+    "sha256": "b6ae52d65dfbfbde21733c1c1f93b0d2dd8ee6b80bdc10dd22a21572eb3cdeda",
+    "active_counterpart": "evaluation/benchmarks/bio/hashes/small/YRI_NA19236_Y.hash",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/input.txt",
+    "bytes": 120,
+    "sha256": "7634a1ab448b1ff29f6d5d68b888b772132c76d9722083d4cc6b025872656a76",
+    "active_counterpart": "evaluation/benchmarks/bio/input.txt",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/input_giant.txt",
+    "bytes": 161069,
+    "sha256": "62660c87ab3d1c4b82699e0dd5be8d98cfb6f9a9d284ae8aabfec83f3441df66",
+    "active_counterpart": "evaluation/benchmarks/bio/input_giant.txt",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/input_min.txt",
+    "bytes": 12,
+    "sha256": "6a9dddf3ed74cb625362be17e7f6a46289deba86b5aa4c6a4f58a3a0fab3e3ca",
+    "active_counterpart": "evaluation/benchmarks/bio/input_min.txt",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/bio/input_small.txt",
+    "bytes": 36,
+    "sha256": "ad4bfbf3137ec56c8fc4ebd3d71cdb304f13ee4cf376a9e0d3da8ce5cfd03cc1",
+    "active_counterpart": "evaluation/benchmarks/bio/input_small.txt",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/install.sh",
+    "bytes": 310,
+    "sha256": "fae6b06dffaed750d37c82fa9ce3273011f3d31c90d442f645ca23724351da6f",
+    "active_counterpart": "evaluation/benchmarks/bio/install.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/run.sh",
+    "bytes": 1494,
+    "sha256": "33035fde31c4dbc1bfaa9705f43252a10d974892f1e11b9fdce7dc432b695cba",
+    "active_counterpart": "evaluation/benchmarks/bio/run.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/scripts/Gene_locs.txt",
+    "bytes": 656,
+    "sha256": "69a7f1b536819345aa6b04f467ea05c4e65cb6ba49b1516232db720c0e3eb64d",
+    "active_counterpart": "evaluation/benchmarks/bio/scripts/Gene_locs.txt",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/scripts/bio-1.sh",
+    "bytes": 307,
+    "sha256": "0dc567c604e24ab090d0ef2fd7b7309097127ce500bc6b689a43363423f3b19c",
+    "active_counterpart": "evaluation/benchmarks/bio/scripts/bio-1.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/bio/scripts/bio-2.sh",
+    "bytes": 329,
+    "sha256": "c124362dee7b66c7ea15828fc241c665e5b2a0ff09d92b93f523cc9e1a321c1e",
+    "active_counterpart": "evaluation/benchmarks/bio/scripts/bio-2.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/scripts/bio-3.sh",
+    "bytes": 563,
+    "sha256": "4b3c1284fffc33a3374d2abb2cf96d76cba3bf8453e046a46ebdfc7b1d4933b7",
+    "active_counterpart": "evaluation/benchmarks/bio/scripts/bio-3.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/scripts/bio-4-0.sh",
+    "bytes": 598,
+    "sha256": "f569b7a61b3da237aa5ba4142a601daaa3d967f1394da0158162ff7d2d6b660a",
+    "active_counterpart": "evaluation/benchmarks/bio/scripts/bio-4-0.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/scripts/bio-4.sh",
+    "bytes": 647,
+    "sha256": "1dfde72b23649097536ec758484f7aadd7b23babbb3045d1e36570311957b9e0",
+    "active_counterpart": "evaluation/benchmarks/bio/scripts/bio-4.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/scripts/bio-5.sh",
+    "bytes": 879,
+    "sha256": "7c3e6ddddb56260ecaa4c6f903fcdc2a1041ae16cbbdd3d0bb8c9f8683886b4c",
+    "active_counterpart": "evaluation/benchmarks/bio/scripts/bio-5.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/scripts/bio-6.sh",
+    "bytes": 1223,
+    "sha256": "e9857f17a0fb5b93ee3b85ebf8c2badf15e8ccfe30e4c4337b87daae7c2e4dff",
+    "active_counterpart": "evaluation/benchmarks/bio/scripts/bio-6.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/setup.sh",
+    "bytes": 620,
+    "sha256": "eb4fad334d12d959069233090eed99d76a226c0524de9e33d8182f520f0a83ec",
+    "active_counterpart": "evaluation/benchmarks/bio/setup.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/bio/validate.sh",
+    "bytes": 2012,
+    "sha256": "85d3af6f26f71db1ac18785b217fd79fbfecebaa4b00625dbccb1dd278c8ab15",
+    "active_counterpart": "evaluation/benchmarks/bio/validate.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/compare_to_baseline.py",
+    "bytes": 2626,
+    "sha256": "07ad38184718a41bb55db75ae5a87f8b21931fcc8eab5b63a78429aae9db88b9",
+    "active_counterpart": null,
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/covid/README.md",
+    "bytes": 35,
+    "sha256": "a235c67c9f7f2503922fc8ff8e1a913f9f9daa4f37bf403f21fa43bcf11b9fe7",
+    "active_counterpart": "evaluation/benchmarks/covid/README.md",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/covid/clean.sh",
+    "bytes": 71,
+    "sha256": "e7d4838b2ab08fd4c54a10d195d7e970bc9854fe407553c8e07d0a1a5c2b2a59",
+    "active_counterpart": "evaluation/benchmarks/covid/clean.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/covid/execute.sh",
+    "bytes": 1623,
+    "sha256": "056818349eff9ce80f8ab56ae371956ba94829f3522922be0da79c67fabd5ec9",
+    "active_counterpart": "evaluation/benchmarks/covid/execute.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/covid/fetch.sh",
+    "bytes": 893,
+    "sha256": "312b2c57c191e67d4a2e03805d0987f6f67cb564d7c797fbc44f3f4fdca3216f",
+    "active_counterpart": "evaluation/benchmarks/covid/fetch.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/covid/install.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/covid/install.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/covid/min_inputs/in_min.csv",
+    "bytes": 800000,
+    "sha256": "2c5dd43eb0bf5804fb8fc44465ab0ab02e86055dc26cb1dfe68dc3866f4e05eb",
+    "active_counterpart": "evaluation/benchmarks/covid/min_inputs/in_min.csv",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/covid/run.sh",
+    "bytes": 1163,
+    "sha256": "288f82d536f4dc6546966ce3ff2b85a82587222bf37a03543000388b5c5a4354",
+    "active_counterpart": "evaluation/benchmarks/covid/run.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/covid/scripts/1.sh",
+    "bytes": 848,
+    "sha256": "d71624f26b113712dafcb0856d88450fd14a6f27e8396feac03e9a1ae87f8dfc",
+    "active_counterpart": "evaluation/benchmarks/covid/scripts/1.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/covid/scripts/2.sh",
+    "bytes": 948,
+    "sha256": "1ecaea231263dc22d62885ddb5d6d9f8800fb14b839f8b100467a4535fc669ef",
+    "active_counterpart": "evaluation/benchmarks/covid/scripts/2.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/covid/scripts/3.sh",
+    "bytes": 976,
+    "sha256": "2975307181c109bc2b4d21bcadafd0f0ed7b269944074411983a5b909414418b",
+    "active_counterpart": "evaluation/benchmarks/covid/scripts/3.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/covid/scripts/4.sh",
+    "bytes": 873,
+    "sha256": "89a7372e9f1a4bcf9a414ef690f344c53b8de2ecb216f68d911edaf8237760f3",
+    "active_counterpart": "evaluation/benchmarks/covid/scripts/4.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/covid/scripts/5.sh",
+    "bytes": 454,
+    "sha256": "cec89981577752527d954cde7779a28bff5b01ec5925236fac848d05baca8867",
+    "active_counterpart": "evaluation/benchmarks/covid/scripts/5.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/covid/setup.sh",
+    "bytes": 547,
+    "sha256": "8368700eadc2c730de4598a48abe5cc1e0b310e8c90483d51ef9cbc5a3a6038c",
+    "active_counterpart": "evaluation/benchmarks/covid/setup.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/covid/validate.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/covid/validate.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/README.md",
+    "bytes": 170,
+    "sha256": "da12921ceae7df66c07dfddc5fb1b4c32b5af2693a3313865eed1d9b6ddfbdfc",
+    "active_counterpart": "evaluation/benchmarks/dpt/README.md",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/clean.sh",
+    "bytes": 89,
+    "sha256": "3a48ef94a4f9ea00f2c95a240d124e7bbcbda133fcf23cfc538b6bc2c124ad8a",
+    "active_counterpart": "evaluation/benchmarks/dpt/clean.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/dpt/clean_output.py",
+    "bytes": 1596,
+    "sha256": "876b68f93aaaaeedd5f8a1a3f002fdd1a50ed6f45dfcdb5e68c7f4bdd99fd9f3",
+    "active_counterpart": "evaluation/benchmarks/dpt/clean_output.py",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/execute.sh",
+    "bytes": 1842,
+    "sha256": "46f1c43d061e341b232ad4a770c33b26403e28c174a9eaa36ade7895aeaf7033",
+    "active_counterpart": "evaluation/benchmarks/dpt/execute.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/dpt/execute_manual.sh",
+    "bytes": 135,
+    "sha256": "6a556a96f125494639096b3c600d583b6da6f1de56115f6fb69a66986f5ddf14",
+    "active_counterpart": "evaluation/benchmarks/dpt/execute_manual.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/fetch.sh",
+    "bytes": 5257,
+    "sha256": "75140b6f1e9b52f2ecef6f6d037c21f424b3abf6ba422810e7096ae47f21c705",
+    "active_counterpart": "evaluation/benchmarks/dpt/fetch.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/dpt/install.sh",
+    "bytes": 453,
+    "sha256": "a02f13969bb457261f7c0a59ef1800a080d22a5a6117956ddcfe5181c370ab6b",
+    "active_counterpart": "evaluation/benchmarks/dpt/install.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/dpt.min/pl-06-P_F-A_N-1.png",
+    "bytes": 93224,
+    "sha256": "ab7bd3ce347f1cdba9ba579f1bc25d573a10529a8f91d706ace99e435dd43967",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/dpt.min/pl-06-P_F-A_N-1.png",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/jpg.min/jpg/100401.jpg",
+    "bytes": 85243,
+    "sha256": "2c144f6b41afc6f1d56e9fbaaf9e91ec90a3a2840be7b2f1d314217b5157f7fc",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/jpg.min/jpg/100401.jpg",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/jpg.min/jpg/106700.jpg",
+    "bytes": 85743,
+    "sha256": "3019c1c18e959dae83f96065830713f29a6e7f69b417072ab4dbfc6660223af3",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/jpg.min/jpg/106700.jpg",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/jpg.min/jpg/107001.jpg",
+    "bytes": 84131,
+    "sha256": "376637825992e2df1663ed99be1c6bcd1c088639a4312879ca1584eba6eb5d89",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/jpg.min/jpg/107001.jpg",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/jpg.min/jpg/109001.jpg",
+    "bytes": 491938,
+    "sha256": "9e8c3b55a691d273e33bd17e7776fd36bf85028136da7edea1ef58dcaf684d25",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/jpg.min/jpg/109001.jpg",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/jpg.min/jpg/110900.jpg",
+    "bytes": 383786,
+    "sha256": "42466dbdb5acba21ae956474ac706e4d4998be4312ca50f4280708e214313714",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/jpg.min/jpg/110900.jpg",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000002.mp3",
+    "bytes": 960738,
+    "sha256": "879d4ecdd0911c20db8fbd5c6bde2d3647131211d6a190f7232534d52beb9e02",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000002.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000005.mp3",
+    "bytes": 961580,
+    "sha256": "b7cbb36c72c887574089105f87739c0745c0fe6b75ac3b16c8763e1902972cc2",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000005.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000010.mp3",
+    "bytes": 721040,
+    "sha256": "a766844a1aaa69bcc4d7e5892604cbf13e438cf3425a7cafb3d0efb0ac74d432",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000010.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000140.mp3",
+    "bytes": 480497,
+    "sha256": "1a9fe4b9bc521c1cfc6fa32cd2979ac30c5a076aad20e3b46840fa70c0b00c86",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000140.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000141.mp3",
+    "bytes": 480945,
+    "sha256": "714b1bc525b716d6071302d7459fd2a768d038e7467f2ce915e7a3fc7d7d0e1a",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000141.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000148.mp3",
+    "bytes": 960721,
+    "sha256": "0eed59cbf6577230f689af9e75c52e31697e1f4773be6784e253930fc6ea8a6b",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000148.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000182.mp3",
+    "bytes": 961955,
+    "sha256": "4c4e9b47c7a16443c2fa770849739a5bb282ae9d3ba833a9c137d7d0a2f94361",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000182.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000190.mp3",
+    "bytes": 961577,
+    "sha256": "07c766a3200d0f9e8ea70dff15aa62111b28addb5bf3b61453b4e292b1d97f86",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000190.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000193.mp3",
+    "bytes": 960739,
+    "sha256": "7e17dda4dcde547b80bb957af25b40e7065dcb8c439ce114a4235d2134498959",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000193.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000194.mp3",
+    "bytes": 961579,
+    "sha256": "f7a1121da1fb7a92d9e594c026773f0edd1b13860b18fc28cb161bc96e038fb4",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000194.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000197.mp3",
+    "bytes": 960733,
+    "sha256": "13558e854da5438b0be3b53571179a43ca271509d1b6e741e6e755ce4b8846d0",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000197.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000200.mp3",
+    "bytes": 960741,
+    "sha256": "f14c56138932c26f8a1f5f6a19bafd675122013e502dacd32d91ee885aee3b5a",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000200.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000203.mp3",
+    "bytes": 960737,
+    "sha256": "71a3e5f095d6c669ff84ab655a7ed31f900915d38fb7e7ed8bcdff6465f78f44",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000203.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000204.mp3",
+    "bytes": 960734,
+    "sha256": "715d223fd0df72cd6e0c63af0f31ae887db3194f68fdf26648c145a0233ef447",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000204.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000207.mp3",
+    "bytes": 960734,
+    "sha256": "117f9eb82b530f52094ced80d086672a674fe9d4e70bdfb7a4bc17c97e783f99",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000207.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000210.mp3",
+    "bytes": 961581,
+    "sha256": "d8f39e6225707a23b2296169add073af8bb581ea674669c983dc370b3f908b1c",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000210.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000211.mp3",
+    "bytes": 960736,
+    "sha256": "5928697928b00c234ac0661ab6533775984088d4993d2514db595333d37dfb34",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000211.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000212.mp3",
+    "bytes": 960738,
+    "sha256": "bab0086bafe51d0e543cafee489fac8680434ba1b4c404b689d74ed61fbd2e01",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000212.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000213.mp3",
+    "bytes": 960747,
+    "sha256": "4ca6e7455802acedc7385be1c54100bc7230fd903d85c51bd5e86beb3af0d46a",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000213.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000255.mp3",
+    "bytes": 960743,
+    "sha256": "4c5481568b395a9e395aa17187862a9bc4b54630c180a5fc112e878d82bd369f",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000255.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000256.mp3",
+    "bytes": 960790,
+    "sha256": "74e2a7e74639862291cc2f41db2a8df9269b3a4e9ae594a8a7093654e8e98c4d",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000256.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000368.mp3",
+    "bytes": 961094,
+    "sha256": "191ff2495adcef0ba945ea0a5c9802c1ea7201aae881b5af6a17687babbd2912",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000368.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000424.mp3",
+    "bytes": 961205,
+    "sha256": "56da863790c5e671327ba7fcca8c9dd3bcc20fc67c31c8ac35494d62f53fa0ea",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000424.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000459.mp3",
+    "bytes": 481256,
+    "sha256": "c7c9d2b45524189c03e530d596e231df37977d35cf7550b8667e66ee1a92ec7d",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000459.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000534.mp3",
+    "bytes": 480811,
+    "sha256": "38b2c7205590bb5ef6201e42b9498b023668fbee26afae2d24d159b56769885f",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000534.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000540.mp3",
+    "bytes": 480813,
+    "sha256": "b95b8a193dccd029dd26a2769586bdce8b93a7c403bf397d8e56779f27679b6c",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000540.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000546.mp3",
+    "bytes": 480816,
+    "sha256": "5bfa73f0fa8da98661ca832627b67fa402e8e387fe03c286831310968276282f",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000546.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000574.mp3",
+    "bytes": 901148,
+    "sha256": "64f9e66c36144743633cb5683c6d051f61949e740050652970d9efde74f9d739",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000574.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000602.mp3",
+    "bytes": 600542,
+    "sha256": "f7d4dd5eabbf5527f2b79bfe36da785ac2e4adacd9b7fb7ef0af10774b4e603e",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000602.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000615.mp3",
+    "bytes": 961575,
+    "sha256": "381fc35b69754eb36351ab122fa9505dfd4108ec28c5ceabf66053de8fd6e44f",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000615.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000620.mp3",
+    "bytes": 961074,
+    "sha256": "574f0e857636a5771ed3c146abe38befc003b0a0025de5ba2dee10f1509ece1f",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000620.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000621.mp3",
+    "bytes": 960732,
+    "sha256": "4abcc599b32a268b52ca6cc6d6ff9a1f4a61c9f586b0d5bf9796e253f2088c6a",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000621.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000625.mp3",
+    "bytes": 961572,
+    "sha256": "389f7e9edd159d5118fb510a4bfdaaddfb2c192a605b9518f6a5576178e6a176",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000625.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000666.mp3",
+    "bytes": 960889,
+    "sha256": "0df42cb6fdde88887d8cdc5bbf8fc4fad3f3e456db5812a7718e9211ac1cc237",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000666.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000667.mp3",
+    "bytes": 960083,
+    "sha256": "8695e5b2800ea5d4ebed7bc6b99c1c8bed0ce057cc55b3c7f4244b0aa1cb9891",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000667.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000676.mp3",
+    "bytes": 960714,
+    "sha256": "248a49c66e8635f5d7c440f0c931151234524efb461dcf518f44eda4070b53ec",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000676.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000690.mp3",
+    "bytes": 960765,
+    "sha256": "2839f85d1122b446e813db351f68beaa7f5dd09cf25417bc25642bf4cca0e6df",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000690.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000694.mp3",
+    "bytes": 601023,
+    "sha256": "866d2bfedd1574e003a72ee98ae79d99a4f98437c98970c4fa7d60c91803e5ae",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000694.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000695.mp3",
+    "bytes": 600631,
+    "sha256": "d839c49f62c34796f70a08896ea1d00453f3ecdb51e29fdf8a0567da7cbb9971",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000695.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000704.mp3",
+    "bytes": 960674,
+    "sha256": "bc224f6b237785d44fa3d3df5f8ab887e95c2c7c54a8adfdae456e0758d2e8ef",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000704.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000705.mp3",
+    "bytes": 960676,
+    "sha256": "27f9c66c9b52d4deecaa3bfe4a59db5da4a2b274e8d50c695b7ce2017f9f47e1",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000705.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000706.mp3",
+    "bytes": 961513,
+    "sha256": "4071bce735c802f936c1d49a4845f0507d3dd17c4524c6a10332ece04e72e738",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000706.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000707.mp3",
+    "bytes": 960672,
+    "sha256": "155548c29ba31c8e6bcfef472462588cc416d144422df8f14b930ed40a11a6b3",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000707.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000708.mp3",
+    "bytes": 960674,
+    "sha256": "729484e981b839981012255c774bdf6aba19a0bf74a0fb54e3e7bf2e128f97a7",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000708.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000709.mp3",
+    "bytes": 721504,
+    "sha256": "6e0d74bed0d9f8168d3bf868516f4156dfd8bf097ce496705f1d7fa9d643d9c5",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000709.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000714.mp3",
+    "bytes": 960864,
+    "sha256": "21456d5d5e96d09a90406777c205cedd376bd02e3d9f8ed5aee37b8d60e1df8d",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000714.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000715.mp3",
+    "bytes": 960706,
+    "sha256": "3c81dbd5484d595b75f101df2eca948ee1e61b6d9d8e106e6340345bc22ed53c",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000715.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000716.mp3",
+    "bytes": 960707,
+    "sha256": "c398daddb2a59d4ea96f6e6de0f14e61477927bd5efcfd2fb101502c8d8302e3",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000716.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000718.mp3",
+    "bytes": 961559,
+    "sha256": "b9be9c44e9e0991ea713d9f5737ca051b5c0a68a89ce547acefde1da79eb1f5d",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000718.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000777.mp3",
+    "bytes": 960727,
+    "sha256": "abb01b7af850d69d7ce418489965e9900fae5ead98eb702fc1256dcdd4c318f5",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000777.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000814.mp3",
+    "bytes": 960748,
+    "sha256": "cffc5b6ff95eefc2a78cf007e47b54b9e81c58b883285ff735ce1f0834df6ad6",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000814.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000821.mp3",
+    "bytes": 961825,
+    "sha256": "9c65bdd33a11591958aac25e35733b6c815980cd975dd66b46eef998d6d7b835",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000821.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000822.mp3",
+    "bytes": 960998,
+    "sha256": "c55f623f929937c0d36cbeddb9c16eaea4a08b529fc350a5abf147b302fba9bd",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000822.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000825.mp3",
+    "bytes": 479663,
+    "sha256": "5b92652d4f8494128cfa5be551d8ed9b9a1628b55741f4ed32154d792002473c",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000825.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000853.mp3",
+    "bytes": 961865,
+    "sha256": "191792c1ab5ebe253eeeb64b8e4a9dbb4df03a767fce6098d448ea5c2cbb7f74",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000853.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000890.mp3",
+    "bytes": 960773,
+    "sha256": "3ed16c5d681e31edf4b89c95f04cdf22047be639ec31a4b047d8f44b351d1d18",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000890.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000892.mp3",
+    "bytes": 960769,
+    "sha256": "4dc38e9e4f9db7423b41b28d4c82e678731b61b988221766a8f28a0725229105",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000892.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000897.mp3",
+    "bytes": 960775,
+    "sha256": "9c0577861a29510a80ffe00cdcc155f365ed8bdca9e64ca19a962da322225667",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000897.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000993.mp3",
+    "bytes": 961656,
+    "sha256": "50d638ff9013e293dbd3ae4c06cefe61f2bb8c9a2f8b627a40a0e3fe07c1ded9",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000993.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000995.mp3",
+    "bytes": 961647,
+    "sha256": "6e2d43f8cd381b45e02dd849c73523eb9f8aa59b6c2d12cd0564743746ce154d",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000995.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000997.mp3",
+    "bytes": 961640,
+    "sha256": "267a0322481376f4d4c1e54cde57d91c70078a4cb5abd080533048a55542b695",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000997.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/min_inputs/songs.min/000/000998.mp3",
+    "bytes": 960793,
+    "sha256": "836932babb7eb50a872213c175373a5b5e96f1aaf58810ff410ce0f797aac20e",
+    "active_counterpart": "evaluation/benchmarks/dpt/min_inputs/songs.min/000/000998.mp3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/run.sh",
+    "bytes": 1409,
+    "sha256": "412a10bc433b7f0177e35ce4d3a2977142a2b4ad44dec698e4605d9276299420",
+    "active_counterpart": "evaluation/benchmarks/dpt/run.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/classify.py",
+    "bytes": 3675,
+    "sha256": "b0fadf26368bebf1620222ed32371d8edc5171ab9aea6b5e31d90949d2ce9e9d",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/classify.py",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/dpt_1.sh",
+    "bytes": 559,
+    "sha256": "710bf4b2129dbb3bc5b2a318ba420612a88c799459ad943c9a70447104e1a3ea",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/dpt_1.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/dpt_2.sh",
+    "bytes": 514,
+    "sha256": "613e83c1f2b5b56fd2cdbe02e6e554377f7d6653a3688317517304faab78c8ff",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/dpt_2.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/dpt_3a.sh",
+    "bytes": 524,
+    "sha256": "aa6aebb2c4c13802ffb39e08c4a7337db469a4bd6a68bcc12d4b3f060612c82a",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/dpt_3a.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/dpt_3b.sh",
+    "bytes": 538,
+    "sha256": "96997ca2b66c71a4c16ba793704dbea35e6cfa0ea6171efc89665d0465800eed",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/dpt_3b.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/dpt_4.sh",
+    "bytes": 569,
+    "sha256": "c365171014bb4096deec6d0a359223187abb7c27badde7753279731d80f96dae",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/dpt_4.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/dpt_5a.sh",
+    "bytes": 617,
+    "sha256": "f57f6d869df92a5918d4bc81f371e7894d8423fddbbb7be12d3c72d26af550c3",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/dpt_5a.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/dpt_5b.sh",
+    "bytes": 620,
+    "sha256": "9f80638b8b69b7147789f5129d95c52b9058ebb3a7ef02a2f29032da55f04704",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/dpt_5b.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/dpt_5c.sh",
+    "bytes": 652,
+    "sha256": "995e254be5f605da75659e22d1cb72a1eee4d3ecb7ee9ee2d37e3898191738b8",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/dpt_5c.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/dpt_5d.sh",
+    "bytes": 652,
+    "sha256": "85a22921805841131710e9d4e9defd25d713da4ae2ceb6a01722e1f092a319ca",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/dpt_5d.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/dpt_5e.sh",
+    "bytes": 652,
+    "sha256": "712633f27a60a3d9c69d24e329e7886c973ade13f5128a37a985056cd6eec4ff",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/dpt_5e.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/dpt_reference.sh",
+    "bytes": 634,
+    "sha256": "ea192a043ef9af253f1a5be287342e95058d3c3dfe60b086eba38e4ea3cc02cd",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/dpt_reference.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/plot_1.py",
+    "bytes": 834,
+    "sha256": "a0ef17fce9eec2fc1b91205d7620eabb855a72a66e58ab85f22ac5e9ea5eb784",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/plot_1.py",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/plot_2.py",
+    "bytes": 1365,
+    "sha256": "4db27054d9d661df70a4510cae1ef68f7b3dcd0fb5febd958686c954d8497f2c",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/plot_2.py",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/plot_3.py",
+    "bytes": 2640,
+    "sha256": "baa682d7d6ce975973d13a74aa9c5073c90d2cc13824bce9c7d51fa00929493a",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/plot_3.py",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/dpt/scripts/segment.py",
+    "bytes": 3411,
+    "sha256": "210a164ebcab22256c927a779def6aff55c764fc73bd1d160b0c986aa23a9ce9",
+    "active_counterpart": "evaluation/benchmarks/dpt/scripts/segment.py",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/setup.sh",
+    "bytes": 737,
+    "sha256": "88933ccd149ac8e17d8f93e5372f13ee6a253a85853149f4b7968e2c091888ac",
+    "active_counterpart": "evaluation/benchmarks/dpt/setup.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/dpt/validate.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/dpt/validate.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/file-mod/README.md",
+    "bytes": 35,
+    "sha256": "a235c67c9f7f2503922fc8ff8e1a913f9f9daa4f37bf403f21fa43bcf11b9fe7",
+    "active_counterpart": "evaluation/benchmarks/file-mod/README.md",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/file-mod/clean.sh",
+    "bytes": 71,
+    "sha256": "e7d4838b2ab08fd4c54a10d195d7e970bc9854fe407553c8e07d0a1a5c2b2a59",
+    "active_counterpart": "evaluation/benchmarks/file-mod/clean.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/file-mod/execute.sh",
+    "bytes": 1810,
+    "sha256": "1b54737d87396bb53317c367875c97ffbf5b242298d59f8fa1955a4ed3f5bb8d",
+    "active_counterpart": "evaluation/benchmarks/file-mod/execute.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/file-mod/fetch.sh",
+    "bytes": 1730,
+    "sha256": "d472b7c0e9c55ad70f470483b7dd0de716a8009874d495df3f59e61f772c7d2c",
+    "active_counterpart": "evaluation/benchmarks/file-mod/fetch.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/file-mod/install.sh",
+    "bytes": 785,
+    "sha256": "2918c3ca53c34d78e6cd312b8b01080678c1672705e07e716b1d44ee29533856",
+    "active_counterpart": "evaluation/benchmarks/file-mod/install.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/file-mod/run.sh",
+    "bytes": 1284,
+    "sha256": "b6e8a0a6269ba75673ede35db3a4afaaa57b50b2d5ddb2040de50eaece288a1e",
+    "active_counterpart": "evaluation/benchmarks/file-mod/run.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/file-mod/scripts/file-mod-1.sh",
+    "bytes": 172,
+    "sha256": "90ecc2cef7f8d2d5639c7d44334ea589b9fc383a9aaa588ce36b03c69f744d37",
+    "active_counterpart": "evaluation/benchmarks/file-mod/scripts/file-mod-1.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/file-mod/scripts/file-mod-2.sh",
+    "bytes": 253,
+    "sha256": "9f3438f84234199b6b749d4a26d8f2fe88cb71cd852182c8d6bca5d159d10e26",
+    "active_counterpart": "evaluation/benchmarks/file-mod/scripts/file-mod-2.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/file-mod/scripts/file-mod-3.sh",
+    "bytes": 256,
+    "sha256": "625325546f609eef2692db812490f44ecd424eb5bc92250cb59e3f19858cfa0e",
+    "active_counterpart": "evaluation/benchmarks/file-mod/scripts/file-mod-3.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/file-mod/scripts/file-mod-4.sh",
+    "bytes": 318,
+    "sha256": "b17a30838931e25a7b98a6fa5d677ccd787a17ee97c8ccaef03cfadd8efaa8d9",
+    "active_counterpart": "evaluation/benchmarks/file-mod/scripts/file-mod-4.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/file-mod/scripts/file-mod-5.sh",
+    "bytes": 356,
+    "sha256": "4ac7f70d1630aa3ef63979546e39a2ccc452dfd53b5f75673826172926ecea1a",
+    "active_counterpart": "evaluation/benchmarks/file-mod/scripts/file-mod-5.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/file-mod/scripts/file-mod-6.sh",
+    "bytes": 441,
+    "sha256": "50acd791e3a8bb0ab4081a3610718c6370bbe26a0914571a9f434451f165cd66",
+    "active_counterpart": "evaluation/benchmarks/file-mod/scripts/file-mod-6.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/file-mod/scripts/file-mod-7.sh",
+    "bytes": 368,
+    "sha256": "a3c83de73fe0985005f244dcda184ed76b59786067a33a8a1f304f5b8d40773b",
+    "active_counterpart": "evaluation/benchmarks/file-mod/scripts/file-mod-7.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/file-mod/setup.sh",
+    "bytes": 1518,
+    "sha256": "2bbd367dd554a4afd40ea26cde5fa582f70d47b2b86c7a5554f43d17c63b649f",
+    "active_counterpart": "evaluation/benchmarks/file-mod/setup.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/file-mod/validate.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/file-mod/validate.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/README.md",
+    "bytes": 167,
+    "sha256": "1fb868742f558513560a739d672a30df94ea455a4ce352b1927a01c2d6e42ff7",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/README.md",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/clean.sh",
+    "bytes": 71,
+    "sha256": "e7d4838b2ab08fd4c54a10d195d7e970bc9854fe407553c8e07d0a1a5c2b2a59",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/clean.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/image-annotation/execute.sh",
+    "bytes": 2001,
+    "sha256": "baff47733a044cb71fd846cf57a13975891014ea4a06f3b8fd73c98afae9e81e",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/execute.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/image-annotation/fetch.sh",
+    "bytes": 1989,
+    "sha256": "43541b0bd4d0f67e1cb2b70c84ead9e164e56eae6d5e7fc53f837c20ad4b403d",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/fetch.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/install.sh",
+    "bytes": 785,
+    "sha256": "2918c3ca53c34d78e6cd312b8b01080678c1672705e07e716b1d44ee29533856",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/install.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/min_inputs/100401.jpg",
+    "bytes": 85243,
+    "sha256": "2c144f6b41afc6f1d56e9fbaaf9e91ec90a3a2840be7b2f1d314217b5157f7fc",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/min_inputs/100401.jpg",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/min_inputs/106700.jpg",
+    "bytes": 85743,
+    "sha256": "3019c1c18e959dae83f96065830713f29a6e7f69b417072ab4dbfc6660223af3",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/min_inputs/106700.jpg",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/min_inputs/107001.jpg",
+    "bytes": 84131,
+    "sha256": "376637825992e2df1663ed99be1c6bcd1c088639a4312879ca1584eba6eb5d89",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/min_inputs/107001.jpg",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/min_inputs/109001.jpg",
+    "bytes": 491938,
+    "sha256": "9e8c3b55a691d273e33bd17e7776fd36bf85028136da7edea1ef58dcaf684d25",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/min_inputs/109001.jpg",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/min_inputs/110900.jpg",
+    "bytes": 383786,
+    "sha256": "42466dbdb5acba21ae956474ac706e4d4998be4312ca50f4280708e214313714",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/min_inputs/110900.jpg",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/run.sh",
+    "bytes": 1574,
+    "sha256": "97afc0b4bbf798297d4c4698bd5bc3569eec8836501b90c978650857fcc7d1e0",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/run.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/scripts/image-annotation-1.sh",
+    "bytes": 316,
+    "sha256": "61465af0814b1e17966f9e749476a8c778c474f0ff798d5d1e30fcb029a35584",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/scripts/image-annotation-1.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/scripts/image-annotation-2.sh",
+    "bytes": 336,
+    "sha256": "c72730c5714316c9b345f05b444812d4844ef03a9a3fc96237be737f59f5bb15",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/scripts/image-annotation-2.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/scripts/image-annotation-3.sh",
+    "bytes": 365,
+    "sha256": "a604348c3947272d65bc09f81ffec57cc051d1f5c8453d39f2072a347df4706c",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/scripts/image-annotation-3.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/scripts/image-annotation-4.sh",
+    "bytes": 390,
+    "sha256": "01dc7241f8defb81072938d4f2a0df3c4f89e539cdc310c6f4160ea0e7126240",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/scripts/image-annotation-4.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/scripts/image-annotation-5.sh",
+    "bytes": 411,
+    "sha256": "bad27a97c7ea260718d9d6c2751e588e87476d7780bcce5f64dfd8079e71007b",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/scripts/image-annotation-5.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/scripts/image-annotation-6.sh",
+    "bytes": 404,
+    "sha256": "3432e7d0564578074420a8da1fc9595c91af5e05df440874e7f302a4543e5aff",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/scripts/image-annotation-6.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/scripts/image-annotation-7.sh",
+    "bytes": 396,
+    "sha256": "0229b0103115279677b41cb0611cb29d26cc3cb33d5fb36e6ee9563aaf5ba75b",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/scripts/image-annotation-7.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/image-annotation/setup.sh",
+    "bytes": 784,
+    "sha256": "d2e72a44460156e0fa37d75d7d4a42fa984a6cc9a2b6c0d2a60e404860488fb0",
+    "active_counterpart": "evaluation/benchmarks/image-annotation/setup.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/README.md",
+    "bytes": 300,
+    "sha256": "816b95cc2e448e0cf93b901bffc992835d99069560705e9bad988a5aeddd276f",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/README.md",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/clean.sh",
+    "bytes": 71,
+    "sha256": "e7d4838b2ab08fd4c54a10d195d7e970bc9854fe407553c8e07d0a1a5c2b2a59",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/clean.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/execute.sh",
+    "bytes": 1981,
+    "sha256": "705051c5c18fa88b26d6c176f7db3fb0a54f24661f8d37b433ee6115a390db26",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/execute.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/fetch.sh",
+    "bytes": 1919,
+    "sha256": "077d96741b9da6bb5b9b392d8d0f3bdf2878c15fb60ed1f9bbe8d9ebbd0da212",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/fetch.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/install.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/install.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/min_inputs/nginx-logs/log3",
+    "bytes": 83406,
+    "sha256": "658f4ab78cf9f1efc7954ed7778b68113d6b126496754bd4906de12676be2b74",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/min_inputs/nginx-logs/log3",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/run.sh",
+    "bytes": 1468,
+    "sha256": "86296aa176316112ccf68a328a876f727f7d02e94d03bf14d78ed619dd0d8714",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/run.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-1.sh",
+    "bytes": 226,
+    "sha256": "584006523a92b8ad3ed39b026d63691f7fa982ed013f1bd4f3c30e7028160d8b",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-1.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-10.sh",
+    "bytes": 322,
+    "sha256": "6230dce7b994a988f020fdef81058e17a548ce685f84db903fdba208238f3f8b",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-10.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-11.sh",
+    "bytes": 349,
+    "sha256": "d38601cf87365b8ae4dcd0e2f5859e9082adb544da9d9616486a64b6161e5384",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-11.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-12.sh",
+    "bytes": 414,
+    "sha256": "e7673859f281322055e2aff9e9095cb7b9c88c7c872cdb5d14e5a6ca24176f60",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-12.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-13.sh",
+    "bytes": 433,
+    "sha256": "dbd6f6c5b7979259fbf2b3b4b94e9241bb15cecd0d7821d0a699e7ec721ec2f0",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-13.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-14.sh",
+    "bytes": 450,
+    "sha256": "d6fdd246251ff38c2c3d7937915fd44b0a113a68c5d7d3538e52b689ed8c4c42",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-14.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-15.sh",
+    "bytes": 526,
+    "sha256": "54c6ed6866aa98bb83ced7e51a4b30b1a519a33bf25a823160e3b6406dd753dd",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-15.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-16.sh",
+    "bytes": 545,
+    "sha256": "24cf85952f8471c7e9b1fd3b53fbc844edd5bb1371ac6bd6aca033db677282df",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-16.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-17.sh",
+    "bytes": 594,
+    "sha256": "a294554db0d103b09e0425f44f2d8398dcdd838150a45f10b914a4921cd7a0a0",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-17.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-18.sh",
+    "bytes": 630,
+    "sha256": "91eb5f399a4d0753e6fdb91295876182a3207e4a552176152b4bbbbed92ccc46",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-18.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-19.sh",
+    "bytes": 640,
+    "sha256": "ff8052e5f5549fc242f91bf1f4b3afaff81325fcbe04ee9c0913ca192c30f48b",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-19.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-2.sh",
+    "bytes": 243,
+    "sha256": "d1a445a6e7af5904cad48f75da0fc21e7e1153dfdfe46cd5b6d299d8e6d5c6be",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-2.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-20.sh",
+    "bytes": 733,
+    "sha256": "e321cf8048b3054d05895246c40384bc88807d54e3ce3ff027063f27c0082c99",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-20.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-21.sh",
+    "bytes": 737,
+    "sha256": "38282341ba6ffc90365f810392e140102130d5832c0b541c7040d59e2b1c99aa",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-21.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-22.sh",
+    "bytes": 765,
+    "sha256": "5d654b563627f21fa34eff72c7defa032e2d7afe8147b12e92413f8f09ee9f6b",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-22.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-3.sh",
+    "bytes": 260,
+    "sha256": "e88f2e925d21c9fb8342dc822ea1c7003e9245a5506ebcb3ec71428626acc18a",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-3.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-4.sh",
+    "bytes": 271,
+    "sha256": "7836d9fbc12f1a2f15788264b7aaf8fd6ce7057071580378ec090a6289ded431",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-4.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-5.sh",
+    "bytes": 192,
+    "sha256": "f39b06b25ec09ca413f7bc0ccf91a383ede07f5225bbd7eb1a701883d54cbaae",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-5.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-6.sh",
+    "bytes": 224,
+    "sha256": "053063d47d67ae5d9a90cf882068323d212c27618f9cd0c762663326e920e95a",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-6.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-7.sh",
+    "bytes": 243,
+    "sha256": "9dcf1c356cda542d35c6e8279a35ca58d031c70e523c5c6adbd43b8476fe6d8c",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-7.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-8.sh",
+    "bytes": 271,
+    "sha256": "8fc263be77e09b3f044f5d4a6beaa1c11b88c9d62f2c4b26e787a791f7421a5d",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-8.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/scripts/nginx-9.sh",
+    "bytes": 303,
+    "sha256": "1e8a8e6d7a47872732f4d019d952493cd6b4054b1683f15efcee3b468c5d621e",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/scripts/nginx-9.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/setup.sh",
+    "bytes": 583,
+    "sha256": "7ff078e604ab24044357e19ed4071b0c2af4c9c35e1db95abdd415ce5ec441b3",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/setup.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nginx-analysis/validate.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/nginx-analysis/validate.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-ngrams/README.md",
+    "bytes": 120,
+    "sha256": "73fb07e3d86761d45f9ec45cdb49d45d4e58b909a8c822dce10a736ae5c1527d",
+    "active_counterpart": "evaluation/benchmarks/nlp-ngrams/README.md",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-ngrams/clean.sh",
+    "bytes": 71,
+    "sha256": "e7d4838b2ab08fd4c54a10d195d7e970bc9854fe407553c8e07d0a1a5c2b2a59",
+    "active_counterpart": "evaluation/benchmarks/nlp-ngrams/clean.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/nlp-ngrams/execute.sh",
+    "bytes": 1817,
+    "sha256": "6b7afa0d48ed6e429119cf808b1cbc791d41ba212d733100b2510d3bd397c45b",
+    "active_counterpart": "evaluation/benchmarks/nlp-ngrams/execute.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-ngrams/fetch.sh",
+    "bytes": 2343,
+    "sha256": "8b1df20efd332ad516df0faba19145201fe4ae2a2b2e48e11ad1f92e607bb8d9",
+    "active_counterpart": "evaluation/benchmarks/nlp-ngrams/fetch.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-ngrams/install.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/nlp-ngrams/install.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-ngrams/min_inputs/pg-min/sample.txt",
+    "bytes": 3262,
+    "sha256": "b105bef5526eb70767d68f244034e161a51a3b3a923e87715b89b5506b315596",
+    "active_counterpart": "evaluation/benchmarks/nlp-ngrams/min_inputs/pg-min/sample.txt",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-ngrams/run.sh",
+    "bytes": 1284,
+    "sha256": "ffed2f675172a78dd037dddaae4f7a83809cc8ca65377a68ba017d0611ce16b7",
+    "active_counterpart": "evaluation/benchmarks/nlp-ngrams/run.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-ngrams/scripts/ngrams-1.sh",
+    "bytes": 698,
+    "sha256": "03ce00b8a1882e1f3c483e67165bc1e3cb73d59a0456fa8c4a933d980bed03b9",
+    "active_counterpart": "evaluation/benchmarks/nlp-ngrams/scripts/ngrams-1.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-ngrams/scripts/ngrams-2.sh",
+    "bytes": 802,
+    "sha256": "4969a5060c61b30a13bf59b6976ddd55a7807d2d4ffdec06d985a8cf2b401e60",
+    "active_counterpart": "evaluation/benchmarks/nlp-ngrams/scripts/ngrams-2.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-ngrams/scripts/ngrams-3.sh",
+    "bytes": 891,
+    "sha256": "622a5c8b2ad5b6b9e1e4cbd87e5325319e9e476fb44b604589f2b0c00d636715",
+    "active_counterpart": "evaluation/benchmarks/nlp-ngrams/scripts/ngrams-3.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-ngrams/setup.sh",
+    "bytes": 860,
+    "sha256": "9180fd64fa32ae93dd381f91600bb1a7c9f0f08db5bb82021da4367e2f73e162",
+    "active_counterpart": "evaluation/benchmarks/nlp-ngrams/setup.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-ngrams/validate.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/nlp-ngrams/validate.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-uppercase/README.md",
+    "bytes": 34,
+    "sha256": "df4b98f8db6eb93c64ec7bbe778be7bcf3813b9aed2ed885d9276152b49035a0",
+    "active_counterpart": "evaluation/benchmarks/nlp-uppercase/README.md",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-uppercase/clean.sh",
+    "bytes": 71,
+    "sha256": "e7d4838b2ab08fd4c54a10d195d7e970bc9854fe407553c8e07d0a1a5c2b2a59",
+    "active_counterpart": "evaluation/benchmarks/nlp-uppercase/clean.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/nlp-uppercase/execute.sh",
+    "bytes": 1825,
+    "sha256": "25072ed4678adea48e65e201dd721bae4ca2ac13003f530e054bfb348d756249",
+    "active_counterpart": "evaluation/benchmarks/nlp-uppercase/execute.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-uppercase/fetch.sh",
+    "bytes": 2346,
+    "sha256": "50c568550a7360a80ccfd221157e947988e4c3aa7040814609baafb2e1e56ca4",
+    "active_counterpart": "evaluation/benchmarks/nlp-uppercase/fetch.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-uppercase/install.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/nlp-uppercase/install.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-uppercase/min_inputs/pg-min/sample.txt",
+    "bytes": 3262,
+    "sha256": "b105bef5526eb70767d68f244034e161a51a3b3a923e87715b89b5506b315596",
+    "active_counterpart": "evaluation/benchmarks/nlp-uppercase/min_inputs/pg-min/sample.txt",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-uppercase/run.sh",
+    "bytes": 1303,
+    "sha256": "6c775d18c4e6c4d2eff0e5c48815dd1a4f9b2799338af1d71718fb8ab296eb96",
+    "active_counterpart": "evaluation/benchmarks/nlp-uppercase/run.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-uppercase/scripts/uppercase_by_token.sh",
+    "bytes": 391,
+    "sha256": "c3ebc226d9f3b174724d9d3d72c1d4f6f11245a296710e5bd9591796affa87d4",
+    "active_counterpart": "evaluation/benchmarks/nlp-uppercase/scripts/uppercase_by_token.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-uppercase/scripts/uppercase_by_type.sh",
+    "bytes": 399,
+    "sha256": "50029ca3f5e9996fe06c80e970f59269a70174e04045780652918bf20d47a9e1",
+    "active_counterpart": "evaluation/benchmarks/nlp-uppercase/scripts/uppercase_by_type.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-uppercase/setup.sh",
+    "bytes": 875,
+    "sha256": "d833ccacf27b4df1826f006e857c8541502cf3f6d931ef095529b8b63af70938",
+    "active_counterpart": "evaluation/benchmarks/nlp-uppercase/setup.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/nlp-uppercase/validate.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/nlp-uppercase/validate.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/poet/clean.sh",
+    "bytes": 71,
+    "sha256": "e7d4838b2ab08fd4c54a10d195d7e970bc9854fe407553c8e07d0a1a5c2b2a59",
+    "active_counterpart": "evaluation/benchmarks/poet/clean.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/poet/execute.sh",
+    "bytes": 1708,
+    "sha256": "740458d6eac9f3b16812dcb92dedcaf99ef252b96981cd8aa6de500181ddf655",
+    "active_counterpart": "evaluation/benchmarks/poet/execute.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/poet/fetch.sh",
+    "bytes": 2293,
+    "sha256": "a325d6a0e328ac54d5f0b058dbea9cda0836f0a004d0c3132d8785866d7bf8e2",
+    "active_counterpart": "evaluation/benchmarks/poet/fetch.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/poet/min_inputs/pg-min/sample.txt",
+    "bytes": 3262,
+    "sha256": "b105bef5526eb70767d68f244034e161a51a3b3a923e87715b89b5506b315596",
+    "active_counterpart": "evaluation/benchmarks/poet/min_inputs/pg-min/sample.txt",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/poet/run.sh",
+    "bytes": 1178,
+    "sha256": "2a26d66ea10ba603df8add1be924b0cf9c3254dba05bee53d040f1c64340efb5",
+    "active_counterpart": "evaluation/benchmarks/poet/run.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/poet/scripts/poet-1.sh",
+    "bytes": 240,
+    "sha256": "78ff91339d56fc7f0fba351ab652285aeb958677c4baac02ffa709047a3becc9",
+    "active_counterpart": "evaluation/benchmarks/poet/scripts/poet-1.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/poet/scripts/poet-2.sh",
+    "bytes": 277,
+    "sha256": "3269ad4b26da0f126b9ba3401376d474521e64a932d9403d88d96dc3aa083c89",
+    "active_counterpart": "evaluation/benchmarks/poet/scripts/poet-2.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/poet/scripts/poet-3.sh",
+    "bytes": 425,
+    "sha256": "f9d08079e518adf8f43bc888db4e0007f74724795d87b2946182c033b287cbd6",
+    "active_counterpart": "evaluation/benchmarks/poet/scripts/poet-3.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/poet/scripts/poet-4.sh",
+    "bytes": 601,
+    "sha256": "81de8eb7cc1e7d612e53a73b630251b27ebf966ff8b2e367d2d4f3da5067c560",
+    "active_counterpart": "evaluation/benchmarks/poet/scripts/poet-4.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/poet/setup.sh",
+    "bytes": 830,
+    "sha256": "cfe44b822ce078dd47e23e991d0503e178d1af8cb3aa8c24cb647aa51d909cd3",
+    "active_counterpart": "evaluation/benchmarks/poet/setup.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/run.sh",
+    "bytes": 1167,
+    "sha256": "a9137015b2b65010023017acc1f13406b5ab59e6535e8023cfb3b39b9edde9e4",
+    "active_counterpart": null,
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/run_all.sh",
+    "bytes": 6841,
+    "sha256": "98e841373779e316c7cbfb7c3598a7f833da8a3dcdb3ca45664235e109c43c76",
+    "active_counterpart": "evaluation/benchmarks/run_all.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/run_lib.sh",
+    "bytes": 6655,
+    "sha256": "d9235165c410e5e4e9bf09c0453673bd66ae301e0d4f91b5e8529c36282fd8c1",
+    "active_counterpart": "evaluation/benchmarks/run_lib.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/show_results.py",
+    "bytes": 9521,
+    "sha256": "fd093f66f1ba8d70638e23f769a2dd3605af3b45f108de1f0430d515d984cbfe",
+    "active_counterpart": null,
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/spell/clean.sh",
+    "bytes": 71,
+    "sha256": "e7d4838b2ab08fd4c54a10d195d7e970bc9854fe407553c8e07d0a1a5c2b2a59",
+    "active_counterpart": "evaluation/benchmarks/spell/clean.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/spell/execute.sh",
+    "bytes": 1730,
+    "sha256": "c4371d9e5951c086393466abf9eaaf31a49d2045dc9c9164fbd274cfc1d2bc27",
+    "active_counterpart": "evaluation/benchmarks/spell/execute.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/spell/fetch.sh",
+    "bytes": 2403,
+    "sha256": "57ab5b2418a60edea70b51d44e19dbb586cbc4e1410c46cf44f4808e6dcfeb48",
+    "active_counterpart": "evaluation/benchmarks/spell/fetch.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/spell/min_inputs/pg-min/sample.txt",
+    "bytes": 3262,
+    "sha256": "b105bef5526eb70767d68f244034e161a51a3b3a923e87715b89b5506b315596",
+    "active_counterpart": "evaluation/benchmarks/spell/min_inputs/pg-min/sample.txt",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/spell/run.sh",
+    "bytes": 1219,
+    "sha256": "0733c473b60cb4f2f3645ba98152e2eb7c2f15186416745c66debbe203fc6ccf",
+    "active_counterpart": "evaluation/benchmarks/spell/run.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/spell/scripts/spell-1.sh",
+    "bytes": 197,
+    "sha256": "f5930a73b0c8713023d88dccaac00c6c6bd1895c599a62343393bee1e43a2b1d",
+    "active_counterpart": "evaluation/benchmarks/spell/scripts/spell-1.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/spell/scripts/spell-2.sh",
+    "bytes": 289,
+    "sha256": "e1f4ffc4f867bbfa77172c872e8b11164f99512ed7dcec7fe1d64d6375f7fd5c",
+    "active_counterpart": "evaluation/benchmarks/spell/scripts/spell-2.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/spell/scripts/spell-3.sh",
+    "bytes": 350,
+    "sha256": "f3f0602e7c0d96d23328efdcb14656a0e4343936bd0dca46899be860221779bc",
+    "active_counterpart": "evaluation/benchmarks/spell/scripts/spell-3.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/spell/scripts/spell-4.sh",
+    "bytes": 406,
+    "sha256": "4f05b9015c6bcbec7a5a2e6d1e1abc3d96d648ddc0ad77c3799229032c19ba34",
+    "active_counterpart": "evaluation/benchmarks/spell/scripts/spell-4.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/spell/scripts/spell-5.sh",
+    "bytes": 475,
+    "sha256": "659557197f423451653f2cd1317c0f08b60f9d3827a7bd887c355297784449a3",
+    "active_counterpart": "evaluation/benchmarks/spell/scripts/spell-5.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/spell/scripts/spell-6.sh",
+    "bytes": 682,
+    "sha256": "4b54279de1aafa042467131579a5bac2e3a98ba85c359f25cbe7db4edd4bdbf5",
+    "active_counterpart": "evaluation/benchmarks/spell/scripts/spell-6.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/spell/scripts/spell-7.sh",
+    "bytes": 671,
+    "sha256": "9c7a1f391cd62edf20cbbdefd3d366a1e1237b1893032ced72fbdfe4e9faf0cd",
+    "active_counterpart": "evaluation/benchmarks/spell/scripts/spell-7.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/spell/setup.sh",
+    "bytes": 972,
+    "sha256": "fcc5a326d052565a20fcb031cc4886deab3406ad0f1d1871ef40b9b34dbd1413",
+    "active_counterpart": "evaluation/benchmarks/spell/setup.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/unixfun/README.md",
+    "bytes": 35,
+    "sha256": "a235c67c9f7f2503922fc8ff8e1a913f9f9daa4f37bf403f21fa43bcf11b9fe7",
+    "active_counterpart": "evaluation/benchmarks/unixfun/README.md",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/unixfun/clean.sh",
+    "bytes": 71,
+    "sha256": "e7d4838b2ab08fd4c54a10d195d7e970bc9854fe407553c8e07d0a1a5c2b2a59",
+    "active_counterpart": "evaluation/benchmarks/unixfun/clean.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/unixfun/execute.sh",
+    "bytes": 1639,
+    "sha256": "bb8e46cbfd9fbfbfb806399af8274e30967a0495374ae66233129b6722f01909",
+    "active_counterpart": "evaluation/benchmarks/unixfun/execute.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/unixfun/fetch.sh",
+    "bytes": 2038,
+    "sha256": "da6e04d85a3a34646003c2b859ee3a1549d8db22524d30aab86fedaa7bd861d1",
+    "active_counterpart": "evaluation/benchmarks/unixfun/fetch.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/unixfun/install.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/unixfun/install.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/unixfun/min_inputs/4.txt",
+    "bytes": 2327,
+    "sha256": "56361fbbc463f92600aa34bcba0f2778066127c7498c0b396ab31e36b7eda3c7",
+    "active_counterpart": "evaluation/benchmarks/unixfun/min_inputs/4.txt",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/unixfun/run.sh",
+    "bytes": 1181,
+    "sha256": "0ff74a7101e658b7510bd4ed48a057c6394c77a27513d613c0ad16c0b5465304",
+    "active_counterpart": "evaluation/benchmarks/unixfun/run.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/unixfun/scripts/10.sh",
+    "bytes": 205,
+    "sha256": "7d5da380e5b4f6a8148c41e6e9f44b40559aef1071f6b92e9b67ed7c3a4ea385",
+    "active_counterpart": "evaluation/benchmarks/unixfun/scripts/10.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/unixfun/scripts/11.sh",
+    "bytes": 156,
+    "sha256": "913133dbe236401460ed07043f640f75dbc6c66e800a6497146f766362bf9a23",
+    "active_counterpart": "evaluation/benchmarks/unixfun/scripts/11.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/unixfun/scripts/12.sh",
+    "bytes": 193,
+    "sha256": "11fd4fd17faee9cb6144543bbbb1ed52dd3c32e338224823220d5c79d3bfad9c",
+    "active_counterpart": "evaluation/benchmarks/unixfun/scripts/12.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/unixfun/scripts/7.sh",
+    "bytes": 87,
+    "sha256": "13ab016d996fb85d89ca2f9f0c63823ceb9ff7e948a935c5edaddd928b8ca145",
+    "active_counterpart": "evaluation/benchmarks/unixfun/scripts/7.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/unixfun/scripts/8.sh",
+    "bytes": 106,
+    "sha256": "b278a93dadc0998d441645e276cee87197487100a1b3e51b5e1f7e0f8acdb53b",
+    "active_counterpart": "evaluation/benchmarks/unixfun/scripts/8.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/unixfun/scripts/9.sh",
+    "bytes": 156,
+    "sha256": "6d5a2f733ec0bf1fc5388e9d41b0f5fbe5e383933cd1b427aa54b5038f37165a",
+    "active_counterpart": "evaluation/benchmarks/unixfun/scripts/9.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/unixfun/setup.sh",
+    "bytes": 1265,
+    "sha256": "2bab8943aec0ff74759d2566dfa68a8d67dbb27966106497ee373d1b7cc59ab7",
+    "active_counterpart": "evaluation/benchmarks/unixfun/setup.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/unixfun/validate.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/unixfun/validate.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/verify_outputs.sh",
+    "bytes": 5002,
+    "sha256": "13c572d75216f6dbfc4b2fbb90a49db8f019c89ca09513500ca0d7c51b87e271",
+    "active_counterpart": null,
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/weather/README.md",
+    "bytes": 318,
+    "sha256": "2f113f93297dfeffcf3ad2a4f3ecf64e11ad58f9acadb11a7be2e8a19c6797ce",
+    "active_counterpart": "evaluation/benchmarks/weather/README.md",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/clean.sh",
+    "bytes": 84,
+    "sha256": "7fb2f565810b7aa50f42d5b4a59101e1b69ee197093cae457d5001f2d5a32156",
+    "active_counterpart": "evaluation/benchmarks/weather/clean.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/weather/execute.sh",
+    "bytes": 2368,
+    "sha256": "b0f4b14005484dc6ab14c710de9236f7f92b75ec8d3f44a8c117a64ba2a91009",
+    "active_counterpart": "evaluation/benchmarks/weather/execute.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/fetch.sh",
+    "bytes": 2459,
+    "sha256": "7bd86c70070e1bba5c9aa7c87ea0d22b65535e21ece766239ed5ea7ef02426fc",
+    "active_counterpart": "evaluation/benchmarks/weather/fetch.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/install.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/weather/install.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/min_inputs/temperatures.min.txt",
+    "bytes": 5703,
+    "sha256": "0e84e53d48b1532551be975fd71828bec441a579c48e9d42541a9a64c297a8fe",
+    "active_counterpart": "evaluation/benchmarks/weather/min_inputs/temperatures.min.txt",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/output.txt",
+    "bytes": 41,
+    "sha256": "6546b15a6775893623554920ce93a2d700ba0e9e172d5e4d687cdebebb23a5c9",
+    "active_counterpart": "evaluation/benchmarks/weather/output.txt",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/run.sh",
+    "bytes": 1772,
+    "sha256": "5235c942cee8e49d04d2028be8a46be0700859923a8bf3e663c912837e0dfe83",
+    "active_counterpart": "evaluation/benchmarks/weather/run.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/scripts/generate_input.py",
+    "bytes": 3474,
+    "sha256": "5e57b5f3f8dde56b6e78f5f216137f003352aaf9f9e673ee5d158473ef79febc",
+    "active_counterpart": "evaluation/benchmarks/weather/scripts/generate_input.py",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/scripts/plot.py",
+    "bytes": 4495,
+    "sha256": "4b0fb90e390e833a6cb2a352a395d738715bac5e1f03da94c72cbe330a5b9226",
+    "active_counterpart": "evaluation/benchmarks/weather/scripts/plot.py",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/scripts/temp-analytics-1.sh",
+    "bytes": 278,
+    "sha256": "8f46bc1ccf68e1498e98748d69fbdffab88caeee0d64de0ed691da420dfc6381",
+    "active_counterpart": "evaluation/benchmarks/weather/scripts/temp-analytics-1.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/scripts/temp-analytics-2.sh",
+    "bytes": 385,
+    "sha256": "f48ce8311255aa57f8ca76d6bc3a31a7c138126ae54521832b303c6c43cc25cf",
+    "active_counterpart": "evaluation/benchmarks/weather/scripts/temp-analytics-2.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/scripts/temp-analytics-3.sh",
+    "bytes": 533,
+    "sha256": "64ba0eec44e4bfa186443e9d705d8781a504a1ffbb0eb4a5925a966d254458f4",
+    "active_counterpart": "evaluation/benchmarks/weather/scripts/temp-analytics-3.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/scripts/tuft-weather-1.sh",
+    "bytes": 507,
+    "sha256": "5a0cd640d7fbab5ae5c64122cd082ccb5a597fe22e0adeaaaf0091b15b99aaf1",
+    "active_counterpart": "evaluation/benchmarks/weather/scripts/tuft-weather-1.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/scripts/tuft-weather-2.sh",
+    "bytes": 1310,
+    "sha256": "e41479153958dd1b9a4fce1210510c472e8847d173d6e2ff17e9177532e359be",
+    "active_counterpart": "evaluation/benchmarks/weather/scripts/tuft-weather-2.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/scripts/tuft-weather-3.sh",
+    "bytes": 2291,
+    "sha256": "517837f9da01619976696a80ac3dd12ccd4fc04ec74ba5bbe2ec03e194d8a004",
+    "active_counterpart": "evaluation/benchmarks/weather/scripts/tuft-weather-3.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/setup.sh",
+    "bytes": 555,
+    "sha256": "96cf125e731804fc0dde46698f579e3ae6212db2040683f3dfa0ae72874c5e47",
+    "active_counterpart": "evaluation/benchmarks/weather/setup.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/weather/validate.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/weather/validate.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/web-search/.gitignore",
+    "bytes": 51,
+    "sha256": "2cb380458ab609cc1e0836c959149b5e7061e71bb4c84dbb074ac3fbdb77f5e2",
+    "active_counterpart": "evaluation/benchmarks/web-search/.gitignore",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/web-search/README.md",
+    "bytes": 623,
+    "sha256": "be1b575773c764a3a992007c18a92b13f478982d6b11781a024473ab1a1e49b2",
+    "active_counterpart": "evaluation/benchmarks/web-search/README.md",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/web-search/clean.sh",
+    "bytes": 333,
+    "sha256": "f74a5478ba5238de1a069bda100f4ef76b2d28436836beac1a9b196fd27af1f0",
+    "active_counterpart": "evaluation/benchmarks/web-search/clean.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/web-search/execute.sh",
+    "bytes": 1963,
+    "sha256": "0be7948e1e39413ee9a345fd3968a1ee78415a915042f222fecd92b84cdaa172",
+    "active_counterpart": "evaluation/benchmarks/web-search/execute.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/web-search/fetch.sh",
+    "bytes": 1882,
+    "sha256": "2959cae4b54266e655bb4b1a25f077624acf5317ca102f16adaa7b644549075d",
+    "active_counterpart": "evaluation/benchmarks/web-search/fetch.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/web-search/install.sh",
+    "bytes": 1421,
+    "sha256": "61bad8e12c45572c4e03da9753f1e12be27942ad742aa1ddef2cfac628c84d2e",
+    "active_counterpart": "evaluation/benchmarks/web-search/install.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/web-search/scripts/c/combine.sh",
+    "bytes": 973,
+    "sha256": "42a2599aa0b178b7c04123601470eb61c3920fc0c2bc75d00c1cb2f3b6f9ce14",
+    "active_counterpart": "evaluation/benchmarks/web-search/scripts/c/combine.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/web-search/scripts/c/getText.js",
+    "bytes": 682,
+    "sha256": "ba60379b876089b3f70d08d48cb31c2f8e66da1c460ae1d673c4a906d3e263ba",
+    "active_counterpart": "evaluation/benchmarks/web-search/scripts/c/getText.js",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/web-search/scripts/c/getURLs.js",
+    "bytes": 2253,
+    "sha256": "b245205112a1258eae62ea23d020110aa17b587b3b09a809e48ae0631ed6344f",
+    "active_counterpart": "evaluation/benchmarks/web-search/scripts/c/getURLs.js",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/web-search/scripts/c/invert.sh",
+    "bytes": 242,
+    "sha256": "adeb74345da5c201113404f0989ae72bca53351f6a3d3c15b5fba42078063818",
+    "active_counterpart": "evaluation/benchmarks/web-search/scripts/c/invert.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/web-search/scripts/c/merge.js",
+    "bytes": 4328,
+    "sha256": "f5e6528c03e3227b7a3ee34d5e8b608794c75e034fd6504021cc64e861b47d94",
+    "active_counterpart": "evaluation/benchmarks/web-search/scripts/c/merge.js",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/web-search/scripts/c/process.sh",
+    "bytes": 468,
+    "sha256": "6248c256e21d2222679105df4d592d00151c811ebee1f6d81e31f706b85015ed",
+    "active_counterpart": "evaluation/benchmarks/web-search/scripts/c/process.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/web-search/scripts/c/stem.js",
+    "bytes": 481,
+    "sha256": "aec14a74f4ab7668cea7072a1c620cf09517989ef9320fbbcb8d233e888eeb09",
+    "active_counterpart": "evaluation/benchmarks/web-search/scripts/c/stem.js",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/web-search/scripts/crawl.sh",
+    "bytes": 390,
+    "sha256": "59fff1dbdb792be6d8eee01fc11545a33959b50549f0f2509c389f502b0778ec",
+    "active_counterpart": "evaluation/benchmarks/web-search/scripts/crawl.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/web-search/scripts/engine.sh",
+    "bytes": 561,
+    "sha256": "a69aa5951f57ef6b0083b2111da09b0992c4c7ce37bcf97941eddb6095d91164",
+    "active_counterpart": "evaluation/benchmarks/web-search/scripts/engine.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/web-search/scripts/index.sh",
+    "bytes": 211,
+    "sha256": "5603d4e4a92c94114bb377cc06085a1b4fe42065dbe621e87e6a32d13f7b16b1",
+    "active_counterpart": "evaluation/benchmarks/web-search/scripts/index.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/web-search/scripts/package.json",
+    "bytes": 106,
+    "sha256": "1eb928493734d35fec4faddf3929ee83fa0c305558422a7c2bfca54a0dbb5cbb",
+    "active_counterpart": "evaluation/benchmarks/web-search/scripts/package.json",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/web-search/scripts/query.sh",
+    "bytes": 541,
+    "sha256": "4ab75df5c7845571cfd346b2a708b8d8401a150aafbb4a92430bcd6e77aaf8c2",
+    "active_counterpart": "evaluation/benchmarks/web-search/scripts/query.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/web-search/validate.sh",
+    "bytes": 624,
+    "sha256": "cfd2ed9591cca8787dcb66b3ec0fa16ef364e8edb5333f64b4eefb518ba1cd01",
+    "active_counterpart": "evaluation/benchmarks/web-search/validate.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/word-freq/README.md",
+    "bytes": 184,
+    "sha256": "8dc1c885de468bd1c883b0a7778a9fe56e8728797a55b1b47300d1b59757ced8",
+    "active_counterpart": "evaluation/benchmarks/word-freq/README.md",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/word-freq/clean.sh",
+    "bytes": 71,
+    "sha256": "e7d4838b2ab08fd4c54a10d195d7e970bc9854fe407553c8e07d0a1a5c2b2a59",
+    "active_counterpart": "evaluation/benchmarks/word-freq/clean.sh",
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/word-freq/execute.sh",
+    "bytes": 1597,
+    "sha256": "cc04932969156c4de3ade52858009ff04f67f6a03044c883443900c32b9c8e77",
+    "active_counterpart": "evaluation/benchmarks/word-freq/execute.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/word-freq/fetch.sh",
+    "bytes": 2622,
+    "sha256": "ec94b4b9c5336fbd449c54d468879e85a29b107a81af1038ee99faa15a258aaa",
+    "active_counterpart": "evaluation/benchmarks/word-freq/fetch.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/word-freq/install.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/word-freq/install.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/word-freq/run.sh",
+    "bytes": 1163,
+    "sha256": "d47f67a768b1293f7d4a61d41c3d47469a07fc091a14ab5995366c6391b4fcac",
+    "active_counterpart": "evaluation/benchmarks/word-freq/run.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/word-freq/scripts/gen_comm.py",
+    "bytes": 465,
+    "sha256": "047181b531a70ac4327fe7776a0e33c368a29ceb2ddd236621b5fd74368839f0",
+    "active_counterpart": null,
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/word-freq/scripts/gen_ips.py",
+    "bytes": 455,
+    "sha256": "473f3eb23e95ccedfb8657ca42233fc8dddf6609e55c4b5380e202fa755a2da9",
+    "active_counterpart": null,
+    "identical": false
+  },
+  {
+    "path": "main/benchmarks/word-freq/scripts/top-n.sh",
+    "bytes": 141,
+    "sha256": "7f724b4ef3bf054fbfee1938d24e0157b379147ff345e9702f08c696edf4a20b",
+    "active_counterpart": "evaluation/benchmarks/word-freq/scripts/top-n.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/word-freq/scripts/wf.sh",
+    "bytes": 187,
+    "sha256": "db8ecbb95b98553e6773047b9577b5de5fd9ce52cb7cf66ebeba82725083a1a0",
+    "active_counterpart": "evaluation/benchmarks/word-freq/scripts/wf.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/word-freq/setup.sh",
+    "bytes": 1040,
+    "sha256": "2d9f8a8f22eaee3a500c8bb189db006132dde8d68de741f41ca0b0564de9a77c",
+    "active_counterpart": "evaluation/benchmarks/word-freq/setup.sh",
+    "identical": true
+  },
+  {
+    "path": "main/benchmarks/word-freq/validate.sh",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "active_counterpart": "evaluation/benchmarks/word-freq/validate.sh",
+    "identical": true
+  },
+  {
+    "path": "main/incr.sh",
+    "bytes": 2010,
+    "sha256": "ef45d3d63d7233f5051121af0c0331c35ecb7b0fefd41d0bfe04e09cbb7347e7",
+    "active_counterpart": "incr.sh",
+    "identical": false
+  }
+]

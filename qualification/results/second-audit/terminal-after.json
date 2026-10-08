@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "python3",
+    "qualification/regressions.py",
+    "Regressions.test_terminal_input_is_preserved",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.12599782700272044,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "208430b573e6c56d48b924af48d236b76771bf0ec5d0cbc7e72c4fcd1388d2da",
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 1 test in 0.024s\n\nOK\n"
+}

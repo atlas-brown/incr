@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "cargo",
+    "test"
+  ],
+  "returncode": 101,
+  "elapsed_sec": 2.353031562997785,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "2399cca8344297d146b2b9ad76e2a019478e5024ac177d58e4cbbaa704e58cd3",
+  "stderr_sha256": "f48e5934229fba03404ed508485beb4b466e2bf4c83e3c1a85d13caa8b6ac15a",
+  "stdout": "\nrunning 24 tests\ntest cache::effects::tests::replay_preserves_overwrite_and_replacement_alias_semantics ... FAILED\ntest cache::effects::tests::permission_cleanup_follows_the_original_inode ... ok\ntest cache::effects::tests::directory_replacement_keeps_removed_file_alias_permissions ... ok\ntest cache::effects::tests::invalid_hard_link_is_rejected_before_deletion ... ok\ntest execution::tests::excluded_roots_match_whole_components ... ok\ntest cache::effects::tests::replay_failure_restores_directory_permissions ... ok\ntest cache::effects::tests::replaced_directory_children_are_absent ... ok\ntest ops::spool::tests::closed_receiver_stops_producer ... ok\ntest ops::chunk::tests::repeated_bytes_still_have_bounded_chunks ... ok\ntest scripts::parse_trace::tests::quoted_commas_arrays_and_structures_stay_in_their_arguments ... ok\ntest scripts::parse_trace::tests::readonly_create_is_a_write_and_parent_components_are_preserved ... ok\ntest cache::effects::tests::replay_populates_existing_readonly_directory ... ok\ntest scripts::parse_trace::tests::failed_renames_are_reads_and_links_track_both_paths ... ok\ntest scripts::parse_trace::tests::returned_paths_can_contain_syscall_delimiters ... ok\ntest scripts::parse_trace::tests::strings_preserve_utf8_and_c_escapes ... ok\ntest scripts::parse_trace::tests::forked_directories_are_copied_and_clone_fs_directories_are_shared ... ok\ntest scripts::parse_trace::tests::unfinished_calls_resume_and_incomplete_records_block_reuse ... ok\ntest cache::effects::tests::replay_updates_readonly_file_without_breaking_aliases ... ok\ntest command::tests::dropping_running_child_stops_and_reaps_it ... ok\ntest execution::chunk_executor::tests::preserves_nonzero_status_on_cold_and_cached_chunks ... ok\ntest cache::candidates::tests::index_retention_ignores_unrelated_entries ... ok\ntest cache::effects::tests::replay_many_readonly_files ... ok\ntest ops::chunk::tests::boundaries_do_not_depend_on_read_sizes ... ok\ntest ops::spool::tests::spilled_input_preserves_order_and_cleans_path ... ok\n\nfailures:\n\n---- cache::effects::tests::replay_preserves_overwrite_and_replacement_alias_semantics stdout ----\nError: No such file or directory (os error 2)\n\n\nfailures:\n    cache::effects::tests::replay_preserves_overwrite_and_replacement_alias_semantics\n\ntest result: FAILED. 23 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s\n\n",
+  "stderr": "   Compiling incr v0.1.0 (/users/jxia3/atlas/incr)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.15s\n     Running unittests src/main.rs (target/debug/deps/incr-89c90ac342faa306)\nerror: test failed, to rerun pass `--bin incr`\n"
+}

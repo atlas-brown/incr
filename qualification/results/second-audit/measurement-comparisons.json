@@ -1,0 +1,56 @@
+[
+  {
+    "benchmark": "file-mod",
+    "script": "file-mod-1.sh",
+    "phase": "cold",
+    "bash_seconds": 0.24208568700123578,
+    "try_seconds": 2.2904840600022,
+    "observe_seconds": 0.597717674994783,
+    "speedup": 3.832050072841148
+  },
+  {
+    "benchmark": "file-mod",
+    "script": "file-mod-1.sh",
+    "phase": "warm",
+    "bash_seconds": 0.2658595039974898,
+    "try_seconds": 2.259921246994054,
+    "observe_seconds": 0.25303315599740017,
+    "speedup": 8.931324585056647
+  },
+  {
+    "benchmark": "word-freq",
+    "script": "top-n.sh",
+    "phase": "cold",
+    "bash_seconds": 1.888026925000304,
+    "try_seconds": 2.4336665149967303,
+    "observe_seconds": 1.5360806870012311,
+    "speedup": 1.5843350779624636
+  },
+  {
+    "benchmark": "word-freq",
+    "script": "top-n.sh",
+    "phase": "warm",
+    "bash_seconds": 1.7187795860008919,
+    "try_seconds": 2.2764997929989477,
+    "observe_seconds": 0.2948217849989305,
+    "speedup": 7.721613221381201
+  },
+  {
+    "benchmark": "word-freq",
+    "script": "wf.sh",
+    "phase": "cold",
+    "bash_seconds": 1.5710371889945236,
+    "try_seconds": 2.2308547040011035,
+    "observe_seconds": 1.4576620409934549,
+    "speedup": 1.5304334209599688
+  },
+  {
+    "benchmark": "word-freq",
+    "script": "wf.sh",
+    "phase": "warm",
+    "bash_seconds": 1.4885101089967065,
+    "try_seconds": 2.0828550680016633,
+    "observe_seconds": 0.30294033300015144,
+    "speedup": 6.8754630569466695
+  }
+]

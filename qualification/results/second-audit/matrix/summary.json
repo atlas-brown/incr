@@ -1,0 +1,87 @@
+[
+  {
+    "case": "live-stream",
+    "valid": true,
+    "elapsed_sec": 8.457427323999582
+  },
+  {
+    "case": "live-compressed",
+    "valid": true,
+    "elapsed_sec": 8.164063418000296
+  },
+  {
+    "case": "live-full",
+    "valid": true,
+    "elapsed_sec": 8.28489256400644
+  },
+  {
+    "case": "live-annotations",
+    "valid": true,
+    "elapsed_sec": 8.169105747001595
+  },
+  {
+    "case": "live-batch",
+    "valid": true,
+    "elapsed_sec": 7.902168521999556
+  },
+  {
+    "case": "live-batch-compressed",
+    "valid": true,
+    "elapsed_sec": 8.258180021999578
+  },
+  {
+    "case": "live-full-compressed",
+    "valid": true,
+    "elapsed_sec": 8.227900132005743
+  },
+  {
+    "case": "live-annotations-compressed",
+    "valid": true,
+    "elapsed_sec": 7.9881253549974645
+  },
+  {
+    "case": "final-stream",
+    "valid": true,
+    "elapsed_sec": 8.137478174001444
+  },
+  {
+    "case": "final-compressed",
+    "valid": true,
+    "elapsed_sec": 8.13021997299802
+  },
+  {
+    "case": "final-full",
+    "valid": true,
+    "elapsed_sec": 8.242355652000697
+  },
+  {
+    "case": "final-annotations",
+    "valid": true,
+    "elapsed_sec": 8.134850012000243
+  },
+  {
+    "case": "final-batch",
+    "valid": true,
+    "elapsed_sec": 8.23685863600258
+  },
+  {
+    "case": "final-batch-compressed",
+    "valid": true,
+    "elapsed_sec": 8.490652246000536
+  },
+  {
+    "case": "final-full-compressed",
+    "valid": true,
+    "elapsed_sec": 8.385016676002124
+  },
+  {
+    "case": "final-annotations-compressed",
+    "valid": true,
+    "elapsed_sec": 8.340436651997152
+  },
+  {
+    "case": "chunks",
+    "valid": false,
+    "elapsed_sec": 13.17407903700223
+  }
+]

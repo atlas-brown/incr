@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "python3",
+    "qualification/regressions.py",
+    "--effect-policy",
+    "final",
+    "Regressions.test_parent_write_permission_invalidation",
+    "-q"
+  ],
+  "returncode": 1,
+  "elapsed_sec": 0.16257501899963245,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "a35925a171c1d82a5ba21e76020924de9fd14309c48cf1ba46ea66457855c12e",
+  "stdout": "",
+  "stderr": "======================================================================\nFAIL: test_parent_write_permission_invalidation (__main__.Regressions)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/users/jxia3/atlas/incr/qualification/regressions.py\", line 543, in test_parent_write_permission_invalidation\n    self.assertEqual(self.invoke(['python3', '-c', program])['stdout'], 'denied\\n')\n  File \"/users/jxia3/atlas/incr/qualification/regressions.py\", line 36, in invoke\n    self.assertEqual(result[\"returncode\"], expected, result)\nAssertionError: 1 != 0 : {'argv': ['/users/jxia3/atlas/incr/target/release/incr', '--effect-policy', 'final', '--try', '/users/jxia3/atlas/incr/src/scripts/try.sh', '--observe', '/users/jxia3/atlas/observe/target/release/observe', '--cache', '/users/jxia3/atlas/incr/qualification/.work/case-2d192k7e/cache', '--', 'python3', '-c', \"try:\\n open('directory/output','w').write('created')\\n print('created')\\nexcept PermissionError:\\n print('denied')\"], 'returncode': 1, 'elapsed_sec': 0.004843891998461913, 'timeout': False, 'leaked_descendants': False, 'remaining_descendants': [], 'diagnostics': [], 'stdout_sha256': '59134a4054b27a3fc30e1ac81d9b9168dc0561f65982151324a021fe8ce88d06', 'stderr_sha256': '5644b6e1aad3eee45eac0a9f843b51809e7dcaef30cc7d2e077789e29f58b13a', 'stdout': 'created\\n', 'stderr': 'Error: (python3 -c \"try:\\n open(\\'directory/output\\',\\'w\\').write(\\'created\\')\\n print(\\'created\\')\\nexcept PermissionError:\\n print(\\'denied\\')\"): Permission denied (os error 13)\\n'}\n\n----------------------------------------------------------------------\nRan 1 test in 0.049s\n\nFAILED (failures=1)\n"
+}

@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "cargo",
+    "test",
+    "cache::effects::tests",
+    "--",
+    "--nocapture"
+  ],
+  "returncode": 101,
+  "elapsed_sec": 1.5935273279974353,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "60e40e4c4ec0052895c2b7fb30222ad26312a547c5a525c5737501e7276b834f",
+  "stderr_sha256": "1f889ffc83e05b9e9bdca0f5985eb16b1884d6336bc27ec2e90c0c1df92caeb8",
+  "stdout": "\nrunning 3 tests\ntest cache::effects::tests::replaced_directory_children_are_absent ... FAILED\ntest cache::effects::tests::invalid_hard_link_is_rejected_before_deletion ... FAILED\ntest cache::effects::tests::replay_preserves_overwrite_and_replacement_alias_semantics ... ok\n\nfailures:\n\nfailures:\n    cache::effects::tests::invalid_hard_link_is_rejected_before_deletion\n    cache::effects::tests::replaced_directory_children_are_absent\n\ntest result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s\n\n",
+  "stderr": "   Compiling incr v0.1.0 (/users/jxia3/atlas/incr)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.55s\n     Running unittests src/main.rs (target/debug/deps/incr-89c90ac342faa306)\nError: capture /tmp/incr-effects-153351966161990404007387476128558708994/output/child\n\nCaused by:\n    Not a directory (os error 20)\nError: No such file or directory (os error 2)\nerror: test failed, to rerun pass `--bin incr`\n"
+}

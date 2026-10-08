@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "python3",
+    "tests/path_tests.py",
+    "-v"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.4744775729996036,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "ab138e52c42d76fa626805da01f3972f020fe047f0fd4a14b2489640fbba4ec6",
+  "stdout": "",
+  "stderr": "test_byte_working_directory_and_new_file (__main__.PathTests) ... ok\ntest_openat2_creation_and_truncation (__main__.PathTests) ... ok\ntest_overwrite_does_not_alias_unicode_or_escape_text (__main__.PathTests) ... ok\ntest_rename_tree_restores_byte_children (__main__.PathTests) ... ok\ntest_symlink_target_bytes_survive_unlink_and_restore (__main__.PathTests) ... ok\ntest_unreadable_open_flags_are_explicit (__main__.PathTests) ... ok\ntest_valid_replacement_character_is_cacheable (__main__.PathTests) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.379s\n\nOK\n"
+}

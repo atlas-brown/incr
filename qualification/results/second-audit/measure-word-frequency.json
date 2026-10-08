@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "python3",
+    "qualification/benchmarks.py",
+    "--only",
+    "word-freq",
+    "--modes",
+    "bash,try,observe",
+    "--repetitions",
+    "3",
+    "--timeout",
+    "10",
+    "--effect-policy",
+    "final",
+    "--results",
+    "qualification/results/second-audit/measurements"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 77.47726492199581,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "01c14ce2af9e165564ff07823b97ea41d20990ca238f2726282763573526ffe9",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "RUN word-freq/top-n.sh bash 0 cold\nPASS 1.403s rc=0\nRUN word-freq/top-n.sh bash 0 warm\nPASS 1.689s rc=0\nRUN word-freq/top-n.sh try 0 cold\nPASS 2.436s rc=0\nRUN word-freq/top-n.sh try 0 warm\nPASS 2.132s rc=0\nRUN word-freq/top-n.sh observe 0 cold\nPASS 1.536s rc=0\nRUN word-freq/top-n.sh observe 0 warm\nPASS 0.320s rc=0\nRUN word-freq/top-n.sh try 1 cold\nPASS 2.375s rc=0\nRUN word-freq/top-n.sh try 1 warm\nPASS 2.390s rc=0\nRUN word-freq/top-n.sh observe 1 cold\nPASS 1.598s rc=0\nRUN word-freq/top-n.sh observe 1 warm\nPASS 0.269s rc=0\nRUN word-freq/top-n.sh bash 1 cold\nPASS 1.888s rc=0\nRUN word-freq/top-n.sh bash 1 warm\nPASS 1.990s rc=0\nRUN word-freq/top-n.sh observe 2 cold\nPASS 1.288s rc=0\nRUN word-freq/top-n.sh observe 2 warm\nPASS 0.295s rc=0\nRUN word-freq/top-n.sh bash 2 cold\nPASS 1.929s rc=0\nRUN word-freq/top-n.sh bash 2 warm\nPASS 1.719s rc=0\nRUN word-freq/top-n.sh try 2 cold\nPASS 2.434s rc=0\nRUN word-freq/top-n.sh try 2 warm\nPASS 2.276s rc=0\nRUN word-freq/wf.sh bash 0 cold\nPASS 1.448s rc=0\nRUN word-freq/wf.sh bash 0 warm\nPASS 1.747s rc=0\nRUN word-freq/wf.sh try 0 cold\nPASS 2.231s rc=0\nRUN word-freq/wf.sh try 0 warm\nPASS 2.083s rc=0\nRUN word-freq/wf.sh observe 0 cold\nPASS 1.458s rc=0\nRUN word-freq/wf.sh observe 0 warm\nPASS 0.337s rc=0\nRUN word-freq/wf.sh try 1 cold\nPASS 2.300s rc=0\nRUN word-freq/wf.sh try 1 warm\nPASS 2.120s rc=0\nRUN word-freq/wf.sh observe 1 cold\nPASS 1.532s rc=0\nRUN word-freq/wf.sh observe 1 warm\nPASS 0.303s rc=0\nRUN word-freq/wf.sh bash 1 cold\nPASS 1.580s rc=0\nRUN word-freq/wf.sh bash 1 warm\nPASS 1.439s rc=0\nRUN word-freq/wf.sh observe 2 cold\nPASS 1.355s rc=0\nRUN word-freq/wf.sh observe 2 warm\nPASS 0.297s rc=0\nRUN word-freq/wf.sh bash 2 cold\nPASS 1.571s rc=0\nRUN word-freq/wf.sh bash 2 warm\nPASS 1.489s rc=0\nRUN word-freq/wf.sh try 2 cold\nPASS 2.208s rc=0\nRUN word-freq/wf.sh try 2 warm\nPASS 1.974s rc=0\n",
+  "stderr": ""
+}

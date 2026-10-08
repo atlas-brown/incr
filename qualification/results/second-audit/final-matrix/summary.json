@@ -1,0 +1,142 @@
+[
+  {
+    "case": "live-stream",
+    "valid": true,
+    "elapsed_sec": 8.903892415000882
+  },
+  {
+    "case": "live-compressed",
+    "valid": true,
+    "elapsed_sec": 8.479091383997002
+  },
+  {
+    "case": "live-full",
+    "valid": true,
+    "elapsed_sec": 8.4909989939988
+  },
+  {
+    "case": "live-annotations",
+    "valid": true,
+    "elapsed_sec": 8.430400361998181
+  },
+  {
+    "case": "live-batch",
+    "valid": true,
+    "elapsed_sec": 8.504637596997782
+  },
+  {
+    "case": "live-batch-compressed",
+    "valid": true,
+    "elapsed_sec": 9.07049948599888
+  },
+  {
+    "case": "live-full-compressed",
+    "valid": true,
+    "elapsed_sec": 8.907116712005518
+  },
+  {
+    "case": "live-annotations-compressed",
+    "valid": true,
+    "elapsed_sec": 9.046050823999394
+  },
+  {
+    "case": "final-stream",
+    "valid": true,
+    "elapsed_sec": 8.732032010004332
+  },
+  {
+    "case": "final-compressed",
+    "valid": true,
+    "elapsed_sec": 8.908902045004652
+  },
+  {
+    "case": "final-full",
+    "valid": true,
+    "elapsed_sec": 8.765696738999395
+  },
+  {
+    "case": "final-annotations",
+    "valid": true,
+    "elapsed_sec": 8.826839074004965
+  },
+  {
+    "case": "final-batch",
+    "valid": true,
+    "elapsed_sec": 8.72406885199598
+  },
+  {
+    "case": "final-batch-compressed",
+    "valid": true,
+    "elapsed_sec": 8.95414836800046
+  },
+  {
+    "case": "final-full-compressed",
+    "valid": true,
+    "elapsed_sec": 9.011905389997992
+  },
+  {
+    "case": "final-annotations-compressed",
+    "valid": true,
+    "elapsed_sec": 8.82542853000632
+  },
+  {
+    "case": "chunks",
+    "valid": true,
+    "elapsed_sec": 12.835434566994081
+  },
+  {
+    "case": "shell-ast",
+    "valid": true,
+    "elapsed_sec": 2.001993935999053
+  },
+  {
+    "case": "strace",
+    "valid": true,
+    "elapsed_sec": 0.22305852000135928
+  },
+  {
+    "case": "try",
+    "valid": true,
+    "elapsed_sec": 0.856104703998426
+  },
+  {
+    "case": "benchmark-components",
+    "valid": true,
+    "elapsed_sec": 3.5003392289945623
+  },
+  {
+    "case": "readonly-descriptor-limit",
+    "valid": true,
+    "elapsed_sec": 1.7208901569974842
+  },
+  {
+    "case": "foreign-owner-replay",
+    "valid": true,
+    "elapsed_sec": 0.13379793700005393
+  },
+  {
+    "case": "observe",
+    "valid": true,
+    "elapsed_sec": 31.764378644998942
+  },
+  {
+    "case": "speculative-restore",
+    "valid": true,
+    "elapsed_sec": 0.6147206310051843
+  },
+  {
+    "case": "speculative-byte-restore",
+    "valid": true,
+    "elapsed_sec": 0.6805049530012184
+  },
+  {
+    "case": "speculative-parent-restore",
+    "valid": true,
+    "elapsed_sec": 0.7090705599985085
+  },
+  {
+    "case": "effect-replay",
+    "valid": true,
+    "elapsed_sec": 3.114713219998521
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "cargo",
+    "test",
+    "--",
+    "--nocapture"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.6146626599947922,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "9dfe11367c8b09f39438948a5d611f60cc2fe86dec70b5a02a951031e9c422ac",
+  "stderr_sha256": "3b4ac4e286a161ade42451acc03a8040cac4baa03f4a6482f626a73478d6836c",
+  "stdout": "\nrunning 2 tests\ntest snapshot::restore::tests::payload_cannot_escape_snapshot_directory ... ok\ntest snapshot::restore::tests::missing_payload_does_not_delete_other_entries ... ok\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+  "stderr": "   Compiling observe v0.1.0 (/users/jxia3/atlas/observe)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.59s\n     Running unittests src/main.rs (target/debug/deps/observe-dcef437d7e089152)\n"
+}

@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "cargo",
+    "test",
+    "snapshot::restore::tests",
+    "--",
+    "--nocapture"
+  ],
+  "returncode": 101,
+  "elapsed_sec": 1.2317417779995594,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "0dab687e3c6404b4f84bbaac908dc40bad108fd46a1df18c050cfd97a5ecd847",
+  "stderr_sha256": "c53a600b200ccfef6c7a4f1e84c52cc162d477c51d25866caed379c285721198",
+  "stdout": "\nrunning 2 tests\ntest snapshot::restore::tests::payload_cannot_escape_snapshot_directory ... FAILED\ntest snapshot::restore::tests::missing_payload_does_not_delete_other_entries ... FAILED\n\nfailures:\n\nfailures:\n    snapshot::restore::tests::missing_payload_does_not_delete_other_entries\n    snapshot::restore::tests::payload_cannot_escape_snapshot_directory\n\ntest result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+  "stderr": "   Compiling observe v0.1.0 (/users/jxia3/atlas/observe)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.20s\n     Running unittests src/main.rs (target/debug/deps/observe-dcef437d7e089152)\n\nthread 'snapshot::restore::tests::payload_cannot_escape_snapshot_directory' (3831480) panicked at src/snapshot/restore.rs:208:9:\nassertion failed: revert(&directory.0).is_err()\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\nobserve revert: /tmp/observe-restore-3831478-0/original: No such file or directory (os error 2)\nError: No such file or directory (os error 2)\nerror: test failed, to rerun pass `--bin observe`\n"
+}

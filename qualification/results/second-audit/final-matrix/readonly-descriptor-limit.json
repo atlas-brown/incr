@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "prlimit",
+    "--nofile=64:64",
+    "cargo",
+    "test",
+    "readonly",
+    "--quiet"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 1.7208901569974842,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "4979dab3df125a67db36aca6280f1af93ce0e262af9d5326e9e3afe1b2ae9ae9",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "\nrunning 5 tests\n.....\ntest result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 24 filtered out; finished in 0.03s\n\n",
+  "stderr": ""
+}

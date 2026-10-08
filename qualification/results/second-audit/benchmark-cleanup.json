@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "python3",
+    "qualification/benchmark_tests.py",
+    "-q"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 3.516883415999473,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e9a64fe82a49575aa4759ac17496cca2fe5d71af3da11da1c80f164c049eb141",
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 2 tests in 3.420s\n\nOK\n"
+}

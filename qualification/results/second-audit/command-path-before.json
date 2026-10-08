@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "python3",
+    "qualification/regressions.py",
+    "Regressions.test_executable_name_is_a_literal_argument",
+    "Regressions.test_executable_with_byte_target",
+    "Regressions.test_pwd_environment_is_a_dependency",
+    "-q"
+  ],
+  "returncode": 1,
+  "elapsed_sec": 0.2808087500015972,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "346da18270fd9b5942d6a2eefdd4e0f7f2ed54e0e9b85cc775352c048d19403d",
+  "stdout": "",
+  "stderr": "======================================================================\nFAIL: test_executable_name_is_a_literal_argument (__main__.Regressions)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/users/jxia3/atlas/incr/qualification/regressions.py\", line 198, in test_executable_name_is_a_literal_argument\n    self.assertEqual(self.invoke([str(tool)])[\"stdout\"], \"literal\")\n  File \"/users/jxia3/atlas/incr/qualification/regressions.py\", line 36, in invoke\n    self.assertEqual(result[\"returncode\"], expected, result)\nAssertionError: 127 != 0 : {'argv': ['/users/jxia3/atlas/incr/target/release/incr', '--try', '/users/jxia3/atlas/incr/src/scripts/try.sh', '--observe', '/users/jxia3/atlas/observe/target/release/observe', '--cache', '/users/jxia3/atlas/incr/qualification/.work/case-e8sj05ka/cache', '--', '/users/jxia3/atlas/incr/qualification/.work/case-e8sj05ka/tool with spaces'], 'returncode': 127, 'elapsed_sec': 0.006441290999646299, 'timeout': False, 'leaked_descendants': False, 'remaining_descendants': [], 'diagnostics': [], 'stdout_sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'stderr_sha256': 'ba0f5d0e51673ca74da4e5b0cb298d7a17dad891254c9c97d4d42dc393183a94', 'stdout': '', 'stderr': 'observe: /users/jxia3/atlas/incr/qualification/.work/case-e8sj05ka/tool: ENOENT: No such file or directory\\n'}\n\n======================================================================\nFAIL: test_executable_with_byte_target (__main__.Regressions)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/users/jxia3/atlas/incr/qualification/regressions.py\", line 207, in test_executable_with_byte_target\n    self.assertEqual(self.invoke([str(tool)])[\"stdout\"], \"byte-target\")\n  File \"/users/jxia3/atlas/incr/qualification/regressions.py\", line 36, in invoke\n    self.assertEqual(result[\"returncode\"], expected, result)\nAssertionError: 1 != 0 : {'argv': ['/users/jxia3/atlas/incr/target/release/incr', '--try', '/users/jxia3/atlas/incr/src/scripts/try.sh', '--observe', '/users/jxia3/atlas/observe/target/release/observe', '--cache', '/users/jxia3/atlas/incr/qualification/.work/case-dp6dx0s6/cache', '--', '/users/jxia3/atlas/incr/qualification/.work/case-dp6dx0s6/tool'], 'returncode': 1, 'elapsed_sec': 0.0018479750069673173, 'timeout': False, 'leaked_descendants': False, 'remaining_descendants': [], 'diagnostics': [], 'stdout_sha256': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'stderr_sha256': '81f960c43090cd8bf327d4da30185c59e7bb91ede7894f287b1d8c3036e92bfa', 'stdout': '', 'stderr': 'Error: InvalidPathCharacters\\n'}\n\n======================================================================\nFAIL: test_pwd_environment_is_a_dependency (__main__.Regressions)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/users/jxia3/atlas/incr/qualification/regressions.py\", line 214, in test_pwd_environment_is_a_dependency\n    self.assertEqual(self.invoke(command)[\"stdout\"], value + \"\\n\")\nAssertionError: 'first environment value\\n' != 'second environment value\\n'\n- first environment value\n? --- ^\n+ second environment value\n?  ^^^^^\n\n\n----------------------------------------------------------------------\nRan 3 tests in 0.154s\n\nFAILED (failures=3)\n"
+}

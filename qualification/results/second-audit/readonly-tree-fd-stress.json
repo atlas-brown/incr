@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "prlimit",
+    "--nofile=64:64",
+    "cargo",
+    "test",
+    "replay_removes_many_readonly_directory_trees",
+    "--quiet"
+  ],
+  "returncode": 0,
+  "elapsed_sec": 0.1393894580032793,
+  "timeout": false,
+  "leaked_descendants": false,
+  "remaining_descendants": [],
+  "diagnostics": [],
+  "stdout_sha256": "485d6492ba8340536eda88089e3f4d082eef2ee89ed83bfa73a862d4380f1b8f",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout": "\nrunning 1 test\n.\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 27 filtered out; finished in 0.02s\n\n",
+  "stderr": ""
+}
