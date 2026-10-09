@@ -1,122 +1,78 @@
 {
-  "total_diagnostic_states": {
-    "Z": 8408,
+  "states": {
+    "Z": 8390,
     "S": 24
   },
-  "non_zombie_cases": [
+  "live_children": [
     {
       "case": "redir",
       "mode": "bash",
       "phase": "cold",
-      "states": {
-        "Z": 3,
-        "S": 4
-      },
-      "names": {
-        "bash": 2,
-        "sleep": 4,
-        "sudo": 1
+      "processes": {
+        "sleep": 4
       }
     },
     {
       "case": "redir",
       "mode": "observe",
       "phase": "cold",
-      "states": {
-        "Z": 3,
-        "S": 4
-      },
-      "names": {
-        "bash": 2,
-        "sleep": 4,
-        "sudo": 1
+      "processes": {
+        "sleep": 4
       }
     },
     {
       "case": "assoc",
       "mode": "bash",
       "phase": "warm",
-      "states": {
-        "S": 2,
-        "Z": 1
-      },
-      "names": {
+      "processes": {
         "sleep": 1,
-        "bash": 1,
-        "sudo": 1
+        "bash": 1
       }
     },
     {
       "case": "assoc",
       "mode": "observe",
       "phase": "warm",
-      "states": {
-        "S": 2,
-        "Z": 1
-      },
-      "names": {
+      "processes": {
         "sleep": 1,
-        "bash": 1,
-        "sudo": 1
+        "bash": 1
       }
     },
     {
       "case": "assoc",
       "mode": "bash",
       "phase": "cold",
-      "states": {
-        "S": 2,
-        "Z": 1
-      },
-      "names": {
+      "processes": {
         "sleep": 1,
-        "bash": 1,
-        "sudo": 1
+        "bash": 1
       }
     },
     {
       "case": "assoc",
       "mode": "observe",
       "phase": "cold",
-      "states": {
-        "S": 2,
-        "Z": 1
-      },
-      "names": {
+      "processes": {
         "sleep": 1,
-        "bash": 1,
-        "sudo": 1
+        "bash": 1
       }
     },
     {
       "case": "redir",
       "mode": "bash",
       "phase": "warm",
-      "states": {
-        "Z": 3,
-        "S": 4
-      },
-      "names": {
-        "bash": 2,
-        "sleep": 4,
-        "sudo": 1
+      "processes": {
+        "sleep": 4
       }
     },
     {
       "case": "redir",
       "mode": "observe",
       "phase": "warm",
-      "states": {
-        "Z": 3,
-        "S": 4
-      },
-      "names": {
-        "bash": 2,
-        "sleep": 4,
-        "sudo": 1
+      "processes": {
+        "sleep": 4
       }
     }
   ],
-  "observe_only_non_zombie_cases": [],
-  "all_survivors_empty": true
+  "survivors": 0,
+  "all_cold_caches_empty": true
 }

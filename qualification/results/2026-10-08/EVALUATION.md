@@ -1,5 +1,7 @@
 # Minimum-input qualification results
 
+> Historical measurement configuration. Final is now the binary default. The Bash results below are superseded by the [clean final-policy study](../../../studies/bash-parity-audit-2026-10-08/REPORT.md); old Bash raw artifacts were removed and remain in git history. Other benchmark results retain their recorded configuration.
+
 All 96 benchmark entrypoints completed: 2,144 measurements. Bash, updated try/strace
 and Observe each passed 536/536 runs. Pinned main passed 384 and failed 152:
 146 required descendant cleanup and 29 had filesystem mismatches, with overlap.

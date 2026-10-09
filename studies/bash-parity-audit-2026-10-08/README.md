@@ -1,6 +1,6 @@
 # Incr Observe: Bash correctness study
 
-This study compares **every standard Bash 5.2.37 test group** against native Bash, first cold and then with the same cache retained. It uses verified, unmodified GNU test sources rather than the repository's edited `evaluation/bash-ts/tests` copy. It also runs Incr's focused correctness regressions under live and final effect policies.
+This study compares **every standard Bash 5.2.37 test group** against native Bash, using the binary’s default **final** effect policy, first cold and then with the same cache retained. The test environment leaves `INCR_EFFECT_POLICY` unset. It uses verified, unmodified GNU test sources rather than the repository's edited `evaluation/bash-ts/tests` copy. It also runs Incr's focused correctness regressions under live and final effect policies.
 
 Read [REPORT.md](REPORT.md) for findings, [CASE_ANALYSIS.md](CASE_ANALYSIS.md) for the per-group analysis, and [DESIGN_COMPARISON.md](DESIGN_COMPARISON.md) for Observe versus main. [PROGRESS.md](PROGRESS.md) preserves the investigation and corrections. Results are differential equivalence, not a count of independently numbered assertions.
 
@@ -48,7 +48,7 @@ python3 -B -m unittest discover \
   -s studies/bash-parity-audit-2026-10-08/harness -p 'test_*.py' -v
 ```
 
-`--cases` accepts exact names from `run-*`, without the prefix. `--timeout` overrides the ordinary per-case limit. Full results in `results/upstream/` are the retained study execution; `results/prior-evaluation.json.gz` preserves the earlier vendored-suite/main comparison evidence without scratch fixtures or redundant scripts.
+`--cases` accepts exact names from `run-*`, without the prefix. `--timeout` overrides the ordinary per-case limit. Full results in `results/upstream/` are the clean final-policy execution. Earlier live-policy and exploratory results were removed; git commit `4a772a4` retains that history. Every cold run starts with an empty cache and private fixture; only its immediately following warm run retains that new cache.
 
 ## Evidence and interpretation
 

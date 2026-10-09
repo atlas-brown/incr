@@ -72,8 +72,9 @@ Run real models only after the fast correctness/performance experiments stabiliz
 ## Development findings and retained limits
 
 The first prototype implements candidate validation before execution with a
-separate `--effect-policy final` cache namespace; `live` remains the default during
-qualification. On the deterministic early-write probe, overwrite and rename/unlink
+separate `--effect-policy final` cache namespace. Final is now the binary default;
+select `--effect-policy live` explicitly for intermediate-effect semantics. The clean
+full Bash evaluation is maintained in `../studies/bash-parity-audit-2026-10-08/`. On the deterministic early-write probe, overwrite and rename/unlink
 warm runs retain cache metadata and drop from roughly 0.45s to 0.13s. Focused policy, chunk, compression and lifecycle tests pass; exact run counts
 and evidence are tracked in QUALIFICATION_LOG.md. They do not close the cases below.
 

@@ -1,34 +1,30 @@
-# Incr Observe: paper-aligned Bash correctness study
+# Incr Observe: clean final-policy Bash correctness study
 
-**Incr Observe matches native Bash on all 83 upstream groups, cold and warm: 12,234/12,234 transcript lines in each phase after the agreed trivial normalization.** The subset counted by the paper's artifact is **10,282/10,282** in each phase. There are no substantive mismatches, timeouts, surviving test descendants, cold/warm output changes, or detected missing-locale/terminal-skip diagnostics in the completed run.
+**The default effect policy is now final, and the clean full upstream Bash suite matches native Bash in all 83 groups, cold and warm.** All 12,234/12,234 transcript lines match in each phase after the agreed trivial normalization. The paper-counted subset also matches: 10,282/10,282 per phase, compared with the paper's reported 10,279/10,282.
 
-This reproduces the behavioral-equivalence objective for the current Observe implementation and extends the accounting to every expected transcript. It is not a claim that the original paper's binary produced these new results, or that transcript lines are independent unit tests. No runtime code changed.
-
-## Final results
+## Verified results
 
 | Check | Cold | Warm |
 |---|---:|---:|
-| Standard Bash groups matching native | 83/83 | 83/83 |
-| Complete native transcript lines matching | 12,234/12,234 | 12,234/12,234 |
-| Artifact-counted subset lines matching | 10,282/10,282 | 10,282/10,282 |
-| Byte-exact groups, including driver stderr | 70/83 | 70/83 |
-| Groups matching after presentation normalization | 13/83 | 13/83 |
-| Cache entries after execution | 332 | 361 |
-| Groups with cache entries | 31 | 31 |
-| Unchanged metadata retained from cold | — | 331 files across 30 groups |
+| Groups matching native | 83/83 | 83/83 |
+| Complete transcript lines matching | 12,234/12,234 | 12,234/12,234 |
+| Paper-counted subset matching | 10,282/10,282 | 10,282/10,282 |
+| Byte-exact groups including driver stderr | 70/83 | 70/83 |
+| Groups requiring trivial normalization | 13/83 | 13/83 |
+| Cache entries | 405 | 476 |
+| Groups with cache entries | 41 | 41 |
+| Unchanged metadata retained from cold | — | 378 files across 36 groups |
 | Timeouts / surviving descendants | 0 / 0 | 0 / 0 |
 
-The command completed in **783.25 seconds (13 minutes 3 seconds)**, including setup checks and regressions. All 332 native/Observe executions have retained records. Each phase has 84 real output captures; capability self-tests are excluded. The per-line ledger has 24,468 rows across both phases, all marked equal with matching normalized hashes. Cold and warm outputs are identical within each implementation under the same normalization.
+The run completed in **815.56 seconds (13 minutes 36 seconds)** including clean Rust builds, setup and focused regressions. All 332 executions have new raw records. Each phase captures 84 actual transcripts, excluding diff capability self-comparisons. The regenerated line ledger contains 24,468 equal rows. There are no cold/warm output changes or detected missing-locale/terminal-skip diagnostics.
 
-The dedicated correctness suites also pass **57/57 live-policy tests** and **57/57 final-policy tests**, in 8.88 and 8.92 seconds. The harness passes **18/18 checks**, including negative comparisons, missing captures, exit-status changes, descendant handling, and terminal signal inheritance. The full-run logs are under `results/upstream/setup/`; the final expanded comparison/cleanup guards and full saved-evidence recheck are recorded in `results/verification.json`.
+The focused suites pass **57/57 under live** and **57/57 under final**. All **18 harness checks** and **29 Rust tests** pass, including the normally ignored ownership test run explicitly with the available noninteractive sudo. The runtime change is the one-line binary policy default; there were no additional runtime correctness fixes needed for this result. Earlier live-policy and exploratory Bash artifacts were removed; git commit `4a772a4` retains them.
 
-The only native differences against literal expected files are `builtins` (the environment permits a core limit of 0 rather than the expected 1000) and `execscript` (signal-trap display ordering). Observe matches native in both. The restored parser, empty/unset-PATH, locale, and terminal tests were not excluded. A nonzero literal-diff driver status caused solely by a reviewed presentation difference is preserved in the records and is not counted as a semantic failure.
+Native differs from literal upstream expected files only in `builtins` (host core limit) and `execscript` (trap display ordering). Observe matches native for both. Literal driver diff status 1 caused by accepted presentation differences is retained in records and distinguished from command statuses printed by the tests.
 
-The complete evidence is in [results/upstream/summary.json](results/upstream/summary.json), [case-results.csv](results/upstream/case-results.csv), [analysis.json](results/upstream/analysis.json), and [CASE_ANALYSIS.md](CASE_ANALYSIS.md).
+The supervisor diagnostics contain 8,390 exited-zombie and 24 sleeping-process records. Live background children occur only in `assoc` and `redir`, with matching native/Observe names and counts. Those flags are not being reported as Observe-only leaks: native and Observe lifecycle comparisons pass, and no children survive bounded cleanup. The comparison checks live process names/counts separately from zombies.
 
-## Process cleanup
-
-All final executions triggered the supervisor's cleanup flag because the terminal/sudo arrangement left adopted descendants, usually already-exited zombies. Inspection of all retained process diagnostics found 8,408 zombie records and 24 sleeping-process records. Live background children occurred only in `assoc` and `redir`, with the same state/name counts in native and Observe, cold and warm. There were no Observe-only live-background cases and no survivors after cleanup. [lifecycle-analysis.json](results/upstream/lifecycle-analysis.json) records this distinction; a cleanup flag is not being reported as an Incr-specific leak.
+See [summary.json](results/upstream/summary.json), [analysis.json](results/upstream/analysis.json), and [CASE_ANALYSIS.md](CASE_ANALYSIS.md) for the complete results.
 
 ## Reference methodology and counting
 
@@ -50,32 +46,20 @@ This study adopts native differential comparison and retained-cache repetition. 
 | execscript | exec.right | 172 |
 | Total | 9 files | 1,952 |
 
-## Why the initial evaluation was insufficient
+## Execution and scope
 
-The repository's vendored tests differ from the official sources in 16 top-level files. Several parser cases and the empty/unset-PATH checks were commented out; some direct script invocations were changed to use `THIS_SH`. The complete diff is [vendored-changes.diff](vendored-changes.diff). The official source also contains optional miscellaneous scripts absent from that vendored directory; these are outside standard `run-all` enumeration.
+The runner exercises the actual binary default with INCR_EFFECT_POLICY unset. Both Rust target directories and frozen runtime snapshots were removed before rebuilding. Every cold run starts with an empty private cache and fixture; warm retains only its corresponding new cold state. All 668 official Bash test-tree files are verified against GNU Bash 5.2.37. Parser prerequisites and the pinned Bash build are reused, not previous results or caches.
 
-The initial suite therefore established parity on the edited corpus only. It also lacked a controlling terminal, and its first locale pass lacked several locales. Those results remain in `results/prior-evaluation.json.gz`, along with the main-branch samples and original regression evidence. They are not used for the final upstream score.
+The suite runs all 83 standard groups, native and Observe, cold and warm: 332 executions. Original sources and drivers are unmodified. Each test has a controlling terminal, required locales, private /tmp and bounded child supervision. The runner compares captured output and driver stderr, accepting only reviewed source-location, line-number, process-group-ID and executable-prefix differences. Missing captures, substantive output changes, timeouts and surviving descendants fail.
 
-## Maintained test arrangement
+## Why Observe passes the historical problem cases
 
-The runner checks every official test-tree file against the downloaded GNU release hashes, builds current Incr/Observe, freezes the runtime, and uses Bash 5.2.37 plus its test helpers. Each group runs native cold/warm followed by Observe cold/warm, with the same cache and fixture retained between each implementation's two phases. Groups are isolated from each other. This is an immediate per-group repetition rather than two whole-suite passes sharing one global cache.
+The relevant fixes live in the shell wrapper and AST transformer on the Observe branch, not in ptrace alias handling. Alias/function bindings remain under Bash's control; dynamic alias names preserve original source. Builtins such as command remain native, unknown commands retain Bash lookup and exit status, and wrapper helpers use command -p even when PATH is empty or unset. Syntax-invalid files are passed unchanged to Bash for its own diagnostic and status. Source-sensitive constructs and invocation modes also use native execution. See [DESIGN_COMPARISON.md](DESIGN_COMPARISON.md) for the implementation explanation.
 
-Original test sources and drivers are not patched. A native binary launcher supplies `THIS_SH`, preserves argv[0], and logs invocation arguments for coverage. Direct shebang invocations remain as specified by the official suite. The diff helper captures actual/expected operands and excludes self-comparisons used to probe diff features. All standard groups must produce matching capture counts and expected operands.
+Changing to final does not alter those shell rules. It allows validated filesystem output replay after speculative effects, assuming final outputs are the desired contract. Use INCR_EFFECT_POLICY=live when intermediate regular-file observations matter. FIFO dependencies still block reuse.
 
-Every test has a controlling terminal; `read` additionally has terminal stdin. Private locale trees supply French, Japanese, Chinese, and German locales without modifying the host. Test processes run at the normal UID inside a private mount namespace and private `/tmp`. The terminal helper restores ordinary signal dispositions before exec. A preliminary helper bug propagated Python's ignored SIGPIPE/SIGXFSZ state; that partial run was interrupted, diagnosed, and superseded by a clean full run. Its focused evidence is retained in `results/terminal-helper-investigation.json.gz`.
+## Limits and reproduction
 
-Comparison preserves raw streams and exit statuses. It normalizes only diagnostic source paths/line numbers, terminal process-group IDs, and two reviewed executable prefixes in `type`'s displayed function. It does not discard parser-error cases, arbitrary diagnostics, changed command status values, missing captures, or output reordering. Literal driver diff status is considered separately from statuses printed by test programs. Lifecycle failures and Observe-only descendant cleanup fail the comparison.
+Transcript lines are not independent unit tests. Native fallbacks are part of correctness, not evidence that every construct is accelerated. Cache retention is not a universal cache-hit count. Final-output parity does not establish arbitrary concurrent interaction equivalence, nondeterministic/network-dependent behavior, batch/chunk performance or other Bash versions. This run repeats each group immediately with a retained cache; it does not use one cache across two whole-suite passes. Optional tests/misc scripts are outside the standard run-all corpus.
 
-## Limits on the conclusion
-
-The target is Bash behavior under the tested live streaming configuration. Final-effect policy receives the focused regression suite, not another full Bash sweep. Batch/chunk execution, real-world benchmark performance, other Bash versions, and cross-group shared-cache interactions are not established by this study.
-
-Original-source and invocation-mode fallbacks deliberately run some constructs natively. Cache counts and unchanged metadata show retained state but are not a universal command-hit count; focused regressions provide direct cache-reuse checks. Launcher coverage is an entry-point record, not full statement/branch instrumentation. Filesystem effects are assessed by the Bash scripts and dedicated regression tests, not by a complete before/after snapshot for every Bash case.
-
-The evaluation cannot establish arbitrary nondeterministic, network-dependent, externally concurrent, or unsupported system behavior. It does establish whether each captured upstream transcript and driver stderr agrees under the documented comparison rules. The per-line ledger exposes both matching and mismatching reference/candidate line IDs without inventing test identifiers.
-
-## Reproduction and evidence
-
-Use [README.md](README.md) and `./studies/bash-parity-audit-2026-10-08/run.sh`. The maintained runner checks its own comparator/terminal helpers and writes raw compressed records, per-group JSON/CSV, setup/build/regression logs, progress, and provenance. [CASE_ANALYSIS.md](CASE_ANALYSIS.md) gives every group's purpose, output counts, statuses, cache retention, cleanup, source entry points, and baseline expected-file differences. The generated `line-results.csv.gz` is the exhaustive transcript-line ledger.
-
-The initial architectural comparison with main remains in [DESIGN_COMPARISON.md](DESIGN_COMPARISON.md). Main's earlier sampled `execscript` execution had real missing-command status and repeated-startup-output differences; it was not used as the semantic oracle. No runtime source changes are part of this study.
+Use [README.md](README.md) and ./studies/bash-parity-audit-2026-10-08/run.sh. [CASE_ANALYSIS.md](CASE_ANALYSIS.md) was regenerated and independently rechecked from all new raw records. The complete evidence is retained under results/upstream. Historical qualification documents are dated development records; this report describes the current default and current Bash evaluation.

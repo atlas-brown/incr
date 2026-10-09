@@ -1,10 +1,12 @@
 # Case-by-case Bash analysis
 
+Effect policy: **final** (binary default; INCR_EFFECT_POLICY unset).
+
 Generated from retained raw records. Counts are LF-delimited output lines, not separately numbered assertions. Each group has native cold/warm and Observe cold/warm evidence. Warm retains the same fixture/cache. Source locations, terminal process-group IDs, and the reviewed function executable prefixes are the only normalizations used here.
 
 | Group | Native lines cold/warm | Cold match | Warm match | Cache entries cold/warm | Unchanged warm metadata |
 |---|---:|:---:|:---:|---:|---:|
-| alias | 45/45 | True | True | 0/0 | 0 |
+| alias | 45/45 | True | True | 1/1 | 0 |
 | appendop | 28/28 | True | True | 0/0 | 0 |
 | arith | 263/263 | True | True | 0/0 | 0 |
 | arith-for | 86/86 | True | True | 2/2 | 2 |
@@ -13,7 +15,7 @@ Generated from retained raw records. Counts are LF-delimited output lines, not s
 | assoc | 400/400 | True | True | 18/20 | 18 |
 | attr | 37/37 | True | True | 0/0 | 0 |
 | braces | 77/77 | True | True | 0/0 | 0 |
-| builtins | 281/281 | True | True | 1/1 | 1 |
+| builtins | 281/281 | True | True | 5/8 | 4 |
 | case | 63/63 | True | True | 0/0 | 0 |
 | casemod | 47/47 | True | True | 0/0 | 0 |
 | complete | 63/63 | True | True | 0/0 | 0 |
@@ -21,7 +23,7 @@ Generated from retained raw records. Counts are LF-delimited output lines, not s
 | comsub-eof | 17/17 | True | True | 0/0 | 0 |
 | comsub-posix | 100/100 | True | True | 4/4 | 4 |
 | cond | 142/142 | True | True | 0/0 | 0 |
-| coproc | 10/10 | True | True | 3/3 | 3 |
+| coproc | 10/10 | True | True | 4/5 | 4 |
 | cprint | 72/72 | True | True | 0/0 | 0 |
 | dbg-support | 371/371 | True | True | 0/0 | 0 |
 | dbg-support2 | 7/7 | True | True | 0/0 | 0 |
@@ -29,32 +31,32 @@ Generated from retained raw records. Counts are LF-delimited output lines, not s
 | dollars | 744/744 | True | True | 33/33 | 33 |
 | dynvar | 7/7 | True | True | 0/0 | 0 |
 | errors | 208/208 | True | True | 0/0 | 0 |
-| execscript | 172/172 | True | True | 1/1 | 1 |
+| execscript | 172/172 | True | True | 5/6 | 3 |
 | exp-tests | 419/419 | True | True | 23/23 | 23 |
-| exportfunc | 14/14 | True | True | 1/1 | 1 |
-| extglob | 184/184 | True | True | 0/0 | 0 |
+| exportfunc | 14/14 | True | True | 5/5 | 4 |
+| extglob | 184/184 | True | True | 2/4 | 2 |
 | extglob2 | 70/70 | True | True | 0/0 | 0 |
 | extglob3 | 27/27 | True | True | 0/0 | 0 |
-| func | 169/169 | True | True | 0/0 | 0 |
+| func | 169/169 | True | True | 2/4 | 2 |
 | getopts | 68/68 | True | True | 0/0 | 0 |
-| glob-test | 261/261 | True | True | 13/26 | 13 |
-| globstar | 587/587 | True | True | 3/6 | 3 |
-| heredoc | 133/133 | True | True | 5/8 | 5 |
+| glob-test | 261/261 | True | True | 33/65 | 32 |
+| globstar | 587/587 | True | True | 9/16 | 7 |
+| heredoc | 133/133 | True | True | 6/10 | 6 |
 | herestr | 38/38 | True | True | 0/0 | 0 |
 | histexpand | 246/246 | True | True | 0/0 | 0 |
 | history | 299/299 | True | True | 0/0 | 0 |
-| ifs | 12/12 | True | True | 2/4 | 2 |
+| ifs | 12/12 | True | True | 3/6 | 3 |
 | ifs-posix | 1/1 | True | True | 0/0 | 0 |
 | input-test | 3/3 | True | True | 0/0 | 0 |
 | intl | 57/57 | True | True | 2/2 | 2 |
 | invert | 10/10 | True | True | 1/1 | 1 |
 | iquote | 92/92 | True | True | 0/0 | 0 |
-| jobs | 120/120 | True | True | 1/1 | 1 |
-| lastpipe | 22/22 | True | True | 0/0 | 0 |
+| jobs | 120/120 | True | True | 2/3 | 2 |
+| lastpipe | 22/22 | True | True | 1/1 | 0 |
 | mapfile | 170/170 | True | True | 0/0 | 0 |
 | more-exp | 214/214 | True | True | 59/59 | 59 |
 | nameref | 560/560 | True | True | 6/6 | 6 |
-| new-exp | 795/795 | True | True | 5/5 | 5 |
+| new-exp | 795/795 | True | True | 6/7 | 6 |
 | nquote | 80/80 | True | True | 3/3 | 3 |
 | nquote1 | 131/131 | True | True | 0/0 | 0 |
 | nquote2 | 76/76 | True | True | 0/0 | 0 |
@@ -62,31 +64,31 @@ Generated from retained raw records. Counts are LF-delimited output lines, not s
 | nquote4 | 18/18 | True | True | 0/0 | 0 |
 | nquote5 | 86/86 | True | True | 0/0 | 0 |
 | parser | 16/16 | True | True | 0/0 | 0 |
-| posix2 | 4/4 | True | True | 0/0 | 0 |
+| posix2 | 4/4 | True | True | 2/2 | 0 |
 | posixexp | 308/308 | True | True | 13/14 | 13 |
 | posixexp2 | 40/40 | True | True | 0/0 | 0 |
 | posixpat | 42/42 | True | True | 0/0 | 0 |
 | posixpipe | 41/41 | True | True | 0/0 | 0 |
 | precedence | 28/28 | True | True | 0/0 | 0 |
 | printf | 298/298 | True | True | 0/0 | 0 |
-| procsub | 33/33 | True | True | 0/0 | 0 |
+| procsub | 33/33 | True | True | 2/4 | 2 |
 | quote | 182/182 | True | True | 14/14 | 14 |
 | quotearray | 152/152 | True | True | 0/0 | 0 |
-| read | 85/85 | True | True | 1/1 | 1 |
-| redir | 163/163 | True | True | 0/0 | 0 |
+| read | 85/85 | True | True | 2/3 | 2 |
+| redir | 163/163 | True | True | 1/1 | 0 |
 | rhs-exp | 105/105 | True | True | 35/35 | 35 |
 | rsh | 19/19 | True | True | 0/0 | 0 |
-| set-e | 72/72 | True | True | 0/0 | 0 |
+| set-e | 72/72 | True | True | 1/2 | 1 |
 | set-x | 60/60 | True | True | 0/0 | 0 |
-| shopt | 312/312 | True | True | 0/0 | 0 |
+| shopt | 312/312 | True | True | 1/2 | 1 |
 | strip | 12/12 | True | True | 0/0 | 0 |
-| test | 297/297 | True | True | 0/0 | 0 |
+| test | 297/297 | True | True | 13/13 | 1 |
 | tilde | 28/28 | True | True | 0/0 | 0 |
 | tilde2 | 28/28 | True | True | 1/1 | 1 |
 | trap | 115/115 | True | True | 0/0 | 0 |
-| type | 135/135 | True | True | 1/1 | 0 |
-| varenv | 277/277 | True | True | 3/5 | 3 |
-| vredir | 101/101 | True | True | 3/6 | 3 |
+| type | 135/135 | True | True | 2/2 | 0 |
+| varenv | 277/277 | True | True | 4/7 | 4 |
+| vredir | 101/101 | True | True | 4/7 | 3 |
 
 ## alias
 
@@ -94,7 +96,7 @@ Alias definitions, chained/recursive expansion, unalias, and alias-driven gramma
 
 - Native reference: 45 cold / 45 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: True / True.
 - Driver status, native/Observe: cold 0/0; warm 0/0. Native matches literal expected operands: True.
-- Cache entries cold/warm: 0/0; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 1/1; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 10/10; warm 10/10.
 - Corpus files seen at shell-launcher entry points: `alias.tests`, `alias1.sub`, `alias2.sub`, `alias3.sub`, `alias4.sub`, `alias5.sub`, `alias6.sub`.
@@ -211,7 +213,7 @@ Builtin semantics and error/status behavior. Check native differences independen
 
 - Native reference: 281 cold / 281 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: True / True.
 - Driver status, native/Observe: cold 1/1; warm 1/1. Native matches literal expected operands: False.
-- Cache entries cold/warm: 1/1; unchanged warm metadata files: 1. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 5/8; unchanged warm metadata files: 4. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 22/22; warm 22/22.
 - Corpus files seen at shell-launcher entry points: `builtins.tests`, `builtins1.sub`, `builtins2.sub`, `builtins3.sub`, `builtins4.sub`, `builtins5.sub`, `builtins6.sub`, `builtins7.sub`, `source5.sub`, `source6.sub`, `source7.sub`.
@@ -324,7 +326,7 @@ Coprocess descriptors, process lifetime, and synchronization. Compare baseline b
 
 - Native reference: 10 cold / 10 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: True / True.
 - Driver status, native/Observe: cold 0/0; warm 0/0. Native matches literal expected operands: True.
-- Cache entries cold/warm: 3/3; unchanged warm metadata files: 3. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 4/5; unchanged warm metadata files: 4. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 1/1; warm 1/1.
 - Corpus files seen at shell-launcher entry points: `coproc.tests`.
@@ -428,7 +430,7 @@ Invocation modes, missing commands, binary/directory execution, startup files, a
 
 - Native reference: 172 cold / 172 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: True / True.
 - Driver status, native/Observe: cold 1/1; warm 1/1. Native matches literal expected operands: False.
-- Cache entries cold/warm: 1/1; unchanged warm metadata files: 1. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 5/6; unchanged warm metadata files: 3. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 40/40; warm 40/40.
 - Corpus files seen at shell-launcher entry points: `exec10.sub`, `exec11.sub`, `exec12.sub`, `exec13.sub`, `exec14.sub`, `exec2.sub`, `exec3.sub`, `exec4.sub`, `exec5.sub`, `exec6.sub`, `exec7.sub`, `exec9.sub`, `execscript`.
@@ -467,7 +469,7 @@ Exported functions and child-shell import behavior, with a 60-second per-run all
 
 - Native reference: 14 cold / 14 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: False / False.
 - Driver status, native/Observe: cold 0/1; warm 0/1. Native matches literal expected operands: True.
-- Cache entries cold/warm: 1/1; unchanged warm metadata files: 1. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 5/5; unchanged warm metadata files: 4. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 22/22; warm 22/22.
 - Corpus files seen at shell-launcher entry points: `exportfunc.tests`, `exportfunc1.sub`, `exportfunc2.sub`, `exportfunc3.sub`.
@@ -480,7 +482,7 @@ Extended glob patterns and matching; upstream explanatory-output filtering is pr
 
 - Native reference: 184 cold / 184 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: True / True.
 - Driver status, native/Observe: cold 0/0; warm 0/0. Native matches literal expected operands: True.
-- Cache entries cold/warm: 0/0; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 2/4; unchanged warm metadata files: 2. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 8/8; warm 8/8.
 - Corpus files seen at shell-launcher entry points: `extglob.tests`, `extglob1.sub`, `extglob1a.sub`, `extglob3.sub`, `extglob4.sub`, `extglob5.sub`, `extglob6.sub`, `extglob7.sub`.
@@ -519,7 +521,7 @@ Function definition/invocation, argument scope, return behavior, and related dia
 
 - Native reference: 169 cold / 169 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: True / True.
 - Driver status, native/Observe: cold 0/0; warm 0/0. Native matches literal expected operands: True.
-- Cache entries cold/warm: 0/0; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 2/4; unchanged warm metadata files: 2. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 11/11; warm 11/11.
 - Corpus files seen at shell-launcher entry points: `func.tests`, `func1.sub`, `func2.sub`, `func3.sub`, `func4.sub`.
@@ -545,7 +547,7 @@ Filename expansion and locale-sensitive glob cases, using private generated loca
 
 - Native reference: 261 cold / 261 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: True / True.
 - Driver status, native/Observe: cold 0/0; warm 0/0. Native matches literal expected operands: True.
-- Cache entries cold/warm: 13/26; unchanged warm metadata files: 13. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 33/65; unchanged warm metadata files: 32. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 12/12; warm 12/12.
 - Corpus files seen at shell-launcher entry points: `glob.tests`, `glob1.sub`, `glob10.sub`, `glob2.sub`, `glob3.sub`, `glob4.sub`, `glob5.sub`, `glob6.sub`, `glob7.sub`, `glob8.sub`, `glob9.sub`.
@@ -558,7 +560,7 @@ Recursive globbing, directory traversal, and matching corner cases.
 
 - Native reference: 587 cold / 587 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: True / True.
 - Driver status, native/Observe: cold 0/0; warm 0/0. Native matches literal expected operands: True.
-- Cache entries cold/warm: 3/6; unchanged warm metadata files: 3. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 9/16; unchanged warm metadata files: 7. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 4/4; warm 4/4.
 - Corpus files seen at shell-launcher entry points: `globstar.tests`, `globstar1.sub`, `globstar2.sub`, `globstar3.sub`.
@@ -571,7 +573,7 @@ Here-document expansion, quoting, nesting, and restored end-of-file syntax diagn
 
 - Native reference: 133 cold / 133 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: True / True.
 - Driver status, native/Observe: cold 0/0; warm 0/0. Native matches literal expected operands: True.
-- Cache entries cold/warm: 5/8; unchanged warm metadata files: 5. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 6/10; unchanged warm metadata files: 6. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 9/9; warm 9/9.
 - Corpus files seen at shell-launcher entry points: `heredoc.tests`, `heredoc1.sub`, `heredoc2.sub`, `heredoc3.sub`, `heredoc4.sub`, `heredoc5.sub`, `heredoc6.sub`, `heredoc7.sub`.
@@ -623,7 +625,7 @@ IFS-driven word splitting with empty, whitespace, and non-whitespace separators.
 
 - Native reference: 12 cold / 12 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: True / True.
 - Driver status, native/Observe: cold 0/0; warm 0/0. Native matches literal expected operands: True.
-- Cache entries cold/warm: 2/4; unchanged warm metadata files: 2. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 3/6; unchanged warm metadata files: 3. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 2/2; warm 2/2.
 - Corpus files seen at shell-launcher entry points: `ifs.tests`, `ifs1.sub`.
@@ -701,7 +703,7 @@ Job control, waits, signals, and background processes. Each run deliberately wai
 
 - Native reference: 120 cold / 120 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: True / True.
 - Driver status, native/Observe: cold 0/0; warm 0/0. Native matches literal expected operands: True.
-- Cache entries cold/warm: 1/1; unchanged warm metadata files: 1. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 2/3; unchanged warm metadata files: 2. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 9/9; warm 9/9.
 - Corpus files seen at shell-launcher entry points: `jobs.tests`, `jobs1.sub`, `jobs2.sub`, `jobs3.sub`, `jobs4.sub`, `jobs5.sub`, `jobs6.sub`, `jobs7.sub`.
@@ -714,7 +716,7 @@ Last pipeline element execution and variable/exit-status effects.
 
 - Native reference: 22 cold / 22 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: True / True.
 - Driver status, native/Observe: cold 0/0; warm 0/0. Native matches literal expected operands: True.
-- Cache entries cold/warm: 0/0; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 1/1; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 4/4; warm 4/4.
 - Corpus files seen at shell-launcher entry points: `lastpipe.tests`, `lastpipe1.sub`, `lastpipe2.sub`, `lastpipe3.sub`.
@@ -766,7 +768,7 @@ Expansion regressions including large unbroken outputs and process substitution;
 
 - Native reference: 795 cold / 795 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: False / False.
 - Driver status, native/Observe: cold 0/1; warm 0/1. Native matches literal expected operands: True.
-- Cache entries cold/warm: 5/5; unchanged warm metadata files: 5. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 6/7; unchanged warm metadata files: 6. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 28/28; warm 28/28.
 - Corpus files seen at shell-launcher entry points: `new-exp.tests`, `new-exp1.sub`, `new-exp10.sub`, `new-exp11.sub`, `new-exp12.sub`, `new-exp13.sub`, `new-exp14.sub`, `new-exp15.sub`, `new-exp16.sub`, `new-exp2.sub`, `new-exp3.sub`, `new-exp4.sub`, `new-exp5.sub`, `new-exp6.sub`, `new-exp7.sub`, `new-exp8.sub`, `new-exp9.sub`.
@@ -870,7 +872,7 @@ POSIX behavior and diagnostic checks using the original driver's filtering.
 
 - Native reference: 4 cold / 4 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: False / False.
 - Driver status, native/Observe: cold 0/1; warm 0/1. Native matches literal expected operands: True.
-- Cache entries cold/warm: 0/0; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 2/2; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 9/9; warm 9/9.
 - Corpus files seen at shell-launcher entry points: `posix2.tests`.
@@ -961,7 +963,7 @@ Process substitution, descriptors, process IDs/waits, and status interactions.
 
 - Native reference: 33 cold / 33 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: True / True.
 - Driver status, native/Observe: cold 0/0; warm 0/0. Native matches literal expected operands: True.
-- Cache entries cold/warm: 0/0; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 2/4; unchanged warm metadata files: 2. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 4/4; warm 4/4.
 - Corpus files seen at shell-launcher entry points: `procsub.tests`, `procsub1.sub`, `procsub2.sub`.
@@ -1000,7 +1002,7 @@ Read options, timeouts, readline, pipes, and terminal input. A controlling termi
 
 - Native reference: 85 cold / 85 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: False / False.
 - Driver status, native/Observe: cold 0/1; warm 0/1. Native matches literal expected operands: True.
-- Cache entries cold/warm: 1/1; unchanged warm metadata files: 1. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 2/3; unchanged warm metadata files: 2. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 9/9; warm 9/9.
 - Corpus files seen at shell-launcher entry points: `read.tests`, `read1.sub`, `read2.sub`, `read3.sub`, `read4.sub`, `read5.sub`, `read6.sub`, `read7.sub`, `read8.sub`.
@@ -1013,7 +1015,7 @@ Descriptor redirection, file creation, invalid descriptors/paths, and error beha
 
 - Native reference: 163 cold / 163 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: False / False.
 - Driver status, native/Observe: cold 0/1; warm 0/1. Native matches literal expected operands: True.
-- Cache entries cold/warm: 0/0; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 1/1; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 14/14; warm 14/14.
 - Corpus files seen at shell-launcher entry points: `redir.tests`, `redir10.sub`, `redir11.sub`, `redir3.sub`, `redir4.sub`, `redir5.sub`, `redir6.sub`, `redir7.sub`, `redir8.sub`, `redir9.sub`.
@@ -1052,7 +1054,7 @@ Errexit behavior across control-flow and execution contexts.
 
 - Native reference: 72 cold / 72 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: True / True.
 - Driver status, native/Observe: cold 0/0; warm 0/0. Native matches literal expected operands: True.
-- Cache entries cold/warm: 0/0; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 1/2; unchanged warm metadata files: 1. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 25/25; warm 25/25.
 - Corpus files seen at shell-launcher entry points: `set-e.tests`, `set-e1.sub`, `set-e2.sub`, `set-e3.sub`.
@@ -1078,7 +1080,7 @@ Shell-option state, enable/disable behavior, and effects on execution.
 
 - Native reference: 312 cold / 312 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: True / True.
 - Driver status, native/Observe: cold 0/0; warm 0/0. Native matches literal expected operands: True.
-- Cache entries cold/warm: 0/0; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 1/2; unchanged warm metadata files: 1. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 5/5; warm 5/5.
 - Corpus files seen at shell-launcher entry points: `shopt.tests`, `shopt1.sub`.
@@ -1104,7 +1106,7 @@ Test builtin predicates/operators, including terminal-dependent checks enabled b
 
 - Native reference: 297 cold / 297 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: False / False.
 - Driver status, native/Observe: cold 0/1; warm 0/1. Native matches literal expected operands: True.
-- Cache entries cold/warm: 0/0; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 13/13; unchanged warm metadata files: 1. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 2/2; warm 2/2.
 - Corpus files seen at shell-launcher entry points: `test.tests`, `test1.sub`.
@@ -1156,7 +1158,7 @@ Command classification and function display. Only the two reviewed Incr executab
 
 - Native reference: 135 cold / 135 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: False / False.
 - Driver status, native/Observe: cold 0/1; warm 0/1. Native matches literal expected operands: True.
-- Cache entries cold/warm: 1/1; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 2/2; unchanged warm metadata files: 0. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 5/5; warm 5/5.
 - Corpus files seen at shell-launcher entry points: `type.tests`, `type1.sub`, `type2.sub`, `type3.sub`, `type4.sub`.
@@ -1169,7 +1171,7 @@ Variable scope, temporary assignments, export/environment propagation, and decla
 
 - Native reference: 277 cold / 277 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: False / False.
 - Driver status, native/Observe: cold 0/1; warm 0/1. Native matches literal expected operands: True.
-- Cache entries cold/warm: 3/5; unchanged warm metadata files: 3. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 4/7; unchanged warm metadata files: 4. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 27/27; warm 27/27.
 - Corpus files seen at shell-launcher entry points: `varenv.tests`, `varenv1.sub`, `varenv10.sub`, `varenv11.sub`, `varenv12.sub`, `varenv13.sub`, `varenv14.sub`, `varenv15.sub`, `varenv16.sub`, `varenv17.sub`, `varenv18.sub`, `varenv19.sub`, `varenv2.sub`, `varenv20.sub`, `varenv21.sub`, `varenv22.sub`, `varenv3.sub`, `varenv4.sub`, `varenv5.sub`, `varenv6.sub`, `varenv7.sub`, `varenv8.sub`, `varenv9.sub`.
@@ -1182,7 +1184,7 @@ Variable-allocated file descriptors, readonly variables, and terminal-dependent 
 
 - Native reference: 101 cold / 101 warm lines; normalized Observe matches: True / True. Byte-exact including stderr: False / False.
 - Driver status, native/Observe: cold 0/1; warm 0/1. Native matches literal expected operands: True.
-- Cache entries cold/warm: 3/6; unchanged warm metadata files: 3. These are retention evidence, not a per-command hit count.
+- Cache entries cold/warm: 4/7; unchanged warm metadata files: 3. These are retention evidence, not a per-command hit count.
 - Native/Observe cleanup required: cold True/True; warm True/True. Cold/warm output variation: none.
 - Shell-launcher calls, native/Observe: cold 9/9; warm 9/9.
 - Corpus files seen at shell-launcher entry points: `vredir.tests`, `vredir1.sub`, `vredir2.sub`, `vredir3.sub`, `vredir4.sub`, `vredir5.sub`, `vredir6.sub`, `vredir7.sub`, `vredir8.sub`.

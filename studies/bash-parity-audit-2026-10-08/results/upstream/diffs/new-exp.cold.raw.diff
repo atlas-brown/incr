@@ -5,11 +5,11 @@
  this is test 2
  a
 -./new-exp2.sub: line 55: /tmp/redir-notthere: No such file or directory
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.RvkSiE7c/script/new-exp2.sub: line 31: /tmp/redir-notthere: No such file or directory
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.shhtcKyg/script/new-exp2.sub: line 31: /tmp/redir-notthere: No such file or directory
  1
  
 -./new-exp2.sub: line 62: 1111111111111111111111: command not found
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.RvkSiE7c/script/new-exp2.sub: line 35: 1111111111111111111111: command not found
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.shhtcKyg/script/new-exp2.sub: line 35: 1111111111111111111111: command not found
  
  argv[1] = <6>
  ./new-exp.tests: line 302: ${#:}: bad substitution
@@ -20,9 +20,9 @@
 -./new-exp3.sub: line 36: ${!_Q* }: bad substitution
 -./new-exp3.sub: line 41: ${!1*}: bad substitution
 -./new-exp3.sub: line 43: ${!@*}: bad substitution
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.7YHff9CH/script/new-exp3.sub: line 17: ${!_Q* }: bad substitution
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.7YHff9CH/script/new-exp3.sub: line 21: ${!1*}: bad substitution
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.7YHff9CH/script/new-exp3.sub: line 22: ${!@*}: bad substitution
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.I30OInjp/script/new-exp3.sub: line 17: ${!_Q* }: bad substitution
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.I30OInjp/script/new-exp3.sub: line 21: ${!1*}: bad substitution
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.I30OInjp/script/new-exp3.sub: line 22: ${!@*}: bad substitution
  Case01---3---A:B:C---
  Case02---1---A B C::---
  Case03---3---A:B:C---
@@ -31,7 +31,7 @@
  A
  declare -A foo
 -./new-exp10.sub: line 118: ${V@}: bad substitution
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.GA4tXcXf/script/new-exp10.sub: line 71: ${V@}: bad substitution
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.1Zwj0SCb/script/new-exp10.sub: line 71: ${V@}: bad substitution
  abcxxxdef
  abcÃ¥def
  ḅć

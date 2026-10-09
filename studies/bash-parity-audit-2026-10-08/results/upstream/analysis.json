@@ -11,9 +11,9 @@
       "replaced_reference_lines": 0,
       "replaced_candidate_lines": 0,
       "expected_lines": 12234,
-      "cache_entries": 332,
+      "cache_entries": 405,
       "retained_metadata": 0,
-      "groups_with_cache": 31,
+      "groups_with_cache": 41,
       "groups_with_retained_metadata": 0,
       "timeouts": 0,
       "survivors": 0
@@ -28,10 +28,10 @@
       "replaced_reference_lines": 0,
       "replaced_candidate_lines": 0,
       "expected_lines": 12234,
-      "cache_entries": 361,
-      "retained_metadata": 331,
-      "groups_with_cache": 31,
-      "groups_with_retained_metadata": 30,
+      "cache_entries": 476,
+      "retained_metadata": 378,
+      "groups_with_cache": 41,
+      "groups_with_retained_metadata": 36,
       "timeouts": 0,
       "survivors": 0
     }

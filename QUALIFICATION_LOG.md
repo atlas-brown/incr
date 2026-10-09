@@ -1,5 +1,7 @@
 # Incr + Observe qualification work log
 
+> Current status: the binary default is now `final`. The clean full Bash evaluation is maintained in [the study report](studies/bash-parity-audit-2026-10-08/REPORT.md). Older entries below describe their historical configurations; superseded Bash result artifacts remain available in git commit `4a772a4`.
+
 This is the running log for the user-authorized minimum-size qualification goal.
 It will be updated as work proceeds. Detailed historical diagnostics are preserved
 in [FINDINGS.md](qualification/results/2026-10-07/FINDINGS.md); this file provides

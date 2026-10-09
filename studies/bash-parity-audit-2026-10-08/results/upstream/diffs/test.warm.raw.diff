@@ -5,39 +5,39 @@
  0
  t 4+3 -eq 7
 -./test.tests: line 26: test: 4+3: integer expression expected
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 12: test: 4+3: integer expression expected
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 12: test: 4+3: integer expression expected
  2
  b 4-5 -eq 7
 -./test.tests: line 20: [: 4+3: integer expression expected
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 7: [: 4+3: integer expression expected
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 7: [: 4+3: integer expression expected
  2
  t 9 -eq 4+5
 -./test.tests: line 26: test: 4+5: integer expression expected
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 12: test: 4+5: integer expression expected
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 12: test: 4+5: integer expression expected
  2
  b 9 -eq 4+5
 -./test.tests: line 20: [: 4+5: integer expression expected
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 7: [: 4+5: integer expression expected
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 7: [: 4+5: integer expression expected
  2
  t A -eq 7
 -./test.tests: line 26: test: A: integer expression expected
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 12: test: A: integer expression expected
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 12: test: A: integer expression expected
  2
  b A -eq 7
 -./test.tests: line 20: [: A: integer expression expected
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 7: [: A: integer expression expected
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 7: [: A: integer expression expected
  2
  t 9 -eq B
 -./test.tests: line 26: test: B: integer expression expected
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 12: test: B: integer expression expected
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 12: test: B: integer expression expected
  2
  b 9 -eq B
 -./test.tests: line 20: [: B: integer expression expected
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 7: [: B: integer expression expected
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 7: [: B: integer expression expected
  2
  t ( 1 = 2
 -./test.tests: line 26: test: `)' expected
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 12: test: `)' expected
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 12: test: `)' expected
  2
  b ( 1 = 2
 -./test.tests: line 20: [: `)' expected, found ]
@@ -55,21 +55,21 @@
 -./test.tests: line 434: [: missing `]'
 -2
 -./test.tests: line 26: test: (: unary operator expected
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 7: [: `)' expected, found ]
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 7: [: `)' expected, found ]
 +2
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 12: test: a: unary operator expected
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 12: test: a: unary operator expected
 +2
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 12: test: b: binary operator expected
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 12: test: b: binary operator expected
 +2
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 12: test: -A: unary operator expected
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 12: test: -A: unary operator expected
 +2
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 12: test: syntax error: `-ne' unexpected
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 12: test: syntax error: `-ne' unexpected
 +2
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 12: test: too many arguments
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 12: test: too many arguments
 +2
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 330: [: missing `]'
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 330: [: missing `]'
 +2
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tkvw12ax/script/test.tests: line 12: test: (: unary operator expected
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.AkAvvclg/script/test.tests: line 12: test: (: unary operator expected
  2
  t -t a
  1

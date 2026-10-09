@@ -1,5 +1,7 @@
 # Second audit and fast qualification
 
+> Historical development record. The binary now defaults to `final`. Current full Bash results and reproduction instructions are in [the maintained study](../studies/bash-parity-audit-2026-10-08/REPORT.md). Superseded Bash result artifacts referenced below were removed; git commit `4a772a4` preserves them.
+
 Scope: correctness, edge cases, bounded stress, performance opportunities and code
 quality in both runtime codebases. No real-model runs or full benchmark matrix.
 

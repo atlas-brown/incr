@@ -5,7 +5,7 @@
  foo () 
  { 
 -    rm -f a b c;
-+    /users/jxia3/atlas/incr/qualification/.work/builds/a949fb71519e3ce9e7a4/incr/target/release/incr --try /users/jxia3/atlas/incr/qualification/.work/builds/a949fb71519e3ce9e7a4/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache --observe /users/jxia3/atlas/incr/qualification/.work/builds/a949fb71519e3ce9e7a4/observe/target/release/observe rm -f a b c;
++    /users/jxia3/atlas/incr/qualification/.work/builds/89c6811b2d964b19319e/incr/target/release/incr --try /users/jxia3/atlas/incr/qualification/.work/builds/89c6811b2d964b19319e/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache --observe /users/jxia3/atlas/incr/qualification/.work/builds/89c6811b2d964b19319e/observe/target/release/observe rm -f a b c;
      for f in a b c;
      do
          cat <<-EOF >> ${f}
@@ -14,7 +14,7 @@
  
      done
 -    grep . a b c
-+    /users/jxia3/atlas/incr/qualification/.work/builds/a949fb71519e3ce9e7a4/incr/target/release/incr --try /users/jxia3/atlas/incr/qualification/.work/builds/a949fb71519e3ce9e7a4/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache --observe /users/jxia3/atlas/incr/qualification/.work/builds/a949fb71519e3ce9e7a4/observe/target/release/observe grep . a b c
++    /users/jxia3/atlas/incr/qualification/.work/builds/89c6811b2d964b19319e/incr/target/release/incr --try /users/jxia3/atlas/incr/qualification/.work/builds/89c6811b2d964b19319e/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache --observe /users/jxia3/atlas/incr/qualification/.work/builds/89c6811b2d964b19319e/observe/target/release/observe grep . a b c
  }
  a:file
  b:file

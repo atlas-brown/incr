@@ -6,8 +6,8 @@
  }
 -./vredir.tests: line 19: v: readonly variable
 -./vredir.tests: line 19: v: cannot assign fd to variable
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.SMQFvse0/script/vredir.tests: line 6: v: readonly variable
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.SMQFvse0/script/vredir.tests: line 6: v: cannot assign fd to variable
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.HccyH2zd/script/vredir.tests: line 6: v: readonly variable
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.HccyH2zd/script/vredir.tests: line 6: v: cannot assign fd to variable
  42
  bar is a function
  bar () 

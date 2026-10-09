@@ -73,8 +73,8 @@ source during diagnostic work cannot alter an in-flight invocation.
 ```bash
 python3 qualification/benchmarks.py \
   --only beginner,bio,covid,file-mod,nginx-analysis,nlp-ngrams,nlp-uppercase,poet,spell,unixfun,weather,word-freq,web-search \
-  --repetitions 3 --results qualification/results/DATE/final-ordinary
-python3 qualification/benchmarks.py --only dpt --repetitions 1 \
+  --effect-policy final --repetitions 3 --results qualification/results/DATE/final-ordinary
+python3 qualification/benchmarks.py --effect-policy final --only dpt --repetitions 1 \
   --results qualification/results/DATE/final-dpt
 python3 qualification/report.py qualification/results/DATE
 ```
@@ -86,13 +86,11 @@ records, do not silently ignore it. Main failures are preserved but excluded fro
 valid speed comparisons. Every candidate and Bash reference must pass, and every
 scheduled case/sample must exist, before the aggregate report says complete.
 
-For the Bash suite, the pinned built Bash and helpers live in `.work/bash-src`;
-setup/build commands and its revision are in the dated setup records. The harness
-uses a private mount namespace and private `/tmp` to isolate upstream test cleanup.
+For the Bash suite, use the maintained upstream study (the old qualification
+Bash result files have been removed):
 
 ```bash
-python3 qualification/bash_suite.py --all --modes bash,observe \
-  --results qualification/results/DATE/bash
+./studies/bash-parity-audit-2026-10-08/run.sh
 ```
 
 ## Cleanup
@@ -105,3 +103,17 @@ may need noninteractive sudo. Do not clean global `/tmp` or unrelated user files
 Reusable model/input downloads and installed dependencies are distinct from run
 artifacts; retain them for subsequent full-size qualification unless explicitly
 removing the dedicated environment.
+
+## Current policy and full Bash study
+
+The binary now defaults to `final`; request `--effect-policy live` explicitly for
+intermediate-effect semantics. Historical qualification reports describe their
+recorded configurations, not the current default. For the maintained, unmodified
+83-group Bash suite, use
+`./studies/bash-parity-audit-2026-10-08/run.sh` from the repository root. See the
+[study instructions](../studies/bash-parity-audit-2026-10-08/README.md) for clean
+fixtures, deadlines, output records and analysis.
+
+The benchmark comparison harness has its own explicit policy option and historical
+`live` default; the example benchmark commands above select `final` explicitly.
+The maintained Bash study instead leaves the policy unset to test the binary default.

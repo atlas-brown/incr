@@ -102,6 +102,13 @@ def prepare(args, work, output):
     for name, repo in [("incr", ROOT), ("observe", ROOT.parent / "observe")]:
         checked(["cargo", "build", "--release", "--locked"], output, f"build-{name}", 180, repo)
     candidate = snapshot()
+    help_result = checked(
+        ["env", "-u", "INCR_EFFECT_POLICY", candidate / "target/release/incr", "--help"],
+        output,
+        "default-policy",
+    )
+    if "[default: final]" not in help_result["stdout"]:
+        raise RuntimeError("This study requires final as the binary's default effect policy")
     provenance = json.loads((STUDY / "corpus-provenance.json").read_text())
     mismatches = [
         r["path"]
@@ -162,7 +169,12 @@ def prepare(args, work, output):
                 ]
             },
             "terminal": True,
-            "policy": "live",
+            "policy": "final",
+            "policy_selection": "binary default; INCR_EFFECT_POLICY unset",
+            "runtime_sources": {
+                str(p.relative_to(ROOT)): sha(p)
+                for p in [ROOT / "src/main.rs", ROOT / "incr.sh", ROOT / "src/scripts/insert.py"]
+            },
             "case_order": args.cases,
         },
     )

@@ -1,5 +1,7 @@
 # Minimum-input benchmark measurements
 
+> Historical measurement configuration. Final is now the binary default. The Bash results below are superseded by the [clean final-policy study](../../../studies/bash-parity-audit-2026-10-08/REPORT.md); old Bash raw artifacts were removed and remain in git history. Other benchmark results retain their recorded configuration.
+
 **Complete candidate qualification**
 
 2144/2144 scheduled measurements; 96/96 benchmark entrypoints.

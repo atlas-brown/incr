@@ -5,7 +5,7 @@
  def
  def
 -./assoc5.sub: line 26: declare: `myarray[foo[bar]=bleh': not a valid identifier
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.RKaJ8NWL/script/assoc5.sub: line 8: declare: `myarray[foo[bar]=bleh': not a valid identifier
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.OdcjwRqI/script/assoc5.sub: line 8: declare: `myarray[foo[bar]=bleh': not a valid identifier
  def bleh abc
  myarray=(["]"]="def" [foo]="bleh" ["a]a"]="abc" ["a]=test1;#a"]="123" )
  

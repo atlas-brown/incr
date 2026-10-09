@@ -6,18 +6,18 @@
 -./exportfunc.tests: line 37: cve7169-bad: No such file or directory
 -./exportfunc.tests: eval: line 44: syntax error: unexpected end of file
 -./exportfunc.tests: line 43: cve7169-bad2: No such file or directory
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.SPDaw0Nc/script/exportfunc.tests: line 18: cve7169-bad: No such file or directory
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.SPDaw0Nc/script/exportfunc.tests: eval: line 24: syntax error: unexpected end of file
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.SPDaw0Nc/script/exportfunc.tests: line 23: cve7169-bad2: No such file or directory
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.ZBN9qsz7/script/exportfunc.tests: line 18: cve7169-bad: No such file or directory
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.ZBN9qsz7/script/exportfunc.tests: eval: line 24: syntax error: unexpected end of file
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.ZBN9qsz7/script/exportfunc.tests: line 23: cve7169-bad2: No such file or directory
  ./exportfunc1.sub: line 14: maximum here-document count exceeded
 -./exportfunc.tests: line 72: HELLO_WORLD: No such file or directory
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.SPDaw0Nc/script/exportfunc.tests: line 40: HELLO_WORLD: No such file or directory
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.ZBN9qsz7/script/exportfunc.tests: line 40: HELLO_WORLD: No such file or directory
  eval ok
 -./exportfunc3.sub: line 23: export: foo=bar: cannot export
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.9ohpCOLx/script/exportfunc3.sub: line 7: export: foo=bar: cannot export
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.uMJ3C78s/script/exportfunc3.sub: line 7: export: foo=bar: cannot export
  status: 1
  equals-1
  bad echo
 -./exportfunc3.sub: line 36: export: /bin/echo: cannot export
-+/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.9ohpCOLx/script/exportfunc3.sub: line 17: export: /bin/echo: cannot export
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/run/cache/incr-script.uMJ3C78s/script/exportfunc3.sub: line 17: export: /bin/echo: cannot export
  bar

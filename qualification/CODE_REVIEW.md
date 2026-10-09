@@ -1,5 +1,7 @@
 # Full source review tracker
 
+> Historical development record. The binary now defaults to `final`. Current full Bash results and reproduction instructions are in [the maintained study](../studies/bash-parity-audit-2026-10-08/REPORT.md). Superseded Bash result artifacts referenced below were removed; git commit `4a772a4` preserves them.
+
 Status is review coverage, not qualification. Pending entries remain required work.
 
 | Repository / file | Status | Findings / next action |

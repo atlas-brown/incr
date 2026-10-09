@@ -110,12 +110,18 @@ Unix path bytes; dependency paths that the current binary cache cannot encode
 prevent reuse. Executable and working-directory identities use their exact bytes.
 
 Streaming execution starts the command while consuming stdin. The default
-`--effect-policy live` permits cache cancellation only before the first live effect.
-Use `--effect-policy final`, or `INCR_EFFECT_POLICY=final` with the wrapper, when only
-final regular-file outputs matter. That policy validates candidates before execution,
-selects one by the complete stdin hash, stops all writers, and installs cached outputs.
-It does not preserve intermediate file observations or concurrent external writes.
-Use `live` for shared-file handshakes. FIFO dependencies prevent cache reuse.
+`--effect-policy final` validates cache candidates before execution, selects one by
+the complete stdin hash, stops all writers, and installs cached final outputs.
+This policy targets final-output equivalence; it does not preserve intermediate
+file observations or concurrent external writes. Use `--effect-policy live`, or
+`INCR_EFFECT_POLICY=live` with the wrapper, for shared-file handshakes and programs
+that require intermediate effects. Live permits cache cancellation only before the
+first live effect. FIFO dependencies prevent cache reuse under either policy.
+
+The full upstream Bash correctness evaluation and its exact scope are maintained
+in [the Bash study](studies/bash-parity-audit-2026-10-08/REPORT.md). Shell-level
+fallbacks preserve Bash parsing, alias expansion, command lookup and source-sensitive
+behavior; passing those cases does not imply that every command is accelerated.
 
 Both policies validate saved payloads before replay. File replay distinguishes
 in-place writes from pathname replacement so existing hard-link aliases receive the

@@ -36,7 +36,7 @@ struct Arguments {
         long = "effect-policy",
         env = "INCR_EFFECT_POLICY",
         value_enum,
-        default_value = "live"
+        default_value = "final"
     )]
     effect_policy: crate::config::EffectPolicy,
 

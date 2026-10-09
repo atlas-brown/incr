@@ -105,6 +105,8 @@ def main():
     report = [
         "# Case-by-case Bash analysis",
         "",
+        f"Effect policy: **{provenance['policy']}** ({provenance.get('policy_selection', 'explicit')}).",
+        "",
         "Generated from retained raw records. Counts are LF-delimited output lines, not separately numbered assertions. "
         "Each group has native cold/warm and Observe cold/warm evidence. Warm retains the same fixture/cache. "
         "Source locations, terminal process-group IDs, and the reviewed function executable prefixes are the only normalizations used here.",

@@ -1,5 +1,7 @@
 # Incr / Observe qualification audit
 
+> Historical development record. The binary now defaults to `final`. Current full Bash results and reproduction instructions are in [the maintained study](../studies/bash-parity-audit-2026-10-08/REPORT.md). Superseded Bash result artifacts referenced below were removed; git commit `4a772a4` preserves them.
+
 Scope: Linux x86-64, deterministic filesystem-oriented shell workloads, the 96
 minimum-input benchmark entrypoints in `results/2026-10-07/inventory.json`, and
 focused interaction/invalidation tests. Image annotation is excluded by the user;

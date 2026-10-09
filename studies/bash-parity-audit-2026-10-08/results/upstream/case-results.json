@@ -7,8 +7,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -23,9 +26,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.16262704599648714,
-    "observe_seconds": 1.1719799540005624,
-    "cache_entries": 0,
+    "reference_seconds": 0.14624547300627455,
+    "observe_seconds": 1.1813962979940698,
+    "cache_entries": 1,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -49,8 +52,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -65,9 +71,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.17660196099313907,
-    "observe_seconds": 1.2100412959989626,
-    "cache_entries": 0,
+    "reference_seconds": 0.1775547959987307,
+    "observe_seconds": 1.1943528150004568,
+    "cache_entries": 1,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -93,8 +99,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -109,8 +118,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.10975713099469431,
-    "observe_seconds": 0.5541992229991592,
+    "reference_seconds": 0.12086815299699083,
+    "observe_seconds": 0.5803590249997796,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -135,8 +144,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -151,8 +163,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.13669088800088502,
-    "observe_seconds": 0.5684170229942538,
+    "reference_seconds": 0.1268909529899247,
+    "observe_seconds": 0.5434969960042508,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -179,8 +191,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -195,8 +210,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.22058578100404702,
-    "observe_seconds": 1.5359317630063742,
+    "reference_seconds": 0.21362119699188042,
+    "observe_seconds": 1.6960834519995842,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -221,8 +236,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -237,8 +255,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.27121020200138446,
-    "observe_seconds": 1.6330015339917736,
+    "reference_seconds": 0.22826987000007648,
+    "observe_seconds": 1.4943592689960497,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -265,8 +283,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -281,8 +302,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.2738480999978492,
-    "observe_seconds": 0.40459567699872423,
+    "reference_seconds": 0.3254586599941831,
+    "observe_seconds": 0.4753915990004316,
     "cache_entries": 2,
     "retained_metadata": 0,
     "native_expected": [
@@ -307,8 +328,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -323,8 +347,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.3133849470032146,
-    "observe_seconds": 0.5369412750005722,
+    "reference_seconds": 0.3180649449932389,
+    "observe_seconds": 0.5475401629955741,
     "cache_entries": 2,
     "retained_metadata": 2,
     "native_expected": [
@@ -351,8 +375,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -367,8 +394,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.5240614399954211,
-    "observe_seconds": 5.795086333993822,
+    "reference_seconds": 0.4376946480042534,
+    "observe_seconds": 5.610957274999237,
     "cache_entries": 47,
     "retained_metadata": 0,
     "native_expected": [
@@ -393,8 +420,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -409,8 +439,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.5541976270033047,
-    "observe_seconds": 5.561006150994217,
+    "reference_seconds": 0.5308153109945124,
+    "observe_seconds": 5.388493799007847,
     "cache_entries": 47,
     "retained_metadata": 47,
     "native_expected": [
@@ -437,8 +467,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -453,8 +486,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.21200725699600298,
-    "observe_seconds": 0.7002801589987939,
+    "reference_seconds": 0.15965153800789267,
+    "observe_seconds": 0.7001823859900469,
     "cache_entries": 19,
     "retained_metadata": 0,
     "native_expected": [
@@ -479,8 +512,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -495,8 +531,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.23099578300025314,
-    "observe_seconds": 0.671191738001653,
+    "reference_seconds": 0.22433355200337246,
+    "observe_seconds": 0.7015992490050849,
     "cache_entries": 19,
     "retained_metadata": 19,
     "native_expected": [
@@ -523,8 +559,17 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {
+      "sleep": 1,
+      "bash": 1
+    },
+    "candidate_live_descendants": {
+      "sleep": 1,
+      "bash": 1
+    },
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -539,8 +584,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 2.266012244988815,
-    "observe_seconds": 5.143488909990992,
+    "reference_seconds": 2.2616244910022942,
+    "observe_seconds": 5.204111811006442,
     "cache_entries": 18,
     "retained_metadata": 0,
     "native_expected": [
@@ -565,8 +610,17 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {
+      "sleep": 1,
+      "bash": 1
+    },
+    "candidate_live_descendants": {
+      "sleep": 1,
+      "bash": 1
+    },
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -581,8 +635,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 2.284362146005151,
-    "observe_seconds": 5.13323787698755,
+    "reference_seconds": 2.272380519993021,
+    "observe_seconds": 5.254626920999726,
     "cache_entries": 20,
     "retained_metadata": 18,
     "native_expected": [
@@ -609,8 +663,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -625,8 +682,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.11504136900475714,
-    "observe_seconds": 0.6205762739991769,
+    "reference_seconds": 0.11262172200076748,
+    "observe_seconds": 0.5580172970076092,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -651,8 +708,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -667,8 +727,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.1199073779862374,
-    "observe_seconds": 0.7061895320075564,
+    "reference_seconds": 0.11275928300165106,
+    "observe_seconds": 0.5314744909992442,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -695,8 +755,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -711,8 +774,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.1110949830035679,
-    "observe_seconds": 0.2933488889975706,
+    "reference_seconds": 0.1181562470010249,
+    "observe_seconds": 0.3202876130089862,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -737,8 +800,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -753,8 +819,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.13024594700254966,
-    "observe_seconds": 0.2644264319969807,
+    "reference_seconds": 0.11382997200416867,
+    "observe_seconds": 0.27148903999477625,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -781,8 +847,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 1,
     "candidate_status": 1,
     "match": true,
@@ -797,9 +866,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 1.2613190499978373,
-    "observe_seconds": 3.3759876219992293,
-    "cache_entries": 1,
+    "reference_seconds": 1.241968097994686,
+    "observe_seconds": 3.4395047569996677,
+    "cache_entries": 5,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -823,8 +892,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 1,
     "candidate_status": 1,
     "match": true,
@@ -839,10 +911,10 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 1.2289393940009177,
-    "observe_seconds": 3.4608017160062445,
-    "cache_entries": 1,
-    "retained_metadata": 1,
+    "reference_seconds": 1.26414457600913,
+    "observe_seconds": 3.4891427959955763,
+    "cache_entries": 8,
+    "retained_metadata": 4,
     "native_expected": [
       {
         "reference_lines": 281,
@@ -867,8 +939,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -883,8 +958,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.12517970899352804,
-    "observe_seconds": 0.8047432400053367,
+    "reference_seconds": 0.13889523899706546,
+    "observe_seconds": 0.8885205539991148,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -909,8 +984,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -925,8 +1003,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.14801242599787656,
-    "observe_seconds": 0.8687058930081548,
+    "reference_seconds": 0.15649751300225034,
+    "observe_seconds": 0.8576081920036813,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -953,8 +1031,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -969,8 +1050,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.10906842599797528,
-    "observe_seconds": 0.26772870899003465,
+    "reference_seconds": 0.10427823600184638,
+    "observe_seconds": 0.24850217600760516,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -995,8 +1076,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1011,8 +1095,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.10691328998655081,
-    "observe_seconds": 0.24348138000641484,
+    "reference_seconds": 0.16049262099841144,
+    "observe_seconds": 0.3130067549936939,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -1039,8 +1123,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1055,8 +1142,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.10302255899296142,
-    "observe_seconds": 0.333945299993502,
+    "reference_seconds": 0.10607672999321949,
+    "observe_seconds": 0.2927443439984927,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -1081,8 +1168,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1097,8 +1187,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.10985332199197728,
-    "observe_seconds": 0.32127936799952295,
+    "reference_seconds": 0.10859850700944662,
+    "observe_seconds": 0.3834126610017847,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -1125,8 +1215,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -1141,8 +1234,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.22656140899925958,
-    "observe_seconds": 1.3752606350026326,
+    "reference_seconds": 0.2540012050012592,
+    "observe_seconds": 1.333043484002701,
     "cache_entries": 9,
     "retained_metadata": 0,
     "native_expected": [
@@ -1167,8 +1260,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -1183,8 +1279,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.2249369339988334,
-    "observe_seconds": 1.2420789809984853,
+    "reference_seconds": 0.22236623799835797,
+    "observe_seconds": 1.2558251540031051,
     "cache_entries": 9,
     "retained_metadata": 9,
     "native_expected": [
@@ -1211,8 +1307,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1227,8 +1326,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.1340377389860805,
-    "observe_seconds": 1.1581007479981054,
+    "reference_seconds": 0.13500525899871718,
+    "observe_seconds": 1.13720281800488,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -1253,8 +1352,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1269,8 +1371,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.14367461799702141,
-    "observe_seconds": 1.235331601012149,
+    "reference_seconds": 0.145539243996609,
+    "observe_seconds": 1.1862570670054993,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -1297,8 +1399,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1313,8 +1418,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.28935762000037357,
-    "observe_seconds": 1.1456267140019918,
+    "reference_seconds": 0.3161412619956536,
+    "observe_seconds": 1.1519931370130507,
     "cache_entries": 4,
     "retained_metadata": 0,
     "native_expected": [
@@ -1339,8 +1444,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1355,8 +1463,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.3461469739995664,
-    "observe_seconds": 1.1506938870006707,
+    "reference_seconds": 0.277062728011515,
+    "observe_seconds": 1.2055152749962872,
     "cache_entries": 4,
     "retained_metadata": 4,
     "native_expected": [
@@ -1383,8 +1491,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1399,8 +1510,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.12168631900567561,
-    "observe_seconds": 0.6760501910030143,
+    "reference_seconds": 0.11551213500206359,
+    "observe_seconds": 0.7234549750137376,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -1425,8 +1536,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1441,8 +1555,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.176280270999996,
-    "observe_seconds": 0.7954761709988816,
+    "reference_seconds": 0.13349630699667614,
+    "observe_seconds": 0.6924034360126825,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -1469,8 +1583,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1485,9 +1602,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 3.128066620003665,
-    "observe_seconds": 3.2862585600087186,
-    "cache_entries": 3,
+    "reference_seconds": 3.136895348012331,
+    "observe_seconds": 3.2833519220002927,
+    "cache_entries": 4,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -1511,8 +1628,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1527,10 +1647,10 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 3.133491717002471,
-    "observe_seconds": 3.336208130000159,
-    "cache_entries": 3,
-    "retained_metadata": 3,
+    "reference_seconds": 3.1367667640006403,
+    "observe_seconds": 3.2736815809912514,
+    "cache_entries": 5,
+    "retained_metadata": 4,
     "native_expected": [
       {
         "reference_lines": 10,
@@ -1555,8 +1675,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1571,8 +1694,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.10164098501263652,
-    "observe_seconds": 0.330766532002599,
+    "reference_seconds": 0.1097403149906313,
+    "observe_seconds": 0.3503191010095179,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -1597,8 +1720,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1613,8 +1739,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.12049107799248304,
-    "observe_seconds": 0.3363809809961822,
+    "reference_seconds": 0.10832131101051345,
+    "observe_seconds": 0.323833835995174,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -1641,8 +1767,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1657,8 +1786,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.14101948800089303,
-    "observe_seconds": 0.42148381400329527,
+    "reference_seconds": 0.1618250920000719,
+    "observe_seconds": 0.4231907719949959,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -1683,8 +1812,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1699,8 +1831,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.13631248599267565,
-    "observe_seconds": 0.4234684419934638,
+    "reference_seconds": 0.17167460400378332,
+    "observe_seconds": 0.47294237300229724,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -1727,8 +1859,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1743,8 +1878,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.10741595599392895,
-    "observe_seconds": 0.25243362699984573,
+    "reference_seconds": 0.11452270099835005,
+    "observe_seconds": 0.2254197779984679,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -1769,8 +1904,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1785,8 +1923,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.13496279700484592,
-    "observe_seconds": 0.252540998000768,
+    "reference_seconds": 0.10507015099574346,
+    "observe_seconds": 0.22848677801084705,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -1813,8 +1951,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1838,8 +1979,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.14551490799931344,
-    "observe_seconds": 0.4221330550062703,
+    "reference_seconds": 0.1980814529961208,
+    "observe_seconds": 0.4260772200068459,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -1873,8 +2014,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1898,8 +2042,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.13946165500965435,
-    "observe_seconds": 0.4345722420111997,
+    "reference_seconds": 0.18057477699767333,
+    "observe_seconds": 0.42951174201152753,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -1935,8 +2079,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1951,8 +2098,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.8557699700031662,
-    "observe_seconds": 5.8273929660063,
+    "reference_seconds": 0.7470766199985519,
+    "observe_seconds": 5.840824764003628,
     "cache_entries": 33,
     "retained_metadata": 0,
     "native_expected": [
@@ -1977,8 +2124,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -1993,8 +2143,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.9069040180038428,
-    "observe_seconds": 5.79693913499068,
+    "reference_seconds": 0.8685950439976295,
+    "observe_seconds": 5.771607014990877,
     "cache_entries": 33,
     "retained_metadata": 33,
     "native_expected": [
@@ -2021,8 +2171,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -2037,8 +2190,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 2.1243873800121946,
-    "observe_seconds": 2.246795775994542,
+    "reference_seconds": 2.124731357995188,
+    "observe_seconds": 2.2402159930061316,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -2063,8 +2216,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -2079,8 +2235,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 2.13296550999803,
-    "observe_seconds": 2.2565077820036095,
+    "reference_seconds": 2.1209165309992386,
+    "observe_seconds": 2.267345722008031,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -2107,8 +2263,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -2123,8 +2282,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.20515321800485253,
-    "observe_seconds": 2.097056551996502,
+    "reference_seconds": 0.20043497999722604,
+    "observe_seconds": 2.22526100500545,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -2149,8 +2308,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -2165,8 +2327,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.27758779299620073,
-    "observe_seconds": 2.080868933000602,
+    "reference_seconds": 0.24985619299695827,
+    "observe_seconds": 2.0294271430029767,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -2193,8 +2355,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 1,
     "candidate_status": 1,
     "match": true,
@@ -2209,9 +2374,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.45171422899875324,
-    "observe_seconds": 3.1529187559935963,
-    "cache_entries": 1,
+    "reference_seconds": 0.5176403209916316,
+    "observe_seconds": 3.187408243000391,
+    "cache_entries": 5,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -2235,8 +2400,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 1,
     "candidate_status": 1,
     "match": true,
@@ -2251,10 +2419,10 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.5198199099977501,
-    "observe_seconds": 3.3696422210050514,
-    "cache_entries": 1,
-    "retained_metadata": 1,
+    "reference_seconds": 0.5008122610015562,
+    "observe_seconds": 3.441996827008552,
+    "cache_entries": 6,
+    "retained_metadata": 3,
     "native_expected": [
       {
         "reference_lines": 172,
@@ -2279,8 +2447,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -2295,8 +2466,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.4459121200052323,
-    "observe_seconds": 2.560400157002732,
+    "reference_seconds": 0.4751922699942952,
+    "observe_seconds": 2.770514527990599,
     "cache_entries": 23,
     "retained_metadata": 0,
     "native_expected": [
@@ -2321,8 +2492,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -2337,8 +2511,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.4290180040115956,
-    "observe_seconds": 2.5886212449986488,
+    "reference_seconds": 0.5403797069884604,
+    "observe_seconds": 2.740183853005874,
     "cache_entries": 23,
     "retained_metadata": 23,
     "native_expected": [
@@ -2365,8 +2539,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -2381,9 +2558,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.1925344819901511,
-    "observe_seconds": 11.30671656699269,
-    "cache_entries": 1,
+    "reference_seconds": 0.20107105700299144,
+    "observe_seconds": 11.415334385004826,
+    "cache_entries": 5,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -2407,8 +2584,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -2423,10 +2603,10 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.24765417800517753,
-    "observe_seconds": 11.26708317900193,
-    "cache_entries": 1,
-    "retained_metadata": 1,
+    "reference_seconds": 0.20496241901128087,
+    "observe_seconds": 11.206769508993602,
+    "cache_entries": 5,
+    "retained_metadata": 4,
     "native_expected": [
       {
         "reference_lines": 14,
@@ -2451,8 +2631,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -2467,9 +2650,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.2060758299921872,
-    "observe_seconds": 1.340031977990293,
-    "cache_entries": 0,
+    "reference_seconds": 0.18135264700686093,
+    "observe_seconds": 1.2266914490028284,
+    "cache_entries": 2,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -2493,8 +2676,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -2509,958 +2695,1024 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.2219625419966178,
-    "observe_seconds": 1.3317016289947787,
-    "cache_entries": 0,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 184,
-        "candidate_lines": 184,
-        "matched": 184,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true,
-    "bash_cold_warm_output_match": true,
-    "observe_cold_warm_output_match": true
-  },
-  {
-    "case": "extglob2",
-    "phase": "cold",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 70,
-        "candidate_lines": 70,
-        "matched": 70,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.13264217300456949,
-    "observe_seconds": 0.2626421109889634,
-    "cache_entries": 0,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 70,
-        "candidate_lines": 70,
-        "matched": 70,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true
-  },
-  {
-    "case": "extglob2",
-    "phase": "warm",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 70,
-        "candidate_lines": 70,
-        "matched": 70,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.11011059800512157,
-    "observe_seconds": 0.27037118100270163,
-    "cache_entries": 0,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 70,
-        "candidate_lines": 70,
-        "matched": 70,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true,
-    "bash_cold_warm_output_match": true,
-    "observe_cold_warm_output_match": true
-  },
-  {
-    "case": "extglob3",
-    "phase": "cold",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 27,
-        "candidate_lines": 27,
-        "matched": 27,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.11365238900179975,
-    "observe_seconds": 0.2698128720076056,
-    "cache_entries": 0,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 27,
-        "candidate_lines": 27,
-        "matched": 27,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true
-  },
-  {
-    "case": "extglob3",
-    "phase": "warm",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 27,
-        "candidate_lines": 27,
-        "matched": 27,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.11075232300208881,
-    "observe_seconds": 0.2840630299906479,
-    "cache_entries": 0,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 27,
-        "candidate_lines": 27,
-        "matched": 27,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true,
-    "bash_cold_warm_output_match": true,
-    "observe_cold_warm_output_match": true
-  },
-  {
-    "case": "func",
-    "phase": "cold",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 169,
-        "candidate_lines": 169,
-        "matched": 169,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 5.193692967994139,
-    "observe_seconds": 5.994602125996607,
-    "cache_entries": 0,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 169,
-        "candidate_lines": 169,
-        "matched": 169,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true
-  },
-  {
-    "case": "func",
-    "phase": "warm",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 169,
-        "candidate_lines": 169,
-        "matched": 169,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 5.224006054006168,
-    "observe_seconds": 6.057205803008401,
-    "cache_entries": 0,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 169,
-        "candidate_lines": 169,
-        "matched": 169,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true,
-    "bash_cold_warm_output_match": true,
-    "observe_cold_warm_output_match": true
-  },
-  {
-    "case": "getopts",
-    "phase": "cold",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 68,
-        "candidate_lines": 68,
-        "matched": 68,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.1545499459898565,
-    "observe_seconds": 3.043409628007794,
-    "cache_entries": 0,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 68,
-        "candidate_lines": 68,
-        "matched": 68,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true
-  },
-  {
-    "case": "getopts",
-    "phase": "warm",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 68,
-        "candidate_lines": 68,
-        "matched": 68,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.17725524099660106,
-    "observe_seconds": 2.912973281010636,
-    "cache_entries": 0,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 68,
-        "candidate_lines": 68,
-        "matched": 68,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true,
-    "bash_cold_warm_output_match": true,
-    "observe_cold_warm_output_match": true
-  },
-  {
-    "case": "glob-test",
-    "phase": "cold",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 261,
-        "candidate_lines": 261,
-        "matched": 261,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.3904969080031151,
-    "observe_seconds": 2.2744649719970766,
-    "cache_entries": 13,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 261,
-        "candidate_lines": 261,
-        "matched": 261,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true
-  },
-  {
-    "case": "glob-test",
-    "phase": "warm",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 261,
-        "candidate_lines": 261,
-        "matched": 261,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.5138036720018135,
-    "observe_seconds": 2.3043534720054595,
-    "cache_entries": 26,
-    "retained_metadata": 13,
-    "native_expected": [
-      {
-        "reference_lines": 261,
-        "candidate_lines": 261,
-        "matched": 261,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true,
-    "bash_cold_warm_output_match": true,
-    "observe_cold_warm_output_match": true
-  },
-  {
-    "case": "globstar",
-    "phase": "cold",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 587,
-        "candidate_lines": 587,
-        "matched": 587,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.16781258599075954,
-    "observe_seconds": 0.930569308999111,
-    "cache_entries": 3,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 587,
-        "candidate_lines": 587,
-        "matched": 587,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true
-  },
-  {
-    "case": "globstar",
-    "phase": "warm",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 587,
-        "candidate_lines": 587,
-        "matched": 587,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.22991014800209086,
-    "observe_seconds": 0.9347679049969884,
-    "cache_entries": 6,
-    "retained_metadata": 3,
-    "native_expected": [
-      {
-        "reference_lines": 587,
-        "candidate_lines": 587,
-        "matched": 587,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true,
-    "bash_cold_warm_output_match": true,
-    "observe_cold_warm_output_match": true
-  },
-  {
-    "case": "heredoc",
-    "phase": "cold",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 133,
-        "candidate_lines": 133,
-        "matched": 133,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.25057232700055465,
-    "observe_seconds": 1.4524339420022443,
-    "cache_entries": 5,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 133,
-        "candidate_lines": 133,
-        "matched": 133,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true
-  },
-  {
-    "case": "heredoc",
-    "phase": "warm",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 133,
-        "candidate_lines": 133,
-        "matched": 133,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.21553787299490068,
-    "observe_seconds": 1.3506109720037784,
-    "cache_entries": 8,
-    "retained_metadata": 5,
-    "native_expected": [
-      {
-        "reference_lines": 133,
-        "candidate_lines": 133,
-        "matched": 133,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true,
-    "bash_cold_warm_output_match": true,
-    "observe_cold_warm_output_match": true
-  },
-  {
-    "case": "herestr",
-    "phase": "cold",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 38,
-        "candidate_lines": 38,
-        "matched": 38,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.12124864500947297,
-    "observe_seconds": 0.3805843320005806,
-    "cache_entries": 0,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 38,
-        "candidate_lines": 38,
-        "matched": 38,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true
-  },
-  {
-    "case": "herestr",
-    "phase": "warm",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 38,
-        "candidate_lines": 38,
-        "matched": 38,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.14152996700431686,
-    "observe_seconds": 0.4633747579937335,
-    "cache_entries": 0,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 38,
-        "candidate_lines": 38,
-        "matched": 38,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true,
-    "bash_cold_warm_output_match": true,
-    "observe_cold_warm_output_match": true
-  },
-  {
-    "case": "histexpand",
-    "phase": "cold",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 246,
-        "candidate_lines": 246,
-        "matched": 246,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.15661738999187946,
-    "observe_seconds": 1.2560795379977208,
-    "cache_entries": 0,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 246,
-        "candidate_lines": 246,
-        "matched": 246,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true
-  },
-  {
-    "case": "histexpand",
-    "phase": "warm",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 246,
-        "candidate_lines": 246,
-        "matched": 246,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.25252841200563125,
-    "observe_seconds": 1.1980565010017017,
-    "cache_entries": 0,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 246,
-        "candidate_lines": 246,
-        "matched": 246,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true,
-    "bash_cold_warm_output_match": true,
-    "observe_cold_warm_output_match": true
-  },
-  {
-    "case": "history",
-    "phase": "cold",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 299,
-        "candidate_lines": 299,
-        "matched": 299,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.15781356500519905,
-    "observe_seconds": 1.158855924004456,
-    "cache_entries": 0,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 299,
-        "candidate_lines": 299,
-        "matched": 299,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true
-  },
-  {
-    "case": "history",
-    "phase": "warm",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 299,
-        "candidate_lines": 299,
-        "matched": 299,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.20395900499715935,
-    "observe_seconds": 1.1103014699911,
-    "cache_entries": 0,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 299,
-        "candidate_lines": 299,
-        "matched": 299,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true,
-    "bash_cold_warm_output_match": true,
-    "observe_cold_warm_output_match": true
-  },
-  {
-    "case": "ifs",
-    "phase": "cold",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 12,
-        "candidate_lines": 12,
-        "matched": 12,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.11614573100814596,
-    "observe_seconds": 0.41268785200372804,
-    "cache_entries": 2,
-    "retained_metadata": 0,
-    "native_expected": [
-      {
-        "reference_lines": 12,
-        "candidate_lines": 12,
-        "matched": 12,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true
-  },
-  {
-    "case": "ifs",
-    "phase": "warm",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 12,
-        "candidate_lines": 12,
-        "matched": 12,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.1143506889929995,
-    "observe_seconds": 0.49146849500539247,
+    "reference_seconds": 0.17838990699965507,
+    "observe_seconds": 1.3282183300034376,
     "cache_entries": 4,
     "retained_metadata": 2,
     "native_expected": [
       {
+        "reference_lines": 184,
+        "candidate_lines": 184,
+        "matched": 184,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "extglob2",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 70,
+        "candidate_lines": 70,
+        "matched": 70,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.10529900100664236,
+    "observe_seconds": 0.24849948298651725,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 70,
+        "candidate_lines": 70,
+        "matched": 70,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "extglob2",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 70,
+        "candidate_lines": 70,
+        "matched": 70,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.12404369900468737,
+    "observe_seconds": 0.2675536439928692,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 70,
+        "candidate_lines": 70,
+        "matched": 70,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "extglob3",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 27,
+        "candidate_lines": 27,
+        "matched": 27,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.10100891700130887,
+    "observe_seconds": 0.31147729499207344,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 27,
+        "candidate_lines": 27,
+        "matched": 27,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "extglob3",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 27,
+        "candidate_lines": 27,
+        "matched": 27,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11237437700037844,
+    "observe_seconds": 0.28370265700505115,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 27,
+        "candidate_lines": 27,
+        "matched": 27,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "func",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 169,
+        "candidate_lines": 169,
+        "matched": 169,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 5.205589035991579,
+    "observe_seconds": 6.0276190570002655,
+    "cache_entries": 2,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 169,
+        "candidate_lines": 169,
+        "matched": 169,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "func",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 169,
+        "candidate_lines": 169,
+        "matched": 169,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 5.232895096007269,
+    "observe_seconds": 6.07701124799496,
+    "cache_entries": 4,
+    "retained_metadata": 2,
+    "native_expected": [
+      {
+        "reference_lines": 169,
+        "candidate_lines": 169,
+        "matched": 169,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "getopts",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 68,
+        "candidate_lines": 68,
+        "matched": 68,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.15170991400373168,
+    "observe_seconds": 3.0358994330017595,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 68,
+        "candidate_lines": 68,
+        "matched": 68,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "getopts",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 68,
+        "candidate_lines": 68,
+        "matched": 68,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.19767469599901233,
+    "observe_seconds": 2.779525152000133,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 68,
+        "candidate_lines": 68,
+        "matched": 68,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "glob-test",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 261,
+        "candidate_lines": 261,
+        "matched": 261,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.45563630999822635,
+    "observe_seconds": 2.4491483960009646,
+    "cache_entries": 33,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 261,
+        "candidate_lines": 261,
+        "matched": 261,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "glob-test",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 261,
+        "candidate_lines": 261,
+        "matched": 261,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.474710103997495,
+    "observe_seconds": 2.531189052009722,
+    "cache_entries": 65,
+    "retained_metadata": 32,
+    "native_expected": [
+      {
+        "reference_lines": 261,
+        "candidate_lines": 261,
+        "matched": 261,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "globstar",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 587,
+        "candidate_lines": 587,
+        "matched": 587,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.19740888998785522,
+    "observe_seconds": 0.8392157530033728,
+    "cache_entries": 9,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 587,
+        "candidate_lines": 587,
+        "matched": 587,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "globstar",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 587,
+        "candidate_lines": 587,
+        "matched": 587,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.20453563499904703,
+    "observe_seconds": 0.9201086500106612,
+    "cache_entries": 16,
+    "retained_metadata": 7,
+    "native_expected": [
+      {
+        "reference_lines": 587,
+        "candidate_lines": 587,
+        "matched": 587,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "heredoc",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 133,
+        "candidate_lines": 133,
+        "matched": 133,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.2566853199969046,
+    "observe_seconds": 1.437046459002886,
+    "cache_entries": 6,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 133,
+        "candidate_lines": 133,
+        "matched": 133,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "heredoc",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 133,
+        "candidate_lines": 133,
+        "matched": 133,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.298883808995015,
+    "observe_seconds": 1.3908692060067551,
+    "cache_entries": 10,
+    "retained_metadata": 6,
+    "native_expected": [
+      {
+        "reference_lines": 133,
+        "candidate_lines": 133,
+        "matched": 133,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "herestr",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 38,
+        "candidate_lines": 38,
+        "matched": 38,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.12499168400245253,
+    "observe_seconds": 0.4129330619907705,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 38,
+        "candidate_lines": 38,
+        "matched": 38,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "herestr",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 38,
+        "candidate_lines": 38,
+        "matched": 38,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.13155780899978708,
+    "observe_seconds": 0.3940452739916509,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 38,
+        "candidate_lines": 38,
+        "matched": 38,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "histexpand",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 246,
+        "candidate_lines": 246,
+        "matched": 246,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.14930466799705755,
+    "observe_seconds": 1.1728743630083045,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 246,
+        "candidate_lines": 246,
+        "matched": 246,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "histexpand",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 246,
+        "candidate_lines": 246,
+        "matched": 246,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.21581684799457435,
+    "observe_seconds": 1.2646797229972435,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 246,
+        "candidate_lines": 246,
+        "matched": 246,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "history",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 299,
+        "candidate_lines": 299,
+        "matched": 299,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1715556330018444,
+    "observe_seconds": 1.1637344869959634,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 299,
+        "candidate_lines": 299,
+        "matched": 299,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "history",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 299,
+        "candidate_lines": 299,
+        "matched": 299,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.2496741859940812,
+    "observe_seconds": 1.0668118729954585,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 299,
+        "candidate_lines": 299,
+        "matched": 299,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "ifs",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 12,
+        "candidate_lines": 12,
+        "matched": 12,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11483919800957665,
+    "observe_seconds": 0.4136895579867996,
+    "cache_entries": 3,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 12,
+        "candidate_lines": 12,
+        "matched": 12,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "ifs",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 12,
+        "candidate_lines": 12,
+        "matched": 12,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1161034219985595,
+    "observe_seconds": 0.4205765880033141,
+    "cache_entries": 6,
+    "retained_metadata": 3,
+    "native_expected": [
+      {
         "reference_lines": 12,
         "candidate_lines": 12,
         "matched": 12,
@@ -3483,8 +3735,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -3499,8 +3754,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 10.969221557999845,
-    "observe_seconds": 11.11985689199355,
+    "reference_seconds": 10.820743591000792,
+    "observe_seconds": 11.388886640997953,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -3525,8 +3780,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -3541,8 +3799,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 10.899468228002661,
-    "observe_seconds": 11.15424183900177,
+    "reference_seconds": 10.7720790609892,
+    "observe_seconds": 11.226149986003293,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -3569,8 +3827,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -3585,8 +3846,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.11665682100283448,
-    "observe_seconds": 0.24124227299762424,
+    "reference_seconds": 0.11499542499950621,
+    "observe_seconds": 0.2917712430062238,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -3611,8 +3872,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -3627,8 +3891,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.11602056199626531,
-    "observe_seconds": 0.2474364749941742,
+    "reference_seconds": 0.11587127299571875,
+    "observe_seconds": 0.24931529400055297,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -3655,8 +3919,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -3671,8 +3938,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.45381001800706144,
-    "observe_seconds": 1.5098995919979643,
+    "reference_seconds": 0.4710668869956862,
+    "observe_seconds": 1.4019131410022965,
     "cache_entries": 2,
     "retained_metadata": 0,
     "native_expected": [
@@ -3697,8 +3964,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -3713,8 +3983,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.5347619989915984,
-    "observe_seconds": 1.5082908369950019,
+    "reference_seconds": 0.46750527698895894,
+    "observe_seconds": 1.599063688001479,
     "cache_entries": 2,
     "retained_metadata": 2,
     "native_expected": [
@@ -3741,8 +4011,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -3757,8 +4030,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.11494862700055819,
-    "observe_seconds": 0.2636501689994475,
+    "reference_seconds": 0.11001588599174283,
+    "observe_seconds": 0.27186855699983425,
     "cache_entries": 1,
     "retained_metadata": 0,
     "native_expected": [
@@ -3783,8 +4056,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -3799,8 +4075,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.12300692200369667,
-    "observe_seconds": 0.2805137490067864,
+    "reference_seconds": 0.1106359700061148,
+    "observe_seconds": 0.27997219999087974,
     "cache_entries": 1,
     "retained_metadata": 1,
     "native_expected": [
@@ -3827,8 +4103,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -3843,8 +4122,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.19220046000555158,
-    "observe_seconds": 0.45930469200538937,
+    "reference_seconds": 0.2074439839925617,
+    "observe_seconds": 0.5517401420074748,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -3869,8 +4148,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -3885,8 +4167,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.23341987699677702,
-    "observe_seconds": 0.46759250199829694,
+    "reference_seconds": 0.2651530739967711,
+    "observe_seconds": 0.5433146380091785,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -3913,8 +4195,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -3929,9 +4214,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 62.21614145999774,
-    "observe_seconds": 63.43720396400022,
-    "cache_entries": 1,
+    "reference_seconds": 62.22127720499702,
+    "observe_seconds": 63.35785140500229,
+    "cache_entries": 2,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -3955,8 +4240,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -3971,53 +4259,56 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 62.22077385400189,
-    "observe_seconds": 63.45298079299391,
+    "reference_seconds": 62.22340820300451,
+    "observe_seconds": 63.458782294997945,
+    "cache_entries": 3,
+    "retained_metadata": 2,
+    "native_expected": [
+      {
+        "reference_lines": 120,
+        "candidate_lines": 120,
+        "matched": 120,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "lastpipe",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 22,
+        "candidate_lines": 22,
+        "matched": 22,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.15045705800002906,
+    "observe_seconds": 0.7105977600003826,
     "cache_entries": 1,
-    "retained_metadata": 1,
-    "native_expected": [
-      {
-        "reference_lines": 120,
-        "candidate_lines": 120,
-        "matched": 120,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "baseline_cleanup": true,
-    "observe_cleanup": true,
-    "bash_cold_warm_output_match": true,
-    "observe_cold_warm_output_match": true
-  },
-  {
-    "case": "lastpipe",
-    "phase": "cold",
-    "exact": true,
-    "output_match": true,
-    "captures_valid": true,
-    "expected_valid": true,
-    "lifecycle_valid": true,
-    "status_equal": true,
-    "status_valid": true,
-    "reference_status": 0,
-    "candidate_status": 0,
-    "match": true,
-    "lines": [
-      {
-        "reference_lines": 22,
-        "candidate_lines": 22,
-        "matched": 22,
-        "deleted": 0,
-        "inserted": 0,
-        "replaced_reference": 0,
-        "replaced_candidate": 0
-      }
-    ],
-    "reference_seconds": 0.13844073300424498,
-    "observe_seconds": 0.7804957540065516,
-    "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -4041,8 +4332,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4057,9 +4351,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.14473349299805705,
-    "observe_seconds": 0.7569451309973374,
-    "cache_entries": 0,
+    "reference_seconds": 0.14772743500361685,
+    "observe_seconds": 0.7845975189993624,
+    "cache_entries": 1,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -4085,8 +4379,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4101,8 +4398,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.12107261299388483,
-    "observe_seconds": 0.4837118610012112,
+    "reference_seconds": 0.11700528700021096,
+    "observe_seconds": 0.5054787200060673,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -4127,8 +4424,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4143,8 +4443,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.13311498799885157,
-    "observe_seconds": 0.4996591300005093,
+    "reference_seconds": 0.1510022380098235,
+    "observe_seconds": 0.5302261750039179,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -4171,8 +4471,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -4187,8 +4490,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.465978708001785,
-    "observe_seconds": 1.5611031860025832,
+    "reference_seconds": 0.49375465299817733,
+    "observe_seconds": 1.6878455160040176,
     "cache_entries": 59,
     "retained_metadata": 0,
     "native_expected": [
@@ -4213,8 +4516,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -4229,8 +4535,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.36123731700354256,
-    "observe_seconds": 1.2779311839985894,
+    "reference_seconds": 0.48421598999993876,
+    "observe_seconds": 1.3920530670002336,
     "cache_entries": 59,
     "retained_metadata": 59,
     "native_expected": [
@@ -4257,8 +4563,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -4273,8 +4582,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.22521196800516918,
-    "observe_seconds": 4.108269053991535,
+    "reference_seconds": 0.23533554500318132,
+    "observe_seconds": 4.4214553969941335,
     "cache_entries": 6,
     "retained_metadata": 0,
     "native_expected": [
@@ -4299,8 +4608,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -4315,8 +4627,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.2462673249974614,
-    "observe_seconds": 4.269776261004154,
+    "reference_seconds": 0.2675813770038076,
+    "observe_seconds": 3.864368672002456,
     "cache_entries": 6,
     "retained_metadata": 6,
     "native_expected": [
@@ -4343,8 +4655,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -4359,9 +4674,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.6166054229979636,
-    "observe_seconds": 3.3355274130008183,
-    "cache_entries": 5,
+    "reference_seconds": 0.6639971900003729,
+    "observe_seconds": 3.1691197660111357,
+    "cache_entries": 6,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -4385,8 +4700,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -4401,10 +4719,10 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.6735591200122144,
-    "observe_seconds": 3.255433181009721,
-    "cache_entries": 5,
-    "retained_metadata": 5,
+    "reference_seconds": 0.6615977050096262,
+    "observe_seconds": 3.6245799969910877,
+    "cache_entries": 7,
+    "retained_metadata": 6,
     "native_expected": [
       {
         "reference_lines": 795,
@@ -4429,8 +4747,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4445,8 +4766,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.18708743300521746,
-    "observe_seconds": 0.9944402130058734,
+    "reference_seconds": 0.1841498019930441,
+    "observe_seconds": 1.0272743009991245,
     "cache_entries": 3,
     "retained_metadata": 0,
     "native_expected": [
@@ -4471,8 +4792,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4487,8 +4811,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.2665887609909987,
-    "observe_seconds": 0.9607784370018635,
+    "reference_seconds": 0.1780375710077351,
+    "observe_seconds": 0.9507604889950017,
     "cache_entries": 3,
     "retained_metadata": 3,
     "native_expected": [
@@ -4515,8 +4839,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4531,8 +4858,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.1962570159957977,
-    "observe_seconds": 0.37798149199807085,
+    "reference_seconds": 0.16710192199388985,
+    "observe_seconds": 0.37877673299226444,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -4557,8 +4884,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4573,8 +4903,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.1865120169968577,
-    "observe_seconds": 0.2934286060044542,
+    "reference_seconds": 0.22195356100564823,
+    "observe_seconds": 0.2960331680078525,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -4601,8 +4931,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4617,8 +4950,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.15397548300097696,
-    "observe_seconds": 0.2998240549932234,
+    "reference_seconds": 0.17952552199130878,
+    "observe_seconds": 0.38632379900082015,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -4643,8 +4976,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4659,8 +4995,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.20745429400994908,
-    "observe_seconds": 0.31148351899173576,
+    "reference_seconds": 0.2088929419987835,
+    "observe_seconds": 0.3495538499992108,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -4687,8 +5023,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4703,8 +5042,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.1649279800039949,
-    "observe_seconds": 0.2741409190057311,
+    "reference_seconds": 0.17107955098617822,
+    "observe_seconds": 0.2873099709977396,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -4729,8 +5068,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4745,8 +5087,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.19222959999751765,
-    "observe_seconds": 0.3198104610055452,
+    "reference_seconds": 0.1907104359997902,
+    "observe_seconds": 0.29226989499875344,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -4773,8 +5115,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4789,8 +5134,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.1893145609938074,
-    "observe_seconds": 0.29079092098982073,
+    "reference_seconds": 0.17002405899984296,
+    "observe_seconds": 0.2843343080021441,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -4815,8 +5160,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4831,8 +5179,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.1538527180091478,
-    "observe_seconds": 0.29763110500061885,
+    "reference_seconds": 0.1577549350040499,
+    "observe_seconds": 0.3439249799994286,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -4859,8 +5207,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4875,8 +5226,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.1437401050061453,
-    "observe_seconds": 0.2615834599855589,
+    "reference_seconds": 0.15213572701031808,
+    "observe_seconds": 0.3271460520045366,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -4901,8 +5252,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4917,8 +5271,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.21046910498989746,
-    "observe_seconds": 0.2723947019985644,
+    "reference_seconds": 0.15388447399891447,
+    "observe_seconds": 0.2634996310080169,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -4945,8 +5299,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -4961,8 +5318,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.1374949809978716,
-    "observe_seconds": 0.6142358149954816,
+    "reference_seconds": 0.13180633701267652,
+    "observe_seconds": 0.5367966830090154,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -4987,8 +5344,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5003,8 +5363,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.15061035100370646,
-    "observe_seconds": 0.5895847649953794,
+    "reference_seconds": 0.15409771399572492,
+    "observe_seconds": 0.5687343900062842,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -5031,8 +5391,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -5047,9 +5410,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.15187165400129743,
-    "observe_seconds": 0.6060988450044533,
-    "cache_entries": 0,
+    "reference_seconds": 0.14427992700075265,
+    "observe_seconds": 0.5046810780040687,
+    "cache_entries": 2,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -5073,8 +5436,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -5089,9 +5455,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.18882121400383767,
-    "observe_seconds": 0.4974344509973889,
-    "cache_entries": 0,
+    "reference_seconds": 0.1754987699969206,
+    "observe_seconds": 0.5116951200034237,
+    "cache_entries": 2,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -5117,8 +5483,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5133,8 +5502,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.9192960430082167,
-    "observe_seconds": 3.0156058430002304,
+    "reference_seconds": 0.8277749800035963,
+    "observe_seconds": 2.906951989993104,
     "cache_entries": 13,
     "retained_metadata": 0,
     "native_expected": [
@@ -5159,8 +5528,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5175,8 +5547,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.827984244999243,
-    "observe_seconds": 2.9251438139908714,
+    "reference_seconds": 0.8238353680062573,
+    "observe_seconds": 2.9740178159991046,
     "cache_entries": 14,
     "retained_metadata": 13,
     "native_expected": [
@@ -5203,8 +5575,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5219,8 +5594,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.1411580900021363,
-    "observe_seconds": 0.2910587229998782,
+    "reference_seconds": 0.1557317900005728,
+    "observe_seconds": 0.26771510000980925,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -5245,8 +5620,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5261,8 +5639,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.20697522000409663,
-    "observe_seconds": 0.28897416600375436,
+    "reference_seconds": 0.13582280800619628,
+    "observe_seconds": 0.276734070997918,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -5289,8 +5667,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5305,8 +5686,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.10021573399717454,
-    "observe_seconds": 0.22847197399823926,
+    "reference_seconds": 0.09953433899499942,
+    "observe_seconds": 0.2532865539978957,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -5331,8 +5712,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5347,8 +5731,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.11498275300255045,
-    "observe_seconds": 0.22746829300012905,
+    "reference_seconds": 0.11021982900274452,
+    "observe_seconds": 0.23110468400409445,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -5375,8 +5759,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5391,8 +5778,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.11077451199525967,
-    "observe_seconds": 0.25051440999959596,
+    "reference_seconds": 0.10821118799503893,
+    "observe_seconds": 0.23525009900913574,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -5417,8 +5804,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5433,8 +5823,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.10373834799975157,
-    "observe_seconds": 0.24269205500604585,
+    "reference_seconds": 0.10849679000966717,
+    "observe_seconds": 0.23808912800450344,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -5461,8 +5851,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5477,8 +5870,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.12787665499490686,
-    "observe_seconds": 0.32068446499761194,
+    "reference_seconds": 0.12246125700767152,
+    "observe_seconds": 0.3246273019904038,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -5503,8 +5896,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5519,8 +5915,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.13830273000348825,
-    "observe_seconds": 0.28522535900992807,
+    "reference_seconds": 0.18520873399393167,
+    "observe_seconds": 0.2821528720087372,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -5547,8 +5943,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5563,8 +5962,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.14315370400436223,
-    "observe_seconds": 0.79900185301085,
+    "reference_seconds": 0.15891233200090937,
+    "observe_seconds": 0.8122402129956754,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -5589,8 +5988,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5605,8 +6007,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.17569680599262938,
-    "observe_seconds": 0.8182140699937008,
+    "reference_seconds": 0.16756337000697386,
+    "observe_seconds": 0.8185000819939887,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -5633,8 +6035,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5649,9 +6054,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 2.4630162329995073,
-    "observe_seconds": 2.9754435009963345,
-    "cache_entries": 0,
+    "reference_seconds": 2.476286971999798,
+    "observe_seconds": 2.9730009430059,
+    "cache_entries": 2,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -5675,8 +6080,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5691,10 +6099,10 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 2.414288277999731,
-    "observe_seconds": 2.9959218430012697,
-    "cache_entries": 0,
-    "retained_metadata": 0,
+    "reference_seconds": 2.485105106010451,
+    "observe_seconds": 3.068243739005993,
+    "cache_entries": 4,
+    "retained_metadata": 2,
     "native_expected": [
       {
         "reference_lines": 33,
@@ -5719,8 +6127,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5735,8 +6146,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.21944451599847525,
-    "observe_seconds": 1.2938206450053258,
+    "reference_seconds": 0.2860410800058162,
+    "observe_seconds": 1.4652816559973871,
     "cache_entries": 14,
     "retained_metadata": 0,
     "native_expected": [
@@ -5761,8 +6172,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5777,8 +6191,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.2321727859962266,
-    "observe_seconds": 1.2925378020008793,
+    "reference_seconds": 0.2902911390119698,
+    "observe_seconds": 1.2673184440063778,
     "cache_entries": 14,
     "retained_metadata": 14,
     "native_expected": [
@@ -5805,8 +6219,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5821,8 +6238,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.14138662700133864,
-    "observe_seconds": 1.0107405580056366,
+    "reference_seconds": 0.1350730549893342,
+    "observe_seconds": 1.1124995290010702,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -5847,8 +6264,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -5863,8 +6283,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.13361294798960444,
-    "observe_seconds": 1.1615423350012861,
+    "reference_seconds": 0.1437070319952909,
+    "observe_seconds": 1.0749325759970816,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -5891,8 +6311,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -5907,9 +6330,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 8.55312170200341,
-    "observe_seconds": 9.809660835991963,
-    "cache_entries": 1,
+    "reference_seconds": 8.33927224999934,
+    "observe_seconds": 9.73831292099203,
+    "cache_entries": 2,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -5933,8 +6356,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -5949,10 +6375,10 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 8.393812489011907,
-    "observe_seconds": 9.576035309000872,
-    "cache_entries": 1,
-    "retained_metadata": 1,
+    "reference_seconds": 8.458060667006066,
+    "observe_seconds": 9.523409396002535,
+    "cache_entries": 3,
+    "retained_metadata": 2,
     "native_expected": [
       {
         "reference_lines": 85,
@@ -5977,8 +6403,15 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {
+      "sleep": 4
+    },
+    "candidate_live_descendants": {
+      "sleep": 4
+    },
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -5993,9 +6426,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.4569753569958266,
-    "observe_seconds": 1.9997691890021088,
-    "cache_entries": 0,
+    "reference_seconds": 0.5136023399973055,
+    "observe_seconds": 2.1342400279972935,
+    "cache_entries": 1,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -6019,8 +6452,15 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {
+      "sleep": 4
+    },
+    "candidate_live_descendants": {
+      "sleep": 4
+    },
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -6035,9 +6475,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.5109686430078,
-    "observe_seconds": 2.151320138000301,
-    "cache_entries": 0,
+    "reference_seconds": 0.5447990999964532,
+    "observe_seconds": 2.156681855005445,
+    "cache_entries": 1,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -6063,8 +6503,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6079,8 +6522,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.17403284899774007,
-    "observe_seconds": 0.8029525349993492,
+    "reference_seconds": 0.16279564599972218,
+    "observe_seconds": 0.8610262619913556,
     "cache_entries": 35,
     "retained_metadata": 0,
     "native_expected": [
@@ -6105,8 +6548,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6121,8 +6567,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.18028835700533818,
-    "observe_seconds": 0.7177862069947878,
+    "reference_seconds": 0.20492831300362013,
+    "observe_seconds": 0.7914131459983764,
     "cache_entries": 35,
     "retained_metadata": 35,
     "native_expected": [
@@ -6149,8 +6595,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6165,8 +6614,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.12758558000496123,
-    "observe_seconds": 0.48959916199964937,
+    "reference_seconds": 0.12697833900165278,
+    "observe_seconds": 0.5249434409925016,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -6191,8 +6640,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6207,8 +6659,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.17146299500018358,
-    "observe_seconds": 0.5104107149963966,
+    "reference_seconds": 0.19362019099935424,
+    "observe_seconds": 0.5700885919941356,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -6235,8 +6687,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6251,9 +6706,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.24950983900635038,
-    "observe_seconds": 0.9127993529982632,
-    "cache_entries": 0,
+    "reference_seconds": 0.31963122500746977,
+    "observe_seconds": 0.8662537869968219,
+    "cache_entries": 1,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -6277,8 +6732,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6293,10 +6751,10 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.2780526050046319,
-    "observe_seconds": 0.960747100005392,
-    "cache_entries": 0,
-    "retained_metadata": 0,
+    "reference_seconds": 0.25064441199356224,
+    "observe_seconds": 0.8539607499988051,
+    "cache_entries": 2,
+    "retained_metadata": 1,
     "native_expected": [
       {
         "reference_lines": 72,
@@ -6321,8 +6779,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6337,8 +6798,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.11972792800224852,
-    "observe_seconds": 0.3618926999915857,
+    "reference_seconds": 0.10910262599645648,
+    "observe_seconds": 0.3700831769965589,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -6363,8 +6824,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6379,8 +6843,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.12320628500310704,
-    "observe_seconds": 0.37523525800497737,
+    "reference_seconds": 0.13177759300742764,
+    "observe_seconds": 0.36261658900184557,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -6407,8 +6871,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6423,9 +6890,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.2504568250005832,
-    "observe_seconds": 0.6577430500037735,
-    "cache_entries": 0,
+    "reference_seconds": 0.22530809399904683,
+    "observe_seconds": 0.6931267729960382,
+    "cache_entries": 1,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -6449,8 +6916,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6465,10 +6935,10 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.22728633899532724,
-    "observe_seconds": 0.6995671299955575,
-    "cache_entries": 0,
-    "retained_metadata": 0,
+    "reference_seconds": 0.20515194900508504,
+    "observe_seconds": 0.7905713899963303,
+    "cache_entries": 2,
+    "retained_metadata": 1,
     "native_expected": [
       {
         "reference_lines": 312,
@@ -6493,8 +6963,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6509,8 +6982,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.11478659699787386,
-    "observe_seconds": 0.24371753599552903,
+    "reference_seconds": 0.10950584500096738,
+    "observe_seconds": 0.28877914999611676,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -6535,8 +7008,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6551,8 +7027,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.12174260999017861,
-    "observe_seconds": 0.26127130100212526,
+    "reference_seconds": 0.11757924400444608,
+    "observe_seconds": 0.23478868600795977,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -6579,8 +7055,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -6595,9 +7074,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 3.1851056030136533,
-    "observe_seconds": 3.6291287950007245,
-    "cache_entries": 0,
+    "reference_seconds": 3.171630611002911,
+    "observe_seconds": 3.695250067001325,
+    "cache_entries": 13,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -6621,8 +7100,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -6637,10 +7119,10 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 3.174010376998922,
-    "observe_seconds": 3.6856584070046665,
-    "cache_entries": 0,
-    "retained_metadata": 0,
+    "reference_seconds": 3.18430844899558,
+    "observe_seconds": 3.750849517993629,
+    "cache_entries": 13,
+    "retained_metadata": 1,
     "native_expected": [
       {
         "reference_lines": 297,
@@ -6665,8 +7147,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6681,8 +7166,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.10767599400423933,
-    "observe_seconds": 0.27817735800636,
+    "reference_seconds": 0.10850697799469344,
+    "observe_seconds": 0.2385079770028824,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -6707,8 +7192,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6723,8 +7211,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.10778401399147697,
-    "observe_seconds": 0.23704954599088524,
+    "reference_seconds": 0.11554926299140789,
+    "observe_seconds": 0.2398324379901169,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -6751,8 +7239,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6767,8 +7258,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.10182346099463757,
-    "observe_seconds": 0.40018737700302154,
+    "reference_seconds": 0.11824515600164887,
+    "observe_seconds": 0.43470933999924455,
     "cache_entries": 1,
     "retained_metadata": 0,
     "native_expected": [
@@ -6793,8 +7284,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6809,8 +7303,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.13503768199007027,
-    "observe_seconds": 0.4195148180006072,
+    "reference_seconds": 0.11457174200040754,
+    "observe_seconds": 0.39913789500133134,
     "cache_entries": 1,
     "retained_metadata": 1,
     "native_expected": [
@@ -6837,8 +7331,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6853,8 +7350,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 15.158985458998359,
-    "observe_seconds": 15.768791866998072,
+    "reference_seconds": 15.150105459993938,
+    "observe_seconds": 15.897702016998664,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -6879,8 +7376,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": true,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 0,
     "match": true,
@@ -6895,8 +7395,8 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 15.173267969992594,
-    "observe_seconds": 15.777999976009596,
+    "reference_seconds": 15.162427510993439,
+    "observe_seconds": 15.714296190999448,
     "cache_entries": 0,
     "retained_metadata": 0,
     "native_expected": [
@@ -6923,8 +7423,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -6939,9 +7442,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.1322511860053055,
-    "observe_seconds": 0.8542860559973633,
-    "cache_entries": 1,
+    "reference_seconds": 0.1442957309918711,
+    "observe_seconds": 0.8936411350005073,
+    "cache_entries": 2,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -6965,8 +7468,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -6981,9 +7487,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.1572330760100158,
-    "observe_seconds": 0.9135752970032627,
-    "cache_entries": 1,
+    "reference_seconds": 0.18560142601199914,
+    "observe_seconds": 0.9709036220010603,
+    "cache_entries": 2,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -7009,8 +7515,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -7025,9 +7534,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.2827988859935431,
-    "observe_seconds": 3.859392790996935,
-    "cache_entries": 3,
+    "reference_seconds": 0.21740430800127797,
+    "observe_seconds": 3.742796840000665,
+    "cache_entries": 4,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -7051,8 +7560,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -7067,10 +7579,10 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.26678879499377217,
-    "observe_seconds": 3.837189990998013,
-    "cache_entries": 5,
-    "retained_metadata": 3,
+    "reference_seconds": 0.2790115409879945,
+    "observe_seconds": 3.717257126001641,
+    "cache_entries": 7,
+    "retained_metadata": 4,
     "native_expected": [
       {
         "reference_lines": 277,
@@ -7095,8 +7607,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -7111,9 +7626,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.14105962800385896,
-    "observe_seconds": 1.6105811239976902,
-    "cache_entries": 3,
+    "reference_seconds": 0.1414990979974391,
+    "observe_seconds": 1.5766213059978327,
+    "cache_entries": 4,
     "retained_metadata": 0,
     "native_expected": [
       {
@@ -7137,8 +7652,11 @@
     "captures_valid": true,
     "expected_valid": true,
     "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
     "status_equal": false,
     "status_valid": true,
+    "driver_output_valid": true,
     "reference_status": 0,
     "candidate_status": 1,
     "match": true,
@@ -7153,9 +7671,9 @@
         "replaced_candidate": 0
       }
     ],
-    "reference_seconds": 0.15652307600248605,
-    "observe_seconds": 1.4147697750013322,
-    "cache_entries": 6,
+    "reference_seconds": 0.20599864899122622,
+    "observe_seconds": 1.4505768660019385,
+    "cache_entries": 7,
     "retained_metadata": 3,
     "native_expected": [
       {

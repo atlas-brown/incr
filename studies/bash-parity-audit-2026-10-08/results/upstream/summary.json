@@ -4,15 +4,15 @@
   "cold_matches": 83,
   "warm_matches": 83,
   "failures": [],
-  "elapsed_sec": 783.2466036800033,
+  "elapsed_sec": 815.5649356579961,
   "regressions": {
     "live": {
       "returncode": 0,
-      "elapsed_sec": 8.882206839989522
+      "elapsed_sec": 8.626742059001117
     },
     "final": {
       "returncode": 0,
-      "elapsed_sec": 8.9198516660108
+      "elapsed_sec": 8.62544556899229
     }
   },
   "scratch_cleaned": true

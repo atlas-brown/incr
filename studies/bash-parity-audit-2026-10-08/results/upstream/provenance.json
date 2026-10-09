@@ -1,20 +1,26 @@
 {
   "revisions": {
-    "incr": "bd11f3a4a03321233410b231585748aa5a590fc1",
+    "incr": "4a772a467d6d0276a8593eff539c84064c11ccc0",
     "observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
   },
-  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/a949fb71519e3ce9e7a4/incr",
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/89c6811b2d964b19319e/incr",
   "bash_build": "/users/jxia3/atlas/incr/qualification/.work/bash-src",
   "source_tarball_sha256": "9599b22ecd1d5787ad7d3b7bf0c59f312b3396d1e281175dd1f8a4014da621ff",
   "source_files_verified": 668,
   "binaries": {
     "/users/jxia3/atlas/incr/qualification/.work/bash-src/bash": "08ee22ac63e374e5db5628d1e86b07d417e4ef73c57630ac46772eff888af0d6",
-    "/users/jxia3/atlas/incr/qualification/.work/builds/a949fb71519e3ce9e7a4/incr/target/release/incr": "7fd0a300497d54bfdb037c0a8738d1e2a51b4611cb79485c15d6e28ba6c03d8e",
-    "/users/jxia3/atlas/incr/qualification/.work/builds/a949fb71519e3ce9e7a4/observe/target/release/observe": "db8e4211fa98dfab9f2ec99cc3341e8bb735577cc2b6d31f4166f6ccc35b747d",
-    "/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/bash": "5736e56283546cd1f32309bc2818c85f124c2ede1588ae2abb44630a78e6ea18"
+    "/users/jxia3/atlas/incr/qualification/.work/builds/89c6811b2d964b19319e/incr/target/release/incr": "e22fd8e54b4c9f09faa51f298deca3959a317f49108104e92fb75c205944655f",
+    "/users/jxia3/atlas/incr/qualification/.work/builds/89c6811b2d964b19319e/observe/target/release/observe": "db8e4211fa98dfab9f2ec99cc3341e8bb735577cc2b6d31f4166f6ccc35b747d",
+    "/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-es6wjtlm/bash": "71b00b064622a2d8a440ed8655ad793311c89e53e0f65f481dbd1d63de471de0"
   },
   "terminal": true,
-  "policy": "live",
+  "policy": "final",
+  "policy_selection": "binary default; INCR_EFFECT_POLICY unset",
+  "runtime_sources": {
+    "src/main.rs": "862deda4754c0a4325a855cde86fe19bf78f1cf2f6109ac3cb7580b60f8c2ce8",
+    "incr.sh": "b09358118baf08f65319abe93de7565581beadf86d2a27a79200ca179c6bd533",
+    "src/scripts/insert.py": "ca9b639721c02b2fedd4b346cdbcb447ab78cd199352b32e98d9d046d05e68b4"
+  },
   "case_order": [
     "alias",
     "appendop",

@@ -1,6 +1,6 @@
 # Incr main versus Incr Observe
 
-Reviewed local main 4b8e5dd, Incr observe bd11f3a (runtime changes at 8f3c769), and Observe b5ad47a. The detached baseline worktree matches local main. No remote fetch was needed to compare these local branches.
+Architecture review: local main 4b8e5dd, Incr observe bd11f3a (runtime changes at 8f3c769), and Observe b5ad47a. The subsequent policy-default update changes Incr to final; the new run records exact binary and changed runtime-source hashes in results/upstream/provenance.json. The detached baseline worktree matches local main. No remote fetch was needed to compare these local branches.
 
 ## Execution path
 
@@ -15,14 +15,14 @@ Both transform shell ASTs to prefix selected external commands with Incr. Both s
 | Annotations | broad name-based pure/read-only tables, including file-reading grep/sort and potentially writing awk/sed | restricted argument forms and resolved system tools; unknown effects traced |
 | Streaming memory | unbounded channel | 1 MiB memory queue plus anonymous disk spill |
 | Live interactions | sandbox visibility and unconditional streaming cache cancellation | shared effect gate; live policy cannot cancel after first effect; FIFO dependencies block reuse |
-| Final-output policy | absent | optional prevalidated candidates; full stdin selects entry; stop writers, restore unexpected effects, install cached outputs |
+| Final-output policy | absent | default policy: prevalidated candidates; full stdin selects entry; stop writers, restore unexpected effects, install cached outputs |
 | Cached effects | try upperdir copy/commit | versioned file/dir/link/deletion manifest, validated payloads, overwrite versus inode replacement distinction |
 | Integrity/concurrency | older cache without current checks/leases | stdout/stderr and effect checksums; nonblocking locks and private contention entries |
 | Process lifecycle | older kill/join behavior | subreaper, managed children, bounded shutdown, stdin polling for early consumers |
 | Chunk executor | stateless rule table empty, effectively dormant | restricted cat/tr and explicitly assumed ASCII rev; ordered workers share cache/replay |
 | Unsupported inputs | older string/descriptor/terminal handling | terminals, inherited descriptors and byte argv/env pass through; byte filesystem paths traced/restored but not persisted |
 
-Current protocol boundaries: cache key 22, effect manifest 3, Observe dependencies 7. The Bash suite uses the default live streaming policy through the Bash parser (`incr.sh -b`); this wrapper flag is distinct from the Rust binary's batch flag.
+Current protocol boundaries: cache key 22, effect manifest 3, Observe dependencies 7. The current Bash suite uses the default final streaming policy through the Bash parser (`incr.sh -b`); this wrapper flag is distinct from the Rust binary's batch flag.
 
 ## What the historical logs explain
 
@@ -45,3 +45,22 @@ Earlier benchmark notes also describe in-place script sentinels, filtering ordin
 ## Limits
 
 Filesystem memoization assumes deterministic behavior and stable external state. Network, clocks, randomness, concurrent external mutation and general filesystem transactions are not covered. Final policy deliberately does not preserve intermediate observations. Many unsupported effects run live; source-sensitive shell scripts can pass by native execution. Native Bash is the semantic reference, not main's potentially incorrect behavior.
+
+## Why the previously problematic Bash cases pass
+
+These are shell-wrapper and transformation improvements on the Observe branch,
+not alias or PATH semantics implemented by the tracer. `insert.py` collects alias
+and function bindings and leaves their invocations native. Dynamic alias names
+conservatively preserve the entire source. If no command changes, `incr.sh` executes
+the original file. Bash therefore handles recursive expansion itself.
+
+Builtins, including `command`, remain in Bash. Unknown commands are left to Bash
+for lookup and status 127. Wrapper utilities use `command -p` so empty or unset
+PATH does not break wrapper setup. Sensitive invocation modes, `-c` and stdin use
+native Bash; source introspection and BASH_ENV trigger original-source execution.
+Malformed input is syntax-checked and then passed unchanged to Bash to produce its
+own error and exit status. Private transformed files avoid modifying caller source.
+
+These fallbacks apply under both policies. Final changes filesystem cache replay,
+not the shell transformation rules. Correctness parity includes native execution;
+it is not proof that recursive aliases, parser errors or every PATH case are cached.

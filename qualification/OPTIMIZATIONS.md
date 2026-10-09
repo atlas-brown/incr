@@ -1,5 +1,7 @@
 # Optimization contracts and coverage
 
+> Historical development record. The binary now defaults to `final`. Current full Bash results and reproduction instructions are in [the maintained study](../studies/bash-parity-audit-2026-10-08/REPORT.md). Superseded Bash result artifacts referenced below were removed; git commit `4a772a4` preserves them.
+
 The final benchmark matrix measures Observe with `--effect-policy final`. The
 fast matrix tests both `live` and `final`. These policies answer different needs;
 final-state equivalence does not establish equivalence for intermediate observers.
