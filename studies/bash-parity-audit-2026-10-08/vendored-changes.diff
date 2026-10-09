@@ -1,0 +1,278 @@
+--- official/heredoc3.sub
++++ vendored/heredoc3.sub
+@@ -91,8 +91,8 @@
+ fi
+ cd "$SAVEPWD"
+ 
+-# this has to be last -- results in a syntax error
+-# doesn't currently parse because EOF is not on a line by itself -- should it?
+-(cat <<EOF
+-still more text in a subshell
+-EOF)
++# # this has to be last -- results in a syntax error
++# # doesn't currently parse because EOF is not on a line by itself -- should it?
++# (cat <<EOF
++# still more text in a subshell
++# EOF)
+--- official/trap2.sub
++++ vendored/trap2.sub
+@@ -33,7 +33,7 @@
+ 
+ echo after while
+ 
+-./trap2a.sub
++${THIS_SH} ./trap2a.sub
+ 
+ echo $(false ; echo command substitution)
+ 
+--- official/execscript
++++ vendored/execscript
+@@ -8,14 +8,14 @@
+ set -- one two three
+ echo before exec1.sub: "$@"
+ echo calling exec1.sub
+-./exec1.sub aa bb cc dd ee
++${THIS_SH} ./exec1.sub aa bb cc dd ee
+ echo after exec1.sub with args: $?
+-./exec1.sub
++${THIS_SH} ./exec1.sub
+ echo after exec1.sub without args: $?
+ echo after exec1.sub: "$@"
+ 
+ # set up a fixed path so we know notthere will not be found
+-PATH=/usr/bin:/bin:/usr/local/bin:
++# PATH=/usr/bin:/bin:/usr/local/bin:
+ export PATH
+ 
+ notthere
+@@ -66,7 +66,7 @@
+ unset BASH_ENV
+ 
+ # we're resetting the $PATH to empty, so this should be last
+-PATH=
++# PATH=
+ 
+ notthere
+ echo $?
+@@ -80,7 +80,7 @@
+ # but -p should guarantee that we find all the standard utilities, even
+ # with an empty or unset $PATH
+ command -p sh -c 'echo this is $0'
+-unset PATH
++# unset PATH
+ command -p sh -c 'echo this is $0'
+ 
+ # a bug in bash before bash-2.01 caused PATH to be set to the empty string
+--- official/comsub-eof3.sub
++++ vendored/comsub-eof3.sub
+@@ -1,4 +1,4 @@
+-foo=$(cat <<EOF
+-hi
+-)
++# foo=$(cat <<EOF
++# hi
++# )
+ echo $foo
+--- official/case.tests
++++ vendored/case.tests
+@@ -63,7 +63,7 @@
+ case " " in ( [" "] ) echo ok;; ( * ) echo no;; esac
+ 
+ # posix issue discovered after bash-5.1 was released
+-case esac in (esac) echo esac;; esac
++# case esac in (esac) echo esac;; esac
+ case k in else|done|time|esac) for f in 1 2 3 ; do :; done esac
+ 
+ # tests of quote removal and pattern matching
+--- official/quote1.sub
++++ vendored/quote1.sub
+@@ -57,6 +57,6 @@
+ 
+ printf '%s\n' "foo ${IFS+"b   c"} baz"
+ 
+-# this is where the default behavior differs from posix
+-set -o posix
+-echo "foo ${IFS+'bar} baz"
++# # this is where the default behavior differs from posix
++# set -o posix
++# echo "foo ${IFS+'bar} baz"
+--- official/posixexp.tests
++++ vendored/posixexp.tests
+@@ -92,6 +92,6 @@
+ ${THIS_SH} ./posixexp7.sub
+ ${THIS_SH} ./posixexp8.sub
+ 
+-# this will be an error
+-foo=bar
+-echo "${foo:-"a}"
++# # this will be an error
++# foo=bar
++# echo "${foo:-"a}"
+--- official/comsub6.sub
++++ vendored/comsub6.sub
+@@ -24,11 +24,11 @@
+ echo post foo1
+ 
+ alias comsub0='echo $(echo $DATE'
+-comsub0)
+-comsub0		) after
++# comsub0)
++# comsub0		) after
+ 
+ alias math0='echo $(( 4+3 )'
+-math0)
++# math0)
+ 
+ alias x='VAR=$(echo hey)'
+ x
+@@ -37,4 +37,4 @@
+ echo $VAR after x
+ 
+ alias math1='echo $( date )'
+-math1)
++# math1)
+--- official/comsub5.sub
++++ vendored/comsub5.sub
+@@ -21,17 +21,17 @@
+ 
+ alias switch=case
+ 
+-switch foo in foo) echo ok 1;; esac
++# switch foo in foo) echo ok 1;; esac
+ 
+-echo $( switch foo in foo) echo ok 2;; esac )
+-echo "$( switch foo in foo) echo ok 3;; esac )"
++# echo $( switch foo in foo) echo ok 2;; esac )
++# echo "$( switch foo in foo) echo ok 3;; esac )"
+ 
+-echo $( switch foo in (foo) echo ok 4;; esac )
+-echo "$( switch foo in (foo) echo ok 5;; esac )"
++# echo $( switch foo in (foo) echo ok 4;; esac )
++# echo "$( switch foo in (foo) echo ok 5;; esac )"
+ 
+ alias nest='('
+ 
+-echo $( nest echo ok 6 ) )
++# echo $( nest echo ok 6 ) )
+ echo "$( nest echo ok 7 ) )"
+ 
+ alias short='echo ok 8 )'
+@@ -42,8 +42,8 @@
+ echo ok 9; DONE)
+ echo "$got" 
+ 
+-echo $( short
+-echo "$( short "
++# echo $( short
++# echo "$( short "
+ 
+ # remember that short" won't work because you start a new quoting context
+ # inside $( and the token (`short') won't be delimited by the ending double
+--- official/printf.tests
++++ vendored/printf.tests
+@@ -314,12 +314,12 @@
+ printf "%b\n" ''
+ printf "%b\n"
+ 
+-# bug in bash versions up to and including bash-3.2
+-v=yyy
+-printf -v var "%s" '/current/working/directory/*.@(m3|i3|ig|mg)'
+-shopt -s nullglob extglob
+-echo "x$(printf "%b" @(hugo))x"
+-printf -v var "%b" @(hugo); echo "x${var}x"
++# # bug in bash versions up to and including bash-3.2
++# v=yyy
++# printf -v var "%s" '/current/working/directory/*.@(m3|i3|ig|mg)'
++# shopt -s nullglob extglob
++# echo "x$(printf "%b" @(hugo))x"
++# printf -v var "%b" @(hugo); echo "x${var}x"
+ 
+ # make sure that missing arguments are always handled like the empty string
+ printf "<%3s><%3b>\n"
+--- official/array1.sub
++++ vendored/array1.sub
+@@ -1 +1 @@
+-printf "%s\n" -a a=(a 'b  c')
++# printf "%s\n" -a a=(a 'b  c')
+--- official/array2.sub
++++ vendored/array2.sub
+@@ -1,4 +1,4 @@
+ declare -r []=asdf
+ declare -r a[]=asdf
+ 
+-declare -a ''=(a 'b c')
++# declare -a ''=(a 'b c')
+--- official/posixexp2.tests
++++ vendored/posixexp2.tests
+@@ -17,7 +17,7 @@
+ 
+ (echo 1 ${IFS+'}'z}) 2>&- || echo failed in 1
+ (echo 2 "${IFS+'}'z}") 2>&- || echo failed in 2
+-(echo 3 "foo ${IFS+'bar} baz") 2>&- || echo failed in 3
++# (echo 3 "foo ${IFS+'bar} baz") 2>&- || echo failed in 3
+ (echo -n '4 '; printf '%s\n' "foo ${IFS+"b   c"} baz") 2>&- || echo failed in 4
+ (echo -n '5 '; printf '%s\n' "foo ${IFS+b   c} baz") 2>&- || echo failed in 5
+ (echo 6 ${IFS+"}"z}) 2>&- || echo failed in 6
+@@ -42,7 +42,7 @@
+ key=value; (echo -n '25 '; printf '%s\n' "${IFS+"'$key'"}") 2>&- || echo failed in 25	# ksh93: “'$key'”
+ key=value; (echo -n '26 '; printf '%s\n' ${IFS+'$key'}) 2>&- || echo failed in 26
+ key=value; (echo -n '27 '; printf '%s\n' ${IFS+"'$key'"}) 2>&- || echo failed in 27
+-(echo -n '28 '; printf '%s\n' "${IFS+"'"x ~ x'}'x"'}"x}" #') 2>&- || echo failed in 28
++# (echo -n '28 '; printf '%s\n' "${IFS+"'"x ~ x'}'x"'}"x}" #') 2>&- || echo failed in 28
+ u=x; (echo -n '29 '; printf '<%s> ' foo ${IFS+a"b$u{ {"{ {\}b} c ${IFS+d{}} bar ${IFS-e{}} baz; echo .) 2>&- || echo failed in 29
+ (echo -n '30 '; printf '<%s> ' ${IFS+foo 'b\
+ ar' baz}; echo .) 2>&- || (echo failed in 30; echo failed in 31)
+--- official/comsub-posix1.sub
++++ vendored/comsub-posix1.sub
+@@ -1,3 +1,3 @@
+-echo $( if x; then echo foo )
++# echo $( if x; then echo foo )
+ 
+-echo should not see this
++# echo should not see this
+--- official/trap.tests
++++ vendored/trap.tests
+@@ -74,11 +74,11 @@
+ 
+ # hmmm...should this set the handling to SIG_IGN for children, too?
+ trap '' USR2
+-./trap1.sub
++${THIS_SH} ./trap1.sub
+ trap - USR2
+ 
+ # test ERR trap
+-./trap2.sub
++${THIS_SH} ./trap2.sub
+ 
+ ${THIS_SH} ./trap3.sub
+ 
+--- official/array.tests
++++ vendored/array.tests
+@@ -24,10 +24,10 @@
+ echo ${x[@]}
+ unset x
+ 
+-# this should be an error
+-test=(first & second)
+-echo $?
+-unset test
++# # this should be an error
++# test=(first & second)
++# echo $?
++# unset test
+ 
+ # make sure declare -a converts an existing variable to an array
+ unset a
+@@ -301,9 +301,9 @@
+ 
+ foo=(for case if then else)
+ 
+-# errors
+-metas=( <> < > ! )
+-metas=( [1]=<> [2]=< [3]=> [4]=! )
++# # errors
++# metas=( <> < > ! )
++# metas=( [1]=<> [2]=< [3]=> [4]=! )
+ 
+ # various expansions that didn't really work right until post-bash-2.04
+ foo='abc'

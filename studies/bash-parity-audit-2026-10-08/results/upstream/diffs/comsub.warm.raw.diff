@@ -1,0 +1,8 @@
+--- bash/capture-0
++++ observe/capture-0
+@@ -1,4 +1,4 @@
+-./comsub.tests: line 20: hijkl: command not found
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.vkqHTSJt/script/comsub.tests: line 4: hijkl: command not found
+ argv[1] = <ab>
+ argv[2] = <cd>
+ argv[1] = <abmn>

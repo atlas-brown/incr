@@ -1,0 +1,19 @@
+--- bash/capture-0
++++ observe/capture-0
+@@ -165,12 +165,12 @@
+ after foo: var=global
+ bar: hello world
+ after bar: var=global
+-./varenv13.sub: line 16: `var[0]': not a valid identifier
+-./varenv13.sub: line 16: `var[@]': not a valid identifier
+-./varenv13.sub: line 14: declare: var: not found
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.cSIOQTo6/script/varenv13.sub: line 7: `var[0]': not a valid identifier
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.cSIOQTo6/script/varenv13.sub: line 7: `var[@]': not a valid identifier
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.cSIOQTo6/script/varenv13.sub: line 5: declare: var: not found
+ declare -A var=([0]="X" ["@"]="Y" )
+ help
+-./varenv13.sub: line 35: `var[0]': not a valid identifier
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.cSIOQTo6/script/varenv13.sub: line 25: `var[0]': not a valid identifier
+ 1
+ declare -A var=([0]="X" )
+ declare -A var=([Y]="Y" )

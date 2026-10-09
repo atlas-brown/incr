@@ -1,0 +1,20 @@
+--- bash/capture-0
++++ observe/capture-0
+@@ -83,7 +83,7 @@
+ foo is a function
+ foo () 
+ { 
+-    rm -f a b c;
++    /users/jxia3/atlas/incr/qualification/.work/builds/a949fb71519e3ce9e7a4/incr/target/release/incr --try /users/jxia3/atlas/incr/qualification/.work/builds/a949fb71519e3ce9e7a4/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache --observe /users/jxia3/atlas/incr/qualification/.work/builds/a949fb71519e3ce9e7a4/observe/target/release/observe rm -f a b c;
+     for f in a b c;
+     do
+         cat <<-EOF >> ${f}
+@@ -91,7 +91,7 @@
+ EOF
+ 
+     done
+-    grep . a b c
++    /users/jxia3/atlas/incr/qualification/.work/builds/a949fb71519e3ce9e7a4/incr/target/release/incr --try /users/jxia3/atlas/incr/qualification/.work/builds/a949fb71519e3ce9e7a4/incr/src/scripts/try.sh --cache /users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache --observe /users/jxia3/atlas/incr/qualification/.work/builds/a949fb71519e3ce9e7a4/observe/target/release/observe grep . a b c
+ }
+ a:file
+ b:file

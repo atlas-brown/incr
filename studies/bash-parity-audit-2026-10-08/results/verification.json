@@ -1,0 +1,47 @@
+{
+  "harness_tests_passed": 18,
+  "full_evidence_reanalysis_exit": 0,
+  "line_ledger_rows": 24468,
+  "paper_subset_matches_each_phase": 10282,
+  "complete_matches_each_phase": 12234,
+  "formatting": {
+    "formatter": "black==24.10.0",
+    "line_length": 100,
+    "files": [
+      "analyze.py",
+      "capture_diff.py",
+      "compare.py",
+      "runner.py",
+      "setup.py",
+      "terminal.py",
+      "test_compare.py",
+      "test_terminal.py"
+    ],
+    "asts_unchanged": true,
+    "temporary_formatter_removed": true
+  },
+  "extra_guards_after_full_sweep": [
+    "reject identical abnormal driver statuses",
+    "reject unexplained non-diff driver stdout",
+    "distinguish zombie cleanup from additional live candidate processes"
+  ],
+  "all_full_records_rechecked_with_extra_guards": true,
+  "setup_existing_prerequisites_verified": true,
+  "active_study_processes": [],
+  "study_mounts": [],
+  "scratch_directories": [],
+  "runtime_changes": "",
+  "harness_sha256": {
+    "harness/analyze.py": "b88a12acb7225126eda53e9aca149000b98c67c8c03e955e02f2fcf6a87bb782",
+    "harness/capture_diff.py": "7f856f06adfe38b686be4e66a3e9e024d209c09e862be4d62b9e66a0c1b65590",
+    "harness/compare.py": "86fceddd7f9143db2689162e5a897d7377f5c05828a1d77bbd8ad457637e7015",
+    "harness/launcher.c": "3d1dbeca659f04c3311935d1f7492bd521620dd4bf02bd7b050a6ca88d97752b",
+    "harness/runner.py": "819cc2f93ff849526e8073a414f613af33c15c10a573cfbbcf5175d7f03e7c7a",
+    "harness/setup.py": "53fedd1f425709bb518b98dbfbf25d0b34bb8320f6b332936dc022c1f16352f8",
+    "harness/terminal.py": "7ee21a59405ec78db9b0e35b02e9fa6d241f263f9fd8e0df81932154011d144f",
+    "harness/test_compare.py": "cf3bc248a300ec65e9290804b91883db232cdb9953c71f23b74fafb675b46920",
+    "harness/test_terminal.py": "41595a8acea1ae4b53031bd4ee70c00902e207fc2ba50ea33f4be43850f0d248"
+  },
+  "lifecycle_diagnostics_reviewed": true,
+  "csv_uses_lf_endings": true
+}

@@ -1,0 +1,132 @@
+[
+  {
+    "path": "incr/QUALIFICATION_LOG.md",
+    "lines": 1283,
+    "sha256": "3ffe4b5132ea26928ec8ec677e13b6429ef27b9efc763070e782b9218ba18961"
+  },
+  {
+    "path": "incr/agents/docs/ARCHITECTURE_ANALYSIS.md",
+    "lines": 225,
+    "sha256": "5b83252a7f1780f74dd58b9ff9495b3326c58cca1053a8f09a28df5cd539ebd0"
+  },
+  {
+    "path": "incr/agents/docs/BENCHMARK_RUN_CONTEXT.md",
+    "lines": 440,
+    "sha256": "5407749c16fd25a4583e2d91fd441fe8c16440a96aedca82ab4487ad9eaf8f4d"
+  },
+  {
+    "path": "incr/agents/docs/DPT_MIN_MODE_FIX.md",
+    "lines": 185,
+    "sha256": "f66c7ee5ecd48e0a409fed533a6a39abeccc48bf73c0a3695882bd3584f8f359"
+  },
+  {
+    "path": "incr/agents/docs/EVALUATION_BENCHMARK_SUITE.md",
+    "lines": 265,
+    "sha256": "87f1e9d41c8e41f3f0fb772c05f1ac316cf2582ea723b8690f0623827a7564a7"
+  },
+  {
+    "path": "incr/agents/docs/FINDINGS.md",
+    "lines": 115,
+    "sha256": "fc06d339b4b64dee464ae615fcffb98a3332066664fa3dcf92ed544f60ac0b4b"
+  },
+  {
+    "path": "incr/agents/docs/OBSERVE_INTEGRATION_REVIEW.md",
+    "lines": 57,
+    "sha256": "80d60d175220da270b6964ed94631341809c63969efac9cd26c7e4f70305e89c"
+  },
+  {
+    "path": "incr/agents/docs/PENDING_BENCHMARK_RUNS.md",
+    "lines": 119,
+    "sha256": "7a3552f7985a9a8e2c24a9a26853e4fc3724bc604d15a53d2fcd7bc52eb89e79"
+  },
+  {
+    "path": "incr/qualification/AUDIT.md",
+    "lines": 91,
+    "sha256": "5f8f3e4a60f61eef22ac4166eaf1b28139137dc6404cca09b8721dc7fdf93c8a"
+  },
+  {
+    "path": "incr/qualification/CODE_REVIEW.md",
+    "lines": 51,
+    "sha256": "4cd3ee771660dbc1b2d4d3c8f125113eda0dc33647b743e08324791018036575"
+  },
+  {
+    "path": "incr/qualification/EFFECT_REPLAY.md",
+    "lines": 113,
+    "sha256": "505efaa4eb0c5a61558e366cc87e490db38ef51966911a612d3135b5e65d3f9d"
+  },
+  {
+    "path": "incr/qualification/OPTIMIZATIONS.md",
+    "lines": 33,
+    "sha256": "60e2b85e3bab1148401576664a097640a3376655c910cbf85699aa1e8d28dce0"
+  },
+  {
+    "path": "incr/qualification/PLAN.md",
+    "lines": 103,
+    "sha256": "c38c3196384a7ba26a5482b243eb3d38b40b69ebbab4ad384807bd60d9e53b31"
+  },
+  {
+    "path": "incr/qualification/README.md",
+    "lines": 107,
+    "sha256": "640be3a137d6f158ba95f282f31909c78305a22941340279d85cc81db00f2e0b"
+  },
+  {
+    "path": "incr/qualification/SECOND_AUDIT.md",
+    "lines": 95,
+    "sha256": "cb05b9e141729731018134f8bd5949e23ae24eeaa8d82e8da0eeecf6d175f803"
+  },
+  {
+    "path": "incr/qualification/results/2026-10-07/FINDINGS.md",
+    "lines": 106,
+    "sha256": "07b6e427fd16727144d871376f1ecff769771c36c8a28310b8dab6050af25bb1"
+  },
+  {
+    "path": "incr/qualification/results/2026-10-07/MEASUREMENTS.md",
+    "lines": 100,
+    "sha256": "44da04686f9fee91a2897204e466f9f4e8348ca3268f276a2efaa8851dec17cf"
+  },
+  {
+    "path": "incr/qualification/results/2026-10-07/README.md",
+    "lines": 19,
+    "sha256": "8d2010a46193031ed985557d7ac5ac715cef412533b4ef1da2ac9ee6c8cebf83"
+  },
+  {
+    "path": "incr/qualification/results/2026-10-08/EVALUATION.md",
+    "lines": 78,
+    "sha256": "4d185504d22f5a3ae701c3729df3bfd8a53ddea749ef5c24dd0d9f5beee0af56"
+  },
+  {
+    "path": "incr/qualification/results/2026-10-08/MEASUREMENTS.md",
+    "lines": 114,
+    "sha256": "5e67f6a84c47db136069a4d059b74bbc0bf9794bfa99771f06efc055bbc26990"
+  },
+  {
+    "path": "incr/qualification/results/effect-replay/README.md",
+    "lines": 12,
+    "sha256": "be6d34bee2cf6e3069bd8a723bbc6e2d4d9ff6f147004bca3faf371035c557ca"
+  },
+  {
+    "path": "incr/qualification/results/second-audit/REPORT.md",
+    "lines": 78,
+    "sha256": "e0ca985cf95b2769ef836befa966e3184102d8be29be15024b6d849ebb5bcd9f"
+  },
+  {
+    "path": "observe/DESIGN.md",
+    "lines": 687,
+    "sha256": "854d14b17b21e3e75efed45f2465569c4bb2e54c175fb3d3548ff2f79b153761"
+  },
+  {
+    "path": "observe/CONTEXT.md",
+    "lines": 336,
+    "sha256": "2ed8f705fb3255e06870069c33ae523866692e72c09b348126a04d226666f43b"
+  },
+  {
+    "path": "incr/README.md",
+    "lines": 212,
+    "sha256": "f9f32858af787de87fae680a7decbfe58bbf89c0c76c3e1085dcfea9efd7561a"
+  },
+  {
+    "path": "observe/README.md",
+    "lines": 201,
+    "sha256": "0c4d00c5dc6fab552ea52ebe6ee18439c16a8a8d84105b8cce8aaf2ab5509530"
+  }
+]

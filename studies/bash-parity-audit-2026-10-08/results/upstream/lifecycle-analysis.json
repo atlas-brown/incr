@@ -1,0 +1,122 @@
+{
+  "total_diagnostic_states": {
+    "Z": 8408,
+    "S": 24
+  },
+  "non_zombie_cases": [
+    {
+      "case": "redir",
+      "mode": "bash",
+      "phase": "cold",
+      "states": {
+        "Z": 3,
+        "S": 4
+      },
+      "names": {
+        "bash": 2,
+        "sleep": 4,
+        "sudo": 1
+      }
+    },
+    {
+      "case": "redir",
+      "mode": "observe",
+      "phase": "cold",
+      "states": {
+        "Z": 3,
+        "S": 4
+      },
+      "names": {
+        "bash": 2,
+        "sleep": 4,
+        "sudo": 1
+      }
+    },
+    {
+      "case": "assoc",
+      "mode": "bash",
+      "phase": "warm",
+      "states": {
+        "S": 2,
+        "Z": 1
+      },
+      "names": {
+        "sleep": 1,
+        "bash": 1,
+        "sudo": 1
+      }
+    },
+    {
+      "case": "assoc",
+      "mode": "observe",
+      "phase": "warm",
+      "states": {
+        "S": 2,
+        "Z": 1
+      },
+      "names": {
+        "sleep": 1,
+        "bash": 1,
+        "sudo": 1
+      }
+    },
+    {
+      "case": "assoc",
+      "mode": "bash",
+      "phase": "cold",
+      "states": {
+        "S": 2,
+        "Z": 1
+      },
+      "names": {
+        "sleep": 1,
+        "bash": 1,
+        "sudo": 1
+      }
+    },
+    {
+      "case": "assoc",
+      "mode": "observe",
+      "phase": "cold",
+      "states": {
+        "S": 2,
+        "Z": 1
+      },
+      "names": {
+        "sleep": 1,
+        "bash": 1,
+        "sudo": 1
+      }
+    },
+    {
+      "case": "redir",
+      "mode": "bash",
+      "phase": "warm",
+      "states": {
+        "Z": 3,
+        "S": 4
+      },
+      "names": {
+        "bash": 2,
+        "sleep": 4,
+        "sudo": 1
+      }
+    },
+    {
+      "case": "redir",
+      "mode": "observe",
+      "phase": "warm",
+      "states": {
+        "Z": 3,
+        "S": 4
+      },
+      "names": {
+        "bash": 2,
+        "sleep": 4,
+        "sudo": 1
+      }
+    }
+  ],
+  "observe_only_non_zombie_cases": [],
+  "all_survivors_empty": true
+}

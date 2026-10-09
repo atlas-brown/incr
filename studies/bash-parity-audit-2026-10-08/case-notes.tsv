@@ -1,0 +1,83 @@
+alias	Alias definitions, chained/recursive expansion, unalias, and alias-driven grammar. Restores the original suite without excluding recursive cases.
+appendop	Scalar and array append-assignment behavior and expansion of appended values.
+arith	Arithmetic evaluation, operator precedence, bases, overflow/error diagnostics, and short-circuit side effects.
+arith-for	Arithmetic for-loop initialization, condition, update, and control flow.
+array	Indexed arrays, assignment, subscripting, and expansion. Restores malformed compound assignments removed from the vendored copy.
+array2	Array @/* expansion, quoting, and positional-argument interactions via array-at-star.
+assoc	Associative-array keys, updates, unset behavior, and expansion diagnostics.
+attr	Variable attributes and declaration semantics; the upstream driver filters explanatory expect lines.
+braces	Brace expansion, ranges, nesting, and quoting boundaries.
+builtins	Builtin semantics and error/status behavior. Check native differences independently; host limits can differ from expected files.
+case	Case patterns and terminators, including the restored esac-as-pattern grammar case.
+casemod	Case modification in parameter expansion and variable attributes.
+complete	Programmable completion definitions and generated candidates in noninteractive tests.
+comsub	Command substitutions, alias-created grammar, and subshell expansion. Restores comsub5/comsub6 cases removed from the vendored copy.
+comsub-eof	End-of-input handling inside command substitution, including restored malformed heredoc input.
+comsub-posix	POSIX command substitution parsing and errors, including the restored incomplete conditional.
+cond	Conditional commands, pattern matching, expression operators, and diagnostics.
+coproc	Coprocess descriptors, process lifetime, and synchronization. Compare baseline background cleanup explicitly.
+cprint	Printing and quoting character values, including control-character representations.
+dbg-support	Debugger/source-stack behavior and tracing. Source-sensitive constructs may use native execution by design.
+dbg-support2	Debugger trap return values and control-flow effects; no blanket parser-error exclusions.
+dirstack	Directory-stack operations across both dstack and dstack2 transcripts; both captures must exist and match.
+dollars	Dollar-at/star positional expansion and quoting through dollar-at-star and subsidiary cases.
+dynvar	Dynamic shell variables and their observable behavior, including time-related checks written by the suite.
+errors	Shell error handling, invalid commands/arguments, and diagnostic/control-flow behavior.
+execscript	Invocation modes, missing commands, binary/directory execution, startup files, argv0, and restored empty/unset PATH tests.
+exp-tests	Parameter expansion and splitting; upstream expect-comment filtering is retained unchanged.
+exportfunc	Exported functions and child-shell import behavior, with a 60-second per-run allowance.
+extglob	Extended glob patterns and matching; upstream explanatory-output filtering is preserved.
+extglob2	Additional extended-pattern expansion and matching edge cases.
+extglob3	Extended-pattern regressions in the third upstream group.
+func	Function definition/invocation, argument scope, return behavior, and related diagnostics.
+getopts	Option parsing, OPTIND/OPTARG behavior, and invalid-option handling.
+glob-test	Filename expansion and locale-sensitive glob cases, using private generated locales.
+globstar	Recursive globbing, directory traversal, and matching corner cases.
+heredoc	Here-document expansion, quoting, nesting, and restored end-of-file syntax diagnostics.
+herestr	Here-string input and expansion behavior.
+histexpand	History expansion and quoting; original-source/native handling is expected for history-sensitive scripts.
+history	History storage/manipulation and source-sensitive command text.
+ifs	IFS-driven word splitting with empty, whitespace, and non-whitespace separators.
+ifs-posix	POSIX field splitting, ordering, and the suite's own internal summary.
+input-test	Reading shell commands from stdin; this invocation mode deliberately executes natively.
+intl	Multibyte expansion, locale-dependent formatting, and Unicode conversion. Private French/Japanese/Chinese/German locales eliminate earlier skip warnings.
+invert	Pipeline/command status inversion and control flow.
+iquote	Quoting and expansion regression cases from iquote.tests.
+jobs	Job control, waits, signals, and background processes. Each run deliberately waits roughly a minute; deadline is 120 seconds.
+lastpipe	Last pipeline element execution and variable/exit-status effects.
+mapfile	Line-array input, delimiters/options, callbacks, and array update behavior.
+more-exp	Additional expansion edge cases; native diagnostic locations are normalized without suppressing results.
+nameref	Name references, indirect updates, scope, invalid references, and error diagnostics.
+new-exp	Expansion regressions including large unbroken outputs and process substitution; comparison avoids quadratic path matching.
+nquote	Quoting/expansion regression group nquote, with upstream expect-line filtering.
+nquote1	Quoting/expansion regression group nquote1.
+nquote2	Quoting/expansion regression group nquote2.
+nquote3	Quoting/expansion regression group nquote3.
+nquote4	Quoting/expansion regression group nquote4, including its binary-safe diff capability check (excluded from scoring).
+nquote5	Quoting/expansion regression group nquote5.
+parser	Shell grammar, tokenization, and parser regression cases, retained without source edits.
+posix2	POSIX behavior and diagnostic checks using the original driver's filtering.
+posixexp	POSIX expansion, including the restored unterminated parameter-expansion diagnostic.
+posixexp2	Additional POSIX quoting/parameter expansions; restores two previously commented-out cases.
+posixpat	POSIX pattern matching and bracket-pattern behavior.
+posixpipe	POSIX pipeline behavior and status propagation.
+precedence	Shell operator precedence and control-flow grouping.
+printf	Formatting, escapes, assignment output, and restored extglob/printf interactions; upstream cat -v output conversion remains active.
+procsub	Process substitution, descriptors, process IDs/waits, and status interactions.
+quote	Quoting/expansion behavior, including restored POSIX quote handling in quote1.sub.
+quotearray	Quoting of indexed/associative arrays and expanded array words.
+read	Read options, timeouts, readline, pipes, and terminal input. A controlling terminal and terminal stdin are supplied to exercise original timeout paths.
+redir	Descriptor redirection, file creation, invalid descriptors/paths, and error behavior.
+rhs-exp	Right-hand-side assignment expansion and its original driver's redirection ordering.
+rsh	Restricted-shell behavior; restricted invocation/source modes can use native execution.
+set-e	Errexit behavior across control-flow and execution contexts.
+set-x	Execution tracing and source-text display; xtrace is deliberately kept native where required.
+shopt	Shell-option state, enable/disable behavior, and effects on execution.
+strip	Parameter prefix/suffix removal and pattern handling.
+test	Test builtin predicates/operators, including terminal-dependent checks enabled by the controlling terminal.
+tilde	Tilde expansion in words and assignments.
+tilde2	Additional tilde-expansion and assignment-context regressions.
+trap	Signal, ERR/EXIT traps, subshells, and direct script execution. Original direct invocations are preserved rather than rewritten by the harness.
+type	Command classification and function display. Only the two reviewed Incr executable prefixes in the displayed function are normalized.
+varenv	Variable scope, temporary assignments, export/environment propagation, and declaration behavior.
+vredir	Variable-allocated file descriptors, readonly variables, and terminal-dependent redirections.

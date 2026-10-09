@@ -1,0 +1,6695 @@
+{
+  "groups": 83,
+  "phases": {
+    "cold": {
+      "matching_groups": 83,
+      "exact_groups": 70,
+      "reference_lines": 12234,
+      "matched_lines": 12234,
+      "deleted_lines": 0,
+      "inserted_lines": 0,
+      "replaced_reference_lines": 0,
+      "replaced_candidate_lines": 0,
+      "expected_lines": 12234,
+      "cache_entries": 332,
+      "retained_metadata": 0,
+      "groups_with_cache": 31,
+      "groups_with_retained_metadata": 0,
+      "timeouts": 0,
+      "survivors": 0
+    },
+    "warm": {
+      "matching_groups": 83,
+      "exact_groups": 70,
+      "reference_lines": 12234,
+      "matched_lines": 12234,
+      "deleted_lines": 0,
+      "inserted_lines": 0,
+      "replaced_reference_lines": 0,
+      "replaced_candidate_lines": 0,
+      "expected_lines": 12234,
+      "cache_entries": 361,
+      "retained_metadata": 331,
+      "groups_with_cache": 31,
+      "groups_with_retained_metadata": 30,
+      "timeouts": 0,
+      "survivors": 0
+    }
+  },
+  "native_expected_differences": [
+    "builtins",
+    "execscript"
+  ],
+  "cold_warm_variations": [],
+  "possible_skip_diagnostics": [],
+  "cases": [
+    {
+      "case": "alias",
+      "cold": {
+        "case": "alias",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 45,
+            "candidate_lines": 45,
+            "matched": 45,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "alias",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 45,
+            "candidate_lines": 45,
+            "matched": 45,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "alias.tests",
+        "alias1.sub",
+        "alias2.sub",
+        "alias3.sub",
+        "alias4.sub",
+        "alias5.sub",
+        "alias6.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 45,
+          "candidate_lines": 45,
+          "matched": 45,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "appendop",
+      "cold": {
+        "case": "appendop",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 28,
+            "candidate_lines": 28,
+            "matched": 28,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "appendop",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 28,
+            "candidate_lines": 28,
+            "matched": 28,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "appendop.tests",
+        "appendop1.sub",
+        "appendop2.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 28,
+          "candidate_lines": 28,
+          "matched": 28,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "arith",
+      "cold": {
+        "case": "arith",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 263,
+            "candidate_lines": 263,
+            "matched": 263,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "arith",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 263,
+            "candidate_lines": 263,
+            "matched": 263,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "arith.tests",
+        "arith1.sub",
+        "arith2.sub",
+        "arith3.sub",
+        "arith4.sub",
+        "arith5.sub",
+        "arith6.sub",
+        "arith7.sub",
+        "arith8.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 263,
+          "candidate_lines": 263,
+          "matched": 263,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "arith-for",
+      "cold": {
+        "case": "arith-for",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 86,
+            "candidate_lines": 86,
+            "matched": 86,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "arith-for",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 86,
+            "candidate_lines": 86,
+            "matched": 86,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "arith-for.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 86,
+          "candidate_lines": 86,
+          "matched": 86,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "array",
+      "cold": {
+        "case": "array",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 787,
+            "candidate_lines": 787,
+            "matched": 787,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "array",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 787,
+            "candidate_lines": 787,
+            "matched": 787,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "array.tests",
+        "array1.sub",
+        "array10.sub",
+        "array11.sub",
+        "array12.sub",
+        "array13.sub",
+        "array14.sub",
+        "array15.sub",
+        "array16.sub",
+        "array17.sub",
+        "array18.sub",
+        "array19.sub",
+        "array2.sub",
+        "array20.sub",
+        "array21.sub",
+        "array22.sub",
+        "array23.sub",
+        "array24.sub",
+        "array25.sub",
+        "array26.sub",
+        "array27.sub",
+        "array28.sub",
+        "array29.sub",
+        "array3.sub",
+        "array30.sub",
+        "array4.sub",
+        "array5.sub",
+        "array6.sub",
+        "array7.sub",
+        "array8.sub",
+        "array9.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 787,
+          "candidate_lines": 787,
+          "matched": 787,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "array2",
+      "cold": {
+        "case": "array2",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 74,
+            "candidate_lines": 74,
+            "matched": 74,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "array2",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 74,
+            "candidate_lines": 74,
+            "matched": 74,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "array-at-star"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 74,
+          "candidate_lines": 74,
+          "matched": 74,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "assoc",
+      "cold": {
+        "case": "assoc",
+        "phase": "cold",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {
+          "sleep": 1,
+          "bash": 1
+        },
+        "candidate_live_descendants": {
+          "sleep": 1,
+          "bash": 1
+        },
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 400,
+            "candidate_lines": 400,
+            "matched": 400,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "assoc",
+        "phase": "warm",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {
+          "sleep": 1,
+          "bash": 1
+        },
+        "candidate_live_descendants": {
+          "sleep": 1,
+          "bash": 1
+        },
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 400,
+            "candidate_lines": 400,
+            "matched": 400,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "assoc.tests",
+        "assoc1.sub",
+        "assoc10.sub",
+        "assoc11.sub",
+        "assoc12.sub",
+        "assoc13.sub",
+        "assoc14.sub",
+        "assoc15.sub",
+        "assoc16.sub",
+        "assoc17.sub",
+        "assoc18.sub",
+        "assoc2.sub",
+        "assoc3.sub",
+        "assoc4.sub",
+        "assoc5.sub",
+        "assoc6.sub",
+        "assoc7.sub",
+        "assoc8.sub",
+        "assoc9.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 400,
+          "candidate_lines": 400,
+          "matched": 400,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "attr",
+      "cold": {
+        "case": "attr",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 37,
+            "candidate_lines": 37,
+            "matched": 37,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "attr",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 37,
+            "candidate_lines": 37,
+            "matched": 37,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "attr.tests",
+        "attr1.sub",
+        "attr2.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 37,
+          "candidate_lines": 37,
+          "matched": 37,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "braces",
+      "cold": {
+        "case": "braces",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 77,
+            "candidate_lines": 77,
+            "matched": 77,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "braces",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 77,
+            "candidate_lines": 77,
+            "matched": 77,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "braces.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 77,
+          "candidate_lines": 77,
+          "matched": 77,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "builtins",
+      "cold": {
+        "case": "builtins",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 1,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 281,
+            "candidate_lines": 281,
+            "matched": 281,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "builtins",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 1,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 281,
+            "candidate_lines": 281,
+            "matched": 281,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "builtins.tests",
+        "builtins1.sub",
+        "builtins2.sub",
+        "builtins3.sub",
+        "builtins4.sub",
+        "builtins5.sub",
+        "builtins6.sub",
+        "builtins7.sub",
+        "source5.sub",
+        "source6.sub",
+        "source7.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 281,
+          "candidate_lines": 281,
+          "matched": 280,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 1,
+          "replaced_candidate": 1
+        }
+      ]
+    },
+    {
+      "case": "case",
+      "cold": {
+        "case": "case",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 63,
+            "candidate_lines": 63,
+            "matched": 63,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "case",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 63,
+            "candidate_lines": 63,
+            "matched": 63,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "case.tests",
+        "case1.sub",
+        "case2.sub",
+        "case3.sub",
+        "case4.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 63,
+          "candidate_lines": 63,
+          "matched": 63,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "casemod",
+      "cold": {
+        "case": "casemod",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 47,
+            "candidate_lines": 47,
+            "matched": 47,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "casemod",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 47,
+            "candidate_lines": 47,
+            "matched": 47,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "casemod.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 47,
+          "candidate_lines": 47,
+          "matched": 47,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "complete",
+      "cold": {
+        "case": "complete",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 63,
+            "candidate_lines": 63,
+            "matched": 63,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "complete",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 63,
+            "candidate_lines": 63,
+            "matched": 63,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "complete.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 63,
+          "candidate_lines": 63,
+          "matched": 63,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "comsub",
+      "cold": {
+        "case": "comsub",
+        "phase": "cold",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 79,
+            "candidate_lines": 79,
+            "matched": 79,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "comsub",
+        "phase": "warm",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 79,
+            "candidate_lines": 79,
+            "matched": 79,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "comsub.tests",
+        "comsub1.sub",
+        "comsub2.sub",
+        "comsub3.sub",
+        "comsub4.sub",
+        "comsub5.sub",
+        "comsub6.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 79,
+          "candidate_lines": 79,
+          "matched": 79,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "comsub-eof",
+      "cold": {
+        "case": "comsub-eof",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 17,
+            "candidate_lines": 17,
+            "matched": 17,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "comsub-eof",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 17,
+            "candidate_lines": 17,
+            "matched": 17,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "comsub-eof.tests",
+        "comsub-eof0.sub",
+        "comsub-eof1.sub",
+        "comsub-eof2.sub",
+        "comsub-eof3.sub",
+        "comsub-eof4.sub",
+        "comsub-eof5.sub",
+        "comsub-eof6.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 17,
+          "candidate_lines": 17,
+          "matched": 17,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "comsub-posix",
+      "cold": {
+        "case": "comsub-posix",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 100,
+            "candidate_lines": 100,
+            "matched": 100,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "comsub-posix",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 100,
+            "candidate_lines": 100,
+            "matched": 100,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "comsub-posix.tests",
+        "comsub-posix1.sub",
+        "comsub-posix2.sub",
+        "comsub-posix3.sub",
+        "comsub-posix5.sub",
+        "comsub-posix6.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 100,
+          "candidate_lines": 100,
+          "matched": 100,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "cond",
+      "cold": {
+        "case": "cond",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 142,
+            "candidate_lines": 142,
+            "matched": 142,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "cond",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 142,
+            "candidate_lines": 142,
+            "matched": 142,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "cond-regexp1.sub",
+        "cond-regexp2.sub",
+        "cond-regexp3.sub",
+        "cond.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 142,
+          "candidate_lines": 142,
+          "matched": 142,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "coproc",
+      "cold": {
+        "case": "coproc",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 10,
+            "candidate_lines": 10,
+            "matched": 10,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "coproc",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 10,
+            "candidate_lines": 10,
+            "matched": 10,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "coproc.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 10,
+          "candidate_lines": 10,
+          "matched": 10,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "cprint",
+      "cold": {
+        "case": "cprint",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 72,
+            "candidate_lines": 72,
+            "matched": 72,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "cprint",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 72,
+            "candidate_lines": 72,
+            "matched": 72,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "cprint.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 72,
+          "candidate_lines": 72,
+          "matched": 72,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "dbg-support",
+      "cold": {
+        "case": "dbg-support",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 371,
+            "candidate_lines": 371,
+            "matched": 371,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "dbg-support",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 371,
+            "candidate_lines": 371,
+            "matched": 371,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "dbg-support.tests",
+        "dbg-support3.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 371,
+          "candidate_lines": 371,
+          "matched": 371,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "dbg-support2",
+      "cold": {
+        "case": "dbg-support2",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 7,
+            "candidate_lines": 7,
+            "matched": 7,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "dbg-support2",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 7,
+            "candidate_lines": 7,
+            "matched": 7,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "dbg-support2.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 7,
+          "candidate_lines": 7,
+          "matched": 7,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "dirstack",
+      "cold": {
+        "case": "dirstack",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 55,
+            "candidate_lines": 55,
+            "matched": 55,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          },
+          {
+            "reference_lines": 24,
+            "candidate_lines": 24,
+            "matched": 24,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "dirstack",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 55,
+            "candidate_lines": 55,
+            "matched": 55,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          },
+          {
+            "reference_lines": 24,
+            "candidate_lines": 24,
+            "matched": 24,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "dstack.tests",
+        "dstack2.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 55,
+          "candidate_lines": 55,
+          "matched": 55,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        },
+        {
+          "reference_lines": 24,
+          "candidate_lines": 24,
+          "matched": 24,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "dollars",
+      "cold": {
+        "case": "dollars",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 744,
+            "candidate_lines": 744,
+            "matched": 744,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "dollars",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 744,
+            "candidate_lines": 744,
+            "matched": 744,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "dollar-at-star",
+        "dollar-at-star1.sub",
+        "dollar-at-star10.sub",
+        "dollar-at-star11.sub",
+        "dollar-at-star2.sub",
+        "dollar-at-star3.sub",
+        "dollar-at-star4.sub",
+        "dollar-at-star5.sub",
+        "dollar-at-star6.sub",
+        "dollar-at-star7.sub",
+        "dollar-at-star8.sub",
+        "dollar-at-star9.sub",
+        "dollar-at1.sub",
+        "dollar-at2.sub",
+        "dollar-at3.sub",
+        "dollar-at4.sub",
+        "dollar-at5.sub",
+        "dollar-at6.sub",
+        "dollar-at7.sub",
+        "dollar-star1.sub",
+        "dollar-star10.sub",
+        "dollar-star2.sub",
+        "dollar-star3.sub",
+        "dollar-star4.sub",
+        "dollar-star5.sub",
+        "dollar-star6.sub",
+        "dollar-star7.sub",
+        "dollar-star8.sub",
+        "dollar-star9.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 744,
+          "candidate_lines": 744,
+          "matched": 744,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "dynvar",
+      "cold": {
+        "case": "dynvar",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 7,
+            "candidate_lines": 7,
+            "matched": 7,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "dynvar",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 7,
+            "candidate_lines": 7,
+            "matched": 7,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "dynvar.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 7,
+          "candidate_lines": 7,
+          "matched": 7,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "errors",
+      "cold": {
+        "case": "errors",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 208,
+            "candidate_lines": 208,
+            "matched": 208,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "errors",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 208,
+            "candidate_lines": 208,
+            "matched": 208,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "errors.tests",
+        "errors1.sub",
+        "errors2.sub",
+        "errors3.sub",
+        "errors4.sub",
+        "errors5.sub",
+        "errors6.sub",
+        "errors7.sub",
+        "errors8.sub",
+        "errors9.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 208,
+          "candidate_lines": 208,
+          "matched": 208,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "execscript",
+      "cold": {
+        "case": "execscript",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 1,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 172,
+            "candidate_lines": 172,
+            "matched": 172,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "execscript",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 1,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 172,
+            "candidate_lines": 172,
+            "matched": 172,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "exec10.sub",
+        "exec11.sub",
+        "exec12.sub",
+        "exec13.sub",
+        "exec14.sub",
+        "exec2.sub",
+        "exec3.sub",
+        "exec4.sub",
+        "exec5.sub",
+        "exec6.sub",
+        "exec7.sub",
+        "exec9.sub",
+        "execscript"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 172,
+          "candidate_lines": 172,
+          "matched": 170,
+          "deleted": 2,
+          "inserted": 2,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "exp-tests",
+      "cold": {
+        "case": "exp-tests",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 419,
+            "candidate_lines": 419,
+            "matched": 419,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "exp-tests",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 419,
+            "candidate_lines": 419,
+            "matched": 419,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "exp.tests",
+        "exp1.sub",
+        "exp10.sub",
+        "exp11.sub",
+        "exp12.sub",
+        "exp13.sub",
+        "exp2.sub",
+        "exp3.sub",
+        "exp4.sub",
+        "exp5.sub",
+        "exp6.sub",
+        "exp7.sub",
+        "exp8.sub",
+        "exp9.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 419,
+          "candidate_lines": 419,
+          "matched": 419,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "exportfunc",
+      "cold": {
+        "case": "exportfunc",
+        "phase": "cold",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 14,
+            "candidate_lines": 14,
+            "matched": 14,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "exportfunc",
+        "phase": "warm",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 14,
+            "candidate_lines": 14,
+            "matched": 14,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "exportfunc.tests",
+        "exportfunc1.sub",
+        "exportfunc2.sub",
+        "exportfunc3.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 14,
+          "candidate_lines": 14,
+          "matched": 14,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "extglob",
+      "cold": {
+        "case": "extglob",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 184,
+            "candidate_lines": 184,
+            "matched": 184,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "extglob",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 184,
+            "candidate_lines": 184,
+            "matched": 184,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "extglob.tests",
+        "extglob1.sub",
+        "extglob1a.sub",
+        "extglob3.sub",
+        "extglob4.sub",
+        "extglob5.sub",
+        "extglob6.sub",
+        "extglob7.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 184,
+          "candidate_lines": 184,
+          "matched": 184,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "extglob2",
+      "cold": {
+        "case": "extglob2",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 70,
+            "candidate_lines": 70,
+            "matched": 70,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "extglob2",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 70,
+            "candidate_lines": 70,
+            "matched": 70,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "extglob2.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 70,
+          "candidate_lines": 70,
+          "matched": 70,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "extglob3",
+      "cold": {
+        "case": "extglob3",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 27,
+            "candidate_lines": 27,
+            "matched": 27,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "extglob3",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 27,
+            "candidate_lines": 27,
+            "matched": 27,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "extglob3.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 27,
+          "candidate_lines": 27,
+          "matched": 27,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "func",
+      "cold": {
+        "case": "func",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 169,
+            "candidate_lines": 169,
+            "matched": 169,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "func",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 169,
+            "candidate_lines": 169,
+            "matched": 169,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "func.tests",
+        "func1.sub",
+        "func2.sub",
+        "func3.sub",
+        "func4.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 169,
+          "candidate_lines": 169,
+          "matched": 169,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "getopts",
+      "cold": {
+        "case": "getopts",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 68,
+            "candidate_lines": 68,
+            "matched": 68,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "getopts",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 68,
+            "candidate_lines": 68,
+            "matched": 68,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "getopts.tests",
+        "getopts1.sub",
+        "getopts10.sub",
+        "getopts2.sub",
+        "getopts3.sub",
+        "getopts4.sub",
+        "getopts5.sub",
+        "getopts6.sub",
+        "getopts7.sub",
+        "getopts8.sub",
+        "getopts9.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 68,
+          "candidate_lines": 68,
+          "matched": 68,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "glob-test",
+      "cold": {
+        "case": "glob-test",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 261,
+            "candidate_lines": 261,
+            "matched": 261,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "glob-test",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 261,
+            "candidate_lines": 261,
+            "matched": 261,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "glob.tests",
+        "glob1.sub",
+        "glob10.sub",
+        "glob2.sub",
+        "glob3.sub",
+        "glob4.sub",
+        "glob5.sub",
+        "glob6.sub",
+        "glob7.sub",
+        "glob8.sub",
+        "glob9.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 261,
+          "candidate_lines": 261,
+          "matched": 261,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "globstar",
+      "cold": {
+        "case": "globstar",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 587,
+            "candidate_lines": 587,
+            "matched": 587,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "globstar",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 587,
+            "candidate_lines": 587,
+            "matched": 587,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "globstar.tests",
+        "globstar1.sub",
+        "globstar2.sub",
+        "globstar3.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 587,
+          "candidate_lines": 587,
+          "matched": 587,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "heredoc",
+      "cold": {
+        "case": "heredoc",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 133,
+            "candidate_lines": 133,
+            "matched": 133,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "heredoc",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 133,
+            "candidate_lines": 133,
+            "matched": 133,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "heredoc.tests",
+        "heredoc1.sub",
+        "heredoc2.sub",
+        "heredoc3.sub",
+        "heredoc4.sub",
+        "heredoc5.sub",
+        "heredoc6.sub",
+        "heredoc7.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 133,
+          "candidate_lines": 133,
+          "matched": 133,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "herestr",
+      "cold": {
+        "case": "herestr",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 38,
+            "candidate_lines": 38,
+            "matched": 38,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "herestr",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 38,
+            "candidate_lines": 38,
+            "matched": 38,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "herestr.tests",
+        "herestr1.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 38,
+          "candidate_lines": 38,
+          "matched": 38,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "histexpand",
+      "cold": {
+        "case": "histexpand",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 246,
+            "candidate_lines": 246,
+            "matched": 246,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "histexpand",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 246,
+            "candidate_lines": 246,
+            "matched": 246,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "histexp.tests",
+        "histexp1.sub",
+        "histexp2.sub",
+        "histexp3.sub",
+        "histexp4.sub",
+        "histexp5.sub",
+        "histexp6.sub",
+        "histexp7.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 246,
+          "candidate_lines": 246,
+          "matched": 246,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "history",
+      "cold": {
+        "case": "history",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 299,
+            "candidate_lines": 299,
+            "matched": 299,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "history",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 299,
+            "candidate_lines": 299,
+            "matched": 299,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "history.tests",
+        "history1.sub",
+        "history2.sub",
+        "history3.sub",
+        "history4.sub",
+        "history5.sub",
+        "history6.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 299,
+          "candidate_lines": 299,
+          "matched": 299,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "ifs",
+      "cold": {
+        "case": "ifs",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 12,
+            "candidate_lines": 12,
+            "matched": 12,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "ifs",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 12,
+            "candidate_lines": 12,
+            "matched": 12,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "ifs.tests",
+        "ifs1.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 12,
+          "candidate_lines": 12,
+          "matched": 12,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "ifs-posix",
+      "cold": {
+        "case": "ifs-posix",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 1,
+            "candidate_lines": 1,
+            "matched": 1,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "ifs-posix",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 1,
+            "candidate_lines": 1,
+            "matched": 1,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "ifs-posix.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 1,
+          "candidate_lines": 1,
+          "matched": 1,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "input-test",
+      "cold": {
+        "case": "input-test",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 3,
+            "candidate_lines": 3,
+            "matched": 3,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "input-test",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 3,
+            "candidate_lines": 3,
+            "matched": 3,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "input-line.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 3,
+          "candidate_lines": 3,
+          "matched": 3,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "intl",
+      "cold": {
+        "case": "intl",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 57,
+            "candidate_lines": 57,
+            "matched": 57,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "intl",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 57,
+            "candidate_lines": 57,
+            "matched": 57,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "intl.tests",
+        "intl1.sub",
+        "intl2.sub",
+        "intl3.sub",
+        "unicode1.sub",
+        "unicode2.sub",
+        "unicode3.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 57,
+          "candidate_lines": 57,
+          "matched": 57,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "invert",
+      "cold": {
+        "case": "invert",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 10,
+            "candidate_lines": 10,
+            "matched": 10,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "invert",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 10,
+            "candidate_lines": 10,
+            "matched": 10,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "invert.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 10,
+          "candidate_lines": 10,
+          "matched": 10,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "iquote",
+      "cold": {
+        "case": "iquote",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 92,
+            "candidate_lines": 92,
+            "matched": 92,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "iquote",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 92,
+            "candidate_lines": 92,
+            "matched": 92,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "iquote.tests",
+        "iquote1.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 92,
+          "candidate_lines": 92,
+          "matched": 92,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "jobs",
+      "cold": {
+        "case": "jobs",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 120,
+            "candidate_lines": 120,
+            "matched": 120,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "jobs",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 120,
+            "candidate_lines": 120,
+            "matched": 120,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "jobs.tests",
+        "jobs1.sub",
+        "jobs2.sub",
+        "jobs3.sub",
+        "jobs4.sub",
+        "jobs5.sub",
+        "jobs6.sub",
+        "jobs7.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 120,
+          "candidate_lines": 120,
+          "matched": 120,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "lastpipe",
+      "cold": {
+        "case": "lastpipe",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 22,
+            "candidate_lines": 22,
+            "matched": 22,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "lastpipe",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 22,
+            "candidate_lines": 22,
+            "matched": 22,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "lastpipe.tests",
+        "lastpipe1.sub",
+        "lastpipe2.sub",
+        "lastpipe3.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 22,
+          "candidate_lines": 22,
+          "matched": 22,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "mapfile",
+      "cold": {
+        "case": "mapfile",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 170,
+            "candidate_lines": 170,
+            "matched": 170,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "mapfile",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 170,
+            "candidate_lines": 170,
+            "matched": 170,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "mapfile.tests",
+        "mapfile1.sub",
+        "mapfile2.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 170,
+          "candidate_lines": 170,
+          "matched": 170,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "more-exp",
+      "cold": {
+        "case": "more-exp",
+        "phase": "cold",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 214,
+            "candidate_lines": 214,
+            "matched": 214,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "more-exp",
+        "phase": "warm",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 214,
+            "candidate_lines": 214,
+            "matched": 214,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "more-exp.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 214,
+          "candidate_lines": 214,
+          "matched": 214,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "nameref",
+      "cold": {
+        "case": "nameref",
+        "phase": "cold",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 560,
+            "candidate_lines": 560,
+            "matched": 560,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "nameref",
+        "phase": "warm",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 560,
+            "candidate_lines": 560,
+            "matched": 560,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "nameref.tests",
+        "nameref1.sub",
+        "nameref10.sub",
+        "nameref11.sub",
+        "nameref12.sub",
+        "nameref13.sub",
+        "nameref14.sub",
+        "nameref15.sub",
+        "nameref16.sub",
+        "nameref17.sub",
+        "nameref18.sub",
+        "nameref19.sub",
+        "nameref2.sub",
+        "nameref20.sub",
+        "nameref21.sub",
+        "nameref22.sub",
+        "nameref23.sub",
+        "nameref3.sub",
+        "nameref4.sub",
+        "nameref5.sub",
+        "nameref6.sub",
+        "nameref7.sub",
+        "nameref8.sub",
+        "nameref9.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 560,
+          "candidate_lines": 560,
+          "matched": 560,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "new-exp",
+      "cold": {
+        "case": "new-exp",
+        "phase": "cold",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 795,
+            "candidate_lines": 795,
+            "matched": 795,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "new-exp",
+        "phase": "warm",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 795,
+            "candidate_lines": 795,
+            "matched": 795,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "new-exp.tests",
+        "new-exp1.sub",
+        "new-exp10.sub",
+        "new-exp11.sub",
+        "new-exp12.sub",
+        "new-exp13.sub",
+        "new-exp14.sub",
+        "new-exp15.sub",
+        "new-exp16.sub",
+        "new-exp2.sub",
+        "new-exp3.sub",
+        "new-exp4.sub",
+        "new-exp5.sub",
+        "new-exp6.sub",
+        "new-exp7.sub",
+        "new-exp8.sub",
+        "new-exp9.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 795,
+          "candidate_lines": 795,
+          "matched": 795,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "nquote",
+      "cold": {
+        "case": "nquote",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 80,
+            "candidate_lines": 80,
+            "matched": 80,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "nquote",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 80,
+            "candidate_lines": 80,
+            "matched": 80,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "nquote.tests",
+        "nquote1.sub",
+        "nquote2.sub",
+        "nquote3.sub",
+        "nquote4.sub",
+        "nquote5.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 80,
+          "candidate_lines": 80,
+          "matched": 80,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "nquote1",
+      "cold": {
+        "case": "nquote1",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 131,
+            "candidate_lines": 131,
+            "matched": 131,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "nquote1",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 131,
+            "candidate_lines": 131,
+            "matched": 131,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "nquote1.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 131,
+          "candidate_lines": 131,
+          "matched": 131,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "nquote2",
+      "cold": {
+        "case": "nquote2",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 76,
+            "candidate_lines": 76,
+            "matched": 76,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "nquote2",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 76,
+            "candidate_lines": 76,
+            "matched": 76,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "nquote2.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 76,
+          "candidate_lines": 76,
+          "matched": 76,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "nquote3",
+      "cold": {
+        "case": "nquote3",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 60,
+            "candidate_lines": 60,
+            "matched": 60,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "nquote3",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 60,
+            "candidate_lines": 60,
+            "matched": 60,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "nquote3.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 60,
+          "candidate_lines": 60,
+          "matched": 60,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "nquote4",
+      "cold": {
+        "case": "nquote4",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 18,
+            "candidate_lines": 18,
+            "matched": 18,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "nquote4",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 18,
+            "candidate_lines": 18,
+            "matched": 18,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "nquote4.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 18,
+          "candidate_lines": 18,
+          "matched": 18,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "nquote5",
+      "cold": {
+        "case": "nquote5",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 86,
+            "candidate_lines": 86,
+            "matched": 86,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "nquote5",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 86,
+            "candidate_lines": 86,
+            "matched": 86,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "nquote5.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 86,
+          "candidate_lines": 86,
+          "matched": 86,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "parser",
+      "cold": {
+        "case": "parser",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 16,
+            "candidate_lines": 16,
+            "matched": 16,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "parser",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 16,
+            "candidate_lines": 16,
+            "matched": 16,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "parser.tests",
+        "parser1.sub",
+        "posix2syntax.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 16,
+          "candidate_lines": 16,
+          "matched": 16,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "posix2",
+      "cold": {
+        "case": "posix2",
+        "phase": "cold",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 4,
+            "candidate_lines": 4,
+            "matched": 4,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "posix2",
+        "phase": "warm",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 4,
+            "candidate_lines": 4,
+            "matched": 4,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "posix2.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 4,
+          "candidate_lines": 4,
+          "matched": 4,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "posixexp",
+      "cold": {
+        "case": "posixexp",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 308,
+            "candidate_lines": 308,
+            "matched": 308,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "posixexp",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 308,
+            "candidate_lines": 308,
+            "matched": 308,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "posixexp.tests",
+        "posixexp1.sub",
+        "posixexp2.sub",
+        "posixexp3.sub",
+        "posixexp4.sub",
+        "posixexp5.sub",
+        "posixexp6.sub",
+        "posixexp7.sub",
+        "posixexp8.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 308,
+          "candidate_lines": 308,
+          "matched": 308,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "posixexp2",
+      "cold": {
+        "case": "posixexp2",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 40,
+            "candidate_lines": 40,
+            "matched": 40,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "posixexp2",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 40,
+            "candidate_lines": 40,
+            "matched": 40,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "posixexp2.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 40,
+          "candidate_lines": 40,
+          "matched": 40,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "posixpat",
+      "cold": {
+        "case": "posixpat",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 42,
+            "candidate_lines": 42,
+            "matched": 42,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "posixpat",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 42,
+            "candidate_lines": 42,
+            "matched": 42,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "posixpat.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 42,
+          "candidate_lines": 42,
+          "matched": 42,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "posixpipe",
+      "cold": {
+        "case": "posixpipe",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 41,
+            "candidate_lines": 41,
+            "matched": 41,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "posixpipe",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 41,
+            "candidate_lines": 41,
+            "matched": 41,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "posixpipe.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 41,
+          "candidate_lines": 41,
+          "matched": 41,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "precedence",
+      "cold": {
+        "case": "precedence",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 28,
+            "candidate_lines": 28,
+            "matched": 28,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "precedence",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 28,
+            "candidate_lines": 28,
+            "matched": 28,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "precedence.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 28,
+          "candidate_lines": 28,
+          "matched": 28,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "printf",
+      "cold": {
+        "case": "printf",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 298,
+            "candidate_lines": 298,
+            "matched": 298,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "printf",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 298,
+            "candidate_lines": 298,
+            "matched": 298,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "printf.tests",
+        "printf1.sub",
+        "printf2.sub",
+        "printf3.sub",
+        "printf4.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 298,
+          "candidate_lines": 298,
+          "matched": 298,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "procsub",
+      "cold": {
+        "case": "procsub",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 33,
+            "candidate_lines": 33,
+            "matched": 33,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "procsub",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 33,
+            "candidate_lines": 33,
+            "matched": 33,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "procsub.tests",
+        "procsub1.sub",
+        "procsub2.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 33,
+          "candidate_lines": 33,
+          "matched": 33,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "quote",
+      "cold": {
+        "case": "quote",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 182,
+            "candidate_lines": 182,
+            "matched": 182,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "quote",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 182,
+            "candidate_lines": 182,
+            "matched": 182,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "quote.tests",
+        "quote1.sub",
+        "quote2.sub",
+        "quote3.sub",
+        "quote4.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 182,
+          "candidate_lines": 182,
+          "matched": 182,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "quotearray",
+      "cold": {
+        "case": "quotearray",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 152,
+            "candidate_lines": 152,
+            "matched": 152,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "quotearray",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 152,
+            "candidate_lines": 152,
+            "matched": 152,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "quotearray.tests",
+        "quotearray1.sub",
+        "quotearray2.sub",
+        "quotearray3.sub",
+        "quotearray4.sub",
+        "quotearray5.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 152,
+          "candidate_lines": 152,
+          "matched": 152,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "read",
+      "cold": {
+        "case": "read",
+        "phase": "cold",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 85,
+            "candidate_lines": 85,
+            "matched": 85,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "read",
+        "phase": "warm",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 85,
+            "candidate_lines": 85,
+            "matched": 85,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "read.tests",
+        "read1.sub",
+        "read2.sub",
+        "read3.sub",
+        "read4.sub",
+        "read5.sub",
+        "read6.sub",
+        "read7.sub",
+        "read8.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 85,
+          "candidate_lines": 85,
+          "matched": 85,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "redir",
+      "cold": {
+        "case": "redir",
+        "phase": "cold",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {
+          "sleep": 4
+        },
+        "candidate_live_descendants": {
+          "sleep": 4
+        },
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 163,
+            "candidate_lines": 163,
+            "matched": 163,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "redir",
+        "phase": "warm",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {
+          "sleep": 4
+        },
+        "candidate_live_descendants": {
+          "sleep": 4
+        },
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 163,
+            "candidate_lines": 163,
+            "matched": 163,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "redir.tests",
+        "redir10.sub",
+        "redir11.sub",
+        "redir3.sub",
+        "redir4.sub",
+        "redir5.sub",
+        "redir6.sub",
+        "redir7.sub",
+        "redir8.sub",
+        "redir9.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 163,
+          "candidate_lines": 163,
+          "matched": 163,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "rhs-exp",
+      "cold": {
+        "case": "rhs-exp",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 105,
+            "candidate_lines": 105,
+            "matched": 105,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "rhs-exp",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 105,
+            "candidate_lines": 105,
+            "matched": 105,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "rhs-exp.tests",
+        "rhs-exp1.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 105,
+          "candidate_lines": 105,
+          "matched": 105,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "rsh",
+      "cold": {
+        "case": "rsh",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 19,
+            "candidate_lines": 19,
+            "matched": 19,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "rsh",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 19,
+            "candidate_lines": 19,
+            "matched": 19,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "rsh.tests",
+        "rsh1.sub",
+        "rsh2.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 19,
+          "candidate_lines": 19,
+          "matched": 19,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "set-e",
+      "cold": {
+        "case": "set-e",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 72,
+            "candidate_lines": 72,
+            "matched": 72,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "set-e",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 72,
+            "candidate_lines": 72,
+            "matched": 72,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "set-e.tests",
+        "set-e1.sub",
+        "set-e2.sub",
+        "set-e3.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 72,
+          "candidate_lines": 72,
+          "matched": 72,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "set-x",
+      "cold": {
+        "case": "set-x",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 60,
+            "candidate_lines": 60,
+            "matched": 60,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "set-x",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 60,
+            "candidate_lines": 60,
+            "matched": 60,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "set-x.tests",
+        "set-x1.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 60,
+          "candidate_lines": 60,
+          "matched": 60,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "shopt",
+      "cold": {
+        "case": "shopt",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 312,
+            "candidate_lines": 312,
+            "matched": 312,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "shopt",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 312,
+            "candidate_lines": 312,
+            "matched": 312,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "shopt.tests",
+        "shopt1.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 312,
+          "candidate_lines": 312,
+          "matched": 312,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "strip",
+      "cold": {
+        "case": "strip",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 12,
+            "candidate_lines": 12,
+            "matched": 12,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "strip",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 12,
+            "candidate_lines": 12,
+            "matched": 12,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "strip.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 12,
+          "candidate_lines": 12,
+          "matched": 12,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "test",
+      "cold": {
+        "case": "test",
+        "phase": "cold",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 297,
+            "candidate_lines": 297,
+            "matched": 297,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "test",
+        "phase": "warm",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 297,
+            "candidate_lines": 297,
+            "matched": 297,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "test.tests",
+        "test1.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 297,
+          "candidate_lines": 297,
+          "matched": 297,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "tilde",
+      "cold": {
+        "case": "tilde",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 28,
+            "candidate_lines": 28,
+            "matched": 28,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "tilde",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 28,
+            "candidate_lines": 28,
+            "matched": 28,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "tilde.tests"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 28,
+          "candidate_lines": 28,
+          "matched": 28,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "tilde2",
+      "cold": {
+        "case": "tilde2",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 28,
+            "candidate_lines": 28,
+            "matched": 28,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "tilde2",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 28,
+            "candidate_lines": 28,
+            "matched": 28,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "tilde2.tests",
+        "tilde3.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 28,
+          "candidate_lines": 28,
+          "matched": 28,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "trap",
+      "cold": {
+        "case": "trap",
+        "phase": "cold",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 115,
+            "candidate_lines": 115,
+            "matched": 115,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "trap",
+        "phase": "warm",
+        "exact": true,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": true,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 0,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 115,
+            "candidate_lines": 115,
+            "matched": 115,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "trap.tests",
+        "trap3.sub",
+        "trap4.sub",
+        "trap6.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 115,
+          "candidate_lines": 115,
+          "matched": 115,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "type",
+      "cold": {
+        "case": "type",
+        "phase": "cold",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 135,
+            "candidate_lines": 135,
+            "matched": 135,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "type",
+        "phase": "warm",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 135,
+            "candidate_lines": 135,
+            "matched": 135,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "type.tests",
+        "type1.sub",
+        "type2.sub",
+        "type3.sub",
+        "type4.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 135,
+          "candidate_lines": 135,
+          "matched": 135,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "varenv",
+      "cold": {
+        "case": "varenv",
+        "phase": "cold",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 277,
+            "candidate_lines": 277,
+            "matched": 277,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "varenv",
+        "phase": "warm",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 277,
+            "candidate_lines": 277,
+            "matched": 277,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "varenv.tests",
+        "varenv1.sub",
+        "varenv10.sub",
+        "varenv11.sub",
+        "varenv12.sub",
+        "varenv13.sub",
+        "varenv14.sub",
+        "varenv15.sub",
+        "varenv16.sub",
+        "varenv17.sub",
+        "varenv18.sub",
+        "varenv19.sub",
+        "varenv2.sub",
+        "varenv20.sub",
+        "varenv21.sub",
+        "varenv22.sub",
+        "varenv3.sub",
+        "varenv4.sub",
+        "varenv5.sub",
+        "varenv6.sub",
+        "varenv7.sub",
+        "varenv8.sub",
+        "varenv9.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 277,
+          "candidate_lines": 277,
+          "matched": 277,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    },
+    {
+      "case": "vredir",
+      "cold": {
+        "case": "vredir",
+        "phase": "cold",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 101,
+            "candidate_lines": 101,
+            "matched": 101,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "warm": {
+        "case": "vredir",
+        "phase": "warm",
+        "exact": false,
+        "output_match": true,
+        "captures_valid": true,
+        "expected_valid": true,
+        "lifecycle_valid": true,
+        "reference_live_descendants": {},
+        "candidate_live_descendants": {},
+        "status_equal": false,
+        "status_valid": true,
+        "driver_output_valid": true,
+        "reference_status": 0,
+        "candidate_status": 1,
+        "match": true,
+        "lines": [
+          {
+            "reference_lines": 101,
+            "candidate_lines": 101,
+            "matched": 101,
+            "deleted": 0,
+            "inserted": 0,
+            "replaced_reference": 0,
+            "replaced_candidate": 0
+          }
+        ]
+      },
+      "invoked_source_files": [
+        "vredir.tests",
+        "vredir1.sub",
+        "vredir2.sub",
+        "vredir3.sub",
+        "vredir4.sub",
+        "vredir5.sub",
+        "vredir6.sub",
+        "vredir7.sub",
+        "vredir8.sub"
+      ],
+      "expected_comparison": [
+        {
+          "reference_lines": 101,
+          "candidate_lines": 101,
+          "matched": 101,
+          "deleted": 0,
+          "inserted": 0,
+          "replaced_reference": 0,
+          "replaced_candidate": 0
+        }
+      ]
+    }
+  ],
+  "paper_subset": {
+    "cold": {
+      "Globbing": {
+        "expected_lines": 868,
+        "reference_lines": 868,
+        "matched_lines": 868,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "Data structures": {
+        "expected_lines": 1261,
+        "reference_lines": 1261,
+        "matched_lines": 1261,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "Quoting": {
+        "expected_lines": 877,
+        "reference_lines": 877,
+        "matched_lines": 877,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "Expansion": {
+        "expected_lines": 1703,
+        "reference_lines": 1703,
+        "matched_lines": 1703,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "Utils": {
+        "expected_lines": 80,
+        "reference_lines": 80,
+        "matched_lines": 80,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "I/O": {
+        "expected_lines": 1610,
+        "reference_lines": 1610,
+        "matched_lines": 1610,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "Constructs": {
+        "expected_lines": 1547,
+        "reference_lines": 1547,
+        "matched_lines": 1547,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "IPC": {
+        "expected_lines": 1356,
+        "reference_lines": 1356,
+        "matched_lines": 1356,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "POSIX": {
+        "expected_lines": 536,
+        "reference_lines": 536,
+        "matched_lines": 536,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "Options": {
+        "expected_lines": 444,
+        "reference_lines": 444,
+        "matched_lines": 444,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      }
+    },
+    "warm": {
+      "Globbing": {
+        "expected_lines": 868,
+        "reference_lines": 868,
+        "matched_lines": 868,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "Data structures": {
+        "expected_lines": 1261,
+        "reference_lines": 1261,
+        "matched_lines": 1261,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "Quoting": {
+        "expected_lines": 877,
+        "reference_lines": 877,
+        "matched_lines": 877,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "Expansion": {
+        "expected_lines": 1703,
+        "reference_lines": 1703,
+        "matched_lines": 1703,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "Utils": {
+        "expected_lines": 80,
+        "reference_lines": 80,
+        "matched_lines": 80,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "I/O": {
+        "expected_lines": 1610,
+        "reference_lines": 1610,
+        "matched_lines": 1610,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "Constructs": {
+        "expected_lines": 1547,
+        "reference_lines": 1547,
+        "matched_lines": 1547,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "IPC": {
+        "expected_lines": 1356,
+        "reference_lines": 1356,
+        "matched_lines": 1356,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "POSIX": {
+        "expected_lines": 536,
+        "reference_lines": 536,
+        "matched_lines": 536,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      },
+      "Options": {
+        "expected_lines": 444,
+        "reference_lines": 444,
+        "matched_lines": 444,
+        "inserted_lines": 0,
+        "deleted_lines": 0,
+        "replaced_reference_lines": 0
+      }
+    }
+  }
+}

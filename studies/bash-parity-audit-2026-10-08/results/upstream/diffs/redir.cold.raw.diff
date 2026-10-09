@@ -1,0 +1,47 @@
+--- bash/capture-0
++++ observe/capture-0
+@@ -1,9 +1,9 @@
+ abc
+-./redir.tests: line 28: /tmp/redir-test: cannot overwrite existing file
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.svF6j9xu/script/redir.tests: line 9: /tmp/redir-test: cannot overwrite existing file
+ abc
+ def
+ def
+-./redir.tests: line 44: $z: ambiguous redirect
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.svF6j9xu/script/redir.tests: line 18: $z: ambiguous redirect
+ Point 1
+ Point 2
+ to a
+@@ -24,8 +24,8 @@
+ read line4 "daemon"
+ from stdin: aa
+ to stdout
+-./redir4.sub: line 45: $fd: ambiguous redirect
+-./redir4.sub: line 46: $fd: ambiguous redirect
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.NZE5knwE/script/redir4.sub: line 13: $fd: ambiguous redirect
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.NZE5knwE/script/redir4.sub: line 14: $fd: ambiguous redirect
+ err-and-out:
+ to stdout
+ to stderr
+@@ -44,7 +44,7 @@
+ ab
+ cd
+ cd
+-./redir.tests: line 170: redir1.*: No such file or directory
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.svF6j9xu/script/redir.tests: line 100: redir1.*: No such file or directory
+ #   This program is free software: you can redistribute it and/or modify
+ #   it under the terms of the GNU General Public License as published by
+ #   the Free Software Foundation, either version 3 of the License, or
+@@ -154,10 +154,10 @@
+ 1
+ 7
+ after: 42
+-./redir11.sub: line 53: $(ss= declare -i ss): ambiguous redirect
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.ZoGbMiJP/script/redir11.sub: line 31: $(ss= declare -i ss): ambiguous redirect
+ after: 42
+ a+=3
+ foo
+ foo
+-./redir11.sub: line 75: 42: No such file or directory
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.ZoGbMiJP/script/redir11.sub: line 45: 42: No such file or directory
+ 42

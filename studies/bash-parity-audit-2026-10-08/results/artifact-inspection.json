@@ -1,0 +1,448 @@
+{
+  "url": "https://zenodo.org/api/records/19488802/files/incr-pkg.tar.gz/content",
+  "expected_files": [
+    {
+      "path": "evaluation/bash-ts/tests/alias.right",
+      "lines": 45,
+      "sha256": "8b796ef766688d131957d2a8a86e5b6954a5b2551a596dae42ce923253dc5076"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/appendop.right",
+      "lines": 28,
+      "sha256": "7087f12bcb8786215cfb3c4eb0fc35fa026dedecfe659568a5ad11a5bffd68ec"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/arith-for.right",
+      "lines": 86,
+      "sha256": "9a4fc1b467a2c3614c418ee54016764427a9eac51279e0ed3a1490e24db70472"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/arith.right",
+      "lines": 263,
+      "sha256": "5ac2e5b9e89471ea918214711ba071b9e9a2688921666db357b9cf3508b695d3"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/array.right",
+      "lines": 787,
+      "sha256": "fbecf4ec2368e59fadb066b42beb10be709c18a3612a54cb63c6b067482a65d2"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/array2.right",
+      "lines": 74,
+      "sha256": "afff460e7a766e3bca65490c987dcbf98e473beb2717b086fbfceb9401e7dfa5"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/assoc.right",
+      "lines": 400,
+      "sha256": "dd206edc2e87f85c8f6534003fa686dfcc73437bb0feb37fbad046c7c8ae0d08"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/attr.right",
+      "lines": 37,
+      "sha256": "f845fa5f729eb88e66ce3fd2867acb71fc468f8104cdb94964d66a06a4978de9"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/braces.right",
+      "lines": 77,
+      "sha256": "e4f3df6144d12325bcd5cbdc2fc560141f5b35074922687039bf29096d0c9e8a"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/builtins.right",
+      "lines": 281,
+      "sha256": "1b2c682168312ea380685b3533dd2e71b39653ce59cd8bd349b4ecae3d8638d8"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/case.right",
+      "lines": 63,
+      "sha256": "13388943bc5d9ee48fbc51a6dc7cb9f05b026bb5a0c9c2ef71c91b3e60e11c0e"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/casemod.right",
+      "lines": 47,
+      "sha256": "4ec30e10c56918fe5e85e297be7af53a4721310f054c7562879e3eb5fa44f682"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/complete.right",
+      "lines": 63,
+      "sha256": "263a01f87e7401e864ee60d6a301af86feb12db5f9efd692edd9b19624adec97"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/comsub-eof.right",
+      "lines": 17,
+      "sha256": "09815b8c6b4095beb740dcafd266ffb87a157e449e68f7028204da7aa21e45e3"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/comsub-posix.right",
+      "lines": 100,
+      "sha256": "2c0078cb4c2d6a0ee9e04e0a57f00ce95585f85813486ec8c86bd700e5cd1e57"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/comsub.right",
+      "lines": 79,
+      "sha256": "d3471fd0706b10f0d398c617661d9a430dfc73eb94863ac7667ac28f1c629c4a"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/cond.right",
+      "lines": 142,
+      "sha256": "7064e46fb4ef09eafa7c7da658f68ee23de1b18a71e3300c841da8c0bed1a8b0"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/coproc.right",
+      "lines": 10,
+      "sha256": "b6bef687014619f8177775a47795a2ede52507582afe409967ce53262624797b"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/cprint.right",
+      "lines": 72,
+      "sha256": "e1e37b4c1b141079166e47134d1b33852e82089f25f4d508c93ce412881c1247"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/dbg-support.right",
+      "lines": 371,
+      "sha256": "594c9a42188c2c4a69f85d0e2b1d999c4600a386b65ca765a792f86030146420"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/dbg-support2.right",
+      "lines": 7,
+      "sha256": "ce5a508a9c4a6d6c50f15afaa5fa8995b5ccb0c12191c05a1d48dee79b52cf96"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/dollar.right",
+      "lines": 744,
+      "sha256": "f1bde38597341cea0e343fb0a04eb4d6e81f75cc7251b94eec70313d599dad4e"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/dstack.right",
+      "lines": 55,
+      "sha256": "8e2bc08d6fd891da4acbda2830c6c9f77b6eb93ed75e81f98eccf1c3da545e53"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/dstack2.right",
+      "lines": 24,
+      "sha256": "2d0c780d6969918674a3707a94efc595a5313cac7c5be61b23bfd7254a03f446"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/dynvar.right",
+      "lines": 7,
+      "sha256": "8bb6a691fef61e51b42a3545ac22cefc63d4ce1bb909ca0b07c2b9f87c89bc65"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/errors.right",
+      "lines": 208,
+      "sha256": "9700bcfd76f526c6c93a8253f8acae78a39c8286f8656ff207b7addcb38831bd"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/exec.right",
+      "lines": 172,
+      "sha256": "cd79ab70bc8a53485bb150cc16458b86f2e9a217acf147c2538c5315860f938b"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/exp.right",
+      "lines": 419,
+      "sha256": "dce9ce621e91316c6cac934367f912c4332dae6631f7e140e67347e883d94059"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/exportfunc.right",
+      "lines": 14,
+      "sha256": "62229fe33543933671bee619ed13e742744a9b8b82b91bf1a13bd4738f632dc2"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/extglob.right",
+      "lines": 184,
+      "sha256": "97227dc1a2ba0c85dad8ca497e41864f4938583ef6600e8f93111fa4e0ff4dd5"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/extglob2.right",
+      "lines": 70,
+      "sha256": "77d35d0156c8c42ad71bd2d9bf258b7fba4ee93f50cf0d78d5316c0adaea8e72"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/extglob3.right",
+      "lines": 27,
+      "sha256": "2f94b0cd2f94334cf8247be4e01f467ebd45bf9aa9312c3223017ca82274bade"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/func.right",
+      "lines": 169,
+      "sha256": "7d00bea25ef2eeb91c5621d70d6d0dc76311e5f01feb9796984ee74cf148873b"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/getopts.right",
+      "lines": 68,
+      "sha256": "ddcd33c450d68069e93eecbad8ec8a59cae4f1676a5243ea516e23510c81f31c"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/glob.right",
+      "lines": 261,
+      "sha256": "2d2844d71e6c531e452b0414b77bd8c71d805488d11ecf9dce1818fe67d2514c"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/globstar.right",
+      "lines": 587,
+      "sha256": "f37f1a5d12bd5a46785fdf19a6a62e18ddfcb2b93f7af98c7f7b70ac2570007d"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/heredoc.right",
+      "lines": 133,
+      "sha256": "65003b07597cdadbea0c77abeeeadd2795b464dc5625dff4138440769d1a7c61"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/herestr.right",
+      "lines": 38,
+      "sha256": "f04149947da5959d873c60eabe4096b793859c58589e74ee2f5a9278c6582dad"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/histexp.right",
+      "lines": 246,
+      "sha256": "1801de0ddb16243d3e473e7ea55514de07d27c9fbb04d60a2808935e0f430f48"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/history.right",
+      "lines": 299,
+      "sha256": "65b7749f5902bbea54728ead3b22639f04e1c2d41f5a00d25d79ff7a55a044fc"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/ifs-posix.right",
+      "lines": 1,
+      "sha256": "8d30156cd5cc001a34308d36769ee0ebdb32e0f98677a399cf4147851030bb9a"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/ifs.right",
+      "lines": 12,
+      "sha256": "9653b728c1b352d0d06b75ccca11f6b0f94fc817020447079f201a819e9cae05"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/input.right",
+      "lines": 3,
+      "sha256": "5ec149f5ecf2394c2c7d2a9182604ec3739999fef6e4fc2d62ebc2079facf9ad"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/intl.right",
+      "lines": 57,
+      "sha256": "9368c030bbe528549591e2267b9860ac121c7cfebf9e56db1a17cdb5d2ed291e"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/invert.right",
+      "lines": 10,
+      "sha256": "1f699ae21a71f0835cb702ba904a86bd30236f3d41d125d915bc379f4ec00c06"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/iquote.right",
+      "lines": 92,
+      "sha256": "2291992b4722efbc40a46e64c114b8fc55f87134fd2587e5557af18ab833629c"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/jobs.right",
+      "lines": 120,
+      "sha256": "546497420e89e302e14d9dcde7f222d5c31b79f51f2c8adfa394e11ade8ce276"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/lastpipe.right",
+      "lines": 22,
+      "sha256": "99414e0d315cf596ec97efe818dcc5fa65ff19cb661f74d3660c65e68460441a"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/mapfile.right",
+      "lines": 170,
+      "sha256": "e76d8afcd53ac851a94a476123bb290357aad3365205fcf4a78d65e78548ea97"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/more-exp.right",
+      "lines": 214,
+      "sha256": "3274e544a7c141173a688ed00b06a0ea9545c21b2c527e581cdf94c77e4515f6"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/nameref.right",
+      "lines": 560,
+      "sha256": "9d1a1dc907659fc7fa69cfd1a6ce5b9b458609addd806f8dcc9d89575eb3a0c4"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/new-exp.right",
+      "lines": 795,
+      "sha256": "16554f2f30905b7b8fa0ddc9490e1420e86c28e6bef733b8b467dd1d083e50f1"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/nquote.right",
+      "lines": 80,
+      "sha256": "2d526f81867a01412fcfa2b4e4df113beeeb4bf44c4560bb08ed2df21e4c5483"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/nquote1.right",
+      "lines": 131,
+      "sha256": "af8f775a42b9ee464871320e9c44737a180b7632708333e27b3e04b1f7b7f427"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/nquote2.right",
+      "lines": 76,
+      "sha256": "f812adef7f23b3aff7a26ca602317102f71c1373d96d2550b362c2e58867c674"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/nquote3.right",
+      "lines": 60,
+      "sha256": "c317ad8ac738a9c0bef141d5033eda9c6278a82a88d36456982dc19487011407"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/nquote4.right",
+      "lines": 18,
+      "sha256": "caf425eaee39d19b4d38632fe0cf283c2c381f42092feac93c9a20b9c409112a"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/nquote5.right",
+      "lines": 86,
+      "sha256": "03ec693c202bce2c4cc3167c19687fd5795940221edda05f93d06c6fd66aee60"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/parser.right",
+      "lines": 16,
+      "sha256": "a980fc55f31ed413ef01cfc65cbfef9d3dcc14ea208a84e37657f311fff771d4"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/posix2.right",
+      "lines": 4,
+      "sha256": "79fbe57be96cfeb8c5dcaf4e4aa19d0fde342d8e24d731c6680faf174dc7df17"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/posixexp.right",
+      "lines": 308,
+      "sha256": "6fb5a215944b64729b8132631319bd92afc3c8aed9680530f1a662fccf0ae209"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/posixexp2.right",
+      "lines": 40,
+      "sha256": "e23b829190ed651513d0b3be6b219156fdd7ff68838e39af7f39ac77ceacaa96"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/posixpat.right",
+      "lines": 42,
+      "sha256": "713fa0c20fac8575b37c165b49f1427b64bd9cc9062bfa1fb0144f68075138e8"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/posixpipe.right",
+      "lines": 41,
+      "sha256": "3166ea79eb362a60eaaed6ef51420ee27565b4d4cc415540c110696197e04d18"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/prec.right",
+      "lines": 28,
+      "sha256": "79ec1c27f9f873aaa405dc95592c6029bba044e2aa18f69d39c7ee69e2efd32f"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/printf.right",
+      "lines": 298,
+      "sha256": "1b1c66293d396522c1a15fdc3a1f19825fe3c5330302cb782cc474ec95cbfa0d"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/procsub.right",
+      "lines": 33,
+      "sha256": "09e2c6a3eaeee6e9b3307b68ab75284e8df4f02c8a1ba1fe092ef14423f7b677"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/quote.right",
+      "lines": 182,
+      "sha256": "470c1d0f9b164767a86e223805eb2ad87d295224cbdcfcb97c6d80db28efe566"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/quotearray.right",
+      "lines": 152,
+      "sha256": "57394bbece0b7def36b6e7748ba5cc17b04d3900f5ac64a0f797132bbbbc5019"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/read.right",
+      "lines": 85,
+      "sha256": "f2c66fc3707e6619f9fd5162b0f164933c20ade20327dd67a06e7dc9851c9341"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/redir.right",
+      "lines": 163,
+      "sha256": "54a663249ae4dee6e5be78573cf4122cf9736149a11bf0b75333d92b2684c9a5"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/rhs-exp.right",
+      "lines": 105,
+      "sha256": "e5b4111f1b4a9c1b5b716453317d5d874b8258350bc93219ad0d99716c887b5b"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/rsh.right",
+      "lines": 19,
+      "sha256": "df1ddcdd525f87ed1856c836d538db27177657b7c7571b194119e325f7c43f5b"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/set-e.right",
+      "lines": 72,
+      "sha256": "7a6ce18db89413a1929038d662ddabe58e5ed378f38bc51518773542d2f38f06"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/set-x.right",
+      "lines": 60,
+      "sha256": "166895f82336f8ff9dde7cdb921a9505412ee1c78443307a03138648c6e1758b"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/shopt.right",
+      "lines": 312,
+      "sha256": "ee06827911cac90b232c0507c5bd6c5693224e5be4b0ce312facf696cceef103"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/strip.right",
+      "lines": 12,
+      "sha256": "ee529012b2a34e6ad2096d25e3624806a795a1951fce1df583b99c6acb066a83"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/test.right",
+      "lines": 297,
+      "sha256": "6d60a6d696edad575db26932554558352689db61cb8a7ddca216882c4cd6ca64"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/tilde.right",
+      "lines": 28,
+      "sha256": "5c416b9ffed803b8f29b3e0015ce10b9d841145bd15299d6f9ec967114257931"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/tilde2.right",
+      "lines": 28,
+      "sha256": "0a4c366a61a40aa2d2a53c19c0b53585874b4c4c88fbf2d2c3d5f3b89b41d6e3"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/trap.right",
+      "lines": 115,
+      "sha256": "834df682c90d8ad7da239c32eaa245f47790a2764c8deb9b1834b192b37f3a0c"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/type.right",
+      "lines": 135,
+      "sha256": "d5916553965706aff23a2cc514e416b1bf1b4a60eaf12fa6181d5e1896df74cf"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/varenv.right",
+      "lines": 277,
+      "sha256": "a01a0ccb366ab1657a20744cd8e05706588bb825684c1477bf386235a8a336d4"
+    },
+    {
+      "path": "evaluation/bash-ts/tests/vredir.right",
+      "lines": 101,
+      "sha256": "946f3eb0b5ac4fd5df2c35c30494e822eb6a59336a7a59a84a1b6a6c91e411f1"
+    }
+  ],
+  "complete": true,
+  "elapsed_sec": 30.137496313007432,
+  "inspected_harnesses": {
+    "evaluation/bash-ts/categories.py": "60fb529dca6cd15a9a3949200aeb2fee92749106bdb2bcadd3412347127d260c",
+    "evaluation/bash-ts/filter_diff_noise.py": "a749b363f96e6a93bfeff6d5276d86773b2e2a313060af2ca0fa19212334c425",
+    "evaluation/bash-ts/incr-bash-ts.sh": "e3cce10b435384a837cbd27e7fdd805320a54c9fe7372f7ad695fc2ec793c33b",
+    "evaluation/bash-ts/run.sh": "9b1974d2a6965e67e3217f3d7569c60d2411e62c5e4e9eaa486747ab6db5e7e8",
+    "evaluation/bash-ts/tests/input-line.sh": "47f2fb58ff18c3ffd1185e9d9508518b29c70f80bbba6802aea800b5c4c16c9b",
+    "evaluation/bash-ts/tests/varenv.sh": "d8ae393a3b8f5a0eda036637b89521db258f7d7871dbb6b82943afa74f96ea6d"
+  },
+  "record_metadata": {
+    "url": "https://zenodo.org/api/records/19488802",
+    "title": "Incr: Faster Re-execution via Bolt-on Incrementalization",
+    "files": [
+      {
+        "key": "incr-pkg.tar.gz",
+        "size": 71256331,
+        "links": {
+          "self": "https://zenodo.org/api/records/19488802/files/incr-pkg.tar.gz/content"
+        }
+      }
+    ]
+  }
+}

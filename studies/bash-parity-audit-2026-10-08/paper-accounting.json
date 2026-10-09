@@ -1,0 +1,149 @@
+{
+  "artifact_url": "https://zenodo.org/api/records/19488802/files/incr-pkg.tar.gz/content",
+  "counting_script": "evaluation/bash-ts/categories.py",
+  "counting_script_sha256": "60fb529dca6cd15a9a3949200aeb2fee92749106bdb2bcadd3412347127d260c",
+  "categories": {
+    "Globbing": [
+      "extglob",
+      "extglob2",
+      "extglob3",
+      "glob-test",
+      "globstar"
+    ],
+    "Data structures": [
+      "array",
+      "array2",
+      "assoc"
+    ],
+    "Quoting": [
+      "iquote",
+      "nquote",
+      "nquote1",
+      "nquote2",
+      "nquote3",
+      "nquote4",
+      "nquote5",
+      "quote",
+      "quotearray"
+    ],
+    "Expansion": [
+      "procsub",
+      "comsub",
+      "arith",
+      "alias",
+      "comsub-eof",
+      "tilde",
+      "tilde2",
+      "ifs",
+      "more-exp",
+      "new-exp",
+      "dollars",
+      "dynvar",
+      "rhs-exp",
+      "precedence",
+      "exp-tests",
+      "braces"
+    ],
+    "Utils": [
+      "getopts",
+      "strip"
+    ],
+    "I/O": [
+      "exportfunc",
+      "appendop",
+      "attr",
+      "complete",
+      "cprint",
+      "dirstack",
+      "histexpand",
+      "history",
+      "input-test",
+      "nameref",
+      "printf",
+      "read",
+      "rsh",
+      "type"
+    ],
+    "Constructs": [
+      "func",
+      "parser",
+      "arith-for",
+      "case",
+      "casemod",
+      "cond",
+      "test",
+      "builtins",
+      "heredoc",
+      "herestr",
+      "errors",
+      "intl",
+      "invert"
+    ],
+    "IPC": [
+      "jobs",
+      "lastpipe",
+      "mapfile",
+      "trap",
+      "varenv",
+      "vredir",
+      "coproc",
+      "dbg-support",
+      "dbg-support2",
+      "redir",
+      "execscript"
+    ],
+    "POSIX": [
+      "comsub-posix",
+      "ifs-posix",
+      "posix2",
+      "posixexp",
+      "posixexp2",
+      "posixpat",
+      "posixpipe"
+    ],
+    "Options": [
+      "set-e",
+      "set-x",
+      "shopt"
+    ]
+  },
+  "reported_style_counts": {
+    "Globbing": 868,
+    "Data structures": 1261,
+    "Quoting": 877,
+    "Expansion": 1703,
+    "Utils": 80,
+    "I/O": 1610,
+    "Constructs": 1547,
+    "IPC": 1356,
+    "POSIX": 536,
+    "Options": 444
+  },
+  "reported_style_total": 10282,
+  "unresolved_category_filename_stems": [
+    "glob-test",
+    "dollars",
+    "precedence",
+    "exp-tests",
+    "dirstack",
+    "histexpand",
+    "input-test",
+    "execscript"
+  ],
+  "excluded_expected_files": {
+    "dollar.right": 744,
+    "dstack.right": 55,
+    "dstack2.right": 24,
+    "exec.right": 172,
+    "exp.right": 419,
+    "glob.right": 261,
+    "histexp.right": 246,
+    "input.right": 3,
+    "prec.right": 28
+  },
+  "excluded_lines": 1952,
+  "complete_expected_total": 12234,
+  "official_expected_hash_mismatches": [
+    "rsh.right"
+  ]
+}

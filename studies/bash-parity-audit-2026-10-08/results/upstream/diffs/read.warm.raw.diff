@@ -1,0 +1,11 @@
+--- bash/capture-0
++++ observe/capture-0
+@@ -40,7 +40,7 @@
+ unset or null 2
+ timeout 3: ok
+ unset or null 3
+-./read2.sub: line 45: read: -3: invalid timeout specification
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.kCuvH5vU/script/read2.sub: line 28: read: -3: invalid timeout specification
+ 1
+ 
+ abcde

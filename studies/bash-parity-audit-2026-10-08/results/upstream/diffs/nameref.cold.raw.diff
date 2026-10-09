@@ -1,0 +1,57 @@
+--- bash/capture-0
++++ observe/capture-0
+@@ -48,8 +48,8 @@
+ expect <bar>
+ argv[1] = <bar>
+ expect <unset>
+-./nameref3.sub: line 29: foo: invalid indirect expansion
+-./nameref3.sub: line 34: unset: bar: cannot unset: readonly variable
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.MyVxjlK1/script/nameref3.sub: line 13: foo: invalid indirect expansion
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.MyVxjlK1/script/nameref3.sub: line 16: unset: bar: cannot unset: readonly variable
+ expect <two>
+ two
+ expect <two>
+@@ -404,29 +404,29 @@
+ declare -r foo5
+ declare -nr foo5
+ declare -r foo5
+-./nameref18.sub: line 15: mapfile: `XXX[0]': not a valid identifier
+-./nameref18.sub: line 16: declare: XXX[0]: not found
+-./nameref18.sub: line 22: `XXX[0]': not a valid identifier
+-./nameref18.sub: line 23: declare: XXX[0]: not found
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tslIrXRE/script/nameref18.sub: line 3: mapfile: `XXX[0]': not a valid identifier
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tslIrXRE/script/nameref18.sub: line 5: declare: XXX[0]: not found
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tslIrXRE/script/nameref18.sub: line 9: `XXX[0]': not a valid identifier
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tslIrXRE/script/nameref18.sub: line 10: declare: XXX[0]: not found
+ declare -n ref="XXX[0]"
+ declare -a XXX=([0]="4")
+-./nameref18.sub: line 37: `XXX[0]': not a valid identifier
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tslIrXRE/script/nameref18.sub: line 19: `XXX[0]': not a valid identifier
+ declare -n ref="XXX[0]"
+-./nameref18.sub: line 38: declare: XXX[0]: not found
+-./nameref18.sub: line 42: read: `XXX[0]': not a valid identifier
+-./nameref18.sub: line 43: declare: XXX[0]: not found
+-./nameref18.sub: line 48: `XXX[0]': not a valid identifier
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tslIrXRE/script/nameref18.sub: line 20: declare: XXX[0]: not found
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tslIrXRE/script/nameref18.sub: line 23: read: `XXX[0]': not a valid identifier
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tslIrXRE/script/nameref18.sub: line 24: declare: XXX[0]: not found
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tslIrXRE/script/nameref18.sub: line 28: `XXX[0]': not a valid identifier
+ declare -n ref="XXX[0]"
+-./nameref18.sub: line 51: `XXX[0]': not a valid identifier
+-./nameref18.sub: line 51: declare: XXX[0]: not found
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tslIrXRE/script/nameref18.sub: line 30: `XXX[0]': not a valid identifier
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tslIrXRE/script/nameref18.sub: line 30: declare: XXX[0]: not found
+ declare -n ref="var[123]"
+-./nameref18.sub: line 59: declare: var[123]: not found
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tslIrXRE/script/nameref18.sub: line 36: declare: var[123]: not found
+ declare -a var=([123]="")
+ declare -n ref="var[123]"
+-./nameref18.sub: line 63: declare: var[123]: not found
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tslIrXRE/script/nameref18.sub: line 39: declare: var[123]: not found
+ declare -a var=([123]="")
+ declare -n ref="var[123]"
+-./nameref18.sub: line 67: declare: var[123]: not found
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-vuom57zy/run/cache/incr-script.tslIrXRE/script/nameref18.sub: line 42: declare: var[123]: not found
+ declare -a var=([123]="X")
+ argv[1] = <1>
+ argv[2] = <2>
