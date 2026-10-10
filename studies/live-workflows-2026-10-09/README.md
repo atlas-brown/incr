@@ -51,6 +51,10 @@ directory on every run. `--keep-work` retains fixtures and caches for inspection
 
 ## What to read
 
+The [detailed scenario report](REPORT.md) walks through all sixteen programs,
+including execution order, exact outputs, why isolation changes the result, and
+what each example does and does not establish.
+
 Every program is in `cases/`. The only common shell helper is `memo`, which selects
 the execution boundary. Its body is one line. There is no TCP checkpoint server,
 port discovery, custom event protocol, or timing-based sleep used to order peers.
