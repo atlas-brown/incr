@@ -5,6 +5,10 @@ an end-of-command commit cannot preserve live cooperation with outside processes
 They use cold caches. No stale cache, corrupted entry, parser bug, or performance
 claim is involved.
 
+**Warm-cache finding:** the follow-up [audit](WARM_CACHE.md) passes the repeated
+workflows but finds stale lock-contention answers under Observe replay. Cold
+correctness is not a general warm-cache guarantee.
+
 From the Incr repository root:
 
 ```bash
@@ -54,6 +58,18 @@ directory on every run. `--keep-work` retains fixtures and caches for inspection
 The [detailed scenario report](REPORT.md) walks through all sixteen programs,
 including execution order, exact outputs, why isolation changes the result, and
 what each example does and does not establish.
+
+The [retained-cache audit](WARM_CACHE.md) extends this with repeated live workflows,
+Bash-wrapper comparisons, changed-input checks, and explicit cache-hit evidence.
+Run it separately from the repository root:
+
+```bash
+python3 -B studies/live-workflows-2026-10-09/warm_audit.py \
+  --output studies/live-workflows-2026-10-09/results/warm
+```
+
+The separate `coordination_audit.py` probe and small `repro_warm_lock.sh` reproduce
+the known warm-lock failure; see the audit for commands and interpretation.
 
 Every program is in `cases/`. The only common shell helper is `memo`, which selects
 the execution boundary. Its body is one line. There is no TCP checkpoint server,

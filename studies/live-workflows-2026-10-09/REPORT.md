@@ -13,6 +13,11 @@ See the [README](README.md) for prerequisites and the [audit](AUDIT.md) for revi
 checks. All sixteen programs use ordinary pipes or background execution; none
 uses `coproc`.
 
+The subsequent [warm-cache audit](WARM_CACHE.md) checks repeated execution and
+actual replay separately. It confirms these repeated workflows but also finds
+stale lock-contention answers under Observe when outside lock state changes.
+That finding is separate from this report's cold isolation argument.
+
 ## How to interpret the comparison
 
 The small `memo` helper selects the execution backend for one external command.

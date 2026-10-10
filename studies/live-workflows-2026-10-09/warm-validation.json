@@ -1,0 +1,133 @@
+{
+  "validated_at": "2026-10-10T02:20:06.550810+00:00",
+  "overall_all_clear": false,
+  "finding": "Observe can replay stale lock contention after release; regular Incr additionally fails shared-lock exclusion under isolation.",
+  "bash": {
+    "groups": 83,
+    "cold_matches": 83,
+    "warm_matches": 83,
+    "executions": 332,
+    "matched_lines_per_phase": 12234
+  },
+  "live_workflows": {
+    "executions": 240,
+    "verified_expected_outcomes": 240,
+    "observe_warm_retained_metadata": 0
+  },
+  "bash_wrapper": {
+    "programs": 12,
+    "executions": 432,
+    "native_equivalent": 432
+  },
+  "batch_replay": {
+    "executions": 48,
+    "verified": 48,
+    "confirmed_hits": 18,
+    "full_tracing_forced": true
+  },
+  "final_policy_live_probe": {
+    "executions": 240,
+    "verified_expected_outcomes": 240,
+    "observe_warm_retained_metadata": 0
+  },
+  "infrastructure_controls": 9,
+  "regressions": {
+    "configurations": 8,
+    "scheduled": 456,
+    "passed": 448,
+    "intentional_batch_skips": 8
+  },
+  "changed_lock_state": {
+    "executions": 168,
+    "native_matches": 56,
+    "native_total": 56,
+    "observe_matches": 48,
+    "observe_total": 56,
+    "incr_matches": 32,
+    "incr_total": 56,
+    "observe_mismatches": [
+      {
+        "kind": "flock",
+        "execution": "batch",
+        "effect_policy": "final",
+        "phase": "warm-free-after-held",
+        "stdout": "busy\n",
+        "expected_stdout": "acquired\n"
+      },
+      {
+        "kind": "sqlite",
+        "execution": "batch",
+        "effect_policy": "final",
+        "phase": "warm-free-after-held",
+        "stdout": "busy\n",
+        "expected_stdout": "acquired\n"
+      },
+      {
+        "kind": "flock",
+        "execution": "stream",
+        "effect_policy": "final",
+        "phase": "warm-free-after-held",
+        "stdout": "busy\n",
+        "expected_stdout": "acquired\n"
+      },
+      {
+        "kind": "sqlite",
+        "execution": "stream",
+        "effect_policy": "final",
+        "phase": "warm-free-after-held",
+        "stdout": "busy\n",
+        "expected_stdout": "acquired\n"
+      },
+      {
+        "kind": "flock",
+        "execution": "batch",
+        "effect_policy": "live",
+        "phase": "warm-free-after-held",
+        "stdout": "busy\n",
+        "expected_stdout": "acquired\n"
+      },
+      {
+        "kind": "sqlite",
+        "execution": "batch",
+        "effect_policy": "live",
+        "phase": "warm-free-after-held",
+        "stdout": "busy\n",
+        "expected_stdout": "acquired\n"
+      },
+      {
+        "kind": "flock",
+        "execution": "stream",
+        "effect_policy": "live",
+        "phase": "warm-free-after-held",
+        "stdout": "busy\n",
+        "expected_stdout": "acquired\n"
+      },
+      {
+        "kind": "sqlite",
+        "execution": "stream",
+        "effect_policy": "live",
+        "phase": "warm-free-after-held",
+        "stdout": "busy\n",
+        "expected_stdout": "acquired\n"
+      }
+    ]
+  },
+  "minimal_reproducer": {
+    "fresh_cache_runs": 3,
+    "stale_answer_reproduced": 3
+  },
+  "raw_evidence": "evidence/warm-audit.json.gz",
+  "raw_evidence_sha256": "5ec8088eeb910d33b5dabf9f538d25373066d86e51d34d07dbce438dd93dbb33",
+  "source_fingerprints": {
+    "warm_audit.py": "4d0093f2c0407b22a3bea9a404b4fdedb8e2c090321a5c74b2503b7bcc065255",
+    "coordination_audit.py": "983b9aa414b4cd5a664d45a1eba8b78ff4b8356f5247fdf26ee433b48158a892",
+    "repro_warm_lock.sh": "1301f846a065ef8866c00e7cab7b463601e0025283a85539feba56dc6705e3ae"
+  },
+  "runtime_fingerprints": {
+    "target/release/incr": "e22fd8e54b4c9f09faa51f298deca3959a317f49108104e92fb75c205944655f",
+    "../observe/target/release/observe": "db8e4211fa98dfab9f2ec99cc3341e8bb735577cc2b6d31f4166f6ccc35b747d",
+    "src/scripts/try.sh": "aa000212d061d89b1ac70447bef7c07caa2773feedf910c37908cccbdb5b542a",
+    "qualification/bounded.py": "445cba5536948d7efd7efbb41d7f81c23cee05ed6decd840a0a62bf715b1d24d"
+  },
+  "original_cold_evidence_preserved": true
+}
