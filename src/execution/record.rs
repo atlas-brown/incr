@@ -42,6 +42,12 @@ pub(crate) fn capture(
     } else {
         dependency::get_read_dependencies(&trace.reads, &trace.writes)?
     };
+    if std::env::var_os("INCR_DEBUG_CACHE").is_some() && !trace.replay_barriers.is_empty() {
+        eprintln!(
+            "[incr] command cache: recording replay barriers: {:?}",
+            trace.replay_barriers
+        );
+    }
     let replaced_paths = trace
         .writes
         .iter()

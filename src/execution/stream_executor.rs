@@ -81,6 +81,17 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     }
 
     let cache_status = load_cache_data(config, &cache, child, &runtime, prevalidated)?;
+    if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
+        let result = if matches!(&cache_status, CacheStatus::Valid(_)) {
+            "replayed"
+        } else {
+            "executed"
+        };
+        eprintln!(
+            "[incr] command cache: {} {:?} {result}",
+            command.name, command.arguments
+        );
+    }
     let outputs = match run::join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
         Some(outputs) => outputs,
         None => {
@@ -98,7 +109,8 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
                 stdin_context.hash,
             );
             run::clean_child_runtime(&runtime)?;
-            run::replay(config, &cache, &cached_data, &outputs)
+            let status = run::replay(config, &cache, &cached_data, &outputs)?;
+            Ok(status)
         }
         CacheStatus::Invalid(exit_code) => {
             debug_log!(
@@ -107,7 +119,7 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
                 command.arguments,
                 stdin_context.hash,
             );
-            let status = save_command_data(config, command, cache, &runtime, exit_code)?;
+            let (status, _) = save_command_data(config, command, cache, &runtime, exit_code)?;
             Ok(if outputs.broken_pipe {
                 BROKEN_PIPE_CODE
             } else {
@@ -294,7 +306,12 @@ fn load_cache_data(
                 None
             }
         }
-        None => None,
+        None => {
+            if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
+                eprintln!("[incr] command cache: no saved record");
+            }
+            None
+        }
     };
 
     match cached_data {
@@ -320,10 +337,10 @@ fn save_command_data(
     cache: CacheCursor<'_>,
     runtime: &Runtime,
     exit_code: ExitCode,
-) -> Result<ExitCode> {
+) -> Result<(ExitCode, CacheData)> {
     let cache_data = execution::record::capture(config, &cache, runtime, exit_code.0)?;
     cache.save_data(&cache_data)?;
     dependency::save_introspection(config, command, &cache_data)?;
 
-    Ok(exit_code)
+    Ok((exit_code, cache_data))
 }

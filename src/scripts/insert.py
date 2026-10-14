@@ -112,12 +112,9 @@ IGNORE_COMMANDS = [
     "mkfifo",
 ]
 AVOID_SET = set(IGNORE_COMMANDS)
-UNSAFE_STARRED_POSITIONAL_PATTERNS = (
-    b"$@",
-    b"$*",
-    b"${@",
-    b"${*",
-)
+
+
+
 BASH_CTLESC = "\x01"
 BASH_CTLNUL = "\x7f"
 
@@ -133,6 +130,8 @@ def parse_prefix(arguments, use_bash):
 
 
 DASH_CHILD_FIELDS = {
+    AST.AndNode: ("left_operand", "right_operand"),
+    AST.OrNode: ("left_operand", "right_operand"),
     AST.PipeNode: ("items",),
     AST.CommandNode: ("arguments", "assignments"),
     AST.AssignNode: ("val",),
@@ -146,26 +145,26 @@ DASH_CHILD_FIELDS = {
 }
 
 
-def transform_node(node, prefix_words):
+def transform_node(node, prefix_words, state):
     if isinstance(node, list):
-        return [transform_node(child, prefix_words) for child in node]
+        return [transform_node(child, prefix_words, state) for child in node]
     fields = DASH_CHILD_FIELDS.get(type(node))
-    if fields is None:
-        return node
-    transformed = copy.copy(node)
-    for field_name in fields:
-        setattr(transformed, field_name, transform_node(getattr(node, field_name), prefix_words))
+    transformed = copy.copy(node) if fields is not None else node
+    if fields is not None:
+        for field_name in fields:
+            setattr(transformed, field_name, transform_node(getattr(node, field_name), prefix_words, state))
     if isinstance(transformed, AST.CommandNode) and transformed.arguments:
         first_word = transformed.arguments[0]
         if all(hasattr(character, "char") for character in first_word):
             command_name = "".join(chr(character.char) for character in first_word)
             if command_name not in AVOID_SET and shutil.which(command_name):
                 transformed.arguments = [*copy.deepcopy(prefix_words), *transformed.arguments]
+                state.modified = True
     return transformed
 
 
-def transform_ast(ast, prefix_words):
-    return [transform_node(node, prefix_words) for node, _, _, _ in ast]
+def transform_ast(ast, prefix_words, state):
+    return [transform_node(node, prefix_words, state) for node, _, _, _ in ast]
 
 
 BASH_CHILD_FIELDS = {
@@ -198,9 +197,6 @@ def transform_bash_node(node, prefix_words, state):
                 or name in state.functions or name in state.aliases
                 or name.startswith(("$", "%")) or not shutil.which(name)):
             return node
-        if any(pattern in word.word for word in command.words
-               for pattern in (*UNSAFE_STARRED_POSITIONAL_PATTERNS, b"<(")):
-            return node
         transformed = copy.deepcopy(node)
         transformed.value.simple_com.words = [
             *copy.deepcopy(prefix_words), *transformed.value.simple_com.words,
@@ -219,7 +215,11 @@ def transform_bash_node(node, prefix_words, state):
     transformed = copy.deepcopy(node)
     command = getattr(transformed.value, attribute)
     for child in children:
-        setattr(command, child, transform_bash_node(getattr(command, child), prefix_words, state))
+        setattr(
+            command,
+            child,
+            transform_bash_node(getattr(command, child), prefix_words, state),
+        )
     return transformed
 
 
@@ -388,7 +388,8 @@ def transform_bash_script(arguments, prefix_words, source_bytes):
         transformed_code = dequote_bash_internal_escapes(transformed_code)
     if not transformed_code.endswith("\n"):
         transformed_code += "\n"
-    return transformed_code.encode("utf-8", errors="surrogateescape")
+    output = transformed_code.encode("utf-8", errors="surrogateescape")
+    return output
 
 
 def transform_script(arguments):
@@ -403,12 +404,14 @@ def transform_script(arguments):
     if arguments.bash:
         return transform_bash_script(arguments, prefix_words, source_bytes)
     original_ast = parse_dash_script(arguments.path)
+    state = TransformState()
     transformed = ([node for node, *_ in original_ast] if arguments.identity
-                   else transform_ast(original_ast, prefix_words))
+                   else transform_ast(original_ast, prefix_words, state))
     code = ast_to_code(transformed)
     if not code.endswith("\n"):
         code += "\n"
-    return code.encode("utf-8", errors="surrogateescape")
+    output = code.encode("utf-8", errors="surrogateescape")
+    return output
 
 
 def main():

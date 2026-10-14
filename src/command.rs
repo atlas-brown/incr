@@ -592,6 +592,20 @@ mod tests {
     use super::*;
 
     #[test]
+    fn debug_cache_flag_does_not_change_command_identity() -> Result<()> {
+        let base = HashMap::from([("PATH".to_owned(), "/bin:/usr/bin".to_owned())]);
+        let mut debug = base.clone();
+        debug.insert("INCR_DEBUG_CACHE".to_owned(), "1".to_owned());
+
+        let command = create(vec!["echo".to_owned(), "value".to_owned()], &base)?;
+        let debug_command = create(vec!["echo".to_owned(), "value".to_owned()], &debug)?;
+
+        assert_eq!(command.hash, debug_command.hash);
+        assert!(!debug_command.environment.contains_key("INCR_DEBUG_CACHE"));
+        Ok(())
+    }
+
+    #[test]
     fn dropping_running_child_stops_and_reaps_it() -> Result<()> {
         let child = ShellCommand::new("sleep").arg("30").process_group(0).spawn()?;
         let process_id = child.id() as i32;

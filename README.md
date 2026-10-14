@@ -32,6 +32,7 @@ Transform and run a bash script so each command is executed incrementally:
 - **observe**: Auto-enabled when `../observe/target/release/observe` exists
 
 incr.sh uses `insert.py` to wrap each command with incr, then runs the transformed script. Re-run the script; unchanged commands replay from cache.
+Set `INCR_DEBUG_CACHE=1` to log whether each command was executed or replayed.
 
 ### Direct command mode
 

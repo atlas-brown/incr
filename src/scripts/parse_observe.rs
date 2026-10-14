@@ -128,6 +128,8 @@ pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
             } => {
                 trace.initial_file_ids.insert(path.clone(), (device, inode));
                 DependencyKey::FileState {
+                    device,
+                    inode,
                     modified: modified.into(),
                     changed_sec,
                     changed_nsec,

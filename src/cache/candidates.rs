@@ -41,14 +41,14 @@ pub(crate) fn validate<'a>(config: &Config, command: &'a Command) -> Result<Vec<
     for entry in keys.into_iter().take(MAX_CANDIDATES) {
         let stdin_hash = entry.stdin_hash;
         let cache = CacheCursor::from_hash(config, command, stdin_hash)?;
-        if let Some(data) = cache.load_data()?
-            && dependency::check_cache_valid(&cache, &data)?
-        {
-            candidates.push(Candidate {
-                stdin_hash,
-                cache,
-                data,
-            });
+        if let Some(data) = cache.load_data()? {
+            if dependency::check_cache_valid(&cache, &data)? {
+                candidates.push(Candidate {
+                    stdin_hash,
+                    cache,
+                    data,
+                });
+            }
         }
     }
     Ok(candidates)
