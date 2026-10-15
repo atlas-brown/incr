@@ -1,0 +1,75 @@
+{
+  "created": "2026-10-15T16:07:30.408969+00:00",
+  "state": "Final implementation qualification passed; final full evaluations still pending",
+  "implementation_commits": {
+    "incr": "7d77b1900a5e014b7587006247163c9e48423126",
+    "observe": "ec35e0ea8f379a694f6e9b1b257da623b7cbb134"
+  },
+  "binaries": {
+    "incr": "4bed38271938fc9b64680228ac661aecef04da04b736619d3c29eab2cc95c981",
+    "observe": "7d0a60d32735056ef2b7ae96af236d842cbe5905457cc7638b65f9bdb784a978"
+  },
+  "annotations": false,
+  "cache_format": 33,
+  "effect_manifest": 4,
+  "observe_protocol": 12,
+  "bash": {
+    "defaults": {
+      "cold": 83,
+      "warm": 83,
+      "corpus_files": 668
+    },
+    "benchmark_configuration": {
+      "cold": 82,
+      "warm": 82,
+      "corpus_files": 625
+    },
+    "focused_regressions": "Both policies pass in both full runs; one existing live-policy skip",
+    "first_failed_run": "Preserved printf clock-boundary failure; unchanged entire rerun passed"
+  },
+  "diagnostics": {
+    "historical_minimum": {
+      "run": "studies/paper-size-benchmarks/results/replay-reuse-min-all-01",
+      "valid": 276,
+      "expected": 276,
+      "monitor": "ok",
+      "scope": "Diagnostic; not final full evaluation"
+    },
+    "supplemental_minimum": {
+      "run": "studies/paper-size-benchmarks/results/replay-reuse-supplemental-min-01",
+      "valid": 30,
+      "expected": 30,
+      "monitor": "ok",
+      "scope": "Diagnostic; not final full evaluation"
+    },
+    "larger_128_mib": {
+      "run": "studies/observe-performance-regression/results/replay-reuse-larger-128-01",
+      "valid": 84,
+      "expected": 84,
+      "monitor": "ok",
+      "scope": "Diagnostic; not final full evaluation"
+    },
+    "full_bio_diagnostic": {
+      "run": "studies/paper-size-benchmarks/results/replay-reuse-bio-paper-01",
+      "valid": 21,
+      "expected": 21,
+      "monitor": "ok",
+      "scope": "Diagnostic; not final full evaluation"
+    }
+  },
+  "evidence": "checkpoint-evidence/replay-qualified/manifest.json",
+  "limitations": [
+    "All qualification cohorts remain separate from final full repeated evaluations.",
+    "Bio version4-0 remains slower than original:68.949s versus50.643s; subsequent replay recovers sequence gain.",
+    "Minimum supplemental families remain slower than Bash.",
+    "Larger synthetic gains over original vary from1.056x to2.200x; do not claim uniformly huge gains.",
+    "Inherited descriptor context can force conservative cache misses; cross-context nonuse reuse is unimplemented and requires a correctness proof."
+  ],
+  "required_next": [
+    "Commit/push qualification checkpoint in both repositories and verify clean remote heads.",
+    "Fresh historical13-family full evaluation with>=3 paired repetitions and all828 invocations.",
+    "Separate complete supplemental full evaluation with>=3 repetitions and45 invocations; exclude only OpenAI-key image annotation.",
+    "Review raw spread, cold/edited/sequence results, all regressions and historical/Bash sanity; archive final evidence and push final reports."
+  ],
+  "observe_qualification_commit": "ba7cab24374bc388d965f1429226322ddb6aac1e"
+}
