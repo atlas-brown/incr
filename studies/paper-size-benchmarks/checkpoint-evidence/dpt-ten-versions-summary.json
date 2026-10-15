@@ -1,0 +1,586 @@
+{
+  "run": "content-inputs-dpt-min-01",
+  "suite": "paper",
+  "profile": "min",
+  "expected_invocations": 30,
+  "invocations": 30,
+  "valid_invocations": 30,
+  "complete": true,
+  "failed_sequences": [],
+  "archived_sequences": [],
+  "statistics": [
+    {
+      "benchmark": "dpt",
+      "script": "dpt_1.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 58.936850895988755,
+      "median_sec": 58.936850895988755,
+      "stdev_sec": null,
+      "min_sec": 58.936850895988755,
+      "max_sec": 58.936850895988755
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_1.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 67.56245018308982,
+      "median_sec": 67.56245018308982,
+      "stdev_sec": null,
+      "min_sec": 67.56245018308982,
+      "max_sec": 67.56245018308982
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_1.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 71.28285855404101,
+      "median_sec": 71.28285855404101,
+      "stdev_sec": null,
+      "min_sec": 71.28285855404101,
+      "max_sec": 71.28285855404101
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_2.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 58.81506101298146,
+      "median_sec": 58.81506101298146,
+      "stdev_sec": null,
+      "min_sec": 58.81506101298146,
+      "max_sec": 58.81506101298146
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_2.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 68.74301935604308,
+      "median_sec": 68.74301935604308,
+      "stdev_sec": null,
+      "min_sec": 68.74301935604308,
+      "max_sec": 68.74301935604308
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_2.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 73.29516814404633,
+      "median_sec": 73.29516814404633,
+      "stdev_sec": null,
+      "min_sec": 73.29516814404633,
+      "max_sec": 73.29516814404633
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3a.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 59.86739543802105,
+      "median_sec": 59.86739543802105,
+      "stdev_sec": null,
+      "min_sec": 59.86739543802105,
+      "max_sec": 59.86739543802105
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3a.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 15.761993775027804,
+      "median_sec": 15.761993775027804,
+      "stdev_sec": null,
+      "min_sec": 15.761993775027804,
+      "max_sec": 15.761993775027804
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3a.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 18.196046176017262,
+      "median_sec": 18.196046176017262,
+      "stdev_sec": null,
+      "min_sec": 18.196046176017262,
+      "max_sec": 18.196046176017262
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3b.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 59.232590590952896,
+      "median_sec": 59.232590590952896,
+      "stdev_sec": null,
+      "min_sec": 59.232590590952896,
+      "max_sec": 59.232590590952896
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3b.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 16.305011481046677,
+      "median_sec": 16.305011481046677,
+      "stdev_sec": null,
+      "min_sec": 16.305011481046677,
+      "max_sec": 16.305011481046677
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3b.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 17.16634434903972,
+      "median_sec": 17.16634434903972,
+      "stdev_sec": null,
+      "min_sec": 17.16634434903972,
+      "max_sec": 17.16634434903972
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_4.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 59.21326532505918,
+      "median_sec": 59.21326532505918,
+      "stdev_sec": null,
+      "min_sec": 59.21326532505918,
+      "max_sec": 59.21326532505918
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_4.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 16.1200884639984,
+      "median_sec": 16.1200884639984,
+      "stdev_sec": null,
+      "min_sec": 16.1200884639984,
+      "max_sec": 16.1200884639984
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_4.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 18.5688175749965,
+      "median_sec": 18.5688175749965,
+      "stdev_sec": null,
+      "min_sec": 18.5688175749965,
+      "max_sec": 18.5688175749965
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5a.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 59.50841210898943,
+      "median_sec": 59.50841210898943,
+      "stdev_sec": null,
+      "min_sec": 59.50841210898943,
+      "max_sec": 59.50841210898943
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5a.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 15.90451773791574,
+      "median_sec": 15.90451773791574,
+      "stdev_sec": null,
+      "min_sec": 15.90451773791574,
+      "max_sec": 15.90451773791574
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5a.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 18.81972118106205,
+      "median_sec": 18.81972118106205,
+      "stdev_sec": null,
+      "min_sec": 18.81972118106205,
+      "max_sec": 18.81972118106205
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5b.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 60.22752047202084,
+      "median_sec": 60.22752047202084,
+      "stdev_sec": null,
+      "min_sec": 60.22752047202084,
+      "max_sec": 60.22752047202084
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5b.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 15.639805969083682,
+      "median_sec": 15.639805969083682,
+      "stdev_sec": null,
+      "min_sec": 15.639805969083682,
+      "max_sec": 15.639805969083682
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5b.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 17.819499830016866,
+      "median_sec": 17.819499830016866,
+      "stdev_sec": null,
+      "min_sec": 17.819499830016866,
+      "max_sec": 17.819499830016866
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5c.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 61.343540476984344,
+      "median_sec": 61.343540476984344,
+      "stdev_sec": null,
+      "min_sec": 61.343540476984344,
+      "max_sec": 61.343540476984344
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5c.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 17.243973914999515,
+      "median_sec": 17.243973914999515,
+      "stdev_sec": null,
+      "min_sec": 17.243973914999515,
+      "max_sec": 17.243973914999515
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5c.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 19.92273407499306,
+      "median_sec": 19.92273407499306,
+      "stdev_sec": null,
+      "min_sec": 19.92273407499306,
+      "max_sec": 19.92273407499306
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5d.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 59.17679761198815,
+      "median_sec": 59.17679761198815,
+      "stdev_sec": null,
+      "min_sec": 59.17679761198815,
+      "max_sec": 59.17679761198815
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5d.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 17.660131528042257,
+      "median_sec": 17.660131528042257,
+      "stdev_sec": null,
+      "min_sec": 17.660131528042257,
+      "max_sec": 17.660131528042257
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5d.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 20.07624852308072,
+      "median_sec": 20.07624852308072,
+      "stdev_sec": null,
+      "min_sec": 20.07624852308072,
+      "max_sec": 20.07624852308072
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5e.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 61.38885416393168,
+      "median_sec": 61.38885416393168,
+      "stdev_sec": null,
+      "min_sec": 61.38885416393168,
+      "max_sec": 61.38885416393168
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5e.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 17.76013879396487,
+      "median_sec": 17.76013879396487,
+      "stdev_sec": null,
+      "min_sec": 17.76013879396487,
+      "max_sec": 17.76013879396487
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5e.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 21.141645255032927,
+      "median_sec": 21.141645255032927,
+      "stdev_sec": null,
+      "min_sec": 21.141645255032927,
+      "max_sec": 21.141645255032927
+    }
+  ],
+  "ratios": [
+    {
+      "benchmark": "dpt",
+      "script": "dpt_1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.8723314612817289
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.055066214455946
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.8555786691352412
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.0662197970156964
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3a.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 3.798212097562857
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3a.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.1544254131635174
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3b.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 3.6327843534367474
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3b.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.05282626565423
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 3.673259328402719
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.1519054387615142
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5a.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 3.7416043095179012
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5a.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.1832940483443004
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5b.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 3.8509122549906865
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5b.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.1393683441624494
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5c.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 3.557390006466272
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5c.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.1553447119090947
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5d.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 3.35086958542875
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5d.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.1368119479292638
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5e.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 3.4565526134735176
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_5e.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.190398650612862
+    }
+  ],
+  "family_totals": [
+    {
+      "benchmark": "dpt",
+      "complete_mode_totals_sec": {
+        "bash": 597.7102880969178,
+        "original": 296.28908366232645,
+        "observe": 268.70113120321184
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 19865600,
+        "observe": 6463488
+      },
+      "input_bytes": 2571907801,
+      "paper_nominal_bytes": 2400000000,
+      "size_ratio_to_paper_nominal": 1.0716282504166668
+    }
+  ],
+  "cold_overheads": [
+    {
+      "benchmark": "dpt",
+      "mode": "original",
+      "bash_sec": 58.936850895988755,
+      "mode_sec": 71.28285855404101,
+      "time_ratio": 1.2094785769915055
+    },
+    {
+      "benchmark": "dpt",
+      "mode": "observe",
+      "bash_sec": 58.936850895988755,
+      "mode_sec": 67.56245018308982,
+      "time_ratio": 1.1463532434456576
+    }
+  ],
+  "summed_comparisons": [
+    {
+      "reference": "bash",
+      "matched_families": 1,
+      "reference_sum_sec": 597.7102880969178,
+      "observe_sum_sec": 268.70113120321184,
+      "summed_time_speedup": 2.224442768143334
+    },
+    {
+      "reference": "original",
+      "matched_families": 1,
+      "reference_sum_sec": 296.28908366232645,
+      "observe_sum_sec": 268.70113120321184,
+      "summed_time_speedup": 1.1026715158792932
+    }
+  ],
+  "historical_comparisons": []
+}

@@ -1,0 +1,1244 @@
+[
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-bnpyqwhf/control.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.1284663440892473,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "e0fd7ada14ba2ba45f5975d82a3baea5e8e8875fd2ea67d0efce5a4b708c8eff",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "function rev () \n{ \n    printf function\n}\nif [[ yes == yes ]]; then\n    printf abc | /usr/bin/env /usr/bin/rev;\nelse\n    false;\nfi\nfor value in one;\ndo\n    case \"$value\" in \n        one)\n            printf def | /usr/bin/env /usr/bin/rev\n        ;;\n    esac;\ndone\ncount=0\nuntil [[ $count == 1 ]]; do\n    printf ghi | /usr/bin/env /usr/bin/rev; count=1;\ndone\n( printf jkl | /usr/bin/env /usr/bin/rev )\nrev\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-bnpyqwhf/transformed.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.015885140979662538,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "d5f16337f14e97efe8857538538d668edc047c014999757f4536f005c838ef2a",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "cbafedihglkjfunction",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-bnpyqwhf/control.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.010616666986607015,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "d5f16337f14e97efe8857538538d668edc047c014999757f4536f005c838ef2a",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "cbafedihglkjfunction",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--identity",
+      "--sys-path",
+      "/bin/false",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-qoettak7/source.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.0931525951018557,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "3856103d2f372714ef7cf425f90dc64d684045d412aefb2b209bb57c5ec2b590",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "printf abc | rev\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-qoettak7/identity.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.0072204029420390725,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "6d970874d0db767a7058798973f22cf6589601edab57996312f2ef7b56e5584d",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "cba",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-2x5ruygr/source.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.1132428590208292,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "473a386cbf4f917fce93ff7ea658c65fc70f405fc979c615a1e0aeff0b4d7915",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "printf abc | /usr/bin/env rev\nfor value in ab cd; \n do         printf \"%s\" \"${value}\" | /usr/bin/env rev\ndone\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-2x5ruygr/transformed.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.014420307939872146,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "5adac2dbed7f80c596b70844c8b87bc92324c08affe4d7fb3287dd363fd127b4",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "cbabadc",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--execute",
+      "--output",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-lsnq5y6m/preserved.sh",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-lsnq5y6m/source.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.17192227696068585,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "73f80633a12775cf851028a7f46de439591e1d7827828d83c883678e9615ae44",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "executed",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-6axejvhb/aliases.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.1666351390304044,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "a471754f1b844e53abb60dfd548dcae696fdd0fffd7c8db7c9f7ef69d7513854",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "shopt -s expand_aliases\nname=rev; alias \"$name=printf dynamic\"\nrev\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-6axejvhb/aliases.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.0027289260178804398,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "73c76d56fd4042001a19cd735382344bc7ecb1adf080796e9096cf26fcc6cdde",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "dynamic",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-6axejvhb/aliases.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.11512971203774214,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "94ca87ca0bd8430bcfaaf42d10dd91f72199875226b2e6de570c3a398898695c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "shopt -s expand_aliases\nbinding=\"rev=printf dynamic\"; alias \"$binding\"\nrev\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-6axejvhb/aliases.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.0028977299807593226,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "73c76d56fd4042001a19cd735382344bc7ecb1adf080796e9096cf26fcc6cdde",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "dynamic",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-wo188sql/function-find.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.09738674608524889,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "937968d8ee0b1809e48d66adbaaefa8642fe3bd2d34fb3367d01815789e56726",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name () {\nprintf abc | /usr/bin/env /usr/bin/rev\n}\n/usr/bin/env find . -type f > /dev/null\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-wo188sql/function-find.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.11314735293854028,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "56dbec8ae2db8b001966c43f4ff552e59ad744f1b7c884f307777fc7166daea4",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "function arbitrary_name () \n{ \n    printf abc | /usr/bin/env /usr/bin/rev\n}\n/usr/bin/env find . -type f > /dev/null\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-0-0.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.11158922000322491,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "0c203757d279eed99e23139dfa98b99accf9d09f883192cef01878eb5211216e",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\ntype arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-0-1.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.09053034393582493,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "9200c49c9477eea6171881cde27da4e0f1f9cee7ffbaf554eed9a07ea206dc86",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\n'type' arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-0-2.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.09259507094975561,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "0617177cea4428141a81cfdec4406f33f8b98d4eda8684ad3d8e41156f29a551",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\nbuiltin type arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-0-3.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.09413464402314276,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "efb46d78bae1e3ba10518ef0417f5681bb157d0fc9b1d8b9f7d0b3398bfc9c7f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\ncommand -V arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-0-4.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.09319082694128156,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "35ffb2fa77cc1f64de5b14044b8ec46f70a666e813c73ccea5f5490a6c8754e4",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\ndeclare -f arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-0-5.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.09949686308391392,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "0fc4c3576589a91e1546c4104c4298b9f932954efe9f2a31c8b0b6bdae813a3e",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\ntypeset -pf arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-0-6.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.10450332798063755,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "0c097eaf0bf1f30000fe09485c495d24b2865bcc428a806e7eb08201d35db66b",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\nshopt -s extdebug; declare -F arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-0-7.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.10597535502165556,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "590c234ff61a6255034ee8912c41bc42de407b1b83983b6a67d554dd196c5356",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\ntypeset -pF arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-0-8.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.1060727519216016,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "4f0ab95d7e2dd83fced2acde842884c3ec2cf7b85c469caef85ebd4a45b34107",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\ndeclare -p -f arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-0-9.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.10641693801153451,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "74c57e5de6f188593031850f0771079051722ffc85d83b91397b6020d70052bc",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\ncommand -p -V arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-0-10.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.10172753606457263,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "744b0863c20cbe5f0210c267df0152c17c89aa9cb04c4e26e270a09b33f7d211",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\nset > definitions.txt\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-0-11.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.0893213179660961,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "f91cb784fda1b702e6c2db6842d8b50eb812eaa0f423bef6f92c37fa0c6f65dd",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\nINSPECT=type; $INSPECT arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-0-12.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.11665917304344475,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "16997e01ebb0641b3cb5790ffefb1a30123253d439fc4bac0aa4b72cbf4f1066",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\nalias inspect=type\nshopt -s expand_aliases\ninspect arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-1-0.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.11869878601282835,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "0c203757d279eed99e23139dfa98b99accf9d09f883192cef01878eb5211216e",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\ntype arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-1-1.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.10067136003635824,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "9200c49c9477eea6171881cde27da4e0f1f9cee7ffbaf554eed9a07ea206dc86",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\n'type' arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-1-2.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.1613335160072893,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "0617177cea4428141a81cfdec4406f33f8b98d4eda8684ad3d8e41156f29a551",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\nbuiltin type arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-1-3.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.09487272298429161,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "efb46d78bae1e3ba10518ef0417f5681bb157d0fc9b1d8b9f7d0b3398bfc9c7f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\ncommand -V arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-1-4.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.09431251394562423,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "35ffb2fa77cc1f64de5b14044b8ec46f70a666e813c73ccea5f5490a6c8754e4",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\ndeclare -f arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-1-5.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.09646910394076258,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "0fc4c3576589a91e1546c4104c4298b9f932954efe9f2a31c8b0b6bdae813a3e",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\ntypeset -pf arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-1-6.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.0991306760115549,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "0c097eaf0bf1f30000fe09485c495d24b2865bcc428a806e7eb08201d35db66b",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\nshopt -s extdebug; declare -F arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-1-7.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.09845429100096226,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "590c234ff61a6255034ee8912c41bc42de407b1b83983b6a67d554dd196c5356",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\ntypeset -pF arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-1-8.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.10457885405048728,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "4f0ab95d7e2dd83fced2acde842884c3ec2cf7b85c469caef85ebd4a45b34107",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\ndeclare -p -f arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-1-9.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.1107084290124476,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "74c57e5de6f188593031850f0771079051722ffc85d83b91397b6020d70052bc",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\ncommand -p -V arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-1-10.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.0950239939847961,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "744b0863c20cbe5f0210c267df0152c17c89aa9cb04c4e26e270a09b33f7d211",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\nset > definitions.txt\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-1-11.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.10043100698385388,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "f91cb784fda1b702e6c2db6842d8b50eb812eaa0f423bef6f92c37fa0c6f65dd",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\nINSPECT=type; $INSPECT arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-7w3ubj0t/introspection-1-12.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.12857864890247583,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "16997e01ebb0641b3cb5790ffefb1a30123253d439fc4bac0aa4b72cbf4f1066",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "arbitrary_name() { printf abc | /usr/bin/rev; }\nalias inspect=type\nshopt -s expand_aliases\ninspect arbitrary_name\narbitrary_name\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/incrementize.py",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-69hvqxg5/source.sh",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-69hvqxg5/generated"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.17486333404667675,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-69hvqxg5/generated/0_source"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.0030065689934417605,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "a7937b64b8caa58f03721bb6bacf5c78cb235febe0e70b1b84cd99541461a08e",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "first",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-69hvqxg5/generated/1_source"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.002738434006460011,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "161fed0a08f5d5f1820287831c95f679123ee49be7d4a118456bcdfc47378d10",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "firstabc",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-69hvqxg5/generated/2_source"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.004803818068467081,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "318fd0eb6913507e947a674215d4da1ba0fb69b103e7aabe800ff69e39e826f8",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "firstcba",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-69hvqxg5/generated/3_source"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.00569950498174876,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "14abdd9bdf7dc18fbccc2f29a3af55fb5118845e0ed38ac20c18853d35349f75",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "firstcba<one><two>",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-69hvqxg5/generated/4_source"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.005182767985388637,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "511e67756483442dec10d2d679975a470e664ecc25062036511f47bab4540739",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "firstcba<one>!<two>!",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--sys-path",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-8dtn1g45/wrapper space'quote$()",
+      "--try-path",
+      "try space'quote",
+      "--cache-path",
+      "cache\nline$HOME",
+      "--observe-path",
+      "observe\"quote\\slash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-8dtn1g45/source.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.11145850108005106,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "a2fda06be78d572b58fedfe27d99918f01115507ceab989cc382922cffd5cd40",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "\"/users/jxia3/atlas/incr/qualification/.work/shell-ast-8dtn1g45/wrapper space\"\"'\"\"quote\\$()\" --try \"try space\"\"'\"\"quote\" --cache \"cache\nline\\$HOME\" --observe \"observe\\\"quote\\\\slash\" rev\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-8dtn1g45/transformed.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.036006649024784565,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "624e30390c53b5e104c23a893233ea56e6af3ac62750f4e161cf0203c9b66042",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "[\"--try\", \"try space'quote\", \"--cache\", \"cache\\nline$HOME\", \"--observe\", \"observe\\\"quote\\\\slash\", \"rev\"]\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-8dtn1g45/wrapper space'quote$()",
+      "--try-path",
+      "try space'quote",
+      "--cache-path",
+      "cache\nline$HOME",
+      "--observe-path",
+      "observe\"quote\\slash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-8dtn1g45/source.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.10544372803997248,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "73b29846889a3f830706d3de50c19886211047c549ab5dd24b55a1feee585acf",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "'/users/jxia3/atlas/incr/qualification/.work/shell-ast-8dtn1g45/wrapper space'\"'\"'quote$()' --try 'try space'\"'\"'quote' --cache 'cache\nline$HOME' --observe 'observe\"quote\\slash' rev\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-8dtn1g45/transformed.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.036430253996513784,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "624e30390c53b5e104c23a893233ea56e6af3ac62750f4e161cf0203c9b66042",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "[\"--try\", \"try space'quote\", \"--cache\", \"cache\\nline$HOME\", \"--observe\", \"observe\\\"quote\\\\slash\", \"rev\"]\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-tsxlqceb/aliases.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.10976997902616858,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "e45e0928b9a903822f659c3875cea81e558b0c1992f21f179390776917de896c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "shopt -s expand_aliases\nalias 'rev=printf alias' 'sort=printf second'\nrev\nsort\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-tsxlqceb/transformed.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.002559198997914791,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "a69f45d336e8166add3e33a3fb0a2dca1d522704ce321bd1855228c343b0a134",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "aliassecond",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-tsxlqceb/aliases.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.0026441849768161774,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "a69f45d336e8166add3e33a3fb0a2dca1d522704ce321bd1855228c343b0a134",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "aliassecond",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-tsxlqceb/aliases.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.11704369692597538,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "b299c7d5b335edb3cd351d2a34c5f7de5dff4271158d782a35c6fe5853aaf2b8",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "shopt -s expand_aliases\n'alias' 'rev=printf alias' 'sort=printf second'\nrev\nsort\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-tsxlqceb/transformed.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.0029336099978536367,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "a69f45d336e8166add3e33a3fb0a2dca1d522704ce321bd1855228c343b0a134",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "aliassecond",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-tsxlqceb/aliases.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.002737186965532601,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "a69f45d336e8166add3e33a3fb0a2dca1d522704ce321bd1855228c343b0a134",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "aliassecond",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-tsxlqceb/aliases.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.12341381201986223,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "4487245e3ed1f01b1f1c8fa531b3ef2a12398500293127c2bc012dd5399888d1",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "shopt -s expand_aliases\nbuiltin alias 'rev=printf alias' 'sort=printf second'\nrev\nsort\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-tsxlqceb/transformed.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.00312952499371022,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "a69f45d336e8166add3e33a3fb0a2dca1d522704ce321bd1855228c343b0a134",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "aliassecond",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-tsxlqceb/aliases.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.0028090070700272918,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "a69f45d336e8166add3e33a3fb0a2dca1d522704ce321bd1855228c343b0a134",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "aliassecond",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "/users/jxia3/atlas/incr/src/scripts/insert.py",
+      "--bash",
+      "--sys-path",
+      "/usr/bin/env",
+      "--cache-path",
+      "",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-tsxlqceb/aliases.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.12796924798749387,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "58355bac8cb711aabc0ddbd793fefda55766a1121fed0d352bf716d986ccc60e",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "shopt -s expand_aliases\ncommand alias 'rev=printf alias' 'sort=printf second'\nrev\nsort\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-tsxlqceb/transformed.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.003401661990210414,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "a69f45d336e8166add3e33a3fb0a2dca1d522704ce321bd1855228c343b0a134",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "aliassecond",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "bash",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-tsxlqceb/aliases.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.0031526010716333985,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "a69f45d336e8166add3e33a3fb0a2dca1d522704ce321bd1855228c343b0a134",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "aliassecond",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/users/jxia3/atlas/incr/qualification/.venv/bin/python",
+      "-c",
+      "\nimport json,sys\nsys.path.insert(0,sys.argv[1])\nimport insert as transformer\nprefix=transformer.parse_prefix(['/tmp/incr path/with'+\"'\"+'quotes', '--cache', 'cache$HOME;touch nope'],False)\ndef snapshot(): return json.dumps([[char.json() for char in word] for word in prefix], default=lambda node: node.json())\nbefore=snapshot()\noriginal=transformer.parse_dash_script(sys.argv[2])\noriginal_code=transformer.ast_to_code([node for node,*_ in original])\nfirst=transformer.ast_to_code(transformer.transform_ast(original,prefix))\nsecond=transformer.ast_to_code(transformer.transform_ast(original,prefix))\nassert first==second\nassert snapshot()==before\nassert transformer.ast_to_code([node for node,*_ in original])==original_code\nprint('unchanged')\n",
+      "/users/jxia3/atlas/incr/src/scripts",
+      "/users/jxia3/atlas/incr/qualification/.work/shell-ast-fij_39ey/source.sh"
+    ],
+    "returncode": 0,
+    "elapsed_sec": 0.12181746598798782,
+    "timeout": false,
+    "leaked_descendants": false,
+    "remaining_descendants": [],
+    "diagnostics": [],
+    "stdout_sha256": "1cd263f1102656dd6b6cf1d626d1a96f9eba0406af3cb2a52560d473d4801052",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "unchanged\n",
+    "stderr": ""
+  }
+]

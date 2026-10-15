@@ -200,10 +200,10 @@ mod tests {
         impl Write for AcknowledgingWriter {
             fn write(&mut self, bytes: &[u8]) -> std::io::Result<usize> {
                 self.bytes.extend_from_slice(bytes);
-                if self.bytes.len() >= self.threshold {
-                    if let Some(sender) = self.acknowledged.take() {
-                        let _ = sender.send(());
-                    }
+                if self.bytes.len() >= self.threshold
+                    && let Some(sender) = self.acknowledged.take()
+                {
+                    let _ = sender.send(());
                 }
                 Ok(bytes.len())
             }

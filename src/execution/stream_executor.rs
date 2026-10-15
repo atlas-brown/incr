@@ -191,29 +191,6 @@ fn known_empty_descriptor(fd: libc::c_int) -> bool {
     }
 }
 
-#[cfg(test)]
-mod empty_descriptor_tests {
-    use super::known_empty_descriptor;
-    use std::fs::{File, OpenOptions};
-    use std::os::fd::AsRawFd;
-    use std::os::unix::fs::OpenOptionsExt;
-
-    #[test]
-    fn unreadable_descriptors_are_not_empty_input() {
-        let readable = File::open("/dev/null").unwrap();
-        let write_only = OpenOptions::new().write(true).open("/dev/null").unwrap();
-        let path_only = OpenOptions::new()
-            .read(true)
-            .custom_flags(libc::O_PATH)
-            .open("/dev/null")
-            .unwrap();
-        assert!(known_empty_descriptor(readable.as_raw_fd()));
-        assert!(!known_empty_descriptor(write_only.as_raw_fd()));
-        assert!(!known_empty_descriptor(path_only.as_raw_fd()));
-        assert!(!known_empty_descriptor(-1));
-    }
-}
-
 fn create_child_runtime(config: &Config) -> Result<Runtime> {
     let key = rand::rng().random_range(0..u64::MAX);
     let stdout_file = config.cache_directory.join(format!("stdout_{key}.incr"));
@@ -423,4 +400,27 @@ fn save_command_data(
     dependency::save_introspection(config, command, &cache_data)?;
 
     Ok(exit_code)
+}
+
+#[cfg(test)]
+mod empty_descriptor_tests {
+    use super::known_empty_descriptor;
+    use std::fs::{File, OpenOptions};
+    use std::os::fd::AsRawFd;
+    use std::os::unix::fs::OpenOptionsExt;
+
+    #[test]
+    fn unreadable_descriptors_are_not_empty_input() {
+        let readable = File::open("/dev/null").unwrap();
+        let write_only = OpenOptions::new().write(true).open("/dev/null").unwrap();
+        let path_only = OpenOptions::new()
+            .read(true)
+            .custom_flags(libc::O_PATH)
+            .open("/dev/null")
+            .unwrap();
+        assert!(known_empty_descriptor(readable.as_raw_fd()));
+        assert!(!known_empty_descriptor(write_only.as_raw_fd()));
+        assert!(!known_empty_descriptor(path_only.as_raw_fd()));
+        assert!(!known_empty_descriptor(-1));
+    }
 }

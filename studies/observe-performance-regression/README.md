@@ -8,7 +8,19 @@ they do not qualify the revised source. See the
 [active handoff](../paper-size-benchmarks/ACTIVE_GOAL_HANDOFF.md).
 
 
-## Current attribution and qualification (October 15, UTC)
+## Final-binary qualification
+
+The lint-cleaned binaries pass both complete Bash suites and all selected final
+verification stages. Current counts and hashes are in the
+[final checkpoint](../paper-size-benchmarks/FINAL_UNANNOTATED_CHECKPOINT.json), with
+[portable raw evidence](../paper-size-benchmarks/checkpoint-evidence/manifest.json).
+Final-binary larger verification observed 1.10–2.07x over original Incr and
+1.88–3.36x over Bash across four families; these single verification samples are
+separate from the earlier paired cohort below. Full repeated evaluation is pending.
+The supplemental minimum families remain slower than Bash. No command-specific
+algorithm replacement is used.
+
+## Pre-style checkpoint attribution and qualification (October 15, UTC)
 
 The cache-31 implementation adds an explicit content-input assumption, with
 Observe protocol 11 reporting successful read-only regular-file opens. No command

@@ -1,0 +1,884 @@
+{
+  "run": "content-inputs-128-01",
+  "suite": "paper",
+  "profile": "scaled",
+  "expected_invocations": 84,
+  "invocations": 84,
+  "valid_invocations": 84,
+  "complete": true,
+  "failed_sequences": [],
+  "archived_sequences": [],
+  "statistics": [
+    {
+      "benchmark": "covid",
+      "script": "1.sh",
+      "mode": "bash",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 2.5236878215218894,
+      "median_sec": 2.5236878215218894,
+      "stdev_sec": 0.17994404223980526,
+      "min_sec": 2.3964481690200046,
+      "max_sec": 2.6509274740237743
+    },
+    {
+      "benchmark": "covid",
+      "script": "1.sh",
+      "mode": "observe",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 1.4647077174740843,
+      "median_sec": 1.4647077174740843,
+      "stdev_sec": 0.06575722336943142,
+      "min_sec": 1.4182103389175609,
+      "max_sec": 1.5112050960306078
+    },
+    {
+      "benchmark": "covid",
+      "script": "1.sh",
+      "mode": "original",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 3.549408596009016,
+      "median_sec": 3.549408596009016,
+      "stdev_sec": 0.09363573483186538,
+      "min_sec": 3.4831981329480186,
+      "max_sec": 3.6156190590700135
+    },
+    {
+      "benchmark": "covid",
+      "script": "2.sh",
+      "mode": "bash",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 2.7017072634771466,
+      "median_sec": 2.7017072634771466,
+      "stdev_sec": 0.1220025571292866,
+      "min_sec": 2.615438428008929,
+      "max_sec": 2.7879760989453644
+    },
+    {
+      "benchmark": "covid",
+      "script": "2.sh",
+      "mode": "observe",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 0.9342186109279282,
+      "median_sec": 0.9342186109279282,
+      "stdev_sec": 0.044660184037200394,
+      "min_sec": 0.9026390919461846,
+      "max_sec": 0.9657981299096718
+    },
+    {
+      "benchmark": "covid",
+      "script": "2.sh",
+      "mode": "original",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 2.022756885038689,
+      "median_sec": 2.022756885038689,
+      "stdev_sec": 0.11022717941687529,
+      "min_sec": 1.94481449900195,
+      "max_sec": 2.1006992710754275
+    },
+    {
+      "benchmark": "covid",
+      "script": "3.sh",
+      "mode": "bash",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 3.7955087850568816,
+      "median_sec": 3.7955087850568816,
+      "stdev_sec": 0.05372838726937543,
+      "min_sec": 3.7575170780764893,
+      "max_sec": 3.833500492037274
+    },
+    {
+      "benchmark": "covid",
+      "script": "3.sh",
+      "mode": "observe",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 2.081279326986987,
+      "median_sec": 2.081279326986987,
+      "stdev_sec": 0.14415820025497283,
+      "min_sec": 1.9793440860230476,
+      "max_sec": 2.1832145679509267
+    },
+    {
+      "benchmark": "covid",
+      "script": "3.sh",
+      "mode": "original",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 3.5222207554616034,
+      "median_sec": 3.5222207554616034,
+      "stdev_sec": 0.1369691496604233,
+      "min_sec": 3.425368940923363,
+      "max_sec": 3.619072569999844
+    },
+    {
+      "benchmark": "covid",
+      "script": "4.sh",
+      "mode": "bash",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 2.6420666484627873,
+      "median_sec": 2.6420666484627873,
+      "stdev_sec": 0.1372110918333027,
+      "min_sec": 2.545043754973449,
+      "max_sec": 2.7390895419521257
+    },
+    {
+      "benchmark": "covid",
+      "script": "4.sh",
+      "mode": "observe",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 1.028077759547159,
+      "median_sec": 1.028077759547159,
+      "stdev_sec": 0.0035648201243580232,
+      "min_sec": 1.0255570510635152,
+      "max_sec": 1.030598468030803
+    },
+    {
+      "benchmark": "covid",
+      "script": "4.sh",
+      "mode": "original",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 1.5512219505035318,
+      "median_sec": 1.5512219505035318,
+      "stdev_sec": 0.05026251683238241,
+      "min_sec": 1.5156809840118513,
+      "max_sec": 1.5867629169952124
+    },
+    {
+      "benchmark": "covid",
+      "script": "5.sh",
+      "mode": "bash",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 1.3851293824845925,
+      "median_sec": 1.3851293824845925,
+      "stdev_sec": 0.1237458666875306,
+      "min_sec": 1.2976278410060331,
+      "max_sec": 1.4726309239631519
+    },
+    {
+      "benchmark": "covid",
+      "script": "5.sh",
+      "mode": "observe",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 1.832611742487643,
+      "median_sec": 1.832611742487643,
+      "stdev_sec": 0.056040447557167736,
+      "min_sec": 1.7929851619992405,
+      "max_sec": 1.8722383229760453
+    },
+    {
+      "benchmark": "covid",
+      "script": "5.sh",
+      "mode": "original",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 2.8464211900136434,
+      "median_sec": 2.8464211900136434,
+      "stdev_sec": 0.00919196531255762,
+      "min_sec": 2.8399214890087023,
+      "max_sec": 2.8529208910185844
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-1.sh",
+      "mode": "bash",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 16.716674563474953,
+      "median_sec": 16.716674563474953,
+      "stdev_sec": 0.18038145713322082,
+      "min_sec": 16.589125611935742,
+      "max_sec": 16.844223515014164
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-1.sh",
+      "mode": "observe",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 15.46905999048613,
+      "median_sec": 15.46905999048613,
+      "stdev_sec": 0.30233707288070616,
+      "min_sec": 15.255275396048091,
+      "max_sec": 15.682844584924169
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-1.sh",
+      "mode": "original",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 17.115400872484315,
+      "median_sec": 17.115400872484315,
+      "stdev_sec": 0.04039084097976519,
+      "min_sec": 17.086840234929696,
+      "max_sec": 17.143961510038935
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-2.sh",
+      "mode": "bash",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 16.208872828050517,
+      "median_sec": 16.208872828050517,
+      "stdev_sec": 0.7596934653182292,
+      "min_sec": 15.67168842710089,
+      "max_sec": 16.746057229000144
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-2.sh",
+      "mode": "observe",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 1.321434935554862,
+      "median_sec": 1.321434935554862,
+      "stdev_sec": 0.022139405146798706,
+      "min_sec": 1.3057800120441243,
+      "max_sec": 1.3370898590655997
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-2.sh",
+      "mode": "original",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 2.087272603996098,
+      "median_sec": 2.087272603996098,
+      "stdev_sec": 0.0779693610527451,
+      "min_sec": 2.0321399400709197,
+      "max_sec": 2.1424052679212764
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-3.sh",
+      "mode": "bash",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 30.61641034000786,
+      "median_sec": 30.61641034000786,
+      "stdev_sec": 0.8072007725284644,
+      "min_sec": 30.045633199973963,
+      "max_sec": 31.187187480041757
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-3.sh",
+      "mode": "observe",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 11.41239161847625,
+      "median_sec": 11.41239161847625,
+      "stdev_sec": 0.09995305993607638,
+      "min_sec": 11.341714131995104,
+      "max_sec": 11.483069104957394
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-3.sh",
+      "mode": "original",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 12.373098368465435,
+      "median_sec": 12.373098368465435,
+      "stdev_sec": 0.46404202625620705,
+      "min_sec": 12.044971104944125,
+      "max_sec": 12.701225631986745
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-4.sh",
+      "mode": "bash",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 42.97641251748428,
+      "median_sec": 42.97641251748428,
+      "stdev_sec": 0.17256213869709042,
+      "min_sec": 42.85439265903551,
+      "max_sec": 43.098432375933044
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-4.sh",
+      "mode": "observe",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 2.5327829485177062,
+      "median_sec": 2.5327829485177062,
+      "stdev_sec": 0.029965985435536708,
+      "min_sec": 2.511593797011301,
+      "max_sec": 2.5539721000241116
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-4.sh",
+      "mode": "original",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 2.268258918018546,
+      "median_sec": 2.268258918018546,
+      "stdev_sec": 0.01654522521494358,
+      "min_sec": 2.2565596770728007,
+      "max_sec": 2.279958158964291
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-1.sh",
+      "mode": "bash",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 1.0841518489760347,
+      "median_sec": 1.0841518489760347,
+      "stdev_sec": 0.02529512153541161,
+      "min_sec": 1.0662654970074072,
+      "max_sec": 1.102038200944662
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-1.sh",
+      "mode": "observe",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 0.7649686189251952,
+      "median_sec": 0.7649686189251952,
+      "stdev_sec": 0.09907895364270536,
+      "min_sec": 0.6949092189315706,
+      "max_sec": 0.8350280189188197
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-1.sh",
+      "mode": "original",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 1.87082085252041,
+      "median_sec": 1.87082085252041,
+      "stdev_sec": 0.060101665854661354,
+      "min_sec": 1.828322557033971,
+      "max_sec": 1.913319148006849
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-2.sh",
+      "mode": "bash",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 2.2071395824314095,
+      "median_sec": 2.2071395824314095,
+      "stdev_sec": 0.13335172705871923,
+      "min_sec": 2.1128456719452515,
+      "max_sec": 2.3014334929175675
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-2.sh",
+      "mode": "observe",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 0.9243050584918819,
+      "median_sec": 0.9243050584918819,
+      "stdev_sec": 0.031832424871435616,
+      "min_sec": 0.9017961350036785,
+      "max_sec": 0.9468139819800854
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-2.sh",
+      "mode": "original",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 1.5949836444924586,
+      "median_sec": 1.5949836444924586,
+      "stdev_sec": 0.04060819557025841,
+      "min_sec": 1.5662693140329793,
+      "max_sec": 1.6236979749519378
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-3.sh",
+      "mode": "bash",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 2.72608642547857,
+      "median_sec": 2.72608642547857,
+      "stdev_sec": 0.11653612536540282,
+      "min_sec": 2.643682940979488,
+      "max_sec": 2.808489909977652
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-3.sh",
+      "mode": "observe",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 1.0095112845301628,
+      "median_sec": 1.0095112845301628,
+      "stdev_sec": 0.011800190187746962,
+      "min_sec": 1.001167290029116,
+      "max_sec": 1.0178552790312096
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-3.sh",
+      "mode": "original",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 1.5192012165207416,
+      "median_sec": 1.5192012165207416,
+      "stdev_sec": 0.07173779095581911,
+      "min_sec": 1.468474938068539,
+      "max_sec": 1.5699274949729443
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "mode": "bash",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 23.080229502927978,
+      "median_sec": 23.080229502927978,
+      "stdev_sec": 0.46442154529152135,
+      "min_sec": 22.751833878923208,
+      "max_sec": 23.408625126932748
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "mode": "observe",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 1.136025933548808,
+      "median_sec": 1.136025933548808,
+      "stdev_sec": 0.0663723354677056,
+      "min_sec": 1.089093605056405,
+      "max_sec": 1.1829582620412111
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "mode": "original",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 1.1581182514782995,
+      "median_sec": 1.1581182514782995,
+      "stdev_sec": 0.021495440155678218,
+      "min_sec": 1.1429186799796298,
+      "max_sec": 1.1733178229769692
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "mode": "bash",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 22.156277750444133,
+      "median_sec": 22.156277750444133,
+      "stdev_sec": 1.0053987621253535,
+      "min_sec": 21.445353467948735,
+      "max_sec": 22.86720203293953
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "mode": "observe",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 16.871460847498383,
+      "median_sec": 16.871460847498383,
+      "stdev_sec": 0.23979797394032146,
+      "min_sec": 16.701898074010387,
+      "max_sec": 17.04102362098638
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "mode": "original",
+      "samples": 2,
+      "valid_samples": 2,
+      "mean_sec": 18.246740315516945,
+      "median_sec": 18.246740315516945,
+      "stdev_sec": 0.1816193253028275,
+      "min_sec": 18.11831605900079,
+      "max_sec": 18.3751645720331
+    }
+  ],
+  "ratios": [
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 1.3132400300552134
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.0815151385199986
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 20.316639630600793
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.019447019013446
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 1.0806522551309607
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.1064279848297651
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 12.266114957256306
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.57955003900337
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 2.682733940749194
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.0841810185021898
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 16.968059794715504
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 0.8955599291862055
+    },
+    {
+      "benchmark": "covid",
+      "script": "1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 1.7229975587716817
+    },
+    {
+      "benchmark": "covid",
+      "script": "1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 2.4232879732005763
+    },
+    {
+      "benchmark": "covid",
+      "script": "2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 2.891943311634127
+    },
+    {
+      "benchmark": "covid",
+      "script": "2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 2.165185815587159
+    },
+    {
+      "benchmark": "covid",
+      "script": "3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 1.8236421876882518
+    },
+    {
+      "benchmark": "covid",
+      "script": "3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.6923344741816222
+    },
+    {
+      "benchmark": "covid",
+      "script": "4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 2.569909351629732
+    },
+    {
+      "benchmark": "covid",
+      "script": "4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.5088566366680316
+    },
+    {
+      "benchmark": "covid",
+      "script": "5.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.7558226057224624
+    },
+    {
+      "benchmark": "covid",
+      "script": "5.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.5532047099893753
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 1.4172500964801693
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 2.4456177759931794
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 2.387890839884216
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.7256030677738274
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 2.7004021324509706
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.5048878004645523
+    }
+  ],
+  "family_totals": [
+    {
+      "benchmark": "word-freq",
+      "complete_mode_totals_sec": {
+        "bash": 45.23650725337211,
+        "original": 19.404858566995244,
+        "observe": 18.00748678104719
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 512589824,
+        "observe": 511983616
+      },
+      "input_bytes": 136315010,
+      "paper_nominal_bytes": 30000000,
+      "size_ratio_to_paper_nominal": 4.543833666666667
+    },
+    {
+      "benchmark": "poet",
+      "complete_mode_totals_sec": {
+        "bash": 106.51837024901761,
+        "original": 33.844030762964394,
+        "observe": 30.735669493034948
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 398548992,
+        "observe": 396922880
+      },
+      "input_bytes": 134218252,
+      "paper_nominal_bytes": 1000000000,
+      "size_ratio_to_paper_nominal": 0.134218252
+    },
+    {
+      "benchmark": "covid",
+      "complete_mode_totals_sec": {
+        "bash": 13.048099901003297,
+        "original": 13.492029377026483,
+        "observe": 7.340895157423802
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 484929536,
+        "observe": 483520512
+      },
+      "input_bytes": 134400000,
+      "paper_nominal_bytes": 381000000,
+      "size_ratio_to_paper_nominal": 0.352755905511811
+    },
+    {
+      "benchmark": "weather",
+      "complete_mode_totals_sec": {
+        "bash": 6.017377856886014,
+        "original": 4.98500571353361,
+        "observe": 2.69878496194724
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 10121216,
+        "observe": 9580544
+      },
+      "input_bytes": 134220105,
+      "paper_nominal_bytes": 887000000,
+      "size_ratio_to_paper_nominal": 0.15131917136414882
+    }
+  ],
+  "cold_overheads": [
+    {
+      "benchmark": "word-freq",
+      "mode": "original",
+      "bash_sec": 22.156277750444133,
+      "mode_sec": 18.246740315516945,
+      "time_ratio": 0.8235471915020194
+    },
+    {
+      "benchmark": "word-freq",
+      "mode": "observe",
+      "bash_sec": 22.156277750444133,
+      "mode_sec": 16.871460847498383,
+      "time_ratio": 0.7614754173751134
+    },
+    {
+      "benchmark": "poet",
+      "mode": "original",
+      "bash_sec": 16.716674563474953,
+      "mode_sec": 17.115400872484315,
+      "time_ratio": 1.023852011205659
+    },
+    {
+      "benchmark": "poet",
+      "mode": "observe",
+      "bash_sec": 16.716674563474953,
+      "mode_sec": 15.46905999048613,
+      "time_ratio": 0.925367059802983
+    },
+    {
+      "benchmark": "covid",
+      "mode": "original",
+      "bash_sec": 2.5236878215218894,
+      "mode_sec": 3.549408596009016,
+      "time_ratio": 1.4064372644428635
+    },
+    {
+      "benchmark": "covid",
+      "mode": "observe",
+      "bash_sec": 2.5236878215218894,
+      "mode_sec": 1.4647077174740843,
+      "time_ratio": 0.5803838751303259
+    },
+    {
+      "benchmark": "weather",
+      "mode": "original",
+      "bash_sec": 1.0841518489760347,
+      "mode_sec": 1.87082085252041,
+      "time_ratio": 1.7256077682174988
+    },
+    {
+      "benchmark": "weather",
+      "mode": "observe",
+      "bash_sec": 1.0841518489760347,
+      "mode_sec": 0.7649686189251952,
+      "time_ratio": 0.7055917671013491
+    }
+  ],
+  "summed_comparisons": [
+    {
+      "reference": "bash",
+      "matched_families": 4,
+      "reference_sum_sec": 170.82035526027903,
+      "observe_sum_sec": 58.78283639345318,
+      "summed_time_speedup": 2.9059563257023067
+    },
+    {
+      "reference": "original",
+      "matched_families": 4,
+      "reference_sum_sec": 71.72592442051973,
+      "observe_sum_sec": 58.78283639345318,
+      "summed_time_speedup": 1.2201848162010103
+    }
+  ],
+  "historical_comparisons": []
+}

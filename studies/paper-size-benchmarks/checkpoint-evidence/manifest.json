@@ -1,0 +1,117 @@
+{
+  "scope": "Qualification and attribution evidence only; full-size evaluation remains pending.",
+  "cohorts": "Do not pool timing samples from different binary hashes or diagnostic input sizes.",
+  "tree_digest": "SHA256 of compact sorted JSON mapping relative filenames to content SHA256.",
+  "runs": [
+    {
+      "label": "final-min",
+      "source": "studies/paper-size-benchmarks/results/final-cleanup-min-01",
+      "scope": "Final binary; minimum diagnostic, one repetition",
+      "bundle": "final-min.tar.gz",
+      "bundle_sha256": "23a62701664c5624e515fca8809060f2b4348896e8a015fd99abb8b6a6a7241d",
+      "content_tree_sha256": "e82a1cbd94c9d54c8fd3443755b70e559f3918cfb99bb7b6745032895d84d712",
+      "files": 426,
+      "payload_bytes": 1617673
+    },
+    {
+      "label": "final-128",
+      "source": "studies/observe-performance-regression/results/final-cleanup-128-01",
+      "scope": "Final binary; larger verification, one repetition",
+      "bundle": "final-128.tar.gz",
+      "bundle_sha256": "bbf0147cef398207154e310129d0222d6cf3870b98212788c4541be98c50fcbf",
+      "content_tree_sha256": "e7887181a8bf8f18341253dd58132e0e44fc54a8275605c8136eed0b92f8684c",
+      "files": 101,
+      "payload_bytes": 394064
+    },
+    {
+      "label": "final-dpt",
+      "source": "studies/observe-performance-regression/results/final-cleanup-dpt-archive-01",
+      "scope": "Final binary; one-image archive diagnostic",
+      "bundle": "final-dpt.tar.gz",
+      "bundle_sha256": "aa6d52f943ad64e956d0cd0336c313c30746d9652e5c9136a70cc98644e7b287",
+      "content_tree_sha256": "d1609a8fb10e429cdba92754d3f0d33ad4424a14bd9701fe239dff5f2dad020e",
+      "files": 42,
+      "payload_bytes": 279437
+    },
+    {
+      "label": "final-supplemental",
+      "source": "studies/paper-size-benchmarks/results/final-cleanup-supplemental-min-01",
+      "scope": "Final binary; supplemental minimum, two repetitions",
+      "bundle": "final-supplemental.tar.gz",
+      "bundle_sha256": "603e62e9171d8d5318e606e6a06fe2c5572e871169625b6262a124ab8ab5da22",
+      "content_tree_sha256": "ff376ba647ca3915ad6d746a3935dd983e1f458c4e209cb142cf82e6be527e83",
+      "files": 80,
+      "payload_bytes": 6287116
+    },
+    {
+      "label": "paired-8",
+      "source": "studies/observe-performance-regression/results/content-inputs-8-01",
+      "scope": "Pre-style binary; paired synthetic diagnostic, two repetitions",
+      "bundle": "paired-8.tar.gz",
+      "bundle_sha256": "e1b001aa58bbda929365072233431de4227935fe6b15e4e42086db63d3e3be05",
+      "content_tree_sha256": "0ed7deea4671adcb54ee9f3c9a06c9b3d580c8d2e9f8de9f213ec2847dc8aaf0",
+      "files": 181,
+      "payload_bytes": 577149
+    },
+    {
+      "label": "paired-32",
+      "source": "studies/observe-performance-regression/results/content-inputs-32-01",
+      "scope": "Pre-style binary; paired synthetic diagnostic, two repetitions",
+      "bundle": "paired-32.tar.gz",
+      "bundle_sha256": "193f8d0590ba05a415afd28e152fd7d57e80c4171d317d6c143ac54aa2106d7d",
+      "content_tree_sha256": "bb5a8f2684e8e9661ba361225fe14fdad87a3cb97e21d12af0e6290650bfdc5a",
+      "files": 181,
+      "payload_bytes": 577725
+    },
+    {
+      "label": "paired-128",
+      "source": "studies/observe-performance-regression/results/content-inputs-128-01",
+      "scope": "Pre-style binary; paired synthetic diagnostic, two repetitions",
+      "bundle": "paired-128.tar.gz",
+      "bundle_sha256": "738a8c0e47cd3e2bd3fbef411e502776064da16ff551e53fd77f2aa443594b8b",
+      "content_tree_sha256": "ecc9624299d89cb3fda729d4ec2bb4a9c3807ded7ad035590bc5be9ecc836a79",
+      "files": 181,
+      "payload_bytes": 578769
+    },
+    {
+      "label": "dpt-ten-versions",
+      "source": "studies/paper-size-benchmarks/results/content-inputs-dpt-min-01",
+      "scope": "Pre-style binary; ten-version real-model minimum",
+      "bundle": "dpt-ten-versions.tar.gz",
+      "bundle_sha256": "44da6513c6dfc2b5d3db281ee1d9bad186a75c0998d3f174ea25e394b9d4b314",
+      "content_tree_sha256": "e60de6409df448be9532a685e6dd5dbb45cc87f51f7db8b0d70c9b8c55ad5067",
+      "files": 61,
+      "payload_bytes": 421567
+    },
+    {
+      "label": "dpt-three-images",
+      "source": "studies/observe-performance-regression/results/general-dpt-archive-content-three-01",
+      "scope": "Pre-style binary; three-image archive diagnostic",
+      "bundle": "dpt-three-images.tar.gz",
+      "bundle_sha256": "fd3f5f15a1b6a7b08b65b6012a8fbeded925491b484ef9f6d1af3f102ceb9f8c",
+      "content_tree_sha256": "2a4969c5ea528af03d2265f069c818419df42fdacec0b063ec775b1366068926",
+      "files": 54,
+      "payload_bytes": 330161
+    },
+    {
+      "label": "large-pipeline-profile",
+      "source": "studies/observe-performance-regression/results/general-unannotated-profile-128-01",
+      "scope": "Cache-30 attribution only; not primary performance samples",
+      "bundle": "large-pipeline-profile.tar.gz",
+      "bundle_sha256": "51658165107ab13625bc90aadc1918da974ddedc4afd1949c5ca400f2be79b27",
+      "content_tree_sha256": "4237f8284a9c7cddcd417ed1912f4f007429f75982ac357254850861e8dba88b",
+      "files": 45,
+      "payload_bytes": 373485
+    },
+    {
+      "label": "archive-fault",
+      "source": "studies/observe-performance-regression/results/general-archive-content-01",
+      "scope": "Intentional fault probe: baseline stale output retained; not performance evidence",
+      "bundle": "archive-fault.tar.gz",
+      "bundle_sha256": "a553af3d90f4e0a3bbd0a5ab40e87a6b0a6f703f773964d69034cbec36ef3444",
+      "content_tree_sha256": "e7a557cda67323ff3a3f77de5ed0576cb24408ee1393a8b567ed3c2992b3b5df",
+      "files": 12,
+      "payload_bytes": 59991
+    }
+  ]
+}

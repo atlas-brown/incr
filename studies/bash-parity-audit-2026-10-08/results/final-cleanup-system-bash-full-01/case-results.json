@@ -1,0 +1,7590 @@
+[
+  {
+    "case": "alias",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 42,
+        "candidate_lines": 42,
+        "matched": 42,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.14099975198041648,
+    "observe_seconds": 0.9994327749591321,
+    "cache_entries": 1,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 42,
+        "candidate_lines": 42,
+        "matched": 42,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "alias",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 42,
+        "candidate_lines": 42,
+        "matched": 42,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1797919529490173,
+    "observe_seconds": 0.9512104779714718,
+    "cache_entries": 1,
+    "retained_metadata": 1,
+    "native_expected": [
+      {
+        "reference_lines": 42,
+        "candidate_lines": 42,
+        "matched": 42,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "appendop",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 28,
+        "candidate_lines": 28,
+        "matched": 28,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.10993150493595749,
+    "observe_seconds": 0.5274940130766481,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 28,
+        "candidate_lines": 28,
+        "matched": 28,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "appendop",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 28,
+        "candidate_lines": 28,
+        "matched": 28,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1396239489549771,
+    "observe_seconds": 0.49616342002991587,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 28,
+        "candidate_lines": 28,
+        "matched": 28,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "arith",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 263,
+        "candidate_lines": 263,
+        "matched": 263,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.20250625198241323,
+    "observe_seconds": 1.5259474170161411,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 263,
+        "candidate_lines": 263,
+        "matched": 263,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "arith",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 263,
+        "candidate_lines": 263,
+        "matched": 263,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.2016508459346369,
+    "observe_seconds": 1.4753980740206316,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 263,
+        "candidate_lines": 263,
+        "matched": 263,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "arith-for",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 86,
+        "candidate_lines": 86,
+        "matched": 86,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.25254560192115605,
+    "observe_seconds": 0.3982270290143788,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 86,
+        "candidate_lines": 86,
+        "matched": 86,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "arith-for",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 86,
+        "candidate_lines": 86,
+        "matched": 86,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.32369838503655046,
+    "observe_seconds": 0.460215758997947,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 86,
+        "candidate_lines": 86,
+        "matched": 86,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "array",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 765,
+        "candidate_lines": 765,
+        "matched": 765,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.5706379500916228,
+    "observe_seconds": 5.196902554947883,
+    "cache_entries": 47,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 765,
+        "candidate_lines": 765,
+        "matched": 765,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "array",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 765,
+        "candidate_lines": 765,
+        "matched": 765,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.4908660160144791,
+    "observe_seconds": 4.779695122037083,
+    "cache_entries": 47,
+    "retained_metadata": 47,
+    "native_expected": [
+      {
+        "reference_lines": 765,
+        "candidate_lines": 765,
+        "matched": 765,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "array2",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 74,
+        "candidate_lines": 74,
+        "matched": 74,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.16104723804164678,
+    "observe_seconds": 0.6404541740193963,
+    "cache_entries": 19,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 74,
+        "candidate_lines": 74,
+        "matched": 74,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "array2",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 74,
+        "candidate_lines": 74,
+        "matched": 74,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1786032059462741,
+    "observe_seconds": 0.5069233140675351,
+    "cache_entries": 19,
+    "retained_metadata": 19,
+    "native_expected": [
+      {
+        "reference_lines": 74,
+        "candidate_lines": 74,
+        "matched": 74,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "assoc",
+    "phase": "cold",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 260,
+        "candidate_lines": 260,
+        "matched": 260,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.19080935907550156,
+    "observe_seconds": 1.9716302000451833,
+    "cache_entries": 14,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 260,
+        "candidate_lines": 260,
+        "matched": 260,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "assoc",
+    "phase": "warm",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 260,
+        "candidate_lines": 260,
+        "matched": 260,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.22506581502966583,
+    "observe_seconds": 2.062040316988714,
+    "cache_entries": 16,
+    "retained_metadata": 14,
+    "native_expected": [
+      {
+        "reference_lines": 260,
+        "candidate_lines": 260,
+        "matched": 260,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "attr",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 37,
+        "candidate_lines": 37,
+        "matched": 37,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.10790028399787843,
+    "observe_seconds": 0.6218193899840117,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 37,
+        "candidate_lines": 37,
+        "matched": 37,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "attr",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 37,
+        "candidate_lines": 37,
+        "matched": 37,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11735069600399584,
+    "observe_seconds": 0.6283654749859124,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 37,
+        "candidate_lines": 37,
+        "matched": 37,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "braces",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 77,
+        "candidate_lines": 77,
+        "matched": 77,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11352730891667306,
+    "observe_seconds": 0.26280401600524783,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 77,
+        "candidate_lines": 77,
+        "matched": 77,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "braces",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 77,
+        "candidate_lines": 77,
+        "matched": 77,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11774946202058345,
+    "observe_seconds": 0.3432878110324964,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 77,
+        "candidate_lines": 77,
+        "matched": 77,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "builtins",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 274,
+        "candidate_lines": 274,
+        "matched": 274,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 1.2377737880451605,
+    "observe_seconds": 3.2686156010022387,
+    "cache_entries": 6,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 274,
+        "candidate_lines": 274,
+        "matched": 274,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "builtins",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 274,
+        "candidate_lines": 274,
+        "matched": 274,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 1.231952406000346,
+    "observe_seconds": 3.3462905240012333,
+    "cache_entries": 10,
+    "retained_metadata": 6,
+    "native_expected": [
+      {
+        "reference_lines": 274,
+        "candidate_lines": 274,
+        "matched": 274,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "case",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 62,
+        "candidate_lines": 62,
+        "matched": 62,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.12414254900068045,
+    "observe_seconds": 0.7680227699456736,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 62,
+        "candidate_lines": 62,
+        "matched": 62,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "case",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 62,
+        "candidate_lines": 62,
+        "matched": 62,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1815487090498209,
+    "observe_seconds": 0.7720189270330593,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 62,
+        "candidate_lines": 62,
+        "matched": 62,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "casemod",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 47,
+        "candidate_lines": 47,
+        "matched": 47,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.10360627190675586,
+    "observe_seconds": 0.28914402797818184,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 47,
+        "candidate_lines": 47,
+        "matched": 47,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "casemod",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 47,
+        "candidate_lines": 47,
+        "matched": 47,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.09875470004044473,
+    "observe_seconds": 0.2413093929644674,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 47,
+        "candidate_lines": 47,
+        "matched": 47,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "complete",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 63,
+        "candidate_lines": 63,
+        "matched": 63,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11202665697783232,
+    "observe_seconds": 0.24494411901105195,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 63,
+        "candidate_lines": 63,
+        "matched": 63,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "complete",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 63,
+        "candidate_lines": 63,
+        "matched": 63,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.10705957596655935,
+    "observe_seconds": 0.3104538479819894,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 63,
+        "candidate_lines": 63,
+        "matched": 63,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "comsub",
+    "phase": "cold",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 57,
+        "candidate_lines": 57,
+        "matched": 57,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1797300489852205,
+    "observe_seconds": 1.0114165470004082,
+    "cache_entries": 9,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 57,
+        "candidate_lines": 57,
+        "matched": 57,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "comsub",
+    "phase": "warm",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 57,
+        "candidate_lines": 57,
+        "matched": 57,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.20642311102710664,
+    "observe_seconds": 0.8269193359883502,
+    "cache_entries": 9,
+    "retained_metadata": 9,
+    "native_expected": [
+      {
+        "reference_lines": 57,
+        "candidate_lines": 57,
+        "matched": 57,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "comsub-eof",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 15,
+        "candidate_lines": 15,
+        "matched": 15,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.12351766799110919,
+    "observe_seconds": 1.1615438830340281,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 15,
+        "candidate_lines": 15,
+        "matched": 15,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "comsub-eof",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 15,
+        "candidate_lines": 15,
+        "matched": 15,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1849415689939633,
+    "observe_seconds": 1.1079705690499395,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 15,
+        "candidate_lines": 15,
+        "matched": 15,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "comsub-posix",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 78,
+        "candidate_lines": 78,
+        "matched": 78,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.2048708179499954,
+    "observe_seconds": 0.8351633859565482,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 78,
+        "candidate_lines": 78,
+        "matched": 78,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "comsub-posix",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 78,
+        "candidate_lines": 78,
+        "matched": 78,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.22439317603129894,
+    "observe_seconds": 0.7970451639266685,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 78,
+        "candidate_lines": 78,
+        "matched": 78,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "cond",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 136,
+        "candidate_lines": 136,
+        "matched": 136,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.12472334294579923,
+    "observe_seconds": 0.6822119200369343,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 136,
+        "candidate_lines": 136,
+        "matched": 136,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "cond",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 136,
+        "candidate_lines": 136,
+        "matched": 136,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11918800394050777,
+    "observe_seconds": 0.6374093040358275,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 136,
+        "candidate_lines": 136,
+        "matched": 136,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "coproc",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 10,
+        "candidate_lines": 10,
+        "matched": 10,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 3.129007349954918,
+    "observe_seconds": 3.277391384006478,
+    "cache_entries": 4,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 10,
+        "candidate_lines": 10,
+        "matched": 10,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "coproc",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 10,
+        "candidate_lines": 10,
+        "matched": 10,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 3.1358819670276716,
+    "observe_seconds": 3.3032591779483482,
+    "cache_entries": 5,
+    "retained_metadata": 4,
+    "native_expected": [
+      {
+        "reference_lines": 10,
+        "candidate_lines": 10,
+        "matched": 10,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "cprint",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 72,
+        "candidate_lines": 72,
+        "matched": 72,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.10648394806776196,
+    "observe_seconds": 0.24546590400859714,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 72,
+        "candidate_lines": 72,
+        "matched": 72,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "cprint",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 72,
+        "candidate_lines": 72,
+        "matched": 72,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11850117100402713,
+    "observe_seconds": 0.2313570739934221,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 72,
+        "candidate_lines": 72,
+        "matched": 72,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "dbg-support",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 371,
+        "candidate_lines": 371,
+        "matched": 371,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1304031889885664,
+    "observe_seconds": 0.36042870103847235,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 371,
+        "candidate_lines": 371,
+        "matched": 371,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "dbg-support",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 371,
+        "candidate_lines": 371,
+        "matched": 371,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.15324880904518068,
+    "observe_seconds": 0.40935541200451553,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 371,
+        "candidate_lines": 371,
+        "matched": 371,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "dbg-support2",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 7,
+        "candidate_lines": 7,
+        "matched": 7,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.09576726995874196,
+    "observe_seconds": 0.2259978629881516,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 7,
+        "candidate_lines": 7,
+        "matched": 7,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "dbg-support2",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 7,
+        "candidate_lines": 7,
+        "matched": 7,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11474436603020877,
+    "observe_seconds": 0.2909431660082191,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 7,
+        "candidate_lines": 7,
+        "matched": 7,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "dirstack",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 55,
+        "candidate_lines": 55,
+        "matched": 55,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      },
+      {
+        "reference_lines": 24,
+        "candidate_lines": 24,
+        "matched": 24,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1448016600916162,
+    "observe_seconds": 0.4250198269728571,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 55,
+        "candidate_lines": 55,
+        "matched": 55,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      },
+      {
+        "reference_lines": 24,
+        "candidate_lines": 24,
+        "matched": 24,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "dirstack",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 55,
+        "candidate_lines": 55,
+        "matched": 55,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      },
+      {
+        "reference_lines": 24,
+        "candidate_lines": 24,
+        "matched": 24,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1516147570218891,
+    "observe_seconds": 0.41286050202324986,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 55,
+        "candidate_lines": 55,
+        "matched": 55,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      },
+      {
+        "reference_lines": 24,
+        "candidate_lines": 24,
+        "matched": 24,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "dollars",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 677,
+        "candidate_lines": 677,
+        "matched": 677,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.6881723939441144,
+    "observe_seconds": 4.8779100850224495,
+    "cache_entries": 31,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 677,
+        "candidate_lines": 677,
+        "matched": 677,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "dollars",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 677,
+        "candidate_lines": 677,
+        "matched": 677,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.6818851369898766,
+    "observe_seconds": 4.709028383018449,
+    "cache_entries": 31,
+    "retained_metadata": 31,
+    "native_expected": [
+      {
+        "reference_lines": 677,
+        "candidate_lines": 677,
+        "matched": 677,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "dynvar",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 7,
+        "candidate_lines": 7,
+        "matched": 7,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 2.126619790913537,
+    "observe_seconds": 2.2378921799827367,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 7,
+        "candidate_lines": 7,
+        "matched": 7,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "dynvar",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 7,
+        "candidate_lines": 7,
+        "matched": 7,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 2.1283145020715892,
+    "observe_seconds": 2.243754853028804,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 7,
+        "candidate_lines": 7,
+        "matched": 7,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "errors",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 200,
+        "candidate_lines": 200,
+        "matched": 200,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1993758489843458,
+    "observe_seconds": 1.8366431499598548,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 200,
+        "candidate_lines": 200,
+        "matched": 200,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "errors",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 200,
+        "candidate_lines": 200,
+        "matched": 200,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.21318643796257675,
+    "observe_seconds": 1.7752147070132196,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 200,
+        "candidate_lines": 200,
+        "matched": 200,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "execscript",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 135,
+        "candidate_lines": 135,
+        "matched": 135,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.4853935110149905,
+    "observe_seconds": 3.109769611968659,
+    "cache_entries": 5,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 135,
+        "candidate_lines": 135,
+        "matched": 135,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "execscript",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 135,
+        "candidate_lines": 135,
+        "matched": 135,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.4327216950478032,
+    "observe_seconds": 3.1044614450074732,
+    "cache_entries": 6,
+    "retained_metadata": 5,
+    "native_expected": [
+      {
+        "reference_lines": 135,
+        "candidate_lines": 135,
+        "matched": 135,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "exp-tests",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 410,
+        "candidate_lines": 410,
+        "matched": 410,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.4930792849045247,
+    "observe_seconds": 2.4181014460045844,
+    "cache_entries": 23,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 410,
+        "candidate_lines": 410,
+        "matched": 410,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "exp-tests",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 410,
+        "candidate_lines": 410,
+        "matched": 410,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.516837790957652,
+    "observe_seconds": 2.4355401810025796,
+    "cache_entries": 23,
+    "retained_metadata": 23,
+    "native_expected": [
+      {
+        "reference_lines": 410,
+        "candidate_lines": 410,
+        "matched": 410,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "exportfunc",
+    "phase": "cold",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 14,
+        "candidate_lines": 14,
+        "matched": 14,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1842752390075475,
+    "observe_seconds": 11.051995550980791,
+    "cache_entries": 5,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 14,
+        "candidate_lines": 14,
+        "matched": 14,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "exportfunc",
+    "phase": "warm",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 14,
+        "candidate_lines": 14,
+        "matched": 14,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.24658148793969303,
+    "observe_seconds": 10.960203231894411,
+    "cache_entries": 5,
+    "retained_metadata": 5,
+    "native_expected": [
+      {
+        "reference_lines": 14,
+        "candidate_lines": 14,
+        "matched": 14,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "extglob",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 116,
+        "candidate_lines": 116,
+        "matched": 116,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1564011190785095,
+    "observe_seconds": 0.9466862510889769,
+    "cache_entries": 2,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 116,
+        "candidate_lines": 116,
+        "matched": 116,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "extglob",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 116,
+        "candidate_lines": 116,
+        "matched": 116,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.20864918001461774,
+    "observe_seconds": 0.9542635430116206,
+    "cache_entries": 4,
+    "retained_metadata": 2,
+    "native_expected": [
+      {
+        "reference_lines": 116,
+        "candidate_lines": 116,
+        "matched": 116,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "extglob2",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 70,
+        "candidate_lines": 70,
+        "matched": 70,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11196559690870345,
+    "observe_seconds": 0.2535779149038717,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 70,
+        "candidate_lines": 70,
+        "matched": 70,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "extglob2",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 70,
+        "candidate_lines": 70,
+        "matched": 70,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11697653704322875,
+    "observe_seconds": 0.25961602199822664,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 70,
+        "candidate_lines": 70,
+        "matched": 70,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "extglob3",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 27,
+        "candidate_lines": 27,
+        "matched": 27,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.10195384896360338,
+    "observe_seconds": 0.2538506410783157,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 27,
+        "candidate_lines": 27,
+        "matched": 27,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "extglob3",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 27,
+        "candidate_lines": 27,
+        "matched": 27,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.10682886792346835,
+    "observe_seconds": 0.25522684201132506,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 27,
+        "candidate_lines": 27,
+        "matched": 27,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "func",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 169,
+        "candidate_lines": 169,
+        "matched": 169,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 5.1998812990495935,
+    "observe_seconds": 5.9714170440565795,
+    "cache_entries": 2,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 169,
+        "candidate_lines": 169,
+        "matched": 169,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "func",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 169,
+        "candidate_lines": 169,
+        "matched": 169,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 5.183158850064501,
+    "observe_seconds": 5.909743105061352,
+    "cache_entries": 4,
+    "retained_metadata": 2,
+    "native_expected": [
+      {
+        "reference_lines": 169,
+        "candidate_lines": 169,
+        "matched": 169,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "getopts",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 68,
+        "candidate_lines": 68,
+        "matched": 68,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1553507799981162,
+    "observe_seconds": 2.8545062319608405,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 68,
+        "candidate_lines": 68,
+        "matched": 68,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "getopts",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 68,
+        "candidate_lines": 68,
+        "matched": 68,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.21228085097391158,
+    "observe_seconds": 2.984771474963054,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 68,
+        "candidate_lines": 68,
+        "matched": 68,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "glob-test",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 257,
+        "candidate_lines": 257,
+        "matched": 257,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.4194976049475372,
+    "observe_seconds": 2.191350746084936,
+    "cache_entries": 32,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 257,
+        "candidate_lines": 257,
+        "matched": 257,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "glob-test",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 257,
+        "candidate_lines": 257,
+        "matched": 257,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.3677279920084402,
+    "observe_seconds": 2.13389247097075,
+    "cache_entries": 63,
+    "retained_metadata": 32,
+    "native_expected": [
+      {
+        "reference_lines": 257,
+        "candidate_lines": 257,
+        "matched": 257,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "globstar",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 587,
+        "candidate_lines": 587,
+        "matched": 587,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.17490572296082973,
+    "observe_seconds": 0.9168827820103616,
+    "cache_entries": 9,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 587,
+        "candidate_lines": 587,
+        "matched": 587,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "globstar",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 587,
+        "candidate_lines": 587,
+        "matched": 587,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.20166478399187326,
+    "observe_seconds": 0.840288543025963,
+    "cache_entries": 16,
+    "retained_metadata": 9,
+    "native_expected": [
+      {
+        "reference_lines": 587,
+        "candidate_lines": 587,
+        "matched": 587,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "heredoc",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 106,
+        "candidate_lines": 106,
+        "matched": 106,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.23844445997383446,
+    "observe_seconds": 1.0455302209593356,
+    "cache_entries": 6,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 106,
+        "candidate_lines": 106,
+        "matched": 106,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "heredoc",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 106,
+        "candidate_lines": 106,
+        "matched": 106,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.2503066749777645,
+    "observe_seconds": 1.0932731479406357,
+    "cache_entries": 10,
+    "retained_metadata": 6,
+    "native_expected": [
+      {
+        "reference_lines": 106,
+        "candidate_lines": 106,
+        "matched": 106,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "herestr",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 38,
+        "candidate_lines": 38,
+        "matched": 38,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.12395333906169981,
+    "observe_seconds": 0.41219783492852,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 38,
+        "candidate_lines": 38,
+        "matched": 38,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "herestr",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 38,
+        "candidate_lines": 38,
+        "matched": 38,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.19630392198450863,
+    "observe_seconds": 0.40828382002655417,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 38,
+        "candidate_lines": 38,
+        "matched": 38,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "histexpand",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 246,
+        "candidate_lines": 246,
+        "matched": 246,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.17597521608695388,
+    "observe_seconds": 1.2023172799963504,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 246,
+        "candidate_lines": 246,
+        "matched": 246,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "histexpand",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 246,
+        "candidate_lines": 246,
+        "matched": 246,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.18403264100197703,
+    "observe_seconds": 1.1699083569692448,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 246,
+        "candidate_lines": 246,
+        "matched": 246,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "history",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 266,
+        "candidate_lines": 266,
+        "matched": 266,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1510295020416379,
+    "observe_seconds": 0.88182276498992,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 266,
+        "candidate_lines": 266,
+        "matched": 266,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "history",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 266,
+        "candidate_lines": 266,
+        "matched": 266,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.19795380590949208,
+    "observe_seconds": 0.8997003729455173,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 266,
+        "candidate_lines": 266,
+        "matched": 266,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "ifs",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 12,
+        "candidate_lines": 12,
+        "matched": 12,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.12054324790369719,
+    "observe_seconds": 0.4629819579422474,
+    "cache_entries": 3,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 12,
+        "candidate_lines": 12,
+        "matched": 12,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "ifs",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 12,
+        "candidate_lines": 12,
+        "matched": 12,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11282951000612229,
+    "observe_seconds": 0.4304076120024547,
+    "cache_entries": 6,
+    "retained_metadata": 3,
+    "native_expected": [
+      {
+        "reference_lines": 12,
+        "candidate_lines": 12,
+        "matched": 12,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "ifs-posix",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 1,
+        "candidate_lines": 1,
+        "matched": 1,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 10.945197444991209,
+    "observe_seconds": 11.448565587983467,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 1,
+        "candidate_lines": 1,
+        "matched": 1,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "ifs-posix",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 1,
+        "candidate_lines": 1,
+        "matched": 1,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 10.88864113704767,
+    "observe_seconds": 11.33198474009987,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 1,
+        "candidate_lines": 1,
+        "matched": 1,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "input-test",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 3,
+        "candidate_lines": 3,
+        "matched": 3,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11284697498194873,
+    "observe_seconds": 0.2562124679097906,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 3,
+        "candidate_lines": 3,
+        "matched": 3,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "input-test",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 3,
+        "candidate_lines": 3,
+        "matched": 3,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11302270798478276,
+    "observe_seconds": 0.259272021939978,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 3,
+        "candidate_lines": 3,
+        "matched": 3,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "intl",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 57,
+        "candidate_lines": 57,
+        "matched": 57,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.469280305900611,
+    "observe_seconds": 1.3625846860231832,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 57,
+        "candidate_lines": 57,
+        "matched": 57,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "intl",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 57,
+        "candidate_lines": 57,
+        "matched": 57,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.47233785002026707,
+    "observe_seconds": 1.3182205869816244,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 57,
+        "candidate_lines": 57,
+        "matched": 57,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "invert",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 10,
+        "candidate_lines": 10,
+        "matched": 10,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1175185430329293,
+    "observe_seconds": 0.3077560398960486,
+    "cache_entries": 1,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 10,
+        "candidate_lines": 10,
+        "matched": 10,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "invert",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 10,
+        "candidate_lines": 10,
+        "matched": 10,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.12859145901165903,
+    "observe_seconds": 0.2679369020042941,
+    "cache_entries": 1,
+    "retained_metadata": 1,
+    "native_expected": [
+      {
+        "reference_lines": 10,
+        "candidate_lines": 10,
+        "matched": 10,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "iquote",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 92,
+        "candidate_lines": 92,
+        "matched": 92,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.2205117540434003,
+    "observe_seconds": 0.45023447705898434,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 92,
+        "candidate_lines": 92,
+        "matched": 92,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "iquote",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 92,
+        "candidate_lines": 92,
+        "matched": 92,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.26018409500829875,
+    "observe_seconds": 0.4613701649941504,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 92,
+        "candidate_lines": 92,
+        "matched": 92,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "jobs",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 118,
+        "candidate_lines": 118,
+        "matched": 118,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 62.21458939102013,
+    "observe_seconds": 63.430632653064094,
+    "cache_entries": 2,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 118,
+        "candidate_lines": 118,
+        "matched": 118,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "jobs",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 118,
+        "candidate_lines": 118,
+        "matched": 118,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 62.223670535953715,
+    "observe_seconds": 63.40166718000546,
+    "cache_entries": 3,
+    "retained_metadata": 2,
+    "native_expected": [
+      {
+        "reference_lines": 118,
+        "candidate_lines": 118,
+        "matched": 118,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "lastpipe",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 20,
+        "candidate_lines": 20,
+        "matched": 20,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.13358294090721756,
+    "observe_seconds": 0.6504060979932547,
+    "cache_entries": 1,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 20,
+        "candidate_lines": 20,
+        "matched": 20,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "lastpipe",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 20,
+        "candidate_lines": 20,
+        "matched": 20,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.13428081304300576,
+    "observe_seconds": 0.5808151380624622,
+    "cache_entries": 1,
+    "retained_metadata": 1,
+    "native_expected": [
+      {
+        "reference_lines": 20,
+        "candidate_lines": 20,
+        "matched": 20,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "mapfile",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 169,
+        "candidate_lines": 169,
+        "matched": 169,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11469198297709227,
+    "observe_seconds": 0.522157882922329,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 169,
+        "candidate_lines": 169,
+        "matched": 169,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "mapfile",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 169,
+        "candidate_lines": 169,
+        "matched": 169,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.12487367796711624,
+    "observe_seconds": 0.5223422090057284,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 169,
+        "candidate_lines": 169,
+        "matched": 169,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "more-exp",
+    "phase": "cold",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 214,
+        "candidate_lines": 214,
+        "matched": 214,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.4165584209840745,
+    "observe_seconds": 1.4119213559897617,
+    "cache_entries": 59,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 214,
+        "candidate_lines": 214,
+        "matched": 214,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "more-exp",
+    "phase": "warm",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 214,
+        "candidate_lines": 214,
+        "matched": 214,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.4680545360315591,
+    "observe_seconds": 1.0235322769731283,
+    "cache_entries": 59,
+    "retained_metadata": 59,
+    "native_expected": [
+      {
+        "reference_lines": 214,
+        "candidate_lines": 214,
+        "matched": 214,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "nameref",
+    "phase": "cold",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 485,
+        "candidate_lines": 485,
+        "matched": 485,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.2675723119173199,
+    "observe_seconds": 3.676843057037331,
+    "cache_entries": 4,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 485,
+        "candidate_lines": 485,
+        "matched": 485,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "nameref",
+    "phase": "warm",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 485,
+        "candidate_lines": 485,
+        "matched": 485,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.30267556104809046,
+    "observe_seconds": 3.5050845720106736,
+    "cache_entries": 4,
+    "retained_metadata": 4,
+    "native_expected": [
+      {
+        "reference_lines": 485,
+        "candidate_lines": 485,
+        "matched": 485,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "new-exp",
+    "phase": "cold",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 725,
+        "candidate_lines": 725,
+        "matched": 725,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.8196995870675892,
+    "observe_seconds": 2.8974357879487798,
+    "cache_entries": 5,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 725,
+        "candidate_lines": 725,
+        "matched": 725,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "new-exp",
+    "phase": "warm",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 725,
+        "candidate_lines": 725,
+        "matched": 725,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.7097585799638182,
+    "observe_seconds": 2.8718079179525375,
+    "cache_entries": 6,
+    "retained_metadata": 5,
+    "native_expected": [
+      {
+        "reference_lines": 725,
+        "candidate_lines": 725,
+        "matched": 725,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "nquote",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 64,
+        "candidate_lines": 64,
+        "matched": 64,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1559247539844364,
+    "observe_seconds": 0.641078287968412,
+    "cache_entries": 3,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 64,
+        "candidate_lines": 64,
+        "matched": 64,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "nquote",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 64,
+        "candidate_lines": 64,
+        "matched": 64,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.15519855392631143,
+    "observe_seconds": 0.6400707210414112,
+    "cache_entries": 3,
+    "retained_metadata": 3,
+    "native_expected": [
+      {
+        "reference_lines": 64,
+        "candidate_lines": 64,
+        "matched": 64,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "nquote1",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 131,
+        "candidate_lines": 131,
+        "matched": 131,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.15740772103890777,
+    "observe_seconds": 0.3058846379863098,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 131,
+        "candidate_lines": 131,
+        "matched": 131,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "nquote1",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 131,
+        "candidate_lines": 131,
+        "matched": 131,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.18816080398391932,
+    "observe_seconds": 0.42741293797735125,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 131,
+        "candidate_lines": 131,
+        "matched": 131,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "nquote2",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 76,
+        "candidate_lines": 76,
+        "matched": 76,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.160425438079983,
+    "observe_seconds": 0.3359764270717278,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 76,
+        "candidate_lines": 76,
+        "matched": 76,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "nquote2",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 76,
+        "candidate_lines": 76,
+        "matched": 76,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.23375256604049355,
+    "observe_seconds": 0.3008382940897718,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 76,
+        "candidate_lines": 76,
+        "matched": 76,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "nquote3",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 60,
+        "candidate_lines": 60,
+        "matched": 60,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.15357271500397474,
+    "observe_seconds": 0.2696913710096851,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 60,
+        "candidate_lines": 60,
+        "matched": 60,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "nquote3",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 60,
+        "candidate_lines": 60,
+        "matched": 60,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1548371120588854,
+    "observe_seconds": 0.2892853219527751,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 60,
+        "candidate_lines": 60,
+        "matched": 60,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "nquote4",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 18,
+        "candidate_lines": 18,
+        "matched": 18,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.15864711301401258,
+    "observe_seconds": 0.28407003497704864,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 18,
+        "candidate_lines": 18,
+        "matched": 18,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "nquote4",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 18,
+        "candidate_lines": 18,
+        "matched": 18,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1629926129244268,
+    "observe_seconds": 0.3136225650086999,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 18,
+        "candidate_lines": 18,
+        "matched": 18,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "nquote5",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 86,
+        "candidate_lines": 86,
+        "matched": 86,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.13978547207079828,
+    "observe_seconds": 0.29188327107112855,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 86,
+        "candidate_lines": 86,
+        "matched": 86,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "nquote5",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 86,
+        "candidate_lines": 86,
+        "matched": 86,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.18540403700899333,
+    "observe_seconds": 0.2881858510663733,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 86,
+        "candidate_lines": 86,
+        "matched": 86,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "parser",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 16,
+        "candidate_lines": 16,
+        "matched": 16,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.13632630207575858,
+    "observe_seconds": 0.5255315189715475,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 16,
+        "candidate_lines": 16,
+        "matched": 16,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "parser",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 16,
+        "candidate_lines": 16,
+        "matched": 16,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.14786004391498864,
+    "observe_seconds": 0.6032849370967597,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 16,
+        "candidate_lines": 16,
+        "matched": 16,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "posix2",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 6,
+        "candidate_lines": 6,
+        "matched": 6,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.15313907398376614,
+    "observe_seconds": 0.44257076794747263,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 6,
+        "candidate_lines": 6,
+        "matched": 6,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "posix2",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 6,
+        "candidate_lines": 6,
+        "matched": 6,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1985496130073443,
+    "observe_seconds": 0.5241900030523539,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 6,
+        "candidate_lines": 6,
+        "matched": 6,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "posixexp",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 288,
+        "candidate_lines": 288,
+        "matched": 288,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.8468352810014039,
+    "observe_seconds": 3.1308840229175985,
+    "cache_entries": 13,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 288,
+        "candidate_lines": 288,
+        "matched": 288,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "posixexp",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 288,
+        "candidate_lines": 288,
+        "matched": 288,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.8761667219223455,
+    "observe_seconds": 3.111430788063444,
+    "cache_entries": 14,
+    "retained_metadata": 13,
+    "native_expected": [
+      {
+        "reference_lines": 288,
+        "candidate_lines": 288,
+        "matched": 288,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "posixexp2",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 40,
+        "candidate_lines": 40,
+        "matched": 40,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.15880184900015593,
+    "observe_seconds": 0.2718294830992818,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 40,
+        "candidate_lines": 40,
+        "matched": 40,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "posixexp2",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 40,
+        "candidate_lines": 40,
+        "matched": 40,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.19752493291161954,
+    "observe_seconds": 0.2744164699688554,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 40,
+        "candidate_lines": 40,
+        "matched": 40,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "posixpat",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 42,
+        "candidate_lines": 42,
+        "matched": 42,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11496730206999928,
+    "observe_seconds": 0.22062941698823124,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 42,
+        "candidate_lines": 42,
+        "matched": 42,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "posixpat",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 42,
+        "candidate_lines": 42,
+        "matched": 42,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1678332129959017,
+    "observe_seconds": 0.2215755139477551,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 42,
+        "candidate_lines": 42,
+        "matched": 42,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "posixpipe",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 41,
+        "candidate_lines": 41,
+        "matched": 41,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.10486792807932943,
+    "observe_seconds": 0.21862730290740728,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 41,
+        "candidate_lines": 41,
+        "matched": 41,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "posixpipe",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 41,
+        "candidate_lines": 41,
+        "matched": 41,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.10761588299646974,
+    "observe_seconds": 0.23152209701947868,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 41,
+        "candidate_lines": 41,
+        "matched": 41,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "precedence",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 28,
+        "candidate_lines": 28,
+        "matched": 28,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.13432049204129726,
+    "observe_seconds": 0.28188107698224485,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 28,
+        "candidate_lines": 28,
+        "matched": 28,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "precedence",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 28,
+        "candidate_lines": 28,
+        "matched": 28,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1327081189956516,
+    "observe_seconds": 0.3417372319381684,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 28,
+        "candidate_lines": 28,
+        "matched": 28,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "printf",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 298,
+        "candidate_lines": 298,
+        "matched": 298,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.14314341905992478,
+    "observe_seconds": 0.7673684880137444,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 298,
+        "candidate_lines": 298,
+        "matched": 298,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "printf",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 298,
+        "candidate_lines": 298,
+        "matched": 298,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1418328589061275,
+    "observe_seconds": 0.8300028879893944,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 298,
+        "candidate_lines": 298,
+        "matched": 298,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "procsub",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 33,
+        "candidate_lines": 33,
+        "matched": 33,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 2.5216801339993253,
+    "observe_seconds": 3.020542209967971,
+    "cache_entries": 2,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 33,
+        "candidate_lines": 33,
+        "matched": 33,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "procsub",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 33,
+        "candidate_lines": 33,
+        "matched": 33,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 2.5457140969811007,
+    "observe_seconds": 3.0211511780507863,
+    "cache_entries": 4,
+    "retained_metadata": 2,
+    "native_expected": [
+      {
+        "reference_lines": 33,
+        "candidate_lines": 33,
+        "matched": 33,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "quote",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 182,
+        "candidate_lines": 182,
+        "matched": 182,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.22684035904239863,
+    "observe_seconds": 1.07182809303049,
+    "cache_entries": 14,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 182,
+        "candidate_lines": 182,
+        "matched": 182,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "quote",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 182,
+        "candidate_lines": 182,
+        "matched": 182,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.22282094997353852,
+    "observe_seconds": 0.9446728059556335,
+    "cache_entries": 14,
+    "retained_metadata": 14,
+    "native_expected": [
+      {
+        "reference_lines": 182,
+        "candidate_lines": 182,
+        "matched": 182,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "read",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 66,
+        "candidate_lines": 66,
+        "matched": 66,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 7.44422055198811,
+    "observe_seconds": 8.402199192903936,
+    "cache_entries": 1,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 66,
+        "candidate_lines": 66,
+        "matched": 66,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "read",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 66,
+        "candidate_lines": 66,
+        "matched": 66,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 7.460719074006192,
+    "observe_seconds": 8.444783699000254,
+    "cache_entries": 1,
+    "retained_metadata": 1,
+    "native_expected": [
+      {
+        "reference_lines": 66,
+        "candidate_lines": 66,
+        "matched": 66,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "redir",
+    "phase": "cold",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {
+      "sleep": 4
+    },
+    "candidate_live_descendants": {
+      "sleep": 4
+    },
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 163,
+        "candidate_lines": 163,
+        "matched": 163,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.4468793800333515,
+    "observe_seconds": 2.1373448310187086,
+    "cache_entries": 1,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 163,
+        "candidate_lines": 163,
+        "matched": 163,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "redir",
+    "phase": "warm",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {
+      "sleep": 4
+    },
+    "candidate_live_descendants": {
+      "sleep": 4
+    },
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 163,
+        "candidate_lines": 163,
+        "matched": 163,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.5760733510833234,
+    "observe_seconds": 1.946064722025767,
+    "cache_entries": 1,
+    "retained_metadata": 1,
+    "native_expected": [
+      {
+        "reference_lines": 163,
+        "candidate_lines": 163,
+        "matched": 163,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "rhs-exp",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 105,
+        "candidate_lines": 105,
+        "matched": 105,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1506169990170747,
+    "observe_seconds": 0.8134337309747934,
+    "cache_entries": 35,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 105,
+        "candidate_lines": 105,
+        "matched": 105,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "rhs-exp",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 105,
+        "candidate_lines": 105,
+        "matched": 105,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.19120125193148851,
+    "observe_seconds": 0.5750019239494577,
+    "cache_entries": 35,
+    "retained_metadata": 35,
+    "native_expected": [
+      {
+        "reference_lines": 105,
+        "candidate_lines": 105,
+        "matched": 105,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "rsh",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 19,
+        "candidate_lines": 19,
+        "matched": 19,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.12019355304073542,
+    "observe_seconds": 0.4810686169657856,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 19,
+        "candidate_lines": 19,
+        "matched": 19,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "rsh",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 19,
+        "candidate_lines": 19,
+        "matched": 19,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1894072110299021,
+    "observe_seconds": 0.48007215093821287,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 19,
+        "candidate_lines": 19,
+        "matched": 19,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "set-e",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 72,
+        "candidate_lines": 72,
+        "matched": 72,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.24880954704713076,
+    "observe_seconds": 0.882477215025574,
+    "cache_entries": 1,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 72,
+        "candidate_lines": 72,
+        "matched": 72,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "set-e",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 72,
+        "candidate_lines": 72,
+        "matched": 72,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.27433460601605475,
+    "observe_seconds": 1.0048295159358531,
+    "cache_entries": 2,
+    "retained_metadata": 1,
+    "native_expected": [
+      {
+        "reference_lines": 72,
+        "candidate_lines": 72,
+        "matched": 72,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "set-x",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 60,
+        "candidate_lines": 60,
+        "matched": 60,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.12304621993098408,
+    "observe_seconds": 0.41189554904121906,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 60,
+        "candidate_lines": 60,
+        "matched": 60,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "set-x",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 60,
+        "candidate_lines": 60,
+        "matched": 60,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.132184479967691,
+    "observe_seconds": 0.3538600690662861,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 60,
+        "candidate_lines": 60,
+        "matched": 60,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "shopt",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 298,
+        "candidate_lines": 298,
+        "matched": 298,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.20672812697011977,
+    "observe_seconds": 0.6226432720432058,
+    "cache_entries": 1,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 298,
+        "candidate_lines": 298,
+        "matched": 298,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "shopt",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 298,
+        "candidate_lines": 298,
+        "matched": 298,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1945208600955084,
+    "observe_seconds": 0.6324086349923164,
+    "cache_entries": 2,
+    "retained_metadata": 1,
+    "native_expected": [
+      {
+        "reference_lines": 298,
+        "candidate_lines": 298,
+        "matched": 298,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "strip",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 12,
+        "candidate_lines": 12,
+        "matched": 12,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.10848303395323455,
+    "observe_seconds": 0.2944882899755612,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 12,
+        "candidate_lines": 12,
+        "matched": 12,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "strip",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 12,
+        "candidate_lines": 12,
+        "matched": 12,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11835797398816794,
+    "observe_seconds": 0.2794066600035876,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 12,
+        "candidate_lines": 12,
+        "matched": 12,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "test",
+    "phase": "cold",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 295,
+        "candidate_lines": 295,
+        "matched": 295,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 3.174414157983847,
+    "observe_seconds": 3.6617066899780184,
+    "cache_entries": 13,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 295,
+        "candidate_lines": 295,
+        "matched": 295,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "test",
+    "phase": "warm",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 295,
+        "candidate_lines": 295,
+        "matched": 295,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 3.189002225990407,
+    "observe_seconds": 3.553837871993892,
+    "cache_entries": 13,
+    "retained_metadata": 12,
+    "native_expected": [
+      {
+        "reference_lines": 295,
+        "candidate_lines": 295,
+        "matched": 295,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "tilde",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 28,
+        "candidate_lines": 28,
+        "matched": 28,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1079788829665631,
+    "observe_seconds": 0.2317384360358119,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 28,
+        "candidate_lines": 28,
+        "matched": 28,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "tilde",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 28,
+        "candidate_lines": 28,
+        "matched": 28,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1071155850077048,
+    "observe_seconds": 0.23702554393094033,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 28,
+        "candidate_lines": 28,
+        "matched": 28,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "tilde2",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 24,
+        "candidate_lines": 24,
+        "matched": 24,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.11076006095390767,
+    "observe_seconds": 0.27186006400734186,
+    "cache_entries": 1,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 24,
+        "candidate_lines": 24,
+        "matched": 24,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "tilde2",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 24,
+        "candidate_lines": 24,
+        "matched": 24,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.10955948999617249,
+    "observe_seconds": 0.2838810249231756,
+    "cache_entries": 1,
+    "retained_metadata": 1,
+    "native_expected": [
+      {
+        "reference_lines": 24,
+        "candidate_lines": 24,
+        "matched": 24,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "trap",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 115,
+        "candidate_lines": 115,
+        "matched": 115,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 15.167927319998853,
+    "observe_seconds": 15.707330949953757,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 115,
+        "candidate_lines": 115,
+        "matched": 115,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "trap",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 115,
+        "candidate_lines": 115,
+        "matched": 115,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 15.200141489971429,
+    "observe_seconds": 15.715202495921403,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 115,
+        "candidate_lines": 115,
+        "matched": 115,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "type",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 135,
+        "candidate_lines": 135,
+        "matched": 135,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.13591315504163504,
+    "observe_seconds": 0.7779321540147066,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 135,
+        "candidate_lines": 135,
+        "matched": 135,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "type",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 135,
+        "candidate_lines": 135,
+        "matched": 135,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.16311592399142683,
+    "observe_seconds": 0.7800883740419522,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 135,
+        "candidate_lines": 135,
+        "matched": 135,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "varenv",
+    "phase": "cold",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 270,
+        "candidate_lines": 270,
+        "matched": 270,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.23757390899118036,
+    "observe_seconds": 3.305706216953695,
+    "cache_entries": 4,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 270,
+        "candidate_lines": 270,
+        "matched": 270,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "varenv",
+    "phase": "warm",
+    "exact": false,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": false,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 1,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 270,
+        "candidate_lines": 270,
+        "matched": 270,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.23241632501594722,
+    "observe_seconds": 3.6051284009590745,
+    "cache_entries": 7,
+    "retained_metadata": 4,
+    "native_expected": [
+      {
+        "reference_lines": 270,
+        "candidate_lines": 270,
+        "matched": 270,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  },
+  {
+    "case": "vredir",
+    "phase": "cold",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 100,
+        "candidate_lines": 100,
+        "matched": 100,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.1388650059234351,
+    "observe_seconds": 1.1334035320905969,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 100,
+        "candidate_lines": 100,
+        "matched": 100,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true
+  },
+  {
+    "case": "vredir",
+    "phase": "warm",
+    "exact": true,
+    "output_match": true,
+    "captures_valid": true,
+    "expected_valid": true,
+    "lifecycle_valid": true,
+    "reference_live_descendants": {},
+    "candidate_live_descendants": {},
+    "status_equal": true,
+    "status_valid": true,
+    "driver_output_valid": true,
+    "reference_status": 0,
+    "candidate_status": 0,
+    "match": true,
+    "lines": [
+      {
+        "reference_lines": 100,
+        "candidate_lines": 100,
+        "matched": 100,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "reference_seconds": 0.15015242900699377,
+    "observe_seconds": 1.1597262899158522,
+    "cache_entries": 0,
+    "retained_metadata": 0,
+    "native_expected": [
+      {
+        "reference_lines": 100,
+        "candidate_lines": 100,
+        "matched": 100,
+        "deleted": 0,
+        "inserted": 0,
+        "replaced_reference": 0,
+        "replaced_candidate": 0
+      }
+    ],
+    "baseline_cleanup": true,
+    "observe_cleanup": true,
+    "bash_cold_warm_output_match": true,
+    "observe_cold_warm_output_match": true
+  }
+]

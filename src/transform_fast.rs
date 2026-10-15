@@ -262,9 +262,7 @@ fn transform(source: &str, prefix: &str) -> Option<String> {
                 {
                     return None;
                 }
-                if executable(Path::new(literal)).is_none() {
-                    return None;
-                }
+                executable(Path::new(literal))?;
                 positions.insert(name.start_byte());
             }
         }

@@ -77,5 +77,7 @@
     "Second clean commits and pushes",
     "Robust full-size evaluations and separate supplemental coverage",
     "Equally annotated comparison deferred until unannotated evaluation completes"
-  ]
+  ],
+  "scope": "Historical first implementation checkpoint (cache 30); its numbers remain unchanged.",
+  "latest_qualification": "FINAL_UNANNOTATED_CHECKPOINT.json"
 }

@@ -1,0 +1,170 @@
+{
+  "run": "general-dpt-archive-content-three-01",
+  "suite": "paper",
+  "profile": "scaled",
+  "expected_invocations": 6,
+  "invocations": 6,
+  "valid_invocations": 6,
+  "complete": true,
+  "failed_sequences": [],
+  "archived_sequences": [],
+  "statistics": [
+    {
+      "benchmark": "dpt",
+      "script": "dpt_2.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 175.94889874896035,
+      "median_sec": 175.94889874896035,
+      "stdev_sec": null,
+      "min_sec": 175.94889874896035,
+      "max_sec": 175.94889874896035
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_2.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 204.22211946593598,
+      "median_sec": 204.22211946593598,
+      "stdev_sec": null,
+      "min_sec": 204.22211946593598,
+      "max_sec": 204.22211946593598
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_2.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 206.9997239439981,
+      "median_sec": 206.9997239439981,
+      "stdev_sec": null,
+      "min_sec": 206.9997239439981,
+      "max_sec": 206.9997239439981
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3a.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 173.73129483801313,
+      "median_sec": 173.73129483801313,
+      "stdev_sec": null,
+      "min_sec": 173.73129483801313,
+      "max_sec": 173.73129483801313
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3a.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.4271833950188011,
+      "median_sec": 0.4271833950188011,
+      "stdev_sec": null,
+      "min_sec": 0.4271833950188011,
+      "max_sec": 0.4271833950188011
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3a.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.8876967349788174,
+      "median_sec": 0.8876967349788174,
+      "stdev_sec": null,
+      "min_sec": 0.8876967349788174,
+      "max_sec": 0.8876967349788174
+    }
+  ],
+  "ratios": [
+    {
+      "benchmark": "dpt",
+      "script": "dpt_2.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.8615565209541781
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_2.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.0136008992822416
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3a.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 406.6901870808132
+    },
+    {
+      "benchmark": "dpt",
+      "script": "dpt_3a.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 2.0780225667239436
+    }
+  ],
+  "family_totals": [
+    {
+      "benchmark": "dpt",
+      "complete_mode_totals_sec": {
+        "bash": 349.6801935869735,
+        "original": 207.88742067897692,
+        "observe": 204.64930286095478
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 22106112,
+        "observe": 8331264
+      },
+      "input_bytes": 2572077985,
+      "paper_nominal_bytes": 2400000000,
+      "size_ratio_to_paper_nominal": 1.0716991604166666
+    }
+  ],
+  "cold_overheads": [
+    {
+      "benchmark": "dpt",
+      "mode": "original",
+      "bash_sec": 175.94889874896035,
+      "mode_sec": 206.9997239439981,
+      "time_ratio": 1.176476382721442
+    },
+    {
+      "benchmark": "dpt",
+      "mode": "observe",
+      "bash_sec": 175.94889874896035,
+      "mode_sec": 204.22211946593598,
+      "time_ratio": 1.1606899555382564
+    }
+  ],
+  "summed_comparisons": [
+    {
+      "reference": "bash",
+      "matched_families": 1,
+      "reference_sum_sec": 349.6801935869735,
+      "observe_sum_sec": 204.64930286095478,
+      "summed_time_speedup": 1.7086801112855845
+    },
+    {
+      "reference": "original",
+      "matched_families": 1,
+      "reference_sum_sec": 207.88742067897692,
+      "observe_sum_sec": 204.64930286095478,
+      "summed_time_speedup": 1.0158227649581695
+    }
+  ],
+  "historical_comparisons": []
+}

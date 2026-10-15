@@ -1,0 +1,99 @@
+  t_basic
+
+  t_compiled
+
+  t_concurrent
+
+  t_content_opens
+
+  t_dependencies
+
+  t_directory_access
+
+  t_edge
+
+  t_effect_gate
+
+  t_errors
+
+  t_exit_codes
+
+  t_fd_lifecycle
+
+  t_file_ops
+
+  t_filtering
+
+  t_hash_edge
+
+  t_hash_existing
+
+  t_hash_new_files
+
+  t_json
+
+  t_large_scale
+
+  t_metadata
+
+  t_multiprocess
+
+  t_open_flags
+
+  t_output
+
+  t_overwrites
+
+  t_path_bytes
+----------------------------------------------------------------------
+Ran 15 tests in 1.155s
+
+OK
+
+  t_paths
+
+  t_pipes
+
+  t_programs
+
+  t_python_ops
+
+  t_readwrite
+
+  t_runner
+----------------------------------------------------------------------
+Ran 3 tests in 0.107s
+
+OK
+
+  t_seccomp_correctness
+
+  t_signal
+
+  t_snapshot_dirs
+
+  t_snapshot_files
+--- observe: file access report ---
+Reads:
+  /etc/ld.so.cache
+  /users/jxia3/atlas/incr
+  /usr/bin/dash
+  /usr/lib/x86_64-linux-gnu/libc.so.6
+Writes:
+  /tmp/observe_tests_2989098/t_snapshot_files/excluded
+  /tmp/observe_tests_2989098/t_snapshot_files/protected
+
+  t_snapshot_filtering
+
+  t_snapshot_kill
+
+  t_snapshot_metadata
+
+  t_snapshot_symlinks
+
+  t_special_chars
+
+
+══════════════════════════════════════════
+  39 files, 424 assertions: 424 passed, 0 failed
+══════════════════════════════════════════

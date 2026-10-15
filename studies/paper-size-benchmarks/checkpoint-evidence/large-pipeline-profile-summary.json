@@ -1,0 +1,170 @@
+{
+  "run": "general-unannotated-profile-128-01",
+  "suite": "paper",
+  "profile": "scaled",
+  "expected_invocations": 6,
+  "invocations": 6,
+  "valid_invocations": 6,
+  "complete": true,
+  "failed_sequences": [],
+  "archived_sequences": [],
+  "statistics": [
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 23.966902637970634,
+      "median_sec": 23.966902637970634,
+      "stdev_sec": null,
+      "min_sec": 23.966902637970634,
+      "max_sec": 23.966902637970634
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.1115872689988464,
+      "median_sec": 1.1115872689988464,
+      "stdev_sec": null,
+      "min_sec": 1.1115872689988464,
+      "max_sec": 1.1115872689988464
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.210528630996123,
+      "median_sec": 1.210528630996123,
+      "stdev_sec": null,
+      "min_sec": 1.210528630996123,
+      "max_sec": 1.210528630996123
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 22.987024691072293,
+      "median_sec": 22.987024691072293,
+      "stdev_sec": null,
+      "min_sec": 22.987024691072293,
+      "max_sec": 22.987024691072293
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 16.66439581196755,
+      "median_sec": 16.66439581196755,
+      "stdev_sec": null,
+      "min_sec": 16.66439581196755,
+      "max_sec": 16.66439581196755
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 18.302232422982343,
+      "median_sec": 18.302232422982343,
+      "stdev_sec": null,
+      "min_sec": 18.302232422982343,
+      "max_sec": 18.302232422982343
+    }
+  ],
+  "ratios": [
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 1.3794094277672004
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.0982835879257367
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 21.56097258972431
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.0890090816588682
+    }
+  ],
+  "family_totals": [
+    {
+      "benchmark": "word-freq",
+      "complete_mode_totals_sec": {
+        "bash": 46.953927329042926,
+        "original": 19.512761053978465,
+        "observe": 17.775983080966398
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 512589824,
+        "observe": 511983616
+      },
+      "input_bytes": 136315010,
+      "paper_nominal_bytes": 30000000,
+      "size_ratio_to_paper_nominal": 4.543833666666667
+    }
+  ],
+  "cold_overheads": [
+    {
+      "benchmark": "word-freq",
+      "mode": "original",
+      "bash_sec": 22.987024691072293,
+      "mode_sec": 18.302232422982343,
+      "time_ratio": 0.7961984062291702
+    },
+    {
+      "benchmark": "word-freq",
+      "mode": "observe",
+      "bash_sec": 22.987024691072293,
+      "mode_sec": 16.66439581196755,
+      "time_ratio": 0.7249479232708039
+    }
+  ],
+  "summed_comparisons": [
+    {
+      "reference": "bash",
+      "matched_families": 1,
+      "reference_sum_sec": 46.953927329042926,
+      "observe_sum_sec": 17.775983080966398,
+      "summed_time_speedup": 2.641425068598246
+    },
+    {
+      "reference": "original",
+      "matched_families": 1,
+      "reference_sum_sec": 19.512761053978465,
+      "observe_sum_sec": 17.775983080966398,
+      "summed_time_speedup": 1.097703624328475
+    }
+  ],
+  "historical_comparisons": []
+}

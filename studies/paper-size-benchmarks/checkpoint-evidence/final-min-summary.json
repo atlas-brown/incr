@@ -1,0 +1,4660 @@
+{
+  "run": "final-cleanup-min-01",
+  "suite": "paper",
+  "profile": "min",
+  "expected_invocations": 246,
+  "invocations": 246,
+  "valid_invocations": 246,
+  "complete": true,
+  "failed_sequences": [],
+  "archived_sequences": [],
+  "statistics": [
+    {
+      "benchmark": "beginner",
+      "script": "beginner-01.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.010892827063798904,
+      "median_sec": 0.010892827063798904,
+      "stdev_sec": null,
+      "min_sec": 0.010892827063798904,
+      "max_sec": 0.010892827063798904
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-01.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.04107686399947852,
+      "median_sec": 0.04107686399947852,
+      "stdev_sec": null,
+      "min_sec": 0.04107686399947852,
+      "max_sec": 0.04107686399947852
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-01.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.6075730819720775,
+      "median_sec": 0.6075730819720775,
+      "stdev_sec": null,
+      "min_sec": 0.6075730819720775,
+      "max_sec": 0.6075730819720775
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-02.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.010149445035494864,
+      "median_sec": 0.010149445035494864,
+      "stdev_sec": null,
+      "min_sec": 0.010149445035494864,
+      "max_sec": 0.010149445035494864
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-02.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.047700541908852756,
+      "median_sec": 0.047700541908852756,
+      "stdev_sec": null,
+      "min_sec": 0.047700541908852756,
+      "max_sec": 0.047700541908852756
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-02.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5701967199565843,
+      "median_sec": 0.5701967199565843,
+      "stdev_sec": null,
+      "min_sec": 0.5701967199565843,
+      "max_sec": 0.5701967199565843
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-03.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.010854435968212783,
+      "median_sec": 0.010854435968212783,
+      "stdev_sec": null,
+      "min_sec": 0.010854435968212783,
+      "max_sec": 0.010854435968212783
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-03.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.0413531189551577,
+      "median_sec": 0.0413531189551577,
+      "stdev_sec": null,
+      "min_sec": 0.0413531189551577,
+      "max_sec": 0.0413531189551577
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-03.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5096387390512973,
+      "median_sec": 0.5096387390512973,
+      "stdev_sec": null,
+      "min_sec": 0.5096387390512973,
+      "max_sec": 0.5096387390512973
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-04.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.011764427996240556,
+      "median_sec": 0.011764427996240556,
+      "stdev_sec": null,
+      "min_sec": 0.011764427996240556,
+      "max_sec": 0.011764427996240556
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-04.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.03757970198057592,
+      "median_sec": 0.03757970198057592,
+      "stdev_sec": null,
+      "min_sec": 0.03757970198057592,
+      "max_sec": 0.03757970198057592
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-04.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.4966522209579125,
+      "median_sec": 0.4966522209579125,
+      "stdev_sec": null,
+      "min_sec": 0.4966522209579125,
+      "max_sec": 0.4966522209579125
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-05.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.011138057918287814,
+      "median_sec": 0.011138057918287814,
+      "stdev_sec": null,
+      "min_sec": 0.011138057918287814,
+      "max_sec": 0.011138057918287814
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-05.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.038597371079958975,
+      "median_sec": 0.038597371079958975,
+      "stdev_sec": null,
+      "min_sec": 0.038597371079958975,
+      "max_sec": 0.038597371079958975
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-05.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5462408580351621,
+      "median_sec": 0.5462408580351621,
+      "stdev_sec": null,
+      "min_sec": 0.5462408580351621,
+      "max_sec": 0.5462408580351621
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-06.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.011653178022243083,
+      "median_sec": 0.011653178022243083,
+      "stdev_sec": null,
+      "min_sec": 0.011653178022243083,
+      "max_sec": 0.011653178022243083
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-06.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.0460271299816668,
+      "median_sec": 0.0460271299816668,
+      "stdev_sec": null,
+      "min_sec": 0.0460271299816668,
+      "max_sec": 0.0460271299816668
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-06.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.609052648069337,
+      "median_sec": 0.609052648069337,
+      "stdev_sec": null,
+      "min_sec": 0.609052648069337,
+      "max_sec": 0.609052648069337
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-07.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.011352313915267587,
+      "median_sec": 0.011352313915267587,
+      "stdev_sec": null,
+      "min_sec": 0.011352313915267587,
+      "max_sec": 0.011352313915267587
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-07.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.038289865013211966,
+      "median_sec": 0.038289865013211966,
+      "stdev_sec": null,
+      "min_sec": 0.038289865013211966,
+      "max_sec": 0.038289865013211966
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-07.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.6087795840576291,
+      "median_sec": 0.6087795840576291,
+      "stdev_sec": null,
+      "min_sec": 0.6087795840576291,
+      "max_sec": 0.6087795840576291
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-08.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.011926809092983603,
+      "median_sec": 0.011926809092983603,
+      "stdev_sec": null,
+      "min_sec": 0.011926809092983603,
+      "max_sec": 0.011926809092983603
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-08.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.03699697297997773,
+      "median_sec": 0.03699697297997773,
+      "stdev_sec": null,
+      "min_sec": 0.03699697297997773,
+      "max_sec": 0.03699697297997773
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-08.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5465921860886738,
+      "median_sec": 0.5465921860886738,
+      "stdev_sec": null,
+      "min_sec": 0.5465921860886738,
+      "max_sec": 0.5465921860886738
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-09.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.011644023936241865,
+      "median_sec": 0.011644023936241865,
+      "stdev_sec": null,
+      "min_sec": 0.011644023936241865,
+      "max_sec": 0.011644023936241865
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-09.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.0384596330113709,
+      "median_sec": 0.0384596330113709,
+      "stdev_sec": null,
+      "min_sec": 0.0384596330113709,
+      "max_sec": 0.0384596330113709
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-09.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.6028056920040399,
+      "median_sec": 0.6028056920040399,
+      "stdev_sec": null,
+      "min_sec": 0.6028056920040399,
+      "max_sec": 0.6028056920040399
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-10.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.011984826996922493,
+      "median_sec": 0.011984826996922493,
+      "stdev_sec": null,
+      "min_sec": 0.011984826996922493,
+      "max_sec": 0.011984826996922493
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-10.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.03865244297776371,
+      "median_sec": 0.03865244297776371,
+      "stdev_sec": null,
+      "min_sec": 0.03865244297776371,
+      "max_sec": 0.03865244297776371
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-10.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5528133179759607,
+      "median_sec": 0.5528133179759607,
+      "stdev_sec": null,
+      "min_sec": 0.5528133179759607,
+      "max_sec": 0.5528133179759607
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-11.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.010783178033307195,
+      "median_sec": 0.010783178033307195,
+      "stdev_sec": null,
+      "min_sec": 0.010783178033307195,
+      "max_sec": 0.010783178033307195
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-11.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.04140891006682068,
+      "median_sec": 0.04140891006682068,
+      "stdev_sec": null,
+      "min_sec": 0.04140891006682068,
+      "max_sec": 0.04140891006682068
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-11.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.13677435799036175,
+      "median_sec": 0.13677435799036175,
+      "stdev_sec": null,
+      "min_sec": 0.13677435799036175,
+      "max_sec": 0.13677435799036175
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-12.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.011873224982991815,
+      "median_sec": 0.011873224982991815,
+      "stdev_sec": null,
+      "min_sec": 0.011873224982991815,
+      "max_sec": 0.011873224982991815
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-12.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.04203124297782779,
+      "median_sec": 0.04203124297782779,
+      "stdev_sec": null,
+      "min_sec": 0.04203124297782779,
+      "max_sec": 0.04203124297782779
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-12.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5498189179925248,
+      "median_sec": 0.5498189179925248,
+      "stdev_sec": null,
+      "min_sec": 0.5498189179925248,
+      "max_sec": 0.5498189179925248
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-13.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.010860923095606267,
+      "median_sec": 0.010860923095606267,
+      "stdev_sec": null,
+      "min_sec": 0.010860923095606267,
+      "max_sec": 0.010860923095606267
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-13.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.04375553096178919,
+      "median_sec": 0.04375553096178919,
+      "stdev_sec": null,
+      "min_sec": 0.04375553096178919,
+      "max_sec": 0.04375553096178919
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-13.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.49904585198964924,
+      "median_sec": 0.49904585198964924,
+      "stdev_sec": null,
+      "min_sec": 0.49904585198964924,
+      "max_sec": 0.49904585198964924
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-14.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.012203828082419932,
+      "median_sec": 0.012203828082419932,
+      "stdev_sec": null,
+      "min_sec": 0.012203828082419932,
+      "max_sec": 0.012203828082419932
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-14.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.04455191805027425,
+      "median_sec": 0.04455191805027425,
+      "stdev_sec": null,
+      "min_sec": 0.04455191805027425,
+      "max_sec": 0.04455191805027425
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-14.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.145384619012475,
+      "median_sec": 0.145384619012475,
+      "stdev_sec": null,
+      "min_sec": 0.145384619012475,
+      "max_sec": 0.145384619012475
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-1.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.07320031605195254,
+      "median_sec": 0.07320031605195254,
+      "stdev_sec": null,
+      "min_sec": 0.07320031605195254,
+      "max_sec": 0.07320031605195254
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-1.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.2311819860478863,
+      "median_sec": 0.2311819860478863,
+      "stdev_sec": null,
+      "min_sec": 0.2311819860478863,
+      "max_sec": 0.2311819860478863
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-1.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.7525384479667991,
+      "median_sec": 1.7525384479667991,
+      "stdev_sec": null,
+      "min_sec": 1.7525384479667991,
+      "max_sec": 1.7525384479667991
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-2.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.07278232497628778,
+      "median_sec": 0.07278232497628778,
+      "stdev_sec": null,
+      "min_sec": 0.07278232497628778,
+      "max_sec": 0.07278232497628778
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-2.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.23599210695829242,
+      "median_sec": 0.23599210695829242,
+      "stdev_sec": null,
+      "min_sec": 0.23599210695829242,
+      "max_sec": 0.23599210695829242
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-2.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.669316297979094,
+      "median_sec": 1.669316297979094,
+      "stdev_sec": null,
+      "min_sec": 1.669316297979094,
+      "max_sec": 1.669316297979094
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-3.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.4914575640577823,
+      "median_sec": 0.4914575640577823,
+      "stdev_sec": null,
+      "min_sec": 0.4914575640577823,
+      "max_sec": 0.4914575640577823
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-3.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.9064999069087207,
+      "median_sec": 0.9064999069087207,
+      "stdev_sec": null,
+      "min_sec": 0.9064999069087207,
+      "max_sec": 0.9064999069087207
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-3.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 13.740048113977537,
+      "median_sec": 13.740048113977537,
+      "stdev_sec": null,
+      "min_sec": 13.740048113977537,
+      "max_sec": 13.740048113977537
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4-0.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.3984229640336707,
+      "median_sec": 0.3984229640336707,
+      "stdev_sec": null,
+      "min_sec": 0.3984229640336707,
+      "max_sec": 0.3984229640336707
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4-0.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.7708556469297037,
+      "median_sec": 0.7708556469297037,
+      "stdev_sec": null,
+      "min_sec": 0.7708556469297037,
+      "max_sec": 0.7708556469297037
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4-0.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 10.9076710739173,
+      "median_sec": 10.9076710739173,
+      "stdev_sec": null,
+      "min_sec": 10.9076710739173,
+      "max_sec": 10.9076710739173
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.4951945840148255,
+      "median_sec": 0.4951945840148255,
+      "stdev_sec": null,
+      "min_sec": 0.4951945840148255,
+      "max_sec": 0.4951945840148255
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.7349617589497939,
+      "median_sec": 0.7349617589497939,
+      "stdev_sec": null,
+      "min_sec": 0.7349617589497939,
+      "max_sec": 0.7349617589497939
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 10.902196480077691,
+      "median_sec": 10.902196480077691,
+      "stdev_sec": null,
+      "min_sec": 10.902196480077691,
+      "max_sec": 10.902196480077691
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-5.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5119893550872803,
+      "median_sec": 0.5119893550872803,
+      "stdev_sec": null,
+      "min_sec": 0.5119893550872803,
+      "max_sec": 0.5119893550872803
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-5.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.8716441279975697,
+      "median_sec": 0.8716441279975697,
+      "stdev_sec": null,
+      "min_sec": 0.8716441279975697,
+      "max_sec": 0.8716441279975697
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-5.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 3.1594838480232283,
+      "median_sec": 3.1594838480232283,
+      "stdev_sec": null,
+      "min_sec": 3.1594838480232283,
+      "max_sec": 3.1594838480232283
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-6.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.4986011879518628,
+      "median_sec": 0.4986011879518628,
+      "stdev_sec": null,
+      "min_sec": 0.4986011879518628,
+      "max_sec": 0.4986011879518628
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-6.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.953660776023753,
+      "median_sec": 0.953660776023753,
+      "stdev_sec": null,
+      "min_sec": 0.953660776023753,
+      "max_sec": 0.953660776023753
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-6.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 3.270229135057889,
+      "median_sec": 3.270229135057889,
+      "stdev_sec": null,
+      "min_sec": 3.270229135057889,
+      "max_sec": 3.270229135057889
+    },
+    {
+      "benchmark": "covid",
+      "script": "1.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.018166440073400736,
+      "median_sec": 0.018166440073400736,
+      "stdev_sec": null,
+      "min_sec": 0.018166440073400736,
+      "max_sec": 0.018166440073400736
+    },
+    {
+      "benchmark": "covid",
+      "script": "1.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.058451198041439056,
+      "median_sec": 0.058451198041439056,
+      "stdev_sec": null,
+      "min_sec": 0.058451198041439056,
+      "max_sec": 0.058451198041439056
+    },
+    {
+      "benchmark": "covid",
+      "script": "1.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.6279225090984255,
+      "median_sec": 1.6279225090984255,
+      "stdev_sec": null,
+      "min_sec": 1.6279225090984255,
+      "max_sec": 1.6279225090984255
+    },
+    {
+      "benchmark": "covid",
+      "script": "2.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.019926449982449412,
+      "median_sec": 0.019926449982449412,
+      "stdev_sec": null,
+      "min_sec": 0.019926449982449412,
+      "max_sec": 0.019926449982449412
+    },
+    {
+      "benchmark": "covid",
+      "script": "2.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.05177857493981719,
+      "median_sec": 0.05177857493981719,
+      "stdev_sec": null,
+      "min_sec": 0.05177857493981719,
+      "max_sec": 0.05177857493981719
+    },
+    {
+      "benchmark": "covid",
+      "script": "2.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.8542848570505157,
+      "median_sec": 0.8542848570505157,
+      "stdev_sec": null,
+      "min_sec": 0.8542848570505157,
+      "max_sec": 0.8542848570505157
+    },
+    {
+      "benchmark": "covid",
+      "script": "3.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.02462659205775708,
+      "median_sec": 0.02462659205775708,
+      "stdev_sec": null,
+      "min_sec": 0.02462659205775708,
+      "max_sec": 0.02462659205775708
+    },
+    {
+      "benchmark": "covid",
+      "script": "3.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.08277057902887464,
+      "median_sec": 0.08277057902887464,
+      "stdev_sec": null,
+      "min_sec": 0.08277057902887464,
+      "max_sec": 0.08277057902887464
+    },
+    {
+      "benchmark": "covid",
+      "script": "3.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.930693092988804,
+      "median_sec": 0.930693092988804,
+      "stdev_sec": null,
+      "min_sec": 0.930693092988804,
+      "max_sec": 0.930693092988804
+    },
+    {
+      "benchmark": "covid",
+      "script": "4.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.021315861027687788,
+      "median_sec": 0.021315861027687788,
+      "stdev_sec": null,
+      "min_sec": 0.021315861027687788,
+      "max_sec": 0.021315861027687788
+    },
+    {
+      "benchmark": "covid",
+      "script": "4.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.052103479974903166,
+      "median_sec": 0.052103479974903166,
+      "stdev_sec": null,
+      "min_sec": 0.052103479974903166,
+      "max_sec": 0.052103479974903166
+    },
+    {
+      "benchmark": "covid",
+      "script": "4.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.594538621022366,
+      "median_sec": 0.594538621022366,
+      "stdev_sec": null,
+      "min_sec": 0.594538621022366,
+      "max_sec": 0.594538621022366
+    },
+    {
+      "benchmark": "covid",
+      "script": "5.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.021902462001889944,
+      "median_sec": 0.021902462001889944,
+      "stdev_sec": null,
+      "min_sec": 0.021902462001889944,
+      "max_sec": 0.021902462001889944
+    },
+    {
+      "benchmark": "covid",
+      "script": "5.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.0569098339183256,
+      "median_sec": 0.0569098339183256,
+      "stdev_sec": null,
+      "min_sec": 0.0569098339183256,
+      "max_sec": 0.0569098339183256
+    },
+    {
+      "benchmark": "covid",
+      "script": "5.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.7844562100945041,
+      "median_sec": 0.7844562100945041,
+      "stdev_sec": null,
+      "min_sec": 0.7844562100945041,
+      "max_sec": 0.7844562100945041
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-1.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.24334497598465532,
+      "median_sec": 0.24334497598465532,
+      "stdev_sec": null,
+      "min_sec": 0.24334497598465532,
+      "max_sec": 0.24334497598465532
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-1.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5946666559902951,
+      "median_sec": 0.5946666559902951,
+      "stdev_sec": null,
+      "min_sec": 0.5946666559902951,
+      "max_sec": 0.5946666559902951
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-1.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 3.9934528480516747,
+      "median_sec": 3.9934528480516747,
+      "stdev_sec": null,
+      "min_sec": 3.9934528480516747,
+      "max_sec": 3.9934528480516747
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-2.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.2447225849609822,
+      "median_sec": 0.2447225849609822,
+      "stdev_sec": null,
+      "min_sec": 0.2447225849609822,
+      "max_sec": 0.2447225849609822
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-2.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.24181566096376628,
+      "median_sec": 0.24181566096376628,
+      "stdev_sec": null,
+      "min_sec": 0.24181566096376628,
+      "max_sec": 0.24181566096376628
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-2.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 4.9486779269063845,
+      "median_sec": 4.9486779269063845,
+      "stdev_sec": null,
+      "min_sec": 4.9486779269063845,
+      "max_sec": 4.9486779269063845
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-3.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.23958362394478172,
+      "median_sec": 0.23958362394478172,
+      "stdev_sec": null,
+      "min_sec": 0.23958362394478172,
+      "max_sec": 0.23958362394478172
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-3.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.17915296996943653,
+      "median_sec": 0.17915296996943653,
+      "stdev_sec": null,
+      "min_sec": 0.17915296996943653,
+      "max_sec": 0.17915296996943653
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-3.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.4595388530287892,
+      "median_sec": 1.4595388530287892,
+      "stdev_sec": null,
+      "min_sec": 1.4595388530287892,
+      "max_sec": 1.4595388530287892
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-4.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.28371869097463787,
+      "median_sec": 0.28371869097463787,
+      "stdev_sec": null,
+      "min_sec": 0.28371869097463787,
+      "max_sec": 0.28371869097463787
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-4.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.2552256020717323,
+      "median_sec": 0.2552256020717323,
+      "stdev_sec": null,
+      "min_sec": 0.2552256020717323,
+      "max_sec": 0.2552256020717323
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-4.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5205791869666427,
+      "median_sec": 0.5205791869666427,
+      "stdev_sec": null,
+      "min_sec": 0.5205791869666427,
+      "max_sec": 0.5205791869666427
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-5.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.3225146819604561,
+      "median_sec": 0.3225146819604561,
+      "stdev_sec": null,
+      "min_sec": 0.3225146819604561,
+      "max_sec": 0.3225146819604561
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-5.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.21329071500804275,
+      "median_sec": 0.21329071500804275,
+      "stdev_sec": null,
+      "min_sec": 0.21329071500804275,
+      "max_sec": 0.21329071500804275
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-5.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5102285959292203,
+      "median_sec": 0.5102285959292203,
+      "stdev_sec": null,
+      "min_sec": 0.5102285959292203,
+      "max_sec": 0.5102285959292203
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-6.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.29405700194183737,
+      "median_sec": 0.29405700194183737,
+      "stdev_sec": null,
+      "min_sec": 0.29405700194183737,
+      "max_sec": 0.29405700194183737
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-6.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.25764037505723536,
+      "median_sec": 0.25764037505723536,
+      "stdev_sec": null,
+      "min_sec": 0.25764037505723536,
+      "max_sec": 0.25764037505723536
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-6.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 2.908811033004895,
+      "median_sec": 2.908811033004895,
+      "stdev_sec": null,
+      "min_sec": 2.908811033004895,
+      "max_sec": 2.908811033004895
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-7.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.3183369489852339,
+      "median_sec": 0.3183369489852339,
+      "stdev_sec": null,
+      "min_sec": 0.3183369489852339,
+      "max_sec": 0.3183369489852339
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-7.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.2247574799694121,
+      "median_sec": 0.2247574799694121,
+      "stdev_sec": null,
+      "min_sec": 0.2247574799694121,
+      "max_sec": 0.2247574799694121
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-7.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.9393141740001738,
+      "median_sec": 0.9393141740001738,
+      "stdev_sec": null,
+      "min_sec": 0.9393141740001738,
+      "max_sec": 0.9393141740001738
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-1.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.013735502026975155,
+      "median_sec": 0.013735502026975155,
+      "stdev_sec": null,
+      "min_sec": 0.013735502026975155,
+      "max_sec": 0.013735502026975155
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-1.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.15418308600783348,
+      "median_sec": 0.15418308600783348,
+      "stdev_sec": null,
+      "min_sec": 0.15418308600783348,
+      "max_sec": 0.15418308600783348
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-1.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.8725012430222705,
+      "median_sec": 1.8725012430222705,
+      "stdev_sec": null,
+      "min_sec": 1.8725012430222705,
+      "max_sec": 1.8725012430222705
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-10.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.017075004056096077,
+      "median_sec": 0.017075004056096077,
+      "stdev_sec": null,
+      "min_sec": 0.017075004056096077,
+      "max_sec": 0.017075004056096077
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-10.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.16033179499208927,
+      "median_sec": 0.16033179499208927,
+      "stdev_sec": null,
+      "min_sec": 0.16033179499208927,
+      "max_sec": 0.16033179499208927
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-10.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.1521044309483841,
+      "median_sec": 0.1521044309483841,
+      "stdev_sec": null,
+      "min_sec": 0.1521044309483841,
+      "max_sec": 0.1521044309483841
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-11.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.01727031299378723,
+      "median_sec": 0.01727031299378723,
+      "stdev_sec": null,
+      "min_sec": 0.01727031299378723,
+      "max_sec": 0.01727031299378723
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-11.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.1633338410174474,
+      "median_sec": 0.1633338410174474,
+      "stdev_sec": null,
+      "min_sec": 0.1633338410174474,
+      "max_sec": 0.1633338410174474
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-11.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.6002057869918644,
+      "median_sec": 0.6002057869918644,
+      "stdev_sec": null,
+      "min_sec": 0.6002057869918644,
+      "max_sec": 0.6002057869918644
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-12.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.020753277000039816,
+      "median_sec": 0.020753277000039816,
+      "stdev_sec": null,
+      "min_sec": 0.020753277000039816,
+      "max_sec": 0.020753277000039816
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-12.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.1665550790494308,
+      "median_sec": 0.1665550790494308,
+      "stdev_sec": null,
+      "min_sec": 0.1665550790494308,
+      "max_sec": 0.1665550790494308
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-12.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5827015759423375,
+      "median_sec": 0.5827015759423375,
+      "stdev_sec": null,
+      "min_sec": 0.5827015759423375,
+      "max_sec": 0.5827015759423375
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-13.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.020681369001977146,
+      "median_sec": 0.020681369001977146,
+      "stdev_sec": null,
+      "min_sec": 0.020681369001977146,
+      "max_sec": 0.020681369001977146
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-13.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.16660517209675163,
+      "median_sec": 0.16660517209675163,
+      "stdev_sec": null,
+      "min_sec": 0.16660517209675163,
+      "max_sec": 0.16660517209675163
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-13.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5757562660146505,
+      "median_sec": 0.5757562660146505,
+      "stdev_sec": null,
+      "min_sec": 0.5757562660146505,
+      "max_sec": 0.5757562660146505
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-14.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.02328942297026515,
+      "median_sec": 0.02328942297026515,
+      "stdev_sec": null,
+      "min_sec": 0.02328942297026515,
+      "max_sec": 0.02328942297026515
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-14.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.16989094100426883,
+      "median_sec": 0.16989094100426883,
+      "stdev_sec": null,
+      "min_sec": 0.16989094100426883,
+      "max_sec": 0.16989094100426883
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-14.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.16266058501787484,
+      "median_sec": 0.16266058501787484,
+      "stdev_sec": null,
+      "min_sec": 0.16266058501787484,
+      "max_sec": 0.16266058501787484
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-15.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.023190229083411396,
+      "median_sec": 0.023190229083411396,
+      "stdev_sec": null,
+      "min_sec": 0.023190229083411396,
+      "max_sec": 0.023190229083411396
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-15.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.2457698880461976,
+      "median_sec": 0.2457698880461976,
+      "stdev_sec": null,
+      "min_sec": 0.2457698880461976,
+      "max_sec": 0.2457698880461976
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-15.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.6645337359514087,
+      "median_sec": 0.6645337359514087,
+      "stdev_sec": null,
+      "min_sec": 0.6645337359514087,
+      "max_sec": 0.6645337359514087
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-16.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.024251905968412757,
+      "median_sec": 0.024251905968412757,
+      "stdev_sec": null,
+      "min_sec": 0.024251905968412757,
+      "max_sec": 0.024251905968412757
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-16.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.1916357500012964,
+      "median_sec": 0.1916357500012964,
+      "stdev_sec": null,
+      "min_sec": 0.1916357500012964,
+      "max_sec": 0.1916357500012964
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-16.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.18067718402016908,
+      "median_sec": 0.18067718402016908,
+      "stdev_sec": null,
+      "min_sec": 0.18067718402016908,
+      "max_sec": 0.18067718402016908
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-17.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.029031933983787894,
+      "median_sec": 0.029031933983787894,
+      "stdev_sec": null,
+      "min_sec": 0.029031933983787894,
+      "max_sec": 0.029031933983787894
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-17.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.19216744205914438,
+      "median_sec": 0.19216744205914438,
+      "stdev_sec": null,
+      "min_sec": 0.19216744205914438,
+      "max_sec": 0.19216744205914438
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-17.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.0761136469664052,
+      "median_sec": 1.0761136469664052,
+      "stdev_sec": null,
+      "min_sec": 1.0761136469664052,
+      "max_sec": 1.0761136469664052
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-18.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.03206675802357495,
+      "median_sec": 0.03206675802357495,
+      "stdev_sec": null,
+      "min_sec": 0.03206675802357495,
+      "max_sec": 0.03206675802357495
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-18.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.1935217889258638,
+      "median_sec": 0.1935217889258638,
+      "stdev_sec": null,
+      "min_sec": 0.1935217889258638,
+      "max_sec": 0.1935217889258638
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-18.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5999053330160677,
+      "median_sec": 0.5999053330160677,
+      "stdev_sec": null,
+      "min_sec": 0.5999053330160677,
+      "max_sec": 0.5999053330160677
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-19.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.026885977014899254,
+      "median_sec": 0.026885977014899254,
+      "stdev_sec": null,
+      "min_sec": 0.026885977014899254,
+      "max_sec": 0.026885977014899254
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-19.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.19101094093639404,
+      "median_sec": 0.19101094093639404,
+      "stdev_sec": null,
+      "min_sec": 0.19101094093639404,
+      "max_sec": 0.19101094093639404
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-19.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.1979304060805589,
+      "median_sec": 0.1979304060805589,
+      "stdev_sec": null,
+      "min_sec": 0.1979304060805589,
+      "max_sec": 0.1979304060805589
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-2.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.01333488302771002,
+      "median_sec": 0.01333488302771002,
+      "stdev_sec": null,
+      "min_sec": 0.01333488302771002,
+      "max_sec": 0.01333488302771002
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-2.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.1591802070615813,
+      "median_sec": 0.1591802070615813,
+      "stdev_sec": null,
+      "min_sec": 0.1591802070615813,
+      "max_sec": 0.1591802070615813
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-2.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.8153064450016245,
+      "median_sec": 0.8153064450016245,
+      "stdev_sec": null,
+      "min_sec": 0.8153064450016245,
+      "max_sec": 0.8153064450016245
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-20.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.029824619996361434,
+      "median_sec": 0.029824619996361434,
+      "stdev_sec": null,
+      "min_sec": 0.029824619996361434,
+      "max_sec": 0.029824619996361434
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-20.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.24251339491456747,
+      "median_sec": 0.24251339491456747,
+      "stdev_sec": null,
+      "min_sec": 0.24251339491456747,
+      "max_sec": 0.24251339491456747
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-20.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.6544722019461915,
+      "median_sec": 0.6544722019461915,
+      "stdev_sec": null,
+      "min_sec": 0.6544722019461915,
+      "max_sec": 0.6544722019461915
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-21.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.02907677402254194,
+      "median_sec": 0.02907677402254194,
+      "stdev_sec": null,
+      "min_sec": 0.02907677402254194,
+      "max_sec": 0.02907677402254194
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-21.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.22330421803053468,
+      "median_sec": 0.22330421803053468,
+      "stdev_sec": null,
+      "min_sec": 0.22330421803053468,
+      "max_sec": 0.22330421803053468
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-21.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.22793078306131065,
+      "median_sec": 0.22793078306131065,
+      "stdev_sec": null,
+      "min_sec": 0.22793078306131065,
+      "max_sec": 0.22793078306131065
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-22.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.034246719093061984,
+      "median_sec": 0.034246719093061984,
+      "stdev_sec": null,
+      "min_sec": 0.034246719093061984,
+      "max_sec": 0.034246719093061984
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-22.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.2512685559922829,
+      "median_sec": 0.2512685559922829,
+      "stdev_sec": null,
+      "min_sec": 0.2512685559922829,
+      "max_sec": 0.2512685559922829
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-22.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.21493087895214558,
+      "median_sec": 0.21493087895214558,
+      "stdev_sec": null,
+      "min_sec": 0.21493087895214558,
+      "max_sec": 0.21493087895214558
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-3.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.013257135986350477,
+      "median_sec": 0.013257135986350477,
+      "stdev_sec": null,
+      "min_sec": 0.013257135986350477,
+      "max_sec": 0.013257135986350477
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-3.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.14967553806491196,
+      "median_sec": 0.14967553806491196,
+      "stdev_sec": null,
+      "min_sec": 0.14967553806491196,
+      "max_sec": 0.14967553806491196
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-3.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.9675027740886435,
+      "median_sec": 0.9675027740886435,
+      "stdev_sec": null,
+      "min_sec": 0.9675027740886435,
+      "max_sec": 0.9675027740886435
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-4.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.012789346976205707,
+      "median_sec": 0.012789346976205707,
+      "stdev_sec": null,
+      "min_sec": 0.012789346976205707,
+      "max_sec": 0.012789346976205707
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-4.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.14838445105124265,
+      "median_sec": 0.14838445105124265,
+      "stdev_sec": null,
+      "min_sec": 0.14838445105124265,
+      "max_sec": 0.14838445105124265
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-4.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.7740539910737425,
+      "median_sec": 0.7740539910737425,
+      "stdev_sec": null,
+      "min_sec": 0.7740539910737425,
+      "max_sec": 0.7740539910737425
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-5.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.00906385201960802,
+      "median_sec": 0.00906385201960802,
+      "stdev_sec": null,
+      "min_sec": 0.00906385201960802,
+      "max_sec": 0.00906385201960802
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-5.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.1417775530135259,
+      "median_sec": 0.1417775530135259,
+      "stdev_sec": null,
+      "min_sec": 0.1417775530135259,
+      "max_sec": 0.1417775530135259
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-5.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5975135249318555,
+      "median_sec": 0.5975135249318555,
+      "stdev_sec": null,
+      "min_sec": 0.5975135249318555,
+      "max_sec": 0.5975135249318555
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-6.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.015003502951003611,
+      "median_sec": 0.015003502951003611,
+      "stdev_sec": null,
+      "min_sec": 0.015003502951003611,
+      "max_sec": 0.015003502951003611
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-6.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.1530429299455136,
+      "median_sec": 0.1530429299455136,
+      "stdev_sec": null,
+      "min_sec": 0.1530429299455136,
+      "max_sec": 0.1530429299455136
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-6.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5881055319914594,
+      "median_sec": 0.5881055319914594,
+      "stdev_sec": null,
+      "min_sec": 0.5881055319914594,
+      "max_sec": 0.5881055319914594
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-7.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.012459011981263757,
+      "median_sec": 0.012459011981263757,
+      "stdev_sec": null,
+      "min_sec": 0.012459011981263757,
+      "max_sec": 0.012459011981263757
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-7.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.14696825004648417,
+      "median_sec": 0.14696825004648417,
+      "stdev_sec": null,
+      "min_sec": 0.14696825004648417,
+      "max_sec": 0.14696825004648417
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-7.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5880141730885953,
+      "median_sec": 0.5880141730885953,
+      "stdev_sec": null,
+      "min_sec": 0.5880141730885953,
+      "max_sec": 0.5880141730885953
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-8.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.015944098006002605,
+      "median_sec": 0.015944098006002605,
+      "stdev_sec": null,
+      "min_sec": 0.015944098006002605,
+      "max_sec": 0.015944098006002605
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-8.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.15433941700030118,
+      "median_sec": 0.15433941700030118,
+      "stdev_sec": null,
+      "min_sec": 0.15433941700030118,
+      "max_sec": 0.15433941700030118
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-8.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.14510467601940036,
+      "median_sec": 0.14510467601940036,
+      "stdev_sec": null,
+      "min_sec": 0.14510467601940036,
+      "max_sec": 0.14510467601940036
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-9.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.016665731091052294,
+      "median_sec": 0.016665731091052294,
+      "stdev_sec": null,
+      "min_sec": 0.016665731091052294,
+      "max_sec": 0.016665731091052294
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-9.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.17811805300880224,
+      "median_sec": 0.17811805300880224,
+      "stdev_sec": null,
+      "min_sec": 0.17811805300880224,
+      "max_sec": 0.17811805300880224
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-9.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.607289738021791,
+      "median_sec": 0.607289738021791,
+      "stdev_sec": null,
+      "min_sec": 0.607289738021791,
+      "max_sec": 0.607289738021791
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-1.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.019134356058202684,
+      "median_sec": 0.019134356058202684,
+      "stdev_sec": null,
+      "min_sec": 0.019134356058202684,
+      "max_sec": 0.019134356058202684
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-1.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.17715146101545542,
+      "median_sec": 0.17715146101545542,
+      "stdev_sec": null,
+      "min_sec": 0.17715146101545542,
+      "max_sec": 0.17715146101545542
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-1.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 3.3493004959309474,
+      "median_sec": 3.3493004959309474,
+      "stdev_sec": null,
+      "min_sec": 3.3493004959309474,
+      "max_sec": 3.3493004959309474
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-2.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.021430018008686602,
+      "median_sec": 0.021430018008686602,
+      "stdev_sec": null,
+      "min_sec": 0.021430018008686602,
+      "max_sec": 0.021430018008686602
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-2.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.18421081802807748,
+      "median_sec": 0.18421081802807748,
+      "stdev_sec": null,
+      "min_sec": 0.18421081802807748,
+      "max_sec": 0.18421081802807748
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-2.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 3.821509366040118,
+      "median_sec": 3.821509366040118,
+      "stdev_sec": null,
+      "min_sec": 3.821509366040118,
+      "max_sec": 3.821509366040118
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-3.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.024366957019083202,
+      "median_sec": 0.024366957019083202,
+      "stdev_sec": null,
+      "min_sec": 0.024366957019083202,
+      "max_sec": 0.024366957019083202
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-3.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.20878908806480467,
+      "median_sec": 0.20878908806480467,
+      "stdev_sec": null,
+      "min_sec": 0.20878908806480467,
+      "max_sec": 0.20878908806480467
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-3.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 4.311381776933558,
+      "median_sec": 4.311381776933558,
+      "stdev_sec": null,
+      "min_sec": 4.311381776933558,
+      "max_sec": 4.311381776933558
+    },
+    {
+      "benchmark": "nlp-uppercase",
+      "script": "uppercase_by_token.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.014006588025949895,
+      "median_sec": 0.014006588025949895,
+      "stdev_sec": null,
+      "min_sec": 0.014006588025949895,
+      "max_sec": 0.014006588025949895
+    },
+    {
+      "benchmark": "nlp-uppercase",
+      "script": "uppercase_by_token.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.15314537100493908,
+      "median_sec": 0.15314537100493908,
+      "stdev_sec": null,
+      "min_sec": 0.15314537100493908,
+      "max_sec": 0.15314537100493908
+    },
+    {
+      "benchmark": "nlp-uppercase",
+      "script": "uppercase_by_token.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.778144648997113,
+      "median_sec": 1.778144648997113,
+      "stdev_sec": null,
+      "min_sec": 1.778144648997113,
+      "max_sec": 1.778144648997113
+    },
+    {
+      "benchmark": "nlp-uppercase",
+      "script": "uppercase_by_type.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.0165171530097723,
+      "median_sec": 0.0165171530097723,
+      "stdev_sec": null,
+      "min_sec": 0.0165171530097723,
+      "max_sec": 0.0165171530097723
+    },
+    {
+      "benchmark": "nlp-uppercase",
+      "script": "uppercase_by_type.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.16357769002206624,
+      "median_sec": 0.16357769002206624,
+      "stdev_sec": null,
+      "min_sec": 0.16357769002206624,
+      "max_sec": 0.16357769002206624
+    },
+    {
+      "benchmark": "nlp-uppercase",
+      "script": "uppercase_by_type.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 2.1354062909958884,
+      "median_sec": 2.1354062909958884,
+      "stdev_sec": null,
+      "min_sec": 2.1354062909958884,
+      "max_sec": 2.1354062909958884
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-1.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.011675390996970236,
+      "median_sec": 0.011675390996970236,
+      "stdev_sec": null,
+      "min_sec": 0.011675390996970236,
+      "max_sec": 0.011675390996970236
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-1.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.04721583391074091,
+      "median_sec": 0.04721583391074091,
+      "stdev_sec": null,
+      "min_sec": 0.04721583391074091,
+      "max_sec": 0.04721583391074091
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-1.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.7070925129810348,
+      "median_sec": 1.7070925129810348,
+      "stdev_sec": null,
+      "min_sec": 1.7070925129810348,
+      "max_sec": 1.7070925129810348
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-2.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.013137581991031766,
+      "median_sec": 0.013137581991031766,
+      "stdev_sec": null,
+      "min_sec": 0.013137581991031766,
+      "max_sec": 0.013137581991031766
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-2.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.04547425406053662,
+      "median_sec": 0.04547425406053662,
+      "stdev_sec": null,
+      "min_sec": 0.04547425406053662,
+      "max_sec": 0.04547425406053662
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-2.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.6144706419436261,
+      "median_sec": 0.6144706419436261,
+      "stdev_sec": null,
+      "min_sec": 0.6144706419436261,
+      "max_sec": 0.6144706419436261
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-3.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.015096570015884936,
+      "median_sec": 0.015096570015884936,
+      "stdev_sec": null,
+      "min_sec": 0.015096570015884936,
+      "max_sec": 0.015096570015884936
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-3.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.04634155600797385,
+      "median_sec": 0.04634155600797385,
+      "stdev_sec": null,
+      "min_sec": 0.04634155600797385,
+      "max_sec": 0.04634155600797385
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-3.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.6284636970376596,
+      "median_sec": 0.6284636970376596,
+      "stdev_sec": null,
+      "min_sec": 0.6284636970376596,
+      "max_sec": 0.6284636970376596
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-4.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.021375535987317562,
+      "median_sec": 0.021375535987317562,
+      "stdev_sec": null,
+      "min_sec": 0.021375535987317562,
+      "max_sec": 0.021375535987317562
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-4.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.06189974397420883,
+      "median_sec": 0.06189974397420883,
+      "stdev_sec": null,
+      "min_sec": 0.06189974397420883,
+      "max_sec": 0.06189974397420883
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-4.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.7463733290787786,
+      "median_sec": 0.7463733290787786,
+      "stdev_sec": null,
+      "min_sec": 0.7463733290787786,
+      "max_sec": 0.7463733290787786
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-1.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.009183009038679302,
+      "median_sec": 0.009183009038679302,
+      "stdev_sec": null,
+      "min_sec": 0.009183009038679302,
+      "max_sec": 0.009183009038679302
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-1.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.04206692602019757,
+      "median_sec": 0.04206692602019757,
+      "stdev_sec": null,
+      "min_sec": 0.04206692602019757,
+      "max_sec": 0.04206692602019757
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-1.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.7375207958975807,
+      "median_sec": 0.7375207958975807,
+      "stdev_sec": null,
+      "min_sec": 0.7375207958975807,
+      "max_sec": 0.7375207958975807
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-2.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.012237304006703198,
+      "median_sec": 0.012237304006703198,
+      "stdev_sec": null,
+      "min_sec": 0.012237304006703198,
+      "max_sec": 0.012237304006703198
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-2.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.03887104301247746,
+      "median_sec": 0.03887104301247746,
+      "stdev_sec": null,
+      "min_sec": 0.03887104301247746,
+      "max_sec": 0.03887104301247746
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-2.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.7238206410547718,
+      "median_sec": 0.7238206410547718,
+      "stdev_sec": null,
+      "min_sec": 0.7238206410547718,
+      "max_sec": 0.7238206410547718
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-3.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.01087982498575002,
+      "median_sec": 0.01087982498575002,
+      "stdev_sec": null,
+      "min_sec": 0.01087982498575002,
+      "max_sec": 0.01087982498575002
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-3.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.03694284800440073,
+      "median_sec": 0.03694284800440073,
+      "stdev_sec": null,
+      "min_sec": 0.03694284800440073,
+      "max_sec": 0.03694284800440073
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-3.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5207412670133635,
+      "median_sec": 0.5207412670133635,
+      "stdev_sec": null,
+      "min_sec": 0.5207412670133635,
+      "max_sec": 0.5207412670133635
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-4.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.011543684056960046,
+      "median_sec": 0.011543684056960046,
+      "stdev_sec": null,
+      "min_sec": 0.011543684056960046,
+      "max_sec": 0.011543684056960046
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-4.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.041298386990092695,
+      "median_sec": 0.041298386990092695,
+      "stdev_sec": null,
+      "min_sec": 0.041298386990092695,
+      "max_sec": 0.041298386990092695
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-4.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5535285280784592,
+      "median_sec": 0.5535285280784592,
+      "stdev_sec": null,
+      "min_sec": 0.5535285280784592,
+      "max_sec": 0.5535285280784592
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-5.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.009743015049025416,
+      "median_sec": 0.009743015049025416,
+      "stdev_sec": null,
+      "min_sec": 0.009743015049025416,
+      "max_sec": 0.009743015049025416
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-5.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.039958983892574906,
+      "median_sec": 0.039958983892574906,
+      "stdev_sec": null,
+      "min_sec": 0.039958983892574906,
+      "max_sec": 0.039958983892574906
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-5.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5298942680237815,
+      "median_sec": 0.5298942680237815,
+      "stdev_sec": null,
+      "min_sec": 0.5298942680237815,
+      "max_sec": 0.5298942680237815
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-6.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.06764226697850972,
+      "median_sec": 0.06764226697850972,
+      "stdev_sec": null,
+      "min_sec": 0.06764226697850972,
+      "max_sec": 0.06764226697850972
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-6.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.22133023000787944,
+      "median_sec": 0.22133023000787944,
+      "stdev_sec": null,
+      "min_sec": 0.22133023000787944,
+      "max_sec": 0.22133023000787944
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-6.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.2529764419887215,
+      "median_sec": 1.2529764419887215,
+      "stdev_sec": null,
+      "min_sec": 1.2529764419887215,
+      "max_sec": 1.2529764419887215
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-7.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.06219939701259136,
+      "median_sec": 0.06219939701259136,
+      "stdev_sec": null,
+      "min_sec": 0.06219939701259136,
+      "max_sec": 0.06219939701259136
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-7.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.18965176201891154,
+      "median_sec": 0.18965176201891154,
+      "stdev_sec": null,
+      "min_sec": 0.18965176201891154,
+      "max_sec": 0.18965176201891154
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-7.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.7167590500321239,
+      "median_sec": 0.7167590500321239,
+      "stdev_sec": null,
+      "min_sec": 0.7167590500321239,
+      "max_sec": 0.7167590500321239
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "10.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.008672105963341892,
+      "median_sec": 0.008672105963341892,
+      "stdev_sec": null,
+      "min_sec": 0.008672105963341892,
+      "max_sec": 0.008672105963341892
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "10.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.0461877939524129,
+      "median_sec": 0.0461877939524129,
+      "stdev_sec": null,
+      "min_sec": 0.0461877939524129,
+      "max_sec": 0.0461877939524129
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "10.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.2569149350747466,
+      "median_sec": 1.2569149350747466,
+      "stdev_sec": null,
+      "min_sec": 1.2569149350747466,
+      "max_sec": 1.2569149350747466
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "11.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.008010310004465282,
+      "median_sec": 0.008010310004465282,
+      "stdev_sec": null,
+      "min_sec": 0.008010310004465282,
+      "max_sec": 0.008010310004465282
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "11.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.047527789953164756,
+      "median_sec": 0.047527789953164756,
+      "stdev_sec": null,
+      "min_sec": 0.047527789953164756,
+      "max_sec": 0.047527789953164756
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "11.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5670915350783616,
+      "median_sec": 0.5670915350783616,
+      "stdev_sec": null,
+      "min_sec": 0.5670915350783616,
+      "max_sec": 0.5670915350783616
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "12.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.010554166976362467,
+      "median_sec": 0.010554166976362467,
+      "stdev_sec": null,
+      "min_sec": 0.010554166976362467,
+      "max_sec": 0.010554166976362467
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "12.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.05292991502210498,
+      "median_sec": 0.05292991502210498,
+      "stdev_sec": null,
+      "min_sec": 0.05292991502210498,
+      "max_sec": 0.05292991502210498
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "12.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.6990374010056257,
+      "median_sec": 0.6990374010056257,
+      "stdev_sec": null,
+      "min_sec": 0.6990374010056257,
+      "max_sec": 0.6990374010056257
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "7.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.007797103957273066,
+      "median_sec": 0.007797103957273066,
+      "stdev_sec": null,
+      "min_sec": 0.007797103957273066,
+      "max_sec": 0.007797103957273066
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "7.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.03936848195735365,
+      "median_sec": 0.03936848195735365,
+      "stdev_sec": null,
+      "min_sec": 0.03936848195735365,
+      "max_sec": 0.03936848195735365
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "7.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.9367575339274481,
+      "median_sec": 0.9367575339274481,
+      "stdev_sec": null,
+      "min_sec": 0.9367575339274481,
+      "max_sec": 0.9367575339274481
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "8.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.009128723060712218,
+      "median_sec": 0.009128723060712218,
+      "stdev_sec": null,
+      "min_sec": 0.009128723060712218,
+      "max_sec": 0.009128723060712218
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "8.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.0417483210330829,
+      "median_sec": 0.0417483210330829,
+      "stdev_sec": null,
+      "min_sec": 0.0417483210330829,
+      "max_sec": 0.0417483210330829
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "8.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.47265056998003274,
+      "median_sec": 0.47265056998003274,
+      "stdev_sec": null,
+      "min_sec": 0.47265056998003274,
+      "max_sec": 0.47265056998003274
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "9.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.008905282942578197,
+      "median_sec": 0.008905282942578197,
+      "stdev_sec": null,
+      "min_sec": 0.008905282942578197,
+      "max_sec": 0.008905282942578197
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "9.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.043947839993052185,
+      "median_sec": 0.043947839993052185,
+      "stdev_sec": null,
+      "min_sec": 0.043947839993052185,
+      "max_sec": 0.043947839993052185
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "9.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.7082792840665206,
+      "median_sec": 0.7082792840665206,
+      "stdev_sec": null,
+      "min_sec": 0.7082792840665206,
+      "max_sec": 0.7082792840665206
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-1.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.00933198700658977,
+      "median_sec": 0.00933198700658977,
+      "stdev_sec": null,
+      "min_sec": 0.00933198700658977,
+      "max_sec": 0.00933198700658977
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-1.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.03910070995334536,
+      "median_sec": 0.03910070995334536,
+      "stdev_sec": null,
+      "min_sec": 0.03910070995334536,
+      "max_sec": 0.03910070995334536
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-1.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.3189650670392439,
+      "median_sec": 1.3189650670392439,
+      "stdev_sec": null,
+      "min_sec": 1.3189650670392439,
+      "max_sec": 1.3189650670392439
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-2.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.01063106395304203,
+      "median_sec": 0.01063106395304203,
+      "stdev_sec": null,
+      "min_sec": 0.01063106395304203,
+      "max_sec": 0.01063106395304203
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-2.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.04657042003236711,
+      "median_sec": 0.04657042003236711,
+      "stdev_sec": null,
+      "min_sec": 0.04657042003236711,
+      "max_sec": 0.04657042003236711
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-2.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.0664710860000923,
+      "median_sec": 1.0664710860000923,
+      "stdev_sec": null,
+      "min_sec": 1.0664710860000923,
+      "max_sec": 1.0664710860000923
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-3.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.014300359995104373,
+      "median_sec": 0.014300359995104373,
+      "stdev_sec": null,
+      "min_sec": 0.014300359995104373,
+      "max_sec": 0.014300359995104373
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-3.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.052161791012622416,
+      "median_sec": 0.052161791012622416,
+      "stdev_sec": null,
+      "min_sec": 0.052161791012622416,
+      "max_sec": 0.052161791012622416
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-3.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5597163729835302,
+      "median_sec": 0.5597163729835302,
+      "stdev_sec": null,
+      "min_sec": 0.5597163729835302,
+      "max_sec": 0.5597163729835302
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.7820374850416556,
+      "median_sec": 1.7820374850416556,
+      "stdev_sec": null,
+      "min_sec": 1.7820374850416556,
+      "max_sec": 1.7820374850416556
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.0989888240583241,
+      "median_sec": 0.0989888240583241,
+      "stdev_sec": null,
+      "min_sec": 0.0989888240583241,
+      "max_sec": 0.0989888240583241
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 0.5799561099847779,
+      "median_sec": 0.5799561099847779,
+      "stdev_sec": null,
+      "min_sec": 0.5799561099847779,
+      "max_sec": 0.5799561099847779
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "mode": "bash",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.829175518010743,
+      "median_sec": 1.829175518010743,
+      "stdev_sec": null,
+      "min_sec": 1.829175518010743,
+      "max_sec": 1.829175518010743
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "mode": "observe",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 1.3995429209899157,
+      "median_sec": 1.3995429209899157,
+      "stdev_sec": null,
+      "min_sec": 1.3995429209899157,
+      "max_sec": 1.3995429209899157
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "mode": "original",
+      "samples": 1,
+      "valid_samples": 1,
+      "mean_sec": 2.64931907504797,
+      "median_sec": 2.64931907504797,
+      "stdev_sec": null,
+      "min_sec": 2.64931907504797,
+      "max_sec": 2.64931907504797
+    }
+  ],
+  "ratios": [
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.40921241090845134
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 6.71544773500273
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 1.0120212395906463
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 20.46467092819061
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 1.3373131574969406
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 8.146886168160016
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 1.1116388350996915
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 2.0396824720598823
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-5.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 1.5120896469792167
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-5.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 2.3921744362382613
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-6.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 1.1413467391378855
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-6.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 11.290198721216331
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-7.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 1.4163575291401083
+    },
+    {
+      "benchmark": "file-mod",
+      "script": "file-mod-7.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 4.179234320157033
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 1.3069806510235087
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "wf.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.8929888003535258
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 18.002410898342234
+    },
+    {
+      "benchmark": "word-freq",
+      "script": "top-n.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 5.858803915511396
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.10801128000030055
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 18.90642321961285
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.11633419925110061
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 20.745303706634875
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.11670608480994994
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "script": "ngrams-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 20.649459303138375
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.24727702615698705
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 36.15508552084889
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.28890153917736927
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 13.512495248973744
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.32576743891135884
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 13.56155794444023
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.3453251114612671
+    },
+    {
+      "benchmark": "poet",
+      "script": "poet-4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 12.057777321175395
+    },
+    {
+      "benchmark": "nlp-uppercase",
+      "script": "uppercase_by_token.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.091459427954229
+    },
+    {
+      "benchmark": "nlp-uppercase",
+      "script": "uppercase_by_token.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 11.610828569802258
+    },
+    {
+      "benchmark": "nlp-uppercase",
+      "script": "uppercase_by_type.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.1009743627480262
+    },
+    {
+      "benchmark": "nlp-uppercase",
+      "script": "uppercase_by_type.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 13.054385904996135
+    },
+    {
+      "benchmark": "covid",
+      "script": "1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.31079671045444807
+    },
+    {
+      "benchmark": "covid",
+      "script": "1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 27.85096907584867
+    },
+    {
+      "benchmark": "covid",
+      "script": "2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.38483967559188614
+    },
+    {
+      "benchmark": "covid",
+      "script": "2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 16.498809749852338
+    },
+    {
+      "benchmark": "covid",
+      "script": "3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.29752832886629993
+    },
+    {
+      "benchmark": "covid",
+      "script": "3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 11.244250117715502
+    },
+    {
+      "benchmark": "covid",
+      "script": "4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.4091062830727441
+    },
+    {
+      "benchmark": "covid",
+      "script": "4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 11.41072767709065
+    },
+    {
+      "benchmark": "covid",
+      "script": "5.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.384862518371137
+    },
+    {
+      "benchmark": "covid",
+      "script": "5.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 13.784194331340341
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.08908566031865067
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 12.144660555874044
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.08377224325729904
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 5.121908433541682
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.08857249593184066
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 6.464000641634924
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.08619061421596709
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 5.216543819718907
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-5.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.06393009208406432
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-5.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 4.2144437693522
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-6.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.09803460346940014
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-6.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 3.84274877775038
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-7.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.08477349344040724
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-7.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 4.000960567351206
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-8.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.10330541812252336
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-8.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 0.9401660239465411
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-9.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.09356564822897939
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-9.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 3.4094788695662417
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-10.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.10649792860448268
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-10.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 0.9486853867998478
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-11.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.10573628150912343
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-11.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 3.6747178860977754
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-12.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.12460308696969
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-12.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 3.4985518260262802
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-13.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.12413401541920306
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-13.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 3.455812678374084
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-14.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.13708454866748876
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-14.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 0.9574411917218569
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-15.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.09435748727302308
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-15.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 2.703885904145001
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-16.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.12655209671602868
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-16.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 0.9428156490578966
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-17.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.15107623681046128
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-17.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 5.5998749602713875
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-18.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.16570102106620868
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-18.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 3.099936892614636
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-19.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.1407562147126022
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-19.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.036225491117124
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-20.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.122981330605957
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-20.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 2.698705373271232
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-21.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.130211485833044
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-21.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.0207186638549897
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-22.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.1362952835774397
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "script": "nginx-22.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 0.8553831103273687
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.2182952240025874
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 17.532081986296674
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.314817999681024
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 18.621075869315575
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.294504229464225
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 14.095861449321164
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.279519005420946
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 13.403151271047179
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-5.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.2438253954409447
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-5.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 13.260954518972273
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-6.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.30561693708130894
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-6.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 5.661117516319913
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-7.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.3279663544933952
+    },
+    {
+      "benchmark": "spell",
+      "script": "spell-7.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 3.7793429515337205
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.3166350341708288
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 7.580774254633248
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.3084099969036287
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 7.073610721540434
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.5421484992025147
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 15.157252647529592
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4-0.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.5168580727410873
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4-0.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 14.150082596348936
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.6737691832054256
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 14.833692157883323
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-5.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.5873834729587116
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-5.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 3.6247405868281573
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-6.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.5228286624419626
+    },
+    {
+      "benchmark": "bio",
+      "script": "bio-6.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 3.429132472757207
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.23866541087680043
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 33.73250942535371
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.2282793229189964
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 22.900181816244725
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.2741539298687786
+    },
+    {
+      "benchmark": "weather",
+      "script": "temp-analytics-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 10.730390236180478
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-01.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.26518156458918557
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-01.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 14.79112626464841
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-02.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.21277420820267925
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-02.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 11.953673839725525
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-03.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.2624816759283155
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-03.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 12.324070153062385
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-04.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.31305272198064044
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-04.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 13.215970185570406
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-05.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.2885703768584141
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-05.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 14.15228143138454
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-06.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.253180635570471
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-06.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 13.232470682224386
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-07.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.2964835188463176
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-07.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 15.89923557702721
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-08.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.3223725654376707
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-08.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 14.773970464677806
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-09.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.30275962156995145
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-09.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 15.673724495130143
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-10.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.31006648153694244
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-10.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 14.302157260641652
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-11.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.26040719294245146
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-11.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 3.3030175817149465
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-12.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.28248569734792633
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-12.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 13.081195773405128
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-13.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.2482182905080249
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-13.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 11.405320447955614
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-14.sh",
+      "cold": false,
+      "unchanged_source": true,
+      "reference": "bash",
+      "speedup": 0.27392374147951654
+    },
+    {
+      "benchmark": "beginner",
+      "script": "beginner-14.sh",
+      "cold": false,
+      "unchanged_source": true,
+      "reference": "original",
+      "speedup": 3.263262848715445
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "7.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.19805447326415496
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "7.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 23.79460643014382
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "8.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.21866084275528788
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "8.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 11.321427024705667
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "9.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.2026330063999972
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "9.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 16.116361672803354
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "10.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.18775752685388541
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "10.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 27.21314069188368
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "11.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.16853950104473342
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "11.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 11.931788447078853
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "12.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.1993989027179575
+    },
+    {
+      "benchmark": "unixfun",
+      "script": "12.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 13.206849108178023
+    }
+  ],
+  "family_totals": [
+    {
+      "benchmark": "file-mod",
+      "complete_mode_totals_sec": {
+        "bash": 1.9462785087525845,
+        "original": 15.28060261788778,
+        "observe": 1.9665494590299204
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 3002368,
+        "observe": 1159168
+      },
+      "input_bytes": 13533,
+      "paper_nominal_bytes": 16000000,
+      "size_ratio_to_paper_nominal": 0.0008458125
+    },
+    {
+      "benchmark": "word-freq",
+      "complete_mode_totals_sec": {
+        "bash": 3.6112130030523986,
+        "original": 3.2292751850327477,
+        "observe": 1.4985317450482398
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 40472576,
+        "observe": 39903232
+      },
+      "input_bytes": 10485770,
+      "paper_nominal_bytes": 30000000,
+      "size_ratio_to_paper_nominal": 0.3495256666666667
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "complete_mode_totals_sec": {
+        "bash": 0.06493133108597249,
+        "original": 11.482191638904624,
+        "observe": 0.5701513671083376
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 3518464,
+        "observe": 753664
+      },
+      "input_bytes": 3262,
+      "paper_nominal_bytes": 106000000,
+      "size_ratio_to_paper_nominal": 3.0773584905660376e-05
+    },
+    {
+      "benchmark": "poet",
+      "complete_mode_totals_sec": {
+        "bash": 0.0612850789912045,
+        "original": 3.696400181041099,
+        "observe": 0.20093138795346022
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 1052672,
+        "observe": 286720
+      },
+      "input_bytes": 3262,
+      "paper_nominal_bytes": 1000000000,
+      "size_ratio_to_paper_nominal": 3.262e-06
+    },
+    {
+      "benchmark": "nlp-uppercase",
+      "complete_mode_totals_sec": {
+        "bash": 0.030523741035722196,
+        "original": 3.9135509399930015,
+        "observe": 0.3167230610270053
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 1339392,
+        "observe": 335872
+      },
+      "input_bytes": 3262,
+      "paper_nominal_bytes": 200000000,
+      "size_ratio_to_paper_nominal": 1.631e-05
+    },
+    {
+      "benchmark": "covid",
+      "complete_mode_totals_sec": {
+        "bash": 0.10593780514318496,
+        "original": 4.791895290254615,
+        "observe": 0.30201366590335965
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 4878336,
+        "observe": 3747840
+      },
+      "input_bytes": 800000,
+      "paper_nominal_bytes": 381000000,
+      "size_ratio_to_paper_nominal": 0.002099737532808399
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "complete_mode_totals_sec": {
+        "bash": 0.44989736727438867,
+        "original": 12.845314912148751,
+        "observe": 3.9435782922664657
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 2633728,
+        "observe": 1462272
+      },
+      "input_bytes": 83406,
+      "paper_nominal_bytes": 974000000,
+      "size_ratio_to_paper_nominal": 8.563244353182751e-05
+    },
+    {
+      "benchmark": "spell",
+      "complete_mode_totals_sec": {
+        "bash": 0.18342850112821907,
+        "original": 5.035240992088802,
+        "observe": 0.6101201799465343
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 3198976,
+        "observe": 2273280
+      },
+      "input_bytes": 3262,
+      "paper_nominal_bytes": 3100000000,
+      "size_ratio_to_paper_nominal": 1.052258064516129e-06
+    },
+    {
+      "benchmark": "bio",
+      "complete_mode_totals_sec": {
+        "bash": 2.541648296173662,
+        "original": 45.40148339699954,
+        "observe": 4.70479630981572
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 15491072,
+        "observe": 7294976
+      },
+      "input_bytes": 1027186,
+      "paper_nominal_bytes": 3500000000,
+      "size_ratio_to_paper_nominal": 0.0002934817142857143
+    },
+    {
+      "benchmark": "weather",
+      "complete_mode_totals_sec": {
+        "bash": 0.03426341095473617,
+        "original": 2.9451525260228664,
+        "observe": 0.13783292099833488
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 634880,
+        "observe": 184320
+      },
+      "input_bytes": 5703,
+      "paper_nominal_bytes": 887000000,
+      "size_ratio_to_paper_nominal": 6.429537767756483e-06
+    },
+    {
+      "benchmark": "beginner",
+      "complete_mode_totals_sec": {
+        "bash": 0.15908150014001876,
+        "original": 6.981368795153685,
+        "observe": 0.5764812439447269
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 1523712,
+        "observe": 614400
+      },
+      "input_bytes": 80954,
+      "paper_nominal_bytes": 974000000,
+      "size_ratio_to_paper_nominal": 8.311498973305955e-05
+    },
+    {
+      "benchmark": "unixfun",
+      "complete_mode_totals_sec": {
+        "bash": 0.05306769290473312,
+        "original": 4.640731259132735,
+        "observe": 0.2717101419111714
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 1601536,
+        "observe": 626688
+      },
+      "input_bytes": 2327,
+      "paper_nominal_bytes": 1000000000,
+      "size_ratio_to_paper_nominal": 2.327e-06
+    }
+  ],
+  "cold_overheads": [
+    {
+      "benchmark": "file-mod",
+      "mode": "original",
+      "bash_sec": 0.24334497598465532,
+      "mode_sec": 3.9934528480516747,
+      "time_ratio": 16.410664867408197
+    },
+    {
+      "benchmark": "file-mod",
+      "mode": "observe",
+      "bash_sec": 0.24334497598465532,
+      "mode_sec": 0.5946666559902951,
+      "time_ratio": 2.443718649148496
+    },
+    {
+      "benchmark": "word-freq",
+      "mode": "original",
+      "bash_sec": 1.829175518010743,
+      "mode_sec": 2.64931907504797,
+      "time_ratio": 1.4483678843073222
+    },
+    {
+      "benchmark": "word-freq",
+      "mode": "observe",
+      "bash_sec": 1.829175518010743,
+      "mode_sec": 1.3995429209899157,
+      "time_ratio": 0.765122268043441
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "mode": "original",
+      "bash_sec": 0.019134356058202684,
+      "mode_sec": 3.3493004959309474,
+      "time_ratio": 175.0411921751158
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "mode": "observe",
+      "bash_sec": 0.019134356058202684,
+      "mode_sec": 0.17715146101545542,
+      "time_ratio": 9.258292282039593
+    },
+    {
+      "benchmark": "poet",
+      "mode": "original",
+      "bash_sec": 0.011675390996970236,
+      "mode_sec": 1.7070925129810348,
+      "time_ratio": 146.21287744659045
+    },
+    {
+      "benchmark": "poet",
+      "mode": "observe",
+      "bash_sec": 0.011675390996970236,
+      "mode_sec": 0.04721583391074091,
+      "time_ratio": 4.044047340512487
+    },
+    {
+      "benchmark": "nlp-uppercase",
+      "mode": "original",
+      "bash_sec": 0.014006588025949895,
+      "mode_sec": 1.778144648997113,
+      "time_ratio": 126.9505925142339
+    },
+    {
+      "benchmark": "nlp-uppercase",
+      "mode": "observe",
+      "bash_sec": 0.014006588025949895,
+      "mode_sec": 0.15314537100493908,
+      "time_ratio": 10.933809912964374
+    },
+    {
+      "benchmark": "covid",
+      "mode": "original",
+      "bash_sec": 0.018166440073400736,
+      "mode_sec": 1.6279225090984255,
+      "time_ratio": 89.6115310716284
+    },
+    {
+      "benchmark": "covid",
+      "mode": "observe",
+      "bash_sec": 0.018166440073400736,
+      "mode_sec": 0.058451198041439056,
+      "time_ratio": 3.2175372723147437
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "mode": "original",
+      "bash_sec": 0.013735502026975155,
+      "mode_sec": 1.8725012430222705,
+      "time_ratio": 136.32565008143604
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "mode": "observe",
+      "bash_sec": 0.013735502026975155,
+      "mode_sec": 0.15418308600783348,
+      "time_ratio": 11.225151123346878
+    },
+    {
+      "benchmark": "spell",
+      "mode": "original",
+      "bash_sec": 0.009183009038679302,
+      "mode_sec": 0.7375207958975807,
+      "time_ratio": 80.31363061836328
+    },
+    {
+      "benchmark": "spell",
+      "mode": "observe",
+      "bash_sec": 0.009183009038679302,
+      "mode_sec": 0.04206692602019757,
+      "time_ratio": 4.5809522611825315
+    },
+    {
+      "benchmark": "bio",
+      "mode": "original",
+      "bash_sec": 0.07320031605195254,
+      "mode_sec": 1.7525384479667991,
+      "time_ratio": 23.94167870426909
+    },
+    {
+      "benchmark": "bio",
+      "mode": "observe",
+      "bash_sec": 0.07320031605195254,
+      "mode_sec": 0.2311819860478863,
+      "time_ratio": 3.158210217068042
+    },
+    {
+      "benchmark": "weather",
+      "mode": "original",
+      "bash_sec": 0.00933198700658977,
+      "mode_sec": 1.3189650670392439,
+      "time_ratio": 141.3380736715405
+    },
+    {
+      "benchmark": "weather",
+      "mode": "observe",
+      "bash_sec": 0.00933198700658977,
+      "mode_sec": 0.03910070995334536,
+      "time_ratio": 4.189966180378781
+    },
+    {
+      "benchmark": "beginner",
+      "mode": "original",
+      "bash_sec": 0.010892827063798904,
+      "mode_sec": 0.6075730819720775,
+      "time_ratio": 55.777354989071554
+    },
+    {
+      "benchmark": "beginner",
+      "mode": "observe",
+      "bash_sec": 0.010892827063798904,
+      "mode_sec": 0.04107686399947852,
+      "time_ratio": 3.7710012064721834
+    },
+    {
+      "benchmark": "unixfun",
+      "mode": "original",
+      "bash_sec": 0.007797103957273066,
+      "mode_sec": 0.9367575339274481,
+      "time_ratio": 120.14172685919486
+    },
+    {
+      "benchmark": "unixfun",
+      "mode": "observe",
+      "bash_sec": 0.007797103957273066,
+      "mode_sec": 0.03936848195735365,
+      "time_ratio": 5.049115950369123
+    }
+  ],
+  "summed_comparisons": [
+    {
+      "reference": "bash",
+      "matched_families": 12,
+      "reference_sum_sec": 9.241556236636825,
+      "observe_sum_sec": 15.099419774953276,
+      "summed_time_speedup": 0.6120471100463476
+    },
+    {
+      "reference": "original",
+      "matched_families": 12,
+      "reference_sum_sec": 120.24320773466025,
+      "observe_sum_sec": 15.099419774953276,
+      "summed_time_speedup": 7.963432338911336
+    }
+  ],
+  "historical_comparisons": []
+}

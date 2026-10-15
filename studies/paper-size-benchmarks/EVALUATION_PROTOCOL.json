@@ -1,5 +1,5 @@
 {
-  "status": "Full evaluations not yet launched; qualification gates remain active",
+  "status": "Pre-full qualification complete; fresh full evaluations remain pending",
   "comparison": {
     "candidate": "Incr + Observe with the general execution/cache improvements and native shell compiler",
     "reference": "Pinned original Incr with the archived salted-encryption fix and opt-in static annotations",

@@ -1,0 +1,13 @@
+--- bash/capture-0
++++ observe/capture-0
+@@ -48,8 +48,8 @@
+ expect <bar>
+ argv[1] = <bar>
+ expect <unset>
+-./nameref3.sub: line 29: foo: invalid indirect expansion
+-./nameref3.sub: line 34: unset: bar: cannot unset: readonly variable
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-3q6yx3zf/run/cache/incr-script.cwLxXqKi/script/nameref3.sub: line 13: foo: invalid indirect expansion
++/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-3q6yx3zf/run/cache/incr-script.cwLxXqKi/script/nameref3.sub: line 16: unset: bar: cannot unset: readonly variable
+ expect <two>
+ two
+ expect <two>

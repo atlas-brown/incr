@@ -16,7 +16,7 @@ Independent analysis recomputes comparisons from the retained raw captures.
 | Possible skip diagnostics | 0 | 0 |
 | Native or Observe cold/warm output variations | 0 | 0 |
 | Live / final focused regression exit status | 0 / 0 | 0 / 0 |
-| Total qualification time | 750.769 s | 773.150 s |
+| Total qualification time | 749.776 s | 776.442 s |
 
 The installed-shell run enables the native frontend, directory-access assumption
 and content-validated workspace inputs used in the benchmarks (cache format 31,
@@ -34,20 +34,18 @@ All original source files, expected operands and driver statuses remain availabl
 
 ## Evidence
 
-- Installed-shell [summary](results/content-inputs-system-bash-full-01/summary.json),
-  [independent analysis](results/content-inputs-system-bash-full-01/analysis.json),
-  [case ledger](results/content-inputs-system-bash-full-01/CASE_ANALYSIS.md).
-- Defaults [summary](results/content-inputs-defaults-full-01/summary.json),
-  [independent analysis](results/content-inputs-defaults-full-01/analysis.json),
-  [case ledger](results/content-inputs-defaults-full-01/CASE_ANALYSIS.md).
-- [Current component records](results/content-inputs-components/components.json):
-  37 Rust tests (one explicitly ignored), seven Observe units, 424 integration
-  assertions and the content-input replacement regression. The serial queue
-  also passed [31 paper tests](../paper-size-benchmarks/results/content-inputs-qualification-02/paper-harness-tests.log)
-  and [seven supplemental tests](../paper-size-benchmarks/results/content-inputs-qualification-02/supplemental-harness-tests.log).
-  The Bash runner executes 20 comparator/terminal checks before each full suite.
-  Earlier AST/native-frontend component records remain historical evidence in
-  `results/final-source-components/`; final checkpoint component refresh is pending.
+- Installed-shell [summary](results/final-cleanup-system-bash-full-01/summary.json),
+  [independent analysis](results/final-cleanup-system-bash-full-01/analysis.json),
+  [case ledger](results/final-cleanup-system-bash-full-01/CASE_ANALYSIS.md).
+- Defaults [summary](results/final-cleanup-defaults-full-02/summary.json),
+  [independent analysis](results/final-cleanup-defaults-full-02/analysis.json),
+  [case ledger](results/final-cleanup-defaults-full-02/CASE_ANALYSIS.md).
+- [Current component records](results/final-cleanup-components/components.json):
+  strict Clippy in both repos, 37 Incr Rust tests (one explicitly ignored), seven
+  Observe units, 424 integration assertions, 11 AST tests and eight native-frontend
+  tests. The unchanged shared harness passed 31 paper and seven supplemental tests;
+  their original logs and source hashes are retained here. The Bash runner also
+  executes 20 comparator/terminal checks before each complete suite.
 
 Each result includes runtime source hashes, binaries, corpus metadata, setup logs,
 raw stdout/stderr, captured diff operands, launcher coverage and cache inventories.
@@ -72,6 +70,13 @@ instrumentation remain compared. The previous type-specific prefix stripping was
 removed, and a mutation test rejects observable wrapper text. Missing captures,
 changed expected operands, abnormal status, timeouts and extra live descendants
 remain failures. Tests use private /tmp and locales plus a controlling terminal.
+
+One complete final-binary defaults trial had a native printf self-test cross a
+one-second clock boundary. Native cold emitted four extra diagnostics; native
+warm and both Observe phases matched expected output. That failed reference and
+independent analysis remain in `results/final-cleanup-defaults-full-01`. A fresh
+complete 83-group run passed, including printf cold/warm. The code, corpus and
+comparison rules were unchanged; the failed run is not the current gate.
 
 The earlier cross-version exploration used a Bash 5.2 corpus against installed
 Bash 5.1: native jobs and quotearray varied between native runs, and native read

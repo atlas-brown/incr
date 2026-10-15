@@ -1,7 +1,7 @@
 {
   "current_gates": [
-    "results/content-inputs-system-bash-full-01",
-    "results/content-inputs-defaults-full-01"
+    "results/final-cleanup-system-bash-full-01",
+    "results/final-cleanup-defaults-full-02"
   ],
   "tree_digest_method": "SHA256 of UTF-8 json.dumps(relative filename -> content SHA256 mapping, sort_keys=True, separators=(comma, colon)).",
   "superseded_local_trials": [
@@ -205,5 +205,31 @@
       "payload_bytes": 2330274,
       "tree_sha256": "c64c2a9272cda0ba6a20357d9f7cad70e5a32c7251e6bf4382acddbb9d543e27"
     }
-  ]
+  ],
+  "previous_complete_gates": [
+    {
+      "run": "content-inputs-system-bash-full-01",
+      "scope": "Passing content-input implementation checkpoint before the final lint-only cleanup",
+      "retention": "Tracked raw evidence retained; not pooled with final-binary results",
+      "implementation_commits": {
+        "incr": "5dd1fc3",
+        "observe": "a72d5eb"
+      }
+    },
+    {
+      "run": "content-inputs-defaults-full-01",
+      "scope": "Passing content-input implementation checkpoint before the final lint-only cleanup",
+      "retention": "Tracked raw evidence retained; not pooled with final-binary results",
+      "implementation_commits": {
+        "incr": "5dd1fc3",
+        "observe": "a72d5eb"
+      }
+    }
+  ],
+  "retained_native_reference_failure": {
+    "run": "results/final-cleanup-defaults-full-01",
+    "failure": "printf/cold native current-time self-test crossed one second",
+    "comparison_rules_changed": false,
+    "rerun_scope": "Complete 83-group suite; no case skipped"
+  }
 }

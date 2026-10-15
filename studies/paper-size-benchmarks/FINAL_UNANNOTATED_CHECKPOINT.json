@@ -1,0 +1,526 @@
+{
+  "recorded": "2026-10-15T10:34:17.599442+00:00",
+  "status": "Qualification complete; publication is recorded by Git history and push receipts. Full-size evaluation remains pending.",
+  "annotations": false,
+  "cache_format": 31,
+  "observe_dependency_protocol": 11,
+  "implementation_parents": {
+    "incr": "5dd1fc3059e5f875cc6fc9620cd76229255e6b4b",
+    "observe": "a72d5ebc22a13d2566fabd115de2f234f525b685"
+  },
+  "release_sha256": {
+    "incr": "0cf040e55888e84121d725bb8c7e449d5d7409ef0b2b7ff1a25fdfb8ac933961",
+    "observe": "11e50b5eea0092cde1fcdc5b70f8f296383e03d2f062e92e99e99ee9b5c3507c"
+  },
+  "component_evidence": "studies/bash-parity-audit-2026-10-08/results/final-cleanup-components/components.json",
+  "bash": [
+    {
+      "result": "studies/bash-parity-audit-2026-10-08/results/final-cleanup-system-bash-full-01",
+      "complete": true,
+      "groups": 82,
+      "cold_matches": 82,
+      "warm_matches": 82,
+      "failures": [],
+      "elapsed_sec": 749.7760586659424,
+      "regressions": {
+        "live": {
+          "returncode": 0,
+          "elapsed_sec": 11.623580868938006
+        },
+        "final": {
+          "returncode": 0,
+          "elapsed_sec": 11.653425037977286
+        }
+      },
+      "scratch_cleaned": true,
+      "independent_phases": {
+        "cold": {
+          "matching_groups": 82,
+          "exact_groups": 73,
+          "reference_lines": 11373,
+          "matched_lines": 11373,
+          "deleted_lines": 0,
+          "inserted_lines": 0,
+          "replaced_reference_lines": 0,
+          "replaced_candidate_lines": 0,
+          "expected_lines": 11373,
+          "cache_entries": 379,
+          "retained_metadata": 0,
+          "groups_with_cache": 35,
+          "groups_with_retained_metadata": 0,
+          "timeouts": 0,
+          "survivors": 0
+        },
+        "warm": {
+          "matching_groups": 82,
+          "exact_groups": 73,
+          "reference_lines": 11373,
+          "matched_lines": 11373,
+          "deleted_lines": 0,
+          "inserted_lines": 0,
+          "replaced_reference_lines": 0,
+          "replaced_candidate_lines": 0,
+          "expected_lines": 11373,
+          "cache_entries": 446,
+          "retained_metadata": 378,
+          "groups_with_cache": 35,
+          "groups_with_retained_metadata": 35,
+          "timeouts": 0,
+          "survivors": 0
+        }
+      },
+      "native_expected_differences": []
+    },
+    {
+      "result": "studies/bash-parity-audit-2026-10-08/results/final-cleanup-defaults-full-02",
+      "complete": true,
+      "groups": 83,
+      "cold_matches": 83,
+      "warm_matches": 83,
+      "failures": [],
+      "elapsed_sec": 776.4420064300066,
+      "regressions": {
+        "live": {
+          "returncode": 0,
+          "elapsed_sec": 11.528819995000958
+        },
+        "final": {
+          "returncode": 0,
+          "elapsed_sec": 11.491793107939884
+        }
+      },
+      "scratch_cleaned": true,
+      "independent_phases": {
+        "cold": {
+          "matching_groups": 83,
+          "exact_groups": 73,
+          "reference_lines": 12234,
+          "matched_lines": 12234,
+          "deleted_lines": 0,
+          "inserted_lines": 0,
+          "replaced_reference_lines": 0,
+          "replaced_candidate_lines": 0,
+          "expected_lines": 12234,
+          "cache_entries": 392,
+          "retained_metadata": 0,
+          "groups_with_cache": 36,
+          "groups_with_retained_metadata": 0,
+          "timeouts": 0,
+          "survivors": 0
+        },
+        "warm": {
+          "matching_groups": 83,
+          "exact_groups": 73,
+          "reference_lines": 12234,
+          "matched_lines": 12234,
+          "deleted_lines": 0,
+          "inserted_lines": 0,
+          "replaced_reference_lines": 0,
+          "replaced_candidate_lines": 0,
+          "expected_lines": 12234,
+          "cache_entries": 461,
+          "retained_metadata": 391,
+          "groups_with_cache": 36,
+          "groups_with_retained_metadata": 36,
+          "timeouts": 0,
+          "survivors": 0
+        }
+      },
+      "native_expected_differences": [
+        "builtins",
+        "execscript"
+      ]
+    }
+  ],
+  "final_binary_diagnostics": [
+    {
+      "name": "minimum",
+      "result": "studies/paper-size-benchmarks/results/final-cleanup-min-01",
+      "valid": 246,
+      "repetitions": 1,
+      "scope": "Minimum diagnostic; not full evaluation",
+      "family_totals": [
+        {
+          "benchmark": "file-mod",
+          "complete_mode_totals_sec": {
+            "bash": 1.9462785087525845,
+            "original": 15.28060261788778,
+            "observe": 1.9665494590299204
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 3002368,
+            "observe": 1159168
+          },
+          "input_bytes": 13533,
+          "paper_nominal_bytes": 16000000,
+          "size_ratio_to_paper_nominal": 0.0008458125
+        },
+        {
+          "benchmark": "word-freq",
+          "complete_mode_totals_sec": {
+            "bash": 3.6112130030523986,
+            "original": 3.2292751850327477,
+            "observe": 1.4985317450482398
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 40472576,
+            "observe": 39903232
+          },
+          "input_bytes": 10485770,
+          "paper_nominal_bytes": 30000000,
+          "size_ratio_to_paper_nominal": 0.3495256666666667
+        },
+        {
+          "benchmark": "nlp-ngrams",
+          "complete_mode_totals_sec": {
+            "bash": 0.06493133108597249,
+            "original": 11.482191638904624,
+            "observe": 0.5701513671083376
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 3518464,
+            "observe": 753664
+          },
+          "input_bytes": 3262,
+          "paper_nominal_bytes": 106000000,
+          "size_ratio_to_paper_nominal": 3.0773584905660376e-05
+        },
+        {
+          "benchmark": "poet",
+          "complete_mode_totals_sec": {
+            "bash": 0.0612850789912045,
+            "original": 3.696400181041099,
+            "observe": 0.20093138795346022
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 1052672,
+            "observe": 286720
+          },
+          "input_bytes": 3262,
+          "paper_nominal_bytes": 1000000000,
+          "size_ratio_to_paper_nominal": 3.262e-06
+        },
+        {
+          "benchmark": "nlp-uppercase",
+          "complete_mode_totals_sec": {
+            "bash": 0.030523741035722196,
+            "original": 3.9135509399930015,
+            "observe": 0.3167230610270053
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 1339392,
+            "observe": 335872
+          },
+          "input_bytes": 3262,
+          "paper_nominal_bytes": 200000000,
+          "size_ratio_to_paper_nominal": 1.631e-05
+        },
+        {
+          "benchmark": "covid",
+          "complete_mode_totals_sec": {
+            "bash": 0.10593780514318496,
+            "original": 4.791895290254615,
+            "observe": 0.30201366590335965
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 4878336,
+            "observe": 3747840
+          },
+          "input_bytes": 800000,
+          "paper_nominal_bytes": 381000000,
+          "size_ratio_to_paper_nominal": 0.002099737532808399
+        },
+        {
+          "benchmark": "nginx-analysis",
+          "complete_mode_totals_sec": {
+            "bash": 0.44989736727438867,
+            "original": 12.845314912148751,
+            "observe": 3.9435782922664657
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 2633728,
+            "observe": 1462272
+          },
+          "input_bytes": 83406,
+          "paper_nominal_bytes": 974000000,
+          "size_ratio_to_paper_nominal": 8.563244353182751e-05
+        },
+        {
+          "benchmark": "spell",
+          "complete_mode_totals_sec": {
+            "bash": 0.18342850112821907,
+            "original": 5.035240992088802,
+            "observe": 0.6101201799465343
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 3198976,
+            "observe": 2273280
+          },
+          "input_bytes": 3262,
+          "paper_nominal_bytes": 3100000000,
+          "size_ratio_to_paper_nominal": 1.052258064516129e-06
+        },
+        {
+          "benchmark": "bio",
+          "complete_mode_totals_sec": {
+            "bash": 2.541648296173662,
+            "original": 45.40148339699954,
+            "observe": 4.70479630981572
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 15491072,
+            "observe": 7294976
+          },
+          "input_bytes": 1027186,
+          "paper_nominal_bytes": 3500000000,
+          "size_ratio_to_paper_nominal": 0.0002934817142857143
+        },
+        {
+          "benchmark": "weather",
+          "complete_mode_totals_sec": {
+            "bash": 0.03426341095473617,
+            "original": 2.9451525260228664,
+            "observe": 0.13783292099833488
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 634880,
+            "observe": 184320
+          },
+          "input_bytes": 5703,
+          "paper_nominal_bytes": 887000000,
+          "size_ratio_to_paper_nominal": 6.429537767756483e-06
+        },
+        {
+          "benchmark": "beginner",
+          "complete_mode_totals_sec": {
+            "bash": 0.15908150014001876,
+            "original": 6.981368795153685,
+            "observe": 0.5764812439447269
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 1523712,
+            "observe": 614400
+          },
+          "input_bytes": 80954,
+          "paper_nominal_bytes": 974000000,
+          "size_ratio_to_paper_nominal": 8.311498973305955e-05
+        },
+        {
+          "benchmark": "unixfun",
+          "complete_mode_totals_sec": {
+            "bash": 0.05306769290473312,
+            "original": 4.640731259132735,
+            "observe": 0.2717101419111714
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 1601536,
+            "observe": 626688
+          },
+          "input_bytes": 2327,
+          "paper_nominal_bytes": 1000000000,
+          "size_ratio_to_paper_nominal": 2.327e-06
+        }
+      ],
+      "monitor_health": "ok",
+      "configuration": {
+        "profile": "min",
+        "annotations": false,
+        "native_transform": true,
+        "assume_directory_access": true,
+        "content_validated_inputs": true
+      }
+    },
+    {
+      "name": "larger_verification",
+      "result": "studies/observe-performance-regression/results/final-cleanup-128-01",
+      "valid": 42,
+      "repetitions": 1,
+      "scope": "Synthetic scaling diagnostic from repeated minimum fixtures; not historical-size evaluation",
+      "family_totals": [
+        {
+          "benchmark": "word-freq",
+          "complete_mode_totals_sec": {
+            "bash": 44.77546060504392,
+            "original": 19.212597777019255,
+            "observe": 17.430812768056057
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 512589824,
+            "observe": 511983616
+          },
+          "input_bytes": 136315010,
+          "paper_nominal_bytes": 30000000,
+          "size_ratio_to_paper_nominal": 4.543833666666667
+        },
+        {
+          "benchmark": "poet",
+          "complete_mode_totals_sec": {
+            "bash": 103.70584262802731,
+            "original": 34.02729921997525,
+            "observe": 30.84986321895849
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 398589952,
+            "observe": 396922880
+          },
+          "input_bytes": 134218252,
+          "paper_nominal_bytes": 1000000000,
+          "size_ratio_to_paper_nominal": 0.134218252
+        },
+        {
+          "benchmark": "covid",
+          "complete_mode_totals_sec": {
+            "bash": 13.677547873230651,
+            "original": 13.667133092181757,
+            "observe": 7.268210676964372
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 484929536,
+            "observe": 483520512
+          },
+          "input_bytes": 134400000,
+          "paper_nominal_bytes": 381000000,
+          "size_ratio_to_paper_nominal": 0.352755905511811
+        },
+        {
+          "benchmark": "weather",
+          "complete_mode_totals_sec": {
+            "bash": 5.922339053009637,
+            "original": 5.194965149043128,
+            "observe": 2.513650158070959
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 10137600,
+            "observe": 9580544
+          },
+          "input_bytes": 134220105,
+          "paper_nominal_bytes": 887000000,
+          "size_ratio_to_paper_nominal": 0.15131917136414882
+        }
+      ],
+      "monitor_health": "ok",
+      "configuration": {
+        "profile": "scaled",
+        "annotations": false,
+        "native_transform": true,
+        "assume_directory_access": true,
+        "content_validated_inputs": true
+      }
+    },
+    {
+      "name": "real_model_archive",
+      "result": "studies/observe-performance-regression/results/final-cleanup-dpt-archive-01",
+      "valid": 6,
+      "repetitions": 1,
+      "scope": "One real JPEG, unchanged supplied versions 2 and 3a, full archive extraction workflow. Diagnostic only, not the full dataset.",
+      "family_totals": [
+        {
+          "benchmark": "dpt",
+          "complete_mode_totals_sec": {
+            "bash": 120.85699145798571,
+            "original": 72.35633713600691,
+            "observe": 71.69785804103594
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 17948672,
+            "observe": 2826240
+          },
+          "input_bytes": 2571907919,
+          "paper_nominal_bytes": 2400000000,
+          "size_ratio_to_paper_nominal": 1.0716282995833333
+        }
+      ],
+      "monitor_health": "ok",
+      "configuration": {
+        "profile": "scaled",
+        "annotations": false,
+        "native_transform": true,
+        "assume_directory_access": true,
+        "content_validated_inputs": true
+      }
+    },
+    {
+      "name": "supplemental_minimum",
+      "result": "studies/paper-size-benchmarks/results/final-cleanup-supplemental-min-01",
+      "valid": 30,
+      "repetitions": 2,
+      "scope": "Minimum diagnostic; not full evaluation",
+      "family_totals": [
+        {
+          "benchmark": "web-search",
+          "complete_mode_totals_sec": {
+            "bash": 1.9811630024923943,
+            "original": 10.945301038504113,
+            "observe": 2.2739187635597773
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 782336,
+            "observe": 40960
+          },
+          "input_bytes": 7580,
+          "paper_nominal_bytes": null,
+          "size_ratio_to_paper_nominal": null
+        },
+        {
+          "benchmark": "weather-tufte",
+          "complete_mode_totals_sec": {
+            "bash": 6.826647634559777,
+            "original": 18.490946753008757,
+            "observe": 10.304040344955865
+          },
+          "peak_cache_bytes": {
+            "bash": 0,
+            "original": 3526656,
+            "observe": 1310720
+          },
+          "input_bytes": 13101,
+          "paper_nominal_bytes": null,
+          "size_ratio_to_paper_nominal": null
+        }
+      ],
+      "monitor_health": "ok",
+      "configuration": {
+        "profile": "min",
+        "annotations": false,
+        "native_transform": true,
+        "assume_directory_access": true,
+        "content_validated_inputs": true
+      }
+    }
+  ],
+  "earlier_paired_diagnostics": {
+    "note": "Two paired repetitions each at 8/32/128 MiB on the pre-style binary; never pooled with final-binary timings",
+    "bundles": [
+      "paired-8.tar.gz",
+      "paired-32.tar.gz",
+      "paired-128.tar.gz"
+    ]
+  },
+  "portable_evidence": "checkpoint-evidence/manifest.json",
+  "retained_native_clock_failure": "studies/bash-parity-audit-2026-10-08/results/final-cleanup-defaults-full-01/qualification-scope.json",
+  "full_methodology": "EVALUATION_PROTOCOL.json",
+  "remaining": [
+    "Owned cleanup and complete historical-size input preparation",
+    "Full historical matrix and separate full supplemental evaluation, at least three paired repetitions",
+    "Historical and Bash-relative sanity review, variability analysis, monitored completion audit"
+  ],
+  "excluded": "Image annotation requiring an OpenAI API key"
+}

@@ -15,13 +15,33 @@ paper size descriptions. `paper` is the CLI name for this historical-size profil
 
 ## Current checkpoint status
 
-Read [ACTIVE_GOAL_HANDOFF.md](ACTIVE_GOAL_HANDOFF.md) first for the current state.
-The implementation now excludes the experimental byte-sort replacement and cut
-annotation, following the requirement to optimize general execution mechanisms.
-Earlier minimum/scaled speedups used those specializations and must not qualify
-this revised source. Correctness and performance need fresh qualification,
-including DPT. The full evaluation is incomplete; no all-benchmark speedup is
-established. Non-paper workloads need separate coverage for the broader goal.
+The final cache-31 / Observe-protocol-11 implementation is qualified for the
+selected unannotated comparison. Both full Bash suites pass cold/warm: 82 groups
+with benchmark options and 83 with defaults, plus live/final regressions. Strict
+Clippy in both repos, Rust tests, 424 tracer assertions, 11 AST tests and eight
+native-frontend tests pass. Command algorithms remain unchanged.
+
+Final-binary diagnostics validate 246/246 non-DPT minimum invocations, 42/42
+larger-input invocations, six real-model archive invocations, and 30/30 supplemental
+minimum invocations. At about 128 MiB, observed original/Observe sequence ratios
+are 1.10–2.07x and Bash/Observe ratios 1.88–3.36x. These final-binary checks are
+single verification samples; earlier 8/32/128 MiB diagnostics have two paired
+repetitions on the pre-style binaries and are reported separately. Supplemental
+minimum web-search and Tufte remain slower than Bash. No full-size performance
+claim follows from these diagnostics.
+
+See [FINAL_UNANNOTATED_CHECKPOINT.json](FINAL_UNANNOTATED_CHECKPOINT.json) for
+counts, binary hashes and result scopes, [portable evidence](checkpoint-evidence/manifest.json)
+for raw records, and [the full protocol](EVALUATION_PROTOCOL.json) for methodology.
+Each evidence archive can be unpacked with `tar -xzf <bundle> -C <empty-directory>`;
+its manifest records both archive and content-tree hashes. The retained failed
+native printf clock-boundary trial and complete clean rerun are documented in
+the [Bash report](../bash-parity-audit-2026-10-08/REPORT.md).
+
+Implementation parents `5dd1fc3` / `a72d5eb` were pushed. The final evidence
+checkpoint is prepared for publication; fresh full evaluations remain pending.
+[ACTIVE_GOAL_HANDOFF.md](ACTIVE_GOAL_HANDOFF.md) tracks the execution state.
+Archived historical-size attempts below do not establish current performance.
 
 ## Modular workflow
 
@@ -52,6 +72,11 @@ For a persistent preparation-only job, use `launch.py --stage prepare --profile
 paper --only <families> --run-id <unique-id>`. Inspect its `status.json` and saved
 input inventories; then explicitly launch a separate measurement job. No stage
 launches the next stage automatically.
+
+For the selected unannotated benchmark configuration, measurement commands use
+`--native-transform --assume-directory-access --content-validated-inputs` and final
+effect policy. These opt-in assumptions are recorded in each configuration and in
+the evaluation protocol; preparation does not accept runtime options.
 
 Choose a new run ID for each independent evaluation. `--only` accepts comma-
 separated families; execution order always follows `manifest.json`, from smaller
@@ -187,7 +212,10 @@ qualification/.venv/bin/python studies/paper-size-benchmarks/harness/plots.py \
 
 Figures are standalone PNG/PDF artifacts. Plot/report commands never execute benchmarks.
 
-## Current historical-size evaluation
+## Archived historical-size attempts
+
+The following describes a superseded attempt, retained for diagnosis. It predates
+the current unannotated implementation and is not the active evaluation.
 
 Full preparation was explicitly launched as `historical-inputs-01`, completed,
 and inspected in [FULL_INPUT_REVIEW.json](FULL_INPUT_REVIEW.json). Measurement was
@@ -213,16 +241,19 @@ failure described in the audit. `full-music-diagnostic-01` retains the targeted
 rerun. The replacement evaluation excludes invalid samples and retains failed
 family inputs, while collecting valid measurements elsewhere.
 
-## Five-minute monitor
+## Persistent monitoring
 
-`incr-bench-monitor.timer` runs a low-priority, read-only audit every five minutes.
+`incr-bench-monitor.timer` provides a low-priority, read-only audit every five
+minutes. It is currently stopped; its old target is historical-eval-02. Retarget
+the service to the fresh full run before enabling it. Qualification runs have
+separate terminal monitor records.
 It checks heartbeat/service health, free disk, resource fields, validation flags,
 and saved output/stdout/stderr comparisons against each repetition's Bash
 reference. Actual output decoding remains part of every invocation's bounded
 validator, before outputs are removed. The monitor records known failures rather
 than suppressing them, and does not restart or alter measurements.
 
-Latest audit: `results/historical-eval-02/monitor.json`; append-only history:
+Archived audit: `results/historical-eval-02/monitor.json`; append-only history:
 `monitor-history.jsonl`. The timer persists after logout. It does not wake an
 interactive chat agent or send external notifications.
 

@@ -88,7 +88,7 @@ pub(crate) fn parse_observe(
 ) -> Result<Trace> {
     let report: Report = serde_json::from_slice(&std::fs::read(path)?)
         .with_context(|| format!("decode Observe report {}", path.display()))?;
-    if !matches!(report.dependency_version, 7 | 8 | 9 | 10 | 11)
+    if !matches!(report.dependency_version, 7..=11)
         || report.directory_access_only != assume_directory_access
         || (report.directory_access_only && !matches!(report.dependency_version, 10 | 11))
         || (content_validated_inputs != (report.dependency_version == 11))

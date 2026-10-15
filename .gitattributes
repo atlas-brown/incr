@@ -5,4 +5,4 @@ studies/paper-size-benchmarks/reference/original-minimal-fixes.patch -whitespace
 studies/bash-parity-audit-2026-10-08/results/**/diffs/*.diff -whitespace
 
 # Raw component transcripts preserve their original trailing newlines.
-studies/bash-parity-audit-2026-10-08/results/content-inputs-components/*.log -whitespace
+studies/bash-parity-audit-2026-10-08/results/*components/*.log -whitespace
