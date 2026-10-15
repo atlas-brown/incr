@@ -1,0 +1,36 @@
+{
+  "suite": "paper",
+  "profile": "paper",
+  "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun,dpt",
+  "repetitions": 3,
+  "modes": [
+    "bash",
+    "original",
+    "observe"
+  ],
+  "native_transform": true,
+  "assume_directory_access": true,
+  "content_validated_inputs": true,
+  "reserve_gib": 8,
+  "annotations": false,
+  "work_budget_gib": 32,
+  "started": "2026-10-15T16:08:54.063537+00:00",
+  "manifest_sha256": "d730bd2f36359321160759264558c8d1cf55e9c106b88c55dc49af3edbe8dfd1",
+  "harness_sha256": {
+    "cleanup.py": "d1430b03e434b397112f165a1cf5172abe68cca76967de2a283e2189c7faa627",
+    "cohort_report.py": "dd53f79cf1f702908aaae4073161a11f421f85c63dba356b6806a9893b729f04",
+    "common.py": "c2a8202e15e6d8c156931d8bcce98d49d4e4f023555b1351fdcf9bd2808fc43d",
+    "fdguard.c": "7237bf748ec33b87ce1211b8e5f3faea179b46491c2a0e391892ae3afd666e43",
+    "launch.py": "a68bca148121f695ad519b5cea3b5bb1424ae093206615aaf6045417c5a6161b",
+    "monitor.py": "47efad2eb12043bbbbf7994d21c611b3905d2da9e1cb23f2fe74ef9dacd3568d",
+    "plots.py": "76e21a692c8ce92cc89c350ae33aa956aca0f9613d5443bbdb22d414c871a2bd",
+    "prepare.py": "4c10affbb196b63f86e9bb2c2fe300b8352fd911bf71c6e54b7f2f23afa21b38",
+    "study.py": "fd20cb8b15c66647aaa44114391ed9e38313e259027ad74ba606d51a25ce834c",
+    "supplemental.py": "aa684866623f966b4e70a39cc701e78ed542e90fb8b8c0c1b8085a8fd7ab4965",
+    "test_cohort_report.py": "d8ce72bef93ba1815d475eddf2f1d0cf890e614d41a0105b24796434261e5cde",
+    "test_harness.py": "110fbce296e6ba538f9e9da54abf1efcff426b0323283a2338c0c412cd7bcd90",
+    "test_supplemental.py": "8684a16f4fa464e5a0836d5735e49f82b45615076aaac278b6800994ceeed387",
+    "validate.py": "76e2240a0dfe223d7eb0e256688a62f6731b23304fcb9c380fa786ced6db2960",
+    "validation_worker.py": "ed68f84fbbff3204c54bb02983db5e5315e2c0589e9386d9e99be0028225b982"
+  }
+}

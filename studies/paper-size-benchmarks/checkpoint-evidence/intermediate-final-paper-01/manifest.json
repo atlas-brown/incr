@@ -1,0 +1,241 @@
+{
+  "version": 1,
+  "paper_results_revision": "7339eeb",
+  "original_revision": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+  "effect_policy": "final",
+  "repetitions": 3,
+  "reserve_bytes": 8589934592,
+  "max_work_bytes": 34359738368,
+  "benchmarks": [
+    {
+      "name": "file-mod",
+      "paper_nominal_bytes": 16000000,
+      "scripts": [
+        "file-mod-1.sh",
+        "file-mod-2.sh",
+        "file-mod-3.sh",
+        "file-mod-4.sh",
+        "file-mod-5.sh",
+        "file-mod-6.sh",
+        "file-mod-7.sh"
+      ],
+      "timeout_min": 180,
+      "timeout_paper": 3600,
+      "historical_expected_bytes": 16000000,
+      "prepared_order_bytes": 16825342
+    },
+    {
+      "name": "word-freq",
+      "paper_nominal_bytes": 30000000,
+      "scripts": [
+        "wf.sh",
+        "top-n.sh"
+      ],
+      "timeout_min": 180,
+      "timeout_paper": 3600,
+      "historical_expected_bytes": 31457310,
+      "prepared_order_bytes": 30810180
+    },
+    {
+      "name": "nlp-ngrams",
+      "paper_nominal_bytes": 106000000,
+      "scripts": [
+        "ngrams-1.sh",
+        "ngrams-2.sh",
+        "ngrams-3.sh"
+      ],
+      "timeout_min": 180,
+      "timeout_paper": 3600,
+      "historical_expected_bytes": 105000000,
+      "prepared_order_bytes": 105019554
+    },
+    {
+      "name": "poet",
+      "paper_nominal_bytes": 1000000000,
+      "scripts": [
+        "poet-1.sh",
+        "poet-2.sh",
+        "poet-3.sh",
+        "poet-4.sh"
+      ],
+      "timeout_min": 180,
+      "timeout_paper": 3600,
+      "historical_expected_bytes": 209715200,
+      "prepared_order_bytes": 209709305
+    },
+    {
+      "name": "nlp-uppercase",
+      "paper_nominal_bytes": 200000000,
+      "scripts": [
+        "uppercase_by_token.sh",
+        "uppercase_by_type.sh"
+      ],
+      "timeout_min": 180,
+      "timeout_paper": 3600,
+      "historical_expected_bytes": 210000000,
+      "prepared_order_bytes": 209859620
+    },
+    {
+      "name": "covid",
+      "paper_nominal_bytes": 381000000,
+      "scripts": [
+        "1.sh",
+        "2.sh",
+        "3.sh",
+        "4.sh",
+        "5.sh"
+      ],
+      "timeout_min": 180,
+      "timeout_paper": 3600,
+      "historical_expected_bytes": 381000000,
+      "prepared_order_bytes": 400003209
+    },
+    {
+      "name": "nginx-analysis",
+      "paper_nominal_bytes": 974000000,
+      "scripts": [
+        "nginx-1.sh",
+        "nginx-2.sh",
+        "nginx-3.sh",
+        "nginx-4.sh",
+        "nginx-5.sh",
+        "nginx-6.sh",
+        "nginx-7.sh",
+        "nginx-8.sh",
+        "nginx-9.sh",
+        "nginx-10.sh",
+        "nginx-11.sh",
+        "nginx-12.sh",
+        "nginx-13.sh",
+        "nginx-14.sh",
+        "nginx-15.sh",
+        "nginx-16.sh",
+        "nginx-17.sh",
+        "nginx-18.sh",
+        "nginx-19.sh",
+        "nginx-20.sh",
+        "nginx-21.sh",
+        "nginx-22.sh"
+      ],
+      "timeout_min": 180,
+      "timeout_paper": 3600,
+      "historical_expected_bytes": 510804704,
+      "prepared_order_bytes": 510804704
+    },
+    {
+      "name": "spell",
+      "paper_nominal_bytes": 3100000000,
+      "scripts": [
+        "spell-1.sh",
+        "spell-2.sh",
+        "spell-3.sh",
+        "spell-4.sh",
+        "spell-5.sh",
+        "spell-6.sh",
+        "spell-7.sh"
+      ],
+      "timeout_min": 180,
+      "timeout_paper": 7200,
+      "historical_expected_bytes": 524288000,
+      "prepared_order_bytes": 524287227
+    },
+    {
+      "name": "bio",
+      "paper_nominal_bytes": 3500000000,
+      "scripts": [
+        "bio-1.sh",
+        "bio-2.sh",
+        "bio-3.sh",
+        "bio-4-0.sh",
+        "bio-4.sh",
+        "bio-5.sh",
+        "bio-6.sh"
+      ],
+      "timeout_min": 180,
+      "timeout_paper": 7200,
+      "historical_expected_bytes": 706126302,
+      "prepared_order_bytes": 706126966
+    },
+    {
+      "name": "weather",
+      "paper_nominal_bytes": 887000000,
+      "scripts": [
+        "temp-analytics-1.sh",
+        "temp-analytics-2.sh",
+        "temp-analytics-3.sh"
+      ],
+      "timeout_min": 180,
+      "timeout_paper": 3600,
+      "historical_expected_bytes": 887000000,
+      "prepared_order_bytes": 929999187
+    },
+    {
+      "name": "beginner",
+      "paper_nominal_bytes": 974000000,
+      "scripts": [
+        "beginner-01.sh",
+        "beginner-02.sh",
+        "beginner-03.sh",
+        "beginner-04.sh",
+        "beginner-05.sh",
+        "beginner-06.sh",
+        "beginner-07.sh",
+        "beginner-08.sh",
+        "beginner-09.sh",
+        "beginner-10.sh",
+        "beginner-11.sh",
+        "beginner-12.sh",
+        "beginner-13.sh",
+        "beginner-14.sh"
+      ],
+      "timeout_min": 180,
+      "timeout_paper": 3600,
+      "historical_expected_bytes": 1021609408,
+      "prepared_order_bytes": 1021609408
+    },
+    {
+      "name": "unixfun",
+      "paper_nominal_bytes": 1000000000,
+      "scripts": [
+        "7.sh",
+        "8.sh",
+        "9.sh",
+        "10.sh",
+        "11.sh",
+        "12.sh"
+      ],
+      "timeout_min": 180,
+      "timeout_paper": 3600,
+      "historical_expected_bytes": 1070000000,
+      "prepared_order_bytes": 1069306800
+    },
+    {
+      "name": "dpt",
+      "paper_nominal_bytes": 2400000000,
+      "scripts": [
+        "dpt_1.sh",
+        "dpt_2.sh",
+        "dpt_3a.sh",
+        "dpt_3b.sh",
+        "dpt_4.sh",
+        "dpt_5a.sh",
+        "dpt_5b.sh",
+        "dpt_5c.sh",
+        "dpt_5d.sh",
+        "dpt_5e.sh"
+      ],
+      "timeout_min": 1800,
+      "timeout_paper": 7200,
+      "historical_expected_bytes": 2400000000,
+      "prepared_order_bytes": 2582708976
+    }
+  ],
+  "excluded": [
+    "image-annotation (API key)",
+    "web-search (not in paper)",
+    "Tufte weather (not in paper)"
+  ],
+  "size_policy": "Historical fetch recipes take precedence over nominal paper descriptions; prepared inventories record actual bytes.",
+  "original_baseline_label": "original Incr v1 with salted-encryption fix and explicit opt-in static annotations",
+  "original_patch": "reference/original-minimal-fixes.patch"
+}
