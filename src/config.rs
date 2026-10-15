@@ -64,6 +64,7 @@ pub(crate) struct Config {
     pub(crate) cache_directory: PathBuf,
     pub(crate) trace_type: TraceType,
     pub(crate) observe_command: Option<String>,
+    pub(crate) observe_detach_executable: Option<String>,
 
     pub(crate) effect_policy: EffectPolicy,
     pub(crate) assume_text: bool,

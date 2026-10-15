@@ -330,6 +330,9 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
             child.args(&command.arguments);
         }
         RuntimeType::TraceFile(file) | RuntimeType::Observe(file) if use_observe => {
+            if let Some(executable) = &config.observe_detach_executable {
+                child.arg("--detach-executable").arg(executable);
+            }
             child.args(["--json", "--hash", "--dependencies", "--output"]);
             child.arg(file);
             child.args(["--no-filter", "--"]);

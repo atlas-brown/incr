@@ -31,6 +31,8 @@ struct Arguments {
     cache_directory: Option<String>,
     #[arg(long = "observe")]
     observe_command: Option<String>,
+    #[arg(long = "observe-detach-executable")]
+    observe_detach_executable: Option<String>,
 
     #[arg(
         long = "effect-policy",
@@ -180,6 +182,7 @@ fn parse_input() -> Result<Option<Input>> {
         cache_directory,
         trace_type,
         observe_command: arguments.observe_command,
+        observe_detach_executable: arguments.observe_detach_executable,
 
         effect_policy: arguments.effect_policy,
         assume_text: arguments.assume_text,

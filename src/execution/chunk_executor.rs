@@ -227,6 +227,7 @@ mod tests {
                 cache_directory: directory.clone(),
                 trace_type: TraceType::Nothing,
                 observe_command: None,
+                observe_detach_executable: None,
                 effect_policy: EffectPolicy::Live,
                 assume_text: false,
                 batch_executor: false,
