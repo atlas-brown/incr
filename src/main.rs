@@ -53,6 +53,15 @@ struct Arguments {
     #[arg(long = "assume-directory-access", env = "INCR_ASSUME_DIRECTORY_ACCESS")]
     assume_directory_access: bool,
 
+    /// Validate unchanged-mtime workspace data inputs by content after inode/ctime changes.
+    /// Assumes those inputs do not expose inode identity or ctime as application data.
+    #[arg(
+        long = "content-validated-inputs",
+        env = "INCR_CONTENT_VALIDATED_INPUTS",
+        requires = "observe_command"
+    )]
+    content_validated_inputs: bool,
+
     #[arg(short = 'b', long = "batch_executor")]
     batch_executor: bool,
     #[arg(short = 's', long = "short_circuit")]
@@ -201,6 +210,7 @@ fn parse_input() -> Result<Option<Input>> {
         assume_text: arguments.assume_text,
         track_temporaries: arguments.track_temporaries,
         assume_directory_access: arguments.assume_directory_access,
+        content_validated_inputs: arguments.content_validated_inputs,
         batch_executor: arguments.batch_executor,
         short_circuit: arguments.short_circuit,
         compress_output: arguments.compress_output,

@@ -1,3 +1,5 @@
+> Historical evidence from `results/upstream`, using the former comparator that stripped function instrumentation. This is not the final qualification of current sources. Current runs retain printed function bodies unchanged; see the latest study handoff for their scope.
+
 # Case-by-case Bash analysis
 
 Effect policy: **final** (binary default; INCR_EFFECT_POLICY unset).

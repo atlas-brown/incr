@@ -1,0 +1,67 @@
+{
+  "recorded": "2026-10-15T07:07:04.675290+00:00",
+  "scope": "Component checks on unchanged final runtime/harness sources; full Bash suite evidence is recorded separately.",
+  "checks": [
+    {
+      "name": "shell-ast",
+      "command": "qualification/.venv/bin/python qualification/shell_ast_tests.py",
+      "tests": 11,
+      "exit_status": 0,
+      "log": "shell-ast.log",
+      "log_sha256": "7fbc6b826364e103c7a38691960ba251c643beefd55530e48579684dfc1f2789",
+      "original_log_modified": "2026-10-15T05:38:47.229897+00:00"
+    },
+    {
+      "name": "native-transform",
+      "command": "qualification/.venv/bin/python -m unittest qualification.native_transform_tests -q",
+      "tests": 8,
+      "exit_status": 0,
+      "log": "native-transform.log",
+      "log_sha256": "e4b1c4775b0a59fbd15782e5e485a0b4b3f4311b5ca338c28f293445e49b4bc8",
+      "original_log_modified": "2026-10-15T05:38:58.130079+00:00"
+    },
+    {
+      "name": "paper-harness",
+      "command": "python3 -m unittest discover -s studies/paper-size-benchmarks/harness -p 'test_*.py' -q",
+      "tests": 38,
+      "exit_status": 0,
+      "log": "paper-harness.log",
+      "log_sha256": "f1e2fa8b37112de3d2b4f3a91afc023624506673b12ed1a95fe0c83706b527b1",
+      "original_log_modified": "2026-10-15T07:04:28.568095+00:00"
+    },
+    {
+      "name": "supplemental-harness",
+      "command": "INCR_BENCH_SUITE=supplemental python3 -m unittest discover -s studies/paper-size-benchmarks/harness -p 'test_*.py' -q",
+      "tests": 38,
+      "exit_status": 0,
+      "log": "supplemental-harness.log",
+      "log_sha256": "287381d397e21049cd556ac63121d0d84973f9ca14af751c2a772e2c607e582e",
+      "original_log_modified": "2026-10-15T07:04:34.280192+00:00"
+    }
+  ],
+  "regression_before_fix": {
+    "log": "function-location-before-fix.log",
+    "expected_exit_status": 1,
+    "reason": "Native function location differed from transformed source under extdebug/declare-F; general source-preservation predicate corrected."
+  },
+  "files_sha256": {
+    "incr.sh": "0e1b6fbd99c9e9a3b4219d7eb1dc282108213393d50108c07d3fe135a18762db",
+    "src/scripts/insert.py": "df9dffa8edc129d5c32e5897b0a446fe3c8b734b480e7ecaf52bad88c68220cc",
+    "src/scripts/shell_ast.py": "16b34e7709b1ca94dd9e09fdd3e546d6fcc709d2ab7893acdcc9df25f243ea4b",
+    "target/release/incr": "58a75a31be8c6fa1f262809e255e98218109ff3d3129bfc3d7f6dbd8b231f568",
+    "qualification/shell_ast_tests.py": "41eeb4ad7cd982d73b7d12aeeb383e1e18409949ce104446e949c8f9670061cc",
+    "qualification/native_transform_tests.py": "49eff860e12a308b4112474da489fbaec78a4ce24a2e9b827bc8ba3958ad5347",
+    "studies/paper-size-benchmarks/harness/launch.py": "bf6bc07092cf54e35331117e2bb1faacf2f77d55ab878ef7b61d95dbc7494725",
+    "studies/paper-size-benchmarks/harness/common.py": "c2a8202e15e6d8c156931d8bcce98d49d4e4f023555b1351fdcf9bd2808fc43d",
+    "studies/paper-size-benchmarks/harness/cleanup.py": "d1430b03e434b397112f165a1cf5172abe68cca76967de2a283e2189c7faa627",
+    "studies/paper-size-benchmarks/harness/plots.py": "76e21a692c8ce92cc89c350ae33aa956aca0f9613d5443bbdb22d414c871a2bd",
+    "studies/paper-size-benchmarks/harness/supplemental.py": "aa684866623f966b4e70a39cc701e78ed542e90fb8b8c0c1b8085a8fd7ab4965",
+    "studies/paper-size-benchmarks/harness/study.py": "db32c9aba24c23dc5e157ed12a822ef1726c9ada0205188c129b645676da7e9b",
+    "studies/paper-size-benchmarks/harness/test_harness.py": "110fbce296e6ba538f9e9da54abf1efcff426b0323283a2338c0c412cd7bcd90",
+    "studies/paper-size-benchmarks/harness/monitor.py": "47efad2eb12043bbbbf7994d21c611b3905d2da9e1cb23f2fe74ef9dacd3568d",
+    "studies/paper-size-benchmarks/harness/prepare.py": "4c10affbb196b63f86e9bb2c2fe300b8352fd911bf71c6e54b7f2f23afa21b38",
+    "studies/paper-size-benchmarks/harness/test_supplemental.py": "8684a16f4fa464e5a0836d5735e49f82b45615076aaac278b6800994ceeed387",
+    "studies/paper-size-benchmarks/harness/validate.py": "76e2240a0dfe223d7eb0e256688a62f6731b23304fcb9c380fa786ced6db2960",
+    "studies/paper-size-benchmarks/harness/validation_worker.py": "ed68f84fbbff3204c54bb02983db5e5315e2c0589e9386d9e99be0028225b982"
+  }
+}

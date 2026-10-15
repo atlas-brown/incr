@@ -67,6 +67,7 @@ pub(crate) struct Config {
     pub(crate) assume_text: bool,
     pub(crate) track_temporaries: bool,
     pub(crate) assume_directory_access: bool,
+    pub(crate) content_validated_inputs: bool,
     pub(crate) batch_executor: bool,
     pub(crate) short_circuit: bool,
     pub(crate) compress_output: bool,

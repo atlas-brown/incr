@@ -42,6 +42,20 @@ pub(crate) fn capture(
     } else {
         dependency::get_read_dependencies(&trace.reads, &trace.writes)?
     };
+    if config.content_validated_inputs
+        && let Ok(workspace) = std::env::current_dir()
+    {
+        for (path, key) in &mut read_dependencies {
+            if path.starts_with(&workspace)
+                && trace.content_opens.contains(path)
+                && !trace.writes.contains(path)
+                && let Some(content) =
+                    dependency::content_validated_key(path, key, trace.initial_file_ids.get(path).copied())
+            {
+                *key = content;
+            }
+        }
+    }
     if config.effect_policy == crate::config::EffectPolicy::FinalOutputs {
         for path in &trace.overwrites {
             if let Some(initial) = read_dependencies.get(path).cloned()

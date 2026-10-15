@@ -76,6 +76,31 @@ class NativeTransformTests(unittest.TestCase):
         self.assertEqual((result.returncode,result.stdout,result.stderr),(0,b'a\nb\n',b''))
         self.assertEqual(list(cache.glob('incr-script.*')),[])
 
+    def test_compiler_diagnostics_and_failure_preserve_native_execution(self):
+        source=self.base/'program.sh';source.write_text("echo native; exit 7\n")
+        for status in (0,1):
+            compiler=self.base/f'compiler-{status}'
+            compiler.write_text(f"#!/bin/sh\necho parser-warning >&2\necho invalid-transformed-source\nexit {status}\n")
+            compiler.chmod(0o755)
+            cache=self.base/f'cache-{status}'
+            env=dict(self.env,INCR_NATIVE_TRANSFORM='0',INCR_CACHE_DIR=str(cache),
+                     INCR_TOP=str(ROOT),INCR_OBSERVE='1',INCR_PYTHON=str(compiler))
+            result=subprocess.run(['/bin/bash',str(ROOT/'incr.sh'),str(source)],
+                                  env=env,capture_output=True,timeout=10)
+            self.assertEqual((result.returncode,result.stdout,result.stderr),(7,b'native\n',b''))
+            self.assertEqual(list(cache.glob('incr-script.*')),[])
+
+    def test_function_location_introspection_preserves_original_source(self):
+        source=self.base/'locations.sh'
+        source.write_text("arbitrary_name() { printf ok; }\nshopt -s extdebug\ndeclare -F arbitrary_name\n")
+        expected=subprocess.run(['/bin/bash',str(source)],env=self.env,capture_output=True,timeout=10)
+        for frontend in ('0','1'):
+            env=dict(self.env,INCR_NATIVE_TRANSFORM=frontend,INCR_CACHE_DIR=str(self.base/f'cache-{frontend}'),
+                     INCR_TOP=str(ROOT),INCR_OBSERVE='1',INCR_PYTHON=str(PYTHON))
+            actual=subprocess.run(['/bin/bash',str(ROOT/'incr.sh'),str(source)],env=env,capture_output=True,timeout=10)
+            self.assertEqual((actual.returncode,actual.stdout,actual.stderr),
+                             (expected.returncode,expected.stdout,expected.stderr))
+
     def test_rejection_has_no_capability_marker(self):
         for index,text in enumerate(["f() { echo hi; }; f", "echo $LINENO", "echo $(", "cat <<EOF\nx\nEOF", "echo ${x:?bad}", "sort &", "sort |& cat", "sort 2>&1"]):
             source=self.base/f'reject-{index}.sh';source.write_text(text)

@@ -5,7 +5,7 @@ Bolt-on incremental execution for the shell. Caches command outputs and reuses t
 ## Quick Start
 
 ```bash
-# Build incr and observe (observe is optional but recommended for write commands)
+# Build incr and the optional Observe tracing backend
 cargo build --release
 cd ../observe && cargo build --release && cd ../incr
 
@@ -13,7 +13,7 @@ cd ../observe && cargo build --release && cd ../incr
 ./incr.sh my_script.sh [/path/to/cache]
 ```
 
-When **observe** is built as a sibling project (`../observe/target/release/observe`), incr.sh automatically uses it for write commands, avoiding the sandbox setup used by the fallback mode (try + strace). incr works without observe; it falls back to try + strace for write commands.
+When **observe** is built as a sibling project (`../observe/target/release/observe`), incr.sh automatically uses it to trace commands on the live filesystem. Without Observe, the default backend uses try + strace. Static tool annotations are off by default in both cases.
 
 ---
 
@@ -47,7 +47,7 @@ run shell source, pass `bash -c '...'` explicitly.
 Example:
 
 ```bash
-# Read-only (uses TraceFile)
+# Read-only command (traced by Observe)
 echo "" | ./target/release/incr -t ./src/scripts/try.sh -c /tmp/cache --observe ../observe/target/release/observe -- cat input.txt
 
 # Write (uses Observe when --observe is passed)
@@ -58,12 +58,13 @@ echo "" | ./target/release/incr -t ./src/scripts/try.sh -c /tmp/cache --observe 
 
 ## Using observe
 
-**observe** is a lightweight ptrace-based tracer that records file reads/writes. incr uses it instead of strace + the try filesystem sandbox for commands that write files.
+**observe** is a ptrace/seccomp tracer that records file reads, writes and their dependencies. Incr uses it instead of strace + the try filesystem sandbox when `--observe` is selected.
 
 ### Why use observe?
 
 Observe traces commands on the live filesystem, avoiding the fallback's per-command
-mergerfs sandbox setup. This also preserves live shared-file and FIFO interactions.
+mergerfs sandbox setup. The explicit live effect policy supports shared-file and
+FIFO interactions that require intermediate effects.
 Actual speedups depend on the workload and whether its effects can safely replay;
 see the [minimum-input qualification results](qualification/results/2026-10-08/EVALUATION.md).
 
@@ -78,19 +79,24 @@ see the [minimum-input qualification results](qualification/results/2026-10-08/E
 
 3. **Direct mode**: Pass `--observe ../observe/target/release/observe` (or the full path) to the incr binary.
 
-### When observe is used
+### Backend selection
 
-- **Write commands** (echo > file, cp, sed -i, etc.): Use Observe mode (replaces Sandbox)
-- **Known read-only tool forms** (e.g. cat or head): Use TraceFile with observe for lighter tracing
-- **Known stream-only system-tool forms** (e.g. stdin-only `rev`): No tracing
+With annotations disabled, commands start in Observe mode. An observed execution
+without filesystem outputs creates a read-only witness for later invocations;
+Observe still traces unexpected writes and coordinates effects. Valid cache
+candidates can replay after dependency and complete-stdin validation.
+
+Static tool annotations are opt-in with `-a`. They can select read-only tracing
+or omit tracing for guarded stream-only system-tool forms. They are disabled in
+the initial benchmark comparison for both original Incr and Incr+Observe.
 
 ### Fallback: try + strace
 
-When observe is **not** available (not built or not passed via `--observe`), incr falls back to **try + strace**:
-
-- **Write commands**: Run inside a **try** filesystem sandbox. The command executes in an isolated overlay; strace records file access; try commit applies changes to the real filesystem. Requires `mergerfs` (or `unionfs`) and `try.sh`.
-- **Read-only commands**: Use **strace** to trace file reads (TraceFile mode). No sandbox.
-- **Known stream-only system-tool forms**: No tracing (Nothing mode).
+Without Observe, the default backend runs commands through try and strace.
+The command executes in a mergerfs/unionfs overlay; strace records file access,
+and try commit applies changes to the real filesystem. With `-a`, guarded
+read-only forms can use strace without an overlay and guarded pure forms can
+omit tracing. This backend requires `try.sh` and its filesystem dependencies.
 
 This fallback works without the observe project. It adds sandbox setup and commit overhead. Use it when Observe is unavailable; its overlay is not a security boundary.
 
@@ -113,7 +119,18 @@ The policy is part of the cache key; commands and byte streams still execute nor
 assumes directory stat/access results are used for existence and access checks,
 not directory timestamps or inode identities. Observe still tracks directory
 opens/listings, permissions, ownership and symlink resolution. This option is off
-by default, recorded in protocol 10 reports, and separated in the cache key.
+by default, recorded in protocol 10/11 reports, and separated in the cache key.
+`--content-validated-inputs` (or `INCR_CONTENT_VALIDATED_INPUTS=true`) additionally
+allows read-only regular workspace files opened for content to retain cached
+results after inode/ctime changes. Modification time, size, content, permissions,
+ownership, link count and effective access still have to match. Unchanged
+identity/ctime is the fast path; drift requires rehashing. Paths queried only through stat/access or O_PATH, files outside the workspace,
+and written files retain strict checks. A successful read-only regular-file open
+identifies a content input, including programs that also fstat that descriptor. This opt-in
+assumes the content input's inode/ctime are not application data, and is useful
+when archive extraction recreates identical inputs. It requires Observe protocol
+11 and has a separate cache key; strict defaults are unchanged.
+
 Static performance annotations are disabled by default. Enable them with
 `-a` / `--enable_annotations`; this also enables supported chunk optimizations.
 When enabled, tool annotations apply only to resolved system tools, so custom PATH programs
@@ -141,7 +158,7 @@ Both policies validate saved payloads before replay. File replay distinguishes
 in-place writes from pathname replacement so existing hard-link aliases receive the
 correct final contents. Final policy also supports rename/unlink outputs; ownership,
 timestamp and special-file operations still require live execution. Cache key version
-28, effect manifest version 3 and Observe dependency protocols 9/10 reject incompatible
+31, effect manifest version 3 and Observe dependency protocols 9/10/11 reject incompatible
 entries. External network state, clocks and randomness are not general memoization inputs.
 
 With `-a`, plain `cat` and simple alphanumeric `tr` translations can reuse independent

@@ -1,12 +1,98 @@
 # Observe performance regression investigation
 
-Current checkpoint (October 14, 2026, America/New_York): command-specific sort
+Previous checkpoint (October 14, 2026, America/New_York): command-specific sort
 execution and the new cut annotation have been removed at the user's request.
 Only general execution/tracing/cache/frontend optimization is authorized going
 forward. Earlier measurements below retain their original implementation scope;
 they do not qualify the revised source. See the
 [active handoff](../paper-size-benchmarks/ACTIVE_GOAL_HANDOFF.md).
 
+
+## Current attribution and qualification (October 15, UTC)
+
+The cache-31 implementation adds an explicit content-input assumption, with
+Observe protocol 11 reporting successful read-only regular-file opens. No command
+algorithm is substituted. Both complete Bash suites pass cold and warm: 82 groups
+with benchmark options and 83 with defaults. Live/final regressions pass, as do
+37 active Incr Rust tests, seven Observe units and 424 integration assertions.
+The 12 non-DPT minimum families pass all 246 comparisons; Observe is faster than
+original in every family in that single diagnostic pass (2.292x–18.189x).
+Two paired 8 MiB targets pass 84/84 with unchanged provenance: original/Observe
+ratios are 2.205x word frequency, 2.753x Poet, 6.482x COVID and 9.544x weather.
+COVID remains slower than Bash at that size. Actual word-frequency input is
+10,485,770 bytes, unchanged from its minimum; real scaling starts at the next
+stage. The 32 MiB stage also passes 84/84 with valid provenance and a healthy
+monitor: original/Observe ratios are 1.299x, 1.578x, 3.429x and 3.765x;
+Bash/Observe ratios are 2.359x, 3.268x, 1.400x and 1.639x respectively. Actual
+bytes are 41,943,080 / 33,556,194 / 33,600,000 / 33,556,452. Original is still
+slower than Bash on COVID/weather here. The 128 MiB stage passes 84/84, with
+valid provenance and a healthy monitor: original/Observe ratios 1.0776x, 1.1011x,
+1.8379x, 1.8471x; Bash/Observe 2.5121x, 3.4656x, 1.7775x, 2.2297x. Actual bytes
+are 136,315,010 / 134,218,252 / 134,400,000 / 134,220,105. Original is faster than
+Bash in three families, with COVID about 3.4% slower (near parity). The large
+word-frequency/Poet gains over original are modest. Final-source real-model and
+supplemental gates remain pending.
+Final checkpoint pushes and full evaluation have not happened.
+
+### What limits the gain on large cached pipelines
+
+`results/general-unannotated-profile-128-01` is a separate cache-30 attribution
+probe, with six validated invocations and verified unchanged provenance. Its
+136,315,010-byte word-frequency edited pipeline replays the unchanged prefix;
+repeated sorting or an unsupported-effect barrier does not explain its near
+parity with original Incr. Selected warm per-process times are:
+
+| Stage | Wall (s) | Candidate validation (s) | Stdin phase (s) | Replay (s) |
+|---|---:|---:|---:|---:|
+| Character translation | 0.3963 | 0.0543 | 0.1728 | 0.1343 |
+| Empty-line filter | 0.6427 | 0.0501 | 0.3455 | 0.1998 |
+| Lowercase translation | 0.7738 | 0.0498 | 0.5913 | 0.1035 |
+| Lexical ordering | 1.0373 | 0.0497 | 0.7244 | 0.2212 |
+| Counting | 1.0721 | 0.0005 | 1.0354 | 0.0003 |
+| Count ordering | 1.0752 | 0.0004 | 1.0720 | 0.0004 |
+
+Stdin includes upstream waiting, spooling, hashing and forwarding; it is not a
+measurement of hashing alone. Candidate validation includes saved-payload
+integrity checks. These nested/concurrent durations must not be summed as wall
+time. The changed final formatting command is new work. Cache hits still move
+large streams through the pipeline in both engines, so replacing the tracing
+backend cannot eliminate their shared I/O. This does not justify removing payload
+validation or adding a custom ordering implementation. Cold execution additionally
+pays for the original tools' computation. Current-source larger samples must
+confirm the ratios; these attribution samples are not primary performance data.
+
+### A genuine avoidable invalidation
+
+The full DPT workflow re-extracts a fixed-timestamp archive. Identical bytes retain
+mtime but change ctime. Original Incr reused classification, while strict Observe
+recomputed it: one-image edited time was 0.631s original versus 16.323s Observe
+in `general-dpt-archive-02`. A generic fault probe also showed that simply ignoring
+ctime allows stale results after same-size, preserved-mtime content edits.
+
+The opt-in policy now permits identity/ctime drift only for read-only regular
+workspace inputs whose content, mtime, size, mode, ownership, link count and
+effective access still match. Drift requires rehashing. Paths queried only through
+stat/access or O_PATH remain strict. Successful readable opens identify content
+inputs, including programs that also fstat those descriptors; the contract assumes
+inode/ctime are not application data for them. Written files and files outside
+the workspace retain their existing checks. Strict defaults remain unchanged.
+
+`general-archive-content-01` confirms identical extraction hits and changed-byte
+invalidation. In `general-dpt-archive-content-01`, all six real-model outputs
+validate and source provenance is unchanged. Native times were 59.325/58.164s,
+original 72.124/0.616s, Observe 69.770/0.175s. The warm segment and classification
+profiles explicitly record replay; classification candidate validation is 19.5ms.
+This is one sample: it supports the mechanism and a warm improvement, not a
+similarly large whole-sequence claim. Cold model computation still dominates.
+
+All current comparisons disable static annotations in both engines. Historical
+Incr used annotations, so differences from those original timings need this
+configuration distinction as well as actual input sizes and hardware context.
+Full repeated results, Bash-relative slowdowns and historical discrepancies must
+remain visible. See the [active handoff](../paper-size-benchmarks/ACTIVE_GOAL_HANDOFF.md)
+and [evaluation protocol](../paper-size-benchmarks/EVALUATION_PROTOCOL.json).
+
+## Earlier investigation history
 
 Current comparison policy: static pure/read-only/stateless performance annotations
 are disabled by default in both original Incr and Incr+Observe. The existing `-a`
@@ -16,7 +102,7 @@ with unequal annotation coverage are diagnostic only. Finish the unannotated
 end-to-end evaluation first; a comparison with annotations on both sides is deferred.
 
 `general-unannotated-one-01` passes 84/84 exact comparisons across two repetitions
-of 1 MiB repeated-record fixtures, with unchanged provenance. Whole-sequence
+of nominal 1 MiB repeated-fixture targets (word frequency was already 10 MiB), with unchanged provenance. Whole-sequence
 original/Observe ratios: word frequency 2.253x, Poet 8.836x, COVID 14.928x,
 weather 13.029x. The native frontend and explicit directory-access assumption
 were enabled. These are synthetic diagnostics, not historical-size qualification.
@@ -627,3 +713,50 @@ COVID 0.829x and weather 0.958x: all slower. This is synthetic scaling, not the
 historical dataset. The subsequent checkpoint removes the sort-specific executor
 and cut annotation rather than extending the command-specific optimization plan.
 Fresh qualification must measure the general implementation.
+
+Current fair diagnostic scope: both implementations disable static annotations;
+no command algorithms are replaced. `general-unannotated-thirtytwo-01` passes
+84/84 exact comparisons over two repetitions with unchanged provenance. Actual
+inputs are 32.0–40.0 MiB because complete minimum-fixture copies round upward.
+Complete-sequence speedups (reference seconds / Observe seconds):
+
+| Family | Original / Observe | Bash / Observe | Bash / original |
+|---|---:|---:|---:|
+| Word frequency | 1.237× | 2.407× | 1.947× |
+| Poet | 1.492× | 3.140× | 2.105× |
+| COVID | 3.308× | 1.306× | 0.395× |
+| Weather | 3.749× | 1.575× | 0.420× |
+
+The whole-sequence gaps shrink as cold data processing becomes dominant; this
+does not imply lost incremental reuse. For word frequency the two edited runs
+average 0.388 seconds for Observe, 0.769 seconds for original Incr and 7.155
+seconds for Bash, while cold Observe averages 5.330 seconds. Full-size and more
+diverse data remain necessary; repeated minimum records do not reproduce their
+distributions. Original Incr's COVID/weather Bash regressions need larger-input
+investigation before final conclusions.
+
+The separate Tufte minimum sequence is a known Bash-relative exception under
+investigation. Native final-version plotting averages 6.929 seconds out of a
+6.976-second sequence; Observe takes 9.938 seconds for that version, original
+Incr 15.579 seconds. Inspection of the supplied three scripts confirms plotting
+is introduced only by version three, so it is new work without a prior cached
+plot. The earlier native preprocessing totals about 0.047 seconds. This explains
+why large Bash-relative reuse gains are not expected for this minimum sequence;
+it does not excuse tracer overhead or establish the full-data outcome. No
+algorithm substitution or fake warm edit is used to change that result.
+
+`general-unannotated-128-01` completes the larger diagnostic: 84/84 exact
+comparisons, two paired repetitions, unchanged provenance. Actual input bytes:
+word frequency 136,315,010; Poet 134,218,252; COVID 134,400,000; weather
+134,220,105. Original/Observe sequence ratios are 1.069×, 1.161×, 1.824× and
+2.074×. Bash/Observe ratios are 2.683×, 3.460×, 1.765× and 2.256×. Original Incr
+beats Bash on three families; its COVID sequence mean is 3.3% slower, versus the
+larger relative overhead on tiny inputs.
+
+Word-frequency edits average 1.107s for original Incr, 1.137s for Observe and
+23.270s for Bash. With two samples this is near parity between the Incr engines;
+it is not evidence of a universal large improvement over original Incr. A separate
+instrumented phase diagnostic is queued after DPT qualification to attribute
+stream transfer, validation and replay costs before deciding whether any general
+change is justified. It does not replace the primary paired samples. Full-size
+and more diverse input distributions still require evaluation.

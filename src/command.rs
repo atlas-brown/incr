@@ -333,6 +333,9 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
             if config.assume_directory_access {
                 child.arg("--directory-access-only");
             }
+            if config.content_validated_inputs {
+                child.arg("--content-opens");
+            }
             child.args(["--json", "--hash", "--dependencies", "--output"]);
             child.arg(file);
             if config.track_temporaries {

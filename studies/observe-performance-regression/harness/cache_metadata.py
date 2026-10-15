@@ -1,4 +1,4 @@
-"""Bounded read-only decoder for cache-25/26 fixed-width bincode diagnostics.
+"""Bounded read-only decoder for cache-25 through cache-31 fixed-width bincode diagnostics.
 
 No output hashing or reuse decision is performed. Directory comparisons are a
 point-in-time observation and may race a live command's own filesystem effects.
@@ -55,6 +55,10 @@ class Decoder:
             return result
         if tag == 7: return {'kind':'hash','hash':self.integer()}
         if tag == 9: return {'kind':'not_directory'}
+        if tag == 10:
+            result = {'kind':'content_file', **self.timestamps()}
+            self.take(53)  # ProducedFile, as above.
+            return result
         if tag == 8:
             initial = self.key(depth+1)
             self.take(53)  # ProducedFile's fixed integer fields, without padding.

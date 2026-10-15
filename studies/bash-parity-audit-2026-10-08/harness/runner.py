@@ -6,6 +6,7 @@ import gzip
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import sys
@@ -72,6 +73,7 @@ def prepare(args, work, output):
     python = args.python.absolute()
     required = [
         build / "bash",
+        args.shell,
         build / "recho",
         build / "zecho",
         build / "printenv",
@@ -99,6 +101,12 @@ def prepare(args, work, output):
         "harness-tests",
     )
     checked([python, "-c", "import libbash, libdash, shasta"], output, "parser-imports")
+    corpus = json.loads(args.corpus_provenance.read_text())
+    version = checked([args.shell, "--version"], output, "target-shell-version")["stdout"]
+    target_release = re.search(r"version (\d+\.\d+)", version)
+    corpus_release = re.search(r"bash-(\d+\.\d+)", corpus.get("source_root", corpus["url"]))
+    if not target_release or not corpus_release or target_release[1] != corpus_release[1]:
+        raise RuntimeError("Target Bash and official corpus must have the same major/minor release")
     for name, repo in [("incr", ROOT), ("observe", ROOT.parent / "observe")]:
         checked(["cargo", "build", "--release", "--locked"], output, f"build-{name}", 180, repo)
     candidate = snapshot()
@@ -109,7 +117,22 @@ def prepare(args, work, output):
     )
     if "[default: final]" not in help_result["stdout"]:
         raise RuntimeError("This study requires final as the binary's default effect policy")
-    provenance = json.loads((STUDY / "corpus-provenance.json").read_text())
+    if args.native_transform:
+        source, ready = work / "native-probe.sh", work / "native-probe.ready"
+        source.write_text("printf 'a\\n' | tr a b\n")
+        probe_env = dict(os.environ, INCR_SHELL=str(args.shell))
+        probe = run([str(candidate / "target/release/incr"), "--internal-transform-fast",
+                     "--sys-path", str(candidate / "target/release/incr"),
+                     "--try-path", str(candidate / "src/scripts/try.sh"),
+                     "--cache-path", str(work / "probe-cache"),
+                     "--observe-path", str(candidate.parent / "observe/target/release/observe"),
+                     "--helper-source", str(candidate / "src/scripts/insert.py"),
+                     "--ready", str(ready), "--", str(source)], env=probe_env, timeout=30)
+        write_json(output / "setup/native-transform-probe.json.gz", probe)
+        if probe["returncode"] or not ready.is_file():
+            raise RuntimeError("Native frontend declined the selected shell; choose --shell /bin/bash")
+    provenance = json.loads(args.corpus_provenance.read_text())
+    shutil.copy2(args.corpus_provenance, output / "corpus-provenance.json")
     mismatches = [
         r["path"]
         for r in provenance["files"]
@@ -144,7 +167,7 @@ def prepare(args, work, output):
     shutil.copy2(STUDY / "harness/capture_diff.py", helpers / "diff")
     (helpers / "diff").chmod(0o755)
     launcher = work / "bash"
-    compile_launcher(launcher, work / "invocations.jsonl", build / "bash", False, output)
+    compile_launcher(launcher, work / "invocations.jsonl", args.shell, False, output)
     checked(["sudo", "-n", "unshare", "-m", "--", "true"], output, "namespace-check")
     revisions = {}
     for name, repo in [("incr", ROOT), ("observe", ROOT.parent / "observe")]:
@@ -157,12 +180,17 @@ def prepare(args, work, output):
             "revisions": revisions,
             "candidate_snapshot": str(candidate),
             "bash_build": str(build),
+            "target_shell": str(args.shell),
+            "target_shell_version": version.splitlines()[0],
+            "corpus_release": corpus_release[1],
             "source_tarball_sha256": provenance["tarball_sha256"],
+            "corpus_metadata_sha256": sha(args.corpus_provenance),
             "source_files_verified": len(provenance["files"]),
             "binaries": {
                 str(p): sha(p)
                 for p in [
                     build / "bash",
+                    args.shell,
                     candidate / "target/release/incr",
                     candidate.parent / "observe/target/release/observe",
                     launcher,
@@ -173,6 +201,7 @@ def prepare(args, work, output):
             "annotations": False,
             "native_transform": getattr(args, "native_transform", False),
             "assume_directory_access": getattr(args, "assume_directory_access", False),
+            "content_validated_inputs": getattr(args, "content_validated_inputs", False),
             "policy_selection": "binary default; INCR_EFFECT_POLICY unset",
             "runtime_sources": {
                 str(p.relative_to(ROOT)): sha(p)
@@ -210,7 +239,7 @@ def execute(args, work, output, candidate, locales, helpers, launcher, case, mod
         compile_launcher(
             launcher,
             work / "invocations.jsonl",
-            args.bash_build / "bash" if mode == "bash" else candidate / "incr.sh",
+            args.shell if mode == "bash" else candidate / "incr.sh",
             mode == "observe",
             output,
         )
@@ -236,7 +265,7 @@ def execute(args, work, output, candidate, locales, helpers, launcher, case, mod
         TMPDIR="/tmp",
         BASH_TSTOUT="/tmp/tstout",
         INCR_CACHE_DIR=str(fixture / "cache"),
-        INCR_SHELL=str(build / "bash"),
+        INCR_SHELL=str(args.shell),
         INCR_PYTHON=str(args.python.absolute()),
         INCR_TOP=str(candidate),
         INCR_OBSERVE="1" if mode == "observe" else "0",
@@ -248,6 +277,8 @@ def execute(args, work, output, candidate, locales, helpers, launcher, case, mod
         env["INCR_NATIVE_TRANSFORM"] = "1"
     if mode == "observe" and getattr(args, "assume_directory_access", False):
         env["INCR_ASSUME_DIRECTORY_ACCESS"] = "true"
+    if mode == "observe" and getattr(args, "content_validated_inputs", False):
+        env["INCR_CONTENT_VALIDATED_INPUTS"] = "true"
     command = [sys.executable, str(STUDY / "harness/terminal.py")]
     if case == "read":
         command.append("--stdin")
@@ -342,9 +373,12 @@ def main():
         "--cases", help="Comma-separated groups; default: all standard run-all groups"
     )
     parser.add_argument("--native-transform", action="store_true")
+    parser.add_argument("--content-validated-inputs", action="store_true")
     parser.add_argument("--assume-directory-access", action="store_true")
     parser.add_argument("--output", type=Path, default=STUDY / "results/latest")
     parser.add_argument("--bash-build", type=Path, default=ROOT / "qualification/.work/bash-src")
+    parser.add_argument("--corpus-provenance", type=Path, default=STUDY / "corpus-provenance.json")
+    parser.add_argument("--shell", type=Path, help="Shell under test; defaults to the verified Bash build. The test driver remains that build.")
     parser.add_argument("--python", type=Path, default=ROOT / "qualification/.venv/bin/python")
     parser.add_argument("--timeout", type=float, default=45)
     parser.add_argument("--total-timeout", type=float, default=1800)
@@ -354,7 +388,9 @@ def main():
         help="Only Bash comparisons, for focused investigation",
     )
     args = parser.parse_args()
+    args.corpus_provenance = args.corpus_provenance.resolve()
     args.bash_build = args.bash_build.resolve()
+    args.shell = (args.shell or args.bash_build / "bash").absolute()
     # Keep the venv path: resolving its interpreter symlink would lose its environment.
     args.python = args.python.absolute()
     output = args.output.resolve()

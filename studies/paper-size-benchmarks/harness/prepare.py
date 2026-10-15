@@ -17,6 +17,14 @@ SOURCE = ROOT / 'evaluation/benchmarks'
 BASE = 'https://atlas.cs.brown.edu/data/'
 
 
+def validate_models(provenance):
+    """Recheck large shared model inputs without copying them into each fixture."""
+    for entry in provenance.get('models', []):
+        path = Path(entry['path'])
+        if not path.is_file() or path.stat().st_size != entry['bytes'] or file_hash(path) != entry['sha256']:
+            raise RuntimeError(f'Prepared model changed: {path}')
+
+
 class LimitedHTTP:
     """Bound reads even while gzip/tar skip unselected members."""
     def __init__(self, response, maximum, deadline=1800):
@@ -145,6 +153,7 @@ def prepare(name, profile, reserve):
     marker = target / 'prepared.json'
     if marker.is_file():
         saved = json.loads(marker.read_text())
+        validate_models(saved)
         for entry in saved['files']:
             if file_hash(target / entry['path']) != entry['sha256']:
                 raise RuntimeError(f'Prepared input changed: {entry["path"]}')
@@ -156,7 +165,10 @@ def prepare(name, profile, reserve):
     provenance = {'name': name, 'profile': profile, 'version': 1, 'recipes': []}
     src = SOURCE / name
     try:
-        if profile == 'min':
+        if name in ('web-search', 'weather-tufte'):
+            from supplemental import prepare_inputs
+            prepare_inputs(name, profile, inputs, reserve, provenance)
+        elif profile == 'min':
             if name == 'file-mod':
                 songs = inputs / 'songs'
                 shutil.copytree(src / 'inputs/songs.min', songs)
@@ -347,7 +359,7 @@ def prepare(name, profile, reserve):
             provenance['models'] = [{'path': str(p), 'sha256': file_hash(p), 'bytes': p.stat().st_size}
                                     for p in sorted(models.iterdir()) if p.is_file()]
         files = [p for p in sorted(inputs.rglob('*')) if p.is_file()]
-        if not files or any(p.stat().st_size == 0 for p in files):
+        if not files or (name != 'web-search' and any(p.stat().st_size == 0 for p in files)):
             raise ValueError('Empty prepared input')
         provenance['files'] = [{'path': str(p.relative_to(target)), 'bytes': p.stat().st_size,
                                 'sha256': file_hash(p)} for p in files]

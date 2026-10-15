@@ -9,9 +9,12 @@ import tarfile
 import tempfile
 import unittest
 
-from common import WORK, atomic_json, children, remove_owned, supervise
-from prepare import member_path, LimitedHTTP
+from common import SUITE, WORK, atomic_json, children, remove_owned, supervise
+from prepare import member_path, LimitedHTTP, validate_models
 from validate import compare, decoded_file, manifest, normalized_stderr
+
+
+FAULT_BENCHMARK = 'weather' if SUITE == 'paper' else 'weather-tufte'
 
 
 class HarnessTests(unittest.TestCase):
@@ -25,6 +28,48 @@ class HarnessTests(unittest.TestCase):
     def run_child(self, code, timeout=3, reserve=0):
         return supervise([sys.executable, '-c', code], cwd=self.temp, env=dict(os.environ),
                          capture=self.temp / 'capture', timeout=timeout, reserve=reserve, budget=100 * 1024**3)
+
+    def test_resumed_report_retains_archives_without_counting_them_as_current_failure(self):
+        from unittest.mock import patch
+        import study
+        run = self.temp / 'run'
+        current = run / 'sequences/sample.observe.0'
+        archived = run / 'sequences/sample.observe.0.interrupted.123'
+        current.mkdir(parents=True)
+        archived.mkdir()
+        atomic_json(run / 'configuration.json', {'profile':'min', 'modes':['observe'],
+                    'repetitions':1, 'annotations':False})
+        atomic_json(run / 'frozen-build.json', {'sha256':{}})
+        row = {'benchmark':'sample', 'script':'first.sh', 'mode':'observe',
+               'valid':True, 'elapsed_sec':1, 'peak_cache_bytes':0}
+        atomic_json(current / '00.first.sh.json', row)
+        atomic_json(archived / '00.first.sh.json', dict(row, valid=False))
+        atomic_json(archived / 'failed.json', {'valid':False})
+        with patch.object(study, 'run_benchmarks', return_value=[{'name':'sample','scripts':['first.sh']}]):
+            summary = study.report(run)
+            self.assertTrue(summary['complete'])
+            self.assertEqual(summary['invocations'], 1)
+            self.assertEqual(summary['failed_sequences'], [])
+            self.assertEqual(summary['archived_sequences'], ['sequences/' + archived.name])
+            atomic_json(current / 'failed.json', {'valid':False})
+            summary = study.report(run)
+            self.assertFalse(summary['complete'])
+            self.assertEqual(summary['failed_sequences'], ['sequences/sample.observe.0/failed.json'])
+
+    def test_shared_model_drift_cannot_reuse_prepared_provenance(self):
+        from common import file_hash
+        model = self.temp / 'weights'
+        model.write_bytes(b'first')
+        recorded = model.stat()
+        provenance = {'models': [{'path': str(model), 'bytes': 5, 'sha256': file_hash(model)}]}
+        validate_models(provenance)
+        model.write_bytes(b'other')
+        os.utime(model, ns=(recorded.st_atime_ns, recorded.st_mtime_ns))
+        with self.assertRaisesRegex(RuntimeError, 'Prepared model changed'):
+            validate_models(provenance)
+        model.unlink()
+        with self.assertRaisesRegex(RuntimeError, 'Prepared model changed'):
+            validate_models(provenance)
 
     def test_output_manifest_detects_unexpected_directories_and_links(self):
         fixture = self.temp/'fixture'
@@ -53,13 +98,15 @@ class HarnessTests(unittest.TestCase):
              patch.object(launch.subprocess, 'run') as run, \
              patch.dict(os.environ, {'PATH': search_path}), \
              patch.object(sys, 'argv', ['launch.py', '--profile', 'min', '--only', 'dpt',
-                                       '--run-id', 'launch-test', '--repetitions', '1']):
+                                       '--run-id', 'launch-test', '--repetitions', '1',
+                                       '--modes', 'bash,observe,original']):
             run.return_value.returncode = 3
             launch.main()
         commands = [call.args[0] for call in run.call_args_list]
         command = next(command for command in commands if command[0] == 'systemd-run')
         self.assertIn('--setenv=PATH=' + search_path, command)
         self.assertIn('--setenv=INCR_BENCH_STUDY=' + str(self.temp), command)
+        self.assertEqual(command[command.index('--modes') + 1], 'bash,observe,original')
 
     def test_monitor_rejects_failed_preflight_without_samples(self):
         from datetime import datetime, timezone
@@ -138,7 +185,7 @@ class HarnessTests(unittest.TestCase):
         atomic_json(run/'status.json', {'state':'complete', 'evidence':'keep'})
         atomic_json(run/'configuration.json', {'original':'configuration'})
         with patch.object(study, 'STUDY', self.temp), \
-             patch.object(sys, 'argv', ['study.py','run','--profile','min','--only','weather','--run-id','saved']):
+             patch.object(sys, 'argv', ['study.py','run','--profile','min','--only',FAULT_BENCHMARK,'--run-id','saved']):
             with self.assertRaises(FileExistsError): study.main()
         self.assertEqual(json.loads((run/'status.json').read_text()), {'state':'complete','evidence':'keep'})
 
@@ -148,19 +195,19 @@ class HarnessTests(unittest.TestCase):
         run = self.temp/'results/saved'
         atomic_json(run/'status.json', {'state':'complete', 'evidence':'keep'})
         atomic_json(run/'configuration.json', {'manifest_sha256':'incompatible','harness_sha256':{}})
-        (self.temp/'manifest.json').write_bytes((study.STUDY/'manifest.json').read_bytes())
+        (self.temp/'manifest.json').write_bytes(study.MANIFEST_FILE.read_bytes())
         with patch.object(study, 'STUDY', self.temp), \
-             patch.object(sys, 'argv', ['study.py','run','--profile','min','--only','weather','--resume',str(run)]):
+             patch.object(sys, 'argv', ['study.py','run','--profile','min','--only',FAULT_BENCHMARK,'--resume',str(run)]):
             with self.assertRaisesRegex(ValueError, 'Cannot resume'): study.main()
         self.assertEqual(json.loads((run/'status.json').read_text()), {'state':'complete','evidence':'keep'})
 
     def test_automatic_run_id_records_preflight_failure(self):
         from unittest.mock import patch
         import study
-        (self.temp/'manifest.json').write_bytes((study.STUDY/'manifest.json').read_bytes())
+        (self.temp/'manifest.json').write_bytes(study.MANIFEST_FILE.read_bytes())
         with patch.object(study, 'STUDY', self.temp), \
              patch.object(study, 'doctor', side_effect=RuntimeError('injected preflight failure')), \
-             patch.object(sys, 'argv', ['study.py','run','--profile','min','--only','weather']):
+             patch.object(sys, 'argv', ['study.py','run','--profile','min','--only',FAULT_BENCHMARK]):
             with self.assertRaisesRegex(RuntimeError, 'injected preflight'): study.main()
         statuses=list((self.temp/'results').glob('*/status.json'))
         self.assertEqual(len(statuses),1)
@@ -228,6 +275,33 @@ class HarnessTests(unittest.TestCase):
             paths.append(path)
         self.assertEqual(decoded_file(paths[0]), decoded_file(paths[1]))
         self.assertNotEqual(decoded_file(paths[0]), decoded_file(paths[2]))
+
+    def test_dpt_download_provenance_preserves_payload_identity(self):
+        left = self.temp / 'left-stderr'
+        right = self.temp / 'right-stderr'
+        template = ("--2026-10-15 00:53:04--  http://127.0.0.1:1234/images.zip\n"
+                    "HTTP request sent, awaiting response... 200 OK\n"
+                    "Length: 85361 (83K) [application/zip]\n"
+                    "Saving to: 'images.zip'\n"
+                    "     0K .......... 59%  141M 0s\n"
+                    "    50K ......... 100%  118M=0.001s\n"
+                    "2026-10-15 00:53:04 (130 MB/s) - 'images.zip' saved [85361/85361]\n")
+        left.write_text(template)
+        right.write_text(template.replace('00:53:04', '00:55:23').replace('141M', '152M')
+                         .replace('118M=0.001s', '99M=0.002s').replace('130 MB/s', '138 MB/s'))
+        expected = normalized_stderr(left, 'dpt')
+        self.assertEqual(expected['sha256'], normalized_stderr(right, 'dpt')['sha256'])
+        for before, after in [('200 OK', '404 Not Found'), ('images.zip', 'different.zip'),
+                              ('85361/85361', '85360/85361'), ('127.0.0.1:1234', '127.0.0.1:4321')]:
+            right.write_text(template.replace(before, after))
+            self.assertNotEqual(expected['sha256'], normalized_stderr(right, 'dpt')['sha256'])
+
+    def test_dpt_download_error_remains_a_failure(self):
+        path = self.temp / 'wget-error'
+        path.write_text('2026-10-15 00:53:04 ERROR 404: Not Found.\n')
+        result = normalized_stderr(path, 'dpt')
+        self.assertTrue(result['errors'])
+        self.assertIn('ERROR 404', result['sample'])
 
     def test_error_beyond_sample_is_detected(self):
         path = self.temp / 'stderr'

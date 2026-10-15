@@ -75,6 +75,8 @@ def check(run):
     if free < config['reserve_gib'] * 1024**3:
         issues.append('Free disk is below configured reserve')
     for sequence in (run / 'sequences').glob('*'):
+        if '.interrupted.' in sequence.name:
+            continue
         complete = sequence / 'complete.json'
         if complete.is_file() and not json.loads(complete.read_text()).get('valid'):
             issues.append(f'{sequence.name}: invalid completion marker')

@@ -1,197 +1,281 @@
-## Latest steering: fair default without static annotations
+# Active evaluation handoff
 
-Prioritize complete correctness and end-to-end evaluation with static performance annotations disabled in BOTH Incr and Observe. The user separately authorized an annotated comparison later, with annotations enabled on both sides. Earlier comparisons with different static annotation coverage are diagnostic only, not fair speedup evidence. Learned introspection remains part of each implementation. Finite stdin staging was rejected after whole-pipeline regressions; archived diagnostic results are retained.
+The persistent goal remains active. Implementation checkpoints are recorded in
+Git history. Remaining real-model/supplemental qualification, the final evidence
+checkpoint and full evaluations remain open.
+Earlier handoff history is retained in Git. This file describes current state.
 
-Fresh fair diagnostic: `general-unannotated-one-01` completed 84/84 exact comparisons over two repetitions at 1 MiB, unchanged provenance, static annotations off on both sides, native frontend and directory-access assumption enabled. Whole-sequence original/Observe ratios: word-freq 2.253x, Poet 8.836x, COVID 14.928x, weather 13.029x. These synthetic repeated minimum records do not qualify historical sizes or all families. Full Bash and fresh all-family minimum checks remain pending.
+## Latest state: implementation reopened (2026-10-15)
 
-Checkpoint qualification complete: `general-unannotated-min-01` passes 246/246 comparisons across all twelve non-DPT families (one repetition), terminal monitor healthy. Every family is faster: 2.336x–20.716x original/Observe. `UNANNOTATED_CHECKPOINT.json` records exact scope and test counts. Final/full 71 focused regressions pass; live 70+1 skip, compressed batch 69+2 skips; Observe 7 units and 420 integration assertions pass. Full official 83-group Bash correctness, DPT, progressive scaling and historical-size evaluation are still outstanding. Bash runner now accepts and records `--native-transform` and `--assume-directory-access`, enabling explicit qualification of the benchmark configuration as well as defaults. Observe implementation checkpoint is a26e759a86e3ff6f8c3b0e192b8ab23e681e4288; the corresponding Incr checkpoint records this handoff. Next: verify clean/pushed branches, then medium/larger measurements and full Bash gates.
+All prior queues are terminal. Real full-workflow DPT archive diagnostic
+`general-dpt-archive-02` validated six outputs but exposed warm Observe 16.323s
+versus original 0.631s (native 58.799s). Identical ZIP extraction changes ctime;
+original ignores it, Observe correctly invalidates but recomputes the model.
+Generic archive fault probe showed simply dropping ctime would allow stale data.
 
-# Active Observe optimization goal: handoff
+General opt-in `--content-validated-inputs` is now under qualification, NOT final.
+Cache format 31, Observe `--content-opens` protocol 11; strict defaults unchanged.
+Only successfully opened read-only regular files in the workspace qualify;
+content, mtime, size, mode, uid/gid, links/access remain checked. Identity/ctime
+drift rehashes bytes; metadata-only dependencies remain strict. No command names.
+Both repos compile. Incr Rust: 37 passed, 1 ignored; Observe: 7 units and
+424/424 integration assertions pass. Focused batch/final content replacement
+regression passes. Generic `general-archive-content-01` proves identical-extract
+hits and preserved-mtime changed-content invalidation; baseline stale behavior
+is retained explicitly. Real-model `general-dpt-archive-content-01` completed: 6/6 exact outputs,
+provenance valid. Native 59.325/58.164s, original 72.124/0.616s, Observe
+69.770/0.175s. Warm segment/classify profiles confirm replay (classify validation
+19.5ms); see its ANALYSIS.md. This is one sample, not a full performance claim.
+The main serial queue completed successfully at
+`results/content-inputs-qualification-02/qualification-queue.json`, former PID
+2524647/session1886; `/tmp/incr-content-inputs-qualification-queue-02.log`. It passed
+stream-final content regression and 31 paper + 7 supplemental harness tests.
+The complete 82-group Bash 5.1 corpus passed with benchmark options: 82/82
+cold and warm, 11,373/11,373 lines each phase, 73 raw-exact groups; no skips,
+variations, native golden differences, timeouts or survivors. Live/final focused
+regressions both pass. Independent analysis completed; elapsed 750.769s.
+Evidence: `bash-parity-audit-2026-10-08/results/content-inputs-system-bash-full-01`.
+The complete 83-group default Bash 5.2 corpus also passed: 83/83 cold and warm,
+12,234/12,234 lines each phase, 73 raw-exact groups; no skips, variations,
+timeouts or survivors. Native golden differences only builtins/execscript;
+live/final regressions pass. Independent analysis completed; elapsed 773.150s.
+Evidence: `bash-parity-audit-2026-10-08/results/content-inputs-defaults-full-01`.
+The 12 non-DPT minimum families completed: `content-inputs-min-01`, 246/246
+valid, no failures, one repetition. Every family is faster than original:
+2.292x–18.189x. These remain diagnostics; native Bash still beats tiny new work
+in some families. The terminal independent monitor is healthy.
+The 8 MiB stage `content-inputs-8-01` completed 84/84 with valid provenance and
+healthy monitor (two paired repetitions). Original/Observe ratios WF 2.205,
+Poet 2.753, COVID 6.482, weather 9.544; Bash/Observe 2.202, 2.426, 0.735,
+1.220 respectively. COVID is still slower than Bash at this modest size.
+Actual bytes WF 10,485,770 (same as minimum), Poet 8,389,864, COVID 8,800,000,
+weather 8,389,113. The next 32/128 MiB stages provide real WF scaling.
+The 32 MiB stage `content-inputs-32-01` completed 84/84 with valid provenance
+and healthy monitor (two paired repetitions). Original/Observe ratios WF 1.299,
+Poet 1.578, COVID 3.429, weather 3.765; Bash/Observe 2.359, 3.268, 1.400,
+1.639. Actual bytes: 41,943,080 / 33,556,194 / 33,600,000 / 33,556,452.
+Original is slower than Bash for COVID/weather at this size; keep that visible.
+The 128 MiB stage `content-inputs-128-01` completed 84/84 with valid provenance
+and healthy independent monitor, two paired repetitions. Actual bytes WF
+136,315,010; Poet 134,218,252; COVID 134,400,000; weather 134,220,105.
+Original/Observe ratios 1.0776 / 1.1011 / 1.8379 / 1.8471; Bash/Observe
+2.5121 / 3.4656 / 1.7775 / 2.2297. Mean sequence seconds:
+WF Bash45.237/original19.405/Observe18.007;
+Poet106.518/33.844/30.736; COVID13.048/13.492/7.341;
+weather6.017/4.985/2.699. Original is faster than Bash on three; COVID is
+3.4% slower (near parity). Word-frequency edited-version remains near parity
+between Incr engines; do not claim a huge gain where shared I/O dominates.
+Main queue PID2524647/session1886 is terminal SUCCESS (08:35:09 UTC). Earlier idle queue 01
+was stopped before any stage for a provenance field-name fix; evidence preserved.
+The tail queue is now running at
+`results/content-inputs-tail-01/qualification-queue.json`, PID 2592299, session
+97889; `/tmp/incr-content-inputs-tail-01.log`. Its active stage is all 10 DPT minimum
+versions with real models, a three-distinct-JPEG fixed-timestamp archive diagnostic
+(two supplied versions, six exact invocations), and two repetitions of both
+supplemental minimum families. No automatic commit/push/full evaluation is queued.
+The three-image driver and tail queue are archived alongside their status.
+Current component evidence is `bash-parity-audit-2026-10-08/results/content-inputs-components`.
+Prior 82/83 Bash and all scaling results are previous-source evidence and need
+new final-source qualification. The content-input implementation checkpoint is ready; the final evidence
+checkpoint and full evaluations remain pending.
+Logs: `/tmp/incr-content-inputs-{check,tests,build}.log`,
+`/tmp/observe-content-opens-{check,build,unit,integration}.log`.
 
-Last updated: October 14, 2026 (America/New_York).
+## User requirements and execution rules
 
-## Required ordered workflow (latest user instructions)
+- Finish the complete unannotated comparison first: static annotations disabled
+  in BOTH original Incr and Incr+Observe. An equally annotated comparison is later.
+- General implementation improvements only. No replacement sort/cut algorithms,
+  command-specific performance shortcuts, or benchmark-specific output stripping.
+- Retain reasonable original scratch-filesystem assumptions. Benchmark options:
+  final effect policy, native shell compiler, directory-access assumption; static
+  annotations off. Record all assumptions and actual input bytes.
+- Qualify all maintained Bash groups cold and warm, then progressively larger
+  inputs and real-model DPT. Commit and push BOTH repositories again before full
+  evaluations. Do not overlap builds/tests/measurements or edit guarded sources
+  while the serial qualification queue runs.
+- Full historical matrix plus separate web-search and Tufte supplemental coverage;
+  exclude only image annotation requiring an OpenAI API key. Preserve correctness,
+  failures and slowdowns. Compare against native Bash and the original results.
+  Investigate substantial Bash regressions rather than calling them minor.
+- Full evaluations need a clean owned workspace, frozen sources/binaries/inputs,
+  repeated paired samples, exact output checks, resources and durable monitoring.
+  Do not substitute diagnostic scaling for historical/full datasets.
 
-1. Iterate quickly and sequentially on small inputs to confirm and improve Observe performance on essentially all applicable benchmarks. Compare original Incr and older Observe, preserve reasonable original assumptions and core caching/replay optimizations, and focus on eliminating try/overlayfs/strace overhead. No custom sort or other command-specific algorithm replacements.
-2. Once implementations are basically finalized, validate, make clean checkpoint commits in **both** repositories, and push both.
-3. Increase input sizes progressively through medium/larger scales, checking correctness, variance, reuse and resource/provenance evidence. **All maintained Bash correctness tests must pass cold and warm on the final implementation and relevant configurations.** Iterate on failures or lost speedups, then commit and push both repos again.
-4. Only after these gates pass, run the complete applicable full evaluations from clean owned workspaces, with fair frozen baselines, reliable statistics, strict validation, durable results and progress monitoring. Keep non-paper coverage separate. Exclude only the API-key image-annotation workload from the overall coverage goal.
+## Repositories and implementation
 
-Expected architecture: Observe replaces try/overlayfs plus strace while retaining Incr's general caching and replay optimizations. Avoid elaborate optimizations that do not address measured overhead. Do not claim the full Bash gate from the focused regression suite. The official maintained Bash workflow is studies/bash-parity-audit-2026-10-08/run.sh (83 groups, native/Observe, cold/warm), with independently recheckable raw evidence. Use new result destinations and inspect lifecycle/coverage failures as well as normalized comparisons.
+- Incr branch `observe`, pushed first checkpoint:
+  `37a8e2886f5c0f05c9a5be4abfb0f4db6e854114` (implementation parent `a14c8c8`).
+- Observe branch `main`, pushed first checkpoint:
+  `a26e759a86e3ff6f8c3b0e192b8ab23e681e4288`.
+- Original baseline: detached `../incr-main-qualification` at
+  `4b8e5ddf8e275d947518c7cc0f5d2713fe992307`, with exactly the reviewed
+  `reference/original-minimal-fixes.patch`. Salted encryption runs fresh; static
+  pure/read-only/stateless shortcuts require `-a`. Doctor verifies that patch.
 
-The previous persistent goal was explicitly cleared by the user; a new active persistent goal now records this entire ordered workflow, including BOTH commit/push checkpoints and the full Bash correctness gate.
+Candidate cache format is 30. Annotation, scratch and directory policies enter
+cache identity. Default scratch excludes /tmp, /var/tmp and non-root absolute
+TMPDIR; `--track-temporaries` restores tracking. A canonical-root TMPDIR alias is
+not excluded. Directory stat/access can use existence/access/ownership while
+listings retain full dependencies; Observe protocol 10 records this explicit
+assumption, protocol 9 remains strict/default standalone behavior.
 
-Current implementation: finite stdin staging has been removed after the whole-pipeline regressions in `general-finite-eight-01` (84/84 exact comparisons, unchanged provenance). Candidate and pinned original now gate static pure/read-only tracing shortcuts on the existing `-a` flag; default comparisons disable annotations on both sides. Candidate cache format is 30 and includes annotation policy, temporary policy and directory-access policy. Rust units pass 36 tests, one ignored. Focused correctness, fresh fair timings and the full Bash gate remain necessary; inspect live processes before scheduling measurements.
+The finite-stdin prototype was removed after whole-pipeline regressions. Old
+tracer transport timings were similar to the current tracer. Earlier large
+apparent advantages depended on unequal purity annotations, and older correctness
+probes failed preserved-mtime edits, files0 lists, parent-link retargets and cache
+corruption. Those shortcuts were not restored.
 
-Small-scale evidence: general-eight-01 completed 84/84 valid comparisons over two repetitions with unchanged provenance. Original/Observe whole-sequence ratios: word-freq 0.890x, Poet 0.886x, COVID 1.404x, weather 2.046x. Therefore the speedup gate is unmet; do not launch full evaluation. general-fd-transport-01 completed 24/24 valid transport/tracer diagnostics over three repetitions. Current dependency-traced sorting means: regular stdin 0.625s, piped stdin 0.966s; older tracer 0.598/0.996s. This attributes a transport penalty and shows the older tracer is not intrinsically much faster in this probe. These synthetic diagnostics are not benchmark-family qualification.
+Uncommitted final-source fixes preserve shell source introspection, including
+function bodies and extdebug/declare-F locations. Compiler diagnostics/failure
+fall back to untouched source, so the selected Bash owns syntax behavior. The
+comparator no longer strips printed instrumentation prefixes. It normalizes only
+reviewed source locations, diagnostic line numbers and diagnostic PIDs, preserving
+signal labels and command text. No arbitrary values or diagnostic order are
+normalized. Observe runtime is unchanged; its current design/context docs are
+refreshed, with older notes retained under docs/historical-*.md.
 
-Current directory-access assumption remains explicit and opt-in, preserving directory-open/listing dependencies; Observe passes all 420 integration assertions. Full maintained Bash qualification has not yet been rerun on these changes. Both repositories have uncommitted implementation/diagnostic work, so the next requested checkpoint commits are still outstanding.
+## Previous source serial qualification (terminal history)
 
-## Current follow-up: smaller-scale diagnosis
+Controller: tool session **82299**, PID **2223413**. Script:
+`/tmp/incr-continue-qualification.py`, archived as
+`results/unannotated-checkpoint-01/qualification-queue-final-source.py`.
+Authoritative stage/status: `results/unannotated-checkpoint-01/qualification-queue.json`.
+Per-stage logs are beside it; outer log `/tmp/incr-continue-qualification.log`.
+Verify the actual PID/session before treating a job as live or stopped. Never
+restart solely because an observation timed out. The queue guards runtime,
+measurement-harness and corpus metadata hashes and stops on failure.
 
-The checkpoint was committed and pushed: Incr ee5283b on origin/observe and
-Observe cb347d6 on origin/main; both were clean. `general-min-01` then completed
-246/246 valid comparisons of all twelve non-DPT minimum families on that frozen
-checkpoint with the native frontend enabled. Eleven families were faster, but
-word frequency was 0.886x (original 1.247s vs Observe 1.408s). The terminal monitor
-reported health=ok. DPT remains pending on current source.
+Ordered queue stages:
 
-The user now prioritizes smaller-scale iteration and attribution against the older
-Observe pair (Incr 4f8723e, Observe a95ca6b), and explicitly authorizes original-style
-temporary-filesystem assumptions. General implementation changes only: no custom
-sorting/cut algorithms or command-specific performance replacements.
+1. `function-locations-system-bash-full-01` — **passed** all 82 official Bash
+   5.1.16 groups on installed /bin/bash 5.1.16, native frontend successfully
+   probed, directory assumption enabled, static annotations off.
+2. Independent analysis — **passed**: 11,373/11,373 transcript lines in each
+   phase, 73 raw-exact groups, no insertions/deletions/replacements, timeouts or
+   surviving descendants. Live/final regressions both exit 0. Total 747.984s.
+3. `function-locations-defaults-full-01` — **passed** all 83 official Bash
+   5.2.37 groups on the verified custom Bash 5.2.37, default configuration.
+   Log: `results/unannotated-checkpoint-01/function-locations-default-bash-full.log`.
+4. Independent defaults analysis — **passed**: 12,234/12,234 transcript lines
+   per phase, 73 raw-exact groups, no timeouts/survivors/skips/variation. Both
+   focused regression policies pass. Total 772.056s.
+5. `general-unannotated-128-01` — word frequency, Poet, COVID, weather;
+   **passed**, 84/84 exact comparisons, unchanged provenance, two paired
+   repetitions. Actual inputs: word frequency 136,315,010; Poet 134,218,252;
+   COVID 134,400,000; weather 134,220,105 bytes. Original/Observe sequence
+   ratios 1.069x / 1.161x / 1.824x / 2.074x. Bash/Observe ratios
+   2.683x / 3.460x / 1.765x / 2.256x. Original is faster than Bash on three
+   families; COVID is a 3.3% mean slowdown (0.968x), a near-parity case.
+6. `general-unannotated-dpt-min-01` — **running**, all ten versions, one real-model
+   minimum repetition, followed by terminal monitoring. First native stage took
+   60.391 seconds with real SAM inference; do not mistake its CPU work for a stall.
+7. Additional profile diagnostic waits for the main queue to complete: session
+   **1312**, PID **2431998**, `/tmp/incr-profile-large-pipeline.py`; status
+   `results/unannotated-checkpoint-01/pipeline-profile-queue.json`, outer log
+   `/tmp/incr-profile-large-pipeline.log`, archived driver beside that status.
+   It recreates exactly the larger word-frequency input, validates six invocations
+   against native Bash, and enables existing INCR_PROFILE_DIR only as a separate
+   diagnostic. No source or primary timing samples are changed. Result ID
+   `general-unannotated-profile-128-01`. Inspect per-process phases; nested and
+   concurrent phase durations must not be summed as wall time. Correlate profile
+   file modification times to invocation end events to distinguish cold/edit.
+   Word-frequency edited means: original 1.107s, Observe 1.137s, Bash 23.270s.
+   The 2.7% mean difference with two samples is near parity, not a proven
+   regression or huge speedup. Explain this from actual phase data before deciding
+   whether any general optimization is justified. Do not add command-specific
+   workarounds or weaken corruption detection merely to improve a ratio.
 
-Current uncommitted runtime change: Observe-backed Incr assumes /tmp, /var/tmp and
-absolute non-root TMPDIR are scratch, excluded from dependencies/effect replay.
-`--track-temporaries` / INCR_TRACK_TEMPORARIES=true restores tracking. Policy is
-keyed in cache version 27; the Observe wire protocol and effect format are unchanged.
-The default tracer noisy-path filter is used unless temporary tracking is selected.
-Tests preserve explicit temporary-input invalidation and default scratch reuse.
+The installed shell and official corpus must match major/minor release. The
+5.1.16 archive has SHA256
+`5bac17218d3911834520dad13cd1f85ab944e1c09ae1aba55906be1f8192f558`, 625 test files,
+82 groups; build `qualification/.work/bash-5.1.16`. Custom 5.2.37 retains all 83
+maintained groups. Runner/setup accept --corpus-provenance and archive metadata.
 
-35 Rust units pass (one ignored). All 69 final and 69 full-tracing regressions pass;
-live passes 68 with one policy-specific skip; compressed batch passes 67 with two
-unbounded-input skips. Small benchmark qualification of this revised source is
-still pending. No DPT/full-size evaluation is running.
+Earlier 5.2-corpus-on-5.1 exploration stopped on a native read timeout. Of 68
+completed groups, independent comparison matched 66 in each phase; jobs and
+quotearray also varied between the native cold/warm runs themselves. Raw evidence
+and scope notes remain under `parser-fallback-system-bash-full-01`; it is not final
+proof. `version-matched-system-bash-full-01` was intentionally stopped after 45
+matching groups to fix function-location introspection before final qualification.
+Older prefix-stripping comparison results are explicitly superseded for the gate.
 
-`general-old-profile-01` passed 60 diagnostic cold/warm cases with unchanged
-provenance on the pre-scratch checkpoint. At 8 MiB, stdin sort cold old/current
-0.663/1.051s and warm 0.0282/0.0368s; payload checks 3--5ms do not explain the cold
-gap. Older code treats all sort/grep/cut forms as pure and omits /tmp dependencies.
-Four isolated non-temporary correctness probes against the old pair fail: preserved
-mtime content edits, sort file-list invalidation, parent-link retargeting, and
-corrupt cached stdout. These differences cannot justify dropping ordinary file
-correctness checks, even though temporary scratch assumptions are now authorized.
+## Completed diagnostics and component evidence
 
-`general-scratch-micro-01` and `general-scratch-cpu-02` are explicitly invalidated:
-the probe had put application input/output in TMPDIR, violating the new contract.
-The repaired probe uses fixture/tmp and removes the application output before warm
-write-file replay. `general-scratch-micro-02` then passed 30/30 exact comparisons
-with unchanged provenance (diagnostic profiling, one sample only). More repeated
-unprofiled comparisons are required before claiming a speedup. The rejected data
-and raw perf recording remain for diagnosis. Root perf was used without changing
-machine-wide perf settings; the measured program still ran as the normal user.
+All ratios below are original/Observe whole-sequence time unless stated otherwise.
+These runs are diagnostics, not final full-size performance evidence.
 
-Micro probes now retain decoded cache metadata and optional phase profiles, accept
-input size and selected comparison modes, and preserve per-case directory mismatch
-diagnostics. Inspect `general-scratch-directories-01` before restarting it. The
-next focus is attributing cold tracing/transport cost and missed general replay,
-then small paired repeats against the frozen checkpoint; requalify DPT and full
-historical sizes only after this iteration.
+- `general-unannotated-min-01`: 246/246 exact comparisons across 12 non-DPT
+  historical families, one repetition, healthy terminal monitor; all faster,
+  2.336x–20.716x. This predates final shell-only source-preservation fixes.
+- `general-unannotated-one-01`: 84/84, two repetitions, unchanged provenance.
+  Word frequency 2.253x, Poet 8.836x, COVID 14.928x, weather 13.029x.
+- `general-unannotated-eight-01`: 84/84, two repetitions, unchanged provenance.
+  Ratios 2.271x/2.925x/5.923x/8.641x respectively. Actual bytes:
+  10,485,770 / 8,389,864 / 8,800,000 / 8,389,113.
+- Important correction: nominal 1 and 8 MiB used the SAME word-frequency
+  minimum, already 10,485,770 bytes. They are not a scaling result for that family.
+- `general-unannotated-thirtytwo-01`: 84/84, two repetitions, unchanged provenance.
+  Ratios: word frequency 1.237x, Poet 1.492x, COVID 3.308x, weather 3.749x.
+  Actual bytes: 41,943,080 / 33,556,194 / 33,600,000 / 33,556,452.
+  Bash/Observe sequence ratios: 2.407x / 3.140x / 1.306x / 1.575x.
+  Original Incr is slower than Bash for COVID/weather at this size (0.395x/0.420x).
+  Word-frequency cold Observe 5.330s vs original 6.301s; edited 0.388s vs original
+  0.769s and Bash 7.155s. Keep cold, edited and sequence claims separate.
+- `general-unannotated-supplemental-min-01`: 30/30 valid, two repetitions,
+  healthy terminal monitor. Web-search 4.921x, Tufte 1.786x. Tufte is slower than
+  Bash: new final-version plotting dominates (native 6.929s of a 6.976s sequence,
+  Observe 9.938s, original 15.579s). Plotting first appears in version three;
+  do not claim reuse of nonexistent prior plots or hide its overhead.
 
-A supplemental coverage draft for web-search/Tufte weather is archived locally at
-results/coverage-planning/supplemental-draft.patch and is NOT implemented/qualified.
-Finish the smaller-scale performance investigation before expanding the harness.
+Final source component records and copied logs:
+`studies/bash-parity-audit-2026-10-08/results/final-source-components/`.
+AST 11 passed; native frontend 8 passed; paper/supplemental harnesses 38 each
+passed. The function-location regression failed before the fix and passes now.
+The AST script needs its direct entrypoint; an earlier combined module invocation
+had an import-path error, corrected by the recorded proper commands. Bash helper
+checks pass 20. Earlier implementation qualification passed Rust 36+1 ignored,
+final/full 71, live 70+1 skip, compressed batch 69+2 skips; unchanged Observe passed
+7 Rust units and 420 integration assertions. Current full Bash runs also rerun
+live/final regressions against current sources.
 
-## Checkpoint review supersedes older implementation notes below
+## Next checkpoint and full evaluation
 
-The user requires a general implementation: no command-specific performance
-substitutions or benchmark-overfit overrides. The new byte-sort executor and
-stdin-only cut annotation have been removed, together with the now-unused
-partial-input executor entry point. External sort/cut parity and dependency tests
-remain; the installed tools execute through the normal backends. Do not reintroduce
-specialized sort algorithms, thresholds or counted numeric sorting. The salted
-encryption bypass remains a correctness repair, applied to both baseline and
-candidate, rather than a performance optimization.
+After both queues complete, refresh the unchanged AST/native frontend component
+checks serially, then inspect every result and native comparison. Curate previous
+function-location raw Bash trials into the indexed local historical retention
+while staging the new complete content-inputs 82/83 proof. Investigate
+lost speedups or invalid outputs; no automatic commit, push or full launch is
+queued. Finalize concise qualification records/report and handoff, stage current
+raw Bash evidence with its scope, then make clean simple commits and push BOTH
+repositories. Verify remote heads and clean worktrees before full evaluations.
 
-General tracing, cache/dependency validation, bounded spooling, parser improvements
-and the opt-in native shell frontend remain. Empty-input detection now rejects
-write-only and O_PATH descriptors. New qualification must identify this revised
-source: all earlier performance results below used a different implementation,
-including the removed specializations, and do not qualify this checkpoint.
+`EVALUATION_PROTOCOL.json` is the full methodology contract. The new supplemental
+manifest is separate from historical statistics. Web full uses the entire supplied
+offline Wikipedia10g corpus/index, plus a labeled identical-source warm repeat;
+Tufte full uses the supplied seed-42 generator, 27 cities and 30*365 days. Node
+and modules are frozen. Independent validators cover article visits/postings and
+every expected Tufte city-year PNG. Shared models are hash-checked outside timing.
+Archived interrupted attempts remain visible but do not invalidate a successful
+resumed sequence; current failures still invalidate it (36-test harness evidence).
 
-The persistent goal is active. First finish checkpoint validation, commit and push
-both repositories. Then requalify minimum inputs including real-model DPT and
-profile general backend overhead on scaled and representative inputs. Run a fresh
-historical-size evaluation after explicit owned cleanup, preparation and inventory
-inspection, initially one repetition as previously requested. Repeat paired runs
-where needed to assess variance; a single repetition cannot establish statistical
-significance. Report every slowdown and correctness failure honestly.
+Inspect and apply `harness/cleanup.py`'s owned plan before historical preparation.
+Preserve results, recoveries, source models and required frozen builds. Prepare
+full inputs from documented recipes; disclose actual sizes (recipes take precedence
+over nominal paper labels). Launch the full historical matrix and supplemental
+coverage separately with launch.py/systemd. Start with one full repetition, then
+at least two paired followups with reversed engine starting order; add samples for
+unstable/borderline results. Raw per-version timings, resource data and exact
+native-output validation must remain available. Means alone do not prove a gain.
 
-The paper matrix excludes web-search and Tufte weather for historical scope, but
-the user now requests all benchmarks except image annotation requiring an OpenAI
-API key. Inventory and evaluate applicable non-paper workloads separately using
-the same correctness and provenance principles; do not silently omit them or mix
-their statistics into the historical matrix.
+The old monitor timer is stopped and its service points to historical-eval-02.
+Update its target to the actual new run before enabling it. Full workers already
+write live heartbeats and enforce disk/process guards. `incr-bench-study.service`
+is currently reserved for the later full evaluation; the qualification queue runs
+directly. Direct diagnostic monitor checks may report inactive service while live;
+terminal checks must be healthy. Do not classify an observed timeout as a dead job.
 
-No measurement is running. Owned study cleanup was planned, inspected and applied
-without mounts or recovery snapshots; results, frozen sources/builds, minimum
-inputs, dependencies and model weights were retained. Historical inputs/downloads
-were already absent. The old audit service had a terminal shutdown error after a
-successful evidence check because its timer was already gone; this was not a
-benchmark failure. Inspect actual process/service state before any next run.
-
-Validation evidence: [CHECKPOINT_VALIDATION.json](CHECKPOINT_VALIDATION.json).
-The harness additionally catches unexpected nested application outputs and dangling
-links; its 27 fault tests pass. Revised code passes 34 Rust units (one ignored),
-68 final, 68 full-tracing, 68 live and 66 batch/compressed regressions (two skipped),
-nine shell AST tests and six native frontend tests. Observe passes seven Rust units
-and 414 integration assertions. No fresh benchmark timings have been collected.
-
-## Earlier evidence and implementation history
-
-The following records describe the pre-review implementation. The checkpoint
-policy above takes precedence over its proposed next steps.
-
-## Goal and completion criteria
-
-Investigate regressions since the older faster Observe implementation, optimize current Incr+Observe rigorously, preserve correctness, then explicitly run one repetition of the historical-size evaluation. Compare Bash, pinned original Incr with only reviewed correctness fixes, and current Incr Observe. Exclude the benchmark requiring an OpenAI API key. Required outcome: significant Observe speedups over original Incr on every included benchmark, with all output checks passing. If any included benchmark is slower or wrong, continue iterating. The goal is active and incomplete.
-
-User requirements: sequential measurements; start small and inspect correctness; review hangs and robustness; modular harness with multiple runs and detailed stats; clear task-owned caches/artifacts before fresh measurements to conserve disk; one repetition for full evaluation; preserve correctness. Keep cleanup, preparation and measurement as explicit separate actions. Do not launch the full evaluation until the slower families have been investigated.
-
-## Live state and newest results
-
-At the time of this update, systemd study service and audit timer are inactive; no measurement is running. Verify process/service status before starting another run.
-
-| Result | Validity and performance |
-| --- | --- |
-| paper-size study results/native-transform-min-02 | 246/246 comparisons, all 12 non-DPT minimum families correct. Original/Observe total ratios: file-mod 6.131x, word-freq 1.553x, ngrams 8.175x, Poet 3.362x, uppercase 4.015x, COVID 2.844x, nginx 1.690x, spell 2.720x, bio 10.335x, weather 2.781x, beginner 4.140x, unixfun 4.746x. One minimum-size repetition only. |
-| sibling regression results/scaled-thirtytwo-native-01 | 72/72 valid, provenance valid, two independent repetitions. Poet 2.097x, COVID 1.078x, weather 1.152x. Synthetic repetition of minimum fixtures, not paper data. |
-| sibling regression results/scaled-128-native-bound64-01 | 36/36 valid, provenance valid. At 128 MiB: Poet original 20.765s, Observe 30.842s (0.673x); COVID 6.882s, 8.298s (0.829x); weather 2.563s, 2.675s (0.958x). Observe slower for all three. Synthetic inputs. This is the newest performance evidence and changes the next action: do not launch full evaluation yet. |
-
-DPT was not included in the latest native-transform-min-02 qualification. Earlier results: min13 completed 30/30 DPT comparisons on an earlier frozen runtime, Observe 273.992s vs original 291.981s (1.066x). Other earlier evidence includes OPTIMIZATION_VALIDATION.json (276 minimum-size comparisons, earlier runtime only) and isolated SAM experiments. Requalify current source/binaries. Do not weaken output/filesystem validators; earlier classifier cache misses were caused by changed working-image timestamps.
-
-## Repositories and code
-
-Workspace: /users/jxia3/atlas. Main repo /users/jxia3/atlas/incr; sibling Observe repo /users/jxia3/atlas/observe; pinned original baseline /users/jxia3/atlas/incr-main-qualification.
-
-Original baseline is detached at 4b8e5ddf8e275d947518c7cc0f5d2713fe992307 with only the reviewed two-file, 14-insertion/1-deletion correctness patch in reference/original-minimal-fixes.patch. It ensures salted OpenSSL work is freshly executed. The harness doctor verifies exact patch equality. Do not alter baseline performance or weaken checks.
-
-Incr HEAD: b440cfc1f3702a81e644c8634a3a886afe23d55d; Observe HEAD: b5ad47a8d6155559d01f0fca616e72ab19d749e6. Both have uncommitted work. Nothing committed/pushed. Recheck git status and frozen source archives before editing.
-
-Implemented work in current workspace:
-- Observe ancestor dependency walking skips already checked ancestors. Rust units and 414 Observe integration cases passed; old/new min13 Observe had identical 77 dependencies and output/status. Preliminary paired SAM/TensorFlow import gain ~3–5%, not enough to explain sort bottlenecks.
-- Skip cache index work for statically pure TraceType::Nothing; validate only selected stdin candidate; interruption-safe hashing.
-- Detect known-empty stdin before child startup while retaining delayed producer handling.
-- Observe protocol 9 distinguishes NotDirectory from absent; fixes Python egg-info probes that prevented SAM caching. Cache format 26. Conservative successful O_TRUNC overwrite dependencies preserve inode on replay.
-- Spool returns to RAM after draining; 64 MiB per stream bound, spills above. Weather writes decreased in probes, but no established timing gain.
-- Python transform startup: lazy libbash for non-Bash, shared immutable prefix AST, avoid private dataclass state, direct method code inspection with fallback.
-- Narrow stdin-only GNU cut specialization, with locale/loader/executable guards.
-- src/execution/byte_sort_executor.rs: bounded exact byte sorting for sort, sort -u, --unique in C/POSIX locale; current cap 64 MiB/8M records; allocation/bound fallback to GNU. Counted-record map is bounded. Numeric/field-keyed sorting remains GNU. 128 MiB evidence suggests investigating sort cost/coverage before increasing bounds.
-- Opt-in native shell compiler via INCR_NATIVE_TRANSFORM=1 / study --native-transform, off by default. Pinned tree-sitter Bash, conservative CST whitelist, capability/helper/source checks, bounded parse and syntax check, ready marker, outer timeout and Python fallback. It changes shell transformation frontend as well as runtime/tracer; disclose this. Harness records option and validates on resume.
-- Optional per-PID phase profiler, off by default.
-
-Current verification logs/hashes are in results/native-transform-validation-01/: 36 Rust tests passed (one ignored), 9 shell AST tests, 70 final regressions, 6 native execution/fallback tests, 26 harness tests. Includes unsupported-syntax fallback, fake binary marker rejection and forced hanging control timeout.
-
-Rejected/reverted experiments: nonblocking stdin pipe had no consistent gain; larger kernel pipe buffers, stdin sort spool and thread tuning also rejected. Do not resurrect without new measurements.
-
-## Harness, safety and disk
-
-Harness under studies/paper-size-benchmarks: run.sh, harness/study.py, prepare.py, cleanup.py, launch.py, monitor.py. Explicit stages: doctor, prepare min|paper, run, report, status, cleanup dry-run then --apply, launch a single chosen stage. Global nonblocking lock enforces serial measurements. It records Bash oracle, original and Observe results, strict validators, detailed resource/timing/cache stats, frozen binaries/source/helper/benchmark provenance, and strict resume. It supports multiple run IDs.
-
-Synthetic scaling harness is ../observe-performance-regression/harness/scale.py; it repeats minimum fixtures and is not historical input. It hashes source/data and verifies around each variant, uses production validators/metrics and removes temporary generated inputs.
-
-Machine: 64 GiB RAM, Xeon D-1548, 16 logical CPUs; last df showed ~41 GiB free. Harness reserves 8 GiB and caps work at 32 GiB. Never clear unrelated/global package/model caches or OS page cache. Cleanup only task-owned study scratch, caches, fixtures, captures, downloads and explicitly named old builds. Preserve immutable weights/dependencies and results/source evidence. Cleanup refuses mounts/recovery state and writes an audit record. Paper downloads/inputs were absent at last check; inspect before full run.
-
-Before full evaluation: finish performance iteration and current-source DPT/min qualification; run doctor/build if needed; dry-run and inspect cleanup; apply owned cleanup including paper inputs/downloads while preserving result evidence and models; prepare historical profile separately; inspect provenance/disk; manually launch one repetition with selected native-transform option; run read-only five-minute audits; inspect all final output, status, resource and timing data. If any family is slower or incorrect, continue iteration.
-
-## Next actions
-
-1. Confirm no job/process/timer is active and retain the complete 128 MiB report and profiles.
-2. Profile general tracing, caching, process startup, dependency validation and stream buffering costs. Change one general mechanism at a time; preserve exact command execution and lossless bounded I/O. Command-specific algorithm replacements are disallowed.
-3. Compare frozen candidate vs current source with sequential 32/128 MiB and minimum fixtures; record hashes, repeat variance, resource data and exact validators. Retain only repeatable gains.
-4. Re-run all-family min and DPT/current SAM qualification after changes. Aim for significant gains in every included family.
-5. Then perform explicit owned cleanup, prepare historical-size inputs, inspect, and manually launch one-repetition full evaluation.
-
-## Current no-go
-
-Do not launch the historical full-size evaluation yet: the current 128 MiB result shows Observe slower on Poet, COVID and weather, and current-source DPT is unqualified. Minimum/synthetic evidence cannot establish all-family historical-size speedups.
+Review historical differences against `reference/historical-timings.csv` and its
+hashed `historical-sequence-sanity.json`. The old sequence data already show
+file-mod and unixfun slower than Bash. Reconcile actual inputs, annotations,
+hardware and timing semantics; never fabricate agreement or omit current regressions.

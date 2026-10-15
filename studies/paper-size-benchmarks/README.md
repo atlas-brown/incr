@@ -274,3 +274,58 @@ under `results/maintenance`, including partial failures and free space before/af
 This does not clear machine-wide kernel or package caches. It resets the study's
 memoization and working artifacts; each measured mode/repetition additionally
 starts with a fresh application cache and keeps it across its version sequence.
+
+## Supplemental coverage
+
+`INCR_BENCH_SUITE=supplemental` selects `supplemental-manifest.json` and records
+the suite in each run. Its profiles are `min` and `full`; the historical suite
+retains `min` and `paper`. Reports select their own recorded suite, and supplemental
+statistics never enter historical comparisons. The minimum preflight passes 30/30 comparisons over two repetitions;
+full-size supplemental evaluation remains pending.
+
+```bash
+INCR_BENCH_SUITE=supplemental python3 harness/study.py prepare --profile min --only web-search,weather-tufte
+INCR_BENCH_SUITE=supplemental python3 harness/study.py run --profile min --only web-search,weather-tufte --run-id supplemental-min-01 --repetitions 2 --native-transform --assume-directory-access
+```
+
+Run these sequentially after other measurements/tests finish. Minimum fixtures
+contain one real Wikipedia article plus the supplied stop sentinel, and one
+complete city-year of Tufte records. Full preparation follows the supplied recipes:
+the entire offline Wikipedia 10g archive/index, and the seeded full Tufte generator
+(all 27 cities and 30*365 days). Archive member/path limits, input inventories and
+source hashes are recorded. Full preparation and measurement remain separate
+explicit commands with disk reserves and process supervision.
+
+Web search executes the supplied `engine.sh`, followed by a byte-identical
+`engine-repeat.sh` copied during freezing. The second execution tests stateful
+warm behavior; it is excluded from edit aggregates as unchanged source. Tufte
+executes all three supplied development versions. Node and its complete installed
+module tree are frozen alongside scripts. Exact native-output comparison includes
+all nested artifacts. Independent validators require complete seed-article visits,
+sorted nonempty indexes with valid postings, version-specific Tufte intermediates,
+and decodable PNGs for every input city-year in the plotting version.
+
+New runs archive their exact manifest and verify its hash on reporting/resume, so
+later coverage changes cannot silently redefine an earlier run’s denominators.
+
+The full unannotated run plan and its preflight gates are recorded in
+[EVALUATION_PROTOCOL.json](EVALUATION_PROTOCOL.json). Full evaluations remain
+gated on final larger-input/model qualification and the second pushed checkpoints.
+
+The report includes complete-sequence seconds and Bash-relative ratios for both
+Incr implementations, in addition to edited-version ratios. Ratios below one
+are slowdowns and remain visible. On historical-size runs, version/mode timings
+that differ from the archived original timings by more than 2× are flagged for
+review. `reference/historical-sequence-sanity.json` reconstructs the historical
+sequence totals directly from the archived CSV with its source hash and sample
+counts. The old data already contain whole-sequence slowdowns for file-mod and
+unixfun; historical annotations, actual input sizes and hardware must be reconciled
+before attributing any current discrepancy to implementation changes.
+
+Compiler qualification distinguishes the selected Bash target from the official
+test driver. The benchmark frontend gate uses `/bin/bash`, all 82 groups from its matching
+Bash 5.1.16 corpus, and a successful native-compiler capability probe. All 83
+Bash 5.2.37 groups are checked separately with the custom Bash defaults. Corpus
+major/minor versions must match the selected target shell.
+Python compilation warnings or failure trigger execution of the untouched source,
+so the selected shell controls syntax behavior and diagnostics across parser versions.

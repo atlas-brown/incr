@@ -91,7 +91,7 @@ def normalized_stderr(path, name):
                     continue
                 digest.update(row + b'\n')
                 total += len(row)
-                if re.search(rb'No such file or directory|Traceback \(most recent|command not found|\[E::|failed to open|Error:', row, re.I):
+                if re.search(rb'No such file or directory|Traceback \(most recent|command not found|\[E::|failed to open|Error:|\bERROR\s+[45]\d\d:', row, re.I):
                     errors.append(row[:1024].decode(errors='replace'))
                 if sample_bytes < 65536:
                     sample.append(row)
@@ -102,7 +102,7 @@ def normalized_stderr(path, name):
                 digest.update(row + b'\n')
                 total += len(row)
                 sample.append(row[:65536])
-                if re.search(rb'No such file or directory|Traceback \(most recent|command not found|\[E::|failed to open|Error:', row, re.I):
+                if re.search(rb'No such file or directory|Traceback \(most recent|command not found|\[E::|failed to open|Error:|\bERROR\s+[45]\d\d:', row, re.I):
                     errors.append(row[:1024].decode(errors='replace'))
     return {'sha256': digest.hexdigest(), 'sample': b'\n'.join(sample).decode(errors='replace'),
             'bytes': total, 'errors': errors[:100]}
@@ -114,6 +114,14 @@ def normalize_row(row, name):
             return None
         row = re.sub(rb'0x[0-9a-fA-F]+', b'<address>', row)
     if name == 'dpt':
+        # Wget's clock/rate/ETA are transport provenance; keep URL, HTTP status,
+        # filename, progress offset/percentage and exact saved-byte counts.
+        row = re.sub(rb'^--\d{4}-\d\d-\d\d \d\d:\d\d:\d\d--', b'--<time>--', row)
+        progress = re.fullmatch(rb'(\s*\d+K[ .]*\d+%)\s+[0-9.]+[KMGT]?(?:=\S+|\s+\S+)\s*', row)
+        if progress:
+            row = progress[1] + b' <rate> <duration>'
+        row = re.sub(rb'^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d \([0-9.]+ [KMGT]?B/s\)( - .+ saved \[\d+/\d+\])$',
+                     rb'<time> (<rate>)\1', row)
         row = re.sub(rb'^([IWEF]\d{4}) \d\d:\d\d:\d+\.\d+\s+\d+ ', rb'\1 <time> <pid> ', row)
         row = re.sub(rb'^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d\.\d+:', b'<time>:', row)
     return row
@@ -164,6 +172,9 @@ def independent_checks(fixture, name, script, record, stderr):
     if stderr.get('errors'):
         problems.append('unexpected error diagnostic')
     outputs = fixture / 'outputs'
+    if name in ('web-search', 'weather-tufte'):
+        from supplemental import independent_checks as supplemental_checks
+        problems.extend(supplemental_checks(fixture, name, script))
     if name in ('word-freq', 'covid', 'beginner', 'nginx-analysis', 'unixfun', 'spell'):
         if record['stdout_bytes'] == 0:
             # Some filtered tiny examples legitimately have no matches.

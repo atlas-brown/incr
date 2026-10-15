@@ -39,6 +39,35 @@ class Regressions(unittest.TestCase):
     def shell(self, command, **kwargs):
         return self.invoke(["bash", "-c", command], **kwargs)
 
+    def test_content_validated_input_reextract_and_preserved_mtime_edit(self):
+        path = self.work / "input"
+        path.write_bytes(b"original")
+        stamp = path.stat().st_mtime_ns
+        args = [str(INCR), *MODE, "--content-validated-inputs", "--observe", str(OBSERVE),
+                "--try", str(ROOT / "src/scripts/try.sh"), "--cache", str(self.cache),
+                "--", "cat", str(path)]
+        def execute(expected):
+            result = run(args, cwd=self.work, timeout=5)
+            self.assertEqual((result["returncode"], result["stdout"], result["stderr"]),
+                             (0, expected, ""), result)
+            self.assertFalse(result["timeout"] or result["remaining_descendants"], result)
+        execute("original")
+        def metadata():
+            return {str(p.relative_to(self.cache)): (p.stat().st_mtime_ns, p.read_bytes())
+                    for p in self.cache.rglob("data.incr")}
+        before = metadata()
+        self.assertTrue(before)
+        replacement = self.work / "replacement"
+        replacement.write_bytes(b"original")
+        os.utime(replacement, ns=(stamp, stamp))
+        replacement.replace(path)
+        execute("original")
+        self.assertEqual(before, metadata(), "identical content should reuse the existing entry")
+        path.write_bytes(b"modified")
+        os.utime(path, ns=(stamp, stamp))
+        execute("modified")
+        self.assertNotEqual(before, metadata(), "changed same-size bytes must invalidate")
+
     def test_parallel_script_wrapper(self):
         import shlex
         script = self.work / "script.sh"

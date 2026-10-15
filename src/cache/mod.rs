@@ -61,6 +61,14 @@ pub(crate) enum DependencyKey {
     },
     /// Lookup failed because an intermediate component was not a directory.
     NotDirectory,
+    /// Read-only workspace data: identity and ctime are witnesses, not outputs.
+    /// Modification time, content and access metadata remain dependencies.
+    FileContent {
+        modified: u128,
+        changed_sec: i64,
+        changed_nsec: i64,
+        file: ProducedFile,
+    },
 }
 
 #[derive(Clone, Debug, Decode, Deserialize, Encode, Eq, PartialEq, Serialize)]

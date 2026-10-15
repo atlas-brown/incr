@@ -353,6 +353,31 @@ def command_prefix(arguments):
     return prefix
 
 
+def observes_function_source(source_bytes):
+    """Keep function text intact when shell code can inspect its definitions."""
+    if b"function" not in source_bytes and re.search(rb"\(\s*\)", source_bytes) is None:
+        return False
+    try:
+        lexer = shlex.shlex(source_bytes.decode('utf-8', errors='surrogateescape'),
+                            posix=True, punctuation_chars=';&|(){}')
+        lexer.whitespace_split = True
+        tokens = []
+        for word in lexer:
+            tokens.extend(word if word and all(c in ';&|(){}' for c in word) else [word])
+    except ValueError:
+        # A shell heredoc can contain text shlex does not understand.
+        return True
+    defines_functions = ('function' in tokens or any(
+        tokens[index + 1:index + 3] == ['(', ')'] for index in range(len(tokens) - 2)))
+    if not defines_functions:
+        return False
+    words = ' '.join(tokens)
+    return (re.search(r'(?<![\w-])type(?![\w-])', words) is not None
+            or re.search(r'\b(?:declare|typeset)\s+(?:-[A-Za-z]+\s+)*-[A-Za-z]*[fF]', words) is not None
+            or re.search(r'\bcommand\s+(?:-[A-Za-z]+\s+)*-[A-Za-z]*[vV]', words) is not None
+            or re.search(r'\bset\s*(?:[;|&)}<>]|$)', words) is not None)
+
+
 def requires_original_source(source_bytes):
     """Conservatively preserve constructs whose behavior depends on source text."""
     # AST pretty-printing cannot preserve history's source text or the timing
@@ -369,7 +394,7 @@ def requires_original_source(source_bytes):
     source_sensitive = source_sensitive or re.search(
         rb"(?:^|[;\n])\s*(?:declare|typeset)(?:\s+-[a-zA-Z]+)*\s*(?:[;|\n]|$)", source_bytes) is not None
 
-    return source_sensitive
+    return source_sensitive or observes_function_source(source_bytes)
 
 
 def transform_bash_script(arguments, prefix_words, source_bytes):

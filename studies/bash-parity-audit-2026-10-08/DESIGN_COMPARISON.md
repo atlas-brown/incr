@@ -38,7 +38,7 @@ The latest audit further fixed Unix-byte paths, parent symlink/permission depend
 
 The early agents/docs integration review says no bugs were found and describes replaying cold Observe writes through try. Later reproducible failures and current code supersede that assessment. The old architecture pages list grep/sort as pure and chunking as dormant; both have changed.
 
-Observe DESIGN.md and CONTEXT.md still describe a descriptor cache, lexical pathname normalization, percent-encoded snapshot names, reverse-order best-effort restoration, and older SIGTERM handling. Current source removes the descriptor cache, preserves path components and bytes, uses numeric payload names, preflights restoration with ordered phases, and kills/reaps tracees before writing reports. These documents explain design history but cannot be treated as current specifications.
+The inherited Observe architecture pages described a descriptor cache, lexical pathname normalization, percent-encoded snapshot names and reverse-order best-effort restoration. They are now retained as explicitly historical notes under Observe docs/. Current DESIGN.md and CONTEXT.md describe fresh descriptor resolution, preserved path components/bytes, numbered snapshot payloads, restoration preflight and ordered phases, dependency protocols and caller-owned assumptions. Current code also kills/reaps tracees before publishing partial snapshot state.
 
 Earlier benchmark notes also describe in-place script sentinels, filtering ordinary /tmp dependencies, unsafe global temporary cleanup and weak output checks. The newer qualification harness and runtime supersede those practices. This audit uses owned fixtures/private /tmp and retains raw comparison evidence.
 

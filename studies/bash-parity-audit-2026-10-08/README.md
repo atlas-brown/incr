@@ -67,7 +67,7 @@ PY
 
 `case-results.json`/CSV and `summary.json` contain aggregate results; `diffs/` retains nonempty raw/normalized differences. `provenance.json` identifies source revisions and binary hashes; `setup/` holds compressed build and regression logs. The diff capture helper excludes capability checks comparing an expected file to itself, so those lines do not inflate the denominator.
 
-Normalization is deliberately narrow: source-location paths, diagnostic line numbers, terminal process-group IDs, and the two known executable prefixes in `type`'s displayed function. All raw text remains available. New unexpected differences fail; missing captures, changed expected operands, timeouts, and Observe-only leftover descendants cannot pass. Live process names/counts are checked separately so an adopted zombie in the native run cannot mask a live candidate leak. A controlling terminal is available to every test, with terminal stdin additionally provided for `read`.
+Normalization is deliberately narrow: source-location paths, diagnostic line numbers, terminal process-group IDs, and PIDs in Bash signal-termination diagnostics. Signal labels and command text remain compared. Printed function bodies remain fully compared; compiler instrumentation is an observable difference and is never stripped. All raw text remains available. New unexpected differences fail; missing captures, changed expected operands, timeouts, and Observe-only leftover descendants cannot pass. Live process names/counts are checked separately so an adopted zombie in the native run cannot mask a live candidate leak. A controlling terminal is available to every test, with terminal stdin additionally provided for `read`.
 
 Cache entries and unchanged metadata establish that warm runs retain cache state; they do not by themselves prove every command hit. Focused regression tests verify actual reuse separately. Shell syntax/source-sensitive constructs can execute natively by design. Launcher logs show shell entry points, not every individual Bash statement; direct shebang execution and builtins retain native shell semantics.
 
@@ -83,7 +83,40 @@ The analysis also writes `line-results.csv.gz`: one row for every compared trans
 
 The analysis command rejects missing records and recomputes all comparisons from raw captures. It writes `analysis.json` beside the results and exits nonzero if any group differs.
 
-The runner also accepts `--native-transform --assume-directory-access` to qualify
-the optional configuration used by the current benchmark study. Both settings
+The runner accepts `--shell /bin/bash --native-transform --assume-directory-access`
+to qualify the configuration used by the current benchmark study. A preparation
+probe requires the native compiler to accept the selected target; this avoids
+mislabeling a custom-Bash Python fallback as native-frontend qualification. The
+verified custom Bash still drives the official test scripts, while reference and
+Observe both execute the selected target shell. Omit `--shell` to test the custom
+Bash build. Both runtime settings
 and the disabled static-annotation policy are recorded in provenance. Omit these
 options to qualify defaults; use distinct result directories for each run.
+
+For the installed Bash 5.1 target, use its matching official corpus. Preparation
+and execution both accept `--corpus-provenance`; setup derives the release
+source directory from that pinned metadata. The runner rejects major/minor
+version mismatches before building the candidate and archives the complete corpus
+metadata with each new result. The installed-shell gate uses all 82 Bash 5.1.16
+groups, while the custom-Bash default gate retains all 83 Bash 5.2.37 groups.
+
+```bash
+python3 -B studies/bash-parity-audit-2026-10-08/harness/setup.py \
+  --bash-build qualification/.work/bash-5.1.16 \
+  --corpus-provenance studies/bash-parity-audit-2026-10-08/corpus-provenance-5.1.16.json
+studies/bash-parity-audit-2026-10-08/run.sh --shell /bin/bash \
+  --bash-build qualification/.work/bash-5.1.16 \
+  --corpus-provenance studies/bash-parity-audit-2026-10-08/corpus-provenance-5.1.16.json \
+  --native-transform --assume-directory-access --output results-for-bash51
+```
+
+The failed `parser-fallback-system-bash-full-01` exploration used Bash 5.2 tests
+on installed Bash 5.1. It completed 68 groups before native `read` timed out.
+Independent partial analysis matches 66 groups in both phases; the remaining
+`jobs` and `quotearray` groups also differ between the two native runs themselves.
+Their variable values and diagnostic ordering are not normalized. That retained
+cross-version run is diagnostic evidence, not a passing correctness gate.
+
+`QUALIFICATION_HISTORY.json` records the scope and content-tree hashes of
+superseded local trials. Their raw artifacts remain local diagnostics. The two
+final version-matched suites retain complete raw evidence in the checkpoint.

@@ -16,6 +16,18 @@ ROOT = STUDY.parents[1]
 WORK = STUDY / '.work'
 SCRATCH = WORK / 'runner'
 GIB = 1024 ** 3
+SUITE = os.environ.get('INCR_BENCH_SUITE', 'paper')
+if SUITE not in ('paper', 'supplemental'):
+    raise ValueError('INCR_BENCH_SUITE must be paper or supplemental')
+
+
+def manifest_path(suite):
+    if suite not in ('paper', 'supplemental'):
+        raise ValueError(f'Unknown benchmark suite: {suite}')
+    return STUDY / ('manifest.json' if suite == 'paper' else 'supplemental-manifest.json')
+
+
+MANIFEST_FILE = manifest_path(SUITE)
 
 
 def atomic_json(path, data):

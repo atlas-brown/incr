@@ -150,6 +150,38 @@ pub(crate) fn capture_produced_file(path: &Path) -> Result<crate::cache::Produce
     })
 }
 
+/// Capture a read-only file's content only while its observed first state still
+/// matches. Callers restrict this opt-in contract to successful content opens in
+/// the workspace; metadata-only observations remain strict FileState keys.
+pub(crate) fn content_validated_key(
+    path: &Path,
+    initial: &DependencyKey,
+    initial_id: Option<(u64, u64)>,
+) -> Option<DependencyKey> {
+    let DependencyKey::FileState {
+        modified,
+        changed_sec,
+        changed_nsec,
+        ..
+    } = initial
+    else {
+        return None;
+    };
+    if !check_dependency(path, initial).ok()? {
+        return None;
+    }
+    let file = capture_produced_file(path).ok()?;
+    if initial_id != Some((file.device, file.inode)) || !check_dependency(path, initial).ok()? {
+        return None;
+    }
+    Some(DependencyKey::FileContent {
+        modified: *modified,
+        changed_sec: *changed_sec,
+        changed_nsec: *changed_nsec,
+        file,
+    })
+}
+
 fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
     Ok(match key {
         DependencyKey::Overwrite { initial, output } => {
@@ -234,6 +266,49 @@ fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
                 && metadata.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() == *modified
                 && fs::read_link(path)? == *target
         }
+        DependencyKey::FileContent {
+            modified,
+            changed_sec,
+            changed_nsec,
+            file,
+        } => {
+            let before = fs::symlink_metadata(path)?;
+            if !before.is_file() {
+                return Ok(false);
+            }
+            let access = crate::ops::permissions::effective_access(path)?;
+            let metadata_matches = before.len() == file.size
+                && before.mode() == file.mode
+                && before.uid() == file.uid
+                && before.gid() == file.gid
+                && before.nlink() == file.links
+                && access == file.access
+                && before.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() == *modified;
+            if !metadata_matches {
+                false
+            } else if before.dev() == file.device
+                && before.ino() == file.inode
+                && before.ctime() == *changed_sec
+                && before.ctime_nsec() == *changed_nsec
+            {
+                true
+            } else if get_file_hash(path)? != Some(file.hash) {
+                false
+            } else {
+                // Hashing must not bless a file that changed during validation.
+                let after = fs::symlink_metadata(path)?;
+                after.dev() == before.dev()
+                    && after.ino() == before.ino()
+                    && after.len() == before.len()
+                    && after.mode() == before.mode()
+                    && after.uid() == before.uid()
+                    && after.gid() == before.gid()
+                    && after.nlink() == before.nlink()
+                    && after.ctime() == before.ctime()
+                    && after.ctime_nsec() == before.ctime_nsec()
+                    && after.modified()? == before.modified()?
+            }
+        }
         DependencyKey::NotDirectory => matches!(fs::symlink_metadata(path),
             Err(error) if error.kind() == ErrorKind::NotADirectory),
         DependencyKey::DoesNotExist => matches!(fs::symlink_metadata(path),
@@ -281,4 +356,54 @@ pub(crate) fn get_introspect_file(cache_directory: &Path, command_hash: u64) -> 
     cache_directory
         .join(INTROSPECT_DIRECTORY)
         .join(format!("command_{command_hash}.incr"))
+}
+
+#[cfg(test)]
+mod content_input_tests {
+    use super::*;
+    use std::fs::{FileTimes, Permissions};
+    use std::os::unix::fs::PermissionsExt;
+
+    #[test]
+    fn content_validation_preserves_content_and_metadata_dependencies() -> Result<()> {
+        let directory = std::env::temp_dir().join(format!("incr-content-{}", rand::random::<u128>()));
+        fs::create_dir(&directory)?;
+        let result = (|| -> Result<()> {
+            let path = directory.join("input");
+            fs::write(&path, b"original")?;
+            let metadata = fs::metadata(&path)?;
+            let initial = capture_dependency(&path, false)?;
+            let key = content_validated_key(&path, &initial, Some((metadata.dev(), metadata.ino())))
+                .expect("stable content input");
+            assert!(content_validated_key(&path, &initial, None).is_none());
+            let restore_time = || -> Result<()> {
+                File::open(&path)?.set_times(FileTimes::new().set_modified(metadata.modified()?))?;
+                Ok(())
+            };
+            std::thread::sleep(std::time::Duration::from_millis(20));
+            fs::write(&path, b"original")?;
+            restore_time()?;
+            assert!(!check_dependency(&path, &initial)?);
+            assert!(check_dependency(&path, &key)?);
+            std::thread::sleep(std::time::Duration::from_millis(20));
+            fs::write(&path, b"modified")?;
+            restore_time()?;
+            assert!(!check_dependency(&path, &key)?);
+            assert!(content_validated_key(&path, &initial, Some((metadata.dev(), metadata.ino()))).is_none());
+            let replacement = directory.join("replacement");
+            fs::write(&replacement, b"original")?;
+            fs::set_permissions(&replacement, Permissions::from_mode(metadata.mode()))?;
+            fs::rename(&replacement, &path)?;
+            restore_time()?;
+            assert!(check_dependency(&path, &key)?);
+            fs::set_permissions(&path, Permissions::from_mode(metadata.mode() ^ 0o100))?;
+            assert!(!check_dependency(&path, &key)?);
+            fs::remove_file(&path)?;
+            std::os::unix::fs::symlink("missing", &path)?;
+            assert!(!check_dependency(&path, &key)?);
+            Ok(())
+        })();
+        fs::remove_dir_all(directory)?;
+        result
+    }
 }

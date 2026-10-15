@@ -1,0 +1,19 @@
+{
+  "complete": true,
+  "groups": 83,
+  "cold_matches": 83,
+  "warm_matches": 83,
+  "failures": [],
+  "elapsed_sec": 773.1495742460247,
+  "regressions": {
+    "live": {
+      "returncode": 0,
+      "elapsed_sec": 11.369799769949168
+    },
+    "final": {
+      "returncode": 0,
+      "elapsed_sec": 11.56061555200722
+    }
+  },
+  "scratch_cleaned": true
+}

@@ -61,7 +61,8 @@
       "poet": 8.836342139039886,
       "covid": 14.927698614401358,
       "weather": 13.02871627436216
-    }
+    },
+    "size_note": "Nominal target only: complete minimum-fixture copies are retained; word frequency actual input was 10,485,770 bytes in both 1 and 8 MiB target runs."
   },
   "benchmark_options": {
     "native_transform": true,

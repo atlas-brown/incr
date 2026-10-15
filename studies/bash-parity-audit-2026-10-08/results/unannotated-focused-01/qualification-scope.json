@@ -1,0 +1,8 @@
+{
+  "status": "Historical diagnostic qualification before the final implementation and comparison contract",
+  "current_correctness_gate": false,
+  "superseded_by": [
+    "function-locations-system-bash-full-01",
+    "function-locations-defaults-full-01"
+  ]
+}

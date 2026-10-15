@@ -7,23 +7,30 @@ import subprocess
 import sys
 import shutil
 
-from common import STUDY, WORK
-from study import selected, lock
+from common import STUDY, WORK, SUITE
+from study import MODES, selected, lock
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--profile', choices=('min', 'paper'), required=True)
+    parser.add_argument('--profile', choices=('min', 'paper', 'full'), required=True)
     parser.add_argument('--stage', choices=('run', 'prepare'), default='run')
     parser.add_argument('--only', required=True)
     parser.add_argument('--run-id', required=True)
     parser.add_argument('--repetitions', type=int, default=3)
+    parser.add_argument('--modes', type=lambda s: tuple(s.split(',')), default=MODES,
+                        help='Bash reference plus measured modes in starting order; alternates each repetition')
     parser.add_argument('--native-transform', action='store_true')
+    parser.add_argument('--content-validated-inputs', action='store_true')
     parser.add_argument('--assume-directory-access', action='store_true')
     parser.add_argument('--continue-on-failure', action='store_true')
     parser.add_argument('--release-inputs', action='store_true')
     args = parser.parse_args()
-    if args.stage == 'prepare' and (args.native_transform or args.assume_directory_access):
+    if args.profile not in ('min', 'paper' if SUITE == 'paper' else 'full'):
+        parser.error('Use min/paper for the historical suite or min/full for supplemental workloads')
+    if 'bash' not in args.modes or len(args.modes) != len(set(args.modes)) or not set(args.modes) <= set(MODES):
+        parser.error('Use unique known modes including the Bash reference')
+    if args.stage == 'prepare' and (args.native_transform or args.assume_directory_access or args.content_validated_inputs):
         parser.error('Runtime options apply only to measurements')
     if args.repetitions < 1 or not args.run_id or any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-' for c in args.run_id):
         parser.error('Use positive repetitions and a simple, unique run ID')
@@ -45,11 +52,14 @@ def main():
     subprocess.run(['systemctl', '--user', 'reset-failed', 'incr-bench-study.service'],
                    check=False, timeout=10, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     command = [sys.executable, str(STUDY / 'harness/study.py'), 'run', '--profile', args.profile,
-               '--only', args.only, '--run-id', args.run_id, '--repetitions', str(args.repetitions)]
+               '--only', args.only, '--run-id', args.run_id, '--repetitions', str(args.repetitions),
+               '--modes', ','.join(args.modes)]
     if args.native_transform:
         command.append('--native-transform')
     if args.assume_directory_access:
         command.append('--assume-directory-access')
+    if args.content_validated_inputs:
+        command.append('--content-validated-inputs')
     if args.continue_on_failure:
         command.append('--continue-on-failure')
     if args.release_inputs:
@@ -64,6 +74,7 @@ def main():
                     '--property=KillMode=control-group', '--property=TimeoutStopSec=20',
                     '--property=Restart=no', f'--property=WorkingDirectory={STUDY}',
                     f'--setenv=INCR_BENCH_STUDY={STUDY}',
+                    f'--setenv=INCR_BENCH_SUITE={SUITE}',
                     f'--setenv=PATH={os.environ.get("PATH", os.defpath)}',
                     f'--property=StandardOutput=append:{logfile}',
                     f'--property=StandardError=append:{logfile}', '--', *command],

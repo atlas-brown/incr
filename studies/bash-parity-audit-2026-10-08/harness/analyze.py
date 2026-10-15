@@ -92,7 +92,10 @@ def main():
     notes = dict(
         line.split("\t", 1) for line in (STUDY / "case-notes.tsv").read_text().splitlines()
     )
-    source_files = {row["path"] for row in load(STUDY / "corpus-provenance.json")["files"]}
+    corpus_metadata = results / "corpus-provenance.json"
+    if not corpus_metadata.is_file():
+        corpus_metadata = STUDY / "corpus-provenance.json"  # Older retained evidence.
+    source_files = {row["path"] for row in load(corpus_metadata)["files"]}
     groups = provenance["case_order"]
     assert len(groups) == summary["groups"] and summary["complete"]
     records = {}
@@ -109,7 +112,7 @@ def main():
         "",
         "Generated from retained raw records. Counts are LF-delimited output lines, not separately numbered assertions. "
         "Each group has native cold/warm and Observe cold/warm evidence. Warm retains the same fixture/cache. "
-        "Source locations, terminal process-group IDs, and the reviewed function executable prefixes are the only normalizations used here.",
+        "Only source locations, diagnostic line numbers, terminal process-group IDs, and PIDs in Bash signal diagnostics are normalized. Printed function bodies, signal labels and command text remain compared.",
         "",
         "| Group | Native lines cold/warm | Cold match | Warm match | Cache entries cold/warm | Unchanged warm metadata |",
         "|---|---:|:---:|:---:|---:|---:|",

@@ -3,6 +3,15 @@
 from collections import Counter
 import difflib
 import re
+import signal
+
+
+SIGNAL_LABELS = "|".join(re.escape(label) for label in sorted(
+    {signal.strsignal(number) for number in signal.Signals} - {None}, key=len, reverse=True))
+SIGNAL_PID = re.compile(
+    r"(^[^\n]+: line <line>: )\d+(?= (?:" + SIGNAL_LABELS + r")(?: \(core dumped\))? {2,})",
+    re.MULTILINE,
+)
 
 
 def normalize(text, case):
@@ -15,13 +24,7 @@ def normalize(text, case):
         "cannot set terminal process group (<pid>)",
         text,
     )
-    if case == "type":
-        text = re.sub(
-            r"(?m)^(    )\S+/target/release/incr --try \S+ --cache \S+ --observe \S+ (?=rm -f a b c;|grep \. a b c$)",
-            r"\1",
-            text,
-        )
-    return text
+    return SIGNAL_PID.sub(r"\1<pid>", text)
 
 
 def lines(text):

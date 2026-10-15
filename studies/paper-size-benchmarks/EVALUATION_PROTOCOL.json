@@ -1,0 +1,82 @@
+{
+  "status": "Full evaluations not yet launched; qualification gates remain active",
+  "comparison": {
+    "candidate": "Incr + Observe with the general execution/cache improvements and native shell compiler",
+    "reference": "Pinned original Incr with the archived salted-encryption fix and opt-in static annotations",
+    "correctness_oracle": "Native Bash with identical per-repetition inputs, tools, environment and ordered script versions",
+    "annotations": false,
+    "annotated_comparison": "Deferred until the complete unannotated evaluation finishes"
+  },
+  "runtime_configuration": {
+    "effect_policy": "final",
+    "native_transform": true,
+    "assume_directory_access": true,
+    "track_temporaries": false,
+    "command_algorithm_replacements": false,
+    "content_validated_inputs": true
+  },
+  "assumptions": [
+    "Temporary scratch state under /tmp, /var/tmp and a non-root absolute TMPDIR is disposable",
+    "Directory stat/access probes use existence/access/ownership, with directory listings still tracked",
+    "Final-output equivalence within a command; concurrent external writes and intermediate external observations are outside this effect policy",
+    "Read-only regular workspace files opened for content use content, mtime, size and access metadata as application data; inode and ctime are validation witnesses. Identity/ctime drift requires a content hash match. Metadata-only inputs and files outside the workspace retain strict identity metadata. This opt-in policy is stronger against preserved-mtime content edits than original Incr."
+  ],
+  "required_pre_full_gates": [
+    "First clean implementation checkpoints pushed in both repositories",
+    "Small benchmark-family correctness and performance qualification",
+    "Progressive medium and larger paired input diagnostics with actual byte inventories",
+    "Every official Bash 5.1.16 group on installed Bash 5.1 with a successful native-compiler capability probe and benchmark options, plus all 83 official Bash 5.2.37 groups on the verified 5.2 custom build with defaults; independent raw-evidence reanalysis without function-prefix stripping",
+    "DPT minimum fixture with complete real models and model hash validation",
+    "Supplemental minimum coverage for web-search and all Tufte development versions",
+    "Real DPT archive extraction workflow must reuse unchanged content and invalidate changed bytes at preserved mtime, plus generic metadata/content fault probes",
+    "Second clean qualification checkpoints committed and pushed in both repositories"
+  ],
+  "scope": {
+    "historical_manifest": "manifest.json",
+    "historical_profile": "paper",
+    "supplemental_manifest": "supplemental-manifest.json",
+    "supplemental_profile": "full",
+    "excluded": "Image annotation requiring an OpenAI API key",
+    "supplemental_statistics": "Separate from the historical matrix"
+  },
+  "inputs": {
+    "historical": "Reconstruct the documented historical fetch recipes; disclose actual bytes rather than silently substituting nominal sizes",
+    "web_search": "Entire supplied offline Wikipedia 10g corpus and index; supplied engine plus labeled unchanged-source warm repeat",
+    "tufte_weather": "Supplied seeded full generator: 27 cities and 30*365 daily records",
+    "model_integrity": "Verify shared model hashes at preparation reuse and before/after model sequences; record witnesses outside timing",
+    "synthetic_scaling": "Diagnostic only; repeated minimum-fixture copies round upward, with actual sizes archived"
+  },
+  "execution": {
+    "serial_measurements": true,
+    "overlap_tests_or_builds_with_measurements": false,
+    "initial_full_repetitions": 1,
+    "followup_policy": "At least two further paired repetitions for final statistical reporting; add samples for unstable or borderline families instead of asserting a speedup",
+    "mode_order": "Bash reference first; alternate original/Observe ordering between paired repetitions; reverse the starting order for follow-up batches",
+    "reserve_gib": 8,
+    "work_budget_gib": 32,
+    "cleanup": "Inspect and record an owned cleanup plan; preserve result evidence and recovery snapshots; prepare inputs separately from measurement",
+    "freezing": "Archive exact manifests, sources, binaries, benchmark scripts, supplemental Node runtime/modules, input inventories and package/tool versions",
+    "cold_definition": "Cold means an empty Incr result cache at the start of an ordered script sequence, not an empty operating-system page cache. Fixture copying and input/model provenance hashing run outside the timer for every mode; no global page-cache flush is used."
+  },
+  "validation": [
+    "Exact native return status, stdout hash, normalized stderr and full nested output manifests",
+    "Documented archive/encryption decoding and provenance normalization only; no changes to workload payload comparisons",
+    "Independent workload artifact checks, including complete article visits and every expected Tufte city-year PNG",
+    "Record resources, cache reuse, process cleanup, failures and excluded/incomplete samples",
+    "Never treat a failed sequence, unsupported input or instrumentation bypass as acceleration"
+  ],
+  "reporting": {
+    "primary": "Incremental edited-version ratios, paired by identical input and script version",
+    "also_required": [
+      "Cold execution",
+      "Complete ordered-sequence totals",
+      "Labeled unchanged-source warm repeats",
+      "Per-version samples, means, medians, spread and resource usage",
+      "All slowdowns and correctness failures, with no selective omission"
+    ],
+    "uncertainty": "Use repeated paired observations; investigate unstable or borderline results before making a faster-than-baseline claim",
+    "monitoring": "Persistent supervised jobs with live heartbeats, disk/process guards and periodic independent audits of saved validation evidence",
+    "bash_sanity_gate": "Both Incr systems must be compared against native Bash, including edited-version and whole-sequence totals. Investigate systematic or substantial slowdowns; disclose any limited exceptions rather than presenting baseline-relative gains as Bash speedups.",
+    "historical_sanity_gate": "Compare current Bash and original Incr against recorded original results for matching workloads and actual sizes. Investigate large discrepancies and identify annotation/configuration differences, reconstruction differences and timing-method changes explicitly."
+  }
+}

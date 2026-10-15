@@ -52,6 +52,7 @@ pub(crate) struct Trace {
     pub(crate) writes: HashSet<PathBuf>,
     pub(crate) overwrites: HashSet<PathBuf>,
     pub(crate) initial_file_ids: HashMap<PathBuf, (u64, u64)>,
+    pub(crate) content_opens: HashSet<PathBuf>,
     pub(crate) initial_dependencies: HashMap<PathBuf, crate::cache::DependencyKey>,
 }
 
@@ -69,6 +70,7 @@ pub(crate) fn parse_trace(runtime: &Runtime, config: &Config) -> Result<Trace> {
             &trace_file,
             config.track_temporaries,
             config.assume_directory_access,
+            config.content_validated_inputs,
         )?
     } else {
         scripts::parse_trace(&trace_file)?

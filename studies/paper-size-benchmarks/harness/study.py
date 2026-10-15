@@ -24,14 +24,14 @@ import threading
 import time
 from datetime import datetime, timezone
 
-from common import (GIB, ROOT, STUDY, WORK, SCRATCH, allocated_bytes, atomic_json, file_hash,
+from common import (GIB, ROOT, STUDY, WORK, SCRATCH, SUITE, MANIFEST_FILE, manifest_path, allocated_bytes, atomic_json, file_hash,
                     mounts_under, remove_owned, supervise)
-from prepare import SOURCE, prepare, check_space
+from prepare import SOURCE, prepare, check_space, validate_models
 from validate import compare
 
 MODES = ('bash', 'original', 'observe')
 HARNESS = Path(__file__).resolve().parent
-MANIFEST = json.loads((STUDY / 'manifest.json').read_text())
+MANIFEST = json.loads(MANIFEST_FILE.read_text())
 PYTHON = ROOT / 'qualification/.venv/bin/python'
 ORIGINAL = ROOT.parent / 'incr-main-qualification'
 
@@ -55,12 +55,27 @@ def lock():
     return stream
 
 
-def selected(names):
-    requested = set(names.split(',')) if names else {b['name'] for b in MANIFEST['benchmarks']}
-    known = {b['name'] for b in MANIFEST['benchmarks']}
+def selected(names, suite=None):
+    manifest = MANIFEST if suite is None or suite == SUITE else json.loads(manifest_path(suite).read_text())
+    return select_from_manifest(names, manifest)
+
+
+def select_from_manifest(names, manifest):
+    requested = set(names.split(',')) if names else {b['name'] for b in manifest['benchmarks']}
+    known = {b['name'] for b in manifest['benchmarks']}
     if not requested <= known:
         raise ValueError(f'Unknown benchmarks: {requested - known}')
-    return [b for b in MANIFEST['benchmarks'] if b['name'] in requested]
+    return [b for b in manifest['benchmarks'] if b['name'] in requested]
+
+
+def run_benchmarks(run, config):
+    archived = run / 'manifest.json'
+    if archived.is_file():
+        if file_hash(archived) != config['manifest_sha256']:
+            raise ValueError('Archived run manifest changed')
+        return select_from_manifest(config['only'], json.loads(archived.read_text()))
+    # Earlier evidence predates per-run manifest archives.
+    return selected(config['only'], config.get('suite', 'paper'))
 
 
 def doctor(build=False):
@@ -69,6 +84,10 @@ def doctor(build=False):
     missing = [tool for tool in required if not shutil.which(tool)]
     if missing:
         raise RuntimeError(f'Missing dependencies: {missing}')
+    if SUITE == 'supplemental':
+        node = ROOT / 'qualification/.work/node-v22.20.0-linux-x64/bin/node'
+        if not node.is_file() or not (SOURCE / 'web-search/scripts/node_modules').is_dir():
+            raise RuntimeError('Supplemental web-search requires its installed Node runtime and modules')
     if not Path('/dev/fuse').exists():
         raise RuntimeError('FUSE device missing')
     subprocess.run(['sudo', '-n', 'true'], check=True, timeout=5)
@@ -153,9 +172,23 @@ def freeze(run):
     snapshots = build / 'benchmarks'
     snapshots.mkdir()
     for b in MANIFEST['benchmarks']:
-        source = SOURCE / b['name'] / 'scripts'
+        source = SOURCE / b.get('source_family', b['name']) / 'scripts'
         shutil.copytree(source, snapshots / b['name'],
                         ignore=shutil.ignore_patterns('node_modules', '__pycache__', '*.pyc', '*.incr_orig', 'incr_script_*'))
+        for alias, original in b.get('source_aliases', {}).items():
+            if Path(alias).name != alias or Path(original).name != original:
+                raise ValueError('Script aliases must be local filenames')
+            shutil.copy2(snapshots / b['name'] / original, snapshots / b['name'] / alias)
+        if b['name'] == 'web-search':
+            modules = source / 'node_modules'
+            for entry in modules.rglob('*'):
+                if entry.is_symlink() and not entry.resolve().is_relative_to(modules.resolve()):
+                    raise ValueError(f'Unfrozen external Node module link: {entry}')
+            shutil.copytree(modules, snapshots / b['name'] / 'node_modules', symlinks=True)
+    if SUITE == 'supplemental':
+        node = build / 'tools/node'
+        node.parent.mkdir()
+        shutil.copy2(ROOT / 'qualification/.work/node-v22.20.0-linux-x64/bin/node', node)
     shutil.copytree(HARNESS, build / 'harness', ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
     subprocess.run(['cc', '-O2', '-Wall', '-Wextra', '-Werror', str(build / 'harness/fdguard.c'),
                     '-o', str(build / 'fdguard')], check=True, timeout=30)
@@ -203,7 +236,7 @@ def fixture(name, data, build, profile):
         (target / 'inputs/dpt').mkdir()
         (target / 'config/torch').mkdir(parents=True)
     # A fixed font cache is setup state, not a changing per-process dependency.
-    if name in ('bio', 'dpt'):
+    if name in ('bio', 'dpt', 'weather-tufte'):
         shutil.copytree(WORK / 'font-cache', target / 'config/matplotlib')
     return target
 
@@ -230,6 +263,14 @@ def environment(name, profile, fixture, build):
     if name == 'weather':
         env.update(INPUT=str(inp / 'temperatures.txt'), input_file=str(inp / 'temperatures.txt'),
                    statistics_dir=str(fixture / 'outputs/statistics'))
+    if name == 'weather-tufte':
+        env.update(input_file=str(inp / 'tuft-weather.txt'),
+                   plot_dir=str(fixture / 'outputs/plots'), scripts_dir=str(fixture / 'scripts'))
+    if name == 'web-search':
+        env.update(IN=str(inp), WIKI=str(inp / 'articles'), INDEX_FILE=str(inp / 'index.txt'), TEST_BASE=str(fixture))
+        env['PATH'] = str(build / 'tools') + ':' + env['PATH']
+    if profile == 'full':
+        env['RUN_SIZE'] = 'full'
     if name == 'nginx-analysis': env['INPUT'] = str(inp / 'logs')
     if name == 'beginner': env['IN'] = str(inp / 'logs/log0')
     if name == 'unixfun': env['INPUT'] = str(inp / 'chess.txt')
@@ -293,6 +334,9 @@ def execute_sequence(run, b, mode, repetition, args, build, data, references, mi
     sequence = run / 'sequences' / f'{name}.{mode}.{repetition}'
     if (sequence / 'complete.json').is_file():
         return json.loads((sequence / 'complete.json').read_text())
+    prepared = data / 'prepared.json'
+    input_provenance = json.loads(prepared.read_text()) if prepared.is_file() else {}
+    validate_models(input_provenance)
     # An interrupted sequence is rerun from empty state, preserving old evidence.
     if sequence.exists():
         sequence.rename(sequence.with_name(sequence.name + '.interrupted.' + str(time.time_ns())))
@@ -309,6 +353,8 @@ def execute_sequence(run, b, mode, repetition, args, build, data, references, mi
         env['INCR_NATIVE_TRANSFORM'] = '1'
     if getattr(args, 'assume_directory_access', False):
         env['INCR_ASSUME_DIRECTORY_ACCESS'] = 'true'
+    if mode == 'observe' and getattr(args, 'content_validated_inputs', False):
+        env['INCR_CONTENT_VALIDATED_INPUTS'] = 'true'
     # Static performance annotations are disabled in both frozen executables.
     env.pop('INCR_ENABLE_ANNOTATIONS', None)
     env['INCR_TOP'] = str(build / ('original' if mode == 'original' else 'candidate'))
@@ -318,6 +364,7 @@ def execute_sequence(run, b, mode, repetition, args, build, data, references, mi
     env['INCR_OBSERVE'] = '1' if mode == 'observe' else '0'
     atomic_json(sequence / 'setup.json', {'environment': env, 'input_inventory': initial_inputs,
                                         'script_inventory': initial_sources, 'mirror_url': mirror_url,
+                                        'shared_models': input_provenance.get('models', []),
                                         'frozen_build': str(build)})
     all_records = []
     try:
@@ -403,6 +450,7 @@ def execute_sequence(run, b, mode, repetition, args, build, data, references, mi
                 raise RuntimeError('Benchmark mutated immutable inputs')
         if inventory(active / 'scripts') != initial_sources:
             raise RuntimeError('Wrapper did not restore script sources')
+        validate_models(input_provenance)
         complete = len(all_records) == len(b['scripts']) and all(r['valid'] for r in all_records)
         result = {'valid': complete, 'benchmark': name, 'mode': mode, 'repetition': repetition,
                   'records': len(all_records), 'elapsed_sec': sum(r['elapsed_sec'] for r in all_records),
@@ -435,7 +483,8 @@ def report(run):
     config = json.loads((run / 'configuration.json').read_text())
     if 'modes' not in config:
         raise ValueError('Preparation has status/input provenance, not timing results; use status')
-    expected = sum(len(b['scripts']) for b in selected(config['only'])) * len(config['modes']) * config['repetitions']
+    benchmarks = run_benchmarks(run, config)
+    expected = sum(len(b['scripts']) for b in benchmarks) * len(config['modes']) * config['repetitions']
     groups = {}
     for row in rows:
         groups.setdefault((row['benchmark'], row['script'], row['mode']), []).append(row)
@@ -451,7 +500,7 @@ def report(run):
     lookup = {(r['benchmark'], r['script'], r['mode']): r for r in stats}
     ratios = []
     frozen_hashes = json.loads((run / 'frozen-build.json').read_text())['sha256']
-    for b in selected(config['only']):
+    for b in benchmarks:
         for index, script in enumerate(b['scripts']):
             obs = lookup.get((b['name'], script, 'observe'))
             for reference in ('bash', 'original'):
@@ -461,10 +510,12 @@ def report(run):
                                    'unchanged_source': index > 0 and frozen_hashes.get(f'benchmarks/{b["name"]}/{script}') ==
                                        frozen_hashes.get(f'benchmarks/{b["name"]}/{b["scripts"][index-1]}'),
                                    'reference': reference, 'speedup': ref['mean_sec'] / obs['mean_sec']})
-    failed_sequences = list((run / 'sequences').glob('*/failed.json'))
+    archived_sequences = sorted(p for p in (run / 'sequences').iterdir() if '.interrupted.' in p.name) if (run / 'sequences').exists() else []
+    failed_sequences = [p for p in (run / 'sequences').glob('*/failed.json')
+                        if '.interrupted.' not in p.parent.name]
     family_totals = []
     cold_overheads = []
-    for b in selected(config['only']):
+    for b in benchmarks:
         complete_modes = {}
         for mode in config['modes']:
             entries = [lookup.get((b['name'], script, mode)) for script in b['scripts']]
@@ -486,8 +537,8 @@ def report(run):
         input_bytes = provenance.get('input_bytes', 0) + sum(m['bytes'] for m in provenance.get('models', []))
         family_totals.append({'benchmark': b['name'], 'complete_mode_totals_sec': complete_modes,
                               'peak_cache_bytes': peaks, 'input_bytes': input_bytes,
-                              'paper_nominal_bytes': b['paper_nominal_bytes'],
-                              'size_ratio_to_paper_nominal': input_bytes / b['paper_nominal_bytes'] if input_bytes else None})
+                              'paper_nominal_bytes': b.get('paper_nominal_bytes'),
+                              'size_ratio_to_paper_nominal': input_bytes / b['paper_nominal_bytes'] if input_bytes and b.get('paper_nominal_bytes') else None})
     summed_comparisons = []
     for reference in ('bash', 'original'):
         families = [f for f in family_totals if reference in f['complete_mode_totals_sec']
@@ -503,7 +554,7 @@ def report(run):
         for old in csv.DictReader(stream):
             historical.setdefault((old['benchmark'], old['script'], old['mode']), []).append(float(old['elapsed_sec']))
     historical_comparisons = []
-    if config['profile'] == 'paper':
+    if config['profile'] == 'paper' and config.get('suite', 'paper') == 'paper':
         for current in stats:
             historical_mode = {'bash': 'bash', 'original': 'incr'}.get(current['mode'])
             previous = historical.get((current['benchmark'], current['script'], historical_mode))
@@ -515,10 +566,11 @@ def report(run):
                     'historical_mean_sec': historical_mean, 'current_mean_sec': current['mean_sec'],
                     'current_over_historical': factor,
                     'review_large_difference': factor < 0.5 or factor > 2})
-    summary = {'run': run.name, 'profile': config['profile'], 'expected_invocations': expected,
+    summary = {'run': run.name, 'suite': config.get('suite', 'paper'), 'profile': config['profile'], 'expected_invocations': expected,
                'invocations': len(rows), 'valid_invocations': sum(r['valid'] for r in rows),
                'complete': len(rows) == expected and all(r['valid'] for r in rows) and not failed_sequences,
                'failed_sequences': [str(p.relative_to(run)) for p in failed_sequences],
+               'archived_sequences': [str(p.relative_to(run)) for p in archived_sequences],
                'statistics': stats, 'ratios': ratios, 'family_totals': family_totals,
                'cold_overheads': cold_overheads, 'summed_comparisons': summed_comparisons,
                'historical_comparisons': historical_comparisons}
@@ -537,7 +589,7 @@ def report(run):
         writer.writeheader()
         writer.writerows(dict(r, **r.get('resources', {})) for r in rows)
     (run / 'timings.csv.pending').replace(run / 'timings.csv')
-    lines = [f'# Study {run.name}', '', f'Profile: {config["profile"]}.',
+    lines = [f'# Study {run.name}', '', f'Suite: {config.get("suite", "paper")}. Profile: {config["profile"]}.',
              'Native shell transformation: ' + ('enabled, with Python fallback.' if config.get('native_transform') else 'disabled.'), '',
              'Directory stat/access assumption: ' + ('enabled; directory content reads remain tracked.' if config.get('assume_directory_access') else 'disabled.'), '',
              'Static performance annotations: ' + ('disabled in both implementations.' if config.get('annotations') is False else 'not recorded by this historical run.'), '',
@@ -550,6 +602,24 @@ def report(run):
         if values:
             lines.append(f'| {ref} | {len(values)} | {statistics.mean(values):.3f}× | '
                          f'{math.exp(statistics.mean(math.log(v) for v in values)):.3f}× | {max(values):.3f}× |')
+    if archived_sequences:
+        lines += ['', f'Interrupted attempts retained separately: {len(archived_sequences)}; see archived_sequences in summary.json.']
+    lines += ['', 'Complete-sequence means (seconds); speedup is Bash time divided by mode time.', '',
+              '| Family | Bash | Original Incr | Observe | Bash / original | Bash / Observe |',
+              '|---|---:|---:|---:|---:|---:|']
+    for family in family_totals:
+        totals = family['complete_mode_totals_sec']
+        def seconds(mode):
+            return f'{totals[mode]:.3f}' if mode in totals else 'pending'
+        def relative(mode):
+            return f'{totals["bash"] / totals[mode]:.3f}×' if 'bash' in totals and mode in totals else 'pending'
+        lines.append(f'| {family["benchmark"]} | {seconds("bash")} | {seconds("original")} | '
+                     f'{seconds("observe")} | {relative("original")} | {relative("observe")} |')
+    if historical_comparisons:
+        flagged = [r for r in historical_comparisons if r['review_large_difference']]
+        lines += ['', f'Historical comparison: {len(flagged)}/{len(historical_comparisons)} matched '
+                  'version/mode timings differ by more than 2× and require review. Actual input sizes, '
+                  'annotation policy and environment must be reconciled before attributing differences.']
     lines += ['', 'See timings.csv and invocation JSON for resources, hashes, output manifests, diagnostics, and cleanup evidence.',
               'Identical successive source versions are retained as warm-repeat measurements and excluded from edit aggregates.',
               'An incomplete study or failed sequence is never presented as a complete benchmark comparison.', '']
@@ -565,9 +635,9 @@ def run(args):
         if not destination.is_relative_to(STUDY / 'results'):
             raise ValueError('Resume target must be in study results')
         config = json.loads((destination / 'configuration.json').read_text())
-        if config['manifest_sha256'] != file_hash(STUDY / 'manifest.json') or config['harness_sha256'] != inventory(HARNESS):
+        if config.get('suite', 'paper') != SUITE or config['manifest_sha256'] != file_hash(MANIFEST_FILE) or config['harness_sha256'] != inventory(HARNESS):
             raise ValueError('Cannot resume with changed harness/manifest; create a new run')
-        for key in ('profile', 'only', 'repetitions', 'modes', 'reserve_gib', 'work_budget_gib', 'native_transform', 'assume_directory_access'):
+        for key in ('profile', 'only', 'repetitions', 'modes', 'reserve_gib', 'work_budget_gib', 'native_transform', 'assume_directory_access', 'content_validated_inputs'):
             actual = list(args.modes) if key == 'modes' else getattr(args, key)
             if config.get(key, False) != actual:
                 raise ValueError(f'Resume configuration mismatch: {key}')
@@ -575,6 +645,7 @@ def run(args):
         for p, digest in json.loads((destination / 'frozen-build.json').read_text())['sha256'].items():
             if file_hash(build / p) != digest:
                 raise ValueError('Frozen build changed')
+        run_benchmarks(destination, config)
         args._owns_run = True
     else:
         run_id = args.run_id or datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ') + f'-{os.getpid()}'
@@ -584,13 +655,15 @@ def run(args):
         destination.mkdir(parents=True, exist_ok=False)
         args._run_destination = destination
         args._owns_run = True
-        config = {'profile': args.profile, 'only': args.only, 'repetitions': args.repetitions,
+        config = {'suite': SUITE, 'profile': args.profile, 'only': args.only, 'repetitions': args.repetitions,
                   'modes': list(args.modes), 'native_transform': getattr(args, 'native_transform', False),
-                  'assume_directory_access': getattr(args, 'assume_directory_access', False), 'reserve_gib': args.reserve_gib,
+                  'assume_directory_access': getattr(args, 'assume_directory_access', False),
+                  'content_validated_inputs': getattr(args, 'content_validated_inputs', False), 'reserve_gib': args.reserve_gib,
                   'annotations': False,
                   'work_budget_gib': args.work_budget_gib, 'started': now(),
-                  'manifest_sha256': file_hash(STUDY / 'manifest.json'), 'harness_sha256': inventory(HARNESS)}
+                  'manifest_sha256': file_hash(MANIFEST_FILE), 'harness_sha256': inventory(HARNESS)}
         atomic_json(destination / 'configuration.json', config)
+        shutil.copy2(MANIFEST_FILE, destination / 'manifest.json')
         # Dependency/source evidence belongs to this run, not an earlier build.
         doctor()
         shutil.copy2(WORK / 'doctor.json', destination / 'environment.json')
@@ -657,15 +730,16 @@ def main():
     doc = sub.add_parser('doctor')
     doc.add_argument('--build', action='store_true')
     pre = sub.add_parser('prepare')
-    pre.add_argument('--profile', choices=('min', 'paper'), required=True)
+    pre.add_argument('--profile', choices=('min', 'paper', 'full'), required=True)
     pre.add_argument('--only', default='')
     pre.add_argument('--reserve-gib', type=int, default=8)
     pre.add_argument('--result', type=Path, help='Optional durable preparation progress directory')
     execute = sub.add_parser('run')
-    execute.add_argument('--profile', choices=('min', 'paper'), required=True)
+    execute.add_argument('--profile', choices=('min', 'paper', 'full'), required=True)
     execute.add_argument('--only', default='')
     execute.add_argument('--repetitions', type=int, default=3)
     execute.add_argument('--native-transform', action='store_true', help='Opt into the native pipeline compiler, with Python fallback')
+    execute.add_argument('--content-validated-inputs', action='store_true', help='Validate read-only workspace content across identity/ctime changes; metadata-only inputs remain strict')
     execute.add_argument('--assume-directory-access', action='store_true', help='Directory stat/access probes do not depend on entry timestamps')
     execute.add_argument('--modes', type=lambda s: tuple(s.split(',')), default=MODES)
     execute.add_argument('--run-id')
@@ -684,6 +758,8 @@ def main():
     if args.command == 'report':
         print(json.dumps(report(args.run), indent=2))
         return 0
+    if getattr(args, 'profile', None) not in (None, 'min', 'paper' if SUITE == 'paper' else 'full'):
+        parser.error('Use min/paper for the historical suite or min/full for supplemental workloads')
     with lock():
         if args.command == 'doctor':
             print(json.dumps({k: v for k, v in doctor(args.build).items() if k in ('platform', 'repositories', 'free_bytes')}, indent=2))
@@ -697,7 +773,7 @@ def main():
                 if not result.is_relative_to((STUDY / 'results').resolve()):
                     parser.error('Preparation evidence must live under study results')
                 result.mkdir(parents=True, exist_ok=False)
-                atomic_json(result / 'configuration.json', {'stage': 'prepare', 'profile': args.profile,
+                atomic_json(result / 'configuration.json', {'stage': 'prepare', 'suite': SUITE, 'profile': args.profile,
                     'only': args.only, 'started': now(), 'harness_sha256': inventory(HARNESS)})
             try:
                 for b in selected(args.only):

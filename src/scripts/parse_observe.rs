@@ -13,6 +13,8 @@ struct Report {
     directory_access_only: bool,
     #[serde(default)]
     overwrites: Vec<ReportPath>,
+    #[serde(default)]
+    content_opens: Option<Vec<ReportPath>>,
     replay_barriers: Vec<String>,
     dependencies: Vec<Dependency>,
     reads: Vec<ReportPath>,
@@ -82,12 +84,15 @@ pub(crate) fn parse_observe(
     path: &Path,
     track_temporaries: bool,
     assume_directory_access: bool,
+    content_validated_inputs: bool,
 ) -> Result<Trace> {
     let report: Report = serde_json::from_slice(&std::fs::read(path)?)
         .with_context(|| format!("decode Observe report {}", path.display()))?;
-    if !matches!(report.dependency_version, 7 | 8 | 9 | 10)
+    if !matches!(report.dependency_version, 7 | 8 | 9 | 10 | 11)
         || report.directory_access_only != assume_directory_access
-        || (report.directory_access_only && report.dependency_version != 10)
+        || (report.directory_access_only && !matches!(report.dependency_version, 10 | 11))
+        || (content_validated_inputs != (report.dependency_version == 11))
+        || (content_validated_inputs != report.content_opens.is_some())
     {
         anyhow::bail!("unsupported Observe dependency protocol");
     }
@@ -104,6 +109,12 @@ pub(crate) fn parse_observe(
             .map(|path| path.0)
             .filter(|path| tracked(path)),
     );
+    for path in report.content_opens.into_iter().flatten().map(|path| path.0) {
+        if tracked(&path) {
+            anyhow::ensure!(trace.reads.contains(&path), "content open is not a reported read");
+            trace.content_opens.insert(path);
+        }
+    }
     for Dependency {
         path,
         state: observed,

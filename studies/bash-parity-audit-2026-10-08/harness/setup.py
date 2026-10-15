@@ -28,6 +28,7 @@ def checked(command, timeout=180, cwd=ROOT):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--bash-build", type=Path, default=ROOT / "qualification/.work/bash-src")
+    parser.add_argument("--corpus-provenance", type=Path, default=STUDY / "corpus-provenance.json")
     parser.add_argument("--venv", type=Path, default=ROOT / "qualification/.venv")
     args = parser.parse_args()
     build = args.bash_build.resolve()
@@ -36,7 +37,7 @@ def main():
             raise RuntimeError(
                 f"{build} exists without a Bash binary; preserve it and choose another --bash-build"
             )
-        metadata = json.loads((STUDY / "corpus-provenance.json").read_text())
+        metadata = json.loads(args.corpus_provenance.read_text())
         payload = urllib.request.urlopen(metadata["url"], timeout=30).read()
         if hashlib.sha256(payload).hexdigest() != metadata["tarball_sha256"]:
             raise RuntimeError("Official Bash archive checksum mismatch")
@@ -45,7 +46,7 @@ def main():
             archive = tarfile.open(fileobj=io.BytesIO(payload), mode="r:gz")
             # Only the pinned, checksum-verified GNU release is extracted.
             archive.extractall(directory)
-            source = Path(directory) / "bash-5.2.37"
+            source = Path(directory) / metadata.get("source_root", metadata["url"].rsplit("/", 1)[-1].removesuffix(".tar.gz"))
             checked(["./configure", "--without-bash-malloc"], cwd=source)
             checked(["make", "-j4"], timeout=300, cwd=source)
             checked(["make", "recho", "zecho", "printenv", "xcase"], cwd=source)

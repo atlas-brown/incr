@@ -70,6 +70,35 @@ rev
         output.write_text(transformed)
         self.assertEqual(self.invoke(['bash', output]), self.invoke(['bash', source]))
 
+    def test_function_introspection_preserves_original_definitions(self):
+        inspections = ['type arbitrary_name', "'type' arbitrary_name",
+                       'builtin type arbitrary_name', 'command -V arbitrary_name',
+                       'declare -f arbitrary_name', 'typeset -pf arbitrary_name',
+                       'shopt -s extdebug; declare -F arbitrary_name',
+                       'typeset -pF arbitrary_name',
+                       'declare -p -f arbitrary_name', 'command -p -V arbitrary_name',
+                       'set > definitions.txt',
+                       'INSPECT=type; $INSPECT arbitrary_name',
+                       'alias inspect=type\nshopt -s expand_aliases\ninspect arbitrary_name']
+        for flags in ([], ['--bash']):
+            for index, inspection in enumerate(inspections):
+                with self.subTest(parser=flags, inspection=inspection):
+                    source = self.work / f'introspection-{len(flags)}-{index}.sh'
+                    source.write_text('arbitrary_name() { printf abc | /usr/bin/rev; }\n'
+                                      + inspection + '\narbitrary_name\n')
+                    transformed = self.invoke([PYTHON, ROOT / 'src/scripts/insert.py', *flags,
+                                               '--sys-path', '/usr/bin/env', '--cache-path', '', source])
+                    self.assertEqual(transformed, source.read_text())
+
+    def test_find_type_option_keeps_function_commands_eligible(self):
+        source = self.work / 'function-find.sh'
+        source.write_text('arbitrary_name() { printf abc | /usr/bin/rev; }\n'
+                          'find . -type f >/dev/null\narbitrary_name\n')
+        for flags in ([], ['--bash']):
+            transformed = self.invoke([PYTHON, ROOT / 'src/scripts/insert.py', *flags,
+                                       '--sys-path', '/usr/bin/env', '--cache-path', '', source])
+            self.assertIn('/usr/bin/env', transformed)
+
     def test_prefix_arguments_preserve_shell_metacharacters(self):
         wrapper = self.work / "wrapper space'quote$()"
         wrapper.write_text("#!/usr/bin/python3\nimport json,sys\nprint(json.dumps(sys.argv[1:]))\n")

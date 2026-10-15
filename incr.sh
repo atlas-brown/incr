@@ -112,7 +112,7 @@ tmp_body="$tmp_dir/body"
 cleanup() {
     local status=$1
     trap '' EXIT INT TERM
-    command -p rm -f -- "$tmp_incr" "$tmp_body" "$tmp_dir/native.ready"
+    command -p rm -f -- "$tmp_incr" "$tmp_body" "$tmp_dir/native.ready" "$tmp_dir/transform.stderr"
     command -p rmdir -- "$tmp_dir/script" "$tmp_dir"
     exit "$status"
 }
@@ -138,13 +138,19 @@ if [[ ${INCR_NATIVE_TRANSFORM:-0} == 1 && ${#flags[@]} == 0 && -x "$TOP/target/r
     } 2>/dev/null
 fi
 if (( !native_ready )); then
-    if ! command -p "${INCR_PYTHON:-python3}" "$TOP/src/scripts/insert.py" "${transform_args[@]}" "$script" > "$tmp_body"; then
-        exit 1
+    # Parser versions can disagree with the selected shell on warnings or
+    # accepted syntax. Keep compiler diagnostics private and let that shell
+    # execute and diagnose the untouched source when compilation is uncertain.
+    if ! command -p "${INCR_PYTHON:-python3}" "$TOP/src/scripts/insert.py" "${transform_args[@]}" "$script" > "$tmp_body" 2> "$tmp_dir/transform.stderr"; then
+        command -p cat -- "$script" > "$tmp_body" || exit 1
+    elif [[ -s "$tmp_dir/transform.stderr" ]]; then
+        command -p cat -- "$script" > "$tmp_body" || exit 1
     fi
+    command -p rm -f -- "$tmp_dir/transform.stderr"
 fi
 
 if command -p cmp -s -- "$script" "$tmp_body"; then
-    command -p rm -f -- "$tmp_incr" "$tmp_body" "$tmp_dir/native.ready"
+    command -p rm -f -- "$tmp_incr" "$tmp_body" "$tmp_dir/native.ready" "$tmp_dir/transform.stderr"
     command -p rmdir -- "$tmp_dir/script" "$tmp_dir"
     exec -a "$incr_shell_argv0" "$incr_shell" "${flags[@]}" -- "$script" "$@"
 fi

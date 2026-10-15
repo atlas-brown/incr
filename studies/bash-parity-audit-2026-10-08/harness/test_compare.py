@@ -26,6 +26,12 @@ class ComparisonTests(unittest.TestCase):
     def test_real_output_change(self):
         self.assertFalse(compare(record(), record("wrong\n"))[0]["match"])
 
+    def test_printed_function_instrumentation_is_an_observable_difference(self):
+        reference = record("example ()\n{\n    wc -c;\n}\n")
+        candidate = record("example ()\n{\n    /tool/incr --try /tool/try --cache /cache --observe /observe wc -c;\n}\n")
+        reference['case'] = candidate['case'] = 'type'
+        self.assertFalse(compare(reference, candidate)[0]['match'])
+
     def test_missing_capture(self):
         candidate = record()
         candidate["captures"] = []
@@ -41,6 +47,14 @@ class ComparisonTests(unittest.TestCase):
             normalize("./quote: line 42: error\n", "quote"),
             normalize("./quote: line 1: error\n", "quote"),
         )
+
+    def test_signal_diagnostic_pid_is_volatile_but_payload_is_not(self):
+        left = "./program: line 3: 123 User defined signal 1   child 127\n"
+        right = "./program: line 8: 456 User defined signal 1   child 127\n"
+        self.assertTrue(compare(record(left), record(right))[0]["match"])
+        self.assertFalse(compare(record(left), record(right.replace("child 127", "child 129")))[0]["match"])
+        self.assertFalse(compare(record(left), record(right.replace("signal 1", "signal 2")))[0]["match"])
+        self.assertNotEqual(normalize("123\n", "quote"), normalize("456\n", "quote"))
 
     def test_exit_status_is_not_a_line_number(self):
         self.assertFalse(compare(record("127\n"), record("0\n"))[0]["match"])

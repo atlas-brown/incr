@@ -78,6 +78,6 @@ test	Test builtin predicates/operators, including terminal-dependent checks enab
 tilde	Tilde expansion in words and assignments.
 tilde2	Additional tilde-expansion and assignment-context regressions.
 trap	Signal, ERR/EXIT traps, subshells, and direct script execution. Original direct invocations are preserved rather than rewritten by the harness.
-type	Command classification and function display. Only the two reviewed Incr executable prefixes in the displayed function are normalized.
+type	Command classification and function display. Printed function bodies are compared without removing instrumentation; source-introspective scripts retain their original source.
 varenv	Variable scope, temporary assignments, export/environment propagation, and declaration behavior.
 vredir	Variable-allocated file descriptors, readonly variables, and terminal-dependent redirections.

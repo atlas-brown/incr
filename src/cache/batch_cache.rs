@@ -73,9 +73,10 @@ impl<'c> CacheCursor<'c> {
         debug_info: CacheInfo<'c>,
     ) -> Result<Self> {
         let key_data = ops::data::encode_to_bytes(&CacheKey {
-            version: 30,
+            version: 31,
             track_temporaries: config.track_temporaries,
             assume_directory_access: config.assume_directory_access,
+            content_validated_inputs: config.content_validated_inputs,
             assume_text: config.assume_text,
             effect_policy: config.effect_policy,
             observe: config.observe_command.is_some(),
@@ -333,6 +334,7 @@ struct CacheKey {
     version: u32,
     track_temporaries: bool,
     assume_directory_access: bool,
+    content_validated_inputs: bool,
     effect_policy: crate::config::EffectPolicy,
     assume_text: bool,
     observe: bool,

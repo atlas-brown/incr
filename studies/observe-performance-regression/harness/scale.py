@@ -44,9 +44,10 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--id',required=True)
     parser.add_argument('--only',default='poet,covid,weather')
-    parser.add_argument('--mib',type=int,default=8)
+    parser.add_argument('--mib',type=int,default=8,help='Target MiB; rounds up to complete minimum-fixture copies, with actual bytes recorded')
     parser.add_argument('--repetitions',type=int,default=1)
     parser.add_argument('--native-transform',action='store_true')
+    parser.add_argument('--content-validated-inputs',action='store_true')
     parser.add_argument('--assume-directory-access',action='store_true')
     args=parser.parse_args();validate_arguments(parser,args)
     if not set(args.only.split(',')) <= {'poet','covid','weather','word-freq'}:
@@ -56,7 +57,7 @@ def main():
     result.mkdir(parents=True,exist_ok=False);fingerprint(ROOT,result,Path(__file__))
     parameters=SimpleNamespace(profile='scaled',only=args.only,repetitions=args.repetitions,
         modes=('bash','original','observe'),annotations=False,reserve_gib=8,work_budget_gib=32,native_transform=args.native_transform,
-        assume_directory_access=args.assume_directory_access)
+        assume_directory_access=args.assume_directory_access,content_validated_inputs=args.content_validated_inputs)
     atomic_json(result/'configuration.json',dict(vars(parameters),started=now(),mib=args.mib,
         scope='Synthetic scaling diagnostic from repeated minimum fixtures; not historical-size evaluation'))
     doctor();build=freeze(result)
@@ -68,6 +69,7 @@ def main():
             data=owned/name
             recipe=replicate(WORK/'data/min'/name/'inputs'/relative,data/'inputs'/relative,args.mib*1024**2)
             atomic_json(result/'inputs'/f'{name}.json',dict(recipe,input_bytes=recipe['bytes'],models=[]))
+            print(f"INPUT {name}: target={args.mib} MiB, actual={recipe['bytes']} bytes, copies={recipe['copies']}",flush=True)
             task=dict(benchmark,timeout_scaled=300)
             for repetition in range(args.repetitions):
                 modes=['original','observe'] if repetition%2==0 else ['observe','original']

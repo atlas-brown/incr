@@ -1283,3 +1283,23 @@ Removed 583,377,839 logical bytes of disposable work; no owned temporary test
 fixtures remained. Source and binary fingerprints still match the final tests.
 Evidence is saved under qualification/results/second-audit and accompanies this
 log in the final evidence commit.
+
+### Content-validated workspace inputs and unannotated checkpoint
+
+Added opt-in content validation for read-only regular workspace inputs after
+inode/ctime drift, retaining mtime/content/access metadata checks. Observe reports
+successful readable opens in protocol 11; strict defaults remain unchanged. Cache
+format 31 isolates the policy. Identical archive extraction now reuses model work,
+while preserved-mtime changed bytes invalidate it. No command algorithms change.
+
+Current source passes 37 Rust tests (one ignored), seven Observe units and 424
+integration assertions. Both full Bash suites pass cold/warm: 82 groups with
+benchmark options and 83 with defaults, plus live/final regressions. The small
+unannotated matrix validates 246/246 invocations; paired 8/32/128 MiB diagnostics
+validate 84/84 each, with recorded actual bytes and unchanged-source provenance.
+The 128 MiB candidate beats Bash in all four families; additional gains over
+original Incr are modest for word frequency/Poet where shared stream work dominates.
+One real-model archive diagnostic validates six invocations and reduces warm
+Observe time from 16.323s to 0.175s versus original 0.616s. All-ten-version DPT,
+three-image archive and supplemental final-source qualification remain in progress.
+The final evidence checkpoint and complete repeated full evaluations remain open.

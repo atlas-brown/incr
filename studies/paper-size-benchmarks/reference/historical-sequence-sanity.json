@@ -1,0 +1,361 @@
+{
+  "source": "reference/historical-timings.csv",
+  "sha256": "4c36ccc0c50979458fdfb03c10e0fbda392dab0a1a1189fda9126326c878a4f6",
+  "method": "Sum per-version arithmetic means, restricted to versions available in both modes. Ratio above one means Incr faster. Cold version included.",
+  "scope": "Historical reference context only; not current measurements or size-matched verification. Current default annotations are disabled on both sides, unlike historical shortcut coverage. Reconcile actual size and configuration before interpreting differences.",
+  "families": [
+    {
+      "benchmark": "file-mod",
+      "matched_versions": 7,
+      "bash_sequence_mean_sec": 42.220666666666666,
+      "incr_sequence_mean_sec": 99.90300000000002,
+      "bash_over_incr": 0.42261660477329666,
+      "samples_per_version": {
+        "bash": {
+          "file-mod-1.sh": 3,
+          "file-mod-2.sh": 3,
+          "file-mod-3.sh": 3,
+          "file-mod-4.sh": 3,
+          "file-mod-5.sh": 3,
+          "file-mod-6.sh": 3,
+          "file-mod-7.sh": 3
+        },
+        "incr": {
+          "file-mod-1.sh": 3,
+          "file-mod-2.sh": 3,
+          "file-mod-3.sh": 3,
+          "file-mod-4.sh": 3,
+          "file-mod-5.sh": 3,
+          "file-mod-6.sh": 3,
+          "file-mod-7.sh": 3
+        }
+      }
+    },
+    {
+      "benchmark": "word-freq",
+      "matched_versions": 2,
+      "bash_sequence_mean_sec": 41.462999999999994,
+      "incr_sequence_mean_sec": 12.182333333333334,
+      "bash_over_incr": 3.4035351738856807,
+      "samples_per_version": {
+        "bash": {
+          "top-n.sh": 3,
+          "wf.sh": 3
+        },
+        "incr": {
+          "top-n.sh": 3,
+          "wf.sh": 3
+        }
+      }
+    },
+    {
+      "benchmark": "nlp-ngrams",
+      "matched_versions": 3,
+      "bash_sequence_mean_sec": 175.46499999999997,
+      "incr_sequence_mean_sec": 104.69300000000001,
+      "bash_over_incr": 1.6759955297870914,
+      "samples_per_version": {
+        "bash": {
+          "ngrams-1.sh": 3,
+          "ngrams-2.sh": 3,
+          "ngrams-3.sh": 3
+        },
+        "incr": {
+          "ngrams-1.sh": 3,
+          "ngrams-2.sh": 3,
+          "ngrams-3.sh": 3
+        }
+      }
+    },
+    {
+      "benchmark": "nlp-uppercase",
+      "matched_versions": 2,
+      "bash_sequence_mean_sec": 169.5066666666667,
+      "incr_sequence_mean_sec": 99.49533333333333,
+      "bash_over_incr": 1.7036644934770813,
+      "samples_per_version": {
+        "bash": {
+          "uppercase_by_token.sh": 3,
+          "uppercase_by_type.sh": 3
+        },
+        "incr": {
+          "uppercase_by_token.sh": 3,
+          "uppercase_by_type.sh": 3
+        }
+      }
+    },
+    {
+      "benchmark": "covid",
+      "matched_versions": 5,
+      "bash_sequence_mean_sec": 140.11299999999997,
+      "incr_sequence_mean_sec": 68.23933333333333,
+      "bash_over_incr": 2.0532586289432286,
+      "samples_per_version": {
+        "bash": {
+          "1.sh": 3,
+          "2.sh": 3,
+          "3.sh": 3,
+          "4.sh": 3,
+          "5.sh": 3
+        },
+        "incr": {
+          "1.sh": 3,
+          "2.sh": 3,
+          "3.sh": 3,
+          "4.sh": 3,
+          "5.sh": 3
+        }
+      }
+    },
+    {
+      "benchmark": "weather",
+      "matched_versions": 3,
+      "bash_sequence_mean_sec": 53.394666666666666,
+      "incr_sequence_mean_sec": 15.027000000000001,
+      "bash_over_incr": 3.5532485969698984,
+      "samples_per_version": {
+        "bash": {
+          "temp-analytics-1.sh": 3,
+          "temp-analytics-2.sh": 3,
+          "temp-analytics-3.sh": 3
+        },
+        "incr": {
+          "temp-analytics-1.sh": 3,
+          "temp-analytics-2.sh": 3,
+          "temp-analytics-3.sh": 3
+        }
+      }
+    },
+    {
+      "benchmark": "nginx-analysis",
+      "matched_versions": 22,
+      "bash_sequence_mean_sec": 466.7126666666666,
+      "incr_sequence_mean_sec": 69.91366666666667,
+      "bash_over_incr": 6.675556996486141,
+      "samples_per_version": {
+        "bash": {
+          "nginx-1.sh": 3,
+          "nginx-10.sh": 3,
+          "nginx-11.sh": 3,
+          "nginx-12.sh": 3,
+          "nginx-13.sh": 3,
+          "nginx-14.sh": 3,
+          "nginx-15.sh": 3,
+          "nginx-16.sh": 3,
+          "nginx-17.sh": 3,
+          "nginx-18.sh": 3,
+          "nginx-19.sh": 3,
+          "nginx-2.sh": 3,
+          "nginx-20.sh": 3,
+          "nginx-21.sh": 3,
+          "nginx-22.sh": 3,
+          "nginx-3.sh": 3,
+          "nginx-4.sh": 3,
+          "nginx-5.sh": 3,
+          "nginx-6.sh": 3,
+          "nginx-7.sh": 3,
+          "nginx-8.sh": 3,
+          "nginx-9.sh": 3
+        },
+        "incr": {
+          "nginx-1.sh": 3,
+          "nginx-10.sh": 3,
+          "nginx-11.sh": 3,
+          "nginx-12.sh": 3,
+          "nginx-13.sh": 3,
+          "nginx-14.sh": 3,
+          "nginx-15.sh": 3,
+          "nginx-16.sh": 3,
+          "nginx-17.sh": 3,
+          "nginx-18.sh": 3,
+          "nginx-19.sh": 3,
+          "nginx-2.sh": 3,
+          "nginx-20.sh": 3,
+          "nginx-21.sh": 3,
+          "nginx-22.sh": 3,
+          "nginx-3.sh": 3,
+          "nginx-4.sh": 3,
+          "nginx-5.sh": 3,
+          "nginx-6.sh": 3,
+          "nginx-7.sh": 3,
+          "nginx-8.sh": 3,
+          "nginx-9.sh": 3
+        }
+      }
+    },
+    {
+      "benchmark": "beginner",
+      "matched_versions": 14,
+      "bash_sequence_mean_sec": 541.573,
+      "incr_sequence_mean_sec": 124.42266666666669,
+      "bash_over_incr": 4.35268761318945,
+      "samples_per_version": {
+        "bash": {
+          "beginner-01.sh": 3,
+          "beginner-02.sh": 3,
+          "beginner-03.sh": 3,
+          "beginner-04.sh": 3,
+          "beginner-05.sh": 3,
+          "beginner-06.sh": 3,
+          "beginner-07.sh": 3,
+          "beginner-08.sh": 3,
+          "beginner-09.sh": 3,
+          "beginner-10.sh": 3,
+          "beginner-11.sh": 3,
+          "beginner-12.sh": 3,
+          "beginner-13.sh": 3,
+          "beginner-14.sh": 3
+        },
+        "incr": {
+          "beginner-01.sh": 3,
+          "beginner-02.sh": 3,
+          "beginner-03.sh": 3,
+          "beginner-04.sh": 3,
+          "beginner-05.sh": 3,
+          "beginner-06.sh": 3,
+          "beginner-07.sh": 3,
+          "beginner-08.sh": 3,
+          "beginner-09.sh": 3,
+          "beginner-10.sh": 3,
+          "beginner-11.sh": 3,
+          "beginner-12.sh": 3,
+          "beginner-13.sh": 3,
+          "beginner-14.sh": 3
+        }
+      }
+    },
+    {
+      "benchmark": "unixfun",
+      "matched_versions": 6,
+      "bash_sequence_mean_sec": 175.45866666666666,
+      "incr_sequence_mean_sec": 192.15866666666668,
+      "bash_over_incr": 0.9130926525995877,
+      "samples_per_version": {
+        "bash": {
+          "10.sh": 3,
+          "11.sh": 3,
+          "12.sh": 3,
+          "7.sh": 3,
+          "8.sh": 3,
+          "9.sh": 3
+        },
+        "incr": {
+          "10.sh": 3,
+          "11.sh": 3,
+          "12.sh": 3,
+          "7.sh": 3,
+          "8.sh": 3,
+          "9.sh": 3
+        }
+      }
+    },
+    {
+      "benchmark": "poet",
+      "matched_versions": 4,
+      "bash_sequence_mean_sec": 384.00333333333333,
+      "incr_sequence_mean_sec": 158.21599999999998,
+      "bash_over_incr": 2.427082806627227,
+      "samples_per_version": {
+        "bash": {
+          "poet-1.sh": 3,
+          "poet-2.sh": 3,
+          "poet-3.sh": 3,
+          "poet-4.sh": 3
+        },
+        "incr": {
+          "poet-1.sh": 3,
+          "poet-2.sh": 3,
+          "poet-3.sh": 3,
+          "poet-4.sh": 3
+        }
+      }
+    },
+    {
+      "benchmark": "dpt",
+      "matched_versions": 10,
+      "bash_sequence_mean_sec": 5101.037333333333,
+      "incr_sequence_mean_sec": 1247.2513333333334,
+      "bash_over_incr": 4.089823115041769,
+      "samples_per_version": {
+        "bash": {
+          "dpt_1.sh": 3,
+          "dpt_2.sh": 3,
+          "dpt_3a.sh": 3,
+          "dpt_3b.sh": 3,
+          "dpt_4.sh": 3,
+          "dpt_5a.sh": 3,
+          "dpt_5b.sh": 3,
+          "dpt_5c.sh": 3,
+          "dpt_5d.sh": 3,
+          "dpt_5e.sh": 3
+        },
+        "incr": {
+          "dpt_1.sh": 3,
+          "dpt_2.sh": 3,
+          "dpt_3a.sh": 3,
+          "dpt_3b.sh": 3,
+          "dpt_4.sh": 3,
+          "dpt_5a.sh": 3,
+          "dpt_5b.sh": 3,
+          "dpt_5c.sh": 3,
+          "dpt_5d.sh": 3,
+          "dpt_5e.sh": 3
+        }
+      }
+    },
+    {
+      "benchmark": "spell",
+      "matched_versions": 7,
+      "bash_sequence_mean_sec": 1184.7289999999998,
+      "incr_sequence_mean_sec": 322.8433333333333,
+      "bash_over_incr": 3.669671564122949,
+      "samples_per_version": {
+        "bash": {
+          "spell-1.sh": 3,
+          "spell-2.sh": 3,
+          "spell-3.sh": 3,
+          "spell-4.sh": 3,
+          "spell-5.sh": 3,
+          "spell-6.sh": 3,
+          "spell-7.sh": 3
+        },
+        "incr": {
+          "spell-1.sh": 3,
+          "spell-2.sh": 3,
+          "spell-3.sh": 3,
+          "spell-4.sh": 3,
+          "spell-5.sh": 3,
+          "spell-6.sh": 3,
+          "spell-7.sh": 3
+        }
+      }
+    },
+    {
+      "benchmark": "bio",
+      "matched_versions": 7,
+      "bash_sequence_mean_sec": 288.06066666666663,
+      "incr_sequence_mean_sec": 207.77266666666668,
+      "bash_over_incr": 1.386422339800872,
+      "samples_per_version": {
+        "bash": {
+          "bio-1.sh": 3,
+          "bio-2.sh": 3,
+          "bio-3.sh": 3,
+          "bio-4-0.sh": 3,
+          "bio-4.sh": 3,
+          "bio-5.sh": 3,
+          "bio-6.sh": 3
+        },
+        "incr": {
+          "bio-1.sh": 3,
+          "bio-2.sh": 3,
+          "bio-3.sh": 3,
+          "bio-4-0.sh": 3,
+          "bio-4.sh": 3,
+          "bio-5.sh": 3,
+          "bio-6.sh": 3
+        }
+      }
+    }
+  ]
+}
