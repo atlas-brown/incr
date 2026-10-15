@@ -1,0 +1,31 @@
+- alias/bash/cold: status=0, 0.14s, timeout=False, captures=1, entries=0, retained metadata=0, survivors=[]
+- alias/bash/warm: status=0, 0.22s, timeout=False, captures=1, entries=0, retained metadata=0, survivors=[]
+- alias/observe/cold: status=0, 1.00s, timeout=False, captures=1, entries=1, retained metadata=0, survivors=[]
+- alias/observe/warm: status=0, 1.01s, timeout=False, captures=1, entries=1, retained metadata=1, survivors=[]
+- alias: cold=True, warm=True
+- execscript/bash/cold: status=1, 0.46s, timeout=False, captures=1, entries=0, retained metadata=0, survivors=[]
+- execscript/bash/warm: status=1, 0.48s, timeout=False, captures=1, entries=0, retained metadata=0, survivors=[]
+- execscript/observe/cold: status=1, 2.93s, timeout=False, captures=1, entries=5, retained metadata=0, survivors=[]
+- execscript/observe/warm: status=1, 3.08s, timeout=False, captures=1, entries=6, retained metadata=5, survivors=[]
+- execscript: cold=True, warm=True
+- redir/bash/cold: status=0, 0.48s, timeout=False, captures=1, entries=0, retained metadata=0, survivors=[]
+- redir/bash/warm: status=0, 0.50s, timeout=False, captures=1, entries=0, retained metadata=0, survivors=[]
+- redir/observe/cold: status=1, 1.93s, timeout=False, captures=1, entries=1, retained metadata=0, survivors=[]
+- redir/observe/warm: status=1, 2.07s, timeout=False, captures=1, entries=1, retained metadata=1, survivors=[]
+- redir: cold=True, warm=True
+- read/bash/cold: status=0, 8.48s, timeout=False, captures=1, entries=0, retained metadata=0, survivors=[]
+- read/bash/warm: status=0, 8.40s, timeout=False, captures=1, entries=0, retained metadata=0, survivors=[]
+- read/observe/cold: status=1, 9.54s, timeout=False, captures=1, entries=2, retained metadata=0, survivors=[]
+- read/observe/warm: status=1, 9.51s, timeout=False, captures=1, entries=3, retained metadata=2, survivors=[]
+- read: cold=True, warm=True
+- procsub/bash/cold: status=0, 2.53s, timeout=False, captures=1, entries=0, retained metadata=0, survivors=[]
+- procsub/bash/warm: status=0, 2.43s, timeout=False, captures=1, entries=0, retained metadata=0, survivors=[]
+- procsub/observe/cold: status=0, 2.90s, timeout=False, captures=1, entries=2, retained metadata=0, survivors=[]
+- procsub/observe/warm: status=0, 3.00s, timeout=False, captures=1, entries=4, retained metadata=2, survivors=[]
+- procsub: cold=True, warm=True
+- set-e/bash/cold: status=0, 0.28s, timeout=False, captures=1, entries=0, retained metadata=0, survivors=[]
+- set-e/bash/warm: status=0, 0.28s, timeout=False, captures=1, entries=0, retained metadata=0, survivors=[]
+- set-e/observe/cold: status=0, 0.95s, timeout=False, captures=1, entries=1, retained metadata=0, survivors=[]
+- set-e/observe/warm: status=0, 0.90s, timeout=False, captures=1, entries=2, retained metadata=1, survivors=[]
+- set-e: cold=True, warm=True
+- {"complete": true, "groups": 6, "cold_matches": 6, "warm_matches": 6, "failures": [], "elapsed_sec": 80.31349013198633, "regressions": {}, "scratch_cleaned": true}

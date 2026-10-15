@@ -101,8 +101,22 @@ This fallback works without the observe project. It adds sandbox setup and commi
 Incr reuses deterministic command output when its arguments, environment, working
 directory, executable identity, umask, stdin and recorded filesystem dependencies match. Observe reports
 first-access state, including failed opens, symlinks, directories and write targets.
-File state includes ctime as well as mtime, size and mode. `/tmp` inputs are tracked.
-Static tool annotations apply only to resolved system tools, so custom PATH programs
+File state includes ctime as well as mtime, size and mode. Observe-backed execution
+assumes `/tmp`, `/var/tmp`, and an absolute, non-root `$TMPDIR` contain disposable
+scratch state rather than persistent inputs or application outputs. Those paths
+are excluded from dependency/effect replay by default, alongside virtual
+`/proc`, `/dev`, and `/sys` state. Use `--track-temporaries` or
+`INCR_TRACK_TEMPORARIES=true` when temporary paths are meaningful inputs/outputs.
+The policy is part of the cache key; commands and byte streams still execute normally.
+
+`--assume-directory-access` (or `INCR_ASSUME_DIRECTORY_ACCESS=true`) additionally
+assumes directory stat/access results are used for existence and access checks,
+not directory timestamps or inode identities. Observe still tracks directory
+opens/listings, permissions, ownership and symlink resolution. This option is off
+by default, recorded in protocol 10 reports, and separated in the cache key.
+Static performance annotations are disabled by default. Enable them with
+`-a` / `--enable_annotations`; this also enables supported chunk optimizations.
+When enabled, tool annotations apply only to resolved system tools, so custom PATH programs
 with the same names are traced. Commands using inherited extra file descriptors or non-UTF-8 arguments/environment
 execute directly. Terminal-connected invocations also execute directly to preserve
 terminal reads and ioctl behavior. Observe reports and snapshots preserve arbitrary
@@ -127,7 +141,7 @@ Both policies validate saved payloads before replay. File replay distinguishes
 in-place writes from pathname replacement so existing hard-link aliases receive the
 correct final contents. Final policy also supports rename/unlink outputs; ownership,
 timestamp and special-file operations still require live execution. Cache key version
-26, effect manifest version 3 and Observe dependency protocol 9 reject incompatible
+28, effect manifest version 3 and Observe dependency protocols 9/10 reject incompatible
 entries. External network state, clocks and randomness are not general memoization inputs.
 
 With `-a`, plain `cat` and simple alphanumeric `tr` translations can reuse independent

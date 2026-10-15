@@ -14,7 +14,7 @@ pub(crate) fn capture(
     runtime: &Runtime,
     exit_code: i32,
 ) -> Result<CacheData> {
-    let mut trace = execution::parse_trace(runtime)?;
+    let mut trace = execution::parse_trace(runtime, config)?;
     trace.apply_effect_policy(config.effect_policy);
     let mut read_dependencies: std::collections::HashMap<_, _> = if config.observe_command.is_some() {
         trace

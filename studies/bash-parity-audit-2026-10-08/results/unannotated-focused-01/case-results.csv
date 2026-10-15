@@ -1,0 +1,13 @@
+case,phase,match,exact,reference_status,candidate_status,reference_seconds,observe_seconds,cache_entries,retained_metadata,baseline_cleanup,observe_cleanup
+alias,cold,True,True,0,0,0.14334637497086078,0.9971690069651231,1,0,True,True
+alias,warm,True,True,0,0,0.22008921194355935,1.013144611963071,1,1,True,True
+execscript,cold,True,True,1,1,0.455052612000145,2.9309926730347797,5,0,True,True
+execscript,warm,True,True,1,1,0.4807139280019328,3.084615915082395,6,5,True,True
+redir,cold,True,False,0,1,0.48052810097578913,1.9336446160450578,1,0,True,True
+redir,warm,True,False,0,1,0.4954289710149169,2.069434597971849,1,1,True,True
+read,cold,True,False,0,1,8.480938945082016,9.535090581979603,2,0,True,True
+read,warm,True,False,0,1,8.404934564954601,9.511207589996047,3,2,True,True
+procsub,cold,True,True,0,0,2.5275725789833814,2.899112396989949,2,0,True,True
+procsub,warm,True,True,0,0,2.4299438330344856,2.997875904897228,4,2,True,True
+set-e,cold,True,True,0,0,0.2802898089867085,0.9514986649155617,1,0,True,True
+set-e,warm,True,True,0,0,0.278457342996262,0.8998479329748079,2,1,True,True

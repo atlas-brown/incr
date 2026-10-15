@@ -1,6 +1,86 @@
+## Latest steering: fair default without static annotations
+
+Prioritize complete correctness and end-to-end evaluation with static performance annotations disabled in BOTH Incr and Observe. The user separately authorized an annotated comparison later, with annotations enabled on both sides. Earlier comparisons with different static annotation coverage are diagnostic only, not fair speedup evidence. Learned introspection remains part of each implementation. Finite stdin staging was rejected after whole-pipeline regressions; archived diagnostic results are retained.
+
+Fresh fair diagnostic: `general-unannotated-one-01` completed 84/84 exact comparisons over two repetitions at 1 MiB, unchanged provenance, static annotations off on both sides, native frontend and directory-access assumption enabled. Whole-sequence original/Observe ratios: word-freq 2.253x, Poet 8.836x, COVID 14.928x, weather 13.029x. These synthetic repeated minimum records do not qualify historical sizes or all families. Full Bash and fresh all-family minimum checks remain pending.
+
+Checkpoint qualification complete: `general-unannotated-min-01` passes 246/246 comparisons across all twelve non-DPT families (one repetition), terminal monitor healthy. Every family is faster: 2.336x–20.716x original/Observe. `UNANNOTATED_CHECKPOINT.json` records exact scope and test counts. Final/full 71 focused regressions pass; live 70+1 skip, compressed batch 69+2 skips; Observe 7 units and 420 integration assertions pass. Full official 83-group Bash correctness, DPT, progressive scaling and historical-size evaluation are still outstanding. Bash runner now accepts and records `--native-transform` and `--assume-directory-access`, enabling explicit qualification of the benchmark configuration as well as defaults. Observe implementation checkpoint is a26e759a86e3ff6f8c3b0e192b8ab23e681e4288; the corresponding Incr checkpoint records this handoff. Next: verify clean/pushed branches, then medium/larger measurements and full Bash gates.
+
 # Active Observe optimization goal: handoff
 
 Last updated: October 14, 2026 (America/New_York).
+
+## Required ordered workflow (latest user instructions)
+
+1. Iterate quickly and sequentially on small inputs to confirm and improve Observe performance on essentially all applicable benchmarks. Compare original Incr and older Observe, preserve reasonable original assumptions and core caching/replay optimizations, and focus on eliminating try/overlayfs/strace overhead. No custom sort or other command-specific algorithm replacements.
+2. Once implementations are basically finalized, validate, make clean checkpoint commits in **both** repositories, and push both.
+3. Increase input sizes progressively through medium/larger scales, checking correctness, variance, reuse and resource/provenance evidence. **All maintained Bash correctness tests must pass cold and warm on the final implementation and relevant configurations.** Iterate on failures or lost speedups, then commit and push both repos again.
+4. Only after these gates pass, run the complete applicable full evaluations from clean owned workspaces, with fair frozen baselines, reliable statistics, strict validation, durable results and progress monitoring. Keep non-paper coverage separate. Exclude only the API-key image-annotation workload from the overall coverage goal.
+
+Expected architecture: Observe replaces try/overlayfs plus strace while retaining Incr's general caching and replay optimizations. Avoid elaborate optimizations that do not address measured overhead. Do not claim the full Bash gate from the focused regression suite. The official maintained Bash workflow is studies/bash-parity-audit-2026-10-08/run.sh (83 groups, native/Observe, cold/warm), with independently recheckable raw evidence. Use new result destinations and inspect lifecycle/coverage failures as well as normalized comparisons.
+
+The previous persistent goal was explicitly cleared by the user; a new active persistent goal now records this entire ordered workflow, including BOTH commit/push checkpoints and the full Bash correctness gate.
+
+Current implementation: finite stdin staging has been removed after the whole-pipeline regressions in `general-finite-eight-01` (84/84 exact comparisons, unchanged provenance). Candidate and pinned original now gate static pure/read-only tracing shortcuts on the existing `-a` flag; default comparisons disable annotations on both sides. Candidate cache format is 30 and includes annotation policy, temporary policy and directory-access policy. Rust units pass 36 tests, one ignored. Focused correctness, fresh fair timings and the full Bash gate remain necessary; inspect live processes before scheduling measurements.
+
+Small-scale evidence: general-eight-01 completed 84/84 valid comparisons over two repetitions with unchanged provenance. Original/Observe whole-sequence ratios: word-freq 0.890x, Poet 0.886x, COVID 1.404x, weather 2.046x. Therefore the speedup gate is unmet; do not launch full evaluation. general-fd-transport-01 completed 24/24 valid transport/tracer diagnostics over three repetitions. Current dependency-traced sorting means: regular stdin 0.625s, piped stdin 0.966s; older tracer 0.598/0.996s. This attributes a transport penalty and shows the older tracer is not intrinsically much faster in this probe. These synthetic diagnostics are not benchmark-family qualification.
+
+Current directory-access assumption remains explicit and opt-in, preserving directory-open/listing dependencies; Observe passes all 420 integration assertions. Full maintained Bash qualification has not yet been rerun on these changes. Both repositories have uncommitted implementation/diagnostic work, so the next requested checkpoint commits are still outstanding.
+
+## Current follow-up: smaller-scale diagnosis
+
+The checkpoint was committed and pushed: Incr ee5283b on origin/observe and
+Observe cb347d6 on origin/main; both were clean. `general-min-01` then completed
+246/246 valid comparisons of all twelve non-DPT minimum families on that frozen
+checkpoint with the native frontend enabled. Eleven families were faster, but
+word frequency was 0.886x (original 1.247s vs Observe 1.408s). The terminal monitor
+reported health=ok. DPT remains pending on current source.
+
+The user now prioritizes smaller-scale iteration and attribution against the older
+Observe pair (Incr 4f8723e, Observe a95ca6b), and explicitly authorizes original-style
+temporary-filesystem assumptions. General implementation changes only: no custom
+sorting/cut algorithms or command-specific performance replacements.
+
+Current uncommitted runtime change: Observe-backed Incr assumes /tmp, /var/tmp and
+absolute non-root TMPDIR are scratch, excluded from dependencies/effect replay.
+`--track-temporaries` / INCR_TRACK_TEMPORARIES=true restores tracking. Policy is
+keyed in cache version 27; the Observe wire protocol and effect format are unchanged.
+The default tracer noisy-path filter is used unless temporary tracking is selected.
+Tests preserve explicit temporary-input invalidation and default scratch reuse.
+
+35 Rust units pass (one ignored). All 69 final and 69 full-tracing regressions pass;
+live passes 68 with one policy-specific skip; compressed batch passes 67 with two
+unbounded-input skips. Small benchmark qualification of this revised source is
+still pending. No DPT/full-size evaluation is running.
+
+`general-old-profile-01` passed 60 diagnostic cold/warm cases with unchanged
+provenance on the pre-scratch checkpoint. At 8 MiB, stdin sort cold old/current
+0.663/1.051s and warm 0.0282/0.0368s; payload checks 3--5ms do not explain the cold
+gap. Older code treats all sort/grep/cut forms as pure and omits /tmp dependencies.
+Four isolated non-temporary correctness probes against the old pair fail: preserved
+mtime content edits, sort file-list invalidation, parent-link retargeting, and
+corrupt cached stdout. These differences cannot justify dropping ordinary file
+correctness checks, even though temporary scratch assumptions are now authorized.
+
+`general-scratch-micro-01` and `general-scratch-cpu-02` are explicitly invalidated:
+the probe had put application input/output in TMPDIR, violating the new contract.
+The repaired probe uses fixture/tmp and removes the application output before warm
+write-file replay. `general-scratch-micro-02` then passed 30/30 exact comparisons
+with unchanged provenance (diagnostic profiling, one sample only). More repeated
+unprofiled comparisons are required before claiming a speedup. The rejected data
+and raw perf recording remain for diagnosis. Root perf was used without changing
+machine-wide perf settings; the measured program still ran as the normal user.
+
+Micro probes now retain decoded cache metadata and optional phase profiles, accept
+input size and selected comparison modes, and preserve per-case directory mismatch
+diagnostics. Inspect `general-scratch-directories-01` before restarting it. The
+next focus is attributing cold tracing/transport cost and missed general replay,
+then small paired repeats against the frozen checkpoint; requalify DPT and full
+historical sizes only after this iteration.
+
+A supplemental coverage draft for web-search/Tufte weather is archived locally at
+results/coverage-planning/supplemental-draft.patch and is NOT implemented/qualified.
+Finish the smaller-scale performance investigation before expanding the harness.
 
 ## Checkpoint review supersedes older implementation notes below
 

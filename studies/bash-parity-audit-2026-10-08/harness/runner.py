@@ -170,6 +170,9 @@ def prepare(args, work, output):
             },
             "terminal": True,
             "policy": "final",
+            "annotations": False,
+            "native_transform": getattr(args, "native_transform", False),
+            "assume_directory_access": getattr(args, "assume_directory_access", False),
             "policy_selection": "binary default; INCR_EFFECT_POLICY unset",
             "runtime_sources": {
                 str(p.relative_to(ROOT)): sha(p)
@@ -241,6 +244,10 @@ def execute(args, work, output, candidate, locales, helpers, launcher, case, mod
         INCR_TRY_PATH=str(candidate / "src/scripts/try.sh"),
         INCR_OBSERVE_PATH=str(candidate.parent / "observe/target/release/observe"),
     )
+    if mode == "observe" and getattr(args, "native_transform", False):
+        env["INCR_NATIVE_TRANSFORM"] = "1"
+    if mode == "observe" and getattr(args, "assume_directory_access", False):
+        env["INCR_ASSUME_DIRECTORY_ACCESS"] = "true"
     command = [sys.executable, str(STUDY / "harness/terminal.py")]
     if case == "read":
         command.append("--stdin")
@@ -334,6 +341,8 @@ def main():
     parser.add_argument(
         "--cases", help="Comma-separated groups; default: all standard run-all groups"
     )
+    parser.add_argument("--native-transform", action="store_true")
+    parser.add_argument("--assume-directory-access", action="store_true")
     parser.add_argument("--output", type=Path, default=STUDY / "results/latest")
     parser.add_argument("--bash-build", type=Path, default=ROOT / "qualification/.work/bash-src")
     parser.add_argument("--python", type=Path, default=ROOT / "qualification/.venv/bin/python")

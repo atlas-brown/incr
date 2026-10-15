@@ -486,12 +486,51 @@ class Regressions(unittest.TestCase):
         self.assertEqual(dest.read_text(), "second")
 
     def test_tmp_input_invalidation(self):
-        with tempfile.TemporaryDirectory(prefix="incr-input-") as tmp:
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory(prefix="incr-input-") as tmp, \
+             patch.dict(os.environ, INCR_TRACK_TEMPORARIES='true'):
             source = Path(tmp) / "input"
             source.write_text("first")
             self.assertEqual(self.invoke(["cat", str(source)])["stdout"], "first")
             source.write_text("second")
             self.assertEqual(self.invoke(["cat", str(source)])["stdout"], "second")
+
+    def test_temporary_scratch_is_excluded_from_default_reuse(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory(prefix='incr-scratch-') as tmp, \
+             patch.dict(os.environ, TMPDIR=tmp, INCR_TRACK_TEMPORARIES='false'):
+            source = Path(tmp)/'scratch'
+            command = ['python3', '-c',
+                       "import sys; open(sys.argv[1]).read(); print('constant')", str(source)]
+            source.write_text('first')
+            self.assertEqual(self.invoke(command)['stdout'], 'constant\n')
+            before = {str(p): p.stat().st_mtime_ns for p in self.cache.rglob('data.incr')}
+            self.assertTrue(before)
+            source.write_text('second')
+            self.assertEqual(self.invoke(command)['stdout'], 'constant\n')
+            self.assertEqual(before, {str(p): p.stat().st_mtime_ns for p in self.cache.rglob('data.incr')})
+
+    def test_directory_access_assumption_allows_output_recreation(self):
+        from unittest.mock import patch
+        with patch.dict(os.environ, INCR_ASSUME_DIRECTORY_ACCESS='true'):
+            command = ['sh', '-c', 'printf fixed > output']
+            self.invoke(command)
+            before = {str(p): p.stat().st_mtime_ns for p in self.cache.rglob('data.incr')}
+            self.assertTrue(before)
+            (self.work/'output').unlink()
+            self.invoke(command)
+            self.assertEqual((self.work/'output').read_text(), 'fixed')
+            self.assertEqual(before, {str(p): p.stat().st_mtime_ns for p in self.cache.rglob('data.incr')})
+
+    def test_directory_access_assumption_still_tracks_listing_changes(self):
+        from unittest.mock import patch
+        directory = self.work/'directory'
+        directory.mkdir()
+        command = ['python3', '-c', "import os; print(sorted(os.listdir('directory')))"]
+        with patch.dict(os.environ, INCR_ASSUME_DIRECTORY_ACCESS='true'):
+            self.assertEqual(self.invoke(command)['stdout'], '[]\n')
+            (directory/'added').write_text('value')
+            self.assertEqual(self.invoke(command)['stdout'], "['added']\n")
 
     def test_append_reexecution(self):
         dest = self.work / "dest"

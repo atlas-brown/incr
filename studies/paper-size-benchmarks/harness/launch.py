@@ -19,11 +19,12 @@ def main():
     parser.add_argument('--run-id', required=True)
     parser.add_argument('--repetitions', type=int, default=3)
     parser.add_argument('--native-transform', action='store_true')
+    parser.add_argument('--assume-directory-access', action='store_true')
     parser.add_argument('--continue-on-failure', action='store_true')
     parser.add_argument('--release-inputs', action='store_true')
     args = parser.parse_args()
-    if args.stage == 'prepare' and args.native_transform:
-        parser.error('--native-transform applies only to measurements')
+    if args.stage == 'prepare' and (args.native_transform or args.assume_directory_access):
+        parser.error('Runtime options apply only to measurements')
     if args.repetitions < 1 or not args.run_id or any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-' for c in args.run_id):
         parser.error('Use positive repetitions and a simple, unique run ID')
     if (STUDY / 'results' / args.run_id).exists():
@@ -47,6 +48,8 @@ def main():
                '--only', args.only, '--run-id', args.run_id, '--repetitions', str(args.repetitions)]
     if args.native_transform:
         command.append('--native-transform')
+    if args.assume_directory_access:
+        command.append('--assume-directory-access')
     if args.continue_on_failure:
         command.append('--continue-on-failure')
     if args.release_inputs:

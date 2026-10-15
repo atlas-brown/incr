@@ -236,6 +236,6 @@
     "Tufte weather (not in paper)"
   ],
   "size_policy": "Historical fetch recipes take precedence over nominal paper descriptions; prepared inventories record actual bytes.",
-  "original_baseline_label": "original Incr v1 with minimal salted-encryption correctness fix",
+  "original_baseline_label": "original Incr v1 with salted-encryption fix and explicit opt-in static annotations",
   "original_patch": "reference/original-minimal-fixes.patch"
 }

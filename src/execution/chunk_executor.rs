@@ -229,6 +229,8 @@ mod tests {
                 observe_command: None,
                 effect_policy: EffectPolicy::Live,
                 assume_text: false,
+                track_temporaries: false,
+                assume_directory_access: false,
                 batch_executor: false,
                 short_circuit: false,
                 compress_output: true,

@@ -1,0 +1,32 @@
+{
+  "revisions": {
+    "incr": "ee5283b2836f2c2507a834641cf0cb41cb7eb84f",
+    "observe": "cb347d64d726508cba142b531aa207bdb83b2a9b"
+  },
+  "candidate_snapshot": "/users/jxia3/atlas/incr/qualification/.work/builds/a28588442b8d37fe3fd4/incr",
+  "bash_build": "/users/jxia3/atlas/incr/qualification/.work/bash-src",
+  "source_tarball_sha256": "9599b22ecd1d5787ad7d3b7bf0c59f312b3396d1e281175dd1f8a4014da621ff",
+  "source_files_verified": 668,
+  "binaries": {
+    "/users/jxia3/atlas/incr/qualification/.work/bash-src/bash": "08ee22ac63e374e5db5628d1e86b07d417e4ef73c57630ac46772eff888af0d6",
+    "/users/jxia3/atlas/incr/qualification/.work/builds/a28588442b8d37fe3fd4/incr/target/release/incr": "dc2b7271bcbd6611250b4100da6e987c6053aeda586a261d45ee4f2ff9c2b97c",
+    "/users/jxia3/atlas/incr/qualification/.work/builds/a28588442b8d37fe3fd4/observe/target/release/observe": "ab841dad62b9b050f14a01d5e19720ebfeeb2c1c1524f397897a3ddcd3f9e74d",
+    "/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.run-qffn8oe5/bash": "f149aae34260ef9b59533ac61fdaf74ff00fef0278723d545a4b1e181bc56bf5"
+  },
+  "terminal": true,
+  "policy": "final",
+  "policy_selection": "binary default; INCR_EFFECT_POLICY unset",
+  "runtime_sources": {
+    "src/main.rs": "f5444b1500f2345398819d9b77084a80acf8b0ef436852fb628692b427180aa5",
+    "incr.sh": "14375e37e3e08f6f6bc8f3681d0b442d45979a26a3d30e9e460e62a0a4ef9837",
+    "src/scripts/insert.py": "6624b5fd3b3bcaa9ecb5247e2b95e800e0bcf6a4581fb1471a3fd2c582229b3a"
+  },
+  "case_order": [
+    "alias",
+    "execscript",
+    "redir",
+    "read",
+    "procsub",
+    "set-e"
+  ]
+}

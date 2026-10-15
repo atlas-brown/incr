@@ -47,21 +47,24 @@ def main():
     parser.add_argument('--mib',type=int,default=8)
     parser.add_argument('--repetitions',type=int,default=1)
     parser.add_argument('--native-transform',action='store_true')
+    parser.add_argument('--assume-directory-access',action='store_true')
     args=parser.parse_args();validate_arguments(parser,args)
-    if not set(args.only.split(',')) <= {'poet','covid','weather'}:
-        parser.error('Scaling supports poet, COVID and temperature-weather only')
+    if not set(args.only.split(',')) <= {'poet','covid','weather','word-freq'}:
+        parser.error('Scaling supports poet, COVID, temperature-weather and word frequency')
     if args.mib>256:parser.error('Diagnostic scaling is bounded to 256 MiB per family')
     result=ROOT/'studies/observe-performance-regression/results'/args.id
     result.mkdir(parents=True,exist_ok=False);fingerprint(ROOT,result,Path(__file__))
     parameters=SimpleNamespace(profile='scaled',only=args.only,repetitions=args.repetitions,
-        modes=('bash','original','observe'),reserve_gib=8,work_budget_gib=32,native_transform=args.native_transform)
+        modes=('bash','original','observe'),annotations=False,reserve_gib=8,work_budget_gib=32,native_transform=args.native_transform,
+        assume_directory_access=args.assume_directory_access)
     atomic_json(result/'configuration.json',dict(vars(parameters),started=now(),mib=args.mib,
         scope='Synthetic scaling diagnostic from repeated minimum fixtures; not historical-size evaluation'))
     doctor();build=freeze(result)
     owned=Path(tempfile.mkdtemp(prefix='scale-',dir=WORK));references={}
     try:
         for benchmark in selected(args.only):
-            name=benchmark['name'];relative={'poet':'books/sample.txt','covid':'covid.csv','weather':'temperatures.txt'}[name]
+            name=benchmark['name'];relative={'poet':'books/sample.txt','covid':'covid.csv','weather':'temperatures.txt',
+                'word-freq':'text.txt'}[name]
             data=owned/name
             recipe=replicate(WORK/'data/min'/name/'inputs'/relative,data/'inputs'/relative,args.mib*1024**2)
             atomic_json(result/'inputs'/f'{name}.json',dict(recipe,input_bytes=recipe['bytes'],models=[]))

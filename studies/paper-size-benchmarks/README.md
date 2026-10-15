@@ -237,8 +237,13 @@ systemctl --user stop incr-bench-monitor.timer
 After the user authorized minor baseline bug fixes, `original-minimal-fixes.patch`
 was applied to original Incr: `openssl enc` executes fresh because random salted
 ciphertext cannot combine live speculative prefixes with older cached suffixes.
-The same guard applies to the candidate. Doctor accepts only this exact reviewed
-patch and records it with source fingerprints. Earlier `historical-eval-*` results
+The same guard applies to the candidate. Following the user’s fairness clarification,
+the patch also gates original Incr’s static pure/read-only/stateless tracing shortcuts
+on its existing `-a` option. Both implementations now disable these static annotations
+by default; learned introspection is retained. Evaluate the unannotated configuration
+first; an equally annotated comparison is deferred. The study records `annotations: false`.
+Earlier ratios with unequal static annotation coverage are diagnostic only.
+Doctor accepts only this exact reviewed patch and records it with source fingerprints. Earlier `historical-eval-*` results
 used the untouched baseline; `optimization-min-*` use the repaired baseline.
 
 Fresh measurement timing records child completion with a waiter thread, excluding

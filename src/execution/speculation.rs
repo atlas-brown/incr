@@ -21,7 +21,7 @@ pub(super) fn stop_and_restore(
     // is active. Before attachment, signalling can lose the report.
     let restoration = (|| -> Result<()> {
         command::stop_observed_child(child)?;
-        let mut trace = execution::parse_trace(runtime)?;
+        let mut trace = execution::parse_trace(runtime, config)?;
         trace.apply_effect_policy(config.effect_policy);
         anyhow::ensure!(
             trace.replay_barriers.is_empty(),

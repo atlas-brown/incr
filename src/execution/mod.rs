@@ -14,7 +14,7 @@ use std::path::{Path, PathBuf};
 
 use crate::annotation;
 use crate::command::{Command, Runtime, RuntimeType};
-use crate::config::{EXCLUDED_PATHS, TRACE_FILE, TraceType};
+use crate::config::{Config, EXCLUDED_PATHS, TRACE_FILE, TraceType};
 use crate::scripts;
 
 pub(crate) fn get_trace_type(
@@ -22,11 +22,12 @@ pub(crate) fn get_trace_type(
     command: &Command,
     observe_command: Option<&str>,
     introspection: bool,
+    annotations: bool,
 ) -> TraceType {
-    if annotation::check_pure(command) {
+    if annotations && annotation::check_pure(command) {
         return TraceType::Nothing;
     }
-    if annotation::check_read_only(command) {
+    if annotations && annotation::check_read_only(command) {
         return TraceType::TraceFile;
     }
     // Observe records unexpected writes and arbitrates live effects. strace's
@@ -54,7 +55,7 @@ pub(crate) struct Trace {
     pub(crate) initial_dependencies: HashMap<PathBuf, crate::cache::DependencyKey>,
 }
 
-pub(crate) fn parse_trace(runtime: &Runtime) -> Result<Trace> {
+pub(crate) fn parse_trace(runtime: &Runtime, config: &Config) -> Result<Trace> {
     let trace_file = match &runtime.kind {
         RuntimeType::Sandbox(directory) => directory.join("upperdir").join("tmp").join(TRACE_FILE),
         RuntimeType::TraceFile(file) | RuntimeType::Observe(file) => file.clone(),
@@ -64,7 +65,11 @@ pub(crate) fn parse_trace(runtime: &Runtime) -> Result<Trace> {
         .extension()
         .is_some_and(|extension| extension == "json")
     {
-        scripts::parse_observe(&trace_file)?
+        scripts::parse_observe(
+            &trace_file,
+            config.track_temporaries,
+            config.assume_directory_access,
+        )?
     } else {
         scripts::parse_trace(&trace_file)?
     };
@@ -99,6 +104,41 @@ fn is_tracked_path(path: &Path) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn static_annotations_require_explicit_opt_in() {
+        let mut command = Command {
+            name: "tr".into(),
+            arguments: vec!["a".into(), "b".into()],
+            environment: Default::default(),
+            hash: 0,
+            inherited_descriptors: false,
+            standard_tool: true,
+        };
+        let cache = Path::new("/unused-incr-trace-selection-test");
+        assert!(matches!(
+            get_trace_type(cache, &command, Some("observe"), false, false),
+            TraceType::Observe
+        ));
+        assert!(matches!(
+            get_trace_type(cache, &command, None, false, false),
+            TraceType::Sandbox
+        ));
+        assert!(matches!(
+            get_trace_type(cache, &command, Some("observe"), false, true),
+            TraceType::Nothing
+        ));
+        command.name = "head".into();
+        command.arguments.clear();
+        assert!(matches!(
+            get_trace_type(cache, &command, Some("observe"), false, false),
+            TraceType::Observe
+        ));
+        assert!(matches!(
+            get_trace_type(cache, &command, Some("observe"), false, true),
+            TraceType::TraceFile
+        ));
+    }
 
     #[test]
     fn excluded_roots_match_whole_components() {

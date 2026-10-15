@@ -8,6 +8,21 @@ they do not qualify the revised source. See the
 [active handoff](../paper-size-benchmarks/ACTIVE_GOAL_HANDOFF.md).
 
 
+Current comparison policy: static pure/read-only/stateless performance annotations
+are disabled by default in both original Incr and Incr+Observe. The existing `-a`
+option now gates those shortcuts as well as chunking. Learned introspection and
+semantic native execution remain part of each implementation. Prior comparisons
+with unequal annotation coverage are diagnostic only. Finish the unannotated
+end-to-end evaluation first; a comparison with annotations on both sides is deferred.
+
+`general-unannotated-one-01` passes 84/84 exact comparisons across two repetitions
+of 1 MiB repeated-record fixtures, with unchanged provenance. Whole-sequence
+original/Observe ratios: word frequency 2.253x, Poet 8.836x, COVID 14.928x,
+weather 13.029x. The native frontend and explicit directory-access assumption
+were enabled. These are synthetic diagnostics, not historical-size qualification.
+The finite-stdin prototype was removed: although component sort timing improved,
+`general-finite-eight-01` showed worse complete pipelines from lost overlap.
+
 Persistent objective: make Observe significantly faster than original Incr across
 all included benchmark families while preserving Bash-equivalent outputs and the
 existing correctness fixes. Do not treat unsafe reuse or invalid baseline output

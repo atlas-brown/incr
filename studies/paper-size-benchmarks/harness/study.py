@@ -307,6 +307,10 @@ def execute_sequence(run, b, mode, repetition, args, build, data, references, mi
     env = environment(name, args.profile, active, build)
     if getattr(args, 'native_transform', False):
         env['INCR_NATIVE_TRANSFORM'] = '1'
+    if getattr(args, 'assume_directory_access', False):
+        env['INCR_ASSUME_DIRECTORY_ACCESS'] = 'true'
+    # Static performance annotations are disabled in both frozen executables.
+    env.pop('INCR_ENABLE_ANNOTATIONS', None)
     env['INCR_TOP'] = str(build / ('original' if mode == 'original' else 'candidate'))
     env['INCR_SYS_PATH'] = str(Path(env['INCR_TOP']) / 'target/release/incr')
     env['INCR_TRY_PATH'] = str(Path(env['INCR_TOP']) / 'src/scripts/try.sh')
@@ -535,6 +539,9 @@ def report(run):
     (run / 'timings.csv.pending').replace(run / 'timings.csv')
     lines = [f'# Study {run.name}', '', f'Profile: {config["profile"]}.',
              'Native shell transformation: ' + ('enabled, with Python fallback.' if config.get('native_transform') else 'disabled.'), '',
+             'Directory stat/access assumption: ' + ('enabled; directory content reads remain tracked.' if config.get('assume_directory_access') else 'disabled.'), '',
+             'Static performance annotations: ' + ('disabled in both implementations.' if config.get('annotations') is False else 'not recorded by this historical run.'), '',
+             *(['Finite staged stdin experiment: enabled.', ''] if config.get('finite_stdin') else []),
              f'{len(rows)}/{expected} invocations; {summary["valid_invocations"]} valid. Complete: {summary["complete"]}.', '',
              '| Reference | Valid paired edits | Arithmetic mean | Geometric mean | Maximum |',
              '|---|---:|---:|---:|---:|']
@@ -560,7 +567,7 @@ def run(args):
         config = json.loads((destination / 'configuration.json').read_text())
         if config['manifest_sha256'] != file_hash(STUDY / 'manifest.json') or config['harness_sha256'] != inventory(HARNESS):
             raise ValueError('Cannot resume with changed harness/manifest; create a new run')
-        for key in ('profile', 'only', 'repetitions', 'modes', 'reserve_gib', 'work_budget_gib', 'native_transform'):
+        for key in ('profile', 'only', 'repetitions', 'modes', 'reserve_gib', 'work_budget_gib', 'native_transform', 'assume_directory_access'):
             actual = list(args.modes) if key == 'modes' else getattr(args, key)
             if config.get(key, False) != actual:
                 raise ValueError(f'Resume configuration mismatch: {key}')
@@ -578,7 +585,9 @@ def run(args):
         args._run_destination = destination
         args._owns_run = True
         config = {'profile': args.profile, 'only': args.only, 'repetitions': args.repetitions,
-                  'modes': list(args.modes), 'native_transform': getattr(args, 'native_transform', False), 'reserve_gib': args.reserve_gib,
+                  'modes': list(args.modes), 'native_transform': getattr(args, 'native_transform', False),
+                  'assume_directory_access': getattr(args, 'assume_directory_access', False), 'reserve_gib': args.reserve_gib,
+                  'annotations': False,
                   'work_budget_gib': args.work_budget_gib, 'started': now(),
                   'manifest_sha256': file_hash(STUDY / 'manifest.json'), 'harness_sha256': inventory(HARNESS)}
         atomic_json(destination / 'configuration.json', config)
@@ -657,6 +666,7 @@ def main():
     execute.add_argument('--only', default='')
     execute.add_argument('--repetitions', type=int, default=3)
     execute.add_argument('--native-transform', action='store_true', help='Opt into the native pipeline compiler, with Python fallback')
+    execute.add_argument('--assume-directory-access', action='store_true', help='Directory stat/access probes do not depend on entry timestamps')
     execute.add_argument('--modes', type=lambda s: tuple(s.split(',')), default=MODES)
     execute.add_argument('--run-id')
     execute.add_argument('--resume', type=Path)

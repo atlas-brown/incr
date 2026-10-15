@@ -1,4 +1,4 @@
-//! Strict decoding of Observe reports. Ordinary /tmp files remain dependencies.
+//! Decode Observe reports under the selected temporary scratch-state contract.
 use crate::cache::DependencyKey;
 use crate::config::OBSERVE_READ_EXCLUDED_PATHS;
 use crate::execution::Trace;
@@ -9,6 +9,8 @@ use std::path::{Path, PathBuf};
 #[derive(Deserialize)]
 struct Report {
     dependency_version: u32,
+    #[serde(default)]
+    directory_access_only: bool,
     #[serde(default)]
     overwrites: Vec<ReportPath>,
     replay_barriers: Vec<String>,
@@ -76,18 +78,21 @@ enum Write {
     },
 }
 
-pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
+pub(crate) fn parse_observe(
+    path: &Path,
+    track_temporaries: bool,
+    assume_directory_access: bool,
+) -> Result<Trace> {
     let report: Report = serde_json::from_slice(&std::fs::read(path)?)
         .with_context(|| format!("decode Observe report {}", path.display()))?;
-    if !matches!(report.dependency_version, 7 | 8 | 9) {
+    if !matches!(report.dependency_version, 7 | 8 | 9 | 10)
+        || report.directory_access_only != assume_directory_access
+        || (report.directory_access_only && report.dependency_version != 10)
+    {
         anyhow::bail!("unsupported Observe dependency protocol");
     }
-    let tracked = |path: &Path| {
-        path.is_absolute()
-            && !OBSERVE_READ_EXCLUDED_PATHS
-                .iter()
-                .any(|root| path.starts_with(root))
-    };
+    let temporary_roots = temporary_roots();
+    let tracked = |path: &Path| tracked_path(path, track_temporaries, &temporary_roots);
     let mut trace = Trace {
         replay_barriers: report.replay_barriers,
         ..Trace::default()
@@ -199,4 +204,55 @@ pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
         trace.writes.insert(path);
     }
     Ok(trace)
+}
+
+fn temporary_roots() -> Vec<PathBuf> {
+    let mut roots = vec![PathBuf::from("/tmp"), PathBuf::from("/var/tmp")];
+    if let Some(directory) = std::env::var_os("TMPDIR") {
+        let path = PathBuf::from(directory);
+        // A root TMPDIR must not silently exclude the entire filesystem.
+        if path.is_absolute() && path != Path::new("/") {
+            if let Ok(resolved) = std::fs::canonicalize(&path) {
+                // A symlink or lexical alias of / is also not scratch.
+                if resolved == Path::new("/") {
+                    return roots;
+                }
+                roots.push(resolved);
+            }
+            roots.push(path);
+        }
+    }
+    roots
+}
+
+fn tracked_path(path: &Path, track_temporaries: bool, temporary_roots: &[PathBuf]) -> bool {
+    path.is_absolute()
+        && !OBSERVE_READ_EXCLUDED_PATHS
+            .iter()
+            .any(|root| path.starts_with(root))
+        && (track_temporaries || !temporary_roots.iter().any(|root| path.starts_with(root)))
+}
+
+#[cfg(test)]
+mod temporary_policy_tests {
+    use super::*;
+
+    #[test]
+    fn scratch_prefixes_respect_components_and_the_tracking_override() {
+        let roots = vec!["/tmp".into(), "/var/tmp".into(), "/work/private-scratch".into()];
+        for name in ["/tmp/input", "/var/tmp/output", "/work/private-scratch/result"] {
+            assert!(!tracked_path(Path::new(name), false, &roots));
+            assert!(tracked_path(Path::new(name), true, &roots));
+        }
+        for name in [
+            "/tmp-data/input",
+            "/work/private-scratch-neighbor/input",
+            "/work/input",
+        ] {
+            assert!(tracked_path(Path::new(name), false, &roots));
+        }
+        for name in ["/proc/self/maps", "/sys/info", "/dev/null", "relative"] {
+            assert!(!tracked_path(Path::new(name), true, &roots));
+        }
+    }
 }

@@ -82,3 +82,8 @@ python3 -B studies/bash-parity-audit-2026-10-08/harness/analyze.py \
 The analysis also writes `line-results.csv.gz`: one row for every compared transcript line, identified by group, phase, capture, and line number, with equality status and normalized hashes. Full unmodified text remains in the raw records. These are transcript-line IDs, not invented source-level test IDs.
 
 The analysis command rejects missing records and recomputes all comparisons from raw captures. It writes `analysis.json` beside the results and exits nonzero if any group differs.
+
+The runner also accepts `--native-transform --assume-directory-access` to qualify
+the optional configuration used by the current benchmark study. Both settings
+and the disabled static-annotation policy are recorded in provenance. Omit these
+options to qualify defaults; use distinct result directories for each run.

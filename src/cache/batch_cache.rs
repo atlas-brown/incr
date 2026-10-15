@@ -73,11 +73,14 @@ impl<'c> CacheCursor<'c> {
         debug_info: CacheInfo<'c>,
     ) -> Result<Self> {
         let key_data = ops::data::encode_to_bytes(&CacheKey {
-            version: 26,
+            version: 30,
+            track_temporaries: config.track_temporaries,
+            assume_directory_access: config.assume_directory_access,
             assume_text: config.assume_text,
             effect_policy: config.effect_policy,
             observe: config.observe_command.is_some(),
             full_tracing: config.full_tracing,
+            annotations: config.enable_annotations,
             umask: fs::read_to_string("/proc/self/status")?
                 .lines()
                 .find_map(|line| line.strip_prefix("Umask:"))
@@ -328,10 +331,13 @@ struct CacheInfo<'c> {
 #[derive(Clone, Debug, Encode)]
 struct CacheKey {
     version: u32,
+    track_temporaries: bool,
+    assume_directory_access: bool,
     effect_policy: crate::config::EffectPolicy,
     assume_text: bool,
     observe: bool,
     full_tracing: bool,
+    annotations: bool,
     umask: String,
     command_hash: u64,
     stdin_hash: u64,

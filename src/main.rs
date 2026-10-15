@@ -45,6 +45,14 @@ struct Arguments {
     #[arg(long = "assume-text", env = "INCR_ASSUME_TEXT")]
     assume_text: bool,
 
+    /// Include temporary scratch paths in Observe dependencies and replay effects.
+    #[arg(long = "track-temporaries", env = "INCR_TRACK_TEMPORARIES")]
+    track_temporaries: bool,
+
+    /// Assume directory stat/access results are used for access checks, not timestamps.
+    #[arg(long = "assume-directory-access", env = "INCR_ASSUME_DIRECTORY_ACCESS")]
+    assume_directory_access: bool,
+
     #[arg(short = 'b', long = "batch_executor")]
     batch_executor: bool,
     #[arg(short = 's', long = "short_circuit")]
@@ -180,6 +188,7 @@ fn parse_input() -> Result<Option<Input>> {
             &command,
             arguments.observe_command.as_deref(),
             !arguments.skip_introspection,
+            arguments.enable_annotations,
         )
     };
     let config = Config {
@@ -190,6 +199,8 @@ fn parse_input() -> Result<Option<Input>> {
 
         effect_policy: arguments.effect_policy,
         assume_text: arguments.assume_text,
+        track_temporaries: arguments.track_temporaries,
+        assume_directory_access: arguments.assume_directory_access,
         batch_executor: arguments.batch_executor,
         short_circuit: arguments.short_circuit,
         compress_output: arguments.compress_output,
