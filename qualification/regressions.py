@@ -68,6 +68,31 @@ class Regressions(unittest.TestCase):
         execute("modified")
         self.assertNotEqual(before, metadata(), "changed same-size bytes must invalidate")
 
+    def test_replayed_producer_preserves_downstream_cache(self):
+        path = self.work / "generated"
+        path.write_bytes(b"stable output\n")
+        mode = [arg for arg in MODE if arg not in ("--effect-policy", "live", "final")]
+        def invoke(command, data=b""):
+            result = run([str(INCR), *mode, "--effect-policy", "final", "--content-validated-inputs",
+                          "--observe", str(OBSERVE), "--cache", str(self.cache),
+                          "--", *command], cwd=self.work, stdin=data, timeout=5)
+            self.assertEqual((result["returncode"], result["stderr"]), (0, ""), result)
+            self.assertFalse(result["timeout"] or result["remaining_descendants"], result)
+            return result["stdout"]
+        def entries():
+            return {str(p): (p.stat().st_ino, p.stat().st_mtime_ns)
+                    for p in self.cache.glob("batch_*/data.incr")}
+        invoke(["dd", "of=generated", "status=none"], b"stable output\n")
+        stamp = path.stat().st_mtime_ns
+        self.assertEqual(invoke(["cat", "generated"]), "stable output\n")
+        before = entries()
+        self.assertEqual(len(before), 2)
+        for _ in range(2):
+            invoke(["dd", "of=generated", "status=none"], b"stable output\n")
+            self.assertEqual(path.stat().st_mtime_ns, stamp)
+            self.assertEqual(invoke(["cat", "generated"]), "stable output\n")
+            self.assertEqual(entries(), before, "both commands should reuse their entries")
+
     def test_parallel_script_wrapper(self):
         import shlex
         script = self.work / "script.sh"

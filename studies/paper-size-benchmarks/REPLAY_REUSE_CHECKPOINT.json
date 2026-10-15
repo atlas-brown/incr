@@ -1,0 +1,73 @@
+{
+  "created": "2026-10-15T13:51:11.739762+00:00",
+  "state": "Implementation checkpoint; full Bash rerun, larger diagnostics and final evaluations remain required.",
+  "observe_commit": "ec35e0ea8f379a694f6e9b1b257da623b7cbb134",
+  "cache_format": 33,
+  "effect_manifest": 4,
+  "observe_protocol": 12,
+  "annotations": false,
+  "scope": "General output replay/overwrite fixes and reliable cancellation; no command-specific algorithm replacement.",
+  "changes": [
+    "Preserve regular-file mtime during replay; retain group-writable replay if ownership prevents timestamp restoration.",
+    "Distinguish tracer pre-write checksumming from actual tracee reads, preserving overwrite eligibility.",
+    "Drain cancellation stops without querying killed processes; reap tracees through ECHILD; retry interrupted snapshot copies.",
+    "Opt-in cache miss diagnostics; deterministic real-BAM scaling driver; paired reporter with negative evidence fixtures."
+  ],
+  "binaries": {
+    "incr": "4bed38271938fc9b64680228ac661aecef04da04b736619d3c29eab2cc95c981",
+    "observe": "7d0a60d32735056ef2b7ae96af236d842cbe5905457cc7638b65f9bdb784a978"
+  },
+  "checks": {
+    "incr_rust": {
+      "ordinary_pass": 37,
+      "foreign_ownership_explicit_pass": 1
+    },
+    "observe_rust": 8,
+    "strict_clippy": "both passed",
+    "observe_integration": {
+      "files": 41,
+      "assertions": 435,
+      "failed": 0,
+      "cancellation_iterations": 200,
+      "forked_writer_cases": 100
+    },
+    "general_regressions": {
+      "final_pass": 73,
+      "live_pass": 72,
+      "live_policy_specific_skip": 1
+    },
+    "guarded_descriptor_groups": 6,
+    "paired_reporter_test_groups": 6,
+    "minimum_bio": {
+      "run": "replay-reuse-min-bio-02",
+      "valid": 21,
+      "expected": 21,
+      "scope": "Before final cancellation fix; no full-size speedup claim."
+    },
+    "full_bash_first_run": {
+      "run": "replay-reuse-system-bash-full-01",
+      "groups": 82,
+      "cold_matches": 81,
+      "warm_matches": 82,
+      "failures": [
+        "printf/cold"
+      ],
+      "classification": "One-second shell-start wall-clock diagnostic; full run remains failed and unchanged rerun required."
+    }
+  },
+  "failed_larger_diagnostic": {
+    "run": "studies/observe-performance-regression/results/bio-replay-real-01pct-02",
+    "input_bytes": 9830000,
+    "failure": "version5 retained recovery due to cancellation race",
+    "preserved": "diagnosis/ full fixture, cache and captures",
+    "next": "Rerun after full Bash gates with cancellation fix; no pooling."
+  },
+  "evidence": "checkpoint-evidence/replay-reuse/manifest.json",
+  "remaining": [
+    "Both complete Bash configurations cold/warm on these sources.",
+    "Progressive real-input diagnostics including paired medium-size measurements and full bio.",
+    "Clean pushed final checkpoint before full evaluation.",
+    "Fresh complete historical suite with >=3 paired repetitions.",
+    "Full supplemental suite separately, all exact correctness checks, honest regressions and historical/Bash sanity."
+  ]
+}

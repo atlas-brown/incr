@@ -4,12 +4,14 @@ use anyhow::{Context, Result, bail};
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
 use std::fs;
+use std::os::fd::AsRawFd;
 use std::os::unix::fs::{MetadataExt, PermissionsExt, symlink};
 use std::path::{Path, PathBuf};
 
 use crate::ops::permissions::{TemporaryPermissions, remove_tree};
 
 const MANIFEST: &str = "effects.json";
+const MANIFEST_VERSION: u32 = 4;
 
 #[derive(Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
@@ -26,6 +28,8 @@ enum Effect {
         mode: u32,
         hash: u64,
         replace: bool,
+        modified_sec: i64,
+        modified_nsec: i64,
     },
     HardLink {
         target: PathBuf,
@@ -86,6 +90,8 @@ pub(crate) fn capture(
                         source,
                         mode: metadata.mode(),
                         replace: replaced_paths.contains(path),
+                        modified_sec: metadata.mtime(),
+                        modified_nsec: metadata.mtime_nsec(),
                     }
                 }
             }
@@ -96,7 +102,10 @@ pub(crate) fn capture(
             effect,
         });
     }
-    let manifest = Manifest { version: 3, entries };
+    let manifest = Manifest {
+        version: MANIFEST_VERSION,
+        entries,
+    };
     let pending = directory.join("effects.pending");
     fs::write(&pending, serde_json::to_vec(&manifest)?)?;
     fs::rename(pending, directory.join(MANIFEST))?;
@@ -105,7 +114,7 @@ pub(crate) fn capture(
 
 fn load_validated(directory: &Path) -> Result<Manifest> {
     let manifest: Manifest = serde_json::from_slice(&fs::read(directory.join(MANIFEST))?)?;
-    if manifest.version != 3 {
+    if manifest.version != MANIFEST_VERSION {
         bail!("unsupported filesystem effect version");
     }
     let mut seen = HashSet::new();
@@ -114,7 +123,16 @@ fn load_validated(directory: &Path) -> Result<Manifest> {
         if !entry.path.is_absolute() || !seen.insert(entry.path.clone()) {
             bail!("invalid or duplicate cached output path");
         }
-        if let Effect::File { source, hash, .. } = &entry.effect {
+        if let Effect::File {
+            source,
+            hash,
+            modified_nsec,
+            ..
+        } = &entry.effect
+        {
+            if !(0..1_000_000_000).contains(modified_nsec) {
+                bail!("invalid cached file timestamp");
+            }
             if !matches!(
                 Path::new(source).components().collect::<Vec<_>>().as_slice(),
                 [std::path::Component::Normal(_)]
@@ -201,6 +219,8 @@ fn replay_entry(directory: &Path, entry: &Entry) -> Result<()> {
             source,
             mode,
             replace,
+            modified_sec,
+            modified_nsec,
             ..
         } => {
             if *replace || fs::symlink_metadata(path).is_ok_and(|metadata| !metadata.is_file()) {
@@ -213,6 +233,27 @@ fn replay_entry(directory: &Path, entry: &Entry) -> Result<()> {
                 std::io::copy(&mut source, &mut destination)?;
                 if destination.metadata()?.mode() & 0o7777 != mode & 0o7777 {
                     destination.set_permissions(fs::Permissions::from_mode(*mode))?;
+                }
+                // Like original Incr's cp -p, preserve a cached output's mtime.
+                // Otherwise replay alone invalidates downstream content inputs.
+                let times = [
+                    libc::timespec {
+                        tv_sec: 0,
+                        tv_nsec: libc::UTIME_OMIT,
+                    },
+                    libc::timespec {
+                        tv_sec: *modified_sec,
+                        tv_nsec: *modified_nsec,
+                    },
+                ];
+                if unsafe { libc::futimens(destination.as_raw_fd(), times.as_ptr()) } != 0 {
+                    let error = std::io::Error::last_os_error();
+                    // Group write access need not include permission to set a
+                    // historical timestamp. Keep such replay available; the
+                    // changed timestamp conservatively invalidates consumers.
+                    if !matches!(error.raw_os_error(), Some(libc::EPERM | libc::EACCES)) {
+                        return Err(error.into());
+                    }
                 }
                 Ok(())
             })?;

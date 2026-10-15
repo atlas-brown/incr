@@ -22,3 +22,7 @@ __pycache__/
 /studies/bash-parity-audit-2026-10-08/results/function-locations-system-bash-full-01/
 
 /studies/bash-parity-audit-2026-10-08/results/function-locations-defaults-full-01/
+
+# Replay qualification is archived with member hashes in checkpoint-evidence/replay-reuse.
+/studies/bash-parity-audit-2026-10-08/results/replay-reuse-system-bash-full-01/
+/studies/bash-parity-audit-2026-10-08/results/replay-reuse-defaults-full-01/

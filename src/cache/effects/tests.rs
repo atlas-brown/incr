@@ -25,7 +25,7 @@ fn invalid_hard_link_is_rejected_before_deletion() -> Result<()> {
     fs::create_dir(&cache)?;
     fs::write(&output, b"preserve")?;
     let manifest = Manifest {
-        version: 3,
+        version: MANIFEST_VERSION,
         entries: vec![
             Entry {
                 path: output.clone(),
@@ -99,7 +99,7 @@ fn replay_failure_restores_directory_permissions() -> Result<()> {
     fs::create_dir(&cache)?;
     fs::write(output.join("blocker"), b"not a directory")?;
     let manifest = Manifest {
-        version: 3,
+        version: MANIFEST_VERSION,
         entries: vec![
             Entry {
                 path: output.clone(),
@@ -153,7 +153,7 @@ fn directory_replacement_keeps_removed_file_alias_permissions() -> Result<()> {
     fs::hard_link(&output, &alias)?;
     fs::set_permissions(&output, fs::Permissions::from_mode(0o444))?;
     let manifest = Manifest {
-        version: 3,
+        version: MANIFEST_VERSION,
         entries: vec![Entry {
             path: output.clone(),
             effect: Effect::Directory { mode: 0o500 },

@@ -126,6 +126,11 @@ fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Re
             // Files can disappear or become unreadable between probes. That is
             // a cache miss, not an error in the user's command.
             if !check_dependency(path, key).unwrap_or(false) {
+                ops::profile::event(|| {
+                    serde_json::json!({
+                        "kind": "dependency_miss", "path": path, "expected": key,
+                    })
+                });
                 return Ok(false);
             }
         }

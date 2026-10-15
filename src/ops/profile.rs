@@ -7,6 +7,7 @@ struct Profile {
     directory: PathBuf,
     started: Instant,
     phases: Mutex<Vec<(&'static str, u128)>>,
+    events: Mutex<Vec<serde_json::Value>>,
 }
 
 static PROFILE: OnceLock<Option<Profile>> = OnceLock::new();
@@ -17,8 +18,17 @@ pub(crate) fn initialize() {
             directory: directory.into(),
             started: Instant::now(),
             phases: Mutex::new(Vec::new()),
+            events: Mutex::new(Vec::new()),
         })
     });
+}
+
+pub(crate) fn event(value: impl FnOnce() -> serde_json::Value) {
+    if let Some(profile) = PROFILE.get().and_then(Option::as_ref)
+        && let Ok(mut events) = profile.events.lock()
+    {
+        events.push(value());
+    }
 }
 
 pub(crate) fn measure<T>(label: &'static str, operation: impl FnOnce() -> T) -> T {
@@ -44,6 +54,7 @@ pub(crate) fn finish() {
     let report = serde_json::json!({
         "pid": std::process::id(), "arguments_bytes": arguments,
         "elapsed_ns": profile.started.elapsed().as_nanos(), "phases_ns": *phases,
+        "events": profile.events.lock().ok().as_deref(),
     });
     // The caller owns the directory. Diagnostic failure must not change status
     // or application stdout/stderr, and repeated probes never overwrite evidence.

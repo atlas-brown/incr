@@ -162,9 +162,13 @@ behavior; passing those cases does not imply that every command is accelerated.
 
 Both policies validate saved payloads before replay. File replay distinguishes
 in-place writes from pathname replacement so existing hard-link aliases receive the
-correct final contents. Final policy also supports rename/unlink outputs; ownership,
-timestamp and special-file operations still require live execution. Cache key version
-31, effect manifest version 3 and Observe dependency protocols 9/10/11 reject incompatible
+correct final contents. Replayed regular files retain their saved modification
+times so replay alone does not invalidate downstream content dependencies. Setting
+a historical timestamp can require ownership; when access permits writing but not
+timestamp restoration, downstream validation conservatively misses. Final policy
+also supports rename/unlink outputs; ownership, timestamp and special-file operations
+still require live execution. Cache key version 33, effect manifest version 4 and
+Observe dependency protocols 9/10/11/12 reject incompatible
 entries. External network state, clocks and randomness are not general memoization inputs.
 
 With `-a`, plain `cat` and simple alphanumeric `tr` translations can reuse independent

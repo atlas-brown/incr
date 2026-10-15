@@ -73,7 +73,7 @@ impl<'c> CacheCursor<'c> {
         debug_info: CacheInfo<'c>,
     ) -> Result<Self> {
         let key_data = ops::data::encode_to_bytes(&CacheKey {
-            version: 32,
+            version: 33,
             track_temporaries: config.track_temporaries,
             assume_directory_access: config.assume_directory_access,
             content_validated_inputs: config.content_validated_inputs,
@@ -256,9 +256,19 @@ impl<'c> CacheCursor<'c> {
         let Some(entry): Option<CachedEntry> =
             ops::data::decode_from_file(&self.directory, DATA_FILE.to_owned())?
         else {
+            ops::profile::event(|| {
+                serde_json::json!({
+                    "kind": "entry_missing", "directory": self.directory,
+                })
+            });
             return Ok(None);
         };
         if self.output_hashes().ok() != Some(entry.output_hashes) {
+            ops::profile::event(|| {
+                serde_json::json!({
+                    "kind": "stream_integrity_miss", "directory": self.directory,
+                })
+            });
             return Ok(None);
         }
         Ok(Some(entry.data))
