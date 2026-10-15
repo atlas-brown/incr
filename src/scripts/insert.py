@@ -114,7 +114,6 @@ IGNORE_COMMANDS = [
 AVOID_SET = set(IGNORE_COMMANDS)
 
 
-
 BASH_CTLESC = "\x01"
 BASH_CTLNUL = "\x7f"
 
@@ -332,6 +331,7 @@ def parse_arguments():
         help="Path to the cache directory",
     )
     arg_parser.add_argument("--observe-path", help="Observe binary path", default=None)
+    arg_parser.add_argument("--status-path", help="Write whether commands were instrumented")
     arg_parser.add_argument("-d", "--debug", action="store_true", help="Enable debug logging")
     arg_parser.add_argument("--bash", action="store_true", help="Use bash parser (experimental)")
     arg_parser.add_argument("--identity", action="store_true", help=f"Output parsed script without inserting {program_name}")
@@ -373,13 +373,13 @@ def transform_bash_script(arguments, prefix_words, source_bytes):
     original_ast = libbash.bash_to_ast(arguments.path)
     state = collect_bash_bindings(original_ast)
     if state.dynamic_aliases and not arguments.identity:
-        return source_bytes
+        return source_bytes, False
     if arguments.identity:
         transformed_ast = original_ast
     else:
         transformed_ast = transform_bash_ast(original_ast, prefix_words, state)
     if not arguments.identity and not state.modified:
-        return source_bytes
+        return source_bytes, False
     with tempfile.NamedTemporaryFile(mode="wb+", suffix=".sh") as temp_file:
         libbash.ast_to_bash(transformed_ast, temp_file.name)
         temp_file.flush()
@@ -389,7 +389,7 @@ def transform_bash_script(arguments, prefix_words, source_bytes):
     if not transformed_code.endswith("\n"):
         transformed_code += "\n"
     output = transformed_code.encode("utf-8", errors="surrogateescape")
-    return output
+    return output, state.modified
 
 
 def transform_script(arguments):
@@ -398,7 +398,7 @@ def transform_script(arguments):
     checked = subprocess.run([os.environ.get("INCR_SHELL", "bash"), "-n", arguments.path],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
     if requires_original_source(source_bytes) or checked.returncode != 0 or checked.stderr:
-        return source_bytes
+        return source_bytes, False
 
     prefix_words = parse_prefix(command_prefix(arguments), arguments.bash) if not arguments.identity else []
     if arguments.bash:
@@ -411,14 +411,14 @@ def transform_script(arguments):
     if not code.endswith("\n"):
         code += "\n"
     output = code.encode("utf-8", errors="surrogateescape")
-    return output
+    return output, state.modified
 
 
 def main():
     arguments = parse_arguments()
     logging.basicConfig(level=logging.DEBUG if arguments.debug else logging.INFO)
     try:
-        output = transform_script(arguments)
+        output, modified = transform_script(arguments)
     except Exception as error:
         print(f"Error transforming {arguments.path}: {error}", file=sys.stderr)
         if arguments.debug:
@@ -429,6 +429,11 @@ def main():
         Path(arguments.output).write_bytes(output)
     else:
         sys.stdout.buffer.write(output)
+    if arguments.status_path:
+        Path(arguments.status_path).write_text(
+            "transformed\n" if modified else "unchanged\n",
+            encoding="utf-8",
+        )
     if arguments.execute and arguments.output is not None:
         raise SystemExit(subprocess.run([os.environ.get("INCR_SHELL", "bash"), arguments.output]).returncode)
 

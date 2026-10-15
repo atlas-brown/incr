@@ -102,6 +102,7 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
 
     match cache_status {
         CacheStatus::Valid(cached_data) => {
+            execution::record::write_outer_dependencies(&cached_data)?;
             debug_log!(
                 "Cache valid: {} {:?} {}",
                 command.name,
@@ -119,7 +120,8 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
                 command.arguments,
                 stdin_context.hash,
             );
-            let (status, _) = save_command_data(config, command, cache, &runtime, exit_code)?;
+            let (status, cached_data) = save_command_data(config, command, cache, &runtime, exit_code)?;
+            execution::record::write_outer_dependencies(&cached_data)?;
             Ok(if outputs.broken_pipe {
                 BROKEN_PIPE_CODE
             } else {

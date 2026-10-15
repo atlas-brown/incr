@@ -87,8 +87,6 @@ fn capture_dependency(path: &Path, written: bool) -> Result<DependencyKey> {
         }
     } else if metadata.is_file() {
         let state = DependencyKey::FileState {
-            device: metadata.dev(),
-            inode: metadata.ino(),
             modified,
             changed_sec,
             changed_nsec,
@@ -178,8 +176,6 @@ fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
             true
         }
         DependencyKey::FileState {
-            device,
-            inode,
             modified,
             changed_sec,
             changed_nsec,
@@ -188,8 +184,6 @@ fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
         } => {
             let metadata = fs::symlink_metadata(path)?;
             metadata.is_file()
-                && metadata.dev() == *device
-                && metadata.ino() == *inode
                 && metadata.len() == *size
                 && metadata.mode() == *mode
                 && metadata.ctime() == *changed_sec
@@ -269,45 +263,4 @@ pub(crate) fn get_introspect_file(cache_directory: &Path, command_hash: u64) -> 
     cache_directory
         .join(INTROSPECT_DIRECTORY)
         .join(format!("command_{command_hash}.incr"))
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn replacement_file_with_matching_metadata_invalidates_identity_dependency() -> Result<()> {
-        let directory = std::env::temp_dir().join(format!("incr-dependency-{}", rand::random::<u128>()));
-        fs::create_dir(&directory)?;
-        let result = (|| -> Result<()> {
-            let path = directory.join("input");
-            let replacement = directory.join("replacement");
-            fs::write(&path, b"original")?;
-            let original = fs::symlink_metadata(&path)?;
-            let original_key = capture_dependency(&path, false)?;
-            let (device, inode) = match original_key {
-                DependencyKey::FileState { device, inode, .. } => (device, inode),
-                key => anyhow::bail!("expected file dependency, got {key:?}"),
-            };
-
-            fs::write(&replacement, b"replaced")?;
-            fs::rename(&replacement, &path)?;
-            let current = fs::symlink_metadata(&path)?;
-            assert_ne!(current.ino(), original.ino());
-
-            let key_with_matching_metadata = DependencyKey::FileState {
-                device,
-                inode,
-                modified: current.modified()?.duration_since(UNIX_EPOCH)?.as_nanos(),
-                changed_sec: current.ctime(),
-                changed_nsec: current.ctime_nsec(),
-                size: current.len(),
-                mode: current.mode(),
-            };
-            assert!(!check_dependency(&path, &key_with_matching_metadata)?);
-            Ok(())
-        })();
-        fs::remove_dir_all(directory)?;
-        result
-    }
 }

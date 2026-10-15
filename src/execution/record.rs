@@ -1,5 +1,7 @@
 use anyhow::Result;
-use std::fs;
+use std::fs::{self, OpenOptions};
+use std::io::Write;
+use std::os::fd::AsRawFd;
 use std::os::unix::fs::MetadataExt;
 
 use crate::cache::{CacheData, batch_cache::CacheCursor};
@@ -7,6 +9,43 @@ use crate::command::{Runtime, RuntimeType};
 use crate::config::Config;
 use crate::execution::{self, dependency};
 use crate::ops::debug_log;
+
+#[derive(serde::Serialize)]
+struct OuterDependencies {
+    complete: bool,
+    paths: Vec<String>,
+}
+
+pub(crate) fn write_outer_dependencies(cache_data: &CacheData) -> Result<()> {
+    let Some(report_path) = std::env::var_os("INCR_DOCKER_DEPENDENCY_REPORT") else {
+        return Ok(());
+    };
+    let mut paths = Vec::with_capacity(cache_data.read_dependencies.len());
+    let mut complete = cache_data.is_reusable();
+    for path in cache_data.read_dependencies.keys() {
+        if let Some(path) = path.to_str() {
+            paths.push(path.to_owned());
+        } else {
+            complete = false;
+        }
+    }
+    paths.sort_unstable();
+    let mut record = serde_json::to_vec(&OuterDependencies { complete, paths })?;
+    record.push(b'\n');
+
+    let mut report = OpenOptions::new().create(true).append(true).open(report_path)?;
+    let fd = report.as_raw_fd();
+    if unsafe { libc::flock(fd, libc::LOCK_EX) } != 0 {
+        return Err(std::io::Error::last_os_error().into());
+    }
+    let result = report.write_all(&record);
+    let unlock = unsafe { libc::flock(fd, libc::LOCK_UN) };
+    result?;
+    if unlock != 0 {
+        return Err(std::io::Error::last_os_error().into());
+    }
+    Ok(())
+}
 
 pub(crate) fn capture(
     config: &Config,

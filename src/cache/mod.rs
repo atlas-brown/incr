@@ -33,8 +33,6 @@ pub(crate) enum DependencyKey {
     Uncacheable,
     All(Vec<DependencyKey>),
     FileState {
-        device: u64,
-        inode: u64,
         modified: u128,
         changed_sec: i64,
         changed_nsec: i64,

@@ -36,6 +36,7 @@ pub(crate) const DEBUG_LOG_PATH: &str = "incr/debug_log.txt";
 pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
     "GIT_ASKPASS",
     "INCR_DEBUG_CACHE",
+    "INCR_DOCKER_DEPENDENCY_REPORT",
     "SHLVL",
     "SSH_CLIENT",
     "SSH_CONNECTION",
