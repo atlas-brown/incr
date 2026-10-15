@@ -10,6 +10,8 @@ use std::path::{Path, PathBuf};
 struct Report {
     dependency_version: u32,
     #[serde(default)]
+    guarded_descriptors: Vec<i32>,
+    #[serde(default)]
     directory_access_only: bool,
     #[serde(default)]
     overwrites: Vec<ReportPath>,
@@ -85,13 +87,17 @@ pub(crate) fn parse_observe(
     track_temporaries: bool,
     assume_directory_access: bool,
     content_validated_inputs: bool,
+    guarded_descriptors: &[i32],
 ) -> Result<Trace> {
     let report: Report = serde_json::from_slice(&std::fs::read(path)?)
         .with_context(|| format!("decode Observe report {}", path.display()))?;
-    if !matches!(report.dependency_version, 7..=11)
+    if !matches!(report.dependency_version, 7..=12)
         || report.directory_access_only != assume_directory_access
-        || (report.directory_access_only && !matches!(report.dependency_version, 10 | 11))
-        || (content_validated_inputs != (report.dependency_version == 11))
+        || (report.directory_access_only && !matches!(report.dependency_version, 10..=12))
+        || ((report.dependency_version == 11) && !content_validated_inputs)
+        || (content_validated_inputs && !matches!(report.dependency_version, 11 | 12))
+        || (guarded_descriptors.is_empty() != (report.dependency_version != 12))
+        || report.guarded_descriptors != guarded_descriptors
         || (content_validated_inputs != report.content_opens.is_some())
     {
         anyhow::bail!("unsupported Observe dependency protocol");

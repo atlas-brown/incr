@@ -22,7 +22,8 @@ pub(crate) struct Command {
     pub(crate) arguments: Vec<String>,
     pub(crate) environment: BTreeMap<String, String>,
     pub(crate) hash: u64,
-    pub(crate) inherited_descriptors: bool,
+    pub(crate) unsupported_descriptors: bool,
+    pub(crate) guarded_descriptors: Vec<InheritedDescriptor>,
     pub(crate) standard_tool: bool,
 }
 
@@ -43,6 +44,24 @@ struct CommandKey<'c> {
     environment: &'c BTreeMap<String, String>,
     working_directory: &'c [u8],
     executable: Option<ExecutableState>,
+    guarded_descriptors: &'c [InheritedDescriptor],
+}
+
+#[derive(Clone, Debug, Encode)]
+pub(crate) struct InheritedDescriptor {
+    pub(crate) fd: i32,
+    target: Vec<u8>,
+    descriptor_info: Vec<u8>,
+    flags: i32,
+    offset: i64,
+    device: u64,
+    inode: u64,
+    changed: (i64, i64),
+    modified: (i64, i64),
+    size: u64,
+    mode: u32,
+    owner: (u32, u32),
+    links: u64,
 }
 
 #[derive(Clone, Debug, Encode)]
@@ -146,12 +165,14 @@ pub(crate) fn create(arguments: Vec<String>, environment: &HashMap<String, Strin
                 .is_ok_and(|path| path.as_os_str().as_bytes() == state.path_bytes)
         })
     });
+    let (unsupported_descriptors, guarded_descriptors) = inherited_descriptor_state()?;
     let key_data = ops::data::encode_to_bytes(&CommandKey {
         name: &name,
         arguments: &arguments,
         environment: &environment,
         working_directory: working_directory.as_os_str().as_bytes(),
         executable,
+        guarded_descriptors: &guarded_descriptors,
     })?;
     let hash = ops::data::hash_bytes(&key_data);
 
@@ -160,7 +181,8 @@ pub(crate) fn create(arguments: Vec<String>, environment: &HashMap<String, Strin
         arguments,
         environment,
         hash,
-        inherited_descriptors: has_inherited_descriptors()?,
+        unsupported_descriptors,
+        guarded_descriptors,
         standard_tool,
     })
 }
@@ -206,9 +228,11 @@ fn executable_state(name: &str, environment: &BTreeMap<String, String>) -> Optio
     None
 }
 
-/// Extra inherited descriptors carry state/communication outside the stdin
-/// cache key. Do not memoize them. Ignore Rust's own close-on-exec handles.
-fn has_inherited_descriptors() -> Result<bool> {
+/// Unsupported descriptors retain the live-only boundary. Read-only regular
+/// files can be guarded by Observe; their identities and offsets namespace the
+/// cache so entries made with different inherited state never cross-match.
+fn inherited_descriptor_state() -> Result<(bool, Vec<InheritedDescriptor>)> {
+    let mut guarded = Vec::new();
     for entry in fs::read_dir("/proc/self/fd")? {
         let entry = entry?;
         let Some(fd) = entry
@@ -221,12 +245,45 @@ fn has_inherited_descriptors() -> Result<bool> {
         if fd <= 2 {
             continue;
         }
-        let flags = unsafe { libc::fcntl(fd, libc::F_GETFD) };
-        if flags >= 0 && flags & libc::FD_CLOEXEC == 0 {
-            return Ok(true);
+        let descriptor_flags = unsafe { libc::fcntl(fd, libc::F_GETFD) };
+        if descriptor_flags < 0 || descriptor_flags & libc::FD_CLOEXEC != 0 {
+            continue;
+        }
+        let flags = unsafe { libc::fcntl(fd, libc::F_GETFL) };
+        let path = format!("/proc/self/fd/{fd}");
+        let metadata = fs::metadata(&path)?;
+        if flags < 0
+            || flags & libc::O_ACCMODE != libc::O_RDONLY
+            || flags & libc::O_PATH != 0
+            || !metadata.is_file()
+        {
+            return Ok((true, Vec::new()));
+        }
+        let offset = unsafe { libc::lseek(fd, 0, libc::SEEK_CUR) };
+        if offset < 0 {
+            return Ok((true, Vec::new()));
+        }
+        guarded.push(InheritedDescriptor {
+            fd,
+            flags,
+            offset,
+            target: fs::read_link(&path)?.as_os_str().as_bytes().to_vec(),
+            descriptor_info: fs::read(format!("/proc/self/fdinfo/{fd}"))?,
+            device: metadata.dev(),
+            inode: metadata.ino(),
+            changed: (metadata.ctime(), metadata.ctime_nsec()),
+            modified: (metadata.mtime(), metadata.mtime_nsec()),
+            size: metadata.len(),
+            mode: metadata.mode(),
+            owner: (metadata.uid(), metadata.gid()),
+            links: metadata.nlink(),
+        });
+        if guarded.len() > 16 {
+            return Ok((true, Vec::new()));
         }
     }
-    Ok(false)
+    guarded.sort_unstable_by_key(|descriptor| descriptor.fd);
+    Ok((false, guarded))
 }
 
 pub(crate) fn spawn(config: &Config, command: &Command, runtime: &Runtime) -> Result<ChildContext> {
@@ -330,6 +387,16 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
             child.args(&command.arguments);
         }
         RuntimeType::TraceFile(file) | RuntimeType::Observe(file) if use_observe => {
+            if !config.guarded_descriptors.is_empty() {
+                child.arg("--guard-fds").arg(
+                    config
+                        .guarded_descriptors
+                        .iter()
+                        .map(i32::to_string)
+                        .collect::<Vec<_>>()
+                        .join(","),
+                );
+            }
             if config.assume_directory_access {
                 child.arg("--directory-access-only");
             }

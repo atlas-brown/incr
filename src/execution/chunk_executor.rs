@@ -223,6 +223,7 @@ mod tests {
         fs::create_dir(&directory)?;
         let result = (|| -> Result<()> {
             let config = Config {
+                guarded_descriptors: Vec::new(),
                 try_command: String::new(),
                 cache_directory: directory.clone(),
                 trace_type: TraceType::Nothing,

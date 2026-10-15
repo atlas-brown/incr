@@ -122,13 +122,15 @@ fn run() -> Result<ExitCode> {
         || std::io::stdin().is_terminal()
         || std::io::stdout().is_terminal()
         || std::io::stderr().is_terminal()
-        || command.inherited_descriptors
+        || command.unsupported_descriptors
+        || (!command.guarded_descriptors.is_empty() && config.observe_command.is_none())
         || (!config.full_tracing && annotation::skip_command(&command, &environment))
     {
         return Err(skip_executor::execute(&command));
     }
 
     let chunk = !config.full_tracing
+        && command.guarded_descriptors.is_empty()
         && config.enable_annotations
         && annotation::chunk_mode(&command, config.assume_text).is_some();
     let command_string = command.join_string()?;
@@ -205,6 +207,11 @@ fn parse_input() -> Result<Option<Input>> {
         cache_directory,
         trace_type,
         observe_command: arguments.observe_command,
+        guarded_descriptors: command
+            .guarded_descriptors
+            .iter()
+            .map(|descriptor| descriptor.fd)
+            .collect(),
 
         effect_policy: arguments.effect_policy,
         assume_text: arguments.assume_text,

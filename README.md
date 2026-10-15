@@ -129,13 +129,19 @@ and written files retain strict checks. A successful read-only regular-file open
 identifies a content input, including programs that also fstat that descriptor. This opt-in
 assumes the content input's inode/ctime are not application data, and is useful
 when archive extraction recreates identical inputs. It requires Observe protocol
-11 and has a separate cache key; strict defaults are unchanged.
+11 (12 with guarded inherited files) and has a separate cache key; strict defaults are unchanged.
 
 Static performance annotations are disabled by default. Enable them with
 `-a` / `--enable_annotations`; this also enables supported chunk optimizations.
 When enabled, tool annotations apply only to resolved system tools, so custom PATH programs
-with the same names are traced. Commands using inherited extra file descriptors or non-UTF-8 arguments/environment
-execute directly. Terminal-connected invocations also execute directly to preserve
+with the same names are traced. With Observe, inherited read-only regular files
+have their descriptor numbers, identities, offsets, flags and fdinfo included in
+the cache key. Protocol 12 guards their use before speculative execution can
+consume shared state; commands that access them execute live and are not cached.
+Unused descriptors can therefore remain open in shell loops without disabling
+every command's cache. Writable descriptors, pipes, sockets, unsupported descriptor
+sets and non-UTF-8 arguments/environment execute directly. The try backend also
+retains its inherited-descriptor bypass. Terminal-connected invocations execute directly to preserve
 terminal reads and ioctl behavior. Observe reports and snapshots preserve arbitrary
 Unix path bytes; dependency paths that the current binary cache cannot encode
 prevent reuse. Executable and working-directory identities use their exact bytes.

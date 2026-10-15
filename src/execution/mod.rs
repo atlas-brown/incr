@@ -71,6 +71,7 @@ pub(crate) fn parse_trace(runtime: &Runtime, config: &Config) -> Result<Trace> {
             config.track_temporaries,
             config.assume_directory_access,
             config.content_validated_inputs,
+            &config.guarded_descriptors,
         )?
     } else {
         scripts::parse_trace(&trace_file)?
@@ -114,7 +115,8 @@ mod tests {
             arguments: vec!["a".into(), "b".into()],
             environment: Default::default(),
             hash: 0,
-            inherited_descriptors: false,
+            unsupported_descriptors: false,
+            guarded_descriptors: Vec::new(),
             standard_tool: true,
         };
         let cache = Path::new("/unused-incr-trace-selection-test");

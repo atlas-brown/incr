@@ -73,7 +73,7 @@ impl<'c> CacheCursor<'c> {
         debug_info: CacheInfo<'c>,
     ) -> Result<Self> {
         let key_data = ops::data::encode_to_bytes(&CacheKey {
-            version: 31,
+            version: 32,
             track_temporaries: config.track_temporaries,
             assume_directory_access: config.assume_directory_access,
             content_validated_inputs: config.content_validated_inputs,

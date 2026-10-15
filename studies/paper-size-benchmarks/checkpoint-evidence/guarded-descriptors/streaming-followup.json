@@ -1,0 +1,15 @@
+{
+  "recorded_at": "2026-10-15T12:42:14.742662+00:00",
+  "state": "Investigation pending; no performance change implemented",
+  "evidence": [
+    "First full spell sequence: Observe210.77s vs original208.39s; weather17.256s vs16.733s.",
+    "Spell version2 uses less RSS but has more filesystem-output activity with bounded spooling.",
+    "src/cache/batch_cache.rs::load_data unconditionally rehashes entire cached stdout/stderr before every replay. output_hashes is already profiled as a phase."
+  ],
+  "next": [
+    "After full bio diagnostic terminates, profile output_hashes and stream/spool costs on full or progressively sized weather/spell inputs.",
+    "Check original baseline payload validation assumptions. Consider a generic cached-payload identity/ctime/mtime witness fast path if repeated hashing is material, while retaining checksums on metadata drift and corruption/rename/symlink tests.",
+    "Treat this as a hypothesis until phase profiles and fault-injection tests support it. Do not silently disable integrity checks or use command-specific replacements.",
+    "Any implementation change requires new frozen qualification and full measurements; do not mix prototype or first-pass timing cohorts."
+  ]
+}

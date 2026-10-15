@@ -1,0 +1,42 @@
+{
+  "recorded_at": "2026-10-15T12:43:47.907940+00:00",
+  "scope": "Checkpoint evidence, not completed full evaluation. The cohort analyzer is a draft pending fixture validation. Do not pool different binary cohorts.",
+  "runs": [
+    {
+      "run": "unannotated-paper-final-01",
+      "bundle": "unannotated-paper-final-01.tar.gz",
+      "sha256": "335e161f186659870577c9491bbd77840d828c73cec3ddf7d6b8df8a09e8624a",
+      "files": 348,
+      "payload_bytes": 4997935
+    },
+    {
+      "run": "guarded-inherited-min-01",
+      "bundle": "guarded-inherited-min-01.tar.gz",
+      "sha256": "432af194c9cad49d1d360f02d72eb3e78cb1055c5fc573e2ada728369131a9c2",
+      "files": 49,
+      "payload_bytes": 468520
+    },
+    {
+      "run": "guarded-inherited-components",
+      "bundle": "guarded-inherited-components.tar.gz",
+      "sha256": "7e4217e5f61092b7f82a16a9b2470937fe28a016e47983891a78d8dcd7769b0c",
+      "files": 4,
+      "payload_bytes": 3429
+    },
+    {
+      "run": "bio-compiler-coverage-01",
+      "bundle": "bio-compiler-coverage-01.tar.gz",
+      "sha256": "13f957a8ff21469e00350c9d03817d85f43af06baa8577bcf12c4dc5e6e9d19c",
+      "files": 24,
+      "payload_bytes": 25019
+    },
+    {
+      "run": "inherited-fd-runtime-01",
+      "bundle": "inherited-fd-runtime-01.tar.gz",
+      "sha256": "f0deaf19186b08bbd5517d5bb8c68c92b41cc7c2e43cf99a616c4cd36140ff1c",
+      "files": 31,
+      "payload_bytes": 21343
+    }
+  ],
+  "active_run": "guarded-inherited-bio-paper-01; live data retained locally, not archived while mutable"
+}
