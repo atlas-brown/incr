@@ -35,7 +35,28 @@ enum CacheStatus {
 }
 
 pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
-    let candidates = crate::cache::candidates::validate(config, command)?;
+    ops::profile::measure(
+        match config.trace_type {
+            TraceType::Nothing => "backend_native",
+            TraceType::TraceFile => "backend_readonly",
+            TraceType::Observe => "backend_observe",
+            TraceType::Sandbox => "backend_sandbox",
+        },
+        || (),
+    );
+    // An already-empty descriptor has a known stdin key. Validate and replay it
+    // before starting speculative work; an open producer still uses streaming.
+    if known_empty_stdin() {
+        let cache = CacheCursor::from_hash(config, command, ops::data::hash_bytes(&[]))?;
+        if let Some(data) = cache.load_data()?
+            && dependency::check_cache_valid(&cache, &data)?
+        {
+            return run::replay(config, &cache, &data, &run::OutputMetadata::default());
+        }
+    }
+    let candidates = ops::profile::measure("candidates", || {
+        crate::cache::candidates::validate(config, command)
+    })?;
     let mut runtime = create_child_runtime(config)?;
     if config.observe_command.is_some() && !matches!(runtime.kind, RuntimeType::Nothing) {
         runtime.effect_gate = Some(Arc::new(crate::effect_gate::EffectGate::create(
@@ -59,10 +80,12 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
         mut child,
         stdout_thread,
         stderr_thread,
-    } = command::spawn(config, command, &runtime)?;
+    } = ops::profile::measure("spawn", || command::spawn(config, command, &runtime))?;
 
     let child_stdin = child.stdin.take().unwrap();
-    let stdin_context = capture_stdin(child_stdin, &mut child, &config.cache_directory)?;
+    let stdin_context = ops::profile::measure("stdin", || {
+        capture_stdin(child_stdin, &mut child, &config.cache_directory)
+    })?;
     let selected = candidates
         .into_iter()
         .find(|candidate| candidate.stdin_hash == stdin_context.hash);
@@ -80,8 +103,12 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
         return Ok(ExitCode(exit_code));
     }
 
-    let cache_status = load_cache_data(config, &cache, child, &runtime, prevalidated)?;
-    let outputs = match run::join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)? {
+    let cache_status = ops::profile::measure("lookup_wait", || {
+        load_cache_data(config, &cache, child, &runtime, prevalidated)
+    })?;
+    let outputs = match ops::profile::measure("drain", || {
+        run::join_stream_threads(stdin_context.thread, stdout_thread, stderr_thread)
+    })? {
         Some(outputs) => outputs,
         None => {
             run::clean_child_runtime(&runtime)?;
@@ -98,7 +125,7 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
                 stdin_context.hash,
             );
             run::clean_child_runtime(&runtime)?;
-            run::replay(config, &cache, &cached_data, &outputs)
+            ops::profile::measure("replay", || run::replay(config, &cache, &cached_data, &outputs))
         }
         CacheStatus::Invalid(exit_code) => {
             debug_log!(
@@ -107,13 +134,83 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
                 command.arguments,
                 stdin_context.hash,
             );
-            let status = save_command_data(config, command, cache, &runtime, exit_code)?;
+            let status = ops::profile::measure("capture_save", || {
+                save_command_data(config, command, cache, &runtime, exit_code)
+            })?;
             Ok(if outputs.broken_pipe {
                 BROKEN_PIPE_CODE
             } else {
                 status
             })
         }
+    }
+}
+
+fn known_empty_stdin() -> bool {
+    known_empty_descriptor(libc::STDIN_FILENO)
+}
+
+fn known_empty_descriptor(fd: libc::c_int) -> bool {
+    // Preserve read errors instead of replaying success for an unreadable fd.
+    let flags = unsafe { libc::fcntl(fd, libc::F_GETFL) };
+    if flags < 0 || flags & libc::O_ACCMODE == libc::O_WRONLY || flags & libc::O_PATH != 0 {
+        return false;
+    }
+    let mut metadata: libc::stat = unsafe { std::mem::zeroed() };
+    if unsafe { libc::fstat(fd, &mut metadata) } != 0 {
+        return false;
+    }
+    match metadata.st_mode & libc::S_IFMT {
+        libc::S_IFREG => {
+            let position = unsafe { libc::lseek(fd, 0, libc::SEEK_CUR) };
+            position >= 0 && position >= metadata.st_size
+        }
+        libc::S_IFCHR => metadata.st_rdev == libc::makedev(1, 3), // Linux /dev/null
+        libc::S_IFIFO => {
+            // A FIFO can acquire a new writer. Restrict this proof to anonymous
+            // pipes whose writers have all closed and whose buffer is drained.
+            if !fs::read_link(format!("/proc/self/fd/{fd}"))
+                .is_ok_and(|path| path.as_os_str().as_encoded_bytes().starts_with(b"pipe:["))
+            {
+                return false;
+            }
+            let mut descriptor = libc::pollfd {
+                fd,
+                events: libc::POLLIN,
+                revents: 0,
+            };
+            let mut available: libc::c_int = -1;
+            unsafe {
+                libc::poll(&mut descriptor, 1, 0) > 0
+                    && descriptor.revents & libc::POLLHUP != 0
+                    && libc::ioctl(fd, libc::FIONREAD, &mut available) == 0
+                    && available == 0
+            }
+        }
+        _ => false,
+    }
+}
+
+#[cfg(test)]
+mod empty_descriptor_tests {
+    use super::known_empty_descriptor;
+    use std::fs::{File, OpenOptions};
+    use std::os::fd::AsRawFd;
+    use std::os::unix::fs::OpenOptionsExt;
+
+    #[test]
+    fn unreadable_descriptors_are_not_empty_input() {
+        let readable = File::open("/dev/null").unwrap();
+        let write_only = OpenOptions::new().write(true).open("/dev/null").unwrap();
+        let path_only = OpenOptions::new()
+            .read(true)
+            .custom_flags(libc::O_PATH)
+            .open("/dev/null")
+            .unwrap();
+        assert!(known_empty_descriptor(readable.as_raw_fd()));
+        assert!(!known_empty_descriptor(write_only.as_raw_fd()));
+        assert!(!known_empty_descriptor(path_only.as_raw_fd()));
+        assert!(!known_empty_descriptor(-1));
     }
 }
 

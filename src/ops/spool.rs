@@ -10,7 +10,12 @@ use std::sync::{Arc, Condvar, Mutex};
 use crate::config::BUFFER_SIZE;
 use crate::ops::stream::TransferOutcome;
 
-const MEMORY_LIMIT: usize = 1024 * 1024;
+// Absorb short producer/consumer bursts in RAM before spilling. This is a
+// per-stream bound, not an eager allocation; larger backlogs still use disk.
+// A 32 MiB weather probe spilled 24--64 MiB per invocation with an 8 MiB
+// cap, while the original unbounded queue stayed in RAM. Keep a fixed bound
+// large enough for ordinary producer bursts; sustained backlogs still spill.
+const MEMORY_LIMIT: usize = 64 * 1024 * 1024;
 
 #[derive(Default)]
 struct State {
@@ -55,6 +60,17 @@ impl Sender {
         let mut state = self.shared.state.lock().unwrap();
         if state.receiver_closed {
             return Ok(false);
+        }
+        // The receiver copies disk bytes into its own buffer before releasing
+        // this mutex. Once all spill bytes have been consumed, that descriptor
+        // can be dropped even if the destination write is still in progress.
+        // Return to the bounded memory queue rather than spilling forever after
+        // a temporary slow consumer. Pending disk bytes must retain FIFO order.
+        if state.file.is_some() && state.consumed == state.written {
+            debug_assert!(state.chunks.is_empty());
+            state.file = None;
+            state.written = 0;
+            state.consumed = 0;
         }
         if state.file.is_none() && state.buffered + bytes.len() <= MEMORY_LIMIT {
             state.chunks.push_back(bytes.to_vec());
@@ -169,6 +185,63 @@ mod tests {
         assert_eq!(receiver.forward(&mut output)?, TransferOutcome::Completed);
         fs::remove_dir(directory)?;
         assert_eq!(output, input);
+        Ok(())
+    }
+
+    #[test]
+    fn drained_spill_returns_to_memory_without_reordering() -> Result<()> {
+        use std::sync::mpsc;
+        use std::time::Duration;
+        struct AcknowledgingWriter {
+            bytes: Vec<u8>,
+            threshold: usize,
+            acknowledged: Option<mpsc::Sender<()>>,
+        }
+        impl Write for AcknowledgingWriter {
+            fn write(&mut self, bytes: &[u8]) -> std::io::Result<usize> {
+                self.bytes.extend_from_slice(bytes);
+                if self.bytes.len() >= self.threshold {
+                    if let Some(sender) = self.acknowledged.take() {
+                        let _ = sender.send(());
+                    }
+                }
+                Ok(bytes.len())
+            }
+            fn flush(&mut self) -> std::io::Result<()> {
+                Ok(())
+            }
+        }
+        let directory = std::env::temp_dir().join(format!("incr-spool-{}", rand::random::<u128>()));
+        let (sender, receiver) = create(&directory);
+        let initial = vec![17; MEMORY_LIMIT * 2 + 31];
+        for chunk in initial.chunks(7777) {
+            assert!(sender.send(chunk)?);
+        }
+        assert!(sender.shared.state.lock().unwrap().file.is_some());
+        let (acknowledge, acknowledged) = mpsc::channel();
+        let length = initial.len();
+        let worker = std::thread::spawn(move || -> Result<Vec<u8>> {
+            let mut output = AcknowledgingWriter {
+                bytes: Vec::new(),
+                threshold: length,
+                acknowledged: Some(acknowledge),
+            };
+            assert_eq!(receiver.forward(&mut output)?, TransferOutcome::Completed);
+            Ok(output.bytes)
+        });
+        // Even on timeout, drop the producer and join the receiver before
+        // reporting the error so a failing test cannot leave a blocked worker.
+        let received = acknowledged.recv_timeout(Duration::from_secs(3));
+        let tail = b"after the temporary spill";
+        if received.is_ok() {
+            assert!(sender.send(tail)?);
+            assert!(sender.shared.state.lock().unwrap().file.is_none());
+        }
+        drop(sender);
+        let output = worker.join().unwrap()?;
+        fs::remove_dir(directory)?;
+        received?;
+        assert_eq!(output, [initial.as_slice(), tail].concat());
         Ok(())
     }
 

@@ -73,7 +73,7 @@ impl<'c> CacheCursor<'c> {
         debug_info: CacheInfo<'c>,
     ) -> Result<Self> {
         let key_data = ops::data::encode_to_bytes(&CacheKey {
-            version: 22,
+            version: 26,
             assume_text: config.assume_text,
             effect_policy: config.effect_policy,
             observe: config.observe_command.is_some(),
@@ -122,7 +122,8 @@ impl<'c> CacheCursor<'c> {
             try_command: config.try_command.clone(),
             observe: config.observe_command.is_some(),
             candidate_directory: (config.observe_command.is_some()
-                && config.effect_policy == crate::config::EffectPolicy::FinalOutputs)
+                && config.effect_policy == crate::config::EffectPolicy::FinalOutputs
+                && config.trace_type != crate::config::TraceType::Nothing)
                 .then(|| {
                     config
                         .cache_directory
@@ -260,6 +261,10 @@ impl<'c> CacheCursor<'c> {
     }
 
     fn output_hashes(&self) -> Result<[u64; 2]> {
+        ops::profile::measure("output_hashes", || self.hash_output_files())
+    }
+
+    fn hash_output_files(&self) -> Result<[u64; 2]> {
         let mut hashes = [0; 2];
         for (hash, path) in hashes
             .iter_mut()

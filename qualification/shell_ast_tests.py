@@ -116,6 +116,27 @@ rev
             self.assertEqual(transformed, source.read_text())
             self.assertEqual(self.invoke(['bash', source]), 'dynamic')
 
+    def test_shared_dash_prefix_remains_unchanged_across_rendering(self):
+        source = self.work / 'source.sh'
+        source.write_text('for item in one two; do printf "%s\\n" "$item" | tr a-z A-Z | cat; done\n')
+        probe = r"""
+import json,sys
+sys.path.insert(0,sys.argv[1])
+import insert as transformer
+prefix=transformer.parse_prefix(['/tmp/incr path/with'+"'"+'quotes', '--cache', 'cache$HOME;touch nope'],False)
+def snapshot(): return json.dumps([[char.json() for char in word] for word in prefix], default=lambda node: node.json())
+before=snapshot()
+original=transformer.parse_dash_script(sys.argv[2])
+original_code=transformer.ast_to_code([node for node,*_ in original])
+first=transformer.ast_to_code(transformer.transform_ast(original,prefix))
+second=transformer.ast_to_code(transformer.transform_ast(original,prefix))
+assert first==second
+assert snapshot()==before
+assert transformer.ast_to_code([node for node,*_ in original])==original_code
+print('unchanged')
+"""
+        self.assertEqual(self.invoke([PYTHON, '-c', probe, ROOT / 'src/scripts', source]), 'unchanged\n')
+
     def test_dash_identity_does_not_insert_incr(self):
         source = self.work / 'source.sh'
         source.write_text('printf abc | rev\n')

@@ -1,0 +1,2 @@
+# Preserve the exact git diff used to verify the pinned baseline repair.
+studies/paper-size-benchmarks/reference/original-minimal-fixes.patch -whitespace

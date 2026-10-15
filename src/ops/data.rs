@@ -4,7 +4,7 @@ use bincode::{Decode, Encode};
 use serde::Serialize;
 use serde::de::DeserializeOwned;
 use std::fs::File;
-use std::io::{self, BufReader, BufWriter, ErrorKind, Read, Write};
+use std::io::{BufReader, BufWriter, ErrorKind, Read, Write};
 use std::path::Path;
 use xxhash_rust::xxh3::Xxh3;
 
@@ -27,8 +27,15 @@ where
     S: Read,
 {
     let mut hasher = Xxh3::new();
-    io::copy(stream, &mut hasher)?;
-    Ok(hasher.digest())
+    let mut buffer = [0; BUFFER_SIZE];
+    loop {
+        match stream.read(&mut buffer) {
+            Ok(0) => return Ok(hasher.digest()),
+            Ok(length) => hasher.update(&buffer[..length]),
+            Err(error) if error.kind() == ErrorKind::Interrupted => continue,
+            Err(error) => return Err(error.into()),
+        }
+    }
 }
 
 pub(crate) fn encode_to_bytes<T>(value: &T) -> Result<Vec<u8>>
@@ -79,4 +86,40 @@ where
     };
 
     Ok(Some(value))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::io;
+
+    #[test]
+    fn stream_hash_preserves_short_reads_interrupts_and_binary_bytes() -> Result<()> {
+        struct Fragmented<'a> {
+            bytes: &'a [u8],
+            interrupt: bool,
+        }
+        impl Read for Fragmented<'_> {
+            fn read(&mut self, buffer: &mut [u8]) -> io::Result<usize> {
+                self.interrupt = !self.interrupt;
+                if self.interrupt {
+                    return Err(io::Error::from(ErrorKind::Interrupted));
+                }
+                let length = self.bytes.len().min(17).min(buffer.len());
+                buffer[..length].copy_from_slice(&self.bytes[..length]);
+                self.bytes = &self.bytes[length..];
+                Ok(length)
+            }
+        }
+        let bytes: Vec<_> = (0..BUFFER_SIZE * 3 + 137).map(|i| (i % 251) as u8).collect();
+        assert_eq!(
+            hash_stream(&mut Fragmented {
+                bytes: &bytes,
+                interrupt: false
+            })?,
+            hash_bytes(&bytes)
+        );
+        assert_eq!(hash_stream(&mut &[][..])?, hash_bytes(&[]));
+        Ok(())
+    }
 }

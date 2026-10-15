@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import argparse
 import copy
-from dataclasses import dataclass, field
 import logging
 from pathlib import Path
 import os
@@ -12,8 +11,6 @@ import subprocess
 import sys
 import tempfile
 
-import libbash
-import libbash.bash_command as BashAST
 import shasta.ast_node as AST
 
 from shell_ast import parse_dash_script
@@ -128,6 +125,7 @@ def parse_prefix(arguments, use_bash):
         source.write(shlex.join(arguments) + "\n")
         source.flush()
         if use_bash:
+            import libbash
             return libbash.bash_to_ast(source.name)[0].value.simple_com.words
         return parse_dash_script(source.name)[0][0].arguments
 
@@ -160,7 +158,10 @@ def transform_node(node, prefix_words):
         if all(hasattr(character, "char") for character in first_word):
             command_name = "".join(chr(character.char) for character in first_word)
             if command_name not in AVOID_SET and shutil.which(command_name):
-                transformed.arguments = [*copy.deepcopy(prefix_words), *transformed.arguments]
+                # Prefix nodes are parsed literals, inserted after child visits,
+                # and only rendered afterward. Share them instead of repeatedly
+                # cloning every character in long executable/cache paths.
+                transformed.arguments = [*prefix_words, *transformed.arguments]
     return transformed
 
 
@@ -169,19 +170,20 @@ def transform_ast(ast, prefix_words):
 
 
 BASH_CHILD_FIELDS = {
-    BashAST.CommandType.CM_CONNECTION.value: ("connection", ("first", "second")),
-    BashAST.CommandType.CM_GROUP.value: ("group_com", ("command",)),
-    BashAST.CommandType.CM_IF.value: ("if_com", ("test", "true_case", "false_case")),
-    BashAST.CommandType.CM_WHILE.value: ("while_com", ("test", "action")),
-    BashAST.CommandType.CM_UNTIL.value: ("while_com", ("test", "action")),
-    BashAST.CommandType.CM_FOR.value: ("for_com", ("action",)),
-    BashAST.CommandType.CM_COND.value: ("cond_com", ("left", "right")),
-    BashAST.CommandType.CM_FUNCTION_DEF.value: ("function_def", ("command",)),
-    BashAST.CommandType.CM_SUBSHELL.value: ("subshell_com", ("command",)),
+    "CM_CONNECTION": ("connection", ("first", "second")),
+    "CM_GROUP": ("group_com", ("command",)),
+    "CM_IF": ("if_com", ("test", "true_case", "false_case")),
+    "CM_WHILE": ("while_com", ("test", "action")),
+    "CM_UNTIL": ("while_com", ("test", "action")),
+    "CM_FOR": ("for_com", ("action",)),
+    "CM_COND": ("cond_com", ("left", "right")),
+    "CM_FUNCTION_DEF": ("function_def", ("command",)),
+    "CM_SUBSHELL": ("subshell_com", ("command",)),
 }
 
 
 def transform_bash_node(node, prefix_words, state):
+    import libbash.bash_command as BashAST
     if isinstance(node, BashAST.CondCom):
         transformed = copy.copy(node)
         transformed.left = transform_bash_node(node.left, prefix_words, state)
@@ -212,7 +214,7 @@ def transform_bash_node(node, prefix_words, state):
         for clause in transformed.value.case_com.clauses:
             clause.action = transform_bash_node(clause.action, prefix_words, state)
         return transformed
-    fields = BASH_CHILD_FIELDS.get(node.type.value)
+    fields = BASH_CHILD_FIELDS.get(node.type.name)
     if fields is None:
         return node
     attribute, children = fields
@@ -223,12 +225,12 @@ def transform_bash_node(node, prefix_words, state):
     return transformed
 
 
-@dataclass
 class TransformState:
-    functions: set[str] = field(default_factory=set)
-    aliases: set[str] = field(default_factory=set)
-    modified: bool = False
-    dynamic_aliases: bool = False
+    def __init__(self):
+        self.functions = set()
+        self.aliases = set()
+        self.modified = False
+        self.dynamic_aliases = False
 
 
 def record_aliases(words, state):
@@ -260,6 +262,7 @@ def record_aliases(words, state):
 
 def collect_bash_bindings(nodes):
     """Collect shell-local names without constructing a discarded transformed tree."""
+    import libbash.bash_command as BashAST
     state = TransformState()
     pending = list(nodes)
     while pending:
@@ -277,7 +280,7 @@ def collect_bash_bindings(nodes):
         if node.type == BashAST.CommandType.CM_CASE:
             pending.extend(clause.action for clause in node.value.case_com.clauses)
         else:
-            fields = BASH_CHILD_FIELDS.get(node.type.value)
+            fields = BASH_CHILD_FIELDS.get(node.type.name)
             if fields:
                 attribute, children = fields
                 command = getattr(node.value, attribute)
@@ -370,6 +373,7 @@ def requires_original_source(source_bytes):
 
 
 def transform_bash_script(arguments, prefix_words, source_bytes):
+    import libbash
     original_ast = libbash.bash_to_ast(arguments.path)
     state = collect_bash_bindings(original_ast)
     if state.dynamic_aliases and not arguments.identity:

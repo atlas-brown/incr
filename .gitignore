@@ -4,3 +4,7 @@ debug_log.txt
 /target
 /venv
 .venv
+
+# Python runtime artifacts
+__pycache__/
+*.pyc

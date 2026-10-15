@@ -49,6 +49,7 @@ pub(crate) struct Trace {
     pub(crate) replay_barriers: Vec<String>,
     pub(crate) reads: HashSet<PathBuf>,
     pub(crate) writes: HashSet<PathBuf>,
+    pub(crate) overwrites: HashSet<PathBuf>,
     pub(crate) initial_file_ids: HashMap<PathBuf, (u64, u64)>,
     pub(crate) initial_dependencies: HashMap<PathBuf, crate::cache::DependencyKey>,
 }

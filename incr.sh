@@ -112,7 +112,7 @@ tmp_body="$tmp_dir/body"
 cleanup() {
     local status=$1
     trap '' EXIT INT TERM
-    command -p rm -f -- "$tmp_incr" "$tmp_body"
+    command -p rm -f -- "$tmp_incr" "$tmp_body" "$tmp_dir/native.ready"
     command -p rmdir -- "$tmp_dir/script" "$tmp_dir"
     exit "$status"
 }
@@ -124,12 +124,27 @@ command -p mkdir -- "$tmp_dir/script" || exit 1
 transform_args=(--sys-path "$SYS_PATH" --try-path "$TRY_PATH" --cache-path "$cache_dir")
 transform_args+=("${parser_flags[@]}")
 [ -n "$OBSERVE_PATH" ] && transform_args+=(--observe-path "$OBSERVE_PATH")
-if ! command -p "${INCR_PYTHON:-python3}" "$TOP/src/scripts/insert.py" "${transform_args[@]}" "$script" > "$tmp_body"; then
-    exit 1
+native_ready=0
+if [[ ${INCR_NATIVE_TRANSFORM:-0} == 1 && ${#flags[@]} == 0 && -x "$TOP/target/release/incr" && -x /usr/bin/timeout ]]; then
+    {
+    if /usr/bin/timeout --kill-after=1s 8s "$TOP/target/release/incr" --internal-transform-fast \
+        --helper-source "$TOP/src/scripts/insert.py" --ready "$tmp_dir/native.ready" \
+        "${transform_args[@]}" -- "$script" > "$tmp_body" 2>/dev/null &&
+       [[ -r "$tmp_dir/native.ready" ]] &&
+       IFS= builtin read -r native_signature < "$tmp_dir/native.ready" &&
+       [[ "$native_signature" == incr-native-transform-v1 ]]; then
+        native_ready=1
+    fi
+    } 2>/dev/null
+fi
+if (( !native_ready )); then
+    if ! command -p "${INCR_PYTHON:-python3}" "$TOP/src/scripts/insert.py" "${transform_args[@]}" "$script" > "$tmp_body"; then
+        exit 1
+    fi
 fi
 
 if command -p cmp -s -- "$script" "$tmp_body"; then
-    command -p rm -f -- "$tmp_incr" "$tmp_body"
+    command -p rm -f -- "$tmp_incr" "$tmp_body" "$tmp_dir/native.ready"
     command -p rmdir -- "$tmp_dir/script" "$tmp_dir"
     exec -a "$incr_shell_argv0" "$incr_shell" "${flags[@]}" -- "$script" "$@"
 fi

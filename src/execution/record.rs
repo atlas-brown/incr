@@ -16,7 +16,7 @@ pub(crate) fn capture(
 ) -> Result<CacheData> {
     let mut trace = execution::parse_trace(runtime)?;
     trace.apply_effect_policy(config.effect_policy);
-    let mut read_dependencies = if config.observe_command.is_some() {
+    let mut read_dependencies: std::collections::HashMap<_, _> = if config.observe_command.is_some() {
         trace
             .reads
             .iter()
@@ -42,10 +42,34 @@ pub(crate) fn capture(
     } else {
         dependency::get_read_dependencies(&trace.reads, &trace.writes)?
     };
+    if config.effect_policy == crate::config::EffectPolicy::FinalOutputs {
+        for path in &trace.overwrites {
+            if let Some(initial) = read_dependencies.get(path).cloned()
+                && let Ok(output) = dependency::capture_produced_file(path)
+            {
+                read_dependencies.insert(
+                    path.clone(),
+                    crate::cache::DependencyKey::Overwrite {
+                        initial: Box::new(initial),
+                        output,
+                    },
+                );
+            }
+        }
+    }
     let replaced_paths = trace
         .writes
         .iter()
         .filter(|path| {
+            // A proven truncating write preserves an existing inode. Its first
+            // execution may have created the file; replay over that completed
+            // file must not turn the write into an inode replacement.
+            if matches!(
+                read_dependencies.get(*path),
+                Some(crate::cache::DependencyKey::Overwrite { .. })
+            ) {
+                return false;
+            }
             fs::symlink_metadata(path).is_ok_and(|metadata| {
                 metadata.is_file()
                     && trace.initial_file_ids.get(*path) != Some(&(metadata.dev(), metadata.ino()))

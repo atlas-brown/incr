@@ -26,10 +26,10 @@ class Regressions(unittest.TestCase):
     def tearDown(self):
         self.temp.cleanup()
 
-    def invoke(self, args, stdin=b"", expected=0):
+    def invoke(self, args, stdin=b"", expected=0, timeout=5):
         result = run([str(INCR), *MODE, "--try", str(ROOT / "src/scripts/try.sh"),
                       "--observe", str(OBSERVE), "--cache", str(self.cache), "--", *args],
-                     stdin=stdin, cwd=self.work, timeout=5)
+                     stdin=stdin, cwd=self.work, timeout=timeout)
         self.assertFalse(result["timeout"], result)
         self.assertFalse(result["leaked_descendants"], result)
         self.assertFalse(result["remaining_descendants"], result)
@@ -177,6 +177,156 @@ class Regressions(unittest.TestCase):
         for path in cached:
             path.write_bytes(b"corrupt")
         self.assertEqual(self.invoke(command)["stdout"], "expected\n")
+
+    def test_pure_stream_variants_validate_selected_payload(self):
+        # Pure streams need no pre-execution filesystem snapshot. Changing stdin
+        # must still select the right entry, and corrupt payloads must never replay.
+        command = ["tr", "a-z", "A-Z"]
+        for payload in (b"first\n", b"second\n", b"third\n", b"first\n"):
+            self.assertEqual(self.invoke(command, stdin=payload)["stdout"].encode(), payload.upper())
+        cached = list(self.cache.rglob("stdout.incr"))
+        self.assertGreaterEqual(len(cached), 3)
+        for path in cached:
+            path.write_bytes(b"corrupt")
+        for payload in (b"first\n", b"second\n"):
+            self.assertEqual(self.invoke(command, stdin=payload)["stdout"].encode(), payload.upper())
+
+    def test_salted_encryption_is_fresh_and_decodable(self):
+        payload = b"salted ciphertext must not mix speculative and cached bytes\n" * 256
+        arguments = ["enc", "-aes-256-cbc", "-pbkdf2", "-iter", "20000", "-k", "key", "-a"]
+        ciphertexts = []
+        for _ in range(3):
+            encrypted = self.invoke(["openssl", *arguments], stdin=payload)["stdout"]
+            decoded = run(["openssl", "enc", "-d", *arguments[1:]], stdin=encrypted.encode(), cwd=self.work, timeout=5)
+            self.assertFalse(decoded["timeout"], decoded)
+            self.assertEqual(decoded["returncode"], 0, decoded)
+            self.assertEqual(decoded["stdout"].encode(), payload)
+            ciphertexts.append(encrypted)
+        self.assertEqual(len(set(ciphertexts)), len(ciphertexts))
+
+    def test_repeated_overwrite_can_reuse_its_completed_file(self):
+        if "live" in MODE:
+            self.skipTest("completed-state reuse is specific to final-output policy")
+        command = ["python3", "-c", "open('output','w').write('fixed');print('ok')"]
+        self.assertEqual(self.invoke(command)["stdout"], "ok\n")
+        def stamps():
+            return {str(path): path.stat().st_mtime_ns for path in self.cache.rglob('data.incr')}
+        initial = stamps()
+        self.assertTrue(initial)
+        for _ in range(3):
+            self.assertEqual(self.invoke(command)["stdout"], "ok\n")
+            self.assertEqual((self.work / 'output').read_text(), 'fixed')
+            self.assertEqual(stamps(), initial)
+        (self.work / 'output').write_text('external change')
+        self.invoke(command)
+        self.assertEqual((self.work / 'output').read_text(), 'fixed')
+        self.assertNotEqual(stamps(), initial)
+
+    def test_overwrite_does_not_hide_earlier_existence_probe(self):
+        command = ["python3", "-c", "import os;print(os.path.exists('output'));open('output','w').write('fixed')"]
+        self.assertEqual(self.invoke(command)["stdout"], 'False\n')
+        self.assertEqual(self.invoke(command)["stdout"], 'True\n')
+
+    def test_overwrite_keeps_permissions_and_hardlinks_as_preconditions(self):
+        command = ["python3", "-c", "open('output','w').write('fixed')"]
+        self.invoke(command)
+        output = self.work / 'output'
+        output.chmod(0o400)
+        self.invoke(command, expected=1)
+        output.chmod(0o600)
+        os.link(output, self.work / 'alias')
+        self.invoke(command)
+        self.assertEqual(output.stat().st_ino, (self.work / 'alias').stat().st_ino)
+        self.assertEqual((self.work / 'alias').read_text(), 'fixed')
+
+    def test_empty_stdin_lookup_does_not_skip_buffered_or_delayed_pipe(self):
+        import shlex
+        argv = [str(INCR), *MODE, '--try', str(ROOT / 'src/scripts/try.sh'),
+                '--observe', str(OBSERVE), '--cache', str(self.cache), '--', 'tr', 'a-z', 'A-Z']
+        for producer, expected in [("printf ''", ''), ("printf buffered", 'BUFFERED'),
+                                   ("(sleep .05; printf delayed)", 'DELAYED'), ("printf ''", '')]:
+            result = run(['bash', '-c', producer + ' | ' + shlex.join(argv)], cwd=self.work, timeout=5)
+            self.assertFalse(result['timeout'], result)
+            self.assertFalse(result['leaked_descendants'], result)
+            self.assertEqual(result['returncode'], 0, result)
+            self.assertEqual(result['stdout'], expected)
+
+    def test_sort_file_list_and_output_options_remain_tracked(self):
+        first, second = self.work / 'first', self.work / 'second'
+        first.write_text('b\na\n')
+        second.write_text('d\nc\n')
+        listing = self.work / 'files'
+        listing.write_bytes(os.fsencode(first) + b'\0')
+        command = ['sort', '--files0-from=files', '-o', 'output']
+        self.invoke(command)
+        self.assertEqual((self.work / 'output').read_text(), 'a\nb\n')
+        listing.write_bytes(os.fsencode(second) + b'\0')
+        self.invoke(command)
+        self.assertEqual((self.work / 'output').read_text(), 'c\nd\n')
+        second.write_text('f\ne\n')
+        self.invoke(command)
+        self.assertEqual((self.work / 'output').read_text(), 'e\nf\n')
+
+    def test_shadowed_sort_is_not_a_pure_stream(self):
+        from unittest.mock import patch
+        directory = self.work / 'bin'
+        directory.mkdir()
+        tool = directory / 'sort'
+        tool.write_text('#!/bin/sh\ncat input\n')
+        tool.chmod(0o755)
+        source = self.work / 'input'
+        with patch.dict(os.environ, PATH=str(directory) + os.pathsep + os.environ['PATH'], LC_ALL='C'):
+            for value in ['one\n', 'two\n']:
+                source.write_text(value)
+                self.assertEqual(self.invoke(['sort'])['stdout'], value)
+
+    def test_external_sort_exact_bytes_and_flags(self):
+        from unittest.mock import patch
+        payloads = [b'', b'3\n01\n1.0\n-2\n1\n3\n', b'b\0x\na\xff\n\nlast',
+                    b'z' * (1024 * 1024 + 17) + b'\nshort\n']
+        with patch.dict(os.environ, LC_ALL='C'):
+            for flags in [[], ['-n'], ['-r'], ['-u'], ['--unique'], ['-nr'], ['-nu'], ['-nru']]:
+                for payload in payloads:
+                    with self.subTest(flags=flags, bytes=len(payload)):
+                        reference = run(['sort', *flags], stdin=payload, cwd=self.work, timeout=5)
+                        actual = self.invoke(['sort', *flags], stdin=payload)
+                        self.assertEqual(reference['returncode'], 0, reference)
+                        self.assertEqual(actual['stdout_sha256'], reference['stdout_sha256'])
+                        self.assertEqual(actual['stderr_sha256'], reference['stderr_sha256'])
+
+    def test_cut_stdin_selectors_and_file_operand_invalidation(self):
+        from unittest.mock import patch
+        payloads = [b'', b'a,b,c\n1,2,3\nlast', b'a\0b,\xff\n\nplain\n']
+        flags = [['-d', ',', '-f', '1,3'], ['-d,', '-f2'], ['-b', '1-2'],
+                 ['-c1,3'], ['-s', '-d', ',', '-f1'], ['-d', ',', '-f1', '--', '-']]
+        with patch.dict(os.environ, LC_ALL='C'):
+            for arguments in flags:
+                for payload in payloads + payloads[:1]:
+                    reference = run(['cut', *arguments], stdin=payload, cwd=self.work, timeout=5)
+                    actual = self.invoke(['cut', *arguments], stdin=payload)
+                    self.assertEqual(actual['stdout_sha256'], reference['stdout_sha256'])
+                    self.assertEqual(actual['stderr_sha256'], reference['stderr_sha256'])
+            source = self.work/'input'
+            for value in ('a,b\n', 'c,d\n'):
+                source.write_text(value)
+                self.assertEqual(self.invoke(['cut','-d',',','-f1','input'])['stdout'], value[:1]+'\n')
+                self.assertEqual(self.invoke(['cut','-d,','-f1','--','input'])['stdout'], value[:1]+'\n')
+
+    def test_negative_lookup_distinguishes_enotdir_from_enoent(self):
+        parent = self.work/'package.egg-info'
+        parent.write_text('package metadata')
+        program = "try:\n open('package.egg-info/entry_points.txt').read()\nexcept OSError as error:\n print(type(error).__name__)"
+        for _ in range(2):
+            self.assertEqual(self.invoke(['python3','-c',program])['stdout'], 'NotADirectoryError\n')
+        # A stable failed lookup should be reusable, not permanently uncacheable.
+        self.assertTrue(list(self.cache.glob('batch_*/data.incr')))
+        parent.unlink()
+        parent.mkdir()
+        for _ in range(2):
+            self.assertEqual(self.invoke(['python3','-c',program])['stdout'], 'FileNotFoundError\n')
+        parent.rmdir()
+        parent.write_text('package metadata again')
+        self.assertEqual(self.invoke(['python3','-c',program])['stdout'], 'NotADirectoryError\n')
 
     def test_shadowed_system_tool(self):
         from unittest.mock import patch

@@ -53,6 +53,27 @@ pub(crate) enum DependencyKey {
         mode: u32,
     },
     Hash(u64),
+    /// An observed full overwrite may start from its original precondition or
+    /// its own exact completed file. It may not consume arbitrary changed bytes.
+    Overwrite {
+        initial: Box<DependencyKey>,
+        output: ProducedFile,
+    },
+    /// Lookup failed because an intermediate component was not a directory.
+    NotDirectory,
+}
+
+#[derive(Clone, Debug, Decode, Deserialize, Encode, Eq, PartialEq, Serialize)]
+pub(crate) struct ProducedFile {
+    pub(crate) device: u64,
+    pub(crate) inode: u64,
+    pub(crate) size: u64,
+    pub(crate) mode: u32,
+    pub(crate) uid: u32,
+    pub(crate) gid: u32,
+    pub(crate) links: u64,
+    pub(crate) access: u8,
+    pub(crate) hash: u64,
 }
 
 impl CacheData {
@@ -74,6 +95,7 @@ impl DependencyKey {
             Self::Uncacheable => false,
             Self::SymlinkState { target, .. } => target.to_str().is_some(),
             Self::All(dependencies) => dependencies.iter().all(Self::is_reusable),
+            Self::Overwrite { initial, .. } => initial.is_reusable(),
             _ => true,
         }
     }

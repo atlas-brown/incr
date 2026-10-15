@@ -127,7 +127,7 @@ Both policies validate saved payloads before replay. File replay distinguishes
 in-place writes from pathname replacement so existing hard-link aliases receive the
 correct final contents. Final policy also supports rename/unlink outputs; ownership,
 timestamp and special-file operations still require live execution. Cache key version
-22, effect manifest version 3 and Observe dependency protocol 7 reject incompatible
+26, effect manifest version 3 and Observe dependency protocol 9 reject incompatible
 entries. External network state, clocks and randomness are not general memoization inputs.
 
 With `-a`, plain `cat` and simple alphanumeric `tr` translations can reuse independent
@@ -136,7 +136,7 @@ chunks. `--assume-text` (or `INCR_ASSUME_TEXT=true`) additionally enables line-w
 assumption for arbitrary binary input. Chunk caches validate payloads and preserve
 output order, compression and command status.
 
-Streaming stdin buffering keeps at most 1 MiB queued in memory and spills excess
+Streaming stdin buffering keeps at most 64 MiB per stream queued in memory and spills excess
 input to an unlinked temporary file. Hashing can continue while a child reads
 slowly, and closing the process releases the spill file.
 
@@ -150,6 +150,15 @@ that cannot preserve semantics through transformation execute natively. Those pa
 are correct passthroughs, not accelerated cases. Parser source locations can refer
 to the private transformed copy. Set `INCR_OBSERVE=0` to force try/strace, or `1` to
 require Observe; `INCR_OBSERVE_PATH` selects its executable.
+
+The optional `INCR_NATIVE_TRANSFORM=1` frontend inserts wrappers into a conservative
+Bash syntax subset while preserving source bytes. Unsupported constructs use the
+Python transformer. It is off by default. Commands execute through the general
+tracing/cache backends; no sort or cut implementation is substituted.
+
+See [the historical-size study](studies/paper-size-benchmarks/README.md) and its
+[current handoff](studies/paper-size-benchmarks/ACTIVE_GOAL_HANDOFF.md) for evaluation
+methodology, incomplete results and outstanding performance regressions.
 
 ## Development Setup
 

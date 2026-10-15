@@ -1,0 +1,270 @@
+{
+  "checked_at_utc": "2026-10-15T03:39:39.142964+00:00",
+  "scope": "Source checkpoint validation; not full benchmark qualification or a speedup claim",
+  "implementation_policy": "General execution improvements only; experimental sort executor and cut annotation removed",
+  "observe_revision": "cb347d64d726508cba142b531aa207bdb83b2a9b",
+  "tests": {
+    "incr_rust": {
+      "passed": 34,
+      "ignored": 1
+    },
+    "observe_rust": {
+      "passed": 7
+    },
+    "observe_integration": {
+      "passed": 414
+    },
+    "harness": {
+      "passed": 27
+    },
+    "provenance": {
+      "passed": 1
+    },
+    "shell_ast": {
+      "passed": 9
+    },
+    "native_transform": {
+      "passed": 6
+    },
+    "final_regressions": {
+      "passed": 68
+    },
+    "batch_compressed_regressions": {
+      "passed": 66,
+      "skipped": 2
+    },
+    "full_tracing_regressions": {
+      "passed": 68
+    },
+    "live_regressions": {
+      "passed": 68
+    }
+  },
+  "logs": {
+    "incr-checkpoint-unit.log": {
+      "sha256": "276813ce06cf2f546dce81779236e8930f29802017c5b04c5ea1ccf360de147d",
+      "tail": [
+        "test cache::candidates::tests::index_retention_ignores_unrelated_entries ... ok",
+        "test ops::chunk::tests::boundaries_do_not_depend_on_read_sizes ... ok",
+        "test ops::spool::tests::drained_spill_returns_to_memory_without_reordering ... ok",
+        "test ops::spool::tests::spilled_input_preserves_order_and_cleans_path ... ok",
+        "",
+        "test result: ok. 34 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 6.18s",
+        ""
+      ]
+    },
+    "incr-checkpoint-harness.log": {
+      "sha256": "a4f31a5e12b3fabb6e1b66bbcf87cacdfa6084bc28688f7ecd72b9964c9d9b7e",
+      "tail": [
+        "  \"recorded\": 0,",
+        "  \"valid\": 0,",
+        "  \"health\": \"attention\",",
+        "  \"monitor_issues\": [",
+        "    \"Run terminated with state=error\"",
+        "  ]",
+        "}"
+      ]
+    },
+    "incr-checkpoint-provenance.log": {
+      "sha256": "1c650042ba291dab40f0e82c59b508ed00e493b0f7caa422b651891099efa914",
+      "tail": [
+        "test_new_sources_and_entrypoints_are_verified (__main__.ProvenanceTests) ... ok",
+        "",
+        "----------------------------------------------------------------------",
+        "Ran 1 test in 0.056s",
+        "",
+        "OK"
+      ]
+    },
+    "incr-checkpoint-shell.log": {
+      "sha256": "fa03ea1ad6048d2865926f5f74d33c3219fd0774d5f0f3928248cb1bb3242d9f",
+      "tail": [
+        ".........",
+        "----------------------------------------------------------------------",
+        "Ran 9 tests in 1.831s",
+        "",
+        "OK"
+      ]
+    },
+    "incr-checkpoint-native.log": {
+      "sha256": "35c5e3944ae654f1dc23ca4712d47464d3f32b785078ea86107142549f1629a9",
+      "tail": [
+        "......",
+        "----------------------------------------------------------------------",
+        "Ran 6 tests in 10.584s",
+        "",
+        "OK"
+      ]
+    },
+    "incr-checkpoint-regressions.log": {
+      "sha256": "a05e8aa890af08ac7c0e98e746ce815e513b0d2b7dcf28f3eea033bde8618855",
+      "tail": [
+        "....................................................................",
+        "----------------------------------------------------------------------",
+        "Ran 68 tests in 11.166s",
+        "",
+        "OK"
+      ]
+    },
+    "incr-checkpoint-batch.log": {
+      "sha256": "d4d36ac49c9b9a7dff7938e2d386cdfec375cd41361ad613a465a99a3a3b8c77",
+      "tail": [
+        "...............s.............s......................................",
+        "----------------------------------------------------------------------",
+        "Ran 68 tests in 11.212s",
+        "",
+        "OK (skipped=2)"
+      ]
+    },
+    "incr-checkpoint-full.log": {
+      "sha256": "3080549495b38bfe995933c0e681370bc89bbfb6cd7cda6a14f9a64937c55cc1",
+      "tail": [
+        "....................................................................",
+        "----------------------------------------------------------------------",
+        "Ran 68 tests in 11.222s",
+        "",
+        "OK"
+      ]
+    },
+    "incr-checkpoint-live.log": {
+      "sha256": "6ac632f24116700acde993b97c54ae8cae9676104dbd69aed990e599bb830c3b",
+      "tail": [
+        "...............................................s....................",
+        "----------------------------------------------------------------------",
+        "Ran 68 tests in 11.147s",
+        "",
+        "OK (skipped=1)"
+      ]
+    },
+    "incr-checkpoint-cleanup.log": {
+      "sha256": "64608584983264051557f6fc1338c41962c660351f45db5af722b41aab363013",
+      "tail": [
+        "      \"exists\": false,",
+        "      \"allocated_bytes\": 0,",
+        "      \"mounts\": []",
+        "    }",
+        "  ]",
+        "}",
+        "Cleanup evidence: /users/jxia3/atlas/incr/studies/paper-size-benchmarks/results/maintenance/cleanup-20261015T033740Z-1444059.json"
+      ]
+    },
+    "observe-checkpoint-tests.log": {
+      "sha256": "670359a6076557f2496e013a55daaa2e38c8ff0dabd8fa8296464d7213005908",
+      "tail": [
+        "",
+        "  t_special_chars",
+        "",
+        "",
+        "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550",
+        "  37 files, 414 assertions: 414 passed, 0 failed",
+        "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
+      ]
+    }
+  },
+  "runtime_source_sha256": {
+    "src/annotation/mod.rs": "196cb44255a6c83199c1248f8d994a62b7f0edf8af22f86625e8bdbb3bbba89c",
+    "src/annotation/rules.rs": "d21c15d1125c5cd7a682be403bba291ddc9f479f25e89b2243623bdc5bd9d4e6",
+    "src/cache/batch_cache.rs": "d08859ebeed9dad87cc14a0070b416016734b9563f35eb006c4449b95dbf6794",
+    "src/cache/candidates.rs": "0119dd327b15079b4980b4ab5d1b3589fbceb182feb1503d2551510019db4571",
+    "src/cache/effects/tests.rs": "4b47656dcc6f03dec4e789315e83defb33255f53264de00771b0eaa9e9d857af",
+    "src/cache/effects.rs": "190b66ae88f8ddf1d61202c2e4c152e1bdeed8f26de5f7628802b7297ac46a87",
+    "src/cache/mod.rs": "dbd60cbb8a5995cb5cf175e6ee2b144960a494fd290ed00f29a2f0bbe2404b0c",
+    "src/command.rs": "1c44b70d504c5a8c107787f07a1271aac5dad0f8f0d2eaf73030819126c5a5d5",
+    "src/config.rs": "b5f447e2feb54dc2441c782de142677b0cdd4ba45b31574179a1a2aabc88fc66",
+    "src/effect_gate.rs": "f59a5c4f6d985adcda7f40f8d7cf754b0e5e1b26a9e62c9ea0674f48475bcac1",
+    "src/execution/batch_executor.rs": "c6b748e89f7f27941907bac8f8ad0b2fc17414ad0124f84dd182d025ba3e9c72",
+    "src/execution/chunk_executor.rs": "75ee6b11b7708b8c32caa3579b7dd22b5190567cdce289fe1709bc00a8edca18",
+    "src/execution/dependency.rs": "9a5c7352860b20bbc893ea63befd39998743c36da0cf2d59137b65791d2605ec",
+    "src/execution/mod.rs": "4380f1bbc01c1960f258c5dfe42488bac89b4693c93f0581b65d715d164473e8",
+    "src/execution/record.rs": "e09237de4d1f42ab4c41714e8a8e957e3c6ebf49df07e1530ea0821d60f51184",
+    "src/execution/run.rs": "82e57384d579ae2f77a14f5558b268db0f9a758b95430da6ca46d854f6d91d15",
+    "src/execution/skip_executor.rs": "9e5157a01a5a4fccead0d75e6a181b67f86dd0426900393cf2701e46ded30002",
+    "src/execution/speculation.rs": "f10939d2c8597f219a140171a82371bfbd44d5fadbdb7cb8f8255b931fa37899",
+    "src/execution/stream_executor.rs": "0780bd7f2e954e3e11e6e80e17a02dc219c080d02ce2400813ea1d771fe44d96",
+    "src/main.rs": "fc487cc8f3d4710181f7773cf296f071c1a686326a674ff52c9e82a61dbf0129",
+    "src/ops/chunk.rs": "f4fca7823e99c8a8275e80176afa5c6324886724e83ab41ea88c50b5ee0228f9",
+    "src/ops/data.rs": "9a311593b6ab2309739bca4506e4d4b05d215633b8cda8bcbc6d83ee15df9aab",
+    "src/ops/file.rs": "01912348d55a6749f030efb1015196aae3f68fd0bb4b04b0dd94d4dbcd1c1998",
+    "src/ops/mod.rs": "5c224b7359b2d41b12c5ec0fc86f4505e451c534859c9f708e36a2a9b46263e4",
+    "src/ops/permissions.rs": "1531f97f3b1077952b8c21a6879f0840eb2f11a99fbc959e0839b0e5b1d45d89",
+    "src/ops/profile.rs": "754dff75227328efd67d175a820927e3a16d78580b751f25f500032080e93d49",
+    "src/ops/serialize_bytes.rs": "a61135e89d8f3281536cc384a242960ae87976d16c8d648c82e55566d7d6e175",
+    "src/ops/spool.rs": "07145ef4e194bbf340d17fcb87061ad217f2ef8b0819a18d20bcd56f0de5d548",
+    "src/ops/stream.rs": "d5ff0317495829d678d5b406f1b9424d29a92ba07a1387d5ed43319c45b87fa8",
+    "src/ops/thread.rs": "bc5de9abcde4cee0a1ed51bb9715ee177aaadf34783640dd74ed36b2a42606b8",
+    "src/ops/unix_path.rs": "a9769b133c3aa44190f10691073729994a3a735287ecfad604a212d0e911ae80",
+    "src/scripts/incrementize.py": "5dc1bf827803104f1e278d204609a985d22b312d18d06e103e8911a0ed9d4d52",
+    "src/scripts/insert.py": "6624b5fd3b3bcaa9ecb5247e2b95e800e0bcf6a4581fb1471a3fd2c582229b3a",
+    "src/scripts/mod.rs": "d6f36dd93e495bf6475d38c297fdfe3530b82ed6a70427ffca6690a1abb0e23d",
+    "src/scripts/parse_observe.rs": "d80d0c1f6d217d3ba6c39df506b546d14ffc3ab457ffe2c3ea16cd1ceb074c57",
+    "src/scripts/parse_trace.rs": "fbf79217d0103807ab85c9f792817f5c09ef0c260ae1fb09caa719fcee4178ba",
+    "src/scripts/shell_ast.py": "16b34e7709b1ca94dd9e09fdd3e546d6fcc709d2ab7893acdcc9df25f243ea4b",
+    "src/scripts/try.sh": "aa000212d061d89b1ac70447bef7c07caa2773feedf910c37908cccbdb5b542a",
+    "src/transform_fast.rs": "2839fd1a924384b4ba8dfd74181bed8fb37012c1d797b4e59837cbd90eb5587e"
+  },
+  "binaries_sha256": {
+    "/users/jxia3/atlas/incr/target/release/incr": "870ff91c802353c1adaaced03a7b3410620b2dd24c99f5e9aee12ac0a8074371",
+    "/users/jxia3/atlas/observe/target/release/observe": "c487eb091caef690987dfe5de748b7a39d4c0d1b17fed200c15c4379a469f9a4"
+  },
+  "cleanup": {
+    "state": "complete",
+    "paths": [
+      {
+        "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/runner",
+        "exists": true,
+        "allocated_bytes": 4096,
+        "mounts": []
+      },
+      {
+        "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/fixture",
+        "exists": false,
+        "allocated_bytes": 0,
+        "mounts": []
+      },
+      {
+        "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/cache",
+        "exists": false,
+        "allocated_bytes": 0,
+        "mounts": []
+      },
+      {
+        "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/capture",
+        "exists": false,
+        "allocated_bytes": 0,
+        "mounts": []
+      },
+      {
+        "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/validation-capture",
+        "exists": false,
+        "allocated_bytes": 0,
+        "mounts": []
+      },
+      {
+        "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/data/paper",
+        "exists": false,
+        "allocated_bytes": 0,
+        "mounts": []
+      },
+      {
+        "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/downloads",
+        "exists": false,
+        "allocated_bytes": 0,
+        "mounts": []
+      }
+    ],
+    "removed": [
+      "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/runner",
+      "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/fixture",
+      "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/cache",
+      "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/capture",
+      "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/validation-capture",
+      "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/data/paper",
+      "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/downloads"
+    ],
+    "free_before": 42944667648,
+    "free_after": 42944667648
+  },
+  "full_evaluation_complete": false,
+  "performance_goal_achieved": false,
+  "next": "Fresh minimum/DPT and scaled qualification of the general implementation, followed by explicit cleanup/preparation/inspection and historical evaluation; separately cover applicable non-paper benchmarks except API-key image annotation."
+}

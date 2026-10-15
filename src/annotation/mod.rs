@@ -10,6 +10,17 @@ pub(crate) fn skip_command(command: &Command, environment: &HashMap<String, Stri
         || environment.contains_key(&format!("BASH_FUNC_{}%%", command.name))
 }
 
+/// Salted encryption emits fresh random bytes. Streaming speculation must not
+/// concatenate a live ciphertext prefix with an older cached suffix.
+/// Keep this command native even when full tracing was requested.
+pub(crate) fn requires_fresh_execution(command: &Command) -> bool {
+    std::path::Path::new(&command.name).file_name() == Some(std::ffi::OsStr::new("openssl"))
+        && command
+            .arguments
+            .first()
+            .is_some_and(|argument| argument == "enc")
+}
+
 pub(crate) fn check_pure(command: &Command) -> bool {
     if !command.standard_tool {
         return false;

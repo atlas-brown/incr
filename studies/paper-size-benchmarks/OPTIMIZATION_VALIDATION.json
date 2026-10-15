@@ -1,0 +1,28 @@
+{
+  "scope": "Minimum-size correctness across all thirteen included families; not a claim of all-family performance success or full-size qualification",
+  "complete": true,
+  "valid_invocations": 276,
+  "runs": [
+    {
+      "run": "optimization-min-10",
+      "invocations": 246,
+      "valid": 246,
+      "summary": "results/optimization-min-10/summary.json"
+    },
+    {
+      "run": "optimization-min-13",
+      "invocations": 30,
+      "valid": 30,
+      "summary": "results/optimization-min-13/summary.json"
+    }
+  ],
+  "frozen_runtime_helpers_and_benchmarks_identical": true,
+  "runtime_sha256": {
+    "candidate/target/release/incr": "570094c9abd59a862418c0e20bc841b9c82461b46de3d3344ecf1b826a66c0e9",
+    "observe/target/release/observe": "6fab1b418310250bcc9f7753f5cda5756fd0c079f9b305408dfd463cdf5d5bdd",
+    "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+  },
+  "environment_difference": "DPT uses an explicit disposable TORCHINDUCTOR_CACHE_DIR outside TMPDIR, identically for all three modes; non-DPT environment unchanged.",
+  "performance_goal_achieved": false,
+  "full_evaluation_launched": false
+}

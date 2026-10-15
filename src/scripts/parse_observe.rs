@@ -9,6 +9,8 @@ use std::path::{Path, PathBuf};
 #[derive(Deserialize)]
 struct Report {
     dependency_version: u32,
+    #[serde(default)]
+    overwrites: Vec<ReportPath>,
     replay_barriers: Vec<String>,
     dependencies: Vec<Dependency>,
     reads: Vec<ReportPath>,
@@ -30,6 +32,7 @@ struct Dependency {
 #[serde(tag = "kind", rename_all = "snake_case")]
 enum ObservedDependency {
     Absent,
+    NotDirectory,
     ParentDirectory {
         mode: u32,
         uid: u32,
@@ -76,7 +79,7 @@ enum Write {
 pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
     let report: Report = serde_json::from_slice(&std::fs::read(path)?)
         .with_context(|| format!("decode Observe report {}", path.display()))?;
-    if report.dependency_version != 7 {
+    if !matches!(report.dependency_version, 7 | 8 | 9) {
         anyhow::bail!("unsupported Observe dependency protocol");
     }
     let tracked = |path: &Path| {
@@ -106,6 +109,7 @@ pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
         }
         let key = match observed {
             ObservedDependency::Absent => DependencyKey::DoesNotExist,
+            ObservedDependency::NotDirectory => DependencyKey::NotDirectory,
             ObservedDependency::ParentDirectory {
                 mode,
                 uid,
@@ -163,6 +167,13 @@ pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
         };
         trace.initial_dependencies.insert(path, key);
     }
+    trace.overwrites.extend(
+        report
+            .overwrites
+            .into_iter()
+            .map(|path| path.0)
+            .filter(|path| tracked(path)),
+    );
     for write in report.writes {
         let (path, hash) = match write {
             Write::Path(path) => (path, None),

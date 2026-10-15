@@ -10,7 +10,7 @@ const MAX_INDEX_ENTRIES: usize = 64;
 use super::{CacheData, batch_cache::CacheCursor};
 use crate::{
     command::Command,
-    config::{Config, EffectPolicy},
+    config::{Config, EffectPolicy, TraceType},
     execution::dependency,
 };
 
@@ -29,7 +29,13 @@ struct IndexEntry {
 
 /// Validate candidate inputs before speculative execution can modify them.
 pub(crate) fn validate<'a>(config: &Config, command: &'a Command) -> Result<Vec<Candidate<'a>>> {
-    if config.observe_command.is_none() || config.effect_policy != EffectPolicy::FinalOutputs {
+    // Pure commands cannot change the dependencies we need to validate. Let them
+    // start streaming immediately and validate only the selected stdin entry later.
+    // Otherwise every input variant hashes up to eight unrelated output streams.
+    if config.observe_command.is_none()
+        || config.effect_policy != EffectPolicy::FinalOutputs
+        || config.trace_type == TraceType::Nothing
+    {
         return Ok(Vec::new());
     }
     let directory = config

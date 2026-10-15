@@ -52,6 +52,7 @@ fn capture_dependency(path: &Path, written: bool) -> Result<DependencyKey> {
     let metadata = match fs::symlink_metadata(path) {
         Ok(metadata) => metadata,
         Err(error) if error.kind() == ErrorKind::NotFound => return Ok(DependencyKey::DoesNotExist),
+        Err(error) if error.kind() == ErrorKind::NotADirectory => return Ok(DependencyKey::NotDirectory),
         Err(error) => return Err(error.into()),
     };
     let modified = metadata.modified()?.duration_since(UNIX_EPOCH)?.as_nanos();
@@ -133,8 +134,41 @@ fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Re
     Ok(results.into_iter().all(|valid| valid))
 }
 
+pub(crate) fn capture_produced_file(path: &Path) -> Result<crate::cache::ProducedFile> {
+    let metadata = fs::symlink_metadata(path)?;
+    anyhow::ensure!(metadata.is_file(), "overwrite did not produce a regular file");
+    Ok(crate::cache::ProducedFile {
+        device: metadata.dev(),
+        inode: metadata.ino(),
+        size: metadata.len(),
+        mode: metadata.mode(),
+        uid: metadata.uid(),
+        gid: metadata.gid(),
+        links: metadata.nlink(),
+        access: crate::ops::permissions::effective_access(path)?,
+        hash: get_file_hash(path)?.ok_or_else(|| anyhow::anyhow!("cannot hash produced file"))?,
+    })
+}
+
 fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
     Ok(match key {
+        DependencyKey::Overwrite { initial, output } => {
+            if check_dependency(path, initial).unwrap_or(false) {
+                true
+            } else {
+                let metadata = fs::symlink_metadata(path)?;
+                metadata.is_file()
+                    && metadata.dev() == output.device
+                    && metadata.ino() == output.inode
+                    && metadata.len() == output.size
+                    && metadata.mode() == output.mode
+                    && metadata.uid() == output.uid
+                    && metadata.gid() == output.gid
+                    && metadata.nlink() == output.links
+                    && crate::ops::permissions::effective_access(path)? == output.access
+                    && get_file_hash(path)? == Some(output.hash)
+            }
+        }
         DependencyKey::Uncacheable => false,
         DependencyKey::ParentDirectory {
             mode,
@@ -200,6 +234,8 @@ fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
                 && metadata.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() == *modified
                 && fs::read_link(path)? == *target
         }
+        DependencyKey::NotDirectory => matches!(fs::symlink_metadata(path),
+            Err(error) if error.kind() == ErrorKind::NotADirectory),
         DependencyKey::DoesNotExist => matches!(fs::symlink_metadata(path),
             Err(error) if error.kind() == ErrorKind::NotFound),
         DependencyKey::Hash(hash) => path.is_file() && get_file_hash(path)? == Some(*hash),

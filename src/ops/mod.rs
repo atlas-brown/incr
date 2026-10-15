@@ -2,6 +2,7 @@ pub(crate) mod chunk;
 pub(crate) mod data;
 pub(crate) mod file;
 pub(crate) mod permissions;
+pub(crate) mod profile;
 pub(crate) mod serialize_bytes;
 pub(crate) mod spool;
 pub(crate) mod stream;

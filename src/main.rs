@@ -8,6 +8,7 @@ mod effect_gate;
 mod execution;
 mod ops;
 mod scripts;
+mod transform_fast;
 
 use anyhow::{Result, anyhow};
 use clap::Parser;
@@ -69,6 +70,10 @@ struct Input {
 }
 
 fn main() {
+    if env::args_os().nth(1).as_deref() == Some(std::ffi::OsStr::new("--internal-transform-fast")) {
+        process::exit(transform_fast::entry());
+    }
+    ops::profile::initialize();
     ops::initialize_log_file();
     // Adopt tracees if a cancelled tracer exits before reaping them.
     if unsafe { libc::prctl(libc::PR_SET_CHILD_SUBREAPER, 1, 0, 0, 0) } != 0 {
@@ -80,6 +85,7 @@ fn main() {
     }
     let result = run();
     command::reap_children();
+    ops::profile::finish();
     match result {
         Ok(exit_code) => process::exit(exit_code.0),
         Err(error) => {
@@ -90,12 +96,13 @@ fn main() {
 }
 
 fn run() -> Result<ExitCode> {
-    let (config, command, environment) = match parse_input()? {
+    let (config, command, environment) = match ops::profile::measure("parse", parse_input)? {
         Some(input) => (input.config, input.command, input.environment),
         None => return Ok(SUCCESS_CODE),
     };
     // Pipes cannot preserve terminal reads, ioctl behavior or interactive output.
-    if std::io::stdin().is_terminal()
+    if annotation::requires_fresh_execution(&command)
+        || std::io::stdin().is_terminal()
         || std::io::stdout().is_terminal()
         || std::io::stderr().is_terminal()
         || command.inherited_descriptors
