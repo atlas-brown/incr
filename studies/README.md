@@ -5,3 +5,5 @@
 - [Bash correctness runner](bash-parity-audit-2026-10-08/README.md): supported full cold/warm shell comparisons. Historical measurements are in the consolidated study.
 
 Use [qualification](../qualification/README.md) for regression/component tests. All retained measurement records live under this directory. Archived paths describe their old locations. Do not resume a cancelled study or infer current jobs from historical logs.
+
+- [Observe strengths microbenchmarks](observe-strengths-microbench/README.md): actual shell workloads, explicit overhead stresses and controls, three scales, deterministic edit episodes and independent native-output validation. See its own status/report for completion; do not pool it with application benchmarks.

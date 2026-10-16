@@ -1,0 +1,11 @@
+{
+  "run_id": "pilot-08",
+  "scales": "small",
+  "only": "builtin-control,compute-control,dummy-straightline,dummy-loop,checksums,text-summaries,directory-inventory,artifact-generation,staged-artifacts,partitioned-logs,parameter-sweep,growing-manifest,localized-script-edit,shared-dependency,streaming-stages,build-graph",
+  "repetitions": 1,
+  "counts": "4,24,128",
+  "rows": "16,128,1024",
+  "timeout": 600,
+  "diagnostic": true,
+  "sandbox": false
+}

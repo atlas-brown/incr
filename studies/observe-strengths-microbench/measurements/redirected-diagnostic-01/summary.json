@@ -1,0 +1,60 @@
+{
+  "recorded": 18,
+  "valid": 18,
+  "comparisons": [
+    {
+      "scenario": "redirected-transform",
+      "scale": "large",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 1.526356640853919,
+              "edited_sec": 1.095987111912109,
+              "cold_sec": 0.21202871797140688,
+              "unchanged_sec": 0.21834081097040325
+            }
+          ],
+          "total_sec": 1.526356640853919,
+          "edited_sec": 1.095987111912109,
+          "cold_sec": 0.21202871797140688,
+          "unchanged_sec": 0.21834081097040325
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 6.5176308889640495,
+              "edited_sec": 3.7842786910478026,
+              "cold_sec": 2.028227088972926,
+              "unchanged_sec": 0.7051251089433208
+            }
+          ],
+          "total_sec": 6.5176308889640495,
+          "edited_sec": 3.7842786910478026,
+          "cold_sec": 2.028227088972926,
+          "unchanged_sec": 0.7051251089433208
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 8.212634123163298,
+              "edited_sec": 5.323912906111218,
+              "cold_sec": 1.6609280860284343,
+              "unchanged_sec": 1.2277931310236454
+            }
+          ],
+          "total_sec": 8.212634123163298,
+          "edited_sec": 5.323912906111218,
+          "cold_sec": 1.6609280860284343,
+          "unchanged_sec": 1.2277931310236454
+        }
+      }
+    }
+  ]
+}

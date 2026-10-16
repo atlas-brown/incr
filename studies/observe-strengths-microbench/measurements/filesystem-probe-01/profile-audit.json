@@ -1,0 +1,149 @@
+{
+  "valid": true,
+  "rows": [
+    {
+      "scenario": "artifact-generation",
+      "scale": "small",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "unchanged",
+      "expected_wrappers": 4,
+      "verified_wrappers": 4,
+      "executions_captured": 4,
+      "fast_replays": 0,
+      "speculative_replays": 0
+    },
+    {
+      "scenario": "artifact-generation",
+      "scale": "small",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "ten-percent",
+      "expected_wrappers": 4,
+      "verified_wrappers": 4,
+      "executions_captured": 4,
+      "fast_replays": 0,
+      "speculative_replays": 0
+    },
+    {
+      "scenario": "artifact-generation",
+      "scale": "small",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "global-edit",
+      "expected_wrappers": 4,
+      "verified_wrappers": 4,
+      "executions_captured": 4,
+      "fast_replays": 0,
+      "speculative_replays": 0
+    },
+    {
+      "scenario": "artifact-generation",
+      "scale": "small",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "one-percent",
+      "expected_wrappers": 4,
+      "verified_wrappers": 4,
+      "executions_captured": 4,
+      "fast_replays": 0,
+      "speculative_replays": 0
+    },
+    {
+      "scenario": "artifact-generation",
+      "scale": "small",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "cold",
+      "expected_wrappers": 4,
+      "verified_wrappers": 4,
+      "executions_captured": 4,
+      "fast_replays": 0,
+      "speculative_replays": 0
+    },
+    {
+      "scenario": "artifact-generation",
+      "scale": "small",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "one-edit",
+      "expected_wrappers": 4,
+      "verified_wrappers": 4,
+      "executions_captured": 4,
+      "fast_replays": 0,
+      "speculative_replays": 0
+    },
+    {
+      "scenario": "artifact-generation",
+      "scale": "medium",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "unchanged",
+      "expected_wrappers": 24,
+      "verified_wrappers": 24,
+      "executions_captured": 24,
+      "fast_replays": 0,
+      "speculative_replays": 0
+    },
+    {
+      "scenario": "artifact-generation",
+      "scale": "medium",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "ten-percent",
+      "expected_wrappers": 24,
+      "verified_wrappers": 24,
+      "executions_captured": 24,
+      "fast_replays": 0,
+      "speculative_replays": 0
+    },
+    {
+      "scenario": "artifact-generation",
+      "scale": "medium",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "global-edit",
+      "expected_wrappers": 24,
+      "verified_wrappers": 24,
+      "executions_captured": 24,
+      "fast_replays": 0,
+      "speculative_replays": 0
+    },
+    {
+      "scenario": "artifact-generation",
+      "scale": "medium",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "one-percent",
+      "expected_wrappers": 24,
+      "verified_wrappers": 24,
+      "executions_captured": 24,
+      "fast_replays": 0,
+      "speculative_replays": 0
+    },
+    {
+      "scenario": "artifact-generation",
+      "scale": "medium",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "cold",
+      "expected_wrappers": 24,
+      "verified_wrappers": 24,
+      "executions_captured": 24,
+      "fast_replays": 0,
+      "speculative_replays": 0
+    },
+    {
+      "scenario": "artifact-generation",
+      "scale": "medium",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "one-edit",
+      "expected_wrappers": 24,
+      "verified_wrappers": 24,
+      "executions_captured": 24,
+      "fast_replays": 0,
+      "speculative_replays": 0
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "recorded": 6,
+  "valid": 6,
+  "comparisons": [
+    {
+      "scenario": "dummy-straightline",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.08876483095809817,
+              "edited_sec": 0.05679552489891648,
+              "cold_sec": 0.016445746063254774,
+              "unchanged_sec": 0.015523559995926917
+            }
+          ],
+          "total_sec": 0.08876483095809817,
+          "edited_sec": 0.05679552489891648,
+          "cold_sec": 0.016445746063254774,
+          "unchanged_sec": 0.015523559995926917
+        }
+      }
+    }
+  ]
+}

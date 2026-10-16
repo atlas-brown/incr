@@ -1,0 +1,77 @@
+{
+  "valid": true,
+  "rows": [
+    {
+      "scenario": "redirected-transform",
+      "scale": "large",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "unchanged",
+      "expected_wrappers": 128,
+      "verified_wrappers": 128,
+      "executions_captured": 0,
+      "fast_replays": 0,
+      "speculative_replays": 128
+    },
+    {
+      "scenario": "redirected-transform",
+      "scale": "large",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "ten-percent",
+      "expected_wrappers": 128,
+      "verified_wrappers": 128,
+      "executions_captured": 13,
+      "fast_replays": 0,
+      "speculative_replays": 115
+    },
+    {
+      "scenario": "redirected-transform",
+      "scale": "large",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "global-edit",
+      "expected_wrappers": 128,
+      "verified_wrappers": 128,
+      "executions_captured": 128,
+      "fast_replays": 0,
+      "speculative_replays": 0
+    },
+    {
+      "scenario": "redirected-transform",
+      "scale": "large",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "one-percent",
+      "expected_wrappers": 128,
+      "verified_wrappers": 128,
+      "executions_captured": 2,
+      "fast_replays": 0,
+      "speculative_replays": 126
+    },
+    {
+      "scenario": "redirected-transform",
+      "scale": "large",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "cold",
+      "expected_wrappers": 128,
+      "verified_wrappers": 128,
+      "executions_captured": 128,
+      "fast_replays": 0,
+      "speculative_replays": 0
+    },
+    {
+      "scenario": "redirected-transform",
+      "scale": "large",
+      "repetition": 0,
+      "mode": "observe",
+      "phase": "one-edit",
+      "expected_wrappers": 128,
+      "verified_wrappers": 128,
+      "executions_captured": 1,
+      "fast_replays": 0,
+      "speculative_replays": 127
+    }
+  ]
+}

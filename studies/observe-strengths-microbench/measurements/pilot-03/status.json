@@ -1,0 +1,5 @@
+{
+  "state": "failed",
+  "error": "RuntimeError('Workload was not instrumented: dummy-straightline')",
+  "finished": 1792174353.9775538
+}

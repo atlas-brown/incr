@@ -1,0 +1,870 @@
+{
+  "recorded": 288,
+  "valid": 288,
+  "comparisons": [
+    {
+      "scenario": "builtin-control",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.29467530408874154,
+              "edited_sec": 0.19474218203686178,
+              "cold_sec": 0.05185180203989148,
+              "unchanged_sec": 0.04808132001198828
+            }
+          ],
+          "total_sec": 0.29467530408874154,
+          "edited_sec": 0.19474218203686178,
+          "cold_sec": 0.05185180203989148,
+          "unchanged_sec": 0.04808132001198828
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.2928392728790641,
+              "edited_sec": 0.19877624686341733,
+              "cold_sec": 0.046088378992863,
+              "unchanged_sec": 0.047974647022783756
+            }
+          ],
+          "total_sec": 0.2928392728790641,
+          "edited_sec": 0.19877624686341733,
+          "cold_sec": 0.046088378992863,
+          "unchanged_sec": 0.047974647022783756
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.2895721569657326,
+              "edited_sec": 0.19243914098478854,
+              "cold_sec": 0.047023936989717185,
+              "unchanged_sec": 0.05010907899122685
+            }
+          ],
+          "total_sec": 0.2895721569657326,
+          "edited_sec": 0.19243914098478854,
+          "cold_sec": 0.047023936989717185,
+          "unchanged_sec": 0.05010907899122685
+        }
+      }
+    },
+    {
+      "scenario": "compute-control",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.8243360390188172,
+              "edited_sec": 0.5115200030850247,
+              "cold_sec": 0.18575624097138643,
+              "unchanged_sec": 0.12705979496240616
+            }
+          ],
+          "total_sec": 0.8243360390188172,
+          "edited_sec": 0.5115200030850247,
+          "cold_sec": 0.18575624097138643,
+          "unchanged_sec": 0.12705979496240616
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 3.134903811151162,
+              "edited_sec": 2.577594984206371,
+              "cold_sec": 0.5482628069585189,
+              "unchanged_sec": 0.009046019986271858
+            }
+          ],
+          "total_sec": 3.134903811151162,
+          "edited_sec": 2.577594984206371,
+          "cold_sec": 0.5482628069585189,
+          "unchanged_sec": 0.009046019986271858
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.6653579120757058,
+              "edited_sec": 0.5188331051031128,
+              "cold_sec": 0.1369160929461941,
+              "unchanged_sec": 0.009608714026398957
+            }
+          ],
+          "total_sec": 0.6653579120757058,
+          "edited_sec": 0.5188331051031128,
+          "cold_sec": 0.1369160929461941,
+          "unchanged_sec": 0.009608714026398957
+        }
+      }
+    },
+    {
+      "scenario": "dummy-straightline",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.09247461403720081,
+              "edited_sec": 0.06769808696117252,
+              "cold_sec": 0.014612577972002327,
+              "unchanged_sec": 0.01016394910402596
+            }
+          ],
+          "total_sec": 0.09247461403720081,
+          "edited_sec": 0.06769808696117252,
+          "cold_sec": 0.014612577972002327,
+          "unchanged_sec": 0.01016394910402596
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 8.845493835164234,
+              "edited_sec": 7.123869223054498,
+              "cold_sec": 1.7014497680356726,
+              "unchanged_sec": 0.020174844074063003
+            }
+          ],
+          "total_sec": 8.845493835164234,
+          "edited_sec": 7.123869223054498,
+          "cold_sec": 1.7014497680356726,
+          "unchanged_sec": 0.020174844074063003
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.20562158699613065,
+              "edited_sec": 0.14833475893829018,
+              "cold_sec": 0.03479613398667425,
+              "unchanged_sec": 0.022490694071166217
+            }
+          ],
+          "total_sec": 0.20562158699613065,
+          "edited_sec": 0.14833475893829018,
+          "cold_sec": 0.03479613398667425,
+          "unchanged_sec": 0.022490694071166217
+        }
+      }
+    },
+    {
+      "scenario": "dummy-loop",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.07949955703224987,
+              "edited_sec": 0.05239498696755618,
+              "cold_sec": 0.016019233036786318,
+              "unchanged_sec": 0.011085337027907372
+            }
+          ],
+          "total_sec": 0.07949955703224987,
+          "edited_sec": 0.05239498696755618,
+          "cold_sec": 0.016019233036786318,
+          "unchanged_sec": 0.011085337027907372
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 4.981910251197405,
+              "edited_sec": 3.19422970211599,
+              "cold_sec": 1.7691010270500556,
+              "unchanged_sec": 0.018579522031359375
+            }
+          ],
+          "total_sec": 4.981910251197405,
+          "edited_sec": 3.19422970211599,
+          "cold_sec": 1.7691010270500556,
+          "unchanged_sec": 0.018579522031359375
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.15290571085643023,
+              "edited_sec": 0.10293564188759774,
+              "cold_sec": 0.030099930940195918,
+              "unchanged_sec": 0.019870138028636575
+            }
+          ],
+          "total_sec": 0.15290571085643023,
+          "edited_sec": 0.10293564188759774,
+          "cold_sec": 0.030099930940195918,
+          "unchanged_sec": 0.019870138028636575
+        }
+      }
+    },
+    {
+      "scenario": "checksums",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.09758921794127673,
+              "edited_sec": 0.0676690429681912,
+              "cold_sec": 0.011799231986515224,
+              "unchanged_sec": 0.0181209429865703
+            }
+          ],
+          "total_sec": 0.09758921794127673,
+          "edited_sec": 0.0676690429681912,
+          "cold_sec": 0.011799231986515224,
+          "unchanged_sec": 0.0181209429865703
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 1.8450279930839315,
+              "edited_sec": 0.1404026080854237,
+              "cold_sec": 1.6816754379542544,
+              "unchanged_sec": 0.02294994704425335
+            }
+          ],
+          "total_sec": 1.8450279930839315,
+          "edited_sec": 0.1404026080854237,
+          "cold_sec": 1.6816754379542544,
+          "unchanged_sec": 0.02294994704425335
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.20031437010038644,
+              "edited_sec": 0.1314854919910431,
+              "cold_sec": 0.04255356406792998,
+              "unchanged_sec": 0.026275314041413367
+            }
+          ],
+          "total_sec": 0.20031437010038644,
+          "edited_sec": 0.1314854919910431,
+          "cold_sec": 0.04255356406792998,
+          "unchanged_sec": 0.026275314041413367
+        }
+      }
+    },
+    {
+      "scenario": "text-summaries",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.12496381194796413,
+              "edited_sec": 0.08868714096024632,
+              "cold_sec": 0.013383180019445717,
+              "unchanged_sec": 0.02289349096827209
+            }
+          ],
+          "total_sec": 0.12496381194796413,
+          "edited_sec": 0.08868714096024632,
+          "cold_sec": 0.013383180019445717,
+          "unchanged_sec": 0.02289349096827209
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 4.03029625909403,
+              "edited_sec": 0.20988786104135215,
+              "cold_sec": 3.7922784810652956,
+              "unchanged_sec": 0.028129916987381876
+            }
+          ],
+          "total_sec": 4.03029625909403,
+          "edited_sec": 0.20988786104135215,
+          "cold_sec": 3.7922784810652956,
+          "unchanged_sec": 0.028129916987381876
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.29742805124260485,
+              "edited_sec": 0.20997473609168082,
+              "cold_sec": 0.061110789072699845,
+              "unchanged_sec": 0.026342526078224182
+            }
+          ],
+          "total_sec": 0.29742805124260485,
+          "edited_sec": 0.20997473609168082,
+          "cold_sec": 0.061110789072699845,
+          "unchanged_sec": 0.026342526078224182
+        }
+      }
+    },
+    {
+      "scenario": "directory-inventory",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.10483658674638718,
+              "edited_sec": 0.06994092592503875,
+              "cold_sec": 0.016825467930175364,
+              "unchanged_sec": 0.018070192891173065
+            }
+          ],
+          "total_sec": 0.10483658674638718,
+          "edited_sec": 0.06994092592503875,
+          "cold_sec": 0.016825467930175364,
+          "unchanged_sec": 0.018070192891173065
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 4.895425915252417,
+              "edited_sec": 3.1475022642407566,
+              "cold_sec": 1.7252510039834306,
+              "unchanged_sec": 0.02267264702823013
+            }
+          ],
+          "total_sec": 4.895425915252417,
+          "edited_sec": 3.1475022642407566,
+          "cold_sec": 1.7252510039834306,
+          "unchanged_sec": 0.02267264702823013
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.17602914606686682,
+              "edited_sec": 0.11785409308504313,
+              "cold_sec": 0.035787033033557236,
+              "unchanged_sec": 0.022388019948266447
+            }
+          ],
+          "total_sec": 0.17602914606686682,
+          "edited_sec": 0.11785409308504313,
+          "cold_sec": 0.035787033033557236,
+          "unchanged_sec": 0.022388019948266447
+        }
+      }
+    },
+    {
+      "scenario": "artifact-generation",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.07657915202435106,
+              "edited_sec": 0.050651917001232505,
+              "cold_sec": 0.012825638987123966,
+              "unchanged_sec": 0.01310159603599459
+            }
+          ],
+          "total_sec": 0.07657915202435106,
+          "edited_sec": 0.050651917001232505,
+          "cold_sec": 0.012825638987123966,
+          "unchanged_sec": 0.01310159603599459
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.5786968709435314,
+              "edited_sec": 0.1286964318715036,
+              "cold_sec": 0.4330629020696506,
+              "unchanged_sec": 0.016937537002377212
+            }
+          ],
+          "total_sec": 0.5786968709435314,
+          "edited_sec": 0.1286964318715036,
+          "cold_sec": 0.4330629020696506,
+          "unchanged_sec": 0.016937537002377212
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.200972466962412,
+              "edited_sec": 0.13765493500977755,
+              "cold_sec": 0.03282067098189145,
+              "unchanged_sec": 0.030496860970743
+            }
+          ],
+          "total_sec": 0.200972466962412,
+          "edited_sec": 0.13765493500977755,
+          "cold_sec": 0.03282067098189145,
+          "unchanged_sec": 0.030496860970743
+        }
+      }
+    },
+    {
+      "scenario": "staged-artifacts",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.21422209194861352,
+              "edited_sec": 0.14618739392608404,
+              "cold_sec": 0.039011957007460296,
+              "unchanged_sec": 0.029022741015069187
+            }
+          ],
+          "total_sec": 0.21422209194861352,
+          "edited_sec": 0.14618739392608404,
+          "cold_sec": 0.039011957007460296,
+          "unchanged_sec": 0.029022741015069187
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 24.09538090392016,
+              "edited_sec": 14.022549974033609,
+              "cold_sec": 6.857547516934574,
+              "unchanged_sec": 3.215283412951976
+            }
+          ],
+          "total_sec": 24.09538090392016,
+          "edited_sec": 14.022549974033609,
+          "cold_sec": 6.857547516934574,
+          "unchanged_sec": 3.215283412951976
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.910562408156693,
+              "edited_sec": 0.6232179061044008,
+              "cold_sec": 0.14771386003121734,
+              "unchanged_sec": 0.1396306420210749
+            }
+          ],
+          "total_sec": 0.910562408156693,
+          "edited_sec": 0.6232179061044008,
+          "cold_sec": 0.14771386003121734,
+          "unchanged_sec": 0.1396306420210749
+        }
+      }
+    },
+    {
+      "scenario": "partitioned-logs",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.09320956992451102,
+              "edited_sec": 0.060326177859678864,
+              "cold_sec": 0.017220495035871863,
+              "unchanged_sec": 0.015662897028960288
+            }
+          ],
+          "total_sec": 0.09320956992451102,
+          "edited_sec": 0.060326177859678864,
+          "cold_sec": 0.017220495035871863,
+          "unchanged_sec": 0.015662897028960288
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 2.83341711491812,
+              "edited_sec": 0.21357863896992058,
+              "cold_sec": 2.5817650629905984,
+              "unchanged_sec": 0.03807341295760125
+            }
+          ],
+          "total_sec": 2.83341711491812,
+          "edited_sec": 0.21357863896992058,
+          "cold_sec": 2.5817650629905984,
+          "unchanged_sec": 0.03807341295760125
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.2681057038716972,
+              "edited_sec": 0.1854475699365139,
+              "cold_sec": 0.04725069995038211,
+              "unchanged_sec": 0.03540743398480117
+            }
+          ],
+          "total_sec": 0.2681057038716972,
+          "edited_sec": 0.1854475699365139,
+          "cold_sec": 0.04725069995038211,
+          "unchanged_sec": 0.03540743398480117
+        }
+      }
+    },
+    {
+      "scenario": "parameter-sweep",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.18428113497793674,
+              "edited_sec": 0.12163241894450039,
+              "cold_sec": 0.03980428201612085,
+              "unchanged_sec": 0.022844434017315507
+            }
+          ],
+          "total_sec": 0.18428113497793674,
+          "edited_sec": 0.12163241894450039,
+          "cold_sec": 0.03980428201612085,
+          "unchanged_sec": 0.022844434017315507
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 7.507826913148165,
+              "edited_sec": 2.1595610401127487,
+              "cold_sec": 5.293325355974957,
+              "unchanged_sec": 0.05494051706045866
+            }
+          ],
+          "total_sec": 7.507826913148165,
+          "edited_sec": 2.1595610401127487,
+          "cold_sec": 5.293325355974957,
+          "unchanged_sec": 0.05494051706045866
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.5028088770341128,
+              "edited_sec": 0.37457983614876866,
+              "cold_sec": 0.0921321859350428,
+              "unchanged_sec": 0.03609685495030135
+            }
+          ],
+          "total_sec": 0.5028088770341128,
+          "edited_sec": 0.37457983614876866,
+          "cold_sec": 0.0921321859350428,
+          "unchanged_sec": 0.03609685495030135
+        }
+      }
+    },
+    {
+      "scenario": "growing-manifest",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.09423665283247828,
+              "edited_sec": 0.06990717281587422,
+              "cold_sec": 0.013017978984862566,
+              "unchanged_sec": 0.0113115010317415
+            }
+          ],
+          "total_sec": 0.09423665283247828,
+          "edited_sec": 0.06990717281587422,
+          "cold_sec": 0.013017978984862566,
+          "unchanged_sec": 0.0113115010317415
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 3.2051870201248676,
+              "edited_sec": 1.5180790961021557,
+              "cold_sec": 1.6702030149754137,
+              "unchanged_sec": 0.016904909047298133
+            }
+          ],
+          "total_sec": 3.2051870201248676,
+          "edited_sec": 1.5180790961021557,
+          "cold_sec": 1.6702030149754137,
+          "unchanged_sec": 0.016904909047298133
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.23624094214756042,
+              "edited_sec": 0.18037406401708722,
+              "cold_sec": 0.03712236403953284,
+              "unchanged_sec": 0.018744514090940356
+            }
+          ],
+          "total_sec": 0.23624094214756042,
+          "edited_sec": 0.18037406401708722,
+          "cold_sec": 0.03712236403953284,
+          "unchanged_sec": 0.018744514090940356
+        }
+      }
+    },
+    {
+      "scenario": "localized-script-edit",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.09687394194770604,
+              "edited_sec": 0.06383031397126615,
+              "cold_sec": 0.01639298489317298,
+              "unchanged_sec": 0.016650643083266914
+            }
+          ],
+          "total_sec": 0.09687394194770604,
+          "edited_sec": 0.06383031397126615,
+          "cold_sec": 0.01639298489317298,
+          "unchanged_sec": 0.016650643083266914
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 1.2720535498810932,
+              "edited_sec": 0.5871205299627036,
+              "cold_sec": 0.6657459569396451,
+              "unchanged_sec": 0.019187062978744507
+            }
+          ],
+          "total_sec": 1.2720535498810932,
+          "edited_sec": 0.5871205299627036,
+          "cold_sec": 0.6657459569396451,
+          "unchanged_sec": 0.019187062978744507
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.2230599590111524,
+              "edited_sec": 0.14638725004624575,
+              "cold_sec": 0.04480020597111434,
+              "unchanged_sec": 0.031872502993792295
+            }
+          ],
+          "total_sec": 0.2230599590111524,
+          "edited_sec": 0.14638725004624575,
+          "cold_sec": 0.04480020597111434,
+          "unchanged_sec": 0.031872502993792295
+        }
+      }
+    },
+    {
+      "scenario": "shared-dependency",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.08903603709768504,
+              "edited_sec": 0.0634325051214546,
+              "cold_sec": 0.013755608000792563,
+              "unchanged_sec": 0.01184792397543788
+            }
+          ],
+          "total_sec": 0.08903603709768504,
+          "edited_sec": 0.0634325051214546,
+          "cold_sec": 0.013755608000792563,
+          "unchanged_sec": 0.01184792397543788
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 2.141180095844902,
+              "edited_sec": 0.12494708492886275,
+              "cold_sec": 1.9951740809483454,
+              "unchanged_sec": 0.021058929967693985
+            }
+          ],
+          "total_sec": 2.141180095844902,
+          "edited_sec": 0.12494708492886275,
+          "cold_sec": 1.9951740809483454,
+          "unchanged_sec": 0.021058929967693985
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.22959965199697763,
+              "edited_sec": 0.14561258000321686,
+              "cold_sec": 0.05625071201939136,
+              "unchanged_sec": 0.027736359974369407
+            }
+          ],
+          "total_sec": 0.22959965199697763,
+          "edited_sec": 0.14561258000321686,
+          "cold_sec": 0.05625071201939136,
+          "unchanged_sec": 0.027736359974369407
+        }
+      }
+    },
+    {
+      "scenario": "streaming-stages",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.09309336182195693,
+              "edited_sec": 0.0659657078795135,
+              "cold_sec": 0.0098707809811458,
+              "unchanged_sec": 0.01725687296129763
+            }
+          ],
+          "total_sec": 0.09309336182195693,
+          "edited_sec": 0.0659657078795135,
+          "cold_sec": 0.0098707809811458,
+          "unchanged_sec": 0.01725687296129763
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 2.285018519964069,
+              "edited_sec": 0.13869875494856387,
+              "cold_sec": 2.124184587970376,
+              "unchanged_sec": 0.02213517704512924
+            }
+          ],
+          "total_sec": 2.285018519964069,
+          "edited_sec": 0.13869875494856387,
+          "cold_sec": 2.124184587970376,
+          "unchanged_sec": 0.02213517704512924
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.24876910378225148,
+              "edited_sec": 0.16918043489567935,
+              "cold_sec": 0.04166404495481402,
+              "unchanged_sec": 0.037924623931758106
+            }
+          ],
+          "total_sec": 0.24876910378225148,
+          "edited_sec": 0.16918043489567935,
+          "cold_sec": 0.04166404495481402,
+          "unchanged_sec": 0.037924623931758106
+        }
+      }
+    },
+    {
+      "scenario": "build-graph",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.15566642000339925,
+              "edited_sec": 0.10700028005521744,
+              "cold_sec": 0.029197990894317627,
+              "unchanged_sec": 0.01946814905386418
+            }
+          ],
+          "total_sec": 0.15566642000339925,
+          "edited_sec": 0.10700028005521744,
+          "cold_sec": 0.029197990894317627,
+          "unchanged_sec": 0.01946814905386418
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 3.355490355170332,
+              "edited_sec": 0.32837104611098766,
+              "cold_sec": 2.956746575073339,
+              "unchanged_sec": 0.07037273398600519
+            }
+          ],
+          "total_sec": 3.355490355170332,
+          "edited_sec": 0.32837104611098766,
+          "cold_sec": 2.956746575073339,
+          "unchanged_sec": 0.07037273398600519
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.45508586009964347,
+              "edited_sec": 0.31683799205347896,
+              "cold_sec": 0.07373932108748704,
+              "unchanged_sec": 0.06450854695867747
+            }
+          ],
+          "total_sec": 0.45508586009964347,
+          "edited_sec": 0.31683799205347896,
+          "cold_sec": 0.07373932108748704,
+          "unchanged_sec": 0.06450854695867747
+        }
+      }
+    }
+  ]
+}

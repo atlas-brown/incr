@@ -1,0 +1,11 @@
+{
+  "run_id": "filesystem-probe-01",
+  "scales": "small,medium",
+  "only": "artifact-generation",
+  "repetitions": 1,
+  "counts": "4,24,128",
+  "rows": "16,128,1024",
+  "timeout": 600,
+  "diagnostic": true,
+  "sandbox": false
+}

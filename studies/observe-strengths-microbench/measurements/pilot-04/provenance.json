@@ -1,0 +1,35 @@
+{
+  "repositories": {
+    "original": {
+      "head": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+      "diff": "diff --git a/src/annotation/mod.rs b/src/annotation/mod.rs\nindex dc6ef2f..54d5a15 100644\n--- a/src/annotation/mod.rs\n+++ b/src/annotation/mod.rs\n@@ -19,6 +19,17 @@ pub(crate) fn skip_command(command: &Command, environment: &HashMap<String, Stri\n         || environment.contains_key(&format!(\"BASH_FUNC_{}%%\", command.name))\n }\n \n+/// Salted encryption emits fresh random bytes. Streaming speculation must not\n+/// concatenate a live ciphertext prefix with an older cached suffix.\n+/// Keep this command native even when full tracing was requested.\n+pub(crate) fn requires_fresh_execution(command: &Command) -> bool {\n+    std::path::Path::new(&command.name).file_name() == Some(std::ffi::OsStr::new(\"openssl\"))\n+        && command\n+            .arguments\n+            .first()\n+            .is_some_and(|argument| argument == \"enc\")\n+}\n+\n pub(crate) fn check_pure(command: &Command) -> bool {\n     check_conditions(PURE_COMMANDS, command)\n }\ndiff --git a/src/execution/mod.rs b/src/execution/mod.rs\nindex e50795b..fe39718 100644\n--- a/src/execution/mod.rs\n+++ b/src/execution/mod.rs\n@@ -19,11 +19,11 @@ use crate::scripts;\n /// Selects the trace type for a command based on annotations and introspection history.\n /// Pure commands need no tracing; read-only/stateless or previously-introspected commands\n /// use strace only; everything else gets a full sandbox.\n-pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> TraceType {\n-    if annotation::check_pure(command) {\n+pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command, annotations: bool) -> TraceType {\n+    if annotations && annotation::check_pure(command) {\n         return TraceType::Nothing;\n     }\n-    if annotation::check_stateless(command) || annotation::check_read_only(command) {\n+    if annotations && (annotation::check_stateless(command) || annotation::check_read_only(command)) {\n         return TraceType::TraceFile;\n     }\n     if dependency::get_introspect_file(cache_directory, command.hash).exists() {\ndiff --git a/src/main.rs b/src/main.rs\nindex 0123432..8aa7ef9 100644\n--- a/src/main.rs\n+++ b/src/main.rs\n@@ -70,7 +70,9 @@ fn run() -> Result<ExitCode> {\n         Some(input) => (input.config, input.command, input.environment),\n         None => return Ok(SUCCESS_CODE),\n     };\n-    if !config.full_tracing && annotation::skip_command(&command, &environment) {\n+    if annotation::requires_fresh_execution(&command)\n+        || (!config.full_tracing && annotation::skip_command(&command, &environment))\n+    {\n         return Err(skip_executor::execute(&command));\n     }\n \n@@ -117,7 +119,7 @@ fn parse_input() -> Result<Option<Input>> {\n \n     let environment = env::vars().collect::<HashMap<_, _>>();\n     let command = command::create(arguments.command, &environment)?;\n-    let trace_type = execution::get_trace_type(&cache_directory, &command);\n+    let trace_type = execution::get_trace_type(&cache_directory, &command, arguments.enable_annotations);\n     let config = Config {\n         try_command,\n         cache_directory,\n"
+    },
+    "observe": {
+      "head": "257a6d40c185a158e444a530fbe5f268529e3ff0",
+      "diff": ""
+    },
+    "candidate": {
+      "head": "858a34fb96e5794097f67658fef8987c27db5024",
+      "diff": ""
+    }
+  },
+  "binaries": {
+    "original": {
+      "path": "/users/jxia3/atlas/incr/studies/observe-strengths-microbench/.work/build/original/incr",
+      "sha256": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+    },
+    "observe": {
+      "path": "/users/jxia3/atlas/incr/studies/observe-strengths-microbench/.work/build/observe/observe",
+      "sha256": "b3c84ddf5f2a4c6c78190982dca464510a029f78f9aff57dc56ca8b1904a4003"
+    },
+    "candidate": {
+      "path": "/users/jxia3/atlas/incr/studies/observe-strengths-microbench/.work/build/candidate/incr",
+      "sha256": "59ab6feb67552803844a5fc1846948b86450b6b8b678c0cf3c875b89284eab2d"
+    }
+  },
+  "annotations": false,
+  "transformer": "shared current Python/libbash transformer; transformation untimed",
+  "effect_policy": "final",
+  "directory_access_assumption": true,
+  "content_validated_inputs": false
+}

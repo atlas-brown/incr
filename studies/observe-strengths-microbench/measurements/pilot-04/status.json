@@ -1,0 +1,5 @@
+{
+  "state": "failed",
+  "error": "RuntimeError('Incomplete static instrumentation: dummy-straightline')",
+  "finished": 1792174411.0178175
+}

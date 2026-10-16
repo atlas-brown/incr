@@ -1,0 +1,18 @@
+{
+  "scope": "Independent attempts; no pooling of diagnostics with final performance samples",
+  "runs": {
+    "pilot-01": "Rejected: GNU-time instrumentation descriptor induced native fallback; zombie-only cleanup was misclassified by the initial supervisor.",
+    "pilot-02": "Complete selected diagnostic cases using robust supervisor and fdguard; default AST did not cover every conditional command; cache-entry counters used the wrong filename. Not final timings.",
+    "pilot-03": "Incomplete diagnostic; default AST did not instrument conditional dummy commands.",
+    "pilot-04": "Incomplete diagnostic; static-coverage checker incorrectly counted the shebang as a command.",
+    "pilot-05": "Incomplete diagnostic; build graph contained a conservative uninstrumented positional-argument expansion. Other completed samples are exploratory only.",
+    "pilot-06": "Incomplete diagnostic; Bash AST path did not instrument a command substitution. Led to deterministic complete-coverage frontend selection.",
+    "pilot-07": "Complete small-scale four-mode attribution diagnostic, 384 valid invocations and 192 dynamically verified backend-profile phases. Earlier same-length input edits and broken cache counters; use profiles, not those counters, as reuse evidence. Not final timing samples.",
+    "pilot-08": "Complete finalized sixteen-case small diagnostic:288 valid samples,96 dynamically verified Observe phases. Actual install case added separately after the scale probe.",
+    "scaling-01": "Complete144 valid medium/large samples on four cases; the old artifact body is now named redirected-transform. Source snapshots disambiguate it.",
+    "filesystem-probe-01": "Complete36 valid samples on actual artifact installation, small/medium, plus12 dynamically verified Observe phases.",
+    "redirected-diagnostic-01": "Complete18 valid large limit-case samples plus6 dynamically verified Observe phases and detailed phase analysis.",
+    "dummy-large-probe-01": "Complete18 valid large256-command samples; independently audited."
+  },
+  "final": "final-01: framework frozen, explicit launch authorized after all recorded gates; inspect its status for actual completion."
+}

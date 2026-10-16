@@ -1,0 +1,11 @@
+{
+  "run_id": "pilot-03",
+  "scales": "small",
+  "only": "builtin-control,compute-control,dummy-straightline,dummy-loop,text-summaries,directory-inventory,partitioned-logs,parameter-sweep,growing-manifest,localized-script-edit,shared-dependency,streaming-stages",
+  "repetitions": 1,
+  "counts": "4,24,128",
+  "rows": "16,128,1024",
+  "timeout": 600,
+  "diagnostic": true,
+  "sandbox": false
+}

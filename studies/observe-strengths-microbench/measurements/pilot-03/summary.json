@@ -1,0 +1,136 @@
+{
+  "recorded": 42,
+  "valid": 42,
+  "comparisons": [
+    {
+      "scenario": "builtin-control",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.29343636496923864,
+              "edited_sec": 0.19871950091328472,
+              "cold_sec": 0.04722841701004654,
+              "unchanged_sec": 0.04748844704590738
+            }
+          ],
+          "total_sec": 0.29343636496923864,
+          "edited_sec": 0.19871950091328472,
+          "cold_sec": 0.04722841701004654,
+          "unchanged_sec": 0.04748844704590738
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.306134847109206,
+              "edited_sec": 0.19830231613013893,
+              "cold_sec": 0.05182713398244232,
+              "unchanged_sec": 0.05600539699662477
+            }
+          ],
+          "total_sec": 0.306134847109206,
+          "edited_sec": 0.19830231613013893,
+          "cold_sec": 0.05182713398244232,
+          "unchanged_sec": 0.05600539699662477
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.3116660419618711,
+              "edited_sec": 0.20624856697395444,
+              "cold_sec": 0.04993258498143405,
+              "unchanged_sec": 0.0554848900064826
+            }
+          ],
+          "total_sec": 0.3116660419618711,
+          "edited_sec": 0.20624856697395444,
+          "cold_sec": 0.04993258498143405,
+          "unchanged_sec": 0.0554848900064826
+        }
+      }
+    },
+    {
+      "scenario": "compute-control",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 2.4459995781071484,
+              "edited_sec": 1.6103295129723847,
+              "cold_sec": 0.43635386507958174,
+              "unchanged_sec": 0.399316200055182
+            }
+          ],
+          "total_sec": 2.4459995781071484,
+          "edited_sec": 1.6103295129723847,
+          "cold_sec": 0.43635386507958174,
+          "unchanged_sec": 0.399316200055182
+        },
+        "original": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 4.609653561026789,
+              "edited_sec": 3.6794306109659374,
+              "cold_sec": 0.9212656329618767,
+              "unchanged_sec": 0.008957317098975182
+            }
+          ],
+          "total_sec": 4.609653561026789,
+          "edited_sec": 3.6794306109659374,
+          "cold_sec": 0.9212656329618767,
+          "unchanged_sec": 0.008957317098975182
+        },
+        "observe": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 2.414051170926541,
+              "edited_sec": 1.9010812130291015,
+              "cold_sec": 0.501938747940585,
+              "unchanged_sec": 0.011031209956854582
+            }
+          ],
+          "total_sec": 2.414051170926541,
+          "edited_sec": 1.9010812130291015,
+          "cold_sec": 0.501938747940585,
+          "unchanged_sec": 0.011031209956854582
+        }
+      }
+    },
+    {
+      "scenario": "dummy-straightline",
+      "scale": "small",
+      "modes": {
+        "bash": {
+          "complete_repetitions": 1,
+          "episodes": [
+            {
+              "repetition": 0,
+              "total_sec": 0.07262214191723615,
+              "edited_sec": 0.053382323938421905,
+              "cold_sec": 0.010133928968571126,
+              "unchanged_sec": 0.009105889010243118
+            }
+          ],
+          "total_sec": 0.07262214191723615,
+          "edited_sec": 0.053382323938421905,
+          "cold_sec": 0.010133928968571126,
+          "unchanged_sec": 0.009105889010243118
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+# Observe strengths microbenchmarks
+
+This is an explicitly synthetic strengths/overhead study, not a representative application sample. Fourteen strengths workloads plus three controls/limit cases run at three scales, three independent paired repetitions, and six ordered phases: cold, unchanged, one edit, 1% edit, 10% edit and global edit. Native Bash is the oracle; original Incr and current Incr+Observe are the measured competitors. All annotations are disabled. No engine optimization is selected based on a command's name.
+
+All workloads are checked-in shell files. The framework prepares deterministic files, applies edits, transforms scripts outside timing using the same supported Python frontend (Bash AST first, dash AST fallback when needed for complete coverage) for both engines, supervises serial execution, and verifies stdout/stderr/status, persistent output paths/content/modes and unchanged inputs. It checks every static external command is wrapped. The installed commands run unchanged. The baseline uses its own pinned try script, not the current replacement. Current final-output effect policy and directory-access assumption are explicit; content-input relaxation stays off. No asynchronous shell jobs are used.
+
+## Scope and scales
+
+The twelve application-shaped scenarios are checksums, text summaries, directory inventory, artifact generation, staged artifacts, partitioned logs, parameter sweeps, growing manifests, localized script edits, shared dependencies, streaming stages and build graphs. Shell features include for/while loops, functions, substitutions, scoped cd/subshells, globbing, quoting, conditionals/short-circuit lists, redirections and pipes.
+
+Dummy straight-line and dummy loop cases explicitly stress overhead. The straight-line file contains 128 literal external commands; its execution limit is 4/24/128. The loop executes 4/64/256 distinct invocations. Global dummy-input changes alter arguments deliberately, forcing misses rather than measuring repeated hits on identical `true` calls. These are labelled overhead controls, not examples of useful application incrementalization.
+
+Typical task counts are 4/24/128, with 16/128/1024 deterministic text rows per input. The four-command staged lifecycle uses 4/16/64 tasks, preventing an unnecessarily enormous slow baseline run. These scales include short subsecond executions and large baseline phases lasting minutes. Duration is reported honestly, not forced to a Bash-only runtime target using sleeps. Large development episodes may take several minutes; Observe may remain much shorter. Individual invocation timeout is 600 seconds.
+
+Builtin-only arithmetic is a native-path negative control and must produce zero cache entries. Deterministic PBKDF2 is a CPU-heavy control: unchanged calls can reuse results, but invalidated work must perform the real computation. Neither control is promised to favor Observe.
+
+## Edits and interpretation
+
+Inputs have stable names and explicit generation mtimes. Edits change bytes and line counts so reader summaries also change observably; no preserved-mtime assumption is used. Localized script edit changes only the first task's tr option. Directory inventory edits add names to selected directories; shell globs expose those names as command arguments, avoiding unsupported historical directory-listing dependency assumptions. Growing manifests append stable named tasks before the global-content edit. Parameter sweep first adds a parameter; later steps edit source subsets. Shared configuration changes on the global phase. Straight-line dummy and CPU controls update their shared version on edit phases, which intentionally invalidates their one shared dependency/argument domain rather than claiming sparse reuse.
+
+Each mode/repetition begins with a fresh cache and fixture at the same stable paths. Within an episode, outputs and cache survive all six steps. Bash runs first for each repetition to establish independent references; engine order alternates original/Observe across repetitions. Setup, transformation, hashing/validation, reporting and cleanup are outside timings. Elapsed time includes the command's complete shell execution plus common GNU-time/descriptor-cleaning launcher overhead. Instrumentation descriptors are closed before the shell starts; genuine shell-created descriptors retain their semantics.
+
+Report individual phases, full episode totals, edited totals excluding both cold and unchanged, and all three samples/spread. Unchanged replay can favor original Incr slightly; no requirement forces every phase to win. Cold/full-miss gains must not be described as cache-reuse gains. Cache-entry creation/rewrites/retention are measured as activity witnesses, not exact semantic hit counters. Separate untimed-profile pilots verify actual Observe backends and replay/capture behavior. Final timing runs disable profiling.
+
+## Gates and evidence
+
+Pilot all scenarios at small scale, diagnose correctness/instrumentation failures, then probe larger scales before the final matrix. Retain rejected and failed attempts labelled separately. Final scope: 17 scenarios × 3 scales × 3 repetitions × 3 modes × 6 phases = 2,754 validated invocations. Source snapshots, binary hashes, transformed-source receipts, resource counters, stdout/stderr, output manifests and every sample are retained. Require exact matrix coverage and independent final evidence verification before committing/pushing the report.
+
+Workspace/free-disk guard: 8 GiB, with 8 GiB free reserve. Process ownership and zombie reaping use the existing benchmark supervisor. Runs stop on correctness mismatch, live descendant, timeout or resource violation. No concurrent builds/tests/timed workloads. There is no automatic promotion from pilots to a full run.
+
+## Scale-probe refinement
+
+The initial artifact scenario was a read-only stdin transform whose output redirection is performed by the shell, not by the traced command. At large scale its six-step Observe episode was about two seconds slower than original Incr. Preserve it as `redirected-transform`, an explicit limit case; do not discard its timings. `artifact-generation` now uses the installed `install -m 644` command to create real per-source filesystem artifacts, matching the intended filesystem-writing scenario. Earlier diagnostic source snapshots identify the old body; no samples are pooled across this refinement. Final scope is seventeen cases (twelve application-shaped workflows, two dummy stresses, builtin/CPU controls and the redirected-transform limit). No runtime engine changes or command-specific optimizations were made.

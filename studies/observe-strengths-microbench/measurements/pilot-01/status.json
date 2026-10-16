@@ -1,0 +1,5 @@
+{
+  "state": "failed",
+  "error": "RuntimeError('Native validation failed: /users/jxia3/atlas/incr/studies/observe-strengths-microbench/measurements/pilot-01/samples/staged-artifacts/small/0/original/unchanged')",
+  "finished": 1792174206.3484645
+}
