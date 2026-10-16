@@ -609,6 +609,50 @@ mod tests {
     }
 
     #[test]
+    fn try_wrapper_environment_does_not_change_command_identity() -> Result<()> {
+        let mut first = HashMap::from([
+            ("PATH".to_owned(), "/bin:/usr/bin".to_owned()),
+            ("EXECID".to_owned(), "first-run".to_owned()),
+            ("SANDBOX_DIR".to_owned(), "/tmp/try-first".to_owned()),
+            (
+                "UPDATED_DIRS_AND_MOUNTS".to_owned(),
+                "/tmp/first/mounts".to_owned(),
+            ),
+            ("try_mount_log".to_owned(), "/tmp/first/mount.log".to_owned()),
+        ]);
+        let mut second = first.clone();
+        second.insert("EXECID".to_owned(), "second-run".to_owned());
+        second.insert("SANDBOX_DIR".to_owned(), "/tmp/try-second".to_owned());
+        second.insert(
+            "UPDATED_DIRS_AND_MOUNTS".to_owned(),
+            "/tmp/second/mounts".to_owned(),
+        );
+        second.insert("try_mount_log".to_owned(), "/tmp/second/mount.log".to_owned());
+
+        let first_command = create(vec!["sha256sum".to_owned(), "stable.txt".to_owned()], &first)?;
+        let second_command = create(vec!["sha256sum".to_owned(), "stable.txt".to_owned()], &second)?;
+
+        assert_eq!(first_command.hash, second_command.hash);
+        for variable in [
+            "EXECID",
+            "SANDBOX_DIR",
+            "UPDATED_DIRS_AND_MOUNTS",
+            "try_mount_log",
+        ] {
+            assert!(!first_command.environment.contains_key(variable));
+            assert!(!second_command.environment.contains_key(variable));
+        }
+
+        first.insert("MODE".to_owned(), "first".to_owned());
+        second.insert("MODE".to_owned(), "second".to_owned());
+        assert_ne!(
+            create(vec!["sha256sum".to_owned(), "stable.txt".to_owned()], &first)?.hash,
+            create(vec!["sha256sum".to_owned(), "stable.txt".to_owned()], &second)?.hash,
+        );
+        Ok(())
+    }
+
+    #[test]
     fn dropping_running_child_stops_and_reaps_it() -> Result<()> {
         let child = ShellCommand::new("sleep").arg("30").process_group(0).spawn()?;
         let process_id = child.id() as i32;

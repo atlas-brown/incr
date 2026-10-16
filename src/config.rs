@@ -34,12 +34,21 @@ pub(crate) const DEBUG_LOGS: bool = DEBUG;
 pub(crate) const DEBUG_LOG_PATH: &str = "incr/debug_log.txt";
 
 pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
+    "EXECID",
     "GIT_ASKPASS",
+    "IGNORE_FILE",
     "INCR_DEBUG_CACHE",
     "INCR_DOCKER_DEPENDENCY_REPORT",
+    "SANDBOX_DIR",
     "SHLVL",
     "SSH_CLIENT",
     "SSH_CONNECTION",
+    "START_DIR",
+    "TRY_COMMAND",
+    "TRY_EXIT_STATUS",
+    "TRY_IGNORE_FILE",
+    "UNION_HELPER",
+    "UPDATED_DIRS_AND_MOUNTS",
     "VSCODE_GIT_ASKPASS_EXTRA_ARGS",
     "VSCODE_GIT_ASKPASS_MAIN",
     "VSCODE_GIT_ASKPASS_NODE",
@@ -51,6 +60,10 @@ pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
     "XDG_SESSION_ID",
     "XDG_SESSION_TYPE",
     "_",
+    "chroot_executable",
+    "script_to_execute",
+    "try_mount_log",
+    "DIRS_AND_MOUNTS",
 ];
 pub(crate) const EXCLUDED_PATHS: &[&str] = &["/proc"];
 pub(crate) const DYNAMIC_EXCLUDED_PATHS: &[&str] = &["/tmp"];

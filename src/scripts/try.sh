@@ -279,7 +279,8 @@ EOF
     cat >"$chroot_executable" <<EOF
 #!/bin/sh
 
-unset START_DIR SANDBOX_DIR UNION_HELPER DIRS_AND_MOUNTS TRY_EXIT_STATUS
+unset EXECID IGNORE_FILE SANDBOX_DIR START_DIR TRY_COMMAND TRY_EXIT_STATUS
+unset TRY_IGNORE_FILE UNION_HELPER DIRS_AND_MOUNTS UPDATED_DIRS_AND_MOUNTS
 unset script_to_execute chroot_executable try_mount_log
 
 mkdir -p /dev /dev/pts
