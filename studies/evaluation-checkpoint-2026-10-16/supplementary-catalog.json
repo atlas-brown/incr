@@ -1,0 +1,196 @@
+{
+  "scope": "Additional loose measurement metadata outside primary results roots; generated cache/input/build state excluded.",
+  "verified": true,
+  "files": [
+    {
+      "path": "agents/benchmarks/results.txt",
+      "bytes": 2178,
+      "sha256": "c947dde6f4a0a5a5b9c1ef36398acce03450e9a1ee24a87d4a3dda134b7a8511"
+    },
+    {
+      "path": "qualification/.work/node-SHASUMS256.txt",
+      "bytes": 3777,
+      "sha256": "bf8c265bcf527d132273051e4d57c7b4a1da51c90c4acf121b9784a6e2e81e47"
+    },
+    {
+      "path": "qualification/.work/test-results/shell-ast-tests.json",
+      "bytes": 46305,
+      "sha256": "fa488d9dd2b68ff394b8153632a68a0d6cc9b8ace345f1545bdc1d83d1ac89e6"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/ffmpeg-trace.json",
+      "bytes": 148016,
+      "sha256": "126abbf9eb1616468013dfa465b6c900d6736db5ce05b82d87270a5f80d6544c"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/CONTEXT.md",
+      "bytes": 24143,
+      "sha256": "2ed8f705fb3255e06870069c33ae523866692e72c09b348126a04d226666f43b"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/DESIGN.md",
+      "bytes": 36251,
+      "sha256": "854d14b17b21e3e75efed45f2465569c4bb2e54c175fb3d3548ff2f79b153761"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/README.md",
+      "bytes": 8186,
+      "sha256": "2ba401af91fdaa7e54e443da070019d07b06db9a12eab01e6a607c068d561008"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/covid-timing-per-cmd.csv",
+      "bytes": 517,
+      "sha256": "efc907a420ac059ca270f421d9954355163f38c8e412daede09aaafd2dfe5044"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/covid-timing-whole.csv",
+      "bytes": 518,
+      "sha256": "e523f6f6e4f923a81df6b43d134a326728d78d7d410b6f10d19f25f640f1e0f8"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/covid-timing.csv",
+      "bytes": 521,
+      "sha256": "48a93f6d0dfdc3d668f1243d958285759fe6443e7389f57d69f36b929063a6ae"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/file-mod-timing-per-cmd.csv",
+      "bytes": 350,
+      "sha256": "ea1c964a2bec164ac252c02e9307bfa484298590e7f0f0e628adb6024d0c7290"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/file-mod-timing-whole.csv",
+      "bytes": 343,
+      "sha256": "b152cac548c928c8fe16bc383fa0e96bb2dea020195e136f1e046b3b7d4ad4ab"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/file-mod-timing.csv",
+      "bytes": 344,
+      "sha256": "e25754c3c3a3247b0fd8c5c6a42807adb589cbc927f649e266818c613fb194d7"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/nlp-timing-per-cmd.csv",
+      "bytes": 764,
+      "sha256": "d8e7dd84846b1eb595344c7e995b00d52486c606644d70965d3f3e47117f5853"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/nlp-timing-whole.csv",
+      "bytes": 763,
+      "sha256": "26dc38e0a7f7146e897dc2dc37244ef9864bd8133954d07c8f4d8b8cc9a3d86e"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/nlp-timing.csv",
+      "bytes": 766,
+      "sha256": "f7475cfd6001c0842f83454a354547bb848f7f233b1aaf64964c1c2536f9f202"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/oneliners-timing-per-cmd.csv",
+      "bytes": 624,
+      "sha256": "55d54f0847562cceab28b2eb5ef77855307f66f64eec43c211a1a3435b36bb76"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/oneliners-timing-whole.csv",
+      "bytes": 623,
+      "sha256": "36ec2ea260b51db6804e268a33ac107801037c3e9dd09707dbc536274a8d1752"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/oneliners-timing.csv",
+      "bytes": 621,
+      "sha256": "3f8a0ee1e607881e81dfdd919fca16e0da1d5730465395adcc254365fb2513fc"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/unixfun-timing-per-cmd.csv",
+      "bytes": 1024,
+      "sha256": "1cf9e053312195d9b97ff7cfe6c3361de680b991a868a99ce013f4a148eb03cd"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/unixfun-timing-whole.csv",
+      "bytes": 1015,
+      "sha256": "021d700d14c73947b655de6511ba38a44d55dc31b8badb4a71e0681b373fe2b8"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/unixfun-timing.csv",
+      "bytes": 1020,
+      "sha256": "0df4f6cccf5b42ee40f332a4967fde9c76b0493dfcdf3b8c03ccbd91bc9e5566"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/weather-timing-per-cmd.csv",
+      "bytes": 186,
+      "sha256": "75f70358e58f2857f4650b5850275c0593470c4ff4a5d5fa3313c3d5716ebef4"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/weather-timing-whole.csv",
+      "bytes": 184,
+      "sha256": "f37a33e0d63285163564e9368ae72967a2fb26a0f6999de61533bd0d98cbeb60"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/observe-before-audit/evaluation/results/weather-timing.csv",
+      "bytes": 186,
+      "sha256": "4803f4ad30debc2c6b0beb55fff8835264e4f417b21211d1b03f9c63ec5c7f95"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/parser-equivalence.json",
+      "bytes": 10495,
+      "sha256": "02780c50c4314fd4f532770ecf1732b74f4a3d465bf91fb298523896d9756bc6"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/sort-profile/report.json",
+      "bytes": 10742,
+      "sha256": "2e64cd4b9003c8c5d2d0f1e12a52c7afb5094da9a426d773a5cf0a7d82e94ce0"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/sort-profile/sort-syscalls.txt",
+      "bytes": 1874,
+      "sha256": "49e8c428af0d46cdedc4e9e46c451826807b063429dbdc73bf003007a49da9c5"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/sort-profile/thread-report.json",
+      "bytes": 5060,
+      "sha256": "e27a81ddc2dc75b3a6c5fc639dfb261a8ddce77e1c2d0338e9e57c9f5acef012"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/sort-profile/tracer-syscalls.txt",
+      "bytes": 2053,
+      "sha256": "20e3d793b6d9ad777cf61e746973c11e3dc83b14d59aef29f66f568977bbf810"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/wordfreq-sort-input.json",
+      "bytes": 328,
+      "sha256": "4fae596db9216b3ff6be8ee4c4eec786abb24dadb8a74cb5f073b4e9720cbbee"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/wrapper-profile/profiles/1064026-9850903.json",
+      "bytes": 1224,
+      "sha256": "c823ada5391b72eeb6758e71a4581d36d190707299c3c3fa9823f24348ae490a"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/wrapper-profile/profiles/1064027-42105584.json",
+      "bytes": 1218,
+      "sha256": "1a2a0b7bca756bc2fff936cbec72d6af4e4ae1f4424870f87267ac4d4471f5c2"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/wrapper-profile/profiles/1064028-44909829.json",
+      "bytes": 1200,
+      "sha256": "3e5fb75efbe8dc8736993657d0e9d18281b0d8bf61ba38b1501ffb2b1c6e15d8"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/wrapper-profile/profiles/1064029-239407566.json",
+      "bytes": 1191,
+      "sha256": "05700fb1ed023312dd27229bbc3cbff49312e284e813dfb188ee039be78d5068"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/wrapper-profile/profiles/1064030-246434923.json",
+      "bytes": 1196,
+      "sha256": "f2ec7454a9ed695ef3c6d16883fb35c0d4b6e173bc383f5d1113abbc8ffda46f"
+    },
+    {
+      "path": "studies/observe-performance-regression/.work/wrapper-profile/profiles/1064031-252582847.json",
+      "bytes": 1201,
+      "sha256": "ef9e620ecf4daf6e18094ac792a09b6abc7b58ff84d7ca247c6d75312893d576"
+    },
+    {
+      "path": "studies/paper-size-benchmarks/.work/doctor.json",
+      "bytes": 45335,
+      "sha256": "a6689fd08db4a0c1a507d3f312e693f0cc3712a251dedd26937bc2eb7312a65c"
+    }
+  ]
+}
