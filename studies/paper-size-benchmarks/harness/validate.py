@@ -186,6 +186,9 @@ def independent_checks(fixture, name, script, record, stderr):
     if stderr.get('errors'):
         problems.append('unexpected error diagnostic')
     outputs = fixture / 'outputs'
+    if name == 'image-annotation':
+        from image_annotation import independent_checks as image_checks
+        problems.extend(image_checks(fixture, record, stderr))
     if name in ('web-search', 'weather-tufte'):
         from supplemental import independent_checks as supplemental_checks
         problems.extend(supplemental_checks(fixture, name, script))
@@ -267,4 +270,8 @@ def independent_checks(fixture, name, script, record, stderr):
 
 def compare(reference, observed):
     keys = ('returncode', 'stdout_sha256', 'normalized_stderr_sha256', 'outputs')
+    if 'comparison_policy' in reference or 'comparison_policy' in observed:
+        if reference.get('comparison_policy') != observed.get('comparison_policy'):
+            return ['comparison policy mismatch']
+        keys = ('returncode', 'stdout_sha256', 'normalized_stderr_sha256', 'comparison_outputs')
     return [f'{key} mismatch' for key in keys if reference[key] != observed[key]]

@@ -1,0 +1,67 @@
+{
+  "source_run": "minimum-04",
+  "valid_invocations": 21,
+  "expected_invocations": 21,
+  "state": "complete",
+  "modes": {
+    "bash": {
+      "total_seconds": 83.26823471894022,
+      "invocations": 7
+    },
+    "original": {
+      "total_seconds": 33.75189750792924,
+      "invocations": 7
+    },
+    "observe": {
+      "total_seconds": 24.635332331061363,
+      "invocations": 7
+    }
+  },
+  "validation_policy": "image payload preservation; generated filenames are nondeterministic",
+  "runtime_fingerprints": {
+    "benchmarks/image-annotation/image-annotation-1.sh": "61465af0814b1e17966f9e749476a8c778c474f0ff798d5d1e30fcb029a35584",
+    "benchmarks/image-annotation/image-annotation-2.sh": "c72730c5714316c9b345f05b444812d4844ef03a9a3fc96237be737f59f5bb15",
+    "benchmarks/image-annotation/image-annotation-3.sh": "a604348c3947272d65bc09f81ffec57cc051d1f5c8453d39f2072a347df4706c",
+    "benchmarks/image-annotation/image-annotation-4.sh": "01dc7241f8defb81072938d4f2a0df3c4f89e539cdc310c6f4160ea0e7126240",
+    "benchmarks/image-annotation/image-annotation-5.sh": "bad27a97c7ea260718d9d6c2751e588e87476d7780bcce5f64dfd8079e71007b",
+    "benchmarks/image-annotation/image-annotation-6.sh": "3432e7d0564578074420a8da1fc9595c91af5e05df440874e7f302a4543e5aff",
+    "benchmarks/image-annotation/image-annotation-7.sh": "0229b0103115279677b41cb0611cb29d26cc3cb33d5fb36e6ee9563aaf5ba75b",
+    "candidate/incr.sh": "0e1b6fbd99c9e9a3b4219d7eb1dc282108213393d50108c07d3fe135a18762db",
+    "candidate/src/scripts/incrementize.py": "5dc1bf827803104f1e278d204609a985d22b312d18d06e103e8911a0ed9d4d52",
+    "candidate/src/scripts/insert.py": "df9dffa8edc129d5c32e5897b0a446fe3c8b734b480e7ecaf52bad88c68220cc",
+    "candidate/src/scripts/mod.rs": "d6f36dd93e495bf6475d38c297fdfe3530b82ed6a70427ffca6690a1abb0e23d",
+    "candidate/src/scripts/parse_observe.rs": "f00163fad1da871500d28348d53ade83234ee1e8fb36295599eef151c2656c84",
+    "candidate/src/scripts/parse_trace.rs": "fbf79217d0103807ab85c9f792817f5c09ef0c260ae1fb09caa719fcee4178ba",
+    "candidate/src/scripts/shell_ast.py": "16b34e7709b1ca94dd9e09fdd3e546d6fcc709d2ab7893acdcc9df25f243ea4b",
+    "candidate/src/scripts/try.sh": "aa000212d061d89b1ac70447bef7c07caa2773feedf910c37908cccbdb5b542a",
+    "candidate/target/release/incr": "59ab6feb67552803844a5fc1846948b86450b6b8b678c0cf3c875b89284eab2d",
+    "fdguard": "55335c8a3909e4332b8f4d476abb763700583cc1e78482f1a53ea858dbb12aea",
+    "harness/cleanup.py": "d1430b03e434b397112f165a1cf5172abe68cca76967de2a283e2189c7faa627",
+    "harness/cohort_report.py": "dd53f79cf1f702908aaae4073161a11f421f85c63dba356b6806a9893b729f04",
+    "harness/common.py": "c2a8202e15e6d8c156931d8bcce98d49d4e4f023555b1351fdcf9bd2808fc43d",
+    "harness/fdguard.c": "7237bf748ec33b87ce1211b8e5f3faea179b46491c2a0e391892ae3afd666e43",
+    "harness/image_annotation.py": "e6ac9036aa402671d7b79ba53dc03ed957dd7a973a771b6f70bb6868436c52d1",
+    "harness/launch.py": "a68bca148121f695ad519b5cea3b5bb1424ae093206615aaf6045417c5a6161b",
+    "harness/monitor.py": "47efad2eb12043bbbbf7994d21c611b3905d2da9e1cb23f2fe74ef9dacd3568d",
+    "harness/plots.py": "76e21a692c8ce92cc89c350ae33aa956aca0f9613d5443bbdb22d414c871a2bd",
+    "harness/prepare.py": "391d1b5d07b4f8378228f0e8d50fd1e21de51df1874a1a3b7d45e425d9f08beb",
+    "harness/setup_models.py": "ca4e97ff2e43c64fab2c138004c21a7e9e28128189ce3d9f8e93a5ea2903bf43",
+    "harness/study.py": "847fd3d4d05738e08ce1d5985e173fd653d4d9d92d7c860716f5795296f33359",
+    "harness/supplemental.py": "19c74ae2648a117951cfa54cf74679cc1ec7d7fd838852a0958e7045eb52a0be",
+    "harness/test_cohort_report.py": "d8ce72bef93ba1815d475eddf2f1d0cf890e614d41a0105b24796434261e5cde",
+    "harness/test_harness.py": "8963d361237e4e55d71072ce91a48b4a6647e22fe695414ccf313e31677bfce4",
+    "harness/test_image_annotation.py": "07fd124eb0eba8c59e9c0f07173f3eafcd48fe9e3237e0d3474ef0eeece72214",
+    "harness/test_supplemental.py": "613ac15ad6a2718668420c1f0267efba0d11886d43a477d86a80e94fa209bd4a",
+    "harness/validate.py": "3ac3f30ebc90605b9ca4e3c03e3ef419d265ca24bb0b9f3844b654fe3e17c60c",
+    "harness/validation_worker.py": "c7651c61919ab5f0bb1adae2a16ec5af525685a6eca5c602122a24e7ae03476e",
+    "observe/target/release/observe": "b3c84ddf5f2a4c6c78190982dca464510a029f78f9aff57dc56ca8b1904a4003",
+    "original/incr.sh": "2134db7ba6f3ca65af3fde5904ba24b4b4a6608e74eee35e41e7a27357422150",
+    "original/src/scripts/incrementize.py": "31d2ed1c4a647d70d453b5d4ecaef2af385bc8a1dda1fcbd41f21cb47a2d0264",
+    "original/src/scripts/insert.py": "3fbfc26f683b6f8238853af5305a63370e2b1052c2ec0a11af39c7b146e442ee",
+    "original/src/scripts/mod.rs": "8ffee2f168ef7edf4abd0b8845f56f45593bca6d969adafcd6849fa9fccc60cf",
+    "original/src/scripts/parse_trace.py": "9fe8911be85a55fc4faa3d1192c640ca63f9242b0358d4f4c42974e2547f860b",
+    "original/src/scripts/parse_trace.rs": "01192fd9903bb6165f5545ab8f09ea651dbaed3700c506aacba6cc8146bee75e",
+    "original/src/scripts/try.sh": "0076bbf655bab30f211490b77d3c2dad5b7d4e8455a267e094e7247cb5fab73c",
+    "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+  }
+}

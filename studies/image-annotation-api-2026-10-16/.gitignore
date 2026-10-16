@@ -1,0 +1,6 @@
+.work/
+__pycache__/
+results/
+console.log
+status.json
+client-packages.txt

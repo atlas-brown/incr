@@ -168,6 +168,9 @@ def prepare(name, profile, reserve):
         if name in ('web-search', 'weather-tufte'):
             from supplemental import prepare_inputs
             prepare_inputs(name, profile, inputs, reserve, provenance)
+        elif name == 'image-annotation':
+            from image_annotation import prepare_inputs
+            prepare_inputs(profile, inputs, reserve, provenance)
         elif profile == 'min':
             if name == 'file-mod':
                 songs = inputs / 'songs'

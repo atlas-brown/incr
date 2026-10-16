@@ -226,7 +226,10 @@ def fixture(name, data, build, profile):
     target.mkdir()
     shutil.copytree(build / 'benchmarks' / name, target / 'scripts')
     shutil.copytree(data / 'inputs', target / 'inputs')
-    (target / 'outputs/statistics').mkdir(parents=True)
+    if name == 'image-annotation':
+        (target / 'outputs').mkdir()
+    else:
+        (target / 'outputs/statistics').mkdir(parents=True)
     (target / 'tmp').mkdir()
     if name == 'bio':
         shutil.copy2(SOURCE / 'bio/Gene_locs.txt', target / 'Gene_locs.txt')
@@ -254,6 +257,11 @@ def environment(name, profile, fixture, build):
                OUT=str(fixture / 'outputs'), INCR_CACHE_DIR=str(SCRATCH / 'cache'),
                INCR_PYTHON=str(PYTHON), INCR_EFFECT_POLICY='final')
     inp = fixture / 'inputs'
+    if name == 'image-annotation':
+        env['IN'] = str(inp / 'images')
+        env['LLM_USER_PATH'] = os.environ['LLM_USER_PATH']
+        client = Path(os.environ['INCR_IMAGE_CLIENT_BIN']).resolve()
+        env['PATH'] = env['PATH'] + ':' + str(client)
     if name == 'file-mod': env['IN'] = str(inp / 'songs')
     if name == 'word-freq': env['INPUT'] = str(inp / 'text.txt')
     if name in ('nlp-ngrams', 'nlp-uppercase', 'poet', 'spell'):

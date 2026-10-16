@@ -1,0 +1,65 @@
+diff --git a/src/annotation/mod.rs b/src/annotation/mod.rs
+index dc6ef2f..54d5a15 100644
+--- a/src/annotation/mod.rs
++++ b/src/annotation/mod.rs
+@@ -19,6 +19,17 @@ pub(crate) fn skip_command(command: &Command, environment: &HashMap<String, Stri
+         || environment.contains_key(&format!("BASH_FUNC_{}%%", command.name))
+ }
+ 
++/// Salted encryption emits fresh random bytes. Streaming speculation must not
++/// concatenate a live ciphertext prefix with an older cached suffix.
++/// Keep this command native even when full tracing was requested.
++pub(crate) fn requires_fresh_execution(command: &Command) -> bool {
++    std::path::Path::new(&command.name).file_name() == Some(std::ffi::OsStr::new("openssl"))
++        && command
++            .arguments
++            .first()
++            .is_some_and(|argument| argument == "enc")
++}
++
+ pub(crate) fn check_pure(command: &Command) -> bool {
+     check_conditions(PURE_COMMANDS, command)
+ }
+diff --git a/src/execution/mod.rs b/src/execution/mod.rs
+index e50795b..fe39718 100644
+--- a/src/execution/mod.rs
++++ b/src/execution/mod.rs
+@@ -19,11 +19,11 @@ use crate::scripts;
+ /// Selects the trace type for a command based on annotations and introspection history.
+ /// Pure commands need no tracing; read-only/stateless or previously-introspected commands
+ /// use strace only; everything else gets a full sandbox.
+-pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command) -> TraceType {
+-    if annotation::check_pure(command) {
++pub(crate) fn get_trace_type(cache_directory: &Path, command: &Command, annotations: bool) -> TraceType {
++    if annotations && annotation::check_pure(command) {
+         return TraceType::Nothing;
+     }
+-    if annotation::check_stateless(command) || annotation::check_read_only(command) {
++    if annotations && (annotation::check_stateless(command) || annotation::check_read_only(command)) {
+         return TraceType::TraceFile;
+     }
+     if dependency::get_introspect_file(cache_directory, command.hash).exists() {
+diff --git a/src/main.rs b/src/main.rs
+index 0123432..8aa7ef9 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -70,7 +70,9 @@ fn run() -> Result<ExitCode> {
+         Some(input) => (input.config, input.command, input.environment),
+         None => return Ok(SUCCESS_CODE),
+     };
+-    if !config.full_tracing && annotation::skip_command(&command, &environment) {
++    if annotation::requires_fresh_execution(&command)
++        || (!config.full_tracing && annotation::skip_command(&command, &environment))
++    {
+         return Err(skip_executor::execute(&command));
+     }
+ 
+@@ -117,7 +119,7 @@ fn parse_input() -> Result<Option<Input>> {
+ 
+     let environment = env::vars().collect::<HashMap<_, _>>();
+     let command = command::create(arguments.command, &environment)?;
+-    let trace_type = execution::get_trace_type(&cache_directory, &command);
++    let trace_type = execution::get_trace_type(&cache_directory, &command, arguments.enable_annotations);
+     let config = Config {
+         try_command,
+         cache_directory,

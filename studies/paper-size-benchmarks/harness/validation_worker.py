@@ -21,6 +21,10 @@ def main():
               'normalized_stderr_sha256': stderr['sha256'], 'stderr_sample': stderr['sample'],
               'outputs': manifest(args.fixture, args.name),
               'problems': independent_checks(args.fixture, args.name, args.script, record, stderr)}
+    if args.name == 'image-annotation':
+        from image_annotation import comparison_payload
+        result['comparison_policy'] = 'image-content-preservation; generated titles are nondeterministic'
+        result['comparison_outputs'] = comparison_payload(result['outputs'])
     # Tracee writes outside outputs cannot be silently discarded. Immutable
     # input/source inventories are checked by the driver around each sequence.
     atomic_json(args.output, result)

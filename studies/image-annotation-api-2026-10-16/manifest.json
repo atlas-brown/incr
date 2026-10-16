@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "original_revision": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+  "benchmarks": [
+    {
+      "name": "image-annotation",
+      "scripts": [
+        "image-annotation-1.sh",
+        "image-annotation-2.sh",
+        "image-annotation-3.sh",
+        "image-annotation-4.sh",
+        "image-annotation-5.sh",
+        "image-annotation-6.sh",
+        "image-annotation-7.sh"
+      ],
+      "timeout_min": 600,
+      "timeout_paper": 1800
+    }
+  ],
+  "annotations": false,
+  "validation_policy": "image-content-preservation; nondeterministic generated filenames are not compared"
+}
