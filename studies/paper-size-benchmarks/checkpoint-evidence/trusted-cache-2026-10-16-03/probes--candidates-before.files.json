@@ -1,0 +1,14 @@
+{
+  "measurements.json": {
+    "kind": "file",
+    "bytes": 52864,
+    "sha256": "a639262ad2f3c01c58fb3903de355df4319e8e4d17939e4ec23acb8f13b8ee2a",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 49,
+    "sha256": "51f16185b440fa9f70c91cc92a44603f838b928d6030e7e5228ecd563e01de29",
+    "included": true
+  }
+}

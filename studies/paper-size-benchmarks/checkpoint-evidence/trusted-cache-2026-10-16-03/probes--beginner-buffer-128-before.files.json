@@ -1,0 +1,146 @@
+{
+  "bash-0.resources.json": {
+    "kind": "file",
+    "bytes": 106,
+    "sha256": "a376a5b41482ac7db156535fb622e31230eb0e06eb1ebb72b8e55652354b63d3",
+    "included": true
+  },
+  "bash-0.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "bash-0.stdout": {
+    "kind": "file",
+    "bytes": 310,
+    "sha256": "2b4b90359062409fc8695e5646af9e8f718ac6ccaa1fbd3c7a7c525f13092259",
+    "included": true
+  },
+  "measurements.json": {
+    "kind": "file",
+    "bytes": 1953,
+    "sha256": "8070e63fca79d22d32522ae89858c93fc759174cdd3470699688aa08916b7649",
+    "included": true
+  },
+  "observe-0.resources.json": {
+    "kind": "file",
+    "bytes": 106,
+    "sha256": "2048b8543a346cb24c5cc336f11da5c7da2aca16badc997307070282be04b027",
+    "included": true
+  },
+  "observe-0.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-0.stdout": {
+    "kind": "file",
+    "bytes": 310,
+    "sha256": "2b4b90359062409fc8695e5646af9e8f718ac6ccaa1fbd3c7a7c525f13092259",
+    "included": true
+  },
+  "observe-1.resources.json": {
+    "kind": "file",
+    "bytes": 106,
+    "sha256": "786b4399aca0ec43f1ea19c5f05c6f30ff67d66de82ed1ffaaf3ac185e21b252",
+    "included": true
+  },
+  "observe-1.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-1.stdout": {
+    "kind": "file",
+    "bytes": 310,
+    "sha256": "2b4b90359062409fc8695e5646af9e8f718ac6ccaa1fbd3c7a7c525f13092259",
+    "included": true
+  },
+  "observe-2.resources.json": {
+    "kind": "file",
+    "bytes": 106,
+    "sha256": "5796a0af106f8b6dd473b73a836315fa3d0cfa2a77df5f8c7c625ee139479eb9",
+    "included": true
+  },
+  "observe-2.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-2.stdout": {
+    "kind": "file",
+    "bytes": 310,
+    "sha256": "2b4b90359062409fc8695e5646af9e8f718ac6ccaa1fbd3c7a7c525f13092259",
+    "included": true
+  },
+  "original-0.resources.json": {
+    "kind": "file",
+    "bytes": 107,
+    "sha256": "694e4b7a676f4dc482472c3939292ab010583ca55f3ca521b3e44d5d72c87ae3",
+    "included": true
+  },
+  "original-0.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-0.stdout": {
+    "kind": "file",
+    "bytes": 310,
+    "sha256": "2b4b90359062409fc8695e5646af9e8f718ac6ccaa1fbd3c7a7c525f13092259",
+    "included": true
+  },
+  "original-1.resources.json": {
+    "kind": "file",
+    "bytes": 106,
+    "sha256": "11fdcb060abc21a72147b5d82e882410aad57daa11785628f1ace13bb4b86f36",
+    "included": true
+  },
+  "original-1.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-1.stdout": {
+    "kind": "file",
+    "bytes": 310,
+    "sha256": "2b4b90359062409fc8695e5646af9e8f718ac6ccaa1fbd3c7a7c525f13092259",
+    "included": true
+  },
+  "original-2.resources.json": {
+    "kind": "file",
+    "bytes": 106,
+    "sha256": "dab2a18dad1bb14e3fe0db92c71bccab52de2aa8fc7af594e59887ec2acd1068",
+    "included": true
+  },
+  "original-2.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-2.stdout": {
+    "kind": "file",
+    "bytes": 310,
+    "sha256": "2b4b90359062409fc8695e5646af9e8f718ac6ccaa1fbd3c7a7c525f13092259",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 9166,
+    "sha256": "40420b980ec1323419c7eaf21cfb3b45e209c2d9d2fc016008cc1e28896ef832",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 369,
+    "sha256": "845d979af42789663b0979f6221832303f34937e9441c49c47f1d37d53e7f7b6",
+    "included": true
+  }
+}

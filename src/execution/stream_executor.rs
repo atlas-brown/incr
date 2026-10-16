@@ -7,6 +7,7 @@ use std::process::{Child, ChildStdin};
 use std::sync::{
     Arc,
     atomic::{AtomicBool, Ordering},
+    mpsc,
 };
 use std::thread::{self, JoinHandle};
 use xxhash_rust::xxh3::Xxh3;
@@ -83,9 +84,7 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     } = ops::profile::measure("spawn", || command::spawn(config, command, &runtime))?;
 
     let child_stdin = child.stdin.take().unwrap();
-    let stdin_context = ops::profile::measure("stdin", || {
-        capture_stdin(child_stdin, &mut child, &config.cache_directory)
-    })?;
+    let stdin_context = ops::profile::measure("stdin", || capture_stdin(child_stdin, &mut child))?;
     let selected = candidates
         .into_iter()
         .find(|candidate| candidate.stdin_hash == stdin_context.hash);
@@ -135,7 +134,7 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
                 stdin_context.hash,
             );
             let status = ops::profile::measure("capture_save", || {
-                save_command_data(config, command, cache, &runtime, exit_code)
+                save_command_data(config, cache, &runtime, exit_code)
             })?;
             Ok(if outputs.broken_pipe {
                 BROKEN_PIPE_CODE
@@ -247,11 +246,7 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
     })
 }
 
-fn capture_stdin(
-    child_stdin: ChildStdin,
-    child: &mut Child,
-    directory: &std::path::Path,
-) -> Result<StdinContext> {
+fn capture_stdin(child_stdin: ChildStdin, child: &mut Child) -> Result<StdinContext> {
     let mut process_stdin = io::stdin().lock();
     if process_stdin.is_terminal() {
         return Ok(StdinContext {
@@ -261,12 +256,12 @@ fn capture_stdin(
         });
     }
 
-    let (sender, receiver) = ops::spool::create(directory);
+    let (sender, receiver) = mpsc::channel();
     let stdin_broken = Arc::new(AtomicBool::new(false));
     let stdin_thread = thread::spawn({
         let stdin_broken = Arc::clone(&stdin_broken);
         move || {
-            let result = receiver.forward(child_stdin)?;
+            let result = ops::stream::forward_input(receiver, child_stdin)?;
             if result == TransferOutcome::BrokenPipe {
                 stdin_broken.store(true, Ordering::Release);
             }
@@ -308,7 +303,7 @@ fn capture_stdin(
             Err(error) if error.kind() == ErrorKind::Interrupted => continue,
             Err(error) => return Err(error.into()),
         };
-        if !sender.send(&chunk[..count])? {
+        if sender.send(chunk[..count].to_vec()).is_err() {
             stdin_broken.store(true, Ordering::Release);
             break;
         }
@@ -390,14 +385,12 @@ fn load_cache_data(
 
 fn save_command_data(
     config: &Config,
-    command: &Command,
     cache: CacheCursor<'_>,
     runtime: &Runtime,
     exit_code: ExitCode,
 ) -> Result<ExitCode> {
     let cache_data = execution::record::capture(config, &cache, runtime, exit_code.0)?;
     cache.save_data(&cache_data)?;
-    dependency::save_introspection(config, command, &cache_data)?;
 
     Ok(exit_code)
 }

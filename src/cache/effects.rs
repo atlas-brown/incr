@@ -11,7 +11,7 @@ use std::path::{Path, PathBuf};
 use crate::ops::permissions::{TemporaryPermissions, remove_tree};
 
 const MANIFEST: &str = "effects.json";
-const MANIFEST_VERSION: u32 = 4;
+const MANIFEST_VERSION: u32 = 5;
 
 #[derive(Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
@@ -26,7 +26,6 @@ enum Effect {
     File {
         source: String,
         mode: u32,
-        hash: u64,
         replace: bool,
         modified_sec: i64,
         modified_nsec: i64,
@@ -86,7 +85,6 @@ pub(crate) fn capture(
                     fs::copy(path, directory.join(&source))?;
                     inodes.insert(inode, path.clone());
                     Effect::File {
-                        hash: crate::ops::data::hash_stream(&mut fs::File::open(directory.join(&source))?)?,
                         source,
                         mode: metadata.mode(),
                         replace: replaced_paths.contains(path),
@@ -125,7 +123,6 @@ fn load_validated(directory: &Path) -> Result<Manifest> {
         }
         if let Effect::File {
             source,
-            hash,
             modified_nsec,
             ..
         } = &entry.effect
@@ -140,10 +137,8 @@ fn load_validated(directory: &Path) -> Result<Manifest> {
                 bail!("invalid cached file name");
             }
             let source = directory.join(source);
-            if !fs::symlink_metadata(&source)?.is_file()
-                || crate::ops::data::hash_stream(&mut fs::File::open(source)?)? != *hash
-            {
-                bail!("cached output content is incomplete or corrupt");
+            if !fs::symlink_metadata(&source)?.is_file() {
+                bail!("cached output payload is not a regular file");
             }
         }
         match &entry.effect {
@@ -167,7 +162,8 @@ pub(crate) fn valid(directory: &Path) -> bool {
 }
 
 pub(crate) fn replay(directory: &Path) -> Result<()> {
-    // Validate every payload before applying even the first deletion.
+    // Validate manifest structure and payload presence before applying deletions.
+    // Payload bytes belong to the trusted private cache, as do cached streams.
     let manifest = load_validated(directory)?;
     let managed_paths: HashSet<_> = manifest
         .entries

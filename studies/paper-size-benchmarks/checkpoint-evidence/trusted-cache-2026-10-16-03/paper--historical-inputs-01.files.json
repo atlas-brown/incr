@@ -1,0 +1,92 @@
+{
+  "beginner.json": {
+    "kind": "file",
+    "bytes": 816,
+    "sha256": "6af2734d0a219a7ed8614ece15ff49b5495043ed71a5cb1dffb95b180468cc59",
+    "included": true
+  },
+  "bio.json": {
+    "kind": "file",
+    "bytes": 1458,
+    "sha256": "bec8daddbcc139b3e929d4c5a837a5aff8671e0f90d8e8f0f0c308d84a5589be",
+    "included": true
+  },
+  "configuration.json": {
+    "kind": "file",
+    "bytes": 1027,
+    "sha256": "04da2f03922c5dcf97de1a5d75a46af7e898fa64de104ffb4c037667fd1db8a8",
+    "included": true
+  },
+  "covid.json": {
+    "kind": "file",
+    "bytes": 486,
+    "sha256": "6379b3803b165fd70d349ae0058c4884a4cd41d554c3077b8e004cfed79b0cc6",
+    "included": true
+  },
+  "dpt.json": {
+    "kind": "file",
+    "bytes": 1353,
+    "sha256": "772a6afcf5bb61374652b70aef24858ff0f3e99d64717fdb9f385d6f907088a2",
+    "included": true
+  },
+  "file-mod.json": {
+    "kind": "file",
+    "bytes": 4441,
+    "sha256": "fe7a5af8739db5365e30ad477c0805adfb628509fd12928d1653ff1056216a4f",
+    "included": true
+  },
+  "nginx-analysis.json": {
+    "kind": "file",
+    "bytes": 820,
+    "sha256": "d4e72abc7d37587d6788f127c9eb73884289506d50ec3eb72b0e21cf7779573e",
+    "included": true
+  },
+  "nlp-ngrams.json": {
+    "kind": "file",
+    "bytes": 11047,
+    "sha256": "30f2e2854fb65865793b0d385f648a1b678a79b5e9d7ab799b3cf9107d4a408c",
+    "included": true
+  },
+  "nlp-uppercase.json": {
+    "kind": "file",
+    "bytes": 20953,
+    "sha256": "f0faab5c051034b36026ab36c54134344960519d3d3ab8a6a005a2ccdfec07e2",
+    "included": true
+  },
+  "poet.json": {
+    "kind": "file",
+    "bytes": 124454,
+    "sha256": "7a59e683743eb8c1196f91e79d1d927ac6d7e4a6aa9b2be1ddf787707651731f",
+    "included": true
+  },
+  "spell.json": {
+    "kind": "file",
+    "bytes": 305199,
+    "sha256": "d771c0989540d70afebb69e6be6aab66af6eb6657fd445dd1d16a5346e4a9c5f",
+    "included": true
+  },
+  "status.json": {
+    "kind": "file",
+    "bytes": 75,
+    "sha256": "cce09af7bee035c468ee2448fdcbbb81a36369050d05135f2edb4cbf2f3308d4",
+    "included": true
+  },
+  "unixfun.json": {
+    "kind": "file",
+    "bytes": 489,
+    "sha256": "5fdd720ecc009a018039c10c540585bc3b72cd23e7fab5168c83fba9fbf9920e",
+    "included": true
+  },
+  "weather.json": {
+    "kind": "file",
+    "bytes": 530,
+    "sha256": "ef5027b14aa6589b9d0c46640beef8cb453f16e79ff88e759a4b85223e44ca20",
+    "included": true
+  },
+  "word-freq.json": {
+    "kind": "file",
+    "bytes": 505,
+    "sha256": "556cbcba3d70ca3fb624a02512afbb46aca3b81e51b6840cb84da27f1630a690",
+    "included": true
+  }
+}

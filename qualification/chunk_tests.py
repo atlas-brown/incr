@@ -52,7 +52,7 @@ class ChunkTests(unittest.TestCase):
             expected = b'\n'.join(line[::-1] for line in payload.split(b'\n'))
         self.assertEqual(result['stdout_sha256'], hashlib.sha256(expected).hexdigest())
 
-    def check_reuse_and_corruption(self, arguments, compressed, payload=None, assume_text=False):
+    def check_reuse_and_missing_stream(self, arguments, compressed, payload=None, assume_text=False):
         self.invoke(arguments, compressed, payload, assume_text)
         before = {path: path.stat().st_mtime_ns for path in self.cache.glob('batch_*/data.incr')}
         self.assertGreaterEqual(len(before), 2, 'input did not exercise multiple chunks')
@@ -60,25 +60,25 @@ class ChunkTests(unittest.TestCase):
         self.assertEqual(before, {path: path.stat().st_mtime_ns
                                   for path in self.cache.glob('batch_*/data.incr')})
         damaged = next(iter(before))
-        (damaged.parent / 'stdout.incr').write_bytes(b'corrupt cache')
+        (damaged.parent / 'stdout.incr').unlink()
         self.invoke(arguments, compressed, payload, assume_text)
         self.assertNotEqual(before[damaged], damaged.stat().st_mtime_ns)
 
     def test_cat(self):
-        self.check_reuse_and_corruption(['cat'], False)
+        self.check_reuse_and_missing_stream(['cat'], False)
 
     def test_compressed_cat(self):
-        self.check_reuse_and_corruption(['cat'], True)
+        self.check_reuse_and_missing_stream(['cat'], True)
 
     def test_translation(self):
-        self.check_reuse_and_corruption(['tr', 'a', 'b'], False)
+        self.check_reuse_and_missing_stream(['tr', 'a', 'b'], False)
 
     def test_compressed_translation(self):
-        self.check_reuse_and_corruption(['tr', 'a', 'b'], True)
+        self.check_reuse_and_missing_stream(['tr', 'a', 'b'], True)
 
     def test_text_line_reversal(self):
         table = bytes(10 if byte == 10 else 32 + byte % 95 for byte in range(256))
-        self.check_reuse_and_corruption(['rev'], True, self.payload.translate(table), True)
+        self.check_reuse_and_missing_stream(['rev'], True, self.payload.translate(table), True)
 
     def test_invalid_text_without_assumption(self):
         environment = dict(os.environ, LC_ALL='C', PWD=str(self.work))

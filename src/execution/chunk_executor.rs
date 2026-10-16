@@ -161,8 +161,7 @@ fn process_chunk(
         Some(signal) => command::spawn_with_signal(config, command, runtime, signal)?,
         None => command::spawn(config, command, runtime)?,
     };
-    let (input_hash, input_thread) =
-        forward_stdin(input, child.stdin.take().unwrap(), &config.cache_directory)?;
+    let (input_hash, input_thread) = forward_stdin(input, child.stdin.take().unwrap())?;
     let cache = CacheCursor::from_hash(config, command, input_hash)?;
     let cached = cache
         .load_data()?
@@ -198,14 +197,13 @@ fn process_chunk(
 fn forward_stdin(
     input: Receiver<Vec<u8>>,
     child_stdin: ChildStdin,
-    directory: &std::path::Path,
 ) -> Result<(u64, JoinHandle<Result<crate::ops::stream::TransferOutcome>>)> {
-    let (sender, receiver) = ops::spool::create(directory);
-    let worker = thread::spawn(|| receiver.forward(child_stdin));
+    let (sender, receiver) = mpsc::channel();
+    let worker = thread::spawn(|| ops::stream::forward_input(receiver, child_stdin));
     let mut hasher = Xxh3::new();
     for bytes in input {
         hasher.update(&bytes);
-        if !sender.send(&bytes)? {
+        if sender.send(bytes).is_err() {
             break;
         }
     }
@@ -238,7 +236,6 @@ mod tests {
                 compress_output: true,
                 full_tracing: false,
                 enable_annotations: true,
-                skip_introspection: true,
             };
             let environment =
                 std::collections::HashMap::from([("PATH".to_owned(), "/usr/bin:/bin".to_owned())]);

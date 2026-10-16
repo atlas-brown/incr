@@ -1,0 +1,212 @@
+{
+  "beginner-proof.json": {
+    "kind": "file",
+    "bytes": 329,
+    "sha256": "5366eacfd00f2758ba46508412d99840d5a15df7aa4e4d5a40504abec2986f18",
+    "included": true
+  },
+  "binaries.json": {
+    "kind": "file",
+    "bytes": 162,
+    "sha256": "f8135025796072fab470a5ec4e63a8f6c72e2e91f00e9f5e27ffe15068d12225",
+    "included": true
+  },
+  "chunk_tests/chunk-tests.json": {
+    "kind": "file",
+    "bytes": 15120,
+    "sha256": "9899089bf44df7a92b8154c01aef9a340f88b053db7e33537170d6b5f1252f8f",
+    "included": true
+  },
+  "chunk_tests.log": {
+    "kind": "file",
+    "bytes": 108,
+    "sha256": "8fb392d3df916c6d80c8209d56a1ccb4fa8c74e903e006684bb54dfc4a39488c",
+    "included": true
+  },
+  "commands.json": {
+    "kind": "file",
+    "bytes": 7452,
+    "sha256": "8def1cfb11eefc171b18a36186ea3f3ecb952da343f664e749d4f639c1b6121b",
+    "included": true
+  },
+  "defaults-gate.json": {
+    "kind": "file",
+    "bytes": 1001,
+    "sha256": "52be466a0c017c3937edf4c6ac6611c295d428504273e639045e528842fad10b",
+    "included": true
+  },
+  "full-bash-gate.json": {
+    "kind": "file",
+    "bytes": 1789,
+    "sha256": "b7ff7d0d7446223cc8f9e11e778b7f5ddd5a5f1b674ba9d94e1b77f87e46a9cf",
+    "included": true
+  },
+  "harness.log": {
+    "kind": "file",
+    "bytes": 811,
+    "sha256": "c9077252fc2fc41731427b7e1b9c648166c65f7fdaa1ba6d026aa375b82ddcb4",
+    "included": true
+  },
+  "incr-build.log": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "incr-clippy.log": {
+    "kind": "file",
+    "bytes": 123,
+    "sha256": "eda7b0ae006311a2ac8fa82fdbb7fe127d2c4b2d1877c8986ee1b35bbd571be5",
+    "included": true
+  },
+  "incr-foreign-owner.log": {
+    "kind": "file",
+    "bytes": 114,
+    "sha256": "40f8e4bd3720f4a293a9aca2e8327038354eb6bcbfdecdcdfdf31632efe9db01",
+    "included": true
+  },
+  "incr-format.log": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "incr-integration.log": {
+    "kind": "file",
+    "bytes": 1191,
+    "sha256": "e88c807d7662106c34e8f098a049ef572bc51300f909b41cadbf62bbee72ca7e",
+    "included": true
+  },
+  "incr-units.log": {
+    "kind": "file",
+    "bytes": 155,
+    "sha256": "940241510af188e56c5347638898062b73f5981ef8ff9a3e0e54f712bdc53011",
+    "included": true
+  },
+  "incr.patch": {
+    "kind": "file",
+    "bytes": 55840,
+    "sha256": "52b9569fae1b40a2905d96b2cd969acd0196757e65707b22203bd3f88aac4c1b",
+    "included": true
+  },
+  "inherited_fd_tests.log": {
+    "kind": "file",
+    "bytes": 104,
+    "sha256": "edbce86efcccbacb8e9fcbc575d1a390dbc0c4ba21d4e9dfbc63ee83acbc064f",
+    "included": true
+  },
+  "memory-queue-defaults-full-01.log": {
+    "kind": "file",
+    "bytes": 39417,
+    "sha256": "e66abcf8a7fde95c7247afcf02192a5937264949e9d77b2d176594c6a30c2f1a",
+    "included": true
+  },
+  "memory-queue-min-all-01.log": {
+    "kind": "file",
+    "bytes": 25655,
+    "sha256": "e17999dd9cf20f33b153d5d7380e517349c211141a8a6f070d018048fe76a5f8",
+    "included": true
+  },
+  "memory-queue-supplemental-min-01.log": {
+    "kind": "file",
+    "bytes": 1522,
+    "sha256": "70cfb5fd38b968512b1677c4f23cab94d5b49deeef50c6cf9be96d0f276b212c",
+    "included": true
+  },
+  "memory-queue-system-bash-full-01.log": {
+    "kind": "file",
+    "bytes": 38933,
+    "sha256": "8027273d789b540c32204b1188ed7e5c011c009ac5ce85eae7992bc3b31bd57c",
+    "included": true
+  },
+  "native_transform_tests.log": {
+    "kind": "file",
+    "bytes": 107,
+    "sha256": "e228813ed6d963dfe2fb515492e09fd721cda806ae19185f38b5fb9829078714",
+    "included": true
+  },
+  "observe-build.log": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-clippy.log": {
+    "kind": "file",
+    "bytes": 72,
+    "sha256": "22e0df986057b9ba5be07526ac5fb348862a3dedef42108383cc3e088acbb889",
+    "included": true
+  },
+  "observe-format.log": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-integration.log": {
+    "kind": "file",
+    "bytes": 1447,
+    "sha256": "bed1554ea76f0492c1e97d41388e88b5f0286cc8e9665f64faf16e18d9e7c9db",
+    "included": true
+  },
+  "observe-units.log": {
+    "kind": "file",
+    "bytes": 121,
+    "sha256": "804aee163401cd45e77ae8d472a9f50365d537aa431713bcf02a901cff7a7939",
+    "included": true
+  },
+  "observe.patch": {
+    "kind": "file",
+    "bytes": 2847,
+    "sha256": "563080fa18263070319fe2939036b9c2af992cf93eb797572ba1b58ba0ed3b24",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 353,
+    "sha256": "91e001910dae94a4351ffedf2c132e434d64270c2232b22d66b26778e2385821",
+    "included": true
+  },
+  "regressions-final.log": {
+    "kind": "file",
+    "bytes": 173,
+    "sha256": "0516845d8710cfd185b4b4b23bbbf4dcd7bc0e46895a9dc84636fc20f9a56dcc",
+    "included": true
+  },
+  "regressions-live.log": {
+    "kind": "file",
+    "bytes": 185,
+    "sha256": "f57e0cc352656b6bd6f3bf01d9592abae7fd276017b6bed7f14e8c89ddaa631e",
+    "included": true
+  },
+  "shell_ast_tests/shell-ast-tests.json": {
+    "kind": "file",
+    "bytes": 46299,
+    "sha256": "52692a339640d93aefe6fe8805c71d9e84683008f320aeffef46598a903fb367",
+    "included": true
+  },
+  "shell_ast_tests.log": {
+    "kind": "file",
+    "bytes": 110,
+    "sha256": "5a550b46a0a3a60d9726dfad2c09073b1bd7a5e3b67054edb3c2fa57140b2c34",
+    "included": true
+  },
+  "source-fingerprints.json": {
+    "kind": "file",
+    "bytes": 7433,
+    "sha256": "27aaac614905e5b78fb15389121e248800f60a3ec87fc08350d0741dc441c51a",
+    "included": true
+  },
+  "status.json": {
+    "kind": "file",
+    "bytes": 107,
+    "sha256": "bb7211ac2c6d11eb6ae7f15559df2a7bb702ffdeb0502c0c5b8b225fad6fb891",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 129,
+    "sha256": "1f97945e27b03c08ebbd5eddaf45de0312fbca6f089db7c92928ab526050342d",
+    "included": true
+  }
+}

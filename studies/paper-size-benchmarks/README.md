@@ -15,33 +15,31 @@ paper size descriptions. `paper` is the CLI name for this historical-size profil
 
 ## Current checkpoint status
 
-The final cache-31 / Observe-protocol-11 implementation is qualified for the
-selected unannotated comparison. Both full Bash suites pass cold/warm: 82 groups
-with benchmark options and 83 with defaults, plus live/final regressions. Strict
-Clippy in both repos, Rust tests, 424 tracer assertions, 11 AST tests and eight
-native-frontend tests pass. Command algorithms remain unchanged.
+The current unannotated implementation uses cache format 34 and effect manifest
+5. It trusts private cache payloads, retains application dependency validation,
+and buffers speculative stdin in memory as original Incr does. This removes
+redundant payload checksum reads and large temporary stdin writes. The memory
+queue assumes sufficient RAM; ordered speculative output still spills after
+64 MiB. No command-specific algorithm replacements were introduced.
 
-Final-binary diagnostics validate 246/246 non-DPT minimum invocations, 42/42
-larger-input invocations, six real-model archive invocations, and 30/30 supplemental
-minimum invocations. At about 128 MiB, observed original/Observe sequence ratios
-are 1.10–2.07x and Bash/Observe ratios 1.88–3.36x. These final-binary checks are
-single verification samples; earlier 8/32/128 MiB diagnostics have two paired
-repetitions on the pre-style binaries and are reported separately. Supplemental
-minimum web-search and Tufte remain slower than Bash. No full-size performance
-claim follows from these diagnostics.
+Fresh qualification on these binaries passed both full Bash suites cold/warm:
+83 groups with defaults and 82 with benchmark options, including their regression
+policies and scratch cleanup. All 276 historical minimum checks and 15 supplemental
+minimum checks passed. Both repositories passed format, strict Clippy, build and
+component checks; Observe integration passed 435 assertions across 41 files.
 
-See [FINAL_UNANNOTATED_CHECKPOINT.json](FINAL_UNANNOTATED_CHECKPOINT.json) for
-counts, binary hashes and result scopes, [portable evidence](checkpoint-evidence/manifest.json)
-for raw records, and [the full protocol](EVALUATION_PROTOCOL.json) for methodology.
-Each evidence archive can be unpacked with `tar -xzf <bundle> -C <empty-directory>`;
-its manifest records both archive and content-tree hashes. The retained failed
-native printf clock-boundary trial and complete clean rerun are documented in
-the [Bash report](../bash-parity-audit-2026-10-08/REPORT.md).
+The final targeted run, `memory-queue-targeted-paper-01`, completed all 216 checks across three paired beginner/DPT repetitions. Whole-sequence medians (Bash / original / Observe) are 197.455 / 76.038 / 75.311 seconds for beginner and 5332.129 / 1204.950 / 1187.345 for DPT. Beginner is near parity with original; its material regression is resolved.
 
-Implementation parents `5dd1fc3` / `a72d5eb` were pushed. The final evidence
-checkpoint is prepared for publication; fresh full evaluations remain pending.
-[ACTIVE_GOAL_HANDOFF.md](ACTIVE_GOAL_HANDOFF.md) tracks the execution state.
-Archived historical-size attempts below do not establish current performance.
+[RESULTS.md](RESULTS.md) contains both whole and edited medians, assumptions, resource summaries and separate historical results. [CHECKPOINT.json](CHECKPOINT.json) pins complete qualification and portable evidence. The fresh [reproduction study](../observe-reproduction/README.md) prepares and launches only after both clean checkpoint pushes; inspect its generated controller state for actual live progress.
+
+Earlier published evidence is retained separately. The
+[preliminary full-size report](checkpoint-evidence/preliminary-final-paper-01/report.json)
+covers 12 completed historical families on older binaries, plus an incomplete
+DPT attempt. [FINAL_UNANNOTATED_CHECKPOINT.json](FINAL_UNANNOTATED_CHECKPOINT.json)
+and the [earlier portable evidence](checkpoint-evidence/manifest.json) describe
+older qualification checkpoints. They are not validation of the current code,
+and their timings must not be pooled with the current targeted rerun. The
+[protocol](EVALUATION_PROTOCOL.json) defines the comparison assumptions.
 
 ## Modular workflow
 

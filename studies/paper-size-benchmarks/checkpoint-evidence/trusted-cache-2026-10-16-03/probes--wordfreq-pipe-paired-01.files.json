@@ -1,0 +1,62 @@
+{
+  "measurements.json": {
+    "kind": "file",
+    "bytes": 40752,
+    "sha256": "6a585a8819f652779dc9200a1932ee82c2d30eaa4d06a7c8e7308fe2104b73e3",
+    "included": true
+  },
+  "provenance-check.json": {
+    "kind": "file",
+    "bytes": 66,
+    "sha256": "b92a017b071f47c6d0cd84a88f072be816c3087970dda20b1e6c75c2361b0f92",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 11668,
+    "sha256": "9b735a207e4f411373d7fe3a87e7785a708d9a7f0a2e35ba222a9dd80118efdd",
+    "included": true
+  },
+  "reference-binary.json": {
+    "kind": "file",
+    "bytes": 184,
+    "sha256": "59df5d1b4b9b15b536ac59362a2f398936e6868b4480f710ac39b0c5c0e85def",
+    "included": true
+  },
+  "reference-incr": {
+    "kind": "file",
+    "bytes": 3451368,
+    "sha256": "5e083e75ffd58cb0f0e0506bd35f3576e501f58ab0956d86ebb23f7851f00815",
+    "included": true
+  },
+  "source-0-new/src/ops/profile.rs": {
+    "kind": "file",
+    "bytes": 2186,
+    "sha256": "754dff75227328efd67d175a820927e3a16d78580b751f25f500032080e93d49",
+    "included": true
+  },
+  "source-0.patch": {
+    "kind": "file",
+    "bytes": 29898,
+    "sha256": "246dd0f95efcb6bdb4cbfa163afe47618f8afab9afd328205bc177aae74cdddb",
+    "included": true
+  },
+  "source-1.patch": {
+    "kind": "file",
+    "bytes": 6846,
+    "sha256": "d64d068d4fb5931f0a4f389125804ef77fcfa42d696a5e804125f2e649bdeb7e",
+    "included": true
+  },
+  "source-2.patch": {
+    "kind": "file",
+    "bytes": 1516,
+    "sha256": "829c5c06e43c099a7fa961c49cbecaae1c13ef0c7b77336b78efb422049334a3",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 91,
+    "sha256": "a7f0f2bac4b1295dc85514013a58e29d20a34dec78f22df9dd0a08b6a5c7e4c4",
+    "included": true
+  }
+}

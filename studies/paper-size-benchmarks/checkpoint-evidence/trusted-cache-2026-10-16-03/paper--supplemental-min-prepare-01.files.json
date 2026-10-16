@@ -1,0 +1,26 @@
+{
+  "configuration.json": {
+    "kind": "file",
+    "bytes": 1327,
+    "sha256": "7ca350d09393dfe4aae3f05349272d110ae1ea1054a0085fba9727de83f9ac76",
+    "included": true
+  },
+  "status.json": {
+    "kind": "file",
+    "bytes": 75,
+    "sha256": "9a8d43b57dcabe5495b65b8868d9097e5f9b6dd3085fc6008992ef36fec1c495",
+    "included": true
+  },
+  "weather-tufte.json": {
+    "kind": "file",
+    "bytes": 807,
+    "sha256": "78113dfb720a68f1d42d249061fd1d3884736bec889ec34e88df1efb1a0321a8",
+    "included": true
+  },
+  "web-search.json": {
+    "kind": "file",
+    "bytes": 1144,
+    "sha256": "422d254b203bed2cc3e3f4581cf386e3fc010ace30aa57c5423fbfef9edf3428",
+    "included": true
+  }
+}

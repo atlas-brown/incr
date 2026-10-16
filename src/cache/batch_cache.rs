@@ -1,6 +1,6 @@
 use anyhow::Result;
-use bincode::{Decode, Encode};
-use serde::{Deserialize, Serialize};
+use bincode::Encode;
+use serde::Serialize;
 use std::collections::{BTreeMap, HashSet};
 use std::fs;
 use std::os::fd::AsRawFd;
@@ -73,7 +73,7 @@ impl<'c> CacheCursor<'c> {
         debug_info: CacheInfo<'c>,
     ) -> Result<Self> {
         let key_data = ops::data::encode_to_bytes(&CacheKey {
-            version: 33,
+            version: 34,
             track_temporaries: config.track_temporaries,
             assume_directory_access: config.assume_directory_access,
             content_validated_inputs: config.content_validated_inputs,
@@ -159,7 +159,9 @@ impl<'c> CacheCursor<'c> {
     }
 
     pub(crate) fn data_outputs_exist(&self) -> bool {
-        self.get_stdout_file().is_file() && self.get_stderr_file().is_file()
+        [self.get_stdout_file(), self.get_stderr_file()]
+            .iter()
+            .all(|path| fs::symlink_metadata(path).is_ok_and(|metadata| metadata.is_file()))
     }
 
     pub(crate) fn file_outputs_exist(&self) -> bool {
@@ -253,43 +255,15 @@ impl<'c> CacheCursor<'c> {
     }
 
     pub(crate) fn load_data(&self) -> Result<Option<CacheData>> {
-        let Some(entry): Option<CachedEntry> =
-            ops::data::decode_from_file(&self.directory, DATA_FILE.to_owned())?
-        else {
+        let data = ops::data::decode_from_file(&self.directory, DATA_FILE.to_owned())?;
+        if data.is_none() {
             ops::profile::event(|| {
                 serde_json::json!({
                     "kind": "entry_missing", "directory": self.directory,
                 })
             });
-            return Ok(None);
-        };
-        if self.output_hashes().ok() != Some(entry.output_hashes) {
-            ops::profile::event(|| {
-                serde_json::json!({
-                    "kind": "stream_integrity_miss", "directory": self.directory,
-                })
-            });
-            return Ok(None);
         }
-        Ok(Some(entry.data))
-    }
-
-    fn output_hashes(&self) -> Result<[u64; 2]> {
-        ops::profile::measure("output_hashes", || self.hash_output_files())
-    }
-
-    fn hash_output_files(&self) -> Result<[u64; 2]> {
-        let mut hashes = [0; 2];
-        for (hash, path) in hashes
-            .iter_mut()
-            .zip([self.get_stdout_file(), self.get_stderr_file()])
-        {
-            if !fs::symlink_metadata(&path)?.is_file() {
-                anyhow::bail!("cached stream is not a regular file");
-            }
-            *hash = ops::data::hash_stream(&mut fs::File::open(path)?)?;
-        }
-        Ok(hashes)
+        Ok(data)
     }
 
     pub(crate) fn save_data(&self, data: &CacheData) -> Result<()> {
@@ -306,11 +280,10 @@ impl<'c> CacheCursor<'c> {
             }
             return Ok(());
         }
-        let entry = CachedEntry {
-            data: data.clone(),
-            output_hashes: self.output_hashes()?,
-        };
-        ops::data::encode_to_file(&entry, &self.directory, DATA_FILE.to_owned())?;
+        // As in original Incr, private cache payloads are trusted. Dependency
+        // checks validate application inputs; replay does not reread cached
+        // stdout/stderr solely to verify their checksums.
+        ops::data::encode_to_file(data, &self.directory, DATA_FILE.to_owned())?;
         if self._lease.transient.is_none()
             && data.replay_barriers.is_empty()
             && let Some(directory) = &self.candidate_directory
@@ -319,14 +292,6 @@ impl<'c> CacheCursor<'c> {
         }
         Ok(())
     }
-}
-
-// Hash the stored representation (including compression), before replay emits
-// bytes or filesystem effects. Missing/truncated/corrupt streams are cache misses.
-#[derive(Decode, Deserialize, Encode, Serialize)]
-struct CachedEntry {
-    data: CacheData,
-    output_hashes: [u64; 2],
 }
 
 #[derive(Clone, Debug, Serialize)]

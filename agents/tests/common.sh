@@ -10,8 +10,10 @@ TRY="./src/scripts/try.sh"
 OBSERVE="../observe/target/release/observe"
 CACHE="/tmp/incr_test_cache_$$"
 TESTDIR="/tmp/incr_test_dir_$$"
-# Keep the historical outside-/tmp fixture as additional path coverage.
-# Observe dependency mode now tracks /tmp inputs as well.
+# These cases intentionally use /tmp for persistent inputs and outputs.
+# Opt into tracking them; the default scratch-path policy is tested separately.
+export INCR_TRACK_TEMPORARIES=true
+# Keep the outside-/tmp fixture as additional path coverage.
 TESTDIR_OBS="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/incr_test_obs_$$"
 
 mkdir -p "$TESTDIR" "$TESTDIR_OBS"

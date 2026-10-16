@@ -1,0 +1,32 @@
+{
+  "components.json": {
+    "kind": "file",
+    "bytes": 1004,
+    "sha256": "c73214a570f18b96a4a935a32304c3dca16d4f0237cfeca8721886aaa684cbf0",
+    "included": true
+  },
+  "content-batch-final.log": {
+    "kind": "file",
+    "bytes": 98,
+    "sha256": "869b59646dd3beb09cd1c2da0a1f4aba3f2a0f79eac0a95d5e387dff0c545c48",
+    "included": true
+  },
+  "incr-rust.log": {
+    "kind": "file",
+    "bytes": 3592,
+    "sha256": "b4f3e1b146e014a5ff8664816e2169434619a44dcab11216a687c4973d2642e3",
+    "included": true
+  },
+  "observe-integration.log": {
+    "kind": "file",
+    "bytes": 1401,
+    "sha256": "cebab213330ca1da7a04f43f72ef21ba606bdbbea58678f6087bc8d9c6c0d505",
+    "included": true
+  },
+  "observe-units.log": {
+    "kind": "file",
+    "bytes": 899,
+    "sha256": "8e91a159a7d985addd4441187d506b50f96ce08296ad87fee630a8f25a53c9f1",
+    "included": true
+  }
+}

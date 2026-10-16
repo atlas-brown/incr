@@ -1,0 +1,38 @@
+{
+  "measurements.json": {
+    "kind": "file",
+    "bytes": 21268,
+    "sha256": "8eda808a4bb2f7fd1650188056fccfdc3f3d4d0deeb0d2823c430ee4f26acd52",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 1297,
+    "sha256": "2836cf60f49d1bfff70348d93f01f66544d3f76f17ab6c1c979970e4e2d5d28c",
+    "included": true
+  },
+  "source-0.patch": {
+    "kind": "file",
+    "bytes": 26147,
+    "sha256": "cd616e0eda5f3233f3727bf654979f81bacf672331e93d986ccdd960253aa273",
+    "included": true
+  },
+  "source-1.patch": {
+    "kind": "file",
+    "bytes": 6846,
+    "sha256": "d64d068d4fb5931f0a4f389125804ef77fcfa42d696a5e804125f2e649bdeb7e",
+    "included": true
+  },
+  "source-2.patch": {
+    "kind": "file",
+    "bytes": 1516,
+    "sha256": "829c5c06e43c099a7fa961c49cbecaae1c13ef0c7b77336b78efb422049334a3",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 91,
+    "sha256": "b8ec4f03b5e0451819c69c6502253ecce5dcae5f7736c56c2e0cb564358b1471",
+    "included": true
+  }
+}

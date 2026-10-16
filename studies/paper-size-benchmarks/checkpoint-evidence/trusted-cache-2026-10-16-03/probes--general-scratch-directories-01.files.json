@@ -1,0 +1,68 @@
+{
+  "measurements.json": {
+    "kind": "file",
+    "bytes": 7752,
+    "sha256": "a1abf2e25dfebe51c11ae526d46076dfdcff5963dbdc305f5a1598be175209fd",
+    "included": true
+  },
+  "provenance-check.json": {
+    "kind": "file",
+    "bytes": 66,
+    "sha256": "4738c65e84f5aff1207d4fa1f811daed365a60d1a51bd984890ea8faac7839a7",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 12566,
+    "sha256": "7bb29a470291e8e2fa56b67f60863600afa2996469839c4dd28a174b177c5615",
+    "included": true
+  },
+  "source-0.patch": {
+    "kind": "file",
+    "bytes": 9565,
+    "sha256": "652bc4ddf47f12efeebce316f1c565f00432dbc75554e03908e8fa3e0c374f6f",
+    "included": true
+  },
+  "source-1.patch": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "source-2.patch": {
+    "kind": "file",
+    "bytes": 1516,
+    "sha256": "829c5c06e43c099a7fa961c49cbecaae1c13ef0c7b77336b78efb422049334a3",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 69,
+    "sha256": "762c984f8ee3eec2f21e8cd0282f4761cbe95b2c63a9e305583b4973f0015f6d",
+    "included": true
+  },
+  "write-file-observe-cold-cache.json": {
+    "kind": "file",
+    "bytes": 8800,
+    "sha256": "64e993b7dd9cd9d7fcb4a45a15c988bdeaa6d7a8024bce8cf9a3ef9a17158836",
+    "included": true
+  },
+  "write-file-observe-cold-profiles/1522589-20672822.json": {
+    "kind": "file",
+    "bytes": 1269,
+    "sha256": "ba914da1c357146abbf4561b5badd98737d076cd71c5354a66e20b677aa8a2bf",
+    "included": true
+  },
+  "write-file-observe-warm-cache.json": {
+    "kind": "file",
+    "bytes": 8800,
+    "sha256": "231ef881b3e8c9fdb7abd3b9b51b96960a4db37471c0d7b5ac64dddf9b100b29",
+    "included": true
+  },
+  "write-file-observe-warm-profiles/1522599-26188759.json": {
+    "kind": "file",
+    "bytes": 1343,
+    "sha256": "f3cec30d9ca3eceea1dac75ea5d8a869f643d966e352697a389c1e7c8115296f",
+    "included": true
+  }
+}

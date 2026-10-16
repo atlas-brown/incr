@@ -1,0 +1,74 @@
+{
+  "configuration.json": {
+    "kind": "file",
+    "bytes": 240,
+    "sha256": "54915c7f0bf037a760ecf41e783637837b8dac709a0166941deeb34d9772704b",
+    "included": true
+  },
+  "explicit-torch-cache-environment.json": {
+    "kind": "file",
+    "bytes": 1019,
+    "sha256": "7376dbc9f97ad30c48a168c51ae7cee394ae9afd64f9f2d5a6e0b494ddebc929",
+    "included": true
+  },
+  "measurements.json": {
+    "kind": "file",
+    "bytes": 7463,
+    "sha256": "83e2d4041a8ab52b50a33dc87a397061a68e406740fad9090a956571754cb3f9",
+    "included": true
+  },
+  "observe-binary": {
+    "kind": "file",
+    "bytes": 1206632,
+    "sha256": "c487eb091caef690987dfe5de748b7a39d4c0d1b17fed200c15c4379a469f9a4",
+    "included": true
+  },
+  "provenance-check.json": {
+    "kind": "file",
+    "bytes": 66,
+    "sha256": "c433306830db7b3dd06e491739a3d00cfe35e2a508ccd1b0f091a521496b0178",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 12496,
+    "sha256": "ddcced80b1dc6554d800c335506c792503f91d294413a32208fa5a88cc114bd7",
+    "included": true
+  },
+  "source-0-new/src/execution/byte_sort_executor.rs": {
+    "kind": "file",
+    "bytes": 11604,
+    "sha256": "aec460ce34cfa9397c28f46dfd98ded5abfb2e6057335cbfe3ffa50e16c8d958",
+    "included": true
+  },
+  "source-0-new/src/ops/profile.rs": {
+    "kind": "file",
+    "bytes": 2186,
+    "sha256": "754dff75227328efd67d175a820927e3a16d78580b751f25f500032080e93d49",
+    "included": true
+  },
+  "source-0.patch": {
+    "kind": "file",
+    "bytes": 36636,
+    "sha256": "436ab73cc86b197007286d9ea1ad9df43deec7dec3bc52eed1f3e4ea201375d3",
+    "included": true
+  },
+  "source-1.patch": {
+    "kind": "file",
+    "bytes": 11343,
+    "sha256": "d7f6e26293a9a9ecdad7d1a6dc65dd34a9764d4815e38fec9a4b3acb14428dc6",
+    "included": true
+  },
+  "source-2.patch": {
+    "kind": "file",
+    "bytes": 1516,
+    "sha256": "829c5c06e43c099a7fa961c49cbecaae1c13ef0c7b77336b78efb422049334a3",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 36,
+    "sha256": "3aa99bb73b4cb01a087f13ca5d60de5aa99897c711123b02c3f0fc78028377c7",
+    "included": true
+  }
+}

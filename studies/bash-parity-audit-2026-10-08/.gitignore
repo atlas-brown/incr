@@ -1,3 +1,7 @@
 .run-*/
 **/__pycache__/
 results/latest/
+
+# Raw current runs are preserved in portable checkpoint archives.
+results/memory-queue-*/
+results/trusted-cache-*/

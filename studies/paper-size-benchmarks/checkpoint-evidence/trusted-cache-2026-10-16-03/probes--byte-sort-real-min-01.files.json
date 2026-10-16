@@ -1,0 +1,74 @@
+{
+  "input.json": {
+    "kind": "file",
+    "bytes": 207,
+    "sha256": "13d4f256f2cf70262bb10ca1835b60561589e2b52f3a02e5c22c9bd3ec45e609",
+    "included": true
+  },
+  "measurements.json": {
+    "kind": "file",
+    "bytes": 8299,
+    "sha256": "b5f756a66d3e70cce2cdb5f155a8aa59ec92f59fd2d8034c78e8a328e2fd1adf",
+    "included": true
+  },
+  "prototype": {
+    "kind": "file",
+    "bytes": 4564776,
+    "sha256": "e3531b14afc66868a24aab009e1a3782393c694c87ca2749488462f2a73c897a",
+    "included": true
+  },
+  "prototype.json": {
+    "kind": "file",
+    "bytes": 187,
+    "sha256": "43a2e3275483a37faacba5ed29160b2262c45c2b05da2ecc404ce1d21d8eddd5",
+    "included": true
+  },
+  "prototype.rs": {
+    "kind": "file",
+    "bytes": 1140,
+    "sha256": "423dc81ab7b533167f57ff95f561ca135a7e342f94830b36c9fb946740de0783",
+    "included": true
+  },
+  "provenance-check.json": {
+    "kind": "file",
+    "bytes": 66,
+    "sha256": "9ae2d299448a196642d6f7a5b5f1439b68791878b57879c29194c79c7b9e54ab",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 11668,
+    "sha256": "6e6234801aa6ac9aa05d7bbb082bf5f8d768571244db54dfab04b4f81d10f681",
+    "included": true
+  },
+  "source-0-new/src/ops/profile.rs": {
+    "kind": "file",
+    "bytes": 2186,
+    "sha256": "754dff75227328efd67d175a820927e3a16d78580b751f25f500032080e93d49",
+    "included": true
+  },
+  "source-0.patch": {
+    "kind": "file",
+    "bytes": 28945,
+    "sha256": "9eb961726be20176df13601d7ef41507dd2a8d0688e504b81a9a3e45fdc15b2c",
+    "included": true
+  },
+  "source-1.patch": {
+    "kind": "file",
+    "bytes": 6846,
+    "sha256": "d64d068d4fb5931f0a4f389125804ef77fcfa42d696a5e804125f2e649bdeb7e",
+    "included": true
+  },
+  "source-2.patch": {
+    "kind": "file",
+    "bytes": 1516,
+    "sha256": "829c5c06e43c099a7fa961c49cbecaae1c13ef0c7b77336b78efb422049334a3",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 139,
+    "sha256": "0d27fa0a195076a063cfae28239dc1fac2bc660f5c6ac7e69fe14506eb64379a",
+    "included": true
+  }
+}

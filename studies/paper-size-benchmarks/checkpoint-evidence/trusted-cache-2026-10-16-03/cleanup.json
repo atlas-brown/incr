@@ -1,0 +1,58 @@
+{
+  "state": "complete",
+  "paths": [
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/runner",
+      "exists": true,
+      "allocated_bytes": 4096,
+      "mounts": []
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/fixture",
+      "exists": false,
+      "allocated_bytes": 0,
+      "mounts": []
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/cache",
+      "exists": false,
+      "allocated_bytes": 0,
+      "mounts": []
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/capture",
+      "exists": false,
+      "allocated_bytes": 0,
+      "mounts": []
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/validation-capture",
+      "exists": false,
+      "allocated_bytes": 0,
+      "mounts": []
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/data/paper",
+      "exists": true,
+      "allocated_bytes": 5764100096,
+      "mounts": []
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/downloads",
+      "exists": true,
+      "allocated_bytes": 452104192,
+      "mounts": []
+    }
+  ],
+  "removed": [
+    "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/runner",
+    "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/fixture",
+    "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/cache",
+    "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/capture",
+    "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/validation-capture",
+    "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/data/paper",
+    "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/downloads"
+  ],
+  "free_before": 29266280448,
+  "free_after": 35482484736
+}

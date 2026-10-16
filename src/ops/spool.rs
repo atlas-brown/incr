@@ -1,4 +1,4 @@
-//! Bounded-memory buffering for speculative input and ordered output.
+//! Bounded-memory buffering for ordered speculative output.
 use anyhow::Result;
 use std::collections::VecDeque;
 use std::fs::{self, File, OpenOptions};

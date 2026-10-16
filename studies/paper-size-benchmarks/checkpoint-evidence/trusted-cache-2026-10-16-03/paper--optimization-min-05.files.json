@@ -1,0 +1,158 @@
+{
+  "configuration.json": {
+    "kind": "file",
+    "bytes": 1204,
+    "sha256": "7028c425352d6dcfe763fc28e2308edc4e30fb4a8e17be5c7f0bbb719ab81ef3",
+    "included": true
+  },
+  "environment.json": {
+    "kind": "file",
+    "bytes": 43149,
+    "sha256": "a51921382f289028d055587fee63e21135aaa28d2e0de0152d26b3a02eaf91d3",
+    "included": true
+  },
+  "events.jsonl": {
+    "kind": "file",
+    "bytes": 2249,
+    "sha256": "baa6dfdf1120a1f71f519dfe32e6db57408307e599b6fa038cd7752c45b47be5",
+    "included": true
+  },
+  "frozen-build.json": {
+    "kind": "file",
+    "bytes": 15230,
+    "sha256": "62a2f012d4809dc157b37884bf15e0ddc5cf500c89c3aced9128719fabbb08b4",
+    "included": true
+  },
+  "inputs/word-freq.json": {
+    "kind": "file",
+    "bytes": 277,
+    "sha256": "0e881ef7cd5da63af4c521ea45fd3eed25275b3a2ee1652003093d1d96437121",
+    "included": true
+  },
+  "references/word-freq/0.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "e5c1953908896a46a4802c26aab0721d136582758ed08d7568208aa655a6e136",
+    "included": true
+  },
+  "references/word-freq/0.wf.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "94a024dc1fce1e81148f49546c567ba4c9b7212a67bb88f41c6d128017000f16",
+    "included": true
+  },
+  "report.md": {
+    "kind": "file",
+    "bytes": 603,
+    "sha256": "01df68b718a7c8a8f49f1e8681b9070ddebc9876790cbc788d906ba51ec9b15d",
+    "included": true
+  },
+  "sequences/word-freq.bash.0/00.wf.sh.json": {
+    "kind": "file",
+    "bytes": 2041,
+    "sha256": "e00fd6fd3962cbc2713cc79acd6e561966930fc37aab85008eaaea396a7f448c",
+    "included": true
+  },
+  "sequences/word-freq.bash.0/01.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 2046,
+    "sha256": "e230e33b71f6bf1a36b1da373d2edf550d38c3955e68713779c532dbc590efa7",
+    "included": true
+  },
+  "sequences/word-freq.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 157,
+    "sha256": "9583b7d78e1c6cb0afada494b81aaed443c8ea0e364135510df8ea0a8cd7ebc3",
+    "included": true
+  },
+  "sequences/word-freq.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 2286,
+    "sha256": "0e0c7572e2043831737a9925d9510664297c389b83999b4f8ffa295a597e5444",
+    "included": true
+  },
+  "sequences/word-freq.observe.0/00.wf.sh.json": {
+    "kind": "file",
+    "bytes": 2174,
+    "sha256": "6d14a8e26d94474e7e6d1a4c564ab758759ab1c61665099483fafddcd4786c85",
+    "included": true
+  },
+  "sequences/word-freq.observe.0/01.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 2179,
+    "sha256": "75e626e93fcd596d35414287848ae34ca9440ecdcc347660f3595be09c751281",
+    "included": true
+  },
+  "sequences/word-freq.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 168,
+    "sha256": "ea2e290bc20a7e76ef0db177ef0350e9e5e5dc910fff298f9f45e6e4f8aa71bd",
+    "included": true
+  },
+  "sequences/word-freq.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 2286,
+    "sha256": "c3fca384930782494c62f219b1a17ca43c42d109036d121fd97a60eb98811817",
+    "included": true
+  },
+  "sequences/word-freq.original.0/00.wf.sh.json": {
+    "kind": "file",
+    "bytes": 2175,
+    "sha256": "8cb2ad8d0d7ab407c405a0c7480523cba451f3377ea4f960d5d6466959ac69eb",
+    "included": true
+  },
+  "sequences/word-freq.original.0/01.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 2180,
+    "sha256": "c76887340eb0816052429d3d7460beaf2651df6a25f0743c634274922e44e080",
+    "included": true
+  },
+  "sequences/word-freq.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 168,
+    "sha256": "7b3d28e0bd4310cd0b566cfdb97a41b845c323af23a035b8309bbce8005df994",
+    "included": true
+  },
+  "sequences/word-freq.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 2283,
+    "sha256": "8f26840c2aeb821d532064331d152c68e291daf708c800bcbfd64b82801b3116",
+    "included": true
+  },
+  "sources/candidate.tar.gz": {
+    "kind": "file",
+    "bytes": 71379,
+    "sha256": "921da27c3d48cb3fb99fc82fb3011009cd7a313af2d1da129ea48f40a84a7ccb",
+    "included": true
+  },
+  "sources/observe.tar.gz": {
+    "kind": "file",
+    "bytes": 33828,
+    "sha256": "95d06378f73ae9f6418079ca230187383ba3848f73230fcfbf775fac6f51668a",
+    "included": true
+  },
+  "sources/original.tar.gz": {
+    "kind": "file",
+    "bytes": 49622,
+    "sha256": "07ba39eb9a220302581baf2b73bac28126967d258299ab5c6e27d48dfab9e5f3",
+    "included": true
+  },
+  "status.json": {
+    "kind": "file",
+    "bytes": 162,
+    "sha256": "395f811807b8d42eccd3dffc17406aa2ae2da72fa8ab69e0a8fb425ab4e43752",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 4234,
+    "sha256": "13fac98e10cb2f1abae5b3109ae025089eacee2fc435a8c39b59662465337b12",
+    "included": true
+  },
+  "timings.csv": {
+    "kind": "file",
+    "bytes": 2057,
+    "sha256": "0c9194008b3ee1494049ee54d59dd7b0c56b713fb9fc3cbff50011fa10d4593d",
+    "included": true
+  }
+}

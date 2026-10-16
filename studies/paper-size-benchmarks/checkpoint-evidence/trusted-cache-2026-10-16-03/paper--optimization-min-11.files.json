@@ -1,0 +1,26 @@
+{
+  "configuration.json": {
+    "kind": "file",
+    "bytes": 1198,
+    "sha256": "9a1f29617b98be61e69fac3ac703d4556e001de7f3fb975cd267610b36a30b58",
+    "included": true
+  },
+  "monitor-history.jsonl": {
+    "kind": "file",
+    "bytes": 1063,
+    "sha256": "70c6ef4e8485a4c2ce664e1683ba7194fdff8889af07e45ee5e5781b42bd7cdf",
+    "included": true
+  },
+  "monitor.json": {
+    "kind": "file",
+    "bytes": 601,
+    "sha256": "5bbf16d54d644f0181bb6fcb4a95d705973fc62e914594dd93ed70dd5405fb6d",
+    "included": true
+  },
+  "status.json": {
+    "kind": "file",
+    "bytes": 136,
+    "sha256": "94f0ade54cd0fa684c2175283fd49811bd2f77eecf924ba039ca3ca39473b0f4",
+    "included": true
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "driver.py": {
+    "kind": "file",
+    "bytes": 2612,
+    "sha256": "30d52037ffd87a99489ebd4da5c78d5fccb15762fabea94e0fab961029cebe83",
+    "included": true
+  },
+  "insert-before.py": {
+    "kind": "file",
+    "bytes": 15346,
+    "sha256": "d4c3855a2b227126e9489a0ae1e587b7e0fb274721199d07c0ab1a60cb21fc4b",
+    "included": true
+  },
+  "measurements.json": {
+    "kind": "file",
+    "bytes": 32984,
+    "sha256": "304e1faa69807ce88c67fee286ab0b1998a2720ad4f9b4632985581038d0f418",
+    "included": true
+  },
+  "provenance-check.json": {
+    "kind": "file",
+    "bytes": 66,
+    "sha256": "d064428010f23d47c7fb08babe9c9e83690a6c896b0f8a373f0ba19c36f01afd",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 11577,
+    "sha256": "c2a42e27ca5a7ab4b1b0c3f13ece983f78d026f2fb087983caea1eae5a4fe9a8",
+    "included": true
+  },
+  "source-0-new/src/ops/profile.rs": {
+    "kind": "file",
+    "bytes": 2186,
+    "sha256": "754dff75227328efd67d175a820927e3a16d78580b751f25f500032080e93d49",
+    "included": true
+  },
+  "source-0.patch": {
+    "kind": "file",
+    "bytes": 28449,
+    "sha256": "1803f8b9912cf711811042ddaddb98ca3d71f4d3185e993fa902b40c4d5c2e57",
+    "included": true
+  },
+  "source-1.patch": {
+    "kind": "file",
+    "bytes": 6846,
+    "sha256": "d64d068d4fb5931f0a4f389125804ef77fcfa42d696a5e804125f2e649bdeb7e",
+    "included": true
+  },
+  "source-2.patch": {
+    "kind": "file",
+    "bytes": 1516,
+    "sha256": "829c5c06e43c099a7fa961c49cbecaae1c13ef0c7b77336b78efb422049334a3",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 128,
+    "sha256": "50b1531619616bc3d691bfccfba5ed310751b98499caa2bcbdc59f39dc8b2f89",
+    "included": true
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "configuration.json": {
+    "kind": "file",
+    "bytes": 554,
+    "sha256": "18683d00033dc9c64e8e87dec20479a2ee7a9b0ca6666ba446784ed8f9b248ea",
+    "included": true
+  },
+  "diagnostic-driver.py": {
+    "kind": "file",
+    "bytes": 3155,
+    "sha256": "4a42e712ac37e8bb67faccfa79df95629b51bf86b1852aa0ee77e5ca72ade558",
+    "included": true
+  },
+  "events.jsonl": {
+    "kind": "file",
+    "bytes": 1271,
+    "sha256": "c10d35876d60f5b54eb92d664199018df0b09768749677e8268ab60beb427824",
+    "included": true
+  },
+  "frozen-build.json": {
+    "kind": "file",
+    "bytes": 15530,
+    "sha256": "846fe72e753d92cda27b8d9c9484ee166a2656e54dd9c0970ea180e0cd77953d",
+    "included": true
+  },
+  "inputs/dpt.json": {
+    "kind": "file",
+    "bytes": 1088,
+    "sha256": "fa5a93e10f5b2856dc2ee6912cc9d23786c86c381f4cde4ef5d08fa886017928",
+    "included": true
+  },
+  "manifest.json": {
+    "kind": "file",
+    "bytes": 1011,
+    "sha256": "40e6b2d254bfbace92747df451093e616d0a17fae3a37da3989f265d91595f38",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 12844,
+    "sha256": "237fedc6ea96d2c1cceab63f1b67adacabc1cc2d6a509a39c19a69a4ac43071e",
+    "included": true
+  },
+  "references/dpt/0.dpt_2.sh.json": {
+    "kind": "file",
+    "bytes": 2536,
+    "sha256": "1a97f6fa8a903280b2dd1f10ed414b029f21b44611a5b3fb14cfaa4cd42cd689",
+    "included": true
+  },
+  "references/dpt/0.dpt_3a.sh.json": {
+    "kind": "file",
+    "bytes": 2537,
+    "sha256": "03c35fc566c29cc33b851c9d0dd73e67d55cec8a7a1807d5ef2d9858f33a4c69",
+    "included": true
+  },
+  "report.md": {
+    "kind": "file",
+    "bytes": 993,
+    "sha256": "6afe2e4ea1be5e4665901a9c06928f14e9977fb7cb80c7f0a06f0b536acd40de",
+    "included": true
+  },
+  "sequences/dpt.bash.0/00.dpt_2.sh.json": {
+    "kind": "file",
+    "bytes": 4275,
+    "sha256": "274403c4f9e8def79231b6d37181663447f25cbbd85eb83862a52c52bcf9d545",
+    "included": true
+  },
+  "sequences/dpt.bash.0/01.dpt_3a.sh.json": {
+    "kind": "file",
+    "bytes": 4278,
+    "sha256": "25b772535256a9fb5a5aea2872f7b2be269990df4d236e165f46bee87ed7b180",
+    "included": true
+  },
+  "sequences/dpt.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 152,
+    "sha256": "ac9b26d20ea13566a7efb9e08f5d84e8e7e83576681d5fabe988b2d723a36ab7",
+    "included": true
+  },
+  "sequences/dpt.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 4526,
+    "sha256": "a6eaf30d1d0214937fbd2e32df92817b0ea596f87df2c7c4a6c9f56ce073076f",
+    "included": true
+  },
+  "sequences/dpt.original.0/00.dpt_2.sh.json": {
+    "kind": "file",
+    "bytes": 4502,
+    "sha256": "0df1a10002ac00956eb8cb36d2d330b081dbdeb7ca1b52a2ff13170e3fa3fdd5",
+    "included": true
+  },
+  "sequences/dpt.original.0/failed.json": {
+    "kind": "file",
+    "bytes": 162,
+    "sha256": "a81121a1ca1794632b796e8e5b87fba96d24bfea476b0bb8c7db7a9e60ced0eb",
+    "included": true
+  },
+  "sequences/dpt.original.0/failure-capture/output-inventory.json": {
+    "kind": "file",
+    "bytes": 2360,
+    "sha256": "1094ed9e493928e9b56e5801775817b644922b8aa17638d5185713be2cc66c9c",
+    "included": true
+  },
+  "sequences/dpt.original.0/failure-capture/stderr": {
+    "kind": "file",
+    "bytes": 1885,
+    "sha256": "4af92af076809b96ee15286cd587f3fa10e68b9e49c811f7d44556833d3f6971",
+    "included": true
+  },
+  "sequences/dpt.original.0/failure-capture/stdout": {
+    "kind": "file",
+    "bytes": 126,
+    "sha256": "a55220d1df5f3dd3a05a0eb86300e7e43bab0d5643ca926327e62c2e95713636",
+    "included": true
+  },
+  "sequences/dpt.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 4523,
+    "sha256": "239be42faad1b8ef81dc17694587a715aebf6886e1bc24fab075982265e6a035",
+    "included": true
+  },
+  "source-0.patch": {
+    "kind": "file",
+    "bytes": 2102,
+    "sha256": "aa5396971c4bf37b9bad93ee38ac1a65645c00cd8f1567976e4e61761fc911ec",
+    "included": true
+  },
+  "source-1.patch": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "source-2.patch": {
+    "kind": "file",
+    "bytes": 3051,
+    "sha256": "efddaabcaf5a8d63214f2c59dfa372446dc1cfa241b44fb91dd9dc7ca8b3c547",
+    "included": true
+  },
+  "sources/candidate.tar.gz": {
+    "kind": "file",
+    "bytes": 76126,
+    "sha256": "980ec473517472a26fd427b931bacf1826b4ab8d50bc5092c080c5479b52cabf",
+    "included": true
+  },
+  "sources/observe.tar.gz": {
+    "kind": "file",
+    "bytes": 34805,
+    "sha256": "2464ee909a6202ccf1f06800b151bd48ec4b1254694af70afc7d0cc037c662c8",
+    "included": true
+  },
+  "sources/original.tar.gz": {
+    "kind": "file",
+    "bytes": 49645,
+    "sha256": "e9973463e76254321ecb80bc1a9cc77024c742124a2addc7bbb060ea9759b901",
+    "included": true
+  },
+  "status.json": {
+    "kind": "file",
+    "bytes": 265,
+    "sha256": "012338198b9c5d3c3a2b2d6f3cbb58fce46fa0249dc965b42ca6bd1186a59c44",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 1654,
+    "sha256": "f670ba46593c6081973a5ccafa9dad0b431aeccf03d29b7285696d52a1e3cbdb",
+    "included": true
+  },
+  "timings.csv": {
+    "kind": "file",
+    "bytes": 1249,
+    "sha256": "4b84f1e03f6784595c24fa5dc183270f53d4c0189d0274da95e91d523fd1b03c",
+    "included": true
+  }
+}

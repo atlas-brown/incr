@@ -1,0 +1,290 @@
+{
+  "configuration.json": {
+    "kind": "file",
+    "bytes": 1831,
+    "sha256": "84a5cf755792911427074d179bdc64987396d68904375cc4e6dde98e96a33d0a",
+    "included": true
+  },
+  "environment.json": {
+    "kind": "file",
+    "bytes": 45338,
+    "sha256": "056fdcdc1e3d92f44beb0425940310ee4628b154effbf86dd67c459087b4a8db",
+    "included": true
+  },
+  "events.jsonl": {
+    "kind": "file",
+    "bytes": 5339,
+    "sha256": "fcb4c2d3cbdab53e0eb10c3613b9dee2586385361f1a095df7218a73a2f8eb14",
+    "included": true
+  },
+  "frozen-build.json": {
+    "kind": "file",
+    "bytes": 966887,
+    "sha256": "8eb272b0f5cd17e1c525a0bdbb28ee9482ce91b1fc7957862473795c33536e12",
+    "included": true
+  },
+  "inputs/weather-tufte.json": {
+    "kind": "file",
+    "bytes": 807,
+    "sha256": "78113dfb720a68f1d42d249061fd1d3884736bec889ec34e88df1efb1a0321a8",
+    "included": true
+  },
+  "inputs/web-search.json": {
+    "kind": "file",
+    "bytes": 1144,
+    "sha256": "422d254b203bed2cc3e3f4581cf386e3fc010ace30aa57c5423fbfef9edf3428",
+    "included": true
+  },
+  "manifest.json": {
+    "kind": "file",
+    "bytes": 1403,
+    "sha256": "51a20e68df15e9568bdcefc07d5bd61dc6505ae4b69fad27c61ed98c1b55e140",
+    "included": true
+  },
+  "monitor-history.jsonl": {
+    "kind": "file",
+    "bytes": 554,
+    "sha256": "0c120a30628358351f371d39b947477ce596d7c7750320cc9fa8eda23a6ee9df",
+    "included": true
+  },
+  "monitor.json": {
+    "kind": "file",
+    "bytes": 604,
+    "sha256": "4aaecd4096f4acf88150320818c22bbb2a712519686bf78896eb4dabc6d8c49f",
+    "included": true
+  },
+  "references/weather-tufte/0.tuft-weather-1.sh.json": {
+    "kind": "file",
+    "bytes": 849,
+    "sha256": "d05fb89428bbccc671057cb1df955ed31829c25249a33eae50094828d404470c",
+    "included": true
+  },
+  "references/weather-tufte/0.tuft-weather-2.sh.json": {
+    "kind": "file",
+    "bytes": 1029,
+    "sha256": "11c1ecec8d7ffd98da70faa6fdeba4b0b40145bf14fcb8057532ba17f2d84e29",
+    "included": true
+  },
+  "references/weather-tufte/0.tuft-weather-3.sh.json": {
+    "kind": "file",
+    "bytes": 2269,
+    "sha256": "6735f0ae6d12b391cea1c2be8924d57744c420ed178fd456c83f8027c4eaa156",
+    "included": true
+  },
+  "references/web-search/0.engine-repeat.sh.json": {
+    "kind": "file",
+    "bytes": 1075,
+    "sha256": "6d8388cc8068f35ddf69aebc05fd82ea5fe325292f9c614c84d262ed222f09e3",
+    "included": true
+  },
+  "references/web-search/0.engine.sh.json": {
+    "kind": "file",
+    "bytes": 1075,
+    "sha256": "49980969c333a583ce071fccbf670aa95fbdb8a2599b89546c9033bbe35df357",
+    "included": true
+  },
+  "report.md": {
+    "kind": "file",
+    "bytes": 1165,
+    "sha256": "3c1fb2a8c766a5d53a6a97ab0606a70278fc56547af935b15ad2892eb3443bef",
+    "included": true
+  },
+  "sequences/weather-tufte.bash.0/00.tuft-weather-1.sh.json": {
+    "kind": "file",
+    "bytes": 2626,
+    "sha256": "deeb50de9043473255d86540873d180df90c3af5135dc7ef0fd32eae7f18e6ea",
+    "included": true
+  },
+  "sequences/weather-tufte.bash.0/01.tuft-weather-2.sh.json": {
+    "kind": "file",
+    "bytes": 2816,
+    "sha256": "ea74fedc5e3a970375984bfa25c9e6227b7830cf715c715d94a3ba711ef06732",
+    "included": true
+  },
+  "sequences/weather-tufte.bash.0/02.tuft-weather-3.sh.json": {
+    "kind": "file",
+    "bytes": 4129,
+    "sha256": "d27756976a9586f44253e81b158d07929c9b1b10b6ed971ce484bec7ea08fe00",
+    "included": true
+  },
+  "sequences/weather-tufte.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 160,
+    "sha256": "7116ca983ff837b41bb014ea90114dc83d0af336fca6c2bb4a2a302ed30b37da",
+    "included": true
+  },
+  "sequences/weather-tufte.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 3257,
+    "sha256": "4bfb60136e6307b405132d64aa390adfb1d654824d0b03aed354e0be052fe949",
+    "included": true
+  },
+  "sequences/weather-tufte.observe.0/00.tuft-weather-1.sh.json": {
+    "kind": "file",
+    "bytes": 2768,
+    "sha256": "0e33ea004e8f0b4eabea02b0a04f78573793cbdea890e246eaad6c187b5c96fe",
+    "included": true
+  },
+  "sequences/weather-tufte.observe.0/01.tuft-weather-2.sh.json": {
+    "kind": "file",
+    "bytes": 2957,
+    "sha256": "7849ec523e0163cf0d1088998131ccfcdef2648c9e53f047369acf7395798784",
+    "included": true
+  },
+  "sequences/weather-tufte.observe.0/02.tuft-weather-3.sh.json": {
+    "kind": "file",
+    "bytes": 4275,
+    "sha256": "933bbe216ee353765f97571a78ed1d4d95279c164b5424cf33db28cfd97946d4",
+    "included": true
+  },
+  "sequences/weather-tufte.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 171,
+    "sha256": "5da1d50f9024d2b791f9fd45da42d2ec8bcb2bb60864fdbdf130b8443ed84092",
+    "included": true
+  },
+  "sequences/weather-tufte.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 3302,
+    "sha256": "7639d924866dc17786c80a2e689a4e2486d1c81b74ffc50c39d443efe09d9c35",
+    "included": true
+  },
+  "sequences/weather-tufte.original.0/00.tuft-weather-1.sh.json": {
+    "kind": "file",
+    "bytes": 2771,
+    "sha256": "a43ce0c1a70ebb9d306b81bd47d9ed1551b937c51a8a198cb2516bd62e1ca18e",
+    "included": true
+  },
+  "sequences/weather-tufte.original.0/01.tuft-weather-2.sh.json": {
+    "kind": "file",
+    "bytes": 3021,
+    "sha256": "add0304fe6466704fbe045ba465796be4037acb30861bac579c61a9e5b98b6ea",
+    "included": true
+  },
+  "sequences/weather-tufte.original.0/02.tuft-weather-3.sh.json": {
+    "kind": "file",
+    "bytes": 4320,
+    "sha256": "31fce223abcdfed022f088ec491ce1d011d8e4b592dae7a42b46312cb80e9da0",
+    "included": true
+  },
+  "sequences/weather-tufte.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 172,
+    "sha256": "53a26dd2ac23ff8a7dbf90244e30c54a52039d1ba5d4134cc27235ce21c2b79d",
+    "included": true
+  },
+  "sequences/weather-tufte.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 3254,
+    "sha256": "9a39ed349a8cedf1fcbb5d2a6ff8c9e94c81bedd11b26a49c5b485707329d53c",
+    "included": true
+  },
+  "sequences/web-search.bash.0/00.engine.sh.json": {
+    "kind": "file",
+    "bytes": 2836,
+    "sha256": "c4d05328d997413b72872b9a3e4c4504bac69f17a1759e46e7a1a43a76ebdd4c",
+    "included": true
+  },
+  "sequences/web-search.bash.0/01.engine-repeat.sh.json": {
+    "kind": "file",
+    "bytes": 2849,
+    "sha256": "93b61f10e6fcc3b3ab3e6b489e1c65d23867ef797bac03bc819779efb155d084",
+    "included": true
+  },
+  "sequences/web-search.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 159,
+    "sha256": "8bb28212c7a5311bb6e6bb48784f337c468cbf9bbf01d587b8a52edaed0eb5c7",
+    "included": true
+  },
+  "sequences/web-search.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 824557,
+    "sha256": "57b325ee89755937856a23321833960ddea0653777096863c592f111d800a6e4",
+    "included": true
+  },
+  "sequences/web-search.observe.0/00.engine.sh.json": {
+    "kind": "file",
+    "bytes": 2973,
+    "sha256": "6092045ffcdc28a28e8057cfb8a164cef76c31e424492859eb4336be804be3a8",
+    "included": true
+  },
+  "sequences/web-search.observe.0/01.engine-repeat.sh.json": {
+    "kind": "file",
+    "bytes": 2985,
+    "sha256": "b423df4bb95f5dc8ed93499222379eaa73015e12db7f8dbae487de1246a61625",
+    "included": true
+  },
+  "sequences/web-search.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 165,
+    "sha256": "a65cd5b7f33a5f3d1dd9a053fbb2359e3bf442b4843c4ad1fa166f2ba75ac039",
+    "included": true
+  },
+  "sequences/web-search.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 824602,
+    "sha256": "485aa1e0a259a393ebccfa0aebebc01e8a1ffa8279f6eec9675e74ba00958a9d",
+    "included": true
+  },
+  "sequences/web-search.original.0/00.engine.sh.json": {
+    "kind": "file",
+    "bytes": 2979,
+    "sha256": "5f764bd9fad5820537957f89db13433dfb037048f74aeea94b6aaec386b1b039",
+    "included": true
+  },
+  "sequences/web-search.original.0/01.engine-repeat.sh.json": {
+    "kind": "file",
+    "bytes": 2991,
+    "sha256": "a383373781cb0891942d8304e27e25f2ff8ebfe0e35eb6df4fccb92b9b727e47",
+    "included": true
+  },
+  "sequences/web-search.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 166,
+    "sha256": "82b3bbcfcce4a2c7499f4f3c6566dac2cfe61ab99d6824b88f72387989bd3c56",
+    "included": true
+  },
+  "sequences/web-search.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 824554,
+    "sha256": "e89e91f4dd1d8f4bad50bdc03d48e6d0393a8a0f4fa5164a858a5c02635a8b7f",
+    "included": true
+  },
+  "sources/candidate.tar.gz": {
+    "kind": "file",
+    "bytes": 78695,
+    "sha256": "a43f53e2b17b80df9c3d1276fcce991a50ea19bc3819a875d69d479288ad10e7",
+    "included": true
+  },
+  "sources/observe.tar.gz": {
+    "kind": "file",
+    "bytes": 38494,
+    "sha256": "bf75bc44782b580a983fa10f5fa276d14d7d27b692784326aa7e641f53101497",
+    "included": true
+  },
+  "sources/original.tar.gz": {
+    "kind": "file",
+    "bytes": 49645,
+    "sha256": "66c3c8bcacc11da2c05ef05635f8ea11539336411c39347b5142e90a317b942a",
+    "included": true
+  },
+  "status.json": {
+    "kind": "file",
+    "bytes": 177,
+    "sha256": "ec83237348bb47698eac15c166be4b5ee0beead9659ebf05beb359f9d44d8861",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 9371,
+    "sha256": "06741798fed65fc9a5395ff48554c50b250825d78334bbd176c968e906f40800",
+    "included": true
+  },
+  "timings.csv": {
+    "kind": "file",
+    "bytes": 4590,
+    "sha256": "f08b4c7543c0519dcf6241968e8dacd2c9368ab3d36b454925b2709a370209d6",
+    "included": true
+  }
+}

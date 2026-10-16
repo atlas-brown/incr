@@ -1,0 +1,956 @@
+{
+  "configuration.json": {
+    "kind": "file",
+    "bytes": 1063,
+    "sha256": "8259221bcc9f684f40fdd7ad049dfa5e27696eedf5994d53441a827a7e4270b5",
+    "included": true
+  },
+  "environment.json": {
+    "kind": "file",
+    "bytes": 33486,
+    "sha256": "336728219a429cf2805b1abfd19a9b996f473b82ab23198b5880db190cecb0e5",
+    "included": true
+  },
+  "events.jsonl": {
+    "kind": "file",
+    "bytes": 23401,
+    "sha256": "0ecc3ce91a59c3a057b327dcd9f22ea3c4156cd5c1a07e4349c34fa6884486ed",
+    "included": true
+  },
+  "frozen-build.json": {
+    "kind": "file",
+    "bytes": 14206,
+    "sha256": "c6deee4a29ab00cfffbf3fbd2b26479f54b71368c0be2c9271c4d7315f024e77",
+    "included": true
+  },
+  "inputs/bio.json": {
+    "kind": "file",
+    "bytes": 601,
+    "sha256": "e1e7e12099db36ab4012e30bca2de6104f7a8437989d9afd33ef2582d4b8ad0d",
+    "included": true
+  },
+  "inputs/dpt.json": {
+    "kind": "file",
+    "bytes": 930,
+    "sha256": "ff8d0960ad47e31a0ff5bf3e34f642b2c78c63827c58a315269b37c2cf0f927e",
+    "included": true
+  },
+  "inputs/nlp-ngrams.json": {
+    "kind": "file",
+    "bytes": 278,
+    "sha256": "e48910f7cf01b489ffe878dad0b70e6deefae0d53f25b416d6046df7dabff730",
+    "included": true
+  },
+  "inputs/nlp-uppercase.json": {
+    "kind": "file",
+    "bytes": 281,
+    "sha256": "154ed0f53c42e9d0264bfe92a06e673c9dcadcbdd3552f7c7787dc0322dba1a5",
+    "included": true
+  },
+  "inputs/spell.json": {
+    "kind": "file",
+    "bytes": 273,
+    "sha256": "9d499a1f737cd560205d7a4e4b00d8addd7bdb2a1102998cf7b36669911610bc",
+    "included": true
+  },
+  "references/bio/0.bio-1.sh.json": {
+    "kind": "file",
+    "bytes": 713,
+    "sha256": "f52910fcaa04c1cb0ebd9e13a85ddc8b46a113bcd79f49a4257ae72b9f85cc1f",
+    "included": true
+  },
+  "references/bio/0.bio-2.sh.json": {
+    "kind": "file",
+    "bytes": 713,
+    "sha256": "f52910fcaa04c1cb0ebd9e13a85ddc8b46a113bcd79f49a4257ae72b9f85cc1f",
+    "included": true
+  },
+  "references/bio/0.bio-3.sh.json": {
+    "kind": "file",
+    "bytes": 4378,
+    "sha256": "df60ba428589f19d6974d31a1dda86053fc555a4011bb018827b01146603679a",
+    "included": true
+  },
+  "references/bio/0.bio-4-0.sh.json": {
+    "kind": "file",
+    "bytes": 7966,
+    "sha256": "dc114955df9f15ee625689176140c2ba5c1a50bc34d3d9dcf10b061065581564",
+    "included": true
+  },
+  "references/bio/0.bio-4.sh.json": {
+    "kind": "file",
+    "bytes": 7966,
+    "sha256": "dc114955df9f15ee625689176140c2ba5c1a50bc34d3d9dcf10b061065581564",
+    "included": true
+  },
+  "references/bio/0.bio-5.sh.json": {
+    "kind": "file",
+    "bytes": 8131,
+    "sha256": "99762af6c01b7917704c9c96ce4af2bef5c9e5a89fe5157ed738d98d79719ca9",
+    "included": true
+  },
+  "references/bio/0.bio-6.sh.json": {
+    "kind": "file",
+    "bytes": 8371,
+    "sha256": "ab0ffb1476a1a6476fdd18ab764b3e2b7fc24ea821cc94e9cabaf7d934b9420d",
+    "included": true
+  },
+  "references/dpt/0.dpt_1.sh.json": {
+    "kind": "file",
+    "bytes": 2088,
+    "sha256": "cbfff450783713eba4f4ee18f303f770a4e2d63f901663c6a681b4997625e6a2",
+    "included": true
+  },
+  "references/dpt/0.dpt_2.sh.json": {
+    "kind": "file",
+    "bytes": 2088,
+    "sha256": "cc4f95135b1e06a9d393989ebe9a9e08719712cdd403e50b4b16f0ef4e9175e1",
+    "included": true
+  },
+  "references/dpt/0.dpt_3a.sh.json": {
+    "kind": "file",
+    "bytes": 2088,
+    "sha256": "48ffd17508f3ef9e434eb7b8c4ef1c197b45359ba45945e23bdf7fdc07cfcfeb",
+    "included": true
+  },
+  "references/dpt/0.dpt_3b.sh.json": {
+    "kind": "file",
+    "bytes": 2088,
+    "sha256": "0da5a6c524d83b15a789d1645a37c15751ade4b4e9bc2dc608d345461b1222f7",
+    "included": true
+  },
+  "references/dpt/0.dpt_4.sh.json": {
+    "kind": "file",
+    "bytes": 2088,
+    "sha256": "0da5a6c524d83b15a789d1645a37c15751ade4b4e9bc2dc608d345461b1222f7",
+    "included": true
+  },
+  "references/dpt/0.dpt_5a.sh.json": {
+    "kind": "file",
+    "bytes": 2263,
+    "sha256": "76ee95c298a4a641e60a79f0fb1312a2f614b07d970d19707e7e2fbc54c1c0f8",
+    "included": true
+  },
+  "references/dpt/0.dpt_5b.sh.json": {
+    "kind": "file",
+    "bytes": 2263,
+    "sha256": "54481b6cd301e6489761f310f90f89c3e6153319e86baabbdab615cdbd305ce4",
+    "included": true
+  },
+  "references/dpt/0.dpt_5c.sh.json": {
+    "kind": "file",
+    "bytes": 2263,
+    "sha256": "51aea7c58ce2e66cbf2771abf188ad3def81ad9f1878fd0611c250e0a3394fc7",
+    "included": true
+  },
+  "references/dpt/0.dpt_5d.sh.json": {
+    "kind": "file",
+    "bytes": 2263,
+    "sha256": "51aea7c58ce2e66cbf2771abf188ad3def81ad9f1878fd0611c250e0a3394fc7",
+    "included": true
+  },
+  "references/dpt/0.dpt_5e.sh.json": {
+    "kind": "file",
+    "bytes": 2442,
+    "sha256": "14c75517535ea95c75831fb48015412cbde7c47e3cb3555e9b72b70e68b55042",
+    "included": true
+  },
+  "references/nlp-ngrams/0.ngrams-1.sh.json": {
+    "kind": "file",
+    "bytes": 627,
+    "sha256": "e9be2e15e6f7b92e015e62bad75a64342963ff28b717c2328825b71c74c30642",
+    "included": true
+  },
+  "references/nlp-ngrams/0.ngrams-2.sh.json": {
+    "kind": "file",
+    "bytes": 888,
+    "sha256": "c82bbea937714a33268bc1d9f6403d46f5de64d53d0f763dd1b665951cac0be1",
+    "included": true
+  },
+  "references/nlp-ngrams/0.ngrams-3.sh.json": {
+    "kind": "file",
+    "bytes": 1139,
+    "sha256": "520bbcc96b83396fc255564529d4589480edd47f275d5e3007cdf96547804376",
+    "included": true
+  },
+  "references/nlp-uppercase/0.uppercase_by_token.sh.json": {
+    "kind": "file",
+    "bytes": 598,
+    "sha256": "ce7d49fe6fee5c8c386444097eff3a9e8627fa7a9a0ae0549cb81b97573a7225",
+    "included": true
+  },
+  "references/nlp-uppercase/0.uppercase_by_type.sh.json": {
+    "kind": "file",
+    "bytes": 849,
+    "sha256": "0b8fa7bc2726515ba6ab4c641b63b55af8b02a776d2bba10ece3176a000dd679",
+    "included": true
+  },
+  "references/spell/0.spell-1.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "4da885cd15566964bc2c1b92b9695111b5818983e35daab1dfd6bcd9fe6b02a5",
+    "included": true
+  },
+  "references/spell/0.spell-2.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "804398816b834350fd677fec9b1bdb7991c1d55d8d5b5bbb13a49cbf58880544",
+    "included": true
+  },
+  "references/spell/0.spell-3.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "e04f21f79b4d74464fd0b816df8493d22cae2340c141f428b6651e428c2db45e",
+    "included": true
+  },
+  "references/spell/0.spell-4.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "e04f21f79b4d74464fd0b816df8493d22cae2340c141f428b6651e428c2db45e",
+    "included": true
+  },
+  "references/spell/0.spell-5.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "90f561b57b8ec55375366a4cb155c2f064f2db687ba724ab1f8716fba3863e0c",
+    "included": true
+  },
+  "references/spell/0.spell-6.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "c934a9814bc140fb1853b39f48aced38bd0d7ea54a1fa0d58553f67ecd83a339",
+    "included": true
+  },
+  "references/spell/0.spell-7.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "11ec1503f3775fb39fca343eda6f6fd1ab81267259eddffee02fba3398fa4ee3",
+    "included": true
+  },
+  "report.md": {
+    "kind": "file",
+    "bytes": 603,
+    "sha256": "e5b4d381d7a3f20e37f9c01b72f7e79002ddebe74333a7a9249041948a2ef08a",
+    "included": true
+  },
+  "sequences/bio.bash.0/00.bio-1.sh.json": {
+    "kind": "file",
+    "bytes": 2416,
+    "sha256": "266bb64e98064717d9a09143ac60b150efb26b0738e0fdd8c7b275ad1fe863a8",
+    "included": true
+  },
+  "sequences/bio.bash.0/01.bio-2.sh.json": {
+    "kind": "file",
+    "bytes": 2417,
+    "sha256": "386eaff461d51da1082a348da3d3c374d124b1d21beaa32b43adb051a7f549f0",
+    "included": true
+  },
+  "sequences/bio.bash.0/02.bio-3.sh.json": {
+    "kind": "file",
+    "bytes": 6282,
+    "sha256": "91cad03d6e1e95863c901367bb4fa16851c654a450c3954ba805906e5410d368",
+    "included": true
+  },
+  "sequences/bio.bash.0/03.bio-4-0.sh.json": {
+    "kind": "file",
+    "bytes": 10075,
+    "sha256": "8f1cbe0fc8b70503d5a1df44acd32fea622747330827c851ffd24346af0d3f2a",
+    "included": true
+  },
+  "sequences/bio.bash.0/04.bio-4.sh.json": {
+    "kind": "file",
+    "bytes": 10071,
+    "sha256": "49dd0028416c9e67fd008832d0b905b50291e8fb1a3d6d0ac0dd4034e2f87490",
+    "included": true
+  },
+  "sequences/bio.bash.0/05.bio-5.sh.json": {
+    "kind": "file",
+    "bytes": 10247,
+    "sha256": "9c30fbd8cca74c47149a458b1b32aba1adc5153387c4e40968fab67b6228d239",
+    "included": true
+  },
+  "sequences/bio.bash.0/06.bio-6.sh.json": {
+    "kind": "file",
+    "bytes": 10498,
+    "sha256": "a89c61172ee72a7caf8207e23153ba4afd5df0f49d7c9cab2fd63ee18c7586d0",
+    "included": true
+  },
+  "sequences/bio.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 151,
+    "sha256": "efb1a8a6660b85ef4ad00c9292f124c88af4ae93ed96e181666dda4532539cbd",
+    "included": true
+  },
+  "sequences/bio.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 3076,
+    "sha256": "5cd43e53e531f7bbc67eaf5d0a1a9d3c70011d1d54bc111703c34eac2c091c3e",
+    "included": true
+  },
+  "sequences/bio.observe.0/00.bio-1.sh.json": {
+    "kind": "file",
+    "bytes": 2539,
+    "sha256": "0a10a58cffaf11ab5b98f37e3db8b9e443532eda3864dc12abd9e37c9f0b52a5",
+    "included": true
+  },
+  "sequences/bio.observe.0/01.bio-2.sh.json": {
+    "kind": "file",
+    "bytes": 2539,
+    "sha256": "5d139fc77855bb206abe0828303edab9a6c722fc91f341f66d87d1f9448e5ef6",
+    "included": true
+  },
+  "sequences/bio.observe.0/02.bio-3.sh.json": {
+    "kind": "file",
+    "bytes": 6410,
+    "sha256": "70dd1ebf4ee1be20d955a7274e2e71869c7e3f19ac4f1e1098a9f0193e79d971",
+    "included": true
+  },
+  "sequences/bio.observe.0/03.bio-4-0.sh.json": {
+    "kind": "file",
+    "bytes": 10200,
+    "sha256": "c0c59f32a912452de2a1df17a57e4735ad193f67eb15399ad5f0b8697c185182",
+    "included": true
+  },
+  "sequences/bio.observe.0/04.bio-4.sh.json": {
+    "kind": "file",
+    "bytes": 10196,
+    "sha256": "185e709aa0f137c403ba7544b77a4bd1cb86c8d8783a5790d838bc2c49211019",
+    "included": true
+  },
+  "sequences/bio.observe.0/05.bio-5.sh.json": {
+    "kind": "file",
+    "bytes": 10372,
+    "sha256": "7cbb06e3dd162088cf88d1de123645716ddfdc9f21a3b17c8e6662358ec7d8c4",
+    "included": true
+  },
+  "sequences/bio.observe.0/06.bio-6.sh.json": {
+    "kind": "file",
+    "bytes": 10623,
+    "sha256": "d9ef4e9caea93dec5e612217f489d707f135679999294117d3721c605bec6047",
+    "included": true
+  },
+  "sequences/bio.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 160,
+    "sha256": "44caaee4985513b149b81f2569e64c60d0abec28e25159c972050bbfbbc3489e",
+    "included": true
+  },
+  "sequences/bio.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 3076,
+    "sha256": "4207b30ad013bbe5cf44cd7714a756ab6fad77d0363972b2b19d0725d9e4818f",
+    "included": true
+  },
+  "sequences/bio.original.0/00.bio-1.sh.json": {
+    "kind": "file",
+    "bytes": 2542,
+    "sha256": "2a6779d4ec92dd4fdfeae778bb03a14a61c47fef2c23ed19b1cfecebab76d3d6",
+    "included": true
+  },
+  "sequences/bio.original.0/01.bio-2.sh.json": {
+    "kind": "file",
+    "bytes": 2542,
+    "sha256": "170ea430dce3ffa899de77f7509e9880a98125247c343e1567be2511cdaba3b9",
+    "included": true
+  },
+  "sequences/bio.original.0/02.bio-3.sh.json": {
+    "kind": "file",
+    "bytes": 6493,
+    "sha256": "99cad373bf801864b889678716f7d29ba4f1c3d40750fef8119f875885486035",
+    "included": true
+  },
+  "sequences/bio.original.0/03.bio-4-0.sh.json": {
+    "kind": "file",
+    "bytes": 10247,
+    "sha256": "457bba7d9cf0c68764833ab52e21ae965c180c0f797093793efb046f21c5d46d",
+    "included": true
+  },
+  "sequences/bio.original.0/04.bio-4.sh.json": {
+    "kind": "file",
+    "bytes": 10245,
+    "sha256": "6b42819668c1d47aefcfc8c84a2934785165209d1558da82b376ad62fb4361e9",
+    "included": true
+  },
+  "sequences/bio.original.0/05.bio-5.sh.json": {
+    "kind": "file",
+    "bytes": 10663,
+    "sha256": "c74035419c36d7679a1a1a0b2fd4881cbec2f9c86fabe098ccf695ec75f3993a",
+    "included": true
+  },
+  "sequences/bio.original.0/06.bio-6.sh.json": {
+    "kind": "file",
+    "bytes": 10953,
+    "sha256": "f8c737f0c7206d28dc8636b77c360d6e9265dcf5de07a5b5d3f884a9945333f2",
+    "included": true
+  },
+  "sequences/bio.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 162,
+    "sha256": "2dd6a3eaffcde1df75fe3cbd353717a6ac4a460f03ee7931b2c2b2e0d137166e",
+    "included": true
+  },
+  "sequences/bio.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 3073,
+    "sha256": "6c382a2e80e405136929ac4426c1b284798d0f2d7c5ab2c10fd1eb7ff5093c6c",
+    "included": true
+  },
+  "sequences/dpt.bash.0/00.dpt_1.sh.json": {
+    "kind": "file",
+    "bytes": 3806,
+    "sha256": "594494faf32b8e81d7f8ea02de3db681b053847a8c41801154e9a5d85f3b17fb",
+    "included": true
+  },
+  "sequences/dpt.bash.0/01.dpt_2.sh.json": {
+    "kind": "file",
+    "bytes": 3805,
+    "sha256": "03710dc39ac9ba5d1a2c1aef59e2a881614639a4fee19f2a155a2e39c88e3612",
+    "included": true
+  },
+  "sequences/dpt.bash.0/02.dpt_3a.sh.json": {
+    "kind": "file",
+    "bytes": 3810,
+    "sha256": "5be710d05fa56a749c78d80e91150b1ce8eb7bd13a2d30daf007f74bff03a1e3",
+    "included": true
+  },
+  "sequences/dpt.bash.0/03.dpt_3b.sh.json": {
+    "kind": "file",
+    "bytes": 3808,
+    "sha256": "2e294be24a19a8d6e61b86da0c9b87c708f9cf2d9b61abb99d01add34666dafb",
+    "included": true
+  },
+  "sequences/dpt.bash.0/04.dpt_4.sh.json": {
+    "kind": "file",
+    "bytes": 3806,
+    "sha256": "587f93eaa1c95da507a8af1e745d01acbf29955a287398605fe3ea3e8d756a60",
+    "included": true
+  },
+  "sequences/dpt.bash.0/05.dpt_5a.sh.json": {
+    "kind": "file",
+    "bytes": 3993,
+    "sha256": "f5728a7fa8c6cb313c712962b7831001e02d1adf40bd18c4ea6780f00a4fbb6a",
+    "included": true
+  },
+  "sequences/dpt.bash.0/06.dpt_5b.sh.json": {
+    "kind": "file",
+    "bytes": 3992,
+    "sha256": "2d8989194ef24d5a535ad1b17edba8efb7644625e13c75cc120e26c9fe3ffb51",
+    "included": true
+  },
+  "sequences/dpt.bash.0/07.dpt_5c.sh.json": {
+    "kind": "file",
+    "bytes": 3994,
+    "sha256": "64f989adaba5355e714f618e16e5e907e88dfb2c95c949607e98e96deb2cafff",
+    "included": true
+  },
+  "sequences/dpt.bash.0/08.dpt_5d.sh.json": {
+    "kind": "file",
+    "bytes": 3992,
+    "sha256": "97d60ad39ebbec502653e2ecfc211a339130c983d44bfe2427942a1dab17907b",
+    "included": true
+  },
+  "sequences/dpt.bash.0/09.dpt_5e.sh.json": {
+    "kind": "file",
+    "bytes": 4182,
+    "sha256": "32696db651dc5385fc96332d0b564336b3a29178e0d01a3c3098ccbf74756ff9",
+    "included": true
+  },
+  "sequences/dpt.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 152,
+    "sha256": "557765ee996ac1116083bcb41ce1d161e7e2f3e73d20517838dffa618d0c657a",
+    "included": true
+  },
+  "sequences/dpt.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 3461,
+    "sha256": "3cd47b6b62413d40e6889155846ba2529e9f14b3c960b41e9b2b7fe8caa9e78e",
+    "included": true
+  },
+  "sequences/dpt.observe.0/00.dpt_1.sh.json": {
+    "kind": "file",
+    "bytes": 3931,
+    "sha256": "21e9a1a933275c9dde9da222621b3fe2f0982b546629116fce300494e6f96fcd",
+    "included": true
+  },
+  "sequences/dpt.observe.0/01.dpt_2.sh.json": {
+    "kind": "file",
+    "bytes": 3932,
+    "sha256": "9a5904dee5a4f0dd328062a78400d6e0b4a102ddb6d73747870f73319e24cea5",
+    "included": true
+  },
+  "sequences/dpt.observe.0/02.dpt_3a.sh.json": {
+    "kind": "file",
+    "bytes": 3933,
+    "sha256": "6ca997bec1be88c5edb021634e4a223fca5f0c997dac359f0cfe87645ad08c77",
+    "included": true
+  },
+  "sequences/dpt.observe.0/03.dpt_3b.sh.json": {
+    "kind": "file",
+    "bytes": 3934,
+    "sha256": "8af88516579541af4ecfbfe30bf7f8643b23f81ee17a7f969378f00df4b90f7d",
+    "included": true
+  },
+  "sequences/dpt.observe.0/04.dpt_4.sh.json": {
+    "kind": "file",
+    "bytes": 3934,
+    "sha256": "b22754fd1688910a14d311b1e8135dfc3251fc8925ec980635a820a957b99b8f",
+    "included": true
+  },
+  "sequences/dpt.observe.0/05.dpt_5a.sh.json": {
+    "kind": "file",
+    "bytes": 4120,
+    "sha256": "1dd6e9b24c48e8a4a25d16c4ebf1c2604da09468dcf88f407cf816757ed90217",
+    "included": true
+  },
+  "sequences/dpt.observe.0/06.dpt_5b.sh.json": {
+    "kind": "file",
+    "bytes": 4121,
+    "sha256": "e35a03b3656b72ac34a3c39531a8d84504416a74d055544baf6107fdc0c99a45",
+    "included": true
+  },
+  "sequences/dpt.observe.0/07.dpt_5c.sh.json": {
+    "kind": "file",
+    "bytes": 4121,
+    "sha256": "31fdd160310af89607c6b3cab8ecf273fa4e7a1888f386581a55d9586703d28b",
+    "included": true
+  },
+  "sequences/dpt.observe.0/08.dpt_5d.sh.json": {
+    "kind": "file",
+    "bytes": 4120,
+    "sha256": "76a0c01cf6e75cf74ee05bf86b0e424371b0fe7f4797516c4da9d0fb1dc4e885",
+    "included": true
+  },
+  "sequences/dpt.observe.0/09.dpt_5e.sh.json": {
+    "kind": "file",
+    "bytes": 4310,
+    "sha256": "d14b10a2a2888566efbfb7acf86e7a9768cb0d33cebd44ad3165ae86b501b9a0",
+    "included": true
+  },
+  "sequences/dpt.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 161,
+    "sha256": "044e64a675ff1e342a943bc9ec0bd4ff73c4950e097c702157bcd88a8e686b2f",
+    "included": true
+  },
+  "sequences/dpt.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 3461,
+    "sha256": "dac90b915ce881deaab33352ee7e9535cb7860d47911349cddf89df65726edc0",
+    "included": true
+  },
+  "sequences/dpt.original.0/00.dpt_1.sh.json": {
+    "kind": "file",
+    "bytes": 3933,
+    "sha256": "b60ba2d75709a5978bafd21bacdc1260b55d1a5d24b68f72372433e18bdd0120",
+    "included": true
+  },
+  "sequences/dpt.original.0/01.dpt_2.sh.json": {
+    "kind": "file",
+    "bytes": 3933,
+    "sha256": "d54b94003774ed3090e5dea31a1fa05625934a962d97e3b7268a59cdca1c3a3f",
+    "included": true
+  },
+  "sequences/dpt.original.0/02.dpt_3a.sh.json": {
+    "kind": "file",
+    "bytes": 3950,
+    "sha256": "1b0856b01dafaa6ebf6b8842118332e87b878f310687f2585fe90c8f726b71f0",
+    "included": true
+  },
+  "sequences/dpt.original.0/03.dpt_3b.sh.json": {
+    "kind": "file",
+    "bytes": 3950,
+    "sha256": "192d83d46f2494b7d5851acb488dc4d4325fdf54cd29d3e913ee215f5c07e0ed",
+    "included": true
+  },
+  "sequences/dpt.original.0/04.dpt_4.sh.json": {
+    "kind": "file",
+    "bytes": 3949,
+    "sha256": "22d2561fd9ecd82a34a09ae7097ce643c26e7b6389c8359023888ac298ddc240",
+    "included": true
+  },
+  "sequences/dpt.original.0/05.dpt_5a.sh.json": {
+    "kind": "file",
+    "bytes": 4137,
+    "sha256": "82dc0f6b980a3ab49e77caa5c4bdb1700c46170a23022610b30a64d3b495dc40",
+    "included": true
+  },
+  "sequences/dpt.original.0/06.dpt_5b.sh.json": {
+    "kind": "file",
+    "bytes": 4137,
+    "sha256": "b8c6ea0892a7f3bdb0488b8d03c02ef9d6c3a0a35b8a2009218ab9bced2b834a",
+    "included": true
+  },
+  "sequences/dpt.original.0/07.dpt_5c.sh.json": {
+    "kind": "file",
+    "bytes": 4156,
+    "sha256": "5c1a684ea344f422bdb6681c6963704019886616a22e12efdc56cbb7ba25304f",
+    "included": true
+  },
+  "sequences/dpt.original.0/08.dpt_5d.sh.json": {
+    "kind": "file",
+    "bytes": 4174,
+    "sha256": "073b653aead2e84fe23562ea59307be6d32754574c419035abbfc4f58a3bfbc6",
+    "included": true
+  },
+  "sequences/dpt.original.0/09.dpt_5e.sh.json": {
+    "kind": "file",
+    "bytes": 4383,
+    "sha256": "ebf54c808e5b0d0d080b88b636b2ed23c3d0ea53eb51c5e6f772aaea421e7897",
+    "included": true
+  },
+  "sequences/dpt.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 162,
+    "sha256": "2f58be2ebe01c4b7a49929964cc0d48b777c0fba6b57a2ce95605ca781a4fac6",
+    "included": true
+  },
+  "sequences/dpt.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 3458,
+    "sha256": "e59c55e4d100a9e3a8995d61ab6151e6497a13068ba60390373445b4dd978327",
+    "included": true
+  },
+  "sequences/nlp-ngrams.bash.0/00.ngrams-1.sh.json": {
+    "kind": "file",
+    "bytes": 2337,
+    "sha256": "289aa4de35129175f148f528be1a6d025e19bff7f0bada25842279cb2ca79cea",
+    "included": true
+  },
+  "sequences/nlp-ngrams.bash.0/01.ngrams-2.sh.json": {
+    "kind": "file",
+    "bytes": 2616,
+    "sha256": "a1ed9e3628ef27cad1830301f94d36c8e73650683b985a37a10a0e095632dac1",
+    "included": true
+  },
+  "sequences/nlp-ngrams.bash.0/02.ngrams-3.sh.json": {
+    "kind": "file",
+    "bytes": 2884,
+    "sha256": "a786667a4ef47408ac32ad9f4a8030fc80e06eda9891983f08b9a6a2873a9a14",
+    "included": true
+  },
+  "sequences/nlp-ngrams.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 159,
+    "sha256": "66a13978d2f8b3d3d7693e1521f527660ae4443749e2de0c57e9f9d07bfcf560",
+    "included": true
+  },
+  "sequences/nlp-ngrams.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 2374,
+    "sha256": "ce8b08ed51e517d83f01e1f6889e4e2d6e446f718fa4ce87131b6720f70f781a",
+    "included": true
+  },
+  "sequences/nlp-ngrams.observe.0/00.ngrams-1.sh.json": {
+    "kind": "file",
+    "bytes": 2459,
+    "sha256": "7834ea14a0c2e341e2d0edcde4ccb72b356814372cdf1ae4df74cb4a656882d3",
+    "included": true
+  },
+  "sequences/nlp-ngrams.observe.0/01.ngrams-2.sh.json": {
+    "kind": "file",
+    "bytes": 2741,
+    "sha256": "0cf4a82e93350070c1ef1d81e097e50823a83216cbd1d75f3598ff7c04d522ab",
+    "included": true
+  },
+  "sequences/nlp-ngrams.observe.0/02.ngrams-3.sh.json": {
+    "kind": "file",
+    "bytes": 3012,
+    "sha256": "f95643f32bd40d536934a40c8c56c8fedb9c93230af617b9d2e5cfcd7968d0de",
+    "included": true
+  },
+  "sequences/nlp-ngrams.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 167,
+    "sha256": "c146f7eead893b3c4bfcb0ea0bdd3dfdced02e66d00a23f1d48fb01129afe8fc",
+    "included": true
+  },
+  "sequences/nlp-ngrams.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 2374,
+    "sha256": "13ac06b715b7fd840086f781dae12fb2d1bb16860f22a4470f3ac89ef879b343",
+    "included": true
+  },
+  "sequences/nlp-ngrams.original.0/00.ngrams-1.sh.json": {
+    "kind": "file",
+    "bytes": 2460,
+    "sha256": "3687b54731f8259f871f9ea0bc999507294788f64bcb7bafae9662f1e4053e5b",
+    "included": true
+  },
+  "sequences/nlp-ngrams.original.0/01.ngrams-2.sh.json": {
+    "kind": "file",
+    "bytes": 2744,
+    "sha256": "b66e95a6ffbc03f97bfb7f5a1ec3859fb1c082ec5de83b2cc0078a1e8cfd1d5c",
+    "included": true
+  },
+  "sequences/nlp-ngrams.original.0/02.ngrams-3.sh.json": {
+    "kind": "file",
+    "bytes": 3016,
+    "sha256": "867bd49b7cabe3de488148c588c1eb4675ece9e5ed550f895dc9c1dfc5965bf5",
+    "included": true
+  },
+  "sequences/nlp-ngrams.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 169,
+    "sha256": "f737944330d484cb8d82b9b7b13159d5d142f92cc6c7d2d909b01a9e5d2c332e",
+    "included": true
+  },
+  "sequences/nlp-ngrams.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 2371,
+    "sha256": "aee8ba4eba80ad0ed2cd9354c76ce0c431823e1abebab381b1594a445c9e1f02",
+    "included": true
+  },
+  "sequences/nlp-uppercase.bash.0/00.uppercase_by_token.sh.json": {
+    "kind": "file",
+    "bytes": 2330,
+    "sha256": "2997c6894d9cf231dbe40eca019852af20d7aac33a85f7fc05af24194a936653",
+    "included": true
+  },
+  "sequences/nlp-uppercase.bash.0/01.uppercase_by_type.sh.json": {
+    "kind": "file",
+    "bytes": 2597,
+    "sha256": "5fc506f2922798ef0a6fc7d5339b2a5c573388bef063ba4c02df7555089273a4",
+    "included": true
+  },
+  "sequences/nlp-uppercase.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 161,
+    "sha256": "e6ade05fd485f26c65a364507bcc23b98c542ed1d686ba96931c1a5a48c975cf",
+    "included": true
+  },
+  "sequences/nlp-uppercase.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 2306,
+    "sha256": "1972611821c2eaa492a6faa16de1901acf73882ca18429a74d452a2f5b8ab8c5",
+    "included": true
+  },
+  "sequences/nlp-uppercase.observe.0/00.uppercase_by_token.sh.json": {
+    "kind": "file",
+    "bytes": 2453,
+    "sha256": "d0061b7094c9a694215e770ab068f89e1f3cb2e2e9af090efda5e57ce717c656",
+    "included": true
+  },
+  "sequences/nlp-uppercase.observe.0/01.uppercase_by_type.sh.json": {
+    "kind": "file",
+    "bytes": 2722,
+    "sha256": "9a3ea1098f99648e26a225f2563e117497aa6a954b972654f4b397b53427818e",
+    "included": true
+  },
+  "sequences/nlp-uppercase.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 171,
+    "sha256": "8738f2de9d205b5908b0a5e357a836beaee3783e5dac830b5893cfbd02320e63",
+    "included": true
+  },
+  "sequences/nlp-uppercase.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 2306,
+    "sha256": "ffe90d292baa9fb0b3aee6f3145793523c88048b7bb8ad5e4b81c7c676574523",
+    "included": true
+  },
+  "sequences/nlp-uppercase.original.0/00.uppercase_by_token.sh.json": {
+    "kind": "file",
+    "bytes": 2456,
+    "sha256": "d929b161d10b9f2a62ab6856558accbce96fe5ecf16fed5f11ca00c97830ab22",
+    "included": true
+  },
+  "sequences/nlp-uppercase.original.0/01.uppercase_by_type.sh.json": {
+    "kind": "file",
+    "bytes": 2724,
+    "sha256": "ed3155d45544326b53c0263eacb82679084ed41f394c7a737e1f022eace3b8f4",
+    "included": true
+  },
+  "sequences/nlp-uppercase.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 171,
+    "sha256": "391cfb519ffb8dcd8acad043e79ba1d38ce85aa497e310a8a3158589d24e47c6",
+    "included": true
+  },
+  "sequences/nlp-uppercase.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 2303,
+    "sha256": "a461ea0eaf291a3b4254f1fcb3e8d7c0d4a45ccf7c5efaaf74343ffe049a71a2",
+    "included": true
+  },
+  "sequences/spell.bash.0/00.spell-1.sh.json": {
+    "kind": "file",
+    "bytes": 2030,
+    "sha256": "eff6bacd06e0d1f5042e03cfb30c91f7ec7c1c44237854e0fef4db1b822f84f7",
+    "included": true
+  },
+  "sequences/spell.bash.0/01.spell-2.sh.json": {
+    "kind": "file",
+    "bytes": 2031,
+    "sha256": "3e8b13fae586e5ee101a4198df54ca19e82767e8dad7c99e303f9b53b1f2b389",
+    "included": true
+  },
+  "sequences/spell.bash.0/02.spell-3.sh.json": {
+    "kind": "file",
+    "bytes": 2031,
+    "sha256": "842030fe483721f790d1846c7e85110b34cbbf657ea91e5fd9529945bf2cbef4",
+    "included": true
+  },
+  "sequences/spell.bash.0/03.spell-4.sh.json": {
+    "kind": "file",
+    "bytes": 2033,
+    "sha256": "288eb17dc2792d2ad5b74ce7bd9579c257009949b5a78b1d55d43ac9fca153a0",
+    "included": true
+  },
+  "sequences/spell.bash.0/04.spell-5.sh.json": {
+    "kind": "file",
+    "bytes": 2033,
+    "sha256": "0d4eb435740a2184975216373df506b67866bc68429fd7e45014d5116d07262f",
+    "included": true
+  },
+  "sequences/spell.bash.0/05.spell-6.sh.json": {
+    "kind": "file",
+    "bytes": 2037,
+    "sha256": "2f0a3ee2021d1545136c2d970325624a7a064b2cf6babe634efedc5af75f5ba8",
+    "included": true
+  },
+  "sequences/spell.bash.0/06.spell-7.sh.json": {
+    "kind": "file",
+    "bytes": 2034,
+    "sha256": "5e7c53cf26a7914ced26151da547be032d4e13e15e35207641e5a9c87dd513e9",
+    "included": true
+  },
+  "sequences/spell.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 154,
+    "sha256": "58b3b248dd2fdd2c635f06e93bd40f14063f5b355c4736125260c85cbaab478c",
+    "included": true
+  },
+  "sequences/spell.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 2715,
+    "sha256": "abd97d08380c2fb9878b0c1f9ad714248dbda38b8a06bd190f424c1b72fe6d98",
+    "included": true
+  },
+  "sequences/spell.observe.0/00.spell-1.sh.json": {
+    "kind": "file",
+    "bytes": 2154,
+    "sha256": "ab5b2cae73f1462f64cd636c2652c0152a1dfb44026a571f82912f8c7f59b16f",
+    "included": true
+  },
+  "sequences/spell.observe.0/01.spell-2.sh.json": {
+    "kind": "file",
+    "bytes": 2156,
+    "sha256": "3b6f0e54419abca61d976a0f10d3e49ccadaa8182737d6e1e78efb4ea3171234",
+    "included": true
+  },
+  "sequences/spell.observe.0/02.spell-3.sh.json": {
+    "kind": "file",
+    "bytes": 2156,
+    "sha256": "c141fbf637f31b8af4ef0dd67854e9526ba08c8c90f317599e3be5992ae2bad4",
+    "included": true
+  },
+  "sequences/spell.observe.0/03.spell-4.sh.json": {
+    "kind": "file",
+    "bytes": 2157,
+    "sha256": "f5f4488c93a367fb0882c41d3bcf0d80eb7b5a9b1bb9f49d08b66daaf8683cf3",
+    "included": true
+  },
+  "sequences/spell.observe.0/04.spell-5.sh.json": {
+    "kind": "file",
+    "bytes": 2157,
+    "sha256": "ff9df9e9ce0f7789b4defd83607fd0624b86e549e976232313acbaff432f018b",
+    "included": true
+  },
+  "sequences/spell.observe.0/05.spell-6.sh.json": {
+    "kind": "file",
+    "bytes": 2164,
+    "sha256": "0ce78faed68f6e962c64e99fe64f847bd919a24dd1763b61b62285adf1d197a4",
+    "included": true
+  },
+  "sequences/spell.observe.0/06.spell-7.sh.json": {
+    "kind": "file",
+    "bytes": 2163,
+    "sha256": "c7765f1747e0d95d3b6cffcc0035e1308af467ceb35d53e1ecc810bcd3a1e5ba",
+    "included": true
+  },
+  "sequences/spell.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 163,
+    "sha256": "e26d8d36f106f4b2788d98a8640a09b522a4854c1a9e89f1ba8ab0a303f23746",
+    "included": true
+  },
+  "sequences/spell.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 2715,
+    "sha256": "5ab9efc2054a0f95e87db6f2a05840a02446472db9784b294b350a1b385412d7",
+    "included": true
+  },
+  "sequences/spell.original.0/00.spell-1.sh.json": {
+    "kind": "file",
+    "bytes": 2154,
+    "sha256": "8dba6fa6b036fdbeea46f903bc058f409a45fce21126c8997f36822240271a1e",
+    "included": true
+  },
+  "sequences/spell.original.0/01.spell-2.sh.json": {
+    "kind": "file",
+    "bytes": 2158,
+    "sha256": "9cfdb99a956b41af40bd31172a438e3da445153aa99f59fcb88660b4629324e7",
+    "included": true
+  },
+  "sequences/spell.original.0/02.spell-3.sh.json": {
+    "kind": "file",
+    "bytes": 2156,
+    "sha256": "0650cb78a68e1d4e9b2312e46c3cd637d607dbaaa82a776ca84c2901a80e0425",
+    "included": true
+  },
+  "sequences/spell.original.0/03.spell-4.sh.json": {
+    "kind": "file",
+    "bytes": 2157,
+    "sha256": "3a0051c76806b581cce230cb33a1107b2aa0c1f248d1f23de25180032b787df3",
+    "included": true
+  },
+  "sequences/spell.original.0/04.spell-5.sh.json": {
+    "kind": "file",
+    "bytes": 2178,
+    "sha256": "dc83c54fee534745bc350f51a449a30d8c2fee344964063621eded9660fb8748",
+    "included": true
+  },
+  "sequences/spell.original.0/05.spell-6.sh.json": {
+    "kind": "file",
+    "bytes": 2183,
+    "sha256": "9a82ef7fc0d4797f70b104cb52bd2f7cc22f3d17e14166c294ec01697d52d05d",
+    "included": true
+  },
+  "sequences/spell.original.0/06.spell-7.sh.json": {
+    "kind": "file",
+    "bytes": 2182,
+    "sha256": "e0c5fb344a07dede0b014296dfc2d81b388b0c346af9014f5b0dc8a60a766a14",
+    "included": true
+  },
+  "sequences/spell.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 164,
+    "sha256": "dde4ae797fb4072e8fc1ab1e9ec01676e565e7345a9751e27e3869cbbf9e4f02",
+    "included": true
+  },
+  "sequences/spell.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 2712,
+    "sha256": "aa656bde893b8d0bfc05be74a0d9b999dfe5204507c2da70ed4a19e3622831a6",
+    "included": true
+  },
+  "status.json": {
+    "kind": "file",
+    "bytes": 158,
+    "sha256": "170d6510dcd5e3c59e7429f9224dac448f95bec3990ffb4dd0944df77aed59ce",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 43353,
+    "sha256": "457716207ea4e61e3c139599a2b72bac92c8969087fde9bdf2e58d797db8538f",
+    "included": true
+  },
+  "timings.csv": {
+    "kind": "file",
+    "bytes": 24028,
+    "sha256": "e797c7a6706211b8e776afa1f9111d471c59bbb829b6f4670729218b95ed68b7",
+    "included": true
+  }
+}

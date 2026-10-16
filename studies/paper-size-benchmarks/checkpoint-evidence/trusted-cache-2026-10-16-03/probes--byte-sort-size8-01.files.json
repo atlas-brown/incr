@@ -1,0 +1,68 @@
+{
+  "measurements.json": {
+    "kind": "file",
+    "bytes": 8275,
+    "sha256": "61b3151a39dc576766959ee0986a4fb6ba2829f0b1050a3ba0876f7d17af7666",
+    "included": true
+  },
+  "prototype": {
+    "kind": "file",
+    "bytes": 4564776,
+    "sha256": "e3531b14afc66868a24aab009e1a3782393c694c87ca2749488462f2a73c897a",
+    "included": true
+  },
+  "prototype.json": {
+    "kind": "file",
+    "bytes": 187,
+    "sha256": "43a2e3275483a37faacba5ed29160b2262c45c2b05da2ecc404ce1d21d8eddd5",
+    "included": true
+  },
+  "prototype.rs": {
+    "kind": "file",
+    "bytes": 1140,
+    "sha256": "423dc81ab7b533167f57ff95f561ca135a7e342f94830b36c9fb946740de0783",
+    "included": true
+  },
+  "provenance-check.json": {
+    "kind": "file",
+    "bytes": 66,
+    "sha256": "9b6bf98ef306ed2fc74977c8180208c1db573de883cb2606a5f13f091946c8be",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 11668,
+    "sha256": "29b8b61d7220f777befc038639a11b2f9f56b552a620a00ad0ff5ba5ead1de35",
+    "included": true
+  },
+  "source-0-new/src/ops/profile.rs": {
+    "kind": "file",
+    "bytes": 2186,
+    "sha256": "754dff75227328efd67d175a820927e3a16d78580b751f25f500032080e93d49",
+    "included": true
+  },
+  "source-0.patch": {
+    "kind": "file",
+    "bytes": 28945,
+    "sha256": "9eb961726be20176df13601d7ef41507dd2a8d0688e504b81a9a3e45fdc15b2c",
+    "included": true
+  },
+  "source-1.patch": {
+    "kind": "file",
+    "bytes": 6846,
+    "sha256": "d64d068d4fb5931f0a4f389125804ef77fcfa42d696a5e804125f2e649bdeb7e",
+    "included": true
+  },
+  "source-2.patch": {
+    "kind": "file",
+    "bytes": 1516,
+    "sha256": "829c5c06e43c099a7fa961c49cbecaae1c13ef0c7b77336b78efb422049334a3",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 140,
+    "sha256": "da242bf2108b65c780d3a0a0aa15befc87823395fbadbbc85bce3ba54f7e4441",
+    "included": true
+  }
+}

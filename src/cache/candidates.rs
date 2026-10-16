@@ -31,7 +31,7 @@ struct IndexEntry {
 pub(crate) fn validate<'a>(config: &Config, command: &'a Command) -> Result<Vec<Candidate<'a>>> {
     // Pure commands cannot change the dependencies we need to validate. Let them
     // start streaming immediately and validate only the selected stdin entry later.
-    // Otherwise every input variant hashes up to eight unrelated output streams.
+    // Otherwise every input variant validates unrelated cache entries.
     if config.observe_command.is_none()
         || config.effect_policy != EffectPolicy::FinalOutputs
         || config.trace_type == TraceType::Nothing

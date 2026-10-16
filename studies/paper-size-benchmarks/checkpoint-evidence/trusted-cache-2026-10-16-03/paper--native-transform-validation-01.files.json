@@ -1,0 +1,38 @@
+{
+  "atlas-native-all-rust-tests.log": {
+    "kind": "file",
+    "bytes": 152,
+    "sha256": "3f44d98497510436d01d5c2ef26af0fc4e9e1afd834ee4c2f7cb900225fcfd56",
+    "included": true
+  },
+  "atlas-native-harness-ownership.log": {
+    "kind": "file",
+    "bytes": 791,
+    "sha256": "7bb9b32abc6c227a41e7d57dd69873b93043ec7ec1f41f61b9cbbf545c4a7fbd",
+    "included": true
+  },
+  "atlas-native-incr-final.log": {
+    "kind": "file",
+    "bytes": 170,
+    "sha256": "db5229d849cc7c20926f3d5e7add56e9c35fa0ac0f9d44b41a207a8cb624259e",
+    "included": true
+  },
+  "atlas-native-shell-ast.log": {
+    "kind": "file",
+    "bytes": 107,
+    "sha256": "da33455330417355c4c7f4297af329897a7010beb732e0997e19421fcb0aa2c8",
+    "included": true
+  },
+  "atlas-native-transform-execution-04.log": {
+    "kind": "file",
+    "bytes": 105,
+    "sha256": "60bb22334efea7e7ac521a8786c02d4dd7fc976ff81c2649d885801114125103",
+    "included": true
+  },
+  "hashes.json": {
+    "kind": "file",
+    "bytes": 553,
+    "sha256": "aa4f353f37b35572fe1cf5b510e9b27f1733b7f504934798f95b994c5f6544ee",
+    "included": true
+  }
+}

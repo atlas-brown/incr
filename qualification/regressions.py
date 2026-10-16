@@ -222,26 +222,26 @@ class Regressions(unittest.TestCase):
                 self.assertEqual(stream.read(), payload)
             self.assertEqual(unicode_path.read_bytes(), b"unrelated")
 
-    def test_corrupt_cached_stream(self):
+    def test_missing_cached_stream(self):
         command = ["cat", "input"]
         (self.work / "input").write_text("expected\n")
         self.invoke(command)
         cached = list(self.cache.rglob("stdout.incr"))
         self.assertTrue(cached)
         for path in cached:
-            path.write_bytes(b"corrupt")
+            path.unlink()
         self.assertEqual(self.invoke(command)["stdout"], "expected\n")
 
     def test_pure_stream_variants_validate_selected_payload(self):
         # Pure streams need no pre-execution filesystem snapshot. Changing stdin
-        # must still select the right entry, and corrupt payloads must never replay.
+        # must still select the right entry, and missing payloads must be rebuilt.
         command = ["tr", "a-z", "A-Z"]
         for payload in (b"first\n", b"second\n", b"third\n", b"first\n"):
             self.assertEqual(self.invoke(command, stdin=payload)["stdout"].encode(), payload.upper())
         cached = list(self.cache.rglob("stdout.incr"))
         self.assertGreaterEqual(len(cached), 3)
         for path in cached:
-            path.write_bytes(b"corrupt")
+            path.unlink()
         for payload in (b"first\n", b"second\n"):
             self.assertEqual(self.invoke(command, stdin=payload)["stdout"].encode(), payload.upper())
 
@@ -715,14 +715,14 @@ finally:
                 self.assertEqual((self.work / f"out{i}").read_text(), "shared\n")
         self.assertFalse(list(self.cache.glob("uncached_*")))
 
-    def test_corrupt_cached_effect(self):
+    def test_missing_cached_effect(self):
         source = self.work / "source"
         source.write_text("valid contents")
         self.invoke(["cp", "source", "dest"])
         payloads = list(self.cache.rglob("file-*"))
         self.assertTrue(payloads)
         for payload in payloads:
-            payload.write_text("corrupt")
+            payload.unlink()
         (self.work / "dest").unlink()
         self.invoke(["cp", "source", "dest"])
         self.assertEqual((self.work / "dest").read_text(), "valid contents")

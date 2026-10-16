@@ -296,6 +296,30 @@ class HarnessTests(unittest.TestCase):
             right.write_text(template.replace(before, after))
             self.assertNotEqual(expected['sha256'], normalized_stderr(right, 'dpt')['sha256'])
 
+    def test_dpt_optional_threadpool_notice_is_not_application_output(self):
+        path = self.temp / 'stderr'
+        notice = (
+            'E0000 <time> <pid> node_def_util.cc:682] NodeDef mentions attribute use_unbounded_threadpool '
+            'which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, '
+            'other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; '
+            'attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; '
+            'attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; '
+            'attr=force_synchronous:bool,default=false; attr=metadata:string,default=""> This may be '
+            'expected if your graph generating binary is newer  than this binary. Unknown attributes will be'
+            ' ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}'
+        )
+        path.write_text('ordinary diagnostic\n')
+        expected = normalized_stderr(path, 'dpt')['sha256']
+        path.write_text('ordinary diagnostic\n' + (notice + '\n') * 3)
+        self.assertEqual(expected, normalized_stderr(path, 'dpt')['sha256'])
+        self.assertNotEqual(expected, normalized_stderr(path, 'beginner')['sha256'])
+        for changed in (notice.replace('use_unbounded_threadpool', 'different_attribute'),
+                        notice.replace('Unknown attributes will be ignored.', 'Error: invalid graph.')):
+            path.write_text('ordinary diagnostic\n' + changed + '\n')
+            self.assertNotEqual(expected, normalized_stderr(path, 'dpt')['sha256'])
+        path.write_text('ordinary diagnostic\nTraceback (most recent call last):\n')
+        self.assertTrue(normalized_stderr(path, 'dpt')['errors'])
+
     def test_dpt_download_error_remains_a_failure(self):
         path = self.temp / 'wget-error'
         path.write_text('2026-10-15 00:53:04 ERROR 404: Not Found.\n')

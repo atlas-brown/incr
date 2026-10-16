@@ -1,0 +1,2552 @@
+{
+  "configuration.json": {
+    "kind": "file",
+    "bytes": 1472,
+    "sha256": "a00a40271c0dfd846b4434537b94cacabb86d30091ffcce856145052f3115d32",
+    "included": true
+  },
+  "environment.json": {
+    "kind": "file",
+    "bytes": 45246,
+    "sha256": "631d8348941ed5cb2c9e412cce13dc5c384cbaa6a6de5ac8443f9d2b5fffb2f0",
+    "included": true
+  },
+  "events.jsonl": {
+    "kind": "file",
+    "bytes": 65509,
+    "sha256": "ebe562f59f710b6e7bfb85dac2eea7c5cec339ee8862224fa8a339de79b117ab",
+    "included": true
+  },
+  "frozen-build.json": {
+    "kind": "file",
+    "bytes": 15331,
+    "sha256": "45d78194568b75774d6401c61df1a603165a28e6c33d16202a783c9e68869183",
+    "included": true
+  },
+  "inputs/beginner.json": {
+    "kind": "file",
+    "bytes": 271,
+    "sha256": "ec2c8bcf5690bd0c1bb856605b6b113d322ad131f39adacd518a9707b79fad66",
+    "included": true
+  },
+  "inputs/bio.json": {
+    "kind": "file",
+    "bytes": 601,
+    "sha256": "e1e7e12099db36ab4012e30bca2de6104f7a8437989d9afd33ef2582d4b8ad0d",
+    "included": true
+  },
+  "inputs/covid.json": {
+    "kind": "file",
+    "bytes": 270,
+    "sha256": "12c5fbdc948fbb05d471856d25680cd4c4ec42cc83ed9ebf71103d5d175211a1",
+    "included": true
+  },
+  "inputs/file-mod.json": {
+    "kind": "file",
+    "bytes": 593,
+    "sha256": "4f1413853356b3ec6422901b6e873288cb2fc463523fe0849d0bc32534f73298",
+    "included": true
+  },
+  "inputs/nginx-analysis.json": {
+    "kind": "file",
+    "bytes": 277,
+    "sha256": "2ae2ecec9767b47fb6d70f0960db28a727655c0b307a314755d40b63b8240c7b",
+    "included": true
+  },
+  "inputs/nlp-ngrams.json": {
+    "kind": "file",
+    "bytes": 278,
+    "sha256": "e48910f7cf01b489ffe878dad0b70e6deefae0d53f25b416d6046df7dabff730",
+    "included": true
+  },
+  "inputs/nlp-uppercase.json": {
+    "kind": "file",
+    "bytes": 281,
+    "sha256": "154ed0f53c42e9d0264bfe92a06e673c9dcadcbdd3552f7c7787dc0322dba1a5",
+    "included": true
+  },
+  "inputs/poet.json": {
+    "kind": "file",
+    "bytes": 272,
+    "sha256": "958784a86c803f5ca55c3dc66809534dde011144ce701776177e99f962386a27",
+    "included": true
+  },
+  "inputs/spell.json": {
+    "kind": "file",
+    "bytes": 273,
+    "sha256": "9d499a1f737cd560205d7a4e4b00d8addd7bdb2a1102998cf7b36669911610bc",
+    "included": true
+  },
+  "inputs/unixfun.json": {
+    "kind": "file",
+    "bytes": 268,
+    "sha256": "98656ef8b1fe816d4ebca552db9b4dae3dfbacd5e8b24f91354296c6ad0b557e",
+    "included": true
+  },
+  "inputs/weather.json": {
+    "kind": "file",
+    "bytes": 275,
+    "sha256": "20d2f25ea3fdbb678841056e126f2c871239abcf4230f6fdc0f2c584313b4194",
+    "included": true
+  },
+  "inputs/word-freq.json": {
+    "kind": "file",
+    "bytes": 277,
+    "sha256": "0e881ef7cd5da63af4c521ea45fd3eed25275b3a2ee1652003093d1d96437121",
+    "included": true
+  },
+  "monitor-history.jsonl": {
+    "kind": "file",
+    "bytes": 552,
+    "sha256": "204061414f7908e72904d7339788f501f491c3da45900e3e533092a9fa92066b",
+    "included": true
+  },
+  "monitor.json": {
+    "kind": "file",
+    "bytes": 602,
+    "sha256": "c9b53ddc7bcefb125d3d0181f02e31421cfcd0306276ce6219c995e02fdd1840",
+    "included": true
+  },
+  "references/beginner/0.beginner-01.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "b2aa59afe8b86b9d31440f6812461e2775409aece84e21a43cbfcfeb02414af7",
+    "included": true
+  },
+  "references/beginner/0.beginner-02.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "b2aa59afe8b86b9d31440f6812461e2775409aece84e21a43cbfcfeb02414af7",
+    "included": true
+  },
+  "references/beginner/0.beginner-03.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "3d5188c02b23b404aeef40b42a9660900f5e1326436365e6dc018d550bf4cdb1",
+    "included": true
+  },
+  "references/beginner/0.beginner-04.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "f01f00dfb7484a52a0248c3002e0a2199e411696f4fb200e302ae8b565e27be9",
+    "included": true
+  },
+  "references/beginner/0.beginner-05.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "f01f00dfb7484a52a0248c3002e0a2199e411696f4fb200e302ae8b565e27be9",
+    "included": true
+  },
+  "references/beginner/0.beginner-06.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "1dedd5ca05010ee7bcb06bfcaa796c2a04b5064303cc7f45a6e305fd2e568954",
+    "included": true
+  },
+  "references/beginner/0.beginner-07.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "1dedd5ca05010ee7bcb06bfcaa796c2a04b5064303cc7f45a6e305fd2e568954",
+    "included": true
+  },
+  "references/beginner/0.beginner-08.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "a12eda13b7a4aee861f4f79698d789dbe67b5be51ec7fc22bfd94e06524b1df0",
+    "included": true
+  },
+  "references/beginner/0.beginner-09.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "1761f5a75d9108b34a55a05111b9ec1e9cd9d6a096bd4226293aa2f1fc9f69d1",
+    "included": true
+  },
+  "references/beginner/0.beginner-10.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "398887bf2b9b994b675b8fb97caf815918e6d26dff9b2736b9e985b2d384767a",
+    "included": true
+  },
+  "references/beginner/0.beginner-11.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "9744da3e87df08ebbf2271f622b590f05f3fc6e51bc8035ae8025a0c51597dbd",
+    "included": true
+  },
+  "references/beginner/0.beginner-12.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "5ffb9aea1406e0fd43e9dd75a92e7b1f52fbcb0f89fb8003aafd473acf30276e",
+    "included": true
+  },
+  "references/beginner/0.beginner-13.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "5a07df1f728497f6536317385bc6308a17fbde3e9726555319aff0222c8cc4d9",
+    "included": true
+  },
+  "references/beginner/0.beginner-14.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "5a07df1f728497f6536317385bc6308a17fbde3e9726555319aff0222c8cc4d9",
+    "included": true
+  },
+  "references/bio/0.bio-1.sh.json": {
+    "kind": "file",
+    "bytes": 713,
+    "sha256": "f52910fcaa04c1cb0ebd9e13a85ddc8b46a113bcd79f49a4257ae72b9f85cc1f",
+    "included": true
+  },
+  "references/bio/0.bio-2.sh.json": {
+    "kind": "file",
+    "bytes": 713,
+    "sha256": "f52910fcaa04c1cb0ebd9e13a85ddc8b46a113bcd79f49a4257ae72b9f85cc1f",
+    "included": true
+  },
+  "references/bio/0.bio-3.sh.json": {
+    "kind": "file",
+    "bytes": 4378,
+    "sha256": "df60ba428589f19d6974d31a1dda86053fc555a4011bb018827b01146603679a",
+    "included": true
+  },
+  "references/bio/0.bio-4-0.sh.json": {
+    "kind": "file",
+    "bytes": 7966,
+    "sha256": "dc114955df9f15ee625689176140c2ba5c1a50bc34d3d9dcf10b061065581564",
+    "included": true
+  },
+  "references/bio/0.bio-4.sh.json": {
+    "kind": "file",
+    "bytes": 7966,
+    "sha256": "dc114955df9f15ee625689176140c2ba5c1a50bc34d3d9dcf10b061065581564",
+    "included": true
+  },
+  "references/bio/0.bio-5.sh.json": {
+    "kind": "file",
+    "bytes": 8131,
+    "sha256": "99762af6c01b7917704c9c96ce4af2bef5c9e5a89fe5157ed738d98d79719ca9",
+    "included": true
+  },
+  "references/bio/0.bio-6.sh.json": {
+    "kind": "file",
+    "bytes": 8371,
+    "sha256": "ab0ffb1476a1a6476fdd18ab764b3e2b7fc24ea821cc94e9cabaf7d934b9420d",
+    "included": true
+  },
+  "references/covid/0.1.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "f31d0d6754bbe85e378e5c17efa06652b40d75ca172be41e8e96ac52e21ea8ae",
+    "included": true
+  },
+  "references/covid/0.2.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "bc98ae46ee1d73066db7f682f407d168ecc28779831ece89cf671077dae36240",
+    "included": true
+  },
+  "references/covid/0.3.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "e9298571052eef86e7e99ab0b8e2e5465f11d86d1d9aae52291925340e02673c",
+    "included": true
+  },
+  "references/covid/0.4.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "31e1ec219b5f2db444b6b8cd934a6a0c517e9bda4948d067249082940c292f13",
+    "included": true
+  },
+  "references/covid/0.5.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "4a633ed437a6bea63aaae9daed3b84152ae2d34a20dcdfcc93e902d4ea92fff2",
+    "included": true
+  },
+  "references/file-mod/0.file-mod-1.sh.json": {
+    "kind": "file",
+    "bytes": 8418,
+    "sha256": "e6baff48b56c8aef403058c830a4884ee95bc68f23db8c7b338958b1d2bb4bf7",
+    "included": true
+  },
+  "references/file-mod/0.file-mod-2.sh.json": {
+    "kind": "file",
+    "bytes": 9222,
+    "sha256": "cb95e903b0227b73c782420b615ad3a879cb8d4953259890606c815a8c9484eb",
+    "included": true
+  },
+  "references/file-mod/0.file-mod-3.sh.json": {
+    "kind": "file",
+    "bytes": 9824,
+    "sha256": "e7708261f3b9e392cf40e1e57740f450342577b46c6090f112f91544d9e10bc6",
+    "included": true
+  },
+  "references/file-mod/0.file-mod-4.sh.json": {
+    "kind": "file",
+    "bytes": 10430,
+    "sha256": "ff3a6596b5445312be57e2f9b84145b41f4bba7b8c6e57e5edb78545a671d4f6",
+    "included": true
+  },
+  "references/file-mod/0.file-mod-5.sh.json": {
+    "kind": "file",
+    "bytes": 10430,
+    "sha256": "ff3a6596b5445312be57e2f9b84145b41f4bba7b8c6e57e5edb78545a671d4f6",
+    "included": true
+  },
+  "references/file-mod/0.file-mod-6.sh.json": {
+    "kind": "file",
+    "bytes": 11537,
+    "sha256": "d296815be3f74c617849eecd25c22f997fcd30290753e10f08a82f70130c5849",
+    "included": true
+  },
+  "references/file-mod/0.file-mod-7.sh.json": {
+    "kind": "file",
+    "bytes": 12146,
+    "sha256": "81005a98f5dbf731417e84dc9ad4c5cd6b42648d90903f72d80209972719267d",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-1.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "0f47f36b0be10b93edfd3a2cdfa8b192b598f453f93365434655abacd0844feb",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-10.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "28f4d5855e28dbc4047e148ff56a8c171f52b140c575b2c9b1326c23971980ae",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-11.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "5f99210c8dc4265c3cb635d60f1e1d20427bcecba1736a3aac7816169066b742",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-12.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "5f99210c8dc4265c3cb635d60f1e1d20427bcecba1736a3aac7816169066b742",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-13.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "5f99210c8dc4265c3cb635d60f1e1d20427bcecba1736a3aac7816169066b742",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-14.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "5f99210c8dc4265c3cb635d60f1e1d20427bcecba1736a3aac7816169066b742",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-15.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "5f99210c8dc4265c3cb635d60f1e1d20427bcecba1736a3aac7816169066b742",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-16.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "5f99210c8dc4265c3cb635d60f1e1d20427bcecba1736a3aac7816169066b742",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-17.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "c1460de225e859252daa5b1f09d97947af120ae81b135ae58f7b1dd6684f1691",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-18.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "105a89c9968c1e1d888481361569a011d687f253d8ecea5319691add4f6f54c3",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-19.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "7cb328ff4a92e3cdff6daaf6b97ce1509be9b4d29a70af785cd02afad08c47d9",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-2.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "d06a7d4a041863e75fb29e9259e6a3c227c62ee3f522c2d76b73b1fbadd486f0",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-20.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "5ac7d4f65322c8bbfaa86b0a6ae5c677094f6cfd29f291f335a74cdcce9dcab9",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-21.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "5ac7d4f65322c8bbfaa86b0a6ae5c677094f6cfd29f291f335a74cdcce9dcab9",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-22.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "5ac7d4f65322c8bbfaa86b0a6ae5c677094f6cfd29f291f335a74cdcce9dcab9",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-3.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "252f1028465509a904e5562fbc892c5956a84187bf9a205625e515d14dcf9a24",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-4.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "ad622ab16ee47b489124456cc93d170d90c07e3a62b5d89ab2072aa9f1489334",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-5.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "84bf2e5cb1ae70ad149a3501aaaf1503c55ba44b0dcf7f1bcc08d21efd741c2b",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-6.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "b573c12e3886a7bb4d99a3fbfb378df38f997913d93c61146e0f7b78e5426e7a",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-7.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "3e51ce28498ad352c5f956244a308499ecee1bf769dd0dfb5994304f97d75506",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-8.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "f5a3ff8556cb41534c3ce5b4d98d9c836b913336ca8146f52a7ee599b6913aca",
+    "included": true
+  },
+  "references/nginx-analysis/0.nginx-9.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "b81429d4eb027ff247278281bdb38851dfe8b1e6a8be15193e6f8f906c6cb158",
+    "included": true
+  },
+  "references/nlp-ngrams/0.ngrams-1.sh.json": {
+    "kind": "file",
+    "bytes": 627,
+    "sha256": "e9be2e15e6f7b92e015e62bad75a64342963ff28b717c2328825b71c74c30642",
+    "included": true
+  },
+  "references/nlp-ngrams/0.ngrams-2.sh.json": {
+    "kind": "file",
+    "bytes": 888,
+    "sha256": "c82bbea937714a33268bc1d9f6403d46f5de64d53d0f763dd1b665951cac0be1",
+    "included": true
+  },
+  "references/nlp-ngrams/0.ngrams-3.sh.json": {
+    "kind": "file",
+    "bytes": 1139,
+    "sha256": "520bbcc96b83396fc255564529d4589480edd47f275d5e3007cdf96547804376",
+    "included": true
+  },
+  "references/nlp-uppercase/0.uppercase_by_token.sh.json": {
+    "kind": "file",
+    "bytes": 598,
+    "sha256": "ce7d49fe6fee5c8c386444097eff3a9e8627fa7a9a0ae0549cb81b97573a7225",
+    "included": true
+  },
+  "references/nlp-uppercase/0.uppercase_by_type.sh.json": {
+    "kind": "file",
+    "bytes": 849,
+    "sha256": "0b8fa7bc2726515ba6ab4c641b63b55af8b02a776d2bba10ece3176a000dd679",
+    "included": true
+  },
+  "references/poet/0.poet-1.sh.json": {
+    "kind": "file",
+    "bytes": 511,
+    "sha256": "d63deeca97023fa807d10528e9ea162d67e42856bd24d4df31e62358d5545a15",
+    "included": true
+  },
+  "references/poet/0.poet-2.sh.json": {
+    "kind": "file",
+    "bytes": 674,
+    "sha256": "70333ffbf30b8ecac35d875bb6d39166a040adaa5cd9015afa85579a8098502d",
+    "included": true
+  },
+  "references/poet/0.poet-3.sh.json": {
+    "kind": "file",
+    "bytes": 839,
+    "sha256": "168f62422105a49dd281b2b946edc06555c00f476dea475338c2dd8637627894",
+    "included": true
+  },
+  "references/poet/0.poet-4.sh.json": {
+    "kind": "file",
+    "bytes": 1004,
+    "sha256": "6e066196f69f7c4bcf9a90461c4d92541ec05967f994639800249c07a5eadab1",
+    "included": true
+  },
+  "references/spell/0.spell-1.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "4da885cd15566964bc2c1b92b9695111b5818983e35daab1dfd6bcd9fe6b02a5",
+    "included": true
+  },
+  "references/spell/0.spell-2.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "804398816b834350fd677fec9b1bdb7991c1d55d8d5b5bbb13a49cbf58880544",
+    "included": true
+  },
+  "references/spell/0.spell-3.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "e04f21f79b4d74464fd0b816df8493d22cae2340c141f428b6651e428c2db45e",
+    "included": true
+  },
+  "references/spell/0.spell-4.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "e04f21f79b4d74464fd0b816df8493d22cae2340c141f428b6651e428c2db45e",
+    "included": true
+  },
+  "references/spell/0.spell-5.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "90f561b57b8ec55375366a4cb155c2f064f2db687ba724ab1f8716fba3863e0c",
+    "included": true
+  },
+  "references/spell/0.spell-6.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "c934a9814bc140fb1853b39f48aced38bd0d7ea54a1fa0d58553f67ecd83a339",
+    "included": true
+  },
+  "references/spell/0.spell-7.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "11ec1503f3775fb39fca343eda6f6fd1ab81267259eddffee02fba3398fa4ee3",
+    "included": true
+  },
+  "references/unixfun/0.10.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "68f2e1de828b166059c94a1cd1f6f6c18f8896a3f6628b0c63821af7dae8bac3",
+    "included": true
+  },
+  "references/unixfun/0.11.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "bfd327d69d87b798bb6e5f46a906067d804a7bfbc740b95083ca5a2c2200fcf4",
+    "included": true
+  },
+  "references/unixfun/0.12.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "bc61e11ad220bc70cf3919d2c8837c3fbf31b5eeb647dc99ac2f795eaf9221da",
+    "included": true
+  },
+  "references/unixfun/0.7.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "15144cf61e769017096487cb284e24d87763bf0bc402595a633d057833b0a27d",
+    "included": true
+  },
+  "references/unixfun/0.8.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "7590f366b4225fcf106bd6ca079186abfd79b47767c85e51c737a980eb266d4e",
+    "included": true
+  },
+  "references/unixfun/0.9.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "ba02dfa14a80f340a72f28e563e0a4b61eb663a0e8a65dd3d40aa422f3b9b17e",
+    "included": true
+  },
+  "references/weather/0.temp-analytics-1.sh.json": {
+    "kind": "file",
+    "bytes": 515,
+    "sha256": "9c8c5aedf51d278246206fcfc5852dab93edefbd8c612767ddabf28cb3262034",
+    "included": true
+  },
+  "references/weather/0.temp-analytics-2.sh.json": {
+    "kind": "file",
+    "bytes": 683,
+    "sha256": "94155fca3ba26b120112c877effaed7d98fd5961bd40dcae78da00da1005278b",
+    "included": true
+  },
+  "references/weather/0.temp-analytics-3.sh.json": {
+    "kind": "file",
+    "bytes": 855,
+    "sha256": "d68647ea911b3f03e1808222f3ad85796505f69aa576a1ce6a9176d21b994d46",
+    "included": true
+  },
+  "references/word-freq/0.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "e5c1953908896a46a4802c26aab0721d136582758ed08d7568208aa655a6e136",
+    "included": true
+  },
+  "references/word-freq/0.wf.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "94a024dc1fce1e81148f49546c567ba4c9b7212a67bb88f41c6d128017000f16",
+    "included": true
+  },
+  "report.md": {
+    "kind": "file",
+    "bytes": 796,
+    "sha256": "328ed69a2ea7d0cf2bbb2a2ccef3e47c98aec1797ba7849bea8f0756a1749bf5",
+    "included": true
+  },
+  "sequences/beginner.bash.0/00.beginner-01.sh.json": {
+    "kind": "file",
+    "bytes": 2066,
+    "sha256": "108d2f3e2dd79b527ee4dfb9a821b6eb47e6a0d542d6b628c1ed85be421a68af",
+    "included": true
+  },
+  "sequences/beginner.bash.0/01.beginner-02.sh.json": {
+    "kind": "file",
+    "bytes": 2067,
+    "sha256": "a9d135cc84675ed6880f41238a262140bce8e501bea6d03cdfb7b734f8639a49",
+    "included": true
+  },
+  "sequences/beginner.bash.0/02.beginner-03.sh.json": {
+    "kind": "file",
+    "bytes": 2066,
+    "sha256": "c8aabfbe5e4f02ad3ff46714e03fabf0d494b03dd74b4634524ad750b757b72d",
+    "included": true
+  },
+  "sequences/beginner.bash.0/03.beginner-04.sh.json": {
+    "kind": "file",
+    "bytes": 2064,
+    "sha256": "6004567676eafabbb7b57db69611258d172cb5b482de86ba110e5484c35fbd64",
+    "included": true
+  },
+  "sequences/beginner.bash.0/04.beginner-05.sh.json": {
+    "kind": "file",
+    "bytes": 2065,
+    "sha256": "a8217b123c2613340c6df2592fab77908836beba41976d73b38cd0041ee31733",
+    "included": true
+  },
+  "sequences/beginner.bash.0/05.beginner-06.sh.json": {
+    "kind": "file",
+    "bytes": 2063,
+    "sha256": "c8eb55224b7870911d89cd718d7ed080453ef8e1035c710aadb55cb139ff71e0",
+    "included": true
+  },
+  "sequences/beginner.bash.0/06.beginner-07.sh.json": {
+    "kind": "file",
+    "bytes": 2062,
+    "sha256": "35310bdb56cc6e33f45903b6550a2fa1ac913d0a2beaf403d9bfab3e943e2a76",
+    "included": true
+  },
+  "sequences/beginner.bash.0/07.beginner-08.sh.json": {
+    "kind": "file",
+    "bytes": 2064,
+    "sha256": "5db761d237a45750b7c89f346e73b76b3027b4929369a07f30f29447ccc3f054",
+    "included": true
+  },
+  "sequences/beginner.bash.0/08.beginner-09.sh.json": {
+    "kind": "file",
+    "bytes": 2065,
+    "sha256": "0d8a27e4964c79c4792f0d416740b0b6d3ff1153902505d43f91954ad7e94c74",
+    "included": true
+  },
+  "sequences/beginner.bash.0/09.beginner-10.sh.json": {
+    "kind": "file",
+    "bytes": 2065,
+    "sha256": "0c0b29354edf4c4fbf8514fda84352316731cce8ec2e843539d31fb9b4a64ccf",
+    "included": true
+  },
+  "sequences/beginner.bash.0/10.beginner-11.sh.json": {
+    "kind": "file",
+    "bytes": 2067,
+    "sha256": "672841773897d094af0b2d824a869204caee7a2b1f1b3436b2f6df3085bdc7f3",
+    "included": true
+  },
+  "sequences/beginner.bash.0/11.beginner-12.sh.json": {
+    "kind": "file",
+    "bytes": 2067,
+    "sha256": "89d29d7e3601227a0cf3d4d52dfc413466c1349034ea7a6c4dec2b73fd46683e",
+    "included": true
+  },
+  "sequences/beginner.bash.0/12.beginner-13.sh.json": {
+    "kind": "file",
+    "bytes": 2066,
+    "sha256": "81fe799117bb0f568c364955640268a0af75b3b01fc24b4c5d009a3c47faabb3",
+    "included": true
+  },
+  "sequences/beginner.bash.0/13.beginner-14.sh.json": {
+    "kind": "file",
+    "bytes": 2066,
+    "sha256": "ff642c947b68eb688709d76a6fa7e314ff4091da891e7c2e4be4fe60b75e871f",
+    "included": true
+  },
+  "sequences/beginner.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 158,
+    "sha256": "15b5e7bec982b3b26a0afca5ebf68e1c3ff35ff4dedec1f095816cb5a4e4c46e",
+    "included": true
+  },
+  "sequences/beginner.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 3503,
+    "sha256": "d787362c7ef93721d03b1ee0ba1417d589d15df97fb22fb73f53371236f6ba03",
+    "included": true
+  },
+  "sequences/beginner.observe.0/00.beginner-01.sh.json": {
+    "kind": "file",
+    "bytes": 2201,
+    "sha256": "6745657f36d2d31cb4ede6879d612f488108b7dd078ae99073ff3574831fde4d",
+    "included": true
+  },
+  "sequences/beginner.observe.0/01.beginner-02.sh.json": {
+    "kind": "file",
+    "bytes": 2201,
+    "sha256": "0eca080c7c3d1f2959ee0b55fbd1e625bf5a3a5f79a0ef3d76d3ef062251c9f5",
+    "included": true
+  },
+  "sequences/beginner.observe.0/02.beginner-03.sh.json": {
+    "kind": "file",
+    "bytes": 2202,
+    "sha256": "64fe1a437ce8175317ca6be82666007ecfd22a19de52416f1192fdb2e7dd3c6d",
+    "included": true
+  },
+  "sequences/beginner.observe.0/03.beginner-04.sh.json": {
+    "kind": "file",
+    "bytes": 2202,
+    "sha256": "10c7ab48d86c15017bb3cad7b9ce512357f1d8dbad6e5ec9dda1b8dc08b0ad20",
+    "included": true
+  },
+  "sequences/beginner.observe.0/04.beginner-05.sh.json": {
+    "kind": "file",
+    "bytes": 2201,
+    "sha256": "1fa335ccdc6206ebc5459a4ec86663042487c3b647b2fc845af4db2f7442c8c9",
+    "included": true
+  },
+  "sequences/beginner.observe.0/05.beginner-06.sh.json": {
+    "kind": "file",
+    "bytes": 2199,
+    "sha256": "07e545faf85776785698b31b171b370faa2b40f65a23c17ce3ae40be49a2b80e",
+    "included": true
+  },
+  "sequences/beginner.observe.0/06.beginner-07.sh.json": {
+    "kind": "file",
+    "bytes": 2198,
+    "sha256": "da58c2d535f733481c408221900a4d6b5cc57e6640b5fc45d268d5aa2768b5dc",
+    "included": true
+  },
+  "sequences/beginner.observe.0/07.beginner-08.sh.json": {
+    "kind": "file",
+    "bytes": 2200,
+    "sha256": "f2ed317556b5ad0b6d3ca3603f246eadaee41d8c4d3b72dc4d79f2a7bd83857c",
+    "included": true
+  },
+  "sequences/beginner.observe.0/08.beginner-09.sh.json": {
+    "kind": "file",
+    "bytes": 2201,
+    "sha256": "4adaf13ea043196fad36f046b4793c56f2a5a1fd099d4322928a6eb21d48e5b3",
+    "included": true
+  },
+  "sequences/beginner.observe.0/09.beginner-10.sh.json": {
+    "kind": "file",
+    "bytes": 2202,
+    "sha256": "382680cecdef985dc05488ce3c7ae94266287064ac745ab02a916c763659be03",
+    "included": true
+  },
+  "sequences/beginner.observe.0/10.beginner-11.sh.json": {
+    "kind": "file",
+    "bytes": 2206,
+    "sha256": "6863e661942ed81deeff4ca5b1d1eeaf19d7c80d36fdaa434abe814c8049bcef",
+    "included": true
+  },
+  "sequences/beginner.observe.0/11.beginner-12.sh.json": {
+    "kind": "file",
+    "bytes": 2206,
+    "sha256": "820329f15585ba2e16e8f2ec9b0086ea63224d231db85bae3e471f1504f7fb6c",
+    "included": true
+  },
+  "sequences/beginner.observe.0/12.beginner-13.sh.json": {
+    "kind": "file",
+    "bytes": 2207,
+    "sha256": "7f9e70d5b5f7f95a751be8517815ff9c32387c2e6c186932fcf1d500a9c37901",
+    "included": true
+  },
+  "sequences/beginner.observe.0/13.beginner-14.sh.json": {
+    "kind": "file",
+    "bytes": 2206,
+    "sha256": "e286d1b64f3d0a860f295335835ec17cc1414eef81842a3a1b1bfa718662f4ce",
+    "included": true
+  },
+  "sequences/beginner.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 166,
+    "sha256": "4959178c2ec18d1f3a1ddcf803ce0da9cf12551764e2c95ea93d73867680fc71",
+    "included": true
+  },
+  "sequences/beginner.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 3503,
+    "sha256": "0480e9edb22b4f199553d9ad739f845b79a4ab1b7884e43059048f479cdee178",
+    "included": true
+  },
+  "sequences/beginner.original.0/00.beginner-01.sh.json": {
+    "kind": "file",
+    "bytes": 2204,
+    "sha256": "8561adcc2aa6c7b8a6e169d5e0fb8d25abd193681200b53d80840a0ce16a189d",
+    "included": true
+  },
+  "sequences/beginner.original.0/01.beginner-02.sh.json": {
+    "kind": "file",
+    "bytes": 2204,
+    "sha256": "3428510fc9a094b36579729a786d16d26cc95099399ac21ba5255dc0b18baab7",
+    "included": true
+  },
+  "sequences/beginner.original.0/02.beginner-03.sh.json": {
+    "kind": "file",
+    "bytes": 2204,
+    "sha256": "c589c770ab6b4aca19817217e9aaf99913696267b2249cffc1e4136fdc139595",
+    "included": true
+  },
+  "sequences/beginner.original.0/03.beginner-04.sh.json": {
+    "kind": "file",
+    "bytes": 2203,
+    "sha256": "dc980f0bf961d0d8eb7a0877a7685a8539632c07086d0b9a86489d7e97094e6b",
+    "included": true
+  },
+  "sequences/beginner.original.0/04.beginner-05.sh.json": {
+    "kind": "file",
+    "bytes": 2203,
+    "sha256": "340055913cb951d28365f1896949d44c5066ccb461fd683cd9709af35efdc922",
+    "included": true
+  },
+  "sequences/beginner.original.0/05.beginner-06.sh.json": {
+    "kind": "file",
+    "bytes": 2222,
+    "sha256": "3412aad72f2e80cbda730f72d54d2739a2986035ee6be2377346e717fe8241dc",
+    "included": true
+  },
+  "sequences/beginner.original.0/06.beginner-07.sh.json": {
+    "kind": "file",
+    "bytes": 2200,
+    "sha256": "87380297fba938b5bbbcf04bb0426468fc63d250a61a1106859e3c440f563114",
+    "included": true
+  },
+  "sequences/beginner.original.0/07.beginner-08.sh.json": {
+    "kind": "file",
+    "bytes": 2204,
+    "sha256": "f98e4d9a17d0623b1d58c29225a27f1c9d8681ecc5f4ae9ee17d7ffc06585e57",
+    "included": true
+  },
+  "sequences/beginner.original.0/08.beginner-09.sh.json": {
+    "kind": "file",
+    "bytes": 2205,
+    "sha256": "edf457b1505ad5646f9fe51f16a9bad8e7547073d638234cef29fabc6c9f2eee",
+    "included": true
+  },
+  "sequences/beginner.original.0/09.beginner-10.sh.json": {
+    "kind": "file",
+    "bytes": 2247,
+    "sha256": "3d3877f23112e21f7c93b5a19dfa71511d2288d650cff19d67933b520afe516f",
+    "included": true
+  },
+  "sequences/beginner.original.0/10.beginner-11.sh.json": {
+    "kind": "file",
+    "bytes": 2270,
+    "sha256": "a0b735268a014901e222879af4c76c04ed27389f6c38bcea93f823e1ae6b2892",
+    "included": true
+  },
+  "sequences/beginner.original.0/11.beginner-12.sh.json": {
+    "kind": "file",
+    "bytes": 2291,
+    "sha256": "88b7d692af49cbee33a954f5a5befe92737d52a338d6f4321fc68cfcc38b7d7b",
+    "included": true
+  },
+  "sequences/beginner.original.0/12.beginner-13.sh.json": {
+    "kind": "file",
+    "bytes": 2292,
+    "sha256": "95efddee258811e0e071767777ef5fda83a35826c1ba9d48a68dc4a9ed256423",
+    "included": true
+  },
+  "sequences/beginner.original.0/13.beginner-14.sh.json": {
+    "kind": "file",
+    "bytes": 2246,
+    "sha256": "9f2470e47e9dc4d900985dfa1f148d4090b8c9a4a86023e1ba8be6eccac6b455",
+    "included": true
+  },
+  "sequences/beginner.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 167,
+    "sha256": "4153a4326d80dc268930a280fd6ed17db2606807d569efea4866310a28b52618",
+    "included": true
+  },
+  "sequences/beginner.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 3500,
+    "sha256": "28edba5e17677e56305ff30660d8faccdfa6656a799b2900304d62c598d3af40",
+    "included": true
+  },
+  "sequences/bio.bash.0/00.bio-1.sh.json": {
+    "kind": "file",
+    "bytes": 2437,
+    "sha256": "14409e9eccd4223b896ce3426ad067b87c9227cf3a4717dc78a77536fcba8df5",
+    "included": true
+  },
+  "sequences/bio.bash.0/01.bio-2.sh.json": {
+    "kind": "file",
+    "bytes": 2437,
+    "sha256": "d281ad88bb4269744acab5319fdc06c2f41dbc08c41850b45a1ff6f62eb6eca0",
+    "included": true
+  },
+  "sequences/bio.bash.0/02.bio-3.sh.json": {
+    "kind": "file",
+    "bytes": 6303,
+    "sha256": "a7c32342ea732ff4311f35904817eed53e8a6ff26d3ff85763f281a261de5f51",
+    "included": true
+  },
+  "sequences/bio.bash.0/03.bio-4-0.sh.json": {
+    "kind": "file",
+    "bytes": 10096,
+    "sha256": "c609d9d03a4150fe0570101639101a05eae87e79097012c6e5b81f664cae6aaa",
+    "included": true
+  },
+  "sequences/bio.bash.0/04.bio-4.sh.json": {
+    "kind": "file",
+    "bytes": 10091,
+    "sha256": "2bcc6080300536c6c67593ec45add4ff54a61548c3d2599137218405b653655d",
+    "included": true
+  },
+  "sequences/bio.bash.0/05.bio-5.sh.json": {
+    "kind": "file",
+    "bytes": 10267,
+    "sha256": "3328ea66d7a953937794c389c35b1917e21a24077d7783e0e0d09af8c13b962f",
+    "included": true
+  },
+  "sequences/bio.bash.0/06.bio-6.sh.json": {
+    "kind": "file",
+    "bytes": 10519,
+    "sha256": "4e41a183bd8d84cb401260df762c55ac840db0e43bfd19c376397645f8c257df",
+    "included": true
+  },
+  "sequences/bio.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 152,
+    "sha256": "62dcb566ffa881ccc4eb81919ad775cba4f8769e80b1d421e89a0a61ee0aa48d",
+    "included": true
+  },
+  "sequences/bio.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 3229,
+    "sha256": "f0d6d8e4dae822cc61d0b31d0fccf69e7625c48001d7841f12aab637cc88b1a9",
+    "included": true
+  },
+  "sequences/bio.observe.0/00.bio-1.sh.json": {
+    "kind": "file",
+    "bytes": 2573,
+    "sha256": "cce310447f4c5ce8f88ba87d16c888cba441820988714e88563cff1ef82cd242",
+    "included": true
+  },
+  "sequences/bio.observe.0/01.bio-2.sh.json": {
+    "kind": "file",
+    "bytes": 2572,
+    "sha256": "4142a555f5aa54337dea513bb284b4ec99dc69ff7f07492a03be7ec600827a74",
+    "included": true
+  },
+  "sequences/bio.observe.0/02.bio-3.sh.json": {
+    "kind": "file",
+    "bytes": 6441,
+    "sha256": "5fc94ca22acd75e537c7b01a22888add1bcf33d7b875cfbc5ddf4ea417a2b910",
+    "included": true
+  },
+  "sequences/bio.observe.0/03.bio-4-0.sh.json": {
+    "kind": "file",
+    "bytes": 10233,
+    "sha256": "10d7df41c814a80e89553dde362948859169156bd973d975a93052810efce27c",
+    "included": true
+  },
+  "sequences/bio.observe.0/04.bio-4.sh.json": {
+    "kind": "file",
+    "bytes": 10229,
+    "sha256": "cce0275ae8f118e4a4825946a475a626305ae26f03f613dd65c94f41a277c9cd",
+    "included": true
+  },
+  "sequences/bio.observe.0/05.bio-5.sh.json": {
+    "kind": "file",
+    "bytes": 10404,
+    "sha256": "3e8e403d194e1cb0c58ae0d1a8c352e39324a1d67c9e35cf89b0aceb896c3b58",
+    "included": true
+  },
+  "sequences/bio.observe.0/06.bio-6.sh.json": {
+    "kind": "file",
+    "bytes": 10656,
+    "sha256": "7db0cb032c6c8a27aba401b6ee17d7cef743155b6ad72d2e6203005b78da7395",
+    "included": true
+  },
+  "sequences/bio.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 160,
+    "sha256": "4914b4ccc770215d3f2c63c51c8313453799f00b2a40621ac65b9f32589c1658",
+    "included": true
+  },
+  "sequences/bio.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 3229,
+    "sha256": "dcab60d7868a875336acc1d74379a8c8bb7c4ff581f3c871edc65f77ef51e148",
+    "included": true
+  },
+  "sequences/bio.original.0/00.bio-1.sh.json": {
+    "kind": "file",
+    "bytes": 2573,
+    "sha256": "6826d9c26a7553906110ee609de1440b3f1ec0d4064f3d8147f9f2a2f478a7f0",
+    "included": true
+  },
+  "sequences/bio.original.0/01.bio-2.sh.json": {
+    "kind": "file",
+    "bytes": 2596,
+    "sha256": "9ef8fac00b45f9c104b6bf849d6bccf38ed55ab01a306e00df4a6603ecd1039e",
+    "included": true
+  },
+  "sequences/bio.original.0/02.bio-3.sh.json": {
+    "kind": "file",
+    "bytes": 6529,
+    "sha256": "efbf35e1535dfa0eeb16aa85612052b7e095690cd91c98e60bcfd7e7efd8086a",
+    "included": true
+  },
+  "sequences/bio.original.0/03.bio-4-0.sh.json": {
+    "kind": "file",
+    "bytes": 10282,
+    "sha256": "da6b75d7d4b44f3b39e2b55a7bd2efd9bddad3998d0545c15257a9488870561b",
+    "included": true
+  },
+  "sequences/bio.original.0/04.bio-4.sh.json": {
+    "kind": "file",
+    "bytes": 10278,
+    "sha256": "ea23e899b6775f14444c4aaa21d38724485080f68c96955c276acfd5af217786",
+    "included": true
+  },
+  "sequences/bio.original.0/05.bio-5.sh.json": {
+    "kind": "file",
+    "bytes": 10732,
+    "sha256": "918dcc57fdee544c8cdb7a758ae63b2c6a2dae00c2efd15416eb2e93f0c22187",
+    "included": true
+  },
+  "sequences/bio.original.0/06.bio-6.sh.json": {
+    "kind": "file",
+    "bytes": 11021,
+    "sha256": "b11869647f70707056b6c704cede28cd29fb7c1585c89f7e8cb425dea44f96e7",
+    "included": true
+  },
+  "sequences/bio.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 163,
+    "sha256": "c7f72027b993fec509984c5136a30d9d550364bde17e1148aca09eed9ca1790b",
+    "included": true
+  },
+  "sequences/bio.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 3226,
+    "sha256": "1c2fec563da4c9a980807b4c073cf8fa8f15934bad785da35302ec244d8b4172",
+    "included": true
+  },
+  "sequences/covid.bash.0/00.1.sh.json": {
+    "kind": "file",
+    "bytes": 2043,
+    "sha256": "7c23d787302d7e731e0c5549071cad49f042762fb1d190af2734a76bfa38e769",
+    "included": true
+  },
+  "sequences/covid.bash.0/01.2.sh.json": {
+    "kind": "file",
+    "bytes": 2045,
+    "sha256": "f0da6e433d7c9ba62bedaa7f5c1a1f79b40301f7b506d8a51b33f924f0dd669d",
+    "included": true
+  },
+  "sequences/covid.bash.0/02.3.sh.json": {
+    "kind": "file",
+    "bytes": 2045,
+    "sha256": "3128f0467164491bced182f109adb5cc49e2d3f356a04d47fd0ae61ae4ecdc9c",
+    "included": true
+  },
+  "sequences/covid.bash.0/03.4.sh.json": {
+    "kind": "file",
+    "bytes": 2041,
+    "sha256": "f82cb1b718eeadbdf6c040c4cb3cc14b523b4fe6ae3c9474e00bf49c7b4a7faa",
+    "included": true
+  },
+  "sequences/covid.bash.0/04.5.sh.json": {
+    "kind": "file",
+    "bytes": 2043,
+    "sha256": "253423cc3ed4c58c35fae3e8caa08de52e29213068ecf075a17c9bf3603e78a0",
+    "included": true
+  },
+  "sequences/covid.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 155,
+    "sha256": "7eca85022667531249aab7a453477e34961f07c032a63453d0a4a991ebdef2ae",
+    "included": true
+  },
+  "sequences/covid.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 2646,
+    "sha256": "3c705cadaf00dfca73c7df2ce381fadd56494a1135cf5370f7d35d7cd5b4cc79",
+    "included": true
+  },
+  "sequences/covid.observe.0/00.1.sh.json": {
+    "kind": "file",
+    "bytes": 2182,
+    "sha256": "444ffdb89f5836f3379378f11aa861cdf1124ed67d3f48e93151704e84a8d621",
+    "included": true
+  },
+  "sequences/covid.observe.0/01.2.sh.json": {
+    "kind": "file",
+    "bytes": 2183,
+    "sha256": "7fc8f4d6c53998f39083273bb7543b9eac71d6f1007191654e3b014fa4a07cc5",
+    "included": true
+  },
+  "sequences/covid.observe.0/02.3.sh.json": {
+    "kind": "file",
+    "bytes": 2185,
+    "sha256": "01bb1aa0103bfb47ba9b52a11021658531b3dac071c77486d65e344158bd59f1",
+    "included": true
+  },
+  "sequences/covid.observe.0/03.4.sh.json": {
+    "kind": "file",
+    "bytes": 2183,
+    "sha256": "1984893a07b316df45942768e504f780cb46f48b0777914fe054c64c48a44a25",
+    "included": true
+  },
+  "sequences/covid.observe.0/04.5.sh.json": {
+    "kind": "file",
+    "bytes": 2184,
+    "sha256": "78e5ad6fbf58ccafb63b8088295a30263765dc876c8da23b8bb908ae8ec80563",
+    "included": true
+  },
+  "sequences/covid.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 164,
+    "sha256": "a87296207df055090ff05a9b57801295623aa645d928a46ece7c1b2234705220",
+    "included": true
+  },
+  "sequences/covid.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 2646,
+    "sha256": "defdaa9091500ca41a0e1588a56feab3cc294b439373f6bf678e28eb28bb7c36",
+    "included": true
+  },
+  "sequences/covid.original.0/00.1.sh.json": {
+    "kind": "file",
+    "bytes": 2185,
+    "sha256": "ab71dbc8888820482ffeba843ca7c7bac912ed2429f7148da58db9a81184f8d0",
+    "included": true
+  },
+  "sequences/covid.original.0/01.2.sh.json": {
+    "kind": "file",
+    "bytes": 2207,
+    "sha256": "6cdbd5bbef5911aeb05c0ad30d91180f016c6285e77b0c5f12dee5aaf248be16",
+    "included": true
+  },
+  "sequences/covid.original.0/02.3.sh.json": {
+    "kind": "file",
+    "bytes": 2188,
+    "sha256": "cf7ef874195484cbbfeede0c6880fe91c3c6e4ec90f4c4b88e7eab36bd2dd4e9",
+    "included": true
+  },
+  "sequences/covid.original.0/03.4.sh.json": {
+    "kind": "file",
+    "bytes": 2206,
+    "sha256": "1abe71665539c573f6b0112ce4432b6440fa26b51f2291a636fc6e5ffa9531ab",
+    "included": true
+  },
+  "sequences/covid.original.0/04.5.sh.json": {
+    "kind": "file",
+    "bytes": 2187,
+    "sha256": "03cd2ef5ad7cb3b6ffa79ad1292131cfdc185a27ffbf3fa4b835d760f790c3ce",
+    "included": true
+  },
+  "sequences/covid.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 163,
+    "sha256": "fa761443dcf7b36c0514eef491d53f51f4dfbe965a34acafaff97d1e002088de",
+    "included": true
+  },
+  "sequences/covid.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 2643,
+    "sha256": "cd19cc9ac5ca230f9ab24dd1bc842fe705a1ba1ac5b22fb8b8c0844e9b851d50",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/00.file-mod-1.sh.json": {
+    "kind": "file",
+    "bytes": 10170,
+    "sha256": "877e59813693b6f1effabda2fd1eff7636a3b914901830b27800fdcc4769e52b",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/01.file-mod-2.sh.json": {
+    "kind": "file",
+    "bytes": 11052,
+    "sha256": "a11b89d4d98633a476d1c88d12282f8b2c32616a5ef8b4787da4b9b0cb6c79d1",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/02.file-mod-3.sh.json": {
+    "kind": "file",
+    "bytes": 11708,
+    "sha256": "d54759eda03a20211a4a5c692273317d14c73f374a60e626df47651becc55e2d",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/03.file-mod-4.sh.json": {
+    "kind": "file",
+    "bytes": 12366,
+    "sha256": "32dedc5f8d0930722277205ed3a09d5d7c3e2ddbedc470cc4f8cac61dbacbc0d",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/04.file-mod-5.sh.json": {
+    "kind": "file",
+    "bytes": 12368,
+    "sha256": "7bcf2f55d2e2933bf6a943f8a19543587f295ab044dc71b67808d0dcd613ea8e",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/05.file-mod-6.sh.json": {
+    "kind": "file",
+    "bytes": 13559,
+    "sha256": "6acd16752c13691fbe1669c5ad24757906f9640856d963a1a178861df727b19a",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/06.file-mod-7.sh.json": {
+    "kind": "file",
+    "bytes": 14221,
+    "sha256": "20f62328479b35408415461d385018aeafde1c8c0fe28e702370960dee88b732",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 157,
+    "sha256": "9a7b4b6c205321f6692292c8ccea15331a8b431bffd30a2c0217d19b17d3f5e0",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 3053,
+    "sha256": "0d2d0f8ffd0f34418370bfbb7fc3b9375b7f3307e3b6c962fd6e4e53e6d48cdc",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/00.file-mod-1.sh.json": {
+    "kind": "file",
+    "bytes": 10303,
+    "sha256": "0996097886655c3721dc4ddd05b5f038b20170371f2984071902f33c2cc61f10",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/01.file-mod-2.sh.json": {
+    "kind": "file",
+    "bytes": 11185,
+    "sha256": "9b2add100661cdcc458df42d8a3034cf465e63d13fca1143d2f7b73e7a3bc637",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/02.file-mod-3.sh.json": {
+    "kind": "file",
+    "bytes": 11842,
+    "sha256": "36d82a2c261ffb0813cbfb91036c51f1b77358f65d2eac31eee01687a5143ea0",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/03.file-mod-4.sh.json": {
+    "kind": "file",
+    "bytes": 12502,
+    "sha256": "1cb6aa3e62ab94405ce7864024d9a59d58f7a0dedf8eaf3ed3edee6fbf9f974a",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/04.file-mod-5.sh.json": {
+    "kind": "file",
+    "bytes": 12504,
+    "sha256": "89e2ad4e64e6638ddfb3d98c88d5432456f974df84a09a7a44fd0a54e5a5118d",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/05.file-mod-6.sh.json": {
+    "kind": "file",
+    "bytes": 13697,
+    "sha256": "afe7ba9fcb0690fa77f90f5f42420a753f98547f9ea0c06323afb8c0e78612d7",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/06.file-mod-7.sh.json": {
+    "kind": "file",
+    "bytes": 14357,
+    "sha256": "a5f2f7ccff8a17241b32a15949b382251d6f8f3690157f18173d0184cce5f194",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 166,
+    "sha256": "27e0cdd1c203361792242013d11e4a717b5665b6caa511a24091571b76944a3c",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 3053,
+    "sha256": "129f6b6dcdc8f5088f0e5bc12947daa3a7ec3f4f6fa25f6a48ce3a4e56529254",
+    "included": true
+  },
+  "sequences/file-mod.original.0/00.file-mod-1.sh.json": {
+    "kind": "file",
+    "bytes": 10308,
+    "sha256": "1dd0bc5be126b2acb855d5fd34e1ea3d24d32093b9986f17157a29798ec0766c",
+    "included": true
+  },
+  "sequences/file-mod.original.0/01.file-mod-2.sh.json": {
+    "kind": "file",
+    "bytes": 11190,
+    "sha256": "fe9da720c1349164e70c26e0f1c129543b19d2ab70f7acb38f6303f2c75d4908",
+    "included": true
+  },
+  "sequences/file-mod.original.0/02.file-mod-3.sh.json": {
+    "kind": "file",
+    "bytes": 11889,
+    "sha256": "597c74bb897af49ca698f6bd35c12995568b41e6589438fe45b79e9f336a29dd",
+    "included": true
+  },
+  "sequences/file-mod.original.0/03.file-mod-4.sh.json": {
+    "kind": "file",
+    "bytes": 12568,
+    "sha256": "b9fcda089124124a9fe68c310adc529df9f62b54a4a77d5f346dd8ea0459b64b",
+    "included": true
+  },
+  "sequences/file-mod.original.0/04.file-mod-5.sh.json": {
+    "kind": "file",
+    "bytes": 12587,
+    "sha256": "37a8d7560427ae6735c83f172436ead1bf1d1b90e410ed7de5ee32fdf27cc868",
+    "included": true
+  },
+  "sequences/file-mod.original.0/05.file-mod-6.sh.json": {
+    "kind": "file",
+    "bytes": 13741,
+    "sha256": "dad4ddee59b35335fdc30c7bfbbcd7b224978aa2e34d9b605b2e63583c594e6d",
+    "included": true
+  },
+  "sequences/file-mod.original.0/06.file-mod-7.sh.json": {
+    "kind": "file",
+    "bytes": 14482,
+    "sha256": "b1054e40ad9e9a150aa7157cd8b59af77ede71da166c81ccaa7823105fda9c3f",
+    "included": true
+  },
+  "sequences/file-mod.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 167,
+    "sha256": "3b618ee8d234fd2f3d1556c29727be66fc64a9bb916e8a67d8cba305632a0f12",
+    "included": true
+  },
+  "sequences/file-mod.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 3050,
+    "sha256": "a8df6dbfaca1734281b9a6e9fb3fca50d6c38bfb99b443b1707d5d0e61121bee",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/00.nginx-1.sh.json": {
+    "kind": "file",
+    "bytes": 2064,
+    "sha256": "23cf6cb74fb1ebe8357308666492516500276f348218f5c75e99ff5aa0e9985f",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/01.nginx-2.sh.json": {
+    "kind": "file",
+    "bytes": 2066,
+    "sha256": "c485b4cc962fd5cff9ed00391ff5e74dd1ae6f68d8b127f673900a8781dc1f05",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/02.nginx-3.sh.json": {
+    "kind": "file",
+    "bytes": 2065,
+    "sha256": "69b1c8f8032769e074cd31caad269273198cd10d08964d364c34d77b31f94b1b",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/03.nginx-4.sh.json": {
+    "kind": "file",
+    "bytes": 2065,
+    "sha256": "9170d4baf10a00ad2ddb1d7304b554687994f08a5e40a7e722764952350a16e0",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/04.nginx-5.sh.json": {
+    "kind": "file",
+    "bytes": 2062,
+    "sha256": "76a84b627af910deb7873f13a4fe288a4b3f916015e8edfd91618635b2d60615",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/05.nginx-6.sh.json": {
+    "kind": "file",
+    "bytes": 2064,
+    "sha256": "cff51791d615fffbcc205711183d5f235acdbd617134b3fd97ee78ea6de9f920",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/06.nginx-7.sh.json": {
+    "kind": "file",
+    "bytes": 2063,
+    "sha256": "32f5ac790787587125736c3bd0de91b0c13fc58ea6ba37401d0e2158de7a4afc",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/07.nginx-8.sh.json": {
+    "kind": "file",
+    "bytes": 2063,
+    "sha256": "95c35eb9872c85c03843aa626a85e6689effddeb3659e8cf27d76569a73710e8",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/08.nginx-9.sh.json": {
+    "kind": "file",
+    "bytes": 2064,
+    "sha256": "b82edc657603e0b05d85ed8a04267f06b94b6c7ad63e7d24c9f4d10268cf90cb",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/09.nginx-10.sh.json": {
+    "kind": "file",
+    "bytes": 2065,
+    "sha256": "c554256b0eb840e95129080075bb8e60580de81da4727778be03696db85f9509",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/10.nginx-11.sh.json": {
+    "kind": "file",
+    "bytes": 2067,
+    "sha256": "e3337a8b44a7e3400d38d9c66fa40b1a5f010f66a048d3ad2fc8146afa957dea",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/11.nginx-12.sh.json": {
+    "kind": "file",
+    "bytes": 2067,
+    "sha256": "efaac22d79e96f66acfb2f5b07db87df2996177b538833e3a31a552a30bc14c9",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/12.nginx-13.sh.json": {
+    "kind": "file",
+    "bytes": 2067,
+    "sha256": "f3fb79b46fd2f943fa0a67ac94d887a2cb63ed7311a4e3f01a43825146912a96",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/13.nginx-14.sh.json": {
+    "kind": "file",
+    "bytes": 2065,
+    "sha256": "5ac3d5a303a70715a405b062e3c514bb23b0a67a48ff02155285f3a12b0078c2",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/14.nginx-15.sh.json": {
+    "kind": "file",
+    "bytes": 2067,
+    "sha256": "0daec5c8a1a8982acc9eca6a331c0536b31c8c7997d694c5b47492a31cc7a5f9",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/15.nginx-16.sh.json": {
+    "kind": "file",
+    "bytes": 2067,
+    "sha256": "79f31ca6c7645698bb598b31601ce9e95995db431ac55fd5faa2012d8ffcbe3d",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/16.nginx-17.sh.json": {
+    "kind": "file",
+    "bytes": 2070,
+    "sha256": "062da5a30a5183cb20d4024112b79e1504b3b41df91d08f32688bb9cb153988d",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/17.nginx-18.sh.json": {
+    "kind": "file",
+    "bytes": 2069,
+    "sha256": "d670b32527711715a108fba0476be953cd774a8458468b3fb7409c55dd1f441a",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/18.nginx-19.sh.json": {
+    "kind": "file",
+    "bytes": 2068,
+    "sha256": "3f99418aa8cd77540639cce53ad482c5459fb870e10df984b6ad6f08af358eee",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/19.nginx-20.sh.json": {
+    "kind": "file",
+    "bytes": 2069,
+    "sha256": "cbe583fac59c9f17e8b6106fd3abd1e4161d774330c209a7417534b51d62038b",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/20.nginx-21.sh.json": {
+    "kind": "file",
+    "bytes": 2070,
+    "sha256": "a7284a4205a5cdd772aaea0f056f1632f8451795f402329de3c57f2dd896b316",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/21.nginx-22.sh.json": {
+    "kind": "file",
+    "bytes": 2069,
+    "sha256": "56e1cc272f50f2a3152a6364912b0a2317d781f316c9eacba3b437efaa61716c",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 164,
+    "sha256": "b3ae34e351453c5f6ccc930a92a54182a15a1aab0072b01d1dcfbb1c1a062a14",
+    "included": true
+  },
+  "sequences/nginx-analysis.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 4146,
+    "sha256": "677e114c803542d170b6b1f2c25964db6496ee17156aa524c86bc30a1dcbf26e",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/00.nginx-1.sh.json": {
+    "kind": "file",
+    "bytes": 2200,
+    "sha256": "7d0b111f72745f83f5fdad4a06c08871e5b000efa92de4d964cbb19e418e6a0d",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/01.nginx-2.sh.json": {
+    "kind": "file",
+    "bytes": 2200,
+    "sha256": "f5d11f883a76b5987ca0c17b42e992a4801cc4ed48084fffa9bcf021c4966815",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/02.nginx-3.sh.json": {
+    "kind": "file",
+    "bytes": 2201,
+    "sha256": "7b22d1eac56a09ae485d6c555418bb58043b3d4001b086f900a312ead3ccd92a",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/03.nginx-4.sh.json": {
+    "kind": "file",
+    "bytes": 2204,
+    "sha256": "b8ccb9e57157d41579051e1713a58bc35f99fe121284cff38e8c3f4659813f1e",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/04.nginx-5.sh.json": {
+    "kind": "file",
+    "bytes": 2202,
+    "sha256": "8ce057c4ab8b8998236bdc04540d86db9f76c9ecbd93da78ff3b9a58af16a9dd",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/05.nginx-6.sh.json": {
+    "kind": "file",
+    "bytes": 2203,
+    "sha256": "afeb8b3d52cb42909252594bb98c9b6273c8547303dd9dd7be69d2994ead57e3",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/06.nginx-7.sh.json": {
+    "kind": "file",
+    "bytes": 2202,
+    "sha256": "c85de491bf4059245a7ae69b060f3eb184e169a212f25befa1ec3dc6a8798ae2",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/07.nginx-8.sh.json": {
+    "kind": "file",
+    "bytes": 2203,
+    "sha256": "51636ed8b0879ad80c8d762dd311e51096bea27610e81011c4b6e92b46b6abda",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/08.nginx-9.sh.json": {
+    "kind": "file",
+    "bytes": 2204,
+    "sha256": "c589f80fc493433fab374820e72359ce48d0914056c047b1d332d35ea8dab538",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/09.nginx-10.sh.json": {
+    "kind": "file",
+    "bytes": 2205,
+    "sha256": "dc4a9b02f6197e28948e0a38e1c6f37e19534c968624e3b9acf1520d7e1e7ec4",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/10.nginx-11.sh.json": {
+    "kind": "file",
+    "bytes": 2207,
+    "sha256": "0168ef24249183db0a60a89c2be79eb6092c7e980dbf2daf56ea836536ca859f",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/11.nginx-12.sh.json": {
+    "kind": "file",
+    "bytes": 2206,
+    "sha256": "02114ad7d3caa922a1b16c2d22ebd27f8928df024a427a20c934654c8a8c6f57",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/12.nginx-13.sh.json": {
+    "kind": "file",
+    "bytes": 2210,
+    "sha256": "98c0117f99bfec90cbdc3e002d75d6d7e01845adf3a564d03953e22b21e32ac5",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/13.nginx-14.sh.json": {
+    "kind": "file",
+    "bytes": 2210,
+    "sha256": "4b520eecb36719869c213541d4652f880d204e94342006bf90aee039b51ebee1",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/14.nginx-15.sh.json": {
+    "kind": "file",
+    "bytes": 2208,
+    "sha256": "ba0e19467e467ef7edc178d4090d780326512d2357f52b330ce64f9ed3416d88",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/15.nginx-16.sh.json": {
+    "kind": "file",
+    "bytes": 2210,
+    "sha256": "51eb300d0ee1e4abae7a8d6031d5bf8273dc0a3d24ebd6d21d38d175a3403448",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/16.nginx-17.sh.json": {
+    "kind": "file",
+    "bytes": 2211,
+    "sha256": "cf955198d6757384cc0b2b4889f79000b6a2ace6824475290ce569fe0624c653",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/17.nginx-18.sh.json": {
+    "kind": "file",
+    "bytes": 2211,
+    "sha256": "4df9dc1c978238959a9d5c188240acb4ab18f89c478f9edf5ce4d36182120f67",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/18.nginx-19.sh.json": {
+    "kind": "file",
+    "bytes": 2209,
+    "sha256": "4bfec9300e05e1545a684b27c7756dec5a6c3ad9e81375ac87bc44672efc111c",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/19.nginx-20.sh.json": {
+    "kind": "file",
+    "bytes": 2212,
+    "sha256": "14035f3d83cc9b730196c37add384195a57897d04af96458f9370e2ebb63a652",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/20.nginx-21.sh.json": {
+    "kind": "file",
+    "bytes": 2210,
+    "sha256": "e733013dba0c2f75c491d80ecf150be0c0b4ba83e4f36f82c55277cf348bd7bd",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/21.nginx-22.sh.json": {
+    "kind": "file",
+    "bytes": 2212,
+    "sha256": "063b29f747adcbde713ce4fc25f9709bb6ed3484839bc06e9846ba9dc81c784f",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 172,
+    "sha256": "29a4029a29f223134cf2d4a7cb63c057e5161019892331b1b4fbdac7340b0f55",
+    "included": true
+  },
+  "sequences/nginx-analysis.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 4146,
+    "sha256": "fb99e553f60423aa59d859abf0555b774546fa1759e499d83d5ff07417e3f17f",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/00.nginx-1.sh.json": {
+    "kind": "file",
+    "bytes": 2203,
+    "sha256": "c9c79e2757347177e3b2ac41fe5b4ad1a08f230db4c005b87f573d875371500f",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/01.nginx-2.sh.json": {
+    "kind": "file",
+    "bytes": 2243,
+    "sha256": "636101b53a44129f37c58dcaadd76ac86d9580a800235e91b85b145779940cf0",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/02.nginx-3.sh.json": {
+    "kind": "file",
+    "bytes": 2224,
+    "sha256": "d874322221ff94a2e3f977a980c7efcaf6f76f7d2786243929ed5fc2441582f4",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/03.nginx-4.sh.json": {
+    "kind": "file",
+    "bytes": 2305,
+    "sha256": "ba06042e4ab00f0fe35afaa1b865fc3cfae09a257260e527820029049048ef84",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/04.nginx-5.sh.json": {
+    "kind": "file",
+    "bytes": 2204,
+    "sha256": "75114958fddd022561948fac81751bc227083d7a507b86e64915103cc432920a",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/05.nginx-6.sh.json": {
+    "kind": "file",
+    "bytes": 2249,
+    "sha256": "590f55515bded61cabb426afdd0b9a909b580f7c37fb7d546e170e40c527fef1",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/06.nginx-7.sh.json": {
+    "kind": "file",
+    "bytes": 2247,
+    "sha256": "e49aa49acca50edfafe5a13284d5f8496f1dc1d7ecf85808b9a57baef39e0092",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/07.nginx-8.sh.json": {
+    "kind": "file",
+    "bytes": 2226,
+    "sha256": "28a2574529a479640dbdd7fabf715758b6c71f8a65d5a86608054ff74554ee5f",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/08.nginx-9.sh.json": {
+    "kind": "file",
+    "bytes": 2327,
+    "sha256": "bc8fd7a70e413f09301243309922b8e59314f68146e692028d6f185ee6b992d1",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/09.nginx-10.sh.json": {
+    "kind": "file",
+    "bytes": 2269,
+    "sha256": "e54a2f7d648eeb07fcb0a8fa1b1aa1fc278c8e61a1a254aa5152408f45c8fda6",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/10.nginx-11.sh.json": {
+    "kind": "file",
+    "bytes": 2271,
+    "sha256": "a73166bf5a32641f4b91971bdc9cb8228824a77fb44a39c2cdd51071eb4267ce",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/11.nginx-12.sh.json": {
+    "kind": "file",
+    "bytes": 2331,
+    "sha256": "e3c7d989997eca3a348237f7c9c4c967f352eab94a5208470a2d9fc4cdcfa1eb",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/12.nginx-13.sh.json": {
+    "kind": "file",
+    "bytes": 2329,
+    "sha256": "47347df9939bbfaefb764d17f81092c2fc549819c37c2c2a9da6075d8c87231f",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/13.nginx-14.sh.json": {
+    "kind": "file",
+    "bytes": 2309,
+    "sha256": "04d073025517253d0c010c8b8aa306616ae2d2670550f39d66802a775f3845f2",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/14.nginx-15.sh.json": {
+    "kind": "file",
+    "bytes": 2371,
+    "sha256": "86b15029738ab7da614e3bdef4f10cac9152b4fe4d27dd53de32b61fcc20721d",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/15.nginx-16.sh.json": {
+    "kind": "file",
+    "bytes": 2230,
+    "sha256": "148bdab4b7270a999def69ad7a93d42e55ed0ad46b4d9321439f006fdf18ec28",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/16.nginx-17.sh.json": {
+    "kind": "file",
+    "bytes": 2373,
+    "sha256": "33f404b09e9259b67244c9472b065bf3cdcfbb326bf3f1381d0701534fb102bd",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/17.nginx-18.sh.json": {
+    "kind": "file",
+    "bytes": 2292,
+    "sha256": "67afa4ee0e08ec9b7a63cf07872f981a5c0a39347e4439e009bfedb6dc258116",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/18.nginx-19.sh.json": {
+    "kind": "file",
+    "bytes": 2350,
+    "sha256": "754fc7caf54eec90b09c3959ccf28550c0a6bfcfbaba167fac1da7250b63d5cc",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/19.nginx-20.sh.json": {
+    "kind": "file",
+    "bytes": 2432,
+    "sha256": "a759486b2c1372cb6c73eb262dd982217db53a4fc56d6d929543e8dafa192a85",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/20.nginx-21.sh.json": {
+    "kind": "file",
+    "bytes": 2373,
+    "sha256": "76af9d787b8d9d39383ef8f5c9680b30e586f73f72ac4ab6ee41cce343a69026",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/21.nginx-22.sh.json": {
+    "kind": "file",
+    "bytes": 2493,
+    "sha256": "9b12069e9672d6bf06bb7405a0cd4b5c7d54ff35834e5bb6db703ba46e635660",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 174,
+    "sha256": "a5e9cda0da82459a1d9f8d67908ccd99da3f64c8549badf8620518cccca55cb0",
+    "included": true
+  },
+  "sequences/nginx-analysis.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 4143,
+    "sha256": "05e698e2758ec45293dd6f929f2649805d7508137d91278ce834f795cbec41f2",
+    "included": true
+  },
+  "sequences/nlp-ngrams.bash.0/00.ngrams-1.sh.json": {
+    "kind": "file",
+    "bytes": 2358,
+    "sha256": "9be2f59cc209a1936d0b1b4230379e68b567645899a1660fffae30670c9557f9",
+    "included": true
+  },
+  "sequences/nlp-ngrams.bash.0/01.ngrams-2.sh.json": {
+    "kind": "file",
+    "bytes": 2638,
+    "sha256": "6f8ffdfdf4a15eff1461ac62ecedcbf6c201e1d66a20c276a9f84332c48e0db6",
+    "included": true
+  },
+  "sequences/nlp-ngrams.bash.0/02.ngrams-3.sh.json": {
+    "kind": "file",
+    "bytes": 2906,
+    "sha256": "ae2ad0cc1e7c92864294ace7589f5ea96e1fc7daed551512575379940891f12f",
+    "included": true
+  },
+  "sequences/nlp-ngrams.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 160,
+    "sha256": "0f8396224bd58467cdbcdb24c71966b328d6473511c746fb6fb2752ca32c8946",
+    "included": true
+  },
+  "sequences/nlp-ngrams.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 2527,
+    "sha256": "1826bb1fb61dc55050d2eaed91e61a2dfcb69ac0fce1e59960925cb3bca7d1ba",
+    "included": true
+  },
+  "sequences/nlp-ngrams.observe.0/00.ngrams-1.sh.json": {
+    "kind": "file",
+    "bytes": 2493,
+    "sha256": "8062e819a06c8bc82dd0be4815fd5f0b49eab11863307d258b7e14d7968c0d67",
+    "included": true
+  },
+  "sequences/nlp-ngrams.observe.0/01.ngrams-2.sh.json": {
+    "kind": "file",
+    "bytes": 2777,
+    "sha256": "2f54a9e1f1d851e3d8554689db3a9541ee071631006d9c985acd9f11932c52aa",
+    "included": true
+  },
+  "sequences/nlp-ngrams.observe.0/02.ngrams-3.sh.json": {
+    "kind": "file",
+    "bytes": 3048,
+    "sha256": "c91cce38b41d1d65ec4ead68753cce96f3d4fa3dad234a821ab4e36803be816b",
+    "included": true
+  },
+  "sequences/nlp-ngrams.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 167,
+    "sha256": "770d1a441d057d4d65a1f35c5a9a5f57be39ffd8cfba307a480c110c207caa16",
+    "included": true
+  },
+  "sequences/nlp-ngrams.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 2527,
+    "sha256": "04c2a64128363db21b4a9c565633b40821a4ca2d886fe8f57653dc83f0cae0e5",
+    "included": true
+  },
+  "sequences/nlp-ngrams.original.0/00.ngrams-1.sh.json": {
+    "kind": "file",
+    "bytes": 2495,
+    "sha256": "cfe07c7a6754ce918bc0116cd4d8cf17d3b3679a26ed035b63c53927ffe08fea",
+    "included": true
+  },
+  "sequences/nlp-ngrams.original.0/01.ngrams-2.sh.json": {
+    "kind": "file",
+    "bytes": 2782,
+    "sha256": "2b063b6d9696340e13883d4ba908d48110830e89ddb3145d113779044c37f193",
+    "included": true
+  },
+  "sequences/nlp-ngrams.original.0/02.ngrams-3.sh.json": {
+    "kind": "file",
+    "bytes": 3051,
+    "sha256": "20bdd08204a546a1925ee1afc668bf0caaa1549c0ce947da1b4fae9c12ff2ff9",
+    "included": true
+  },
+  "sequences/nlp-ngrams.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 168,
+    "sha256": "495e5db07f3ae94f2c812e24f9c13c88fa1497cf342e37a2a7ef0cd156d0ff88",
+    "included": true
+  },
+  "sequences/nlp-ngrams.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 2524,
+    "sha256": "b500269d4802f067b5bca5d434ac8b5158306220e50f2e90f93e4e43c7dfbc4c",
+    "included": true
+  },
+  "sequences/nlp-uppercase.bash.0/00.uppercase_by_token.sh.json": {
+    "kind": "file",
+    "bytes": 2351,
+    "sha256": "60b7061ed162f342edb44af1945e83edcfc2c5c9947d6ef3b79e70b40ad36601",
+    "included": true
+  },
+  "sequences/nlp-uppercase.bash.0/01.uppercase_by_type.sh.json": {
+    "kind": "file",
+    "bytes": 2619,
+    "sha256": "6f2b6ee25b2fab951e4ca326c6ab8766bbaddc17fd7036cbfd5228787d0e65e5",
+    "included": true
+  },
+  "sequences/nlp-uppercase.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 163,
+    "sha256": "75d00af1e9ef6cecd2cdb96dff5849891550929ca82dcfcf254e2bf093dd5fc8",
+    "included": true
+  },
+  "sequences/nlp-uppercase.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 2459,
+    "sha256": "81a6973f649eb0c0aabc956c243a2e2968306c9d3c4b8a9cd5aab8c0cbf1e942",
+    "included": true
+  },
+  "sequences/nlp-uppercase.observe.0/00.uppercase_by_token.sh.json": {
+    "kind": "file",
+    "bytes": 2486,
+    "sha256": "ed466f82a8ed1bcbacee57183a5baf2374ac16a3349fa5f0588f89c16868c511",
+    "included": true
+  },
+  "sequences/nlp-uppercase.observe.0/01.uppercase_by_type.sh.json": {
+    "kind": "file",
+    "bytes": 2756,
+    "sha256": "8b3602c254bf3ccdb40c6b0a3cf56fef8ed2155f83b1444dd1fa55fbfa87ed5b",
+    "included": true
+  },
+  "sequences/nlp-uppercase.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 170,
+    "sha256": "04ec0f888bc3275e4605ec2891c82a644612a07cd0c6dc25ec3f390d28ed5770",
+    "included": true
+  },
+  "sequences/nlp-uppercase.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 2459,
+    "sha256": "32182c8f67b221ccd89e9e7ddfbc3c058793e6e490ace1283b5152f3057ef41d",
+    "included": true
+  },
+  "sequences/nlp-uppercase.original.0/00.uppercase_by_token.sh.json": {
+    "kind": "file",
+    "bytes": 2491,
+    "sha256": "ac90f62af4b117b3025036e8dec4b4f8d586cbf3ae995aace6d98192ce9c8755",
+    "included": true
+  },
+  "sequences/nlp-uppercase.original.0/01.uppercase_by_type.sh.json": {
+    "kind": "file",
+    "bytes": 2762,
+    "sha256": "5333e241fcfd91ef169e13a4f088cead080d7f114f618749df7c6ac801986ef5",
+    "included": true
+  },
+  "sequences/nlp-uppercase.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 171,
+    "sha256": "db893364c4e03309e7355bebbb449a81b72b33c03e136aa73a485f09449299a9",
+    "included": true
+  },
+  "sequences/nlp-uppercase.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 2456,
+    "sha256": "6142b2a5e1ddd31a466c25935d0515330fdd1a852a9cb3789ae645e997d55aa3",
+    "included": true
+  },
+  "sequences/poet.bash.0/00.poet-1.sh.json": {
+    "kind": "file",
+    "bytes": 2223,
+    "sha256": "80da5a99f9d99576df79b3088aac2d562928dfb6393c433a15aa62b2928d49e7",
+    "included": true
+  },
+  "sequences/poet.bash.0/01.poet-2.sh.json": {
+    "kind": "file",
+    "bytes": 2396,
+    "sha256": "93c1350b9956a76044fe0cf5e5a47340b66cf682927b53ed371eb890c4b6c723",
+    "included": true
+  },
+  "sequences/poet.bash.0/02.poet-3.sh.json": {
+    "kind": "file",
+    "bytes": 2571,
+    "sha256": "46f082c74df0ba5fa886f0ae9ab84e4015e3b3af1049b6efba36078d879eeb74",
+    "included": true
+  },
+  "sequences/poet.bash.0/03.poet-4.sh.json": {
+    "kind": "file",
+    "bytes": 2746,
+    "sha256": "61c0eb0ed2b36ef19045e72c2487858a6359fc4a1abd1833dad2c0adbf443668",
+    "included": true
+  },
+  "sequences/poet.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 154,
+    "sha256": "03bb690b77cde74164971993ec4b4c678f26bd59096972a0f464c957d229df3d",
+    "included": true
+  },
+  "sequences/poet.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 2606,
+    "sha256": "b035401d768956742a873c2cf130bc4cd098ef8ebe5f7ea7ca8216e5cbce4e7c",
+    "included": true
+  },
+  "sequences/poet.observe.0/00.poet-1.sh.json": {
+    "kind": "file",
+    "bytes": 2359,
+    "sha256": "42cd5b840beb80d44552ba32983c26d9c27319c155131cb72d957c92a7cf594d",
+    "included": true
+  },
+  "sequences/poet.observe.0/01.poet-2.sh.json": {
+    "kind": "file",
+    "bytes": 2531,
+    "sha256": "c6ebb07b3295a51c48f564e8ac995d6a35558d4f3fa0922d67a81d7cda1ac554",
+    "included": true
+  },
+  "sequences/poet.observe.0/02.poet-3.sh.json": {
+    "kind": "file",
+    "bytes": 2707,
+    "sha256": "2db9e1a8ea9abcd597e9c313da9691d4d2fd05f43244770db1605fc276661027",
+    "included": true
+  },
+  "sequences/poet.observe.0/03.poet-4.sh.json": {
+    "kind": "file",
+    "bytes": 2883,
+    "sha256": "d872f687aac44602b2ceb7ab43b813a3afb5c2e81cbe735718f129ebb9151b02",
+    "included": true
+  },
+  "sequences/poet.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 162,
+    "sha256": "0c36a7d853198e1fdacdf1de855317fc43a357851469a4f9b9fb24b5f9eb4029",
+    "included": true
+  },
+  "sequences/poet.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 2606,
+    "sha256": "d64ba3f820d7a714ea503665460ea42464188c8e4ecccd5bb6ad263f72960f90",
+    "included": true
+  },
+  "sequences/poet.original.0/00.poet-1.sh.json": {
+    "kind": "file",
+    "bytes": 2362,
+    "sha256": "7fb4e503d99914f5bd876956e883861a696072191fbf72cf07a49a9663f72f22",
+    "included": true
+  },
+  "sequences/poet.original.0/01.poet-2.sh.json": {
+    "kind": "file",
+    "bytes": 2556,
+    "sha256": "2a86b2ed3a22d4854bfe511f0dcf7228a4a16476d0b38dc527d6fa2afe8fe9b6",
+    "included": true
+  },
+  "sequences/poet.original.0/02.poet-3.sh.json": {
+    "kind": "file",
+    "bytes": 2751,
+    "sha256": "f9c0fd14c941b3114b2f28bcf0b82491b7b1c55d247699f2ebacf88151b148b8",
+    "included": true
+  },
+  "sequences/poet.original.0/03.poet-4.sh.json": {
+    "kind": "file",
+    "bytes": 2930,
+    "sha256": "73a8bfbf106ab5d7edd95e10bd4965cd61d09a27beb6eb67f403904c26da238f",
+    "included": true
+  },
+  "sequences/poet.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 163,
+    "sha256": "6faa30a4096280f23242c5f9e638bc8b1653822bb462080b9eaf8587725568c1",
+    "included": true
+  },
+  "sequences/poet.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 2603,
+    "sha256": "cb96f463e1d72eef31d83712c535c4335dafced1cc80b95515104794fba49034",
+    "included": true
+  },
+  "sequences/spell.bash.0/00.spell-1.sh.json": {
+    "kind": "file",
+    "bytes": 2052,
+    "sha256": "af38a3dd2084d9f611da4a4b677faf658ab6cf23340e008981e1c25573ac0e74",
+    "included": true
+  },
+  "sequences/spell.bash.0/01.spell-2.sh.json": {
+    "kind": "file",
+    "bytes": 2053,
+    "sha256": "08d0e4e99432a43a228fb947b9cb9f852a47e3b33637097e2f7be579da053379",
+    "included": true
+  },
+  "sequences/spell.bash.0/02.spell-3.sh.json": {
+    "kind": "file",
+    "bytes": 2054,
+    "sha256": "338225b1af99bd93878dec37367d9de43297488b1ec516ffe2feefb90ef55335",
+    "included": true
+  },
+  "sequences/spell.bash.0/03.spell-4.sh.json": {
+    "kind": "file",
+    "bytes": 2055,
+    "sha256": "615a6718ce5a25e98f64f24b16892617c4115c8bc01d289b8a39f7ca30f49547",
+    "included": true
+  },
+  "sequences/spell.bash.0/04.spell-5.sh.json": {
+    "kind": "file",
+    "bytes": 2055,
+    "sha256": "fa992290f63d20c18e04e008de5aa15bc416c89039456a95a552f9435dce9495",
+    "included": true
+  },
+  "sequences/spell.bash.0/05.spell-6.sh.json": {
+    "kind": "file",
+    "bytes": 2058,
+    "sha256": "cca5c7cf8f51ff327fd5a24b750884f0c4b206a127b563311b89b23de5a657eb",
+    "included": true
+  },
+  "sequences/spell.bash.0/06.spell-7.sh.json": {
+    "kind": "file",
+    "bytes": 2056,
+    "sha256": "ca1ac3861a67ef9615001286d8dee82614937e2f8b3c6505e8b8cd0276f3e786",
+    "included": true
+  },
+  "sequences/spell.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 154,
+    "sha256": "5a2d1b8674b4685b51c4618d0aa0ef249b87bd9bb4d3d71175b94f4043962b7f",
+    "included": true
+  },
+  "sequences/spell.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 2868,
+    "sha256": "f7c27c6d10e61a919c921e497bada9b958fb44ac9be102723b718255d75008f0",
+    "included": true
+  },
+  "sequences/spell.observe.0/00.spell-1.sh.json": {
+    "kind": "file",
+    "bytes": 2188,
+    "sha256": "ba7e90f439b5400f6e476430f76ce528bc5f1aeb8c5193656ed90f3a20ab7a66",
+    "included": true
+  },
+  "sequences/spell.observe.0/01.spell-2.sh.json": {
+    "kind": "file",
+    "bytes": 2190,
+    "sha256": "3a2fff8e63fcfde3a1ed2a55176fadc6b5bb1e75c1d08435bb8c9d2ab7b79f41",
+    "included": true
+  },
+  "sequences/spell.observe.0/02.spell-3.sh.json": {
+    "kind": "file",
+    "bytes": 2191,
+    "sha256": "688e79117afb18301622130d67c971bd5c477d540be7771f33e1126d86addda1",
+    "included": true
+  },
+  "sequences/spell.observe.0/03.spell-4.sh.json": {
+    "kind": "file",
+    "bytes": 2189,
+    "sha256": "f3a9f272ca02eb05e7ecc5253fa8a01378cd68b49e9ec66a13766fbf44c88dac",
+    "included": true
+  },
+  "sequences/spell.observe.0/04.spell-5.sh.json": {
+    "kind": "file",
+    "bytes": 2192,
+    "sha256": "c0fb1eca0918e48e168a39530acca08d8122ed616a66ab5280990cb03f503611",
+    "included": true
+  },
+  "sequences/spell.observe.0/05.spell-6.sh.json": {
+    "kind": "file",
+    "bytes": 2196,
+    "sha256": "8ce32ffd8558f6ffb6f423640dd7cd3dd8404eecb2fb5496bb99b9c6101fc164",
+    "included": true
+  },
+  "sequences/spell.observe.0/06.spell-7.sh.json": {
+    "kind": "file",
+    "bytes": 2198,
+    "sha256": "e86d0d1b91432d4d06efc0f51abb88c1ecc37e30bf70dc254e54a903cf7286e0",
+    "included": true
+  },
+  "sequences/spell.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 163,
+    "sha256": "c13b5ec47cec91a729237a021403c02443870cc7b7ee7aa5b941418988a05bd0",
+    "included": true
+  },
+  "sequences/spell.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 2868,
+    "sha256": "56113061d4730a718ee3eebbb4c2f9e93d2fcfd0cba0e8f08e3706e57e4cf973",
+    "included": true
+  },
+  "sequences/spell.original.0/00.spell-1.sh.json": {
+    "kind": "file",
+    "bytes": 2192,
+    "sha256": "c10c43b8fdb5d6f3fbf4623aa56dde01670424d0bc0e61548c0a0b2a7e2e4f44",
+    "included": true
+  },
+  "sequences/spell.original.0/01.spell-2.sh.json": {
+    "kind": "file",
+    "bytes": 2194,
+    "sha256": "b22bc8aba04ed080804741d77717938edc9ea4431ad5d3bcd9220fd33ddca2e1",
+    "included": true
+  },
+  "sequences/spell.original.0/02.spell-3.sh.json": {
+    "kind": "file",
+    "bytes": 2233,
+    "sha256": "617ee9dcb6ae45e322f766d8cc06460f08fd54a3d0ad0c4da5e61916110cccda",
+    "included": true
+  },
+  "sequences/spell.original.0/03.spell-4.sh.json": {
+    "kind": "file",
+    "bytes": 2254,
+    "sha256": "935472de771fd37490d1744756096a3e7fa63f0be90651fd380bfa40c2e8c446",
+    "included": true
+  },
+  "sequences/spell.original.0/04.spell-5.sh.json": {
+    "kind": "file",
+    "bytes": 2295,
+    "sha256": "4ca73978c0fe3b6f58a532173a65147cc0b9423d67f6d9b07a867bb7eae4615e",
+    "included": true
+  },
+  "sequences/spell.original.0/05.spell-6.sh.json": {
+    "kind": "file",
+    "bytes": 2279,
+    "sha256": "43f220594860d1f360d95d7c08d7a8eaf8dfc2a11f72a079358e07544a01ec0c",
+    "included": true
+  },
+  "sequences/spell.original.0/06.spell-7.sh.json": {
+    "kind": "file",
+    "bytes": 2300,
+    "sha256": "6300c46c623b5963d640c185ee41f390733b57def2342e1722d93d16178afd3b",
+    "included": true
+  },
+  "sequences/spell.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 163,
+    "sha256": "107a0f55570cad06df33fa19453a18053490591cf7b93a0dd26daf450aa1778b",
+    "included": true
+  },
+  "sequences/spell.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 2865,
+    "sha256": "7668a8d164d2422a33b86eb745c2df27d8333dda89c974870a9ff1b02312abd3",
+    "included": true
+  },
+  "sequences/unixfun.bash.0/00.7.sh.json": {
+    "kind": "file",
+    "bytes": 2040,
+    "sha256": "2e8c1ec1bf6f005bac260b0d43b74390209b1e2a99577883e86dc9f9c91841f6",
+    "included": true
+  },
+  "sequences/unixfun.bash.0/01.8.sh.json": {
+    "kind": "file",
+    "bytes": 2040,
+    "sha256": "6f532b01933f90b589bb578b05ce40c31effa294e4000ee90d87a8ea03aca156",
+    "included": true
+  },
+  "sequences/unixfun.bash.0/02.9.sh.json": {
+    "kind": "file",
+    "bytes": 2042,
+    "sha256": "cb50458e8742b997ab63d2251a688fbff1f98b1422781a798a3878d97ff86de6",
+    "included": true
+  },
+  "sequences/unixfun.bash.0/03.10.sh.json": {
+    "kind": "file",
+    "bytes": 2045,
+    "sha256": "353964791867573af94390f7f1ce2570c00c9543800ac669573000c0361a5940",
+    "included": true
+  },
+  "sequences/unixfun.bash.0/04.11.sh.json": {
+    "kind": "file",
+    "bytes": 2046,
+    "sha256": "04893871efdc5e00883d0d0850012aa18c6014267f470094c4b37fc9d3634b7e",
+    "included": true
+  },
+  "sequences/unixfun.bash.0/05.12.sh.json": {
+    "kind": "file",
+    "bytes": 2044,
+    "sha256": "fe2fc0d52859aff986fb8ca521c603f292969096a2bb0cf632fdb0ed754bff65",
+    "included": true
+  },
+  "sequences/unixfun.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 157,
+    "sha256": "1f1464a942052e2f44b9e2bb11d6f021aa119318fe7ad08621f7d8bbb0b2a526",
+    "included": true
+  },
+  "sequences/unixfun.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 2729,
+    "sha256": "4261b389e727bf3fabd5accf9255321d24f34f2f22a1008cfe33d500d245f698",
+    "included": true
+  },
+  "sequences/unixfun.observe.0/00.7.sh.json": {
+    "kind": "file",
+    "bytes": 2175,
+    "sha256": "f4172149bb2ab3b29ea729deeb973becaedb10a508d89cf0527e6846bba8436e",
+    "included": true
+  },
+  "sequences/unixfun.observe.0/01.8.sh.json": {
+    "kind": "file",
+    "bytes": 2178,
+    "sha256": "d88013876fd78fa7304c2159346b018c73a9244b76038646d486c9133ae05ae4",
+    "included": true
+  },
+  "sequences/unixfun.observe.0/02.9.sh.json": {
+    "kind": "file",
+    "bytes": 2178,
+    "sha256": "f4fca5c4c5cb82cc5bd83af9dbecb8bc09d771f03cff2980f1fb3fb5b2e9abbe",
+    "included": true
+  },
+  "sequences/unixfun.observe.0/03.10.sh.json": {
+    "kind": "file",
+    "bytes": 2183,
+    "sha256": "ce134ac2f28ca5139cb48095dcc51312044cd1b02f3da10643b7880ef1f28b08",
+    "included": true
+  },
+  "sequences/unixfun.observe.0/04.11.sh.json": {
+    "kind": "file",
+    "bytes": 2185,
+    "sha256": "972800b0b247874939567c831a5818e8c5da8483c6cd69f220e0b4556fc7186d",
+    "included": true
+  },
+  "sequences/unixfun.observe.0/05.12.sh.json": {
+    "kind": "file",
+    "bytes": 2183,
+    "sha256": "dd0be84053e1fd5df711db68bc0a6b2e4df06df60346e9191d6310e16eb11cf0",
+    "included": true
+  },
+  "sequences/unixfun.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 165,
+    "sha256": "ac6c6a2425fd0afcc70ce37ac7f40dc354a2bfe33bb34d9a29426e5ec8b73e59",
+    "included": true
+  },
+  "sequences/unixfun.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 2729,
+    "sha256": "7652249b4c3309b74e552d6273e243ce67a184128f1697fe0190fe7eae426959",
+    "included": true
+  },
+  "sequences/unixfun.original.0/00.7.sh.json": {
+    "kind": "file",
+    "bytes": 2180,
+    "sha256": "7e9a0c97297050160e2d81c3051860f17f8c53d78eb3ccbcc82b5544e2b626a9",
+    "included": true
+  },
+  "sequences/unixfun.original.0/01.8.sh.json": {
+    "kind": "file",
+    "bytes": 2180,
+    "sha256": "8b7cbff1b31f61ef993ad57dcb2787768c7b266a91e93c3a8457bf7269eef9eb",
+    "included": true
+  },
+  "sequences/unixfun.original.0/02.9.sh.json": {
+    "kind": "file",
+    "bytes": 2181,
+    "sha256": "adac4fff5a5f1457d3880e812343c5650e5727ec8f477eefc5c9b722522cac78",
+    "included": true
+  },
+  "sequences/unixfun.original.0/03.10.sh.json": {
+    "kind": "file",
+    "bytes": 2250,
+    "sha256": "a1172fec91648ed1e47f3cdd9b7188f72f4be356024fb357f13c9ff4bcae320f",
+    "included": true
+  },
+  "sequences/unixfun.original.0/04.11.sh.json": {
+    "kind": "file",
+    "bytes": 2188,
+    "sha256": "144fc3d5c827a6db9daddc1f5fc50936c3d77c09f840f491bc7d13dbad52d656",
+    "included": true
+  },
+  "sequences/unixfun.original.0/05.12.sh.json": {
+    "kind": "file",
+    "bytes": 2188,
+    "sha256": "bfded49b361ed9a498371c3d1c2d8c8b4ebe9acf3e9f970008291125efd024c3",
+    "included": true
+  },
+  "sequences/unixfun.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 165,
+    "sha256": "ecc2b1613c5ae374dca5d2fb76cc200632363003b602ed7ecc8a50056da1e347",
+    "included": true
+  },
+  "sequences/unixfun.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 2726,
+    "sha256": "b31fa205c48a29c35a0c4a393734032fe3f4d555a37354ecd85f9f627e4b8374",
+    "included": true
+  },
+  "sequences/weather.bash.0/00.temp-analytics-1.sh.json": {
+    "kind": "file",
+    "bytes": 2248,
+    "sha256": "4ae3c94dccf686d598721fae42db006b20380526656618a71e02219d81425394",
+    "included": true
+  },
+  "sequences/weather.bash.0/01.temp-analytics-2.sh.json": {
+    "kind": "file",
+    "bytes": 2428,
+    "sha256": "8a3eefc62e925133b1b8cb06dec32b94d34050235a072aa5299432f0b8384682",
+    "included": true
+  },
+  "sequences/weather.bash.0/02.temp-analytics-3.sh.json": {
+    "kind": "file",
+    "bytes": 2610,
+    "sha256": "914b32771cbf5bb9f524f606fc5676cfbe78bd417b1a1511a839ba161def33f1",
+    "included": true
+  },
+  "sequences/weather.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 157,
+    "sha256": "854dad09b12ccd325598403325236d107659b9e9eee727b7188ddc1cc25d7cfb",
+    "included": true
+  },
+  "sequences/weather.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 3225,
+    "sha256": "6500e6526652deb900adacfd188f1c7d83316a3182093fc7efb0aeb7307df236",
+    "included": true
+  },
+  "sequences/weather.observe.0/00.temp-analytics-1.sh.json": {
+    "kind": "file",
+    "bytes": 2385,
+    "sha256": "2af536ec966771d7fb4648db659d48d0abff3ab5b095e1a67ac560de89faeb27",
+    "included": true
+  },
+  "sequences/weather.observe.0/01.temp-analytics-2.sh.json": {
+    "kind": "file",
+    "bytes": 2565,
+    "sha256": "8f96c5782bab0e30d946aa194b070550b08baae39d3f68f5fe88085b602e842c",
+    "included": true
+  },
+  "sequences/weather.observe.0/02.temp-analytics-3.sh.json": {
+    "kind": "file",
+    "bytes": 2746,
+    "sha256": "a8a91c24279e69d6f7d9d84b88735c396cc520d4df65b6f69b7a0d6ab8e17334",
+    "included": true
+  },
+  "sequences/weather.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 165,
+    "sha256": "727d8238c66f68d25afbb12762cc8c59484f08d240042131b598eb5dd61ec9e7",
+    "included": true
+  },
+  "sequences/weather.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 3225,
+    "sha256": "21d2cbd0a1604ada42dc97acde8ab320f8fcf8ec947a04c999b6087a278c6b9a",
+    "included": true
+  },
+  "sequences/weather.original.0/00.temp-analytics-1.sh.json": {
+    "kind": "file",
+    "bytes": 2389,
+    "sha256": "60afc0aa23a86736952f7b7c5638e698dd1463cb76d52f6ec46ceb726afb8bac",
+    "included": true
+  },
+  "sequences/weather.original.0/01.temp-analytics-2.sh.json": {
+    "kind": "file",
+    "bytes": 2587,
+    "sha256": "afdbebd83ce7e8eef158f2f18c5423abd771281a2765eca81e5904b72fcf4e4b",
+    "included": true
+  },
+  "sequences/weather.original.0/02.temp-analytics-3.sh.json": {
+    "kind": "file",
+    "bytes": 2770,
+    "sha256": "8e397656c2ce657c0ab5f0e8e5be3f90441d2800bb7847da96dbd8b470409cee",
+    "included": true
+  },
+  "sequences/weather.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 165,
+    "sha256": "9360cb7d392fd5a714f28c66472493658acf789f160bdda4f0ded056b408e57c",
+    "included": true
+  },
+  "sequences/weather.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 3222,
+    "sha256": "9053414402f8ee25965036dab2a8137d7b215bc76cdf255c655b9e0ab67f3e7c",
+    "included": true
+  },
+  "sequences/word-freq.bash.0/00.wf.sh.json": {
+    "kind": "file",
+    "bytes": 2056,
+    "sha256": "a955b570ba534536babdb11b6c8e519d3394ff5d5726c838e0f8d4e3ce19bff2",
+    "included": true
+  },
+  "sequences/word-freq.bash.0/01.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 2060,
+    "sha256": "861c04bd1ea3aa5d8d4bbe9761ade32fd99ff740b348cdd80fb54c856709c338",
+    "included": true
+  },
+  "sequences/word-freq.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 158,
+    "sha256": "1d08ee40b680671418223c8d07f63ae5b0420f8446cb6142754e641a96d45ff2",
+    "included": true
+  },
+  "sequences/word-freq.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 2409,
+    "sha256": "d38a4bf390dd35cbfc92e639dc1600413feabb4989bd23a7206cab155709bd4e",
+    "included": true
+  },
+  "sequences/word-freq.observe.0/00.wf.sh.json": {
+    "kind": "file",
+    "bytes": 2196,
+    "sha256": "10f832ef4336647d1dd7b73c16ab7cc720776c87ec90bbe1c689e543388ba897",
+    "included": true
+  },
+  "sequences/word-freq.observe.0/01.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 2201,
+    "sha256": "5909e414ea5016bb8f878a6a9ed83bcede1a03f8d47475134a19f76396cbb519",
+    "included": true
+  },
+  "sequences/word-freq.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 167,
+    "sha256": "6b6a9fddd8022108cb6b7c7e3290c5459797be87525902cab498c65c0c695ba0",
+    "included": true
+  },
+  "sequences/word-freq.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 2409,
+    "sha256": "99af5fcb11d2425ec34ba9a97d68e1fc99c2ab7eb8a11a476eafa0354d1653b1",
+    "included": true
+  },
+  "sequences/word-freq.original.0/00.wf.sh.json": {
+    "kind": "file",
+    "bytes": 2199,
+    "sha256": "08e77be5f69e6c527378f72e4bf6bf5feea79a7d68a825b4b91fc369771ba583",
+    "included": true
+  },
+  "sequences/word-freq.original.0/01.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 2322,
+    "sha256": "14a3e123872f714f71aeb35bdbfbdf2e643cffa7176b4ad0d022355bee65fb38",
+    "included": true
+  },
+  "sequences/word-freq.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 168,
+    "sha256": "a48b5a14d59fd951e31463a756d18ffeeebbf4e86a9c87f43015c809e589adb8",
+    "included": true
+  },
+  "sequences/word-freq.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 2406,
+    "sha256": "ed825ff2c45da6b13af7d2ff52a77353573fb852f1ae1684a60a0db6ebc64bbd",
+    "included": true
+  },
+  "sources/candidate.tar.gz": {
+    "kind": "file",
+    "bytes": 75508,
+    "sha256": "c9e335cb65eaecd6d2c0ca5d1cd95b2a54cd8945f292112b2502545a671059f7",
+    "included": true
+  },
+  "sources/observe.tar.gz": {
+    "kind": "file",
+    "bytes": 34805,
+    "sha256": "0f40d2cab9f44819baeda498bd04dcbb25cb3a39875c45e9ee587cab57fcaa0b",
+    "included": true
+  },
+  "sources/original.tar.gz": {
+    "kind": "file",
+    "bytes": 49645,
+    "sha256": "0686338fa5c3ec59ad35171dc2b1703814f8b4ee0562d572446a6496d26facee",
+    "included": true
+  },
+  "status.json": {
+    "kind": "file",
+    "bytes": 173,
+    "sha256": "bb69fda1e160bba6463f61de6714a6bb9047869125fd7e71d6ac8c48ecd9dae0",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 122094,
+    "sha256": "869778b1f91e182a17bf51ed1419949fc4e7e73fc8bad0fca4bb34863aba9b16",
+    "included": true
+  },
+  "timings.csv": {
+    "kind": "file",
+    "bytes": 67185,
+    "sha256": "a76190ef29ab2ea999c90d1ef52a70df8b25ad4bc2bd708ffe6191331acdd585",
+    "included": true
+  }
+}

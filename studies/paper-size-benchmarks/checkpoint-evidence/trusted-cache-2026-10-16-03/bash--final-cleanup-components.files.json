@@ -1,0 +1,68 @@
+{
+  "components.json": {
+    "kind": "file",
+    "bytes": 12216,
+    "sha256": "ed36bd4608448a4b45f71e59a4ed56564c8fe5af1baa61082db313b8c9c1cec1",
+    "included": true
+  },
+  "incr-clippy.log": {
+    "kind": "file",
+    "bytes": 123,
+    "sha256": "d52b770612efddf1d2433b4fbef1a8f2804718989838f96eade564c9a942f211",
+    "included": true
+  },
+  "incr-rust.log": {
+    "kind": "file",
+    "bytes": 3592,
+    "sha256": "5bc33e9c7de55d857a51e53a297c9e9478b96619489e3f957836c407ea0d9edb",
+    "included": true
+  },
+  "native-frontend.log": {
+    "kind": "file",
+    "bytes": 98,
+    "sha256": "143fec4643b8ea266b32b2e95717ef6897a33f4848984c2ca5fcfd8f7d846d39",
+    "included": true
+  },
+  "observe-clippy.log": {
+    "kind": "file",
+    "bytes": 129,
+    "sha256": "36c518d00c458472a8cc1b216712e43601e9cfdcdd59d258055c411cb1cf5b6b",
+    "included": true
+  },
+  "observe-integration.log": {
+    "kind": "file",
+    "bytes": 1398,
+    "sha256": "107c02556ad384376aa711bc3089cacf4e8a4aba1c5aee194686091cf661a6bd",
+    "included": true
+  },
+  "observe-rust.log": {
+    "kind": "file",
+    "bytes": 899,
+    "sha256": "72aa2887a3ad9205d86a5f85d9629f66913633d509f7ef6de3c08d2f4f3bb765",
+    "included": true
+  },
+  "paper-harness.log": {
+    "kind": "file",
+    "bytes": 796,
+    "sha256": "966d76e0e728dd40f1755b3924b994dc808b36748978a0cc40398074b2d66647",
+    "included": true
+  },
+  "shell-ast-tests.json": {
+    "kind": "file",
+    "bytes": 46305,
+    "sha256": "fa488d9dd2b68ff394b8153632a68a0d6cc9b8ace345f1545bdc1d83d1ac89e6",
+    "included": true
+  },
+  "shell-ast.log": {
+    "kind": "file",
+    "bytes": 110,
+    "sha256": "23d66650b65c55780604c6bfb813357cb2286adc5d32cbfb72383816a21ce89b",
+    "included": true
+  },
+  "supplemental-harness.log": {
+    "kind": "file",
+    "bytes": 105,
+    "sha256": "36023bcdc5f454aa634a752aba7fe3b0c9de99f28ed96a93221a45148ec0e46c",
+    "included": true
+  }
+}

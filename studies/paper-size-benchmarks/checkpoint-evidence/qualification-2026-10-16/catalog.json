@@ -1,0 +1,88 @@
+{
+  "created": "2026-10-16T09:22:29.684509+00:00",
+  "namespaces": [
+    "qualification"
+  ],
+  "scope": "Independent archives of all existing result groups in the selected roots, including failed/incomplete attempts; declared statuses are not substituted for final validation. No cross-revision timing pooling.",
+  "bulk_policy": "All measurement/provenance/log metadata is archived. Other regular payloads above16MiB remain at their original on-disk paths with size and SHA256 receipts; no source evidence is deleted.",
+  "excluded_generated_files": [
+    "__pycache__ directories",
+    "*.pyc"
+  ],
+  "archive_parts": "Each portable part is at most80MiB. Concatenate parts in listed order before extraction; the combined SHA256 and every extracted member were verified.",
+  "state": "complete",
+  "groups": [
+    {
+      "label": "qualification--2026-10-07",
+      "source": "qualification/results/2026-10-07",
+      "bundle": "qualification--2026-10-07.tar.gz",
+      "bundle_sha256": "5aef117ae6cf1fcbee65800d178a0e999a1f2616882cbe3a5f478d958db8c635",
+      "bundle_bytes": 3959648,
+      "parts": [
+        {
+          "name": "qualification--2026-10-07.tar.gz",
+          "bytes": 3959648,
+          "sha256": "5aef117ae6cf1fcbee65800d178a0e999a1f2616882cbe3a5f478d958db8c635"
+        }
+      ],
+      "file_catalog": "qualification--2026-10-07.files.json",
+      "archived_files": 4190,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "qualification--2026-10-08",
+      "source": "qualification/results/2026-10-08",
+      "bundle": "qualification--2026-10-08.tar.gz",
+      "bundle_sha256": "80a557f89eb79fcb989c4c1a115fe37854bc515cbda4f4fba7e870f155a22be2",
+      "bundle_bytes": 1989558,
+      "parts": [
+        {
+          "name": "qualification--2026-10-08.tar.gz",
+          "bytes": 1989558,
+          "sha256": "80a557f89eb79fcb989c4c1a115fe37854bc515cbda4f4fba7e870f155a22be2"
+        }
+      ],
+      "file_catalog": "qualification--2026-10-08.files.json",
+      "archived_files": 2187,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "qualification--effect-replay",
+      "source": "qualification/results/effect-replay",
+      "bundle": "qualification--effect-replay.tar.gz",
+      "bundle_sha256": "44cd3beafacbc61b55a37efd3ae6e6a8f187dfb4a257fe952206f91558b2017d",
+      "bundle_bytes": 27671,
+      "parts": [
+        {
+          "name": "qualification--effect-replay.tar.gz",
+          "bytes": 27671,
+          "sha256": "44cd3beafacbc61b55a37efd3ae6e6a8f187dfb4a257fe952206f91558b2017d"
+        }
+      ],
+      "file_catalog": "qualification--effect-replay.files.json",
+      "archived_files": 87,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "qualification--second-audit",
+      "source": "qualification/results/second-audit",
+      "bundle": "qualification--second-audit.tar.gz",
+      "bundle_sha256": "1de7feb7dd1063ef5d0b35b80461c0e33d7427e5157fd9858fccaa5cdbd9473a",
+      "bundle_bytes": 888030,
+      "parts": [
+        {
+          "name": "qualification--second-audit.tar.gz",
+          "bytes": 888030,
+          "sha256": "1de7feb7dd1063ef5d0b35b80461c0e33d7427e5157fd9858fccaa5cdbd9473a"
+        }
+      ],
+      "file_catalog": "qualification--second-audit.files.json",
+      "archived_files": 223,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    }
+  ]
+}

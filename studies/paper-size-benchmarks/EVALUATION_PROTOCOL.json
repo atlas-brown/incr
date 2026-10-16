@@ -1,5 +1,5 @@
 {
-  "status": "First full pass interrupted after 186 valid checks to diagnose regressions. Guarded descriptor fix in qualification; fresh complete evaluation and repeats remain pending.",
+  "status": "Final cache-34/RAM queue implementation passed all qualification and all 216 targeted beginner/DPT checks. Detailed evidence is packaged and pinned by CHECKPOINT.json. Fresh full reproduction requires both clean checkpoint pushes; inspect studies/observe-reproduction/results/controller.json for live execution state.",
   "comparison": {
     "candidate": "Incr + Observe with the general execution/cache improvements and native shell compiler",
     "reference": "Pinned original Incr with the archived salted-encryption fix and opt-in static annotations",
@@ -13,13 +13,17 @@
     "assume_directory_access": true,
     "track_temporaries": false,
     "command_algorithm_replacements": false,
-    "content_validated_inputs": true
+    "content_validated_inputs": true,
+    "cache_format": 34,
+    "effect_manifest_version": 5
   },
   "assumptions": [
     "Temporary scratch state under /tmp, /var/tmp and a non-root absolute TMPDIR is disposable",
     "Directory stat/access probes use existence/access/ownership, with directory listings still tracked",
     "Final-output equivalence within a command; concurrent external writes and intermediate external observations are outside this effect policy",
-    "Read-only regular workspace files opened for content use content, mtime, size and access metadata as application data; inode and ctime are validation witnesses. Identity/ctime drift requires a content hash match. Metadata-only inputs and files outside the workspace retain strict identity metadata. This opt-in policy is stronger against preserved-mtime content edits than original Incr."
+    "Read-only regular workspace files opened for content use content, mtime, size and access metadata as application data; inode and ctime are validation witnesses. Identity/ctime drift requires a content hash match. Metadata-only inputs and files outside the workspace retain strict identity metadata. This opt-in policy is stronger against preserved-mtime content edits than original Incr.",
+    "Private cache payloads are trusted, as in original Incr. Cached stdout, stderr and filesystem payload bytes are not rehashed solely for integrity; missing/nonregular payloads and application dependencies remain checked. External modification of private cache bytes is outside this contract.",
+    "Speculative stdin is queued in RAM, as in original Incr, so hashing can finish ahead of a slow child and cancel it on a cache hit. Sufficient RAM is assumed; large input backlogs can consume substantial memory. Ordered speculative output retains a 64 MiB memory threshold and temporary-file overflow."
   ],
   "required_pre_full_gates": [
     "First clean implementation checkpoints pushed in both repositories",
@@ -29,7 +33,11 @@
     "DPT minimum fixture with complete real models and model hash validation",
     "Supplemental minimum coverage for web-search and all Tufte development versions",
     "Real DPT archive extraction workflow must reuse unchanged content and invalidate changed bytes at preserved mtime, plus generic metadata/content fault probes",
-    "Second clean qualification checkpoints committed and pushed in both repositories"
+    "Second clean qualification checkpoints committed and pushed in both repositories",
+    "Fresh qualification of the final runtime implementation: both full Bash configurations cold/warm, maintained components, all 276 historical minimum and 15 supplemental minimum checks",
+    "Complete beginner and DPT full-size targeted rerun with at least three paired repetitions, exact native output validation and an independent terminal cohort audit",
+    "Archive detailed old/new timing, storage, resource, provenance, correctness and failed/incomplete evidence separately; review final implementation and methodology",
+    "Commit and push final code, study and evidence in both repositories; verify clean worktrees and exact remote heads before preparing/launching fresh full workloads"
   ],
   "scope": {
     "historical_manifest": "manifest.json",
@@ -49,21 +57,23 @@
   "execution": {
     "serial_measurements": true,
     "overlap_tests_or_builds_with_measurements": false,
-    "initial_full_repetitions": 1,
-    "followup_policy": "At least two further paired repetitions for final statistical reporting; add samples for unstable or borderline families instead of asserting a speedup",
-    "mode_order": "Bash reference first; alternate original/Observe ordering between paired repetitions; reverse the starting order for follow-up batches",
+    "initial_full_repetitions": 3,
+    "followup_policy": "Require three complete paired repetitions in each fresh full cohort. Add independent matched samples if results remain unstable or borderline; retain all failures and do not assert unsupported speedups.",
+    "mode_order": "Bash reference first; alternate original/Observe ordering between paired repetitions. Preserve actual starting order in each run configuration.",
     "reserve_gib": 8,
     "work_budget_gib": 32,
     "cleanup": "Inspect and record an owned cleanup plan; preserve result evidence and recovery snapshots; prepare inputs separately from measurement",
     "freezing": "Archive exact manifests, sources, binaries, benchmark scripts, supplemental Node runtime/modules, input inventories and package/tool versions",
-    "cold_definition": "Cold means an empty Incr result cache at the start of an ordered script sequence, not an empty operating-system page cache. Fixture copying and input/model provenance hashing run outside the timer for every mode; no global page-cache flush is used."
+    "cold_definition": "Cold means an empty Incr result cache at the start of an ordered script sequence, not an empty operating-system page cache. Fixture copying and input/model provenance hashing run outside the timer for every mode; no global page-cache flush is used.",
+    "fresh_reproduction": "New owned study workspace, fixture state and caches on the pushed runtime checkpoint; serial historical 828-invocation cohort followed by a separate full supplemental 45-invocation cohort. No tests, builds, preparation or bulk evidence hashing/compression overlap timed measurements."
   },
   "validation": [
     "Exact native return status, stdout hash, normalized stderr and full nested output manifests",
     "Documented archive/encryption decoding and provenance normalization only; no changes to workload payload comparisons",
     "Independent workload artifact checks, including complete article visits and every expected Tufte city-year PNG",
     "Record resources, cache reuse, process cleanup, failures and excluded/incomplete samples",
-    "Never treat a failed sequence, unsupported input or instrumentation bypass as acceleration"
+    "Never treat a failed sequence, unsupported input or instrumentation bypass as acceleration",
+    "DPT stderr additionally normalizes only the exact TensorFlow NodeDef optional use_unbounded_threadpool compatibility notice for ParallelMapDatasetV2/_14. Changed attributes, other notices, errors and tracebacks remain compared; application output checks are unchanged."
   ],
   "reporting": {
     "primary": "Incremental edited-version ratios, paired by identical input and script version",

@@ -1,0 +1,74 @@
+{
+  "diagnostic-driver.py": {
+    "kind": "file",
+    "bytes": 3310,
+    "sha256": "77800ad31da3000af939fdca7db446435b0e0bac91f0c755256d1f6c529dbaa5",
+    "included": true
+  },
+  "measurements.json": {
+    "kind": "file",
+    "bytes": 9990,
+    "sha256": "7a3775adbb27da39b6394c71edca2ecd5f154bc07efd3b05f2aa6652d1eb3907",
+    "included": true
+  },
+  "observe-profiles/2499692-6219806.json": {
+    "kind": "file",
+    "bytes": 1572,
+    "sha256": "0915a16e3563138bafed4a087d415a19c6453e9297e673054128e80c6fab2ac1",
+    "included": true
+  },
+  "observe-profiles/2499699-785516.json": {
+    "kind": "file",
+    "bytes": 1453,
+    "sha256": "9f955595fd54aadb67024e9775be88dbd986509d8fa05e832ad7a82a0f08794c",
+    "included": true
+  },
+  "observe-profiles/2499702-6514769.json": {
+    "kind": "file",
+    "bytes": 1645,
+    "sha256": "2cfd7c408be9c083246e8998ea7b610623feb2654e971739b611d6c66750f7e0",
+    "included": true
+  },
+  "observe-profiles/2499710-6662803.json": {
+    "kind": "file",
+    "bytes": 1646,
+    "sha256": "df05fb78fc5fc08de603e35f0f9393258eea0016e3cc505264895489e89d0c13",
+    "included": true
+  },
+  "provenance-check.json": {
+    "kind": "file",
+    "bytes": 66,
+    "sha256": "e3504ca829cd38d447540f3a97162138f75de2eef2aeac78dde06988a0d8a0bf",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 12844,
+    "sha256": "0adc88e4b560b239adeb3f792bb6c59fcf81f6f4ba7878900a73bad9899bdd45",
+    "included": true
+  },
+  "source-0.patch": {
+    "kind": "file",
+    "bytes": 2102,
+    "sha256": "aa5396971c4bf37b9bad93ee38ac1a65645c00cd8f1567976e4e61761fc911ec",
+    "included": true
+  },
+  "source-1.patch": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "source-2.patch": {
+    "kind": "file",
+    "bytes": 3051,
+    "sha256": "efddaabcaf5a8d63214f2c59dfa372446dc1cfa241b44fb91dd9dc7ca8b3c547",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 194,
+    "sha256": "0daae4a5667d7f20c3a5329a33d81858f5c033d55029bdf5e3c58c0e00dde1d1",
+    "included": true
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "components.json": {
+    "kind": "file",
+    "bytes": 4135,
+    "sha256": "41ae4f698bdf6074bf5e9f73d075e2a6db392f15ac32f27cdf53ce8bf25109f2",
+    "included": true
+  },
+  "function-location-before-fix.log": {
+    "kind": "file",
+    "bytes": 1335,
+    "sha256": "d896b6c3ce8a3ff09e2f1eb4eb0573356ae2b9eb9eb96d047d52b85500aa4e19",
+    "included": true
+  },
+  "native-transform.log": {
+    "kind": "file",
+    "bytes": 98,
+    "sha256": "e4b1c4775b0a59fbd15782e5e485a0b4b3f4311b5ca338c28f293445e49b4bc8",
+    "included": true
+  },
+  "paper-harness.log": {
+    "kind": "file",
+    "bytes": 764,
+    "sha256": "f1e2fa8b37112de3d2b4f3a91afc023624506673b12ed1a95fe0c83706b527b1",
+    "included": true
+  },
+  "shell-ast.log": {
+    "kind": "file",
+    "bytes": 110,
+    "sha256": "7fbc6b826364e103c7a38691960ba251c643beefd55530e48579684dfc1f2789",
+    "included": true
+  },
+  "supplemental-harness.log": {
+    "kind": "file",
+    "bytes": 764,
+    "sha256": "287381d397e21049cd556ac63121d0d84973f9ca14af751c2a772e2c607e582e",
+    "included": true
+  }
+}

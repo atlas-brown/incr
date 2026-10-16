@@ -72,7 +72,8 @@ struct Arguments {
     full_tracing: bool,
     #[arg(short = 'a', long = "enable_annotations")]
     enable_annotations: bool,
-    #[arg(short = 'o', long = "skip_introspection")]
+    /// Compatibility flag: read-only witness bookkeeping has been removed.
+    #[arg(short = 'o', long = "skip_introspection", hide = true)]
     skip_introspection: bool,
 
     #[arg(trailing_var_arg = true)]
@@ -195,10 +196,8 @@ fn parse_input() -> Result<Option<Input>> {
         }
     } else {
         execution::get_trace_type(
-            &cache_directory,
             &command,
             arguments.observe_command.as_deref(),
-            !arguments.skip_introspection,
             arguments.enable_annotations,
         )
     };
@@ -223,7 +222,6 @@ fn parse_input() -> Result<Option<Input>> {
         compress_output: arguments.compress_output,
         full_tracing: arguments.full_tracing,
         enable_annotations: arguments.enable_annotations,
-        skip_introspection: arguments.skip_introspection,
     };
 
     Ok(Some(Input {

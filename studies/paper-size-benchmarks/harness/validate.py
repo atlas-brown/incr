@@ -124,6 +124,20 @@ def normalize_row(row, name):
                      rb'<time> (<rate>)\1', row)
         row = re.sub(rb'^([IWEF]\d{4}) \d\d:\d\d:\d+\.\d+\s+\d+ ', rb'\1 <time> <pid> ', row)
         row = re.sub(rb'^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d\.\d+:', b'<time>:', row)
+        # TensorFlow emits this exact compatibility notice a nondeterministic
+        # number of times per process. It explicitly ignores an optional hint;
+        # retain every other diagnostic, including other unknown attributes.
+        if row == (
+            b'E0000 <time> <pid> node_def_util.cc:682] NodeDef mentions attribute use_unbounded_threadpool '
+            b'which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, '
+            b'other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; '
+            b'attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; '
+            b'attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; '
+            b'attr=force_synchronous:bool,default=false; attr=metadata:string,default=""> This may be '
+            b'expected if your graph generating binary is newer  than this binary. Unknown attributes will be'
+            b' ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}'
+        ):
+            return None
     return row
 
 

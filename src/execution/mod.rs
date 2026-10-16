@@ -18,24 +18,14 @@ use crate::config::{Config, EXCLUDED_PATHS, TRACE_FILE, TraceType};
 use crate::scripts;
 
 pub(crate) fn get_trace_type(
-    cache_directory: &Path,
     command: &Command,
     observe_command: Option<&str>,
-    introspection: bool,
     annotations: bool,
 ) -> TraceType {
     if annotations && annotation::check_pure(command) {
         return TraceType::Nothing;
     }
     if annotations && annotation::check_read_only(command) {
-        return TraceType::TraceFile;
-    }
-    // Observe records unexpected writes and arbitrates live effects. strace's
-    // read-only fast path cannot safely use a witness from different stdin.
-    if introspection
-        && observe_command.is_some()
-        && dependency::get_introspect_file(cache_directory, command.hash).exists()
-    {
         return TraceType::TraceFile;
     }
     // When observe is available, use Observe mode instead of Sandbox (no try overlayfs)
@@ -119,27 +109,26 @@ mod tests {
             guarded_descriptors: Vec::new(),
             standard_tool: true,
         };
-        let cache = Path::new("/unused-incr-trace-selection-test");
         assert!(matches!(
-            get_trace_type(cache, &command, Some("observe"), false, false),
+            get_trace_type(&command, Some("observe"), false),
             TraceType::Observe
         ));
         assert!(matches!(
-            get_trace_type(cache, &command, None, false, false),
+            get_trace_type(&command, None, false),
             TraceType::Sandbox
         ));
         assert!(matches!(
-            get_trace_type(cache, &command, Some("observe"), false, true),
+            get_trace_type(&command, Some("observe"), true),
             TraceType::Nothing
         ));
         command.name = "head".into();
         command.arguments.clear();
         assert!(matches!(
-            get_trace_type(cache, &command, Some("observe"), false, false),
+            get_trace_type(&command, Some("observe"), false),
             TraceType::Observe
         ));
         assert!(matches!(
-            get_trace_type(cache, &command, Some("observe"), false, true),
+            get_trace_type(&command, Some("observe"), true),
             TraceType::TraceFile
         ));
     }

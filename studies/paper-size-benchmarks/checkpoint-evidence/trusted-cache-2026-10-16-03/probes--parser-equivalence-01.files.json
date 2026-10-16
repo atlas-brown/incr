@@ -1,0 +1,32 @@
+{
+  "compare-transformers.py": {
+    "kind": "file",
+    "bytes": 1637,
+    "sha256": "f283d0ab28da73a908f60c822d59ca05bff2c648e6062685bbe4dbd11f679836",
+    "included": true
+  },
+  "insert-after.py": {
+    "kind": "file",
+    "bytes": 15206,
+    "sha256": "0d918e09e40de4f6e69710ea271f889822ba01401624d39828d847042efbbb8f",
+    "included": true
+  },
+  "insert-before.py": {
+    "kind": "file",
+    "bytes": 15346,
+    "sha256": "d4c3855a2b227126e9489a0ae1e587b7e0fb274721199d07c0ab1a60cb21fc4b",
+    "included": true
+  },
+  "metadata.json": {
+    "kind": "file",
+    "bytes": 228,
+    "sha256": "aa5966ea8e38602a21715ae05af5423a3db5d712170906fc59e55988a9292aae",
+    "included": true
+  },
+  "parser-equivalence.json": {
+    "kind": "file",
+    "bytes": 10495,
+    "sha256": "02780c50c4314fd4f532770ecf1732b74f4a3d465bf91fb298523896d9756bc6",
+    "included": true
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "after/insert.py": {
+    "kind": "file",
+    "bytes": 15140,
+    "sha256": "6624b5fd3b3bcaa9ecb5247e2b95e800e0bcf6a4581fb1471a3fd2c582229b3a",
+    "included": true
+  },
+  "after/shell_ast.py": {
+    "kind": "file",
+    "bytes": 1235,
+    "sha256": "16b34e7709b1ca94dd9e09fdd3e546d6fcc709d2ab7893acdcc9df25f243ea4b",
+    "included": true
+  },
+  "before/insert.py": {
+    "kind": "file",
+    "bytes": 15206,
+    "sha256": "0d918e09e40de4f6e69710ea271f889822ba01401624d39828d847042efbbb8f",
+    "included": true
+  },
+  "before/shell_ast.py": {
+    "kind": "file",
+    "bytes": 836,
+    "sha256": "6eb88892d869696c0fb392fda5d366825d6631d73ce9d21035f3db28e4f27e48",
+    "included": true
+  },
+  "helpers.json": {
+    "kind": "file",
+    "bytes": 367,
+    "sha256": "372eb2eaa3200da9de62d5d6738151d74bab9fe11fcab472b9dee35d2f66fd73",
+    "included": true
+  },
+  "measurements.json": {
+    "kind": "file",
+    "bytes": 33738,
+    "sha256": "bf4f018ed459187750029a1b4c7027902afcf33073f077ad8b1a82b3e35bbd9a",
+    "included": true
+  },
+  "provenance-check.json": {
+    "kind": "file",
+    "bytes": 66,
+    "sha256": "b23f29b8ce4aef3f64e12584cb2d7cf7705ef7c1b31697ee285f7f87e93e1ee4",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 11865,
+    "sha256": "9f878b9329f99a109e28a30361d830012488be06131af803c043b8ddcf1f1bf5",
+    "included": true
+  },
+  "source-0-new/src/execution/byte_sort_executor.rs": {
+    "kind": "file",
+    "bytes": 11179,
+    "sha256": "c8cfa7982ec358bcdb6bd0cbc7e718a66d4ab73679bbf526501d665e8cabcf6e",
+    "included": true
+  },
+  "source-0-new/src/ops/profile.rs": {
+    "kind": "file",
+    "bytes": 2186,
+    "sha256": "754dff75227328efd67d175a820927e3a16d78580b751f25f500032080e93d49",
+    "included": true
+  },
+  "source-0.patch": {
+    "kind": "file",
+    "bytes": 32991,
+    "sha256": "abf490a4308f2334a5d3d73b6e7d9c0a1754102fc245f90505f5d647114346b8",
+    "included": true
+  },
+  "source-1.patch": {
+    "kind": "file",
+    "bytes": 6846,
+    "sha256": "d64d068d4fb5931f0a4f389125804ef77fcfa42d696a5e804125f2e649bdeb7e",
+    "included": true
+  },
+  "source-2.patch": {
+    "kind": "file",
+    "bytes": 1516,
+    "sha256": "829c5c06e43c099a7fa961c49cbecaae1c13ef0c7b77336b78efb422049334a3",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 145,
+    "sha256": "8814edf190c9fbe64a9d9d961c66d3667011ad9f6c64652a0dc460cec60a22da",
+    "included": true
+  }
+}

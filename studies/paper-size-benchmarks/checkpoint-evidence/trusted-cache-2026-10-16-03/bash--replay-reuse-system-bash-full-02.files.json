@@ -1,0 +1,2228 @@
+{
+  "case-results.csv": {
+    "kind": "file",
+    "bytes": 13207,
+    "sha256": "f4407650b61af588d72bf550451df5d87b559b05828235858cbf75b333b21742",
+    "included": true
+  },
+  "case-results.json": {
+    "kind": "file",
+    "bytes": 187294,
+    "sha256": "4f6101bdfd9ef8c360e77705cfaf5ea8ccdb8a2fdef0039705712ea63ff3e288",
+    "included": true
+  },
+  "corpus-provenance.json": {
+    "kind": "file",
+    "bytes": 91548,
+    "sha256": "9f73b791f4ede151be220a33d64cfbb2507ef2361bfd0d8959898a1ae75abae3",
+    "included": true
+  },
+  "diffs/assoc.cold.raw.diff": {
+    "kind": "file",
+    "bytes": 437,
+    "sha256": "237f59130d96ac2b2550fcf9d71f9f75c6e7a5bc4b5789dd25d750b2038d36cd",
+    "included": true
+  },
+  "diffs/assoc.warm.raw.diff": {
+    "kind": "file",
+    "bytes": 437,
+    "sha256": "c8c86500f6b0135c2ed78aa2b36177f8cb70664ad6a254afc12ff4c196ddc5fb",
+    "included": true
+  },
+  "diffs/comsub.cold.raw.diff": {
+    "kind": "file",
+    "bytes": 319,
+    "sha256": "f21a14c3d9e8558a8a9f682af249aab254e9f29b7e90006adfc02a3878924f4d",
+    "included": true
+  },
+  "diffs/comsub.warm.raw.diff": {
+    "kind": "file",
+    "bytes": 319,
+    "sha256": "d6c742697a27380426e7379bf115974b5cc7b3ce1b73f4f5051541ff74a5c16a",
+    "included": true
+  },
+  "diffs/exportfunc.cold.raw.diff": {
+    "kind": "file",
+    "bytes": 1675,
+    "sha256": "c0a6d527700504601ac7d596d2956d93423470c1a3220c7fd29532445f5ff2e8",
+    "included": true
+  },
+  "diffs/exportfunc.warm.raw.diff": {
+    "kind": "file",
+    "bytes": 1675,
+    "sha256": "519d4f2de89e291df5a606ddf4432fd8061e595e95cd90c4cfc76c53f5d83cf7",
+    "included": true
+  },
+  "diffs/more-exp.cold.raw.diff": {
+    "kind": "file",
+    "bytes": 2089,
+    "sha256": "eee4aef14342a76e4055062a831abd3a9eea0abedf5d3129a7993828b41f3486",
+    "included": true
+  },
+  "diffs/more-exp.warm.raw.diff": {
+    "kind": "file",
+    "bytes": 2089,
+    "sha256": "2e12de581a5323cd7c46f9d361946fca6521322a6d0255cd3209105f58b03c5f",
+    "included": true
+  },
+  "diffs/nameref.cold.raw.diff": {
+    "kind": "file",
+    "bytes": 617,
+    "sha256": "3b12da5988281997c9e3fa729633bbfd22b889c77a98dafe29e25e12c86f5e30",
+    "included": true
+  },
+  "diffs/nameref.warm.raw.diff": {
+    "kind": "file",
+    "bytes": 617,
+    "sha256": "de8617abeac8353535bed3b91af8b93056dc94f7cdb5a69be5816a9a3a103a0f",
+    "included": true
+  },
+  "diffs/new-exp.cold.raw.diff": {
+    "kind": "file",
+    "bytes": 1838,
+    "sha256": "d8f078209002f0706a562e17119e28714f935d63be882dc12d664259ebc6337f",
+    "included": true
+  },
+  "diffs/new-exp.warm.raw.diff": {
+    "kind": "file",
+    "bytes": 1838,
+    "sha256": "64c3852c90465d22606e81151f5a46f79702dc0a8e19be6f0bc08ccf3baec8b2",
+    "included": true
+  },
+  "diffs/redir.cold.raw.diff": {
+    "kind": "file",
+    "bytes": 2098,
+    "sha256": "e93cd5056a9707ebf2d01ba71be2c3070e3733fc90d9bc8217520e5fb3bf57d6",
+    "included": true
+  },
+  "diffs/redir.warm.raw.diff": {
+    "kind": "file",
+    "bytes": 2098,
+    "sha256": "e38896262c06c1553e19347142145f6bfcb9d39c64c9bc58a864d803de2e0abd",
+    "included": true
+  },
+  "diffs/test.cold.raw.diff": {
+    "kind": "file",
+    "bytes": 4085,
+    "sha256": "0db14f78afaae7d63c70930e00214455410787bc3feb02e8f4816bbd0683381e",
+    "included": true
+  },
+  "diffs/test.warm.raw.diff": {
+    "kind": "file",
+    "bytes": 4085,
+    "sha256": "5843dcec341f171e34fa8844cbaec5f936646ac4278cdda7eeaf8b74d524605f",
+    "included": true
+  },
+  "diffs/varenv.cold.raw.diff": {
+    "kind": "file",
+    "bytes": 1331,
+    "sha256": "46748c85d4c80f5b32f1ffc1dab53ae547efaa5c789acfcb89cdf68ebeb7800d",
+    "included": true
+  },
+  "diffs/varenv.warm.raw.diff": {
+    "kind": "file",
+    "bytes": 1331,
+    "sha256": "c741e78c99864f94a2ca8e1d104c74fbeea92ee0630ef8f7ba78347d6228d1a4",
+    "included": true
+  },
+  "progress.md": {
+    "kind": "file",
+    "bytes": 39435,
+    "sha256": "e14b51d0a8387962e102a35dd14641b92cf0a99e59c181441c5c00cc958c3784",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 3187,
+    "sha256": "617bf56c59f7f3545d1536f6f3d371d4225dce7e957e4de6bf5d5c63f510dbae",
+    "included": true
+  },
+  "records/alias.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1576,
+    "sha256": "07b5b20d71a41522ca63aa7540c664247028fc1b668c575c77c667a5aaf3d01e",
+    "included": true
+  },
+  "records/alias.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1576,
+    "sha256": "ca8acd6d6785693a4fb8cd28d50ca0914bf2a7a9e6d91ff41b72150236516882",
+    "included": true
+  },
+  "records/alias.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1938,
+    "sha256": "599133b4826a216c26e8ed39ba939dc5e60c9300d0e6ef7c4b6b042e4497e782",
+    "included": true
+  },
+  "records/alias.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1949,
+    "sha256": "70c214c882287bd6cdfc97f8893ee72bc18867dc04adaf6c84afd6d37b99cc4e",
+    "included": true
+  },
+  "records/appendop.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1523,
+    "sha256": "52babf9db406a1f01ec9ee1fa26b8d9c95bb219f5f548c0d7b045038cd40f4e7",
+    "included": true
+  },
+  "records/appendop.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1522,
+    "sha256": "37ffaa22d68dd67db90e682f55a51008d832aa3450ebfeabb4054dd5cb513552",
+    "included": true
+  },
+  "records/appendop.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1585,
+    "sha256": "cde6a69bb0339fc196853da8c9410e73c4543aa27fab788ac3175396313a8c8c",
+    "included": true
+  },
+  "records/appendop.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1584,
+    "sha256": "e1d8e624477fbfb2461ec9dd16b5aa89d398242c6870820fc6b5ddb78e4cf61b",
+    "included": true
+  },
+  "records/arith-for.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1622,
+    "sha256": "cdb62075483215416801b279e5cef521ce14349c419764a31e3ffbbced544652",
+    "included": true
+  },
+  "records/arith-for.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1623,
+    "sha256": "03fb2102f824d637f6218e8f1d7b6f9729b9f71784363fe10ff3ffc0fbd059c4",
+    "included": true
+  },
+  "records/arith-for.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1689,
+    "sha256": "e516fa8cc32c07fc708a6403688d4634381f8460f7e3796bb32f053013f7c820",
+    "included": true
+  },
+  "records/arith-for.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1690,
+    "sha256": "7034ba15853c0b24add1b5d4131caade75e05b0aa3f26483b6431fb70409cdee",
+    "included": true
+  },
+  "records/arith.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2329,
+    "sha256": "ab2f992b9e6f54c78ae858e24f9e97f9dc3308e50344bfe888597c14385f6f1f",
+    "included": true
+  },
+  "records/arith.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2330,
+    "sha256": "bb992e908b32433ec3a61247b01c3bf5b030fb01ebcd5093ee7126011749a062",
+    "included": true
+  },
+  "records/arith.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2395,
+    "sha256": "92415d17d79269f322c36b54bf6a233e9489e8850a239c102436e89d67f54ee1",
+    "included": true
+  },
+  "records/arith.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2395,
+    "sha256": "2e522bcbabd4d76fcce045683c10dcb5e7e075a5dd595ed3fdd7e76b874beb5b",
+    "included": true
+  },
+  "records/array.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 4906,
+    "sha256": "154a3491ad59743df501d84ebd3b056a9825e4e3787db7ee0fba008e764b2fba",
+    "included": true
+  },
+  "records/array.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 4906,
+    "sha256": "8dd7189d1aa5a0ce76ec469e543f028177cb9121f19aa369f357289299860a62",
+    "included": true
+  },
+  "records/array.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 13966,
+    "sha256": "08a9ab30e9f52b71e14d7271c467c358e048a27c4091bea2bcbf9476be9e5e9b",
+    "included": true
+  },
+  "records/array.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 21975,
+    "sha256": "355001b21fc907000989cbf19f05f48b041da36e57f4d9b1beca303abce1570c",
+    "included": true
+  },
+  "records/array2.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1573,
+    "sha256": "903ed098748d1ed6e180a8f0cdd03bae50bfd955196df87b3f71e56457f21653",
+    "included": true
+  },
+  "records/array2.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1578,
+    "sha256": "c8ef6af4c644c70aa3a33776c3a1157278d65370d5c93e1785cf9a313c0791d9",
+    "included": true
+  },
+  "records/array2.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 5124,
+    "sha256": "642a42898ba79e0d91e7b4128e0d5f4e3e675c9070f43af9d561a53761e982d4",
+    "included": true
+  },
+  "records/array2.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 5434,
+    "sha256": "a7872e4527439b550ce95a0efb7db56c41b6b7664b0b2bf75342e3a44d84adf6",
+    "included": true
+  },
+  "records/assoc.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 3467,
+    "sha256": "cee454e2d1094271db8d264ec603c1a5931f26f1c6a6e4e4b7156fe5bb7e5748",
+    "included": true
+  },
+  "records/assoc.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 3465,
+    "sha256": "c1927c727c51c8280153656c017a32edd272be97fe24a605f54ac7f33c0fa659",
+    "included": true
+  },
+  "records/assoc.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 6344,
+    "sha256": "c627d2655307a57146790dd6184b8dbacfff4eb8786ad4abc8093f15fa5686f4",
+    "included": true
+  },
+  "records/assoc.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 6836,
+    "sha256": "957ee815804eedd741d7ef43e07c6bdecad96e6ef053cbc3a484a1ca59d2849f",
+    "included": true
+  },
+  "records/attr.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1560,
+    "sha256": "a2eb837214664ab5997c384663d6dca55de0442bc8c1fcdfa90dcb87aa767805",
+    "included": true
+  },
+  "records/attr.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1560,
+    "sha256": "edcec3437825750a8d5da52ef67c5d0bb2bc9b972b16ef67e10ac0af01394bfc",
+    "included": true
+  },
+  "records/attr.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1621,
+    "sha256": "10d8ecaa059f23ef23c9302c0557618fdcb1aff72001de6639b3ee802ad22900",
+    "included": true
+  },
+  "records/attr.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1622,
+    "sha256": "149ef57c2e16a5ebefc60686d81133d3d058dcbb691395c66cb0e0ef63b50505",
+    "included": true
+  },
+  "records/braces.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2076,
+    "sha256": "2a97a7ff7332eade9d572e9ca8fd949749785a73343e53b4691cd0f0cbe989a6",
+    "included": true
+  },
+  "records/braces.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2075,
+    "sha256": "a9982661a57dd33599f61955ffcbe7b0b83c266135256048797befa2b7527929",
+    "included": true
+  },
+  "records/braces.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2137,
+    "sha256": "a589491a8ce0e370197bf00e70c458e96b608987aa988ad66148909d28353b1e",
+    "included": true
+  },
+  "records/braces.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2137,
+    "sha256": "070301fc6bcd2c3653127e1fc2899819c0cd6a78d382c9eff9889cf1bf8dd11f",
+    "included": true
+  },
+  "records/builtins.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2632,
+    "sha256": "7b34c5887b6d44294ed73a8f6b46e21a1f2bdd466110e66310458f6d5ca41339",
+    "included": true
+  },
+  "records/builtins.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2631,
+    "sha256": "69fa5cf426552196ead037765ca66a09d257af01e56d7dfc05cb2973d4b3bb78",
+    "included": true
+  },
+  "records/builtins.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 3748,
+    "sha256": "fc2dcaa67892b7765e5902ab86019e1e28d7c913c2ba80d53dce01abe68013e2",
+    "included": true
+  },
+  "records/builtins.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 4399,
+    "sha256": "48008ab1ccc85bb2303aa6ad2865bc3881269f18dd7f5c5370b178107f265201",
+    "included": true
+  },
+  "records/case.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1538,
+    "sha256": "50275d38a16355eab5f15b43d1362049df11d2fd85155167e7c3205d95aa656c",
+    "included": true
+  },
+  "records/case.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1540,
+    "sha256": "7bb87ab926caaa21811e6334b98c3609138f53b6280c8f7410edfeeefc639759",
+    "included": true
+  },
+  "records/case.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1601,
+    "sha256": "9c6b3c8e022091e38d345807d9c9d73de531c2e705601d5b2035c18f469fd316",
+    "included": true
+  },
+  "records/case.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1601,
+    "sha256": "cde50d537144aa7e19980f310e397ee7f8f581720c72599bc32d01d1f3613d2c",
+    "included": true
+  },
+  "records/casemod.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1627,
+    "sha256": "6b755660e038ee9c42ad16d385e1fe8aced2c9620b0d3f9111889fb05afbd954",
+    "included": true
+  },
+  "records/casemod.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1631,
+    "sha256": "ff89cbc6f155db5f7188dae7646a2e5a40c116e1759aca4cd97cf7489d5296f9",
+    "included": true
+  },
+  "records/casemod.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1682,
+    "sha256": "4abb0eb7f380b9de9dcca5c4d712e9783fe2a454d1a92c476661edf70a145191",
+    "included": true
+  },
+  "records/casemod.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1688,
+    "sha256": "b22877e203c7fb4706b56cba902c0a814f46f78752c2226117c8593a3daac50a",
+    "included": true
+  },
+  "records/complete.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1870,
+    "sha256": "14c1d74f27130cc779328d1cee3bc067fa2bd889e20167fc9fd99a66688a6bbc",
+    "included": true
+  },
+  "records/complete.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1874,
+    "sha256": "b8df68681099048ad47f7192eb6597d52060da7bf81f814acb986c4a25aeb586",
+    "included": true
+  },
+  "records/complete.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1936,
+    "sha256": "25ef6924c8facc60fc812e9c53f70322bc44eca45f36a3c4ef109457afc6f7ce",
+    "included": true
+  },
+  "records/complete.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1937,
+    "sha256": "1b3ce7feb3104f0f4597cfb7bea8486533ea97ad5db342415f76adbb12facbf0",
+    "included": true
+  },
+  "records/comsub-eof.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1542,
+    "sha256": "7bd28a49f6d23670b1a1455c2330e9930297fc8f4c15774cfeae59215eabfff5",
+    "included": true
+  },
+  "records/comsub-eof.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1542,
+    "sha256": "34b331efc319660703a3772e2142295084462c9b0388f9a69bbecacfae89a166",
+    "included": true
+  },
+  "records/comsub-eof.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1604,
+    "sha256": "3d011d040f2655d8bd41e92b30ae49ba7b38c9d7dbe2effe03774b525c91b05c",
+    "included": true
+  },
+  "records/comsub-eof.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1604,
+    "sha256": "8f7df458cd2f2fd6d6a208651864814ee0ac7c25a416d788a5ec64dfcd119032",
+    "included": true
+  },
+  "records/comsub-posix.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1791,
+    "sha256": "1ec47568e81eec785fe2f12924fef7ba8f6e5caa7b73a21e7ecc834815fd770b",
+    "included": true
+  },
+  "records/comsub-posix.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1793,
+    "sha256": "963df79f76f1e034fa4c0df738923e8d60aeb0bd2758758340487600d5ad9f98",
+    "included": true
+  },
+  "records/comsub-posix.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1853,
+    "sha256": "c2dc7fa1d0077ba6a0ceb88c8bb0bef948a187167dfa016607108c1bce24147a",
+    "included": true
+  },
+  "records/comsub-posix.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1854,
+    "sha256": "b62767009cb2fd6e2a6dbbd9cbfa46f1343aa03b7110a36b4f4aa2c77fce3923",
+    "included": true
+  },
+  "records/comsub.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1544,
+    "sha256": "71f85c64babb5c8357bb72705d45f857ef297f11eca4e5b424621a86e376eff6",
+    "included": true
+  },
+  "records/comsub.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1545,
+    "sha256": "2fda50831dbf5fc856495ddafc851c12b6f6ce72ccb304edcd7e526abb544974",
+    "included": true
+  },
+  "records/comsub.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 3468,
+    "sha256": "aa5f77845fa849406c655949393f7c73e82659c48542f6edda801fe8cbdd015c",
+    "included": true
+  },
+  "records/comsub.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 3615,
+    "sha256": "46fa56ce8b9075b995c5c554d76e6754b6ff4ba1094e87f764ca69ba2f85fe0a",
+    "included": true
+  },
+  "records/cond.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1864,
+    "sha256": "087a4276e1ee1dd651aec53754f12d85d212550ed56cd94d4e82f14517cd48fc",
+    "included": true
+  },
+  "records/cond.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1865,
+    "sha256": "6a88354ffd45b708e9cca800cbc3d0746ea278a710247a8032cdc87c3dacf55d",
+    "included": true
+  },
+  "records/cond.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1926,
+    "sha256": "30312fde3fe0ec5c00bf76d2955a816c0254846dd894b4be44080b86d5a256ad",
+    "included": true
+  },
+  "records/cond.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1928,
+    "sha256": "f4f36b4f7ffaa538c8f12fc3693501ed09aeca64243c9d10dd6c185464b50e48",
+    "included": true
+  },
+  "records/coproc.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1481,
+    "sha256": "34ac8e8cc8a6a1b8af3da6755e9ab3ceac78493b07472b00c82a6f801fbe7521",
+    "included": true
+  },
+  "records/coproc.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1480,
+    "sha256": "26732782540e4f07844a938718b722a0ec46d07596747141923935b930ccc37e",
+    "included": true
+  },
+  "records/coproc.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2359,
+    "sha256": "c38a454a85d8e87253d2ad282f54f30fd5d49dea24bda787013025d8f0e2124c",
+    "included": true
+  },
+  "records/coproc.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2564,
+    "sha256": "4b33ea930310b2c291dc9698c0371b566b94ce59f8f16d30464b303f5eedce6f",
+    "included": true
+  },
+  "records/cprint.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1801,
+    "sha256": "8085fb77b5445fce1e9a4bc607a20b0c8187764e90dc4ef38cb54c509c7b529d",
+    "included": true
+  },
+  "records/cprint.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1803,
+    "sha256": "544be6fede06f7d2915e6c9fd3b6b49ba97b20531164694210181a79d3262c5e",
+    "included": true
+  },
+  "records/cprint.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1866,
+    "sha256": "2d655dd01991c8312edd56557b28ff26775ffbad79a1cd85c69446ad8894e952",
+    "included": true
+  },
+  "records/cprint.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1867,
+    "sha256": "b48f6808f88ece687d8e6987c49ad790ee034b8a9459512aca418db6c3898db8",
+    "included": true
+  },
+  "records/dbg-support.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2392,
+    "sha256": "c373ed4350a61ded6010d5855a7029fccb21b190543f389bcda8937f60b71bea",
+    "included": true
+  },
+  "records/dbg-support.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2393,
+    "sha256": "62a1f240a2f2fd3f516ad21110d2074f10f82de3159f5ce1aca8c2d53016e339",
+    "included": true
+  },
+  "records/dbg-support.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2455,
+    "sha256": "2332a2429d97bc6d30be9830a04d70762c519f6f890b062159209e1540920f2c",
+    "included": true
+  },
+  "records/dbg-support.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2455,
+    "sha256": "fbf8e4f5e065973f68fee44e911c478c4c7d234209a4049305084df3369000f7",
+    "included": true
+  },
+  "records/dbg-support2.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1355,
+    "sha256": "2d398e5aadef5f42353007918f96cde7b57e27687a4174c5c03cbfb97e86ee64",
+    "included": true
+  },
+  "records/dbg-support2.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1356,
+    "sha256": "6af7d78390b9d1b31f77fad0f33b5dacfc05dc377d6af16d435a2e1083d8feee",
+    "included": true
+  },
+  "records/dbg-support2.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1417,
+    "sha256": "d895007f73f85572770713c1611d989b9e044ab7d545d4b21ece45efbac033db",
+    "included": true
+  },
+  "records/dbg-support2.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1418,
+    "sha256": "cbe4c79820d7b35ccce82fa5418d36a4c2e0aaf39f8c12f7231c35bff25aabc4",
+    "included": true
+  },
+  "records/dirstack.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1694,
+    "sha256": "b50901e409f453ef885526fbfb5b30fd9f9658e286372aab26d2fc47f227a593",
+    "included": true
+  },
+  "records/dirstack.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1695,
+    "sha256": "c077edd1c26844fae0e49c14805c3ec465f5b703249e182ee74299969c212c72",
+    "included": true
+  },
+  "records/dirstack.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1759,
+    "sha256": "12cd0a366ad335d5a0aa8da518eea0aa9df32ca3f954c12584d0e506b64b7de3",
+    "included": true
+  },
+  "records/dirstack.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1759,
+    "sha256": "f08a4270a4f734c395242a6238672c3903c3347212962e75a2458642956e1ff8",
+    "included": true
+  },
+  "records/dollars.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2948,
+    "sha256": "f9854afd46c3978e3ecdadfd6d38cdff08799a51045d1d54db882a48ed5d661f",
+    "included": true
+  },
+  "records/dollars.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2949,
+    "sha256": "ee99a1bf0373e71316fefa1dbbb79f1be84221d139e9acccbe2d2584a93244c4",
+    "included": true
+  },
+  "records/dollars.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 8764,
+    "sha256": "5f368fb6858adbfd83aaf0a1ea74e501e661ce212f525d3b2e5d58576de3eeba",
+    "included": true
+  },
+  "records/dollars.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 13769,
+    "sha256": "1d76ac3628f90b7664ce08047d5373c08ae849ba6e374b4e8a30d6b0e9c36ee1",
+    "included": true
+  },
+  "records/dynvar.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1384,
+    "sha256": "7145e35970c8819e424262525962a2b010b974a1fbc8ff2946898e85f03d492e",
+    "included": true
+  },
+  "records/dynvar.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1384,
+    "sha256": "4183788ddb1a2bbe5564232c5cfb1415c669ac36f8a0c93d9f13749e9b51f246",
+    "included": true
+  },
+  "records/dynvar.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1444,
+    "sha256": "8583fc5ab68678ece174d402aa1e4ad179fb8af2ed825ebcb8f98f8725cfa7e2",
+    "included": true
+  },
+  "records/dynvar.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1444,
+    "sha256": "764bf088a87b26763e0e9f1f95f89531a6e264b0dd054835d269d25a6e885f89",
+    "included": true
+  },
+  "records/errors.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 3654,
+    "sha256": "201c4bf4c13e940c33d683c2ad462fb0aabc80b7667382d3446093445b8bacf7",
+    "included": true
+  },
+  "records/errors.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 3657,
+    "sha256": "696f01c8d8f4e907355879c123eadba7531d1cfd7a9df3ebcbf82893e8393c22",
+    "included": true
+  },
+  "records/errors.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 3720,
+    "sha256": "2e6f4fd30fee97951896e7baba05e5eb4066fa1ae1be570bc3c93feb9092e590",
+    "included": true
+  },
+  "records/errors.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 3719,
+    "sha256": "8594e239f32c5bdbf70869c974c3cd5fa813500aa0dda4615a717c514582c5ce",
+    "included": true
+  },
+  "records/execscript.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2474,
+    "sha256": "9e8eb702b21e308befb398bd3b5bfe9bb13f6aaedeec935cc07516a3f6cd4934",
+    "included": true
+  },
+  "records/execscript.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2474,
+    "sha256": "0a4aeca10fb13c66d2050a4a14d8fe646c2dbc525836a38ef73359ceede8948b",
+    "included": true
+  },
+  "records/execscript.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 3450,
+    "sha256": "f512ca95b1f6639c16af376568a3ffb777096553a9c1e93f23282e3013c30b60",
+    "included": true
+  },
+  "records/execscript.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 3667,
+    "sha256": "4c12d8eb4680f698897cbe249b00f1587242699538ecfa570963bb975b1f256f",
+    "included": true
+  },
+  "records/exp-tests.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2456,
+    "sha256": "776fe644bb61f43ed04d79e269a35c4ecd6466748eba58a3551199daec9e8f71",
+    "included": true
+  },
+  "records/exp-tests.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2456,
+    "sha256": "bd87e6edf6baafb319dc7ea890061e677fbdda8426e57923dbb1a8f6208e09fb",
+    "included": true
+  },
+  "records/exp-tests.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 6810,
+    "sha256": "509d898e4adceefb84b23bfe6100e9372745fd3689a9a692f90edabafd87f42d",
+    "included": true
+  },
+  "records/exp-tests.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 7181,
+    "sha256": "03036ea80a65a2e0559039a1c67d2b7f29bd86bb5eb01b6e93800f156e461fbe",
+    "included": true
+  },
+  "records/exportfunc.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1642,
+    "sha256": "b3e1508a318cd981713fc10217c47a5d53e78b2d7aca2c05b997e6d035e01a18",
+    "included": true
+  },
+  "records/exportfunc.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1646,
+    "sha256": "5c3e06162c0757e53da0248bd65440e1a3f7b199e444a643d93b34a56a9ef2f9",
+    "included": true
+  },
+  "records/exportfunc.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2780,
+    "sha256": "73bb067ff46104147b2ff6db67ac91b718dcdd197c8168218cc39c07b3116b14",
+    "included": true
+  },
+  "records/exportfunc.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2848,
+    "sha256": "d9bf2511d6f33c6630b247a09a3296ae713a869e148926cc4d203129083d0d9d",
+    "included": true
+  },
+  "records/extglob.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1697,
+    "sha256": "e0adf8648b306c9fd2923844bae69548a60fad553559ed7534777143126e28c7",
+    "included": true
+  },
+  "records/extglob.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1697,
+    "sha256": "d5353e9f6656c25c11b308ebccf81d0107bf7dcd71bdda532576ff9005fb34c5",
+    "included": true
+  },
+  "records/extglob.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2203,
+    "sha256": "d221ef7078f24df166768c2521b7d132bb04b43d4f84fbed1ef6e42296db9d46",
+    "included": true
+  },
+  "records/extglob.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2518,
+    "sha256": "436581afed59a092479bac0a274c410924958192c6279d185be8219dad0c0206",
+    "included": true
+  },
+  "records/extglob2.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1819,
+    "sha256": "f04d927ce294d8248ebb2daf2a7b99c14ac09232060615ca41d4e65028c7fbd1",
+    "included": true
+  },
+  "records/extglob2.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1822,
+    "sha256": "9b34355cedd9881e673362042944ca2cca7f97140830e095eb0b22df9b2fdc37",
+    "included": true
+  },
+  "records/extglob2.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1881,
+    "sha256": "14f33eaa8f51ed382d16b151411ec490f0efcaf777d111ab6cf0ce00ac8b6df8",
+    "included": true
+  },
+  "records/extglob2.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1883,
+    "sha256": "d98de1738a12623136b25fa7f17620558ed69c9129bebce967683f55e7181a72",
+    "included": true
+  },
+  "records/extglob3.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1387,
+    "sha256": "0f9b651da84b3452cc8d34d6780e16874e7fd9a4c4aea8a597f4471795066566",
+    "included": true
+  },
+  "records/extglob3.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1386,
+    "sha256": "5c8f431687b5ffb1267d9f0515227b990f1652eba443782e94460d794c6da753",
+    "included": true
+  },
+  "records/extglob3.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1448,
+    "sha256": "cccf4fbb01287ed9e7b3dd5dc0587da40cc0ccd7b67ecfce3592732caff5ead0",
+    "included": true
+  },
+  "records/extglob3.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1449,
+    "sha256": "646f3a995ad65c6c34ab635f0e2c62fa2ccbf56ca725b4a8637fbb13152126ea",
+    "included": true
+  },
+  "records/func.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2078,
+    "sha256": "9fb86cc2099647b2440b99e7bb53f596c9b3bbb81799226ea537a85903506ab9",
+    "included": true
+  },
+  "records/func.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2076,
+    "sha256": "1f1f03907bac48de11a8f49c8925a233d7d506e9bf436bb0f7fcb96051146bc1",
+    "included": true
+  },
+  "records/func.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2577,
+    "sha256": "90e2062c2e5f606b3d97478bb3b174c135c6cad0729eae71f2928cde129d2a0b",
+    "included": true
+  },
+  "records/func.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2893,
+    "sha256": "bd98b6bd3785de08a807e8104c663381927dacc2bd7ea9ef1c9664283cde523f",
+    "included": true
+  },
+  "records/getopts.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1929,
+    "sha256": "2e200fc0b8f2611d70ca292e22a59bba08d2cb749c22919a36867fcd3e46d726",
+    "included": true
+  },
+  "records/getopts.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1927,
+    "sha256": "c3c47eb5c9ace1e138369f33e9eb3a03ddd257f216f875047f59bca674c769ad",
+    "included": true
+  },
+  "records/getopts.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1990,
+    "sha256": "82fea691f178333584aa6a59c4b09ba7b67c30dc46ffceecfb0c28b4307ac370",
+    "included": true
+  },
+  "records/getopts.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1990,
+    "sha256": "d5cc7a54a0917513d4bf1bf7e06b3533341b3136f04a6b6eb2700573e682b448",
+    "included": true
+  },
+  "records/glob-test.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2215,
+    "sha256": "d863544e65d47a302b4d9eea5b2bdf6203db822252b61679364a167eae8fdc23",
+    "included": true
+  },
+  "records/glob-test.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2218,
+    "sha256": "6e1b97d6c9457b37a7b20988bf06bcfd658f033d738b106b27281ca44088a066",
+    "included": true
+  },
+  "records/glob-test.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 7423,
+    "sha256": "ffaf0ebdc9bdb933dc679ba5b1aaf25e555badf3ada70e49cb552a6760dd1383",
+    "included": true
+  },
+  "records/glob-test.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 16587,
+    "sha256": "0ca59d97169c1c4b4261abb0c704d1106b1295f04fdc21a49b706e89f7fa4253",
+    "included": true
+  },
+  "records/globstar.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2195,
+    "sha256": "08fb6ef1a54e878b3fbab1f490dffa719a79ea235234d4becfafc5a8313d0b66",
+    "included": true
+  },
+  "records/globstar.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2195,
+    "sha256": "ae7d04c580dbe6ce5fc012b0a90148136cc2f55a09a0cccadf46e0bfe637cf93",
+    "included": true
+  },
+  "records/globstar.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 3802,
+    "sha256": "42deca8633d2185faada146c5db78fc1ae921427ff5db362c414565c9960b9f4",
+    "included": true
+  },
+  "records/globstar.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 4885,
+    "sha256": "e456fa3529292a11ee6e89aa06b4856bda8735d315fbb38889b93d2328328dc4",
+    "included": true
+  },
+  "records/heredoc.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2096,
+    "sha256": "fb1ad6ea6d20e87779f1ef2a6c00f728baa511b8b22c52d5a18e2e3736e0bd9c",
+    "included": true
+  },
+  "records/heredoc.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2097,
+    "sha256": "df6c2c5e5df92a8f87df1a4c7f2f3dc1d0a5907c813d15fa11133d077ffac1e7",
+    "included": true
+  },
+  "records/heredoc.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 3254,
+    "sha256": "1495e58059b5448a29c59bca3ba4b8393fff6d3ccfb3bf86c065a7b6bc917435",
+    "included": true
+  },
+  "records/heredoc.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 3897,
+    "sha256": "29881ffdf962c828c4fa433eccb8ed23404e5d384dbd660bebc95a77953e9dd0",
+    "included": true
+  },
+  "records/herestr.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1573,
+    "sha256": "68639e1e6ea158387fdc2d6e1ec15acf06f113fc5d815fc3dc3fb2505c5525cd",
+    "included": true
+  },
+  "records/herestr.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1572,
+    "sha256": "ae927eb36bc1b4bc32a172919e09047e8632bd9f79e8cf4d3618354083b53103",
+    "included": true
+  },
+  "records/herestr.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1632,
+    "sha256": "5ab16cf105548d66d18b1ebd06ba04f20df569e9d748c899c392605a36e3b3a1",
+    "included": true
+  },
+  "records/herestr.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1635,
+    "sha256": "8c842b061b0aba674eb54dfb69a6da27a2dcd2939f6034bd65c74a512490cf10",
+    "included": true
+  },
+  "records/histexpand.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2589,
+    "sha256": "ff329b347f1bda220926353c564c355ba2a7c6d744b17584f9610541836dd460",
+    "included": true
+  },
+  "records/histexpand.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2589,
+    "sha256": "b4685277f28260941b84bc58dd9a5ab3e8820af2e63710cabc24f927cc2c3ad5",
+    "included": true
+  },
+  "records/histexpand.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2653,
+    "sha256": "67328ad4a43e241024fc7cab9bef39280da11a1b2b31c0b5202327750363affc",
+    "included": true
+  },
+  "records/histexpand.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2654,
+    "sha256": "4429e936eaa09f084b4fd5ee666be00672657bc49d8d7a8544090c7bf4a7da1d",
+    "included": true
+  },
+  "records/history.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2573,
+    "sha256": "ea93ab57ecc482907d408de99a07ae6e4b73c3669bd1eaced322bacf081bdfa5",
+    "included": true
+  },
+  "records/history.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2571,
+    "sha256": "cef51ce5c22cfa42d826280278f6886d9b43c6c6832ce95f9d2573f067e7cbbd",
+    "included": true
+  },
+  "records/history.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2636,
+    "sha256": "d9cae624a6c6ba620ab02c42f3b352744eaf8283fc5efe0bcb597a240b4bcf47",
+    "included": true
+  },
+  "records/history.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2636,
+    "sha256": "e2a8576f26440ea0052a7ece70b93aba7e6008fa5093c5649b1ec00d27d520ef",
+    "included": true
+  },
+  "records/ifs-posix.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1330,
+    "sha256": "6d5260f269567056be70a84cc8efbe93c06e6354e0d46679453f36445f95292f",
+    "included": true
+  },
+  "records/ifs-posix.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1329,
+    "sha256": "90b0bc600f0a7b585c0e34da2530121bcfe0800c625d63475286fa3753508271",
+    "included": true
+  },
+  "records/ifs-posix.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1392,
+    "sha256": "291fc46ef47f26af25dab89f71c339cfec67feed5e1eb327b757f3926775ea4d",
+    "included": true
+  },
+  "records/ifs-posix.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1392,
+    "sha256": "dcca2d40903c537fc1304435b5aca25a07980e2c7b5f05df40ecf57ed640eeee",
+    "included": true
+  },
+  "records/ifs.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1365,
+    "sha256": "fa346ef3f7e5f428e6dca1ceccedcc21826d80b238871435a0f24515e429edc4",
+    "included": true
+  },
+  "records/ifs.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1364,
+    "sha256": "21cbfe4c53946368a73a4645bfbf03b2a747afbeaddff82324666a33d937dfe1",
+    "included": true
+  },
+  "records/ifs.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2099,
+    "sha256": "cc2d1cadeff6caaa88b4f2509af1bec3a1612c7458fa820bce6149aa26dc4a5d",
+    "included": true
+  },
+  "records/ifs.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2559,
+    "sha256": "5f870f54195a46e378d4f07688a2efe5ebd04a33d16fa00da07da25120e92bd6",
+    "included": true
+  },
+  "records/input-test.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1374,
+    "sha256": "2c451ccfe342d10a5dd1e9995051507eb5353eed227c5420d5f0d02d6520b88c",
+    "included": true
+  },
+  "records/input-test.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1376,
+    "sha256": "ae2a57aad67e45c7977d84e26a9d590eb1b80dffc22db7730a6edad54da9c08c",
+    "included": true
+  },
+  "records/input-test.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1436,
+    "sha256": "b2764e33d914749d924e0eec65c886e013d6f6536c18097b782b6a3585af243b",
+    "included": true
+  },
+  "records/input-test.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1435,
+    "sha256": "c06a4f76e42aa8d3e23ca777b1bea4fdee28b3dfed438e381dce3592418fd77e",
+    "included": true
+  },
+  "records/intl.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1769,
+    "sha256": "260fb37237362943410fa4a94691b343284bd7f9c4832d48b21679ad449c5aee",
+    "included": true
+  },
+  "records/intl.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1770,
+    "sha256": "cd35ed77271bf24bc751aa3d03fdd2606e3336c74e689cd8623aca96d9ec257a",
+    "included": true
+  },
+  "records/intl.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1833,
+    "sha256": "3ee9ed407f18ddf78a349e059102c6221b0c5cde74748d27f39ebed31bd98205",
+    "included": true
+  },
+  "records/intl.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1832,
+    "sha256": "cc1f37f16ad7617ea615909ccaca154b93b7aa9176556f11524681fcdec77859",
+    "included": true
+  },
+  "records/invert.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1316,
+    "sha256": "5aa9dcb66cc6a139b9c5e96c344ed8e113e0ebe665eb19028850afc2121b2877",
+    "included": true
+  },
+  "records/invert.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1316,
+    "sha256": "02d80123033950024c9fa10f505d2da98514a2df2493d9f4a46c0af6e4deaa9b",
+    "included": true
+  },
+  "records/invert.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1732,
+    "sha256": "819726d6e8666c51f1a50ec6e716ae020c244188bdee5652c5d9e433d19b394d",
+    "included": true
+  },
+  "records/invert.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1746,
+    "sha256": "fbd65c5828110585c16a2562360e11e85a1e6b8af3e0f415a76f6a215aa42b61",
+    "included": true
+  },
+  "records/iquote.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1529,
+    "sha256": "0f907891db7544f276c5b7d370248d8c99b0edff1edb305a91e78633bbcf9271",
+    "included": true
+  },
+  "records/iquote.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1526,
+    "sha256": "765511c97e468095fe8a7bc18ee7bab5c8cefe976e8ee5be0b27ef463663bd87",
+    "included": true
+  },
+  "records/iquote.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1589,
+    "sha256": "4fe5b10333d516e64d8f6413394f3ab8e8a9532a4f6da6dcff40b520a895751c",
+    "included": true
+  },
+  "records/iquote.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1591,
+    "sha256": "c0aec707f413742fd800de05c87c28948d1dc765912867e97dfb0a6df5476886",
+    "included": true
+  },
+  "records/jobs.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2720,
+    "sha256": "6f00cdf2bbd9cefdbd435abd6acaa43ac9c38876f9b1a8eb1c8d825a6a1cf18f",
+    "included": true
+  },
+  "records/jobs.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2714,
+    "sha256": "c46f8c7d07ebd44fcc26e3f8f8fd77b28d13df69520120ad0c2e32dcae21162c",
+    "included": true
+  },
+  "records/jobs.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 3186,
+    "sha256": "f9be4e1cfb34fb8677b692c2412e5fef722e54e83e37063ff9294b00733a4d7a",
+    "included": true
+  },
+  "records/jobs.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 3412,
+    "sha256": "eb0a16dfad0743de28e8cde30e5bd324b5ff597d814f2027a92060118ff18add",
+    "included": true
+  },
+  "records/lastpipe.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1506,
+    "sha256": "c843a79e78f5b49c058772fdbebe44ec9ed5beed907d207baddafeec4f8f7627",
+    "included": true
+  },
+  "records/lastpipe.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1509,
+    "sha256": "092ae15efef1d08782a47f6eb8a7aed650f3051548c4856657eb1a1d91b1eac4",
+    "included": true
+  },
+  "records/lastpipe.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1866,
+    "sha256": "04d9dfe39d82c379ade2f70935466568874161ca3d81741ca8f3a309a7251f7d",
+    "included": true
+  },
+  "records/lastpipe.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1879,
+    "sha256": "868e28a446ed30f09f6c3a2251a611ff0aa6219a71254654e60fbc602e54624b",
+    "included": true
+  },
+  "records/mapfile.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1718,
+    "sha256": "8e70854e4d6958e5838090259160db6dce23e550db8f7d88f02c3dbe9544645d",
+    "included": true
+  },
+  "records/mapfile.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1717,
+    "sha256": "6e0d5c81859d8cf5edc566a88dfbe7e1dea85d86206989aecc452eb5b62cc20e",
+    "included": true
+  },
+  "records/mapfile.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1777,
+    "sha256": "4ea026d501b6ae0c65e9dd5dd6e2b29c6a0e46102157a61feeb226a11cc67e33",
+    "included": true
+  },
+  "records/mapfile.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1778,
+    "sha256": "54a2ba2ca375f6ca0a3a333f282d16441054ad39354554afea4b7ffe6163acb7",
+    "included": true
+  },
+  "records/more-exp.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1931,
+    "sha256": "75e05fe2654cd83befd68eb15f4c16e4b711561921ecde830893d89d0d1df536",
+    "included": true
+  },
+  "records/more-exp.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1929,
+    "sha256": "fd5ce12312b8ae442f19659535fbeedc08d822a578513a5ad2fdbeb190b2748b",
+    "included": true
+  },
+  "records/more-exp.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 13140,
+    "sha256": "69858b2c47cb5b79622e9e17ad9cb45eec47e0541cdc4037d4b3764ceac4f120",
+    "included": true
+  },
+  "records/more-exp.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 23214,
+    "sha256": "7553094d6db15d6d925e72cbfe030a6a855d34c66386d21601f1bba49bf97544",
+    "included": true
+  },
+  "records/nameref.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 4069,
+    "sha256": "e6ff454db2d863aadeda0b2bd4a18e663a530f19914107bce7bd94da769910b8",
+    "included": true
+  },
+  "records/nameref.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 4068,
+    "sha256": "94ffe349cad6356c447831583ac0236c1c3ba9c2b7000f5723ed600775037b09",
+    "included": true
+  },
+  "records/nameref.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 5118,
+    "sha256": "5e0c25185261b7f3d3e98de3dcda0a15dc77cf103dc7e81f0cbccca762efff3a",
+    "included": true
+  },
+  "records/nameref.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 5172,
+    "sha256": "59fccb988da6c6d4ea12fee904fa7d140eb887e0ed3c8a9549f3a34acc633226",
+    "included": true
+  },
+  "records/new-exp.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 20465,
+    "sha256": "dc68b4b42e2f2f0cca098c00cb94b8d8a4da4f9a142e48f14cf17312a0969195",
+    "included": true
+  },
+  "records/new-exp.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 20464,
+    "sha256": "72644f65fed2bfb8aaa073eed35b8b00928f50b26051362413b2419df9a81b0a",
+    "included": true
+  },
+  "records/new-exp.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 21950,
+    "sha256": "40336b49716a9d4f3fbe2a2b0fff7ab76a4e55b171783961310069ace17bf003",
+    "included": true
+  },
+  "records/new-exp.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 22162,
+    "sha256": "97a11a9163608e8879160483ec38afd62fa359c02fbd4a8d3cac331d722abf44",
+    "included": true
+  },
+  "records/nquote.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1586,
+    "sha256": "09e2804f958851f9eb138e67ee77b163d6b6a40744ece30daea6870107f807e5",
+    "included": true
+  },
+  "records/nquote.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1587,
+    "sha256": "f76dfecf79f00448a345ebec745a7a1f670c3ffae03cff1ffdd0d8117eb10ccc",
+    "included": true
+  },
+  "records/nquote.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2373,
+    "sha256": "002d012c3b5470223add27908581642a9ced061b58f2a4bef783b8bfaa9b506d",
+    "included": true
+  },
+  "records/nquote.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2412,
+    "sha256": "4fe5c22ee99cd85063e4c78b224df29535a7f47a03a7b02b0cfb78bfb5c95a5d",
+    "included": true
+  },
+  "records/nquote1.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1639,
+    "sha256": "bcc1c02aca832e3844fc94bda0bb2d96f4d3d6ce34321aedc471084768667d6e",
+    "included": true
+  },
+  "records/nquote1.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1638,
+    "sha256": "e3ff24dd33f4058368cd5824ea2f413ffe0df60252cdb56b6167f4be590cc99f",
+    "included": true
+  },
+  "records/nquote1.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1703,
+    "sha256": "610a080b5e0e566d7547d9e5f4e52a7e535e590fabbb2ef7ab8c4c6047ed104d",
+    "included": true
+  },
+  "records/nquote1.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1703,
+    "sha256": "b76fa3f08edb629c05594b898dda52d9b1e5b0421dd27cc38d66b35413075ee4",
+    "included": true
+  },
+  "records/nquote2.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1561,
+    "sha256": "498525e7de284bf0b3b72ec094f91f438c3e882a4a6fcf7bf7a77b081c18f111",
+    "included": true
+  },
+  "records/nquote2.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1562,
+    "sha256": "5b09ec3cdc0fb23ac229848cda2be76a01da08c87cc1bb3e8a35d86f529b996c",
+    "included": true
+  },
+  "records/nquote2.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1628,
+    "sha256": "0dc2c2d082102e42b694959834ce083a3eecc861236895fd3b313a96b8b951f5",
+    "included": true
+  },
+  "records/nquote2.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1625,
+    "sha256": "b0be629225d5d94db66f6a8a17e4f7df8373ab4ac386bf57ebd1ff770ed9deeb",
+    "included": true
+  },
+  "records/nquote3.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1527,
+    "sha256": "9104f07961db451a9105e06dfc97c942116ef6d960ec402beb42b5a57365ba5a",
+    "included": true
+  },
+  "records/nquote3.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1527,
+    "sha256": "e4e5c71f9613e0edd94a72a46fb2433553f4550cf093d48a92ffdc37a7db2ae4",
+    "included": true
+  },
+  "records/nquote3.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1592,
+    "sha256": "d26a6e20afea78c52911dcdc3c5bd29a6cfcf567ce5e339b4b0346c2398a3418",
+    "included": true
+  },
+  "records/nquote3.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1592,
+    "sha256": "9410cbc8e3e3046975b6e1d54fd30ad3e18aa499c3e0277e8c1d0a128fa5a488",
+    "included": true
+  },
+  "records/nquote4.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1499,
+    "sha256": "a43ef3589fbfc21cc01f9f8e215f2e02c7c2caa28efa9473b047f4abc376aedc",
+    "included": true
+  },
+  "records/nquote4.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1501,
+    "sha256": "fbbe01dc2fc8c39fc55bd17798aad22703478263bd1a55f1e52970a28c13b576",
+    "included": true
+  },
+  "records/nquote4.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1567,
+    "sha256": "f5567fb5017fe6d41063c31f169860e5cde2216590da31a9e8d2f0c6e85d769a",
+    "included": true
+  },
+  "records/nquote4.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1562,
+    "sha256": "afb9575e45d6a4cf02ddd07fb2502046e6bb0d8592f25866cffe35efcdfa567c",
+    "included": true
+  },
+  "records/nquote5.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1504,
+    "sha256": "039bb063d09029f731b7e24e9168d9cdfef92902fb373e57badfff81ab814c84",
+    "included": true
+  },
+  "records/nquote5.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1503,
+    "sha256": "690cf79f03a258d1097763987ab6b53d6b9c5e3a2d849a494fd66ecdcdaf74f9",
+    "included": true
+  },
+  "records/nquote5.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1564,
+    "sha256": "bcb849035eb1674425f94cf27e97d0c6e37a120509273c66f822d9a78e977318",
+    "included": true
+  },
+  "records/nquote5.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1565,
+    "sha256": "48ac91d69d38ab5bba0bbf20f56a2d9bfc9a7f557307b07c656dd7c41a8ae85a",
+    "included": true
+  },
+  "records/parser.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1675,
+    "sha256": "c9dbcc7195e39a5f5073b0708c475fb48e5db2466f6c72c5e1f33ce38d34a8af",
+    "included": true
+  },
+  "records/parser.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1676,
+    "sha256": "8a1c4735fab2b7f0ab760e630e4c9bb0402d46dd7507155ccf44460d7883b191",
+    "included": true
+  },
+  "records/parser.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1737,
+    "sha256": "08c27fa1b29bd833fc46b68688ff24fd16c2f0395230c8d252f3d14076e71b0f",
+    "included": true
+  },
+  "records/parser.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1739,
+    "sha256": "4a6722f4effdd34e4cbd3a40c30d59de88c53db6c46b86cfbe3694546e3ef414",
+    "included": true
+  },
+  "records/posix2.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1566,
+    "sha256": "2ad2205be0ead9b3388014f76b81c3ee53c2b3d36247f1ee928166187544a578",
+    "included": true
+  },
+  "records/posix2.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1567,
+    "sha256": "75c0f00a56d114fb8ca5b123e76db2d06cbb91204f8aaf34996500a745f153af",
+    "included": true
+  },
+  "records/posix2.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1631,
+    "sha256": "409abff4c816b5408fe220bded992b4cf948857dfdd06e7f09a864efcdc351ed",
+    "included": true
+  },
+  "records/posix2.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1631,
+    "sha256": "f5fec5888ca428c8cbe0502854769e01221b9cb57fdce61d01519d1aa3d01f61",
+    "included": true
+  },
+  "records/posixexp.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2845,
+    "sha256": "d25b4644b1d76bb62715877260a4b3b458b85bf978443817e5769f2d5a481f52",
+    "included": true
+  },
+  "records/posixexp.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2848,
+    "sha256": "7da7b2542c8cb03530872519aaf622f4e27e1bba4bb8cb204dc446bfe88c1ed6",
+    "included": true
+  },
+  "records/posixexp.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 5496,
+    "sha256": "f0d00aab08995744610e86ca1c7c50f5cd68d80e3a01a3e8a145141056ccc427",
+    "included": true
+  },
+  "records/posixexp.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 5877,
+    "sha256": "83b82239454f40a420ae996e4b6aff095553c7eac1065d67695c53ed13968971",
+    "included": true
+  },
+  "records/posixexp2.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1589,
+    "sha256": "7c0b7ca61f6e5ab51d6f40785b9045d21a84791a7b59d81715ba58c48605b75a",
+    "included": true
+  },
+  "records/posixexp2.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1589,
+    "sha256": "217009619e7ea3f106fc78b67c499873827376a0f631c9369c588e46830673bc",
+    "included": true
+  },
+  "records/posixexp2.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1652,
+    "sha256": "8238ff95f274e2680f073fc236797c27d753d8ea86a85ed1606c137ef91984f8",
+    "included": true
+  },
+  "records/posixexp2.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1651,
+    "sha256": "bc2ca51d367e4f22ba6c5e4af1ae7f6b539fd2932e48fd9598ebc9fa33e4f4c9",
+    "included": true
+  },
+  "records/posixpat.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1389,
+    "sha256": "9e5cb0d8f066d74ad20b53e635c5febff2d9d200db0c7ebf13ee4affac8f66b3",
+    "included": true
+  },
+  "records/posixpat.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1389,
+    "sha256": "43e86ec054c706ee22620557ea3298c8f53ce99e1ed4d5bf2a6d84b1dbc24b20",
+    "included": true
+  },
+  "records/posixpat.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1450,
+    "sha256": "c69a590091be6fa2feb016cb0b897ec487ddde6303c305fec5088cca85f42cb6",
+    "included": true
+  },
+  "records/posixpat.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1451,
+    "sha256": "0bff90791c8631dbdbf2c0e92866740145418549425947a7577364adda29907a",
+    "included": true
+  },
+  "records/posixpipe.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1378,
+    "sha256": "60b05d560bb7b0ead197eaff29c56acb82db8078715fcfd1b1c6c7ca05a31ff5",
+    "included": true
+  },
+  "records/posixpipe.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1376,
+    "sha256": "3745960d72daaf74d0bdbc8d3df95d880f14895c1c3d95eb47d3298943b39ead",
+    "included": true
+  },
+  "records/posixpipe.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1436,
+    "sha256": "06d264e5c8c6dc796dc37fefd5dc002625a192384e4e3e2960cdc388fa1365f0",
+    "included": true
+  },
+  "records/posixpipe.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1437,
+    "sha256": "d877279759690d3385bd26799ad411ad5cc235bed3d6d2d52614272ecbea6c16",
+    "included": true
+  },
+  "records/precedence.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1538,
+    "sha256": "4cc870d953a1fab2a24be91c06c623574d4668389adf6d9f732b0a7dbbf0f99f",
+    "included": true
+  },
+  "records/precedence.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1538,
+    "sha256": "565d99db3c2696fa47c593c6f88e6e277dd8b06804be99b6ff322aad4cb8a934",
+    "included": true
+  },
+  "records/precedence.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1598,
+    "sha256": "d31aa07fc8d0c7aae44c7b6c478660459dba3311b0603dbb5b99a9f96d08f915",
+    "included": true
+  },
+  "records/precedence.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1599,
+    "sha256": "596733ce1096b9a53bdba54fbd4e0ddf26e11f61857c2a925f1a0fc767c14535",
+    "included": true
+  },
+  "records/printf.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2226,
+    "sha256": "baaf1296c533051bf9df5e2417e25cba1c9a57ae05e0ba3590e1e5d949847ba2",
+    "included": true
+  },
+  "records/printf.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2226,
+    "sha256": "b5f616e0170cb32693ae10c94315f9b5ce6af3b386f28acbf1e4fb7ad17fd855",
+    "included": true
+  },
+  "records/printf.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2290,
+    "sha256": "f33ca13aa85417dec261af62f38e071e8992f3d4b9752aaee1e27d3e885a249c",
+    "included": true
+  },
+  "records/printf.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2289,
+    "sha256": "a9643eadab6fd40653a1e097ff5b8a99b13fdae7b90f3171fdaa5bdc9afac0cb",
+    "included": true
+  },
+  "records/procsub.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1620,
+    "sha256": "949e2ca69002d1a3f0b1c7a05defc7d0a32369c625c150a2932547756c7326e7",
+    "included": true
+  },
+  "records/procsub.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1619,
+    "sha256": "9f92eb209d3c95e4e2cd35e3a7d4a6dd25993d71b0b033ec45b2a795bd310ea4",
+    "included": true
+  },
+  "records/procsub.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2124,
+    "sha256": "2d684854f7cd4180016e14bb743c2e597a1d9321b5da5df4a774e275c8818d06",
+    "included": true
+  },
+  "records/procsub.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2434,
+    "sha256": "d864c65a490bf8c04d507cf531cc0df761a4c9c4ddac35c1e2220fc007c78d2a",
+    "included": true
+  },
+  "records/quote.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1699,
+    "sha256": "62a3f6ad0661f28bb7ebad2d90dadf27b4e639838208e3600b3b982040bb3cbe",
+    "included": true
+  },
+  "records/quote.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1698,
+    "sha256": "aedd9d8fecba57f45d19ce37d0bd993e2a7f6a894d6ec2e27484156c58d19fff",
+    "included": true
+  },
+  "records/quote.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 4413,
+    "sha256": "c741b76ca074d1e29cda614ceb8478801553efd970521ae7e736f9659dbacfcd",
+    "included": true
+  },
+  "records/quote.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 4641,
+    "sha256": "e9fe7297414283ed5a1fe2ea4f224a7496a19b2cea0e8dca8cb66d238ef480fd",
+    "included": true
+  },
+  "records/read.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1727,
+    "sha256": "1f0c178a715e7fc220c2bf0f5bdc00c389cde4ccdee4df92e40288a1157fe0e0",
+    "included": true
+  },
+  "records/read.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1728,
+    "sha256": "181f1b51a57b9a85345a054b0b4749fc9b2d33e810706bd8e4c8422439c8e5ef",
+    "included": true
+  },
+  "records/read.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2135,
+    "sha256": "5687119199d675836a2ec0d5c9299205fec388d31b97fec2217446e477913de7",
+    "included": true
+  },
+  "records/read.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2147,
+    "sha256": "a6f921fc113975f887f24bb668358f9f074d738f6e128a9525de0f2270861e4d",
+    "included": true
+  },
+  "records/redir.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 3153,
+    "sha256": "a6d9c48b217c16486d4ca215dcaea0bf8a08940f2fad5a6f984f579d8e09fbe8",
+    "included": true
+  },
+  "records/redir.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 3155,
+    "sha256": "e25d880587fd5223169007bd26f367fd478c76936858746a2cafe85c035d8a5f",
+    "included": true
+  },
+  "records/redir.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 6542,
+    "sha256": "9c5f94751bde43a4064c011c981567f64a14242e326cc648d94ef35aaaee230b",
+    "included": true
+  },
+  "records/redir.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 8995,
+    "sha256": "656b7aa82ae01690c293eddb6e86c421e7ce989f790e01cff4b448f5cb14eeb3",
+    "included": true
+  },
+  "records/rhs-exp.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1623,
+    "sha256": "b7452e338872155887b3779932e904af6e73b00b5a7ba9db6041a276e1ce9153",
+    "included": true
+  },
+  "records/rhs-exp.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1619,
+    "sha256": "0a422cc3e1aac758c52a893f98a4ed3f4059fd7a6fba0fce59866d022aee921d",
+    "included": true
+  },
+  "records/rhs-exp.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 8071,
+    "sha256": "c0692545cfa3190436152b1c7b16572b7f05f1e520ff646c66228fe48b5db19e",
+    "included": true
+  },
+  "records/rhs-exp.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 13713,
+    "sha256": "0190270335524d82a9269ccf7e649f1423c3684c6862dc9d77dacdae9e45f3b6",
+    "included": true
+  },
+  "records/rsh.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1608,
+    "sha256": "1f3bc9fc9cbfefb3a9cc81f1f7c52886942b094771c555b855ea56f2a5f7776f",
+    "included": true
+  },
+  "records/rsh.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1609,
+    "sha256": "8a82a82476b53e7bb2e97bcb6a09e1885202a2785c98722c4edb4a4822ab5a6c",
+    "included": true
+  },
+  "records/rsh.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1671,
+    "sha256": "30ec2edeccf842fb0cd2e437da0ea7b82db1523b0f12b0256c7a9cc5d4f84e54",
+    "included": true
+  },
+  "records/rsh.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1671,
+    "sha256": "276ac48971f5476047f94ebc6c0a847613874cacca004177c84634c9c5d46e46",
+    "included": true
+  },
+  "records/set-e.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1920,
+    "sha256": "08bbf3696b07f46b6a6a470a9a00b89022a9f290dfdad5b4cc049c11e69ebb7d",
+    "included": true
+  },
+  "records/set-e.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1918,
+    "sha256": "272368684cd76687a9593a036be4b52173f994f948aa19311ebbd271ba39cc5e",
+    "included": true
+  },
+  "records/set-e.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2285,
+    "sha256": "40cb5b3700a075da46c1185b68c59c5d4dd8c1f5d25ef40069a3e6495611a822",
+    "included": true
+  },
+  "records/set-e.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2446,
+    "sha256": "a48538ce88af1ee4ae5de03a8873770b87b1ec55369a0e840cef30be89715be9",
+    "included": true
+  },
+  "records/set-x.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1495,
+    "sha256": "2941aadc0bb59136c4dc437c88cd2668350bd5f50a949183b41a5dc23144e936",
+    "included": true
+  },
+  "records/set-x.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1495,
+    "sha256": "78b4e3ebdfc586d2a8f4a91131d697fd9e2c2028a3d896868fa12361f14a8385",
+    "included": true
+  },
+  "records/set-x.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1556,
+    "sha256": "2806cbeaf8ceb7caceb0046fdc4c442a2b815b255fb6215a6c8015ae58438682",
+    "included": true
+  },
+  "records/set-x.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1556,
+    "sha256": "b5fc13c171aa5b98d13a0c13f83ef983f707d3baab6a4f67417fd17efcc484a5",
+    "included": true
+  },
+  "records/shopt.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2504,
+    "sha256": "5cf3480ffdf6d02e6c2b3da1da3c1b0fc7a5c398009556d904b941b655f0c646",
+    "included": true
+  },
+  "records/shopt.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2502,
+    "sha256": "b95f3feaa210a9bd2ab1f924e3532499a3c19bae6a23d1bf6d269dc537497b9c",
+    "included": true
+  },
+  "records/shopt.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2874,
+    "sha256": "e55e1c3d9391fa9c1b3064017d9127fccae8e2cab7e02878b90dfb76730848f5",
+    "included": true
+  },
+  "records/shopt.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 3031,
+    "sha256": "72f34c29bdfc34bcb90860b1750121bc894a7883d2591a102fe171072b3c51fd",
+    "included": true
+  },
+  "records/strip.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1338,
+    "sha256": "93d6115527255de72664a81d8776bfcd29967a86b6930fa26c10a871ae40ee91",
+    "included": true
+  },
+  "records/strip.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1338,
+    "sha256": "af5effe318ad962fb880e8f4b96ac8748888a836a737a8f62593b3ace03b7f9f",
+    "included": true
+  },
+  "records/strip.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1400,
+    "sha256": "f102fa8083a7833cb0689070d9b678f216d66c17c2dd97b9740e401538755820",
+    "included": true
+  },
+  "records/strip.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1400,
+    "sha256": "fdbd275feb445a9d182048df8b4a4692dcd3ccc7c3df8f061e84b7a5cb26306a",
+    "included": true
+  },
+  "records/test.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2221,
+    "sha256": "f425cba48c688e09abc6bcf33efa7b8d82242f11e2e38a2d39f1ad27f0955175",
+    "included": true
+  },
+  "records/test.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2218,
+    "sha256": "b2850e99cd35b7f63cbdf493c45ac5825b27bfe1c25672c1235b51c1cfc42d71",
+    "included": true
+  },
+  "records/test.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 4648,
+    "sha256": "9abbae5dd270aa29468664609bf51c5600b5245f6433e53ae6cd2c48f5af5cb5",
+    "included": true
+  },
+  "records/test.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 4938,
+    "sha256": "dbf192b4862939033a7ac4900981b0620759212aa9d8e25aa6787bc1b9c1d7cc",
+    "included": true
+  },
+  "records/tilde.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1429,
+    "sha256": "b362922e9a42f0dd13ae37cee208b8409cb59c044d01a7077d52cde5d93300a8",
+    "included": true
+  },
+  "records/tilde.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1430,
+    "sha256": "49b0ca54c99e5d0bf23e3d62ceb23f346ea630dc2f517980fecd28640838abcd",
+    "included": true
+  },
+  "records/tilde.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1489,
+    "sha256": "eb6326f9427362a28a44d2a53ed61053e0b46f25c72060b5f0f36cbbc1167699",
+    "included": true
+  },
+  "records/tilde.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1489,
+    "sha256": "f9fc3f40592ffc4f50ebf877c010fe39596ea0d7f5066f23aa9e66ab17264925",
+    "included": true
+  },
+  "records/tilde2.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1412,
+    "sha256": "836f39a62aa9a7e78bdcb0fe69f5ec04278769b4f499d9ebecc72b757f0e7b01",
+    "included": true
+  },
+  "records/tilde2.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1410,
+    "sha256": "ea58408f51d4ccc7c8b848133342595ad231955e7a281e01ff593f0da2d1fe7e",
+    "included": true
+  },
+  "records/tilde2.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1823,
+    "sha256": "d532494895fd160fbfec78c22e59f9eebd4d615791c3d64d20a16345d53ecf8b",
+    "included": true
+  },
+  "records/tilde2.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1838,
+    "sha256": "3c02c173b162f3a62da8bb3b5b2e19936cc932464e19b79cb21e31e6aaf324be",
+    "included": true
+  },
+  "records/trap.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1951,
+    "sha256": "6b1a74f76b2939747000ef9d732646f38ac9be14820a4cfb9da70a37f038cfc2",
+    "included": true
+  },
+  "records/trap.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1950,
+    "sha256": "5561cf4aed6477be937d90bf6935ab9f1aa4491a54d7178b87441cf9fec7db26",
+    "included": true
+  },
+  "records/trap.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2016,
+    "sha256": "2a2050adc634a25316ea13c5ad513ecc3c2b48e255bb2775f56af637dffef196",
+    "included": true
+  },
+  "records/trap.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2014,
+    "sha256": "99d04c32b583324251344fe4de297961681b6a1199dfe212bb7d513040a76c9e",
+    "included": true
+  },
+  "records/type.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1875,
+    "sha256": "d6cd8eadffac2d5feda59b5e25ad5f84053381ce920d786e9c9cd511a1ec2fb5",
+    "included": true
+  },
+  "records/type.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1873,
+    "sha256": "8485edb8435eb793697f1b439a27393b1a192c28e8755defea3ffdcd3a125d98",
+    "included": true
+  },
+  "records/type.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1934,
+    "sha256": "4d4cf682d53d4a0200d596e31ec5716bedf5375e286bf2e9d534f20d62f27b7a",
+    "included": true
+  },
+  "records/type.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1934,
+    "sha256": "03b5267ea77cf1d9ff3da7a89e54b89233e590d694f56908319e2ff439abc312",
+    "included": true
+  },
+  "records/varenv.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 3686,
+    "sha256": "55b74269cafb28feb6c3cee72f62259f5cdac6b490c771eec2959d65be61ca27",
+    "included": true
+  },
+  "records/varenv.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 3662,
+    "sha256": "16a81df722cadc21e48b616c86faf0837f7310c4db45e4654b50d5a8e8ad3a1e",
+    "included": true
+  },
+  "records/varenv.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 4694,
+    "sha256": "b0a79f494d3a7676e50eca5ae4adbb94301fdbf741284be639410fc271eabe9e",
+    "included": true
+  },
+  "records/varenv.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 5205,
+    "sha256": "97a7d53edc0ceafd5713870279fbf360bcfd8f1dda7436b9e6be50e2702311f6",
+    "included": true
+  },
+  "records/vredir.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1838,
+    "sha256": "9c8f6cc9d16a475b8fbb7bd50ef57838d484bcf4a1e4299e59262e44d7a2c3d8",
+    "included": true
+  },
+  "records/vredir.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1838,
+    "sha256": "7d4452b5d7696fc11c3bb98c5663fdbad9b1817699281a22f1576113a51c90e9",
+    "included": true
+  },
+  "records/vredir.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1900,
+    "sha256": "7d265c81fde01ecc338c2f3f905759cc0ac4fadb899f747c508af4c613011d45",
+    "included": true
+  },
+  "records/vredir.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1901,
+    "sha256": "240215295696d79a0fd630e51393f8de0ee6f3f85ab567b69dd69668026db30f",
+    "included": true
+  },
+  "setup/build-incr.json.gz": {
+    "kind": "file",
+    "bytes": 327,
+    "sha256": "63cd655ca31e42ed933ea9622cecb60739aff81a897491e68356ea772f9b9c90",
+    "included": true
+  },
+  "setup/build-observe.json.gz": {
+    "kind": "file",
+    "bytes": 326,
+    "sha256": "07e60957382f809b6f5218e348ce8dcc157f55cd4b1bc8fcb4a35dec848359b7",
+    "included": true
+  },
+  "setup/default-policy.json.gz": {
+    "kind": "file",
+    "bytes": 988,
+    "sha256": "d66e98d36f7cfaff43ff050d7ecc69a6209d38006bf6292aecdc7e3580dea228",
+    "included": true
+  },
+  "setup/harness-tests.json.gz": {
+    "kind": "file",
+    "bytes": 809,
+    "sha256": "399ee223f22ea6c4a0e708c0b861e9ea6d9c733c5d139fa467abe9c3ccd765df",
+    "included": true
+  },
+  "setup/launcher-bash.json.gz": {
+    "kind": "file",
+    "bytes": 382,
+    "sha256": "5658a7e11a4bfa1734460f6dfa6e8a0e1760979723bf6885e79843e1b5c0acc2",
+    "included": true
+  },
+  "setup/launcher-observe.json.gz": {
+    "kind": "file",
+    "bytes": 421,
+    "sha256": "363a129ac1957f209d0c0ba035f1c2a723204510337fc6734af70f9ccc7863b2",
+    "included": true
+  },
+  "setup/locale-de_DE.UTF-8.json.gz": {
+    "kind": "file",
+    "bytes": 705,
+    "sha256": "cf63af54ec7db63049e5dc38cc8964f45cca2c3e2d54e6cb2c50f46d6a65aadf",
+    "included": true
+  },
+  "setup/locale-fr_FR.ISO8859-1.json.gz": {
+    "kind": "file",
+    "bytes": 706,
+    "sha256": "7877580ddb64782b1e6d23aee30c27a19297d25a3b248959bfcc9254f9620337",
+    "included": true
+  },
+  "setup/locale-ja_JP.SJIS.json.gz": {
+    "kind": "file",
+    "bytes": 831,
+    "sha256": "6788b40649a305ffa6fafbbad25eec1eae44a638fced0916b8d3787761659c2e",
+    "included": true
+  },
+  "setup/locale-zh_HK.big5hkscs.json.gz": {
+    "kind": "file",
+    "bytes": 715,
+    "sha256": "35efb07bb44bac54a368b21ce3b839074e70a98f3af71ebdfaea18c44ca6429a",
+    "included": true
+  },
+  "setup/locale-zh_TW.BIG5.json.gz": {
+    "kind": "file",
+    "bytes": 706,
+    "sha256": "8209cf9d66fda6675a75bb8eac2557acb8c285350cb8acfce32c45294be38414",
+    "included": true
+  },
+  "setup/namespace-check.json.gz": {
+    "kind": "file",
+    "bytes": 243,
+    "sha256": "d274c9421d37142bab834deb21b2c0678d4917a09df1a6f48c24139219d6fedb",
+    "included": true
+  },
+  "setup/native-transform-probe.json.gz": {
+    "kind": "file",
+    "bytes": 529,
+    "sha256": "03bfa7234fa44b550ec3981f327c5e42875f8b0ead0c1736b892a39c8b1dd278",
+    "included": true
+  },
+  "setup/parser-imports.json.gz": {
+    "kind": "file",
+    "bytes": 284,
+    "sha256": "0caf8eeeb71c7dca8520c96f1b7e5727d205368a353ff76576d95aca8667db9d",
+    "included": true
+  },
+  "setup/regressions-final.json.gz": {
+    "kind": "file",
+    "bytes": 1492,
+    "sha256": "77c4fa06d51ddad886afff0cb41a7ad073a066812f5ad634c1148c6309773c19",
+    "included": true
+  },
+  "setup/regressions-live.json.gz": {
+    "kind": "file",
+    "bytes": 1542,
+    "sha256": "844743a6a78323b07755639fa1521140bd7585b362a8467d5598f3b3e73aa5bf",
+    "included": true
+  },
+  "setup/revision-incr.json.gz": {
+    "kind": "file",
+    "bytes": 306,
+    "sha256": "2147d54a9233284ef68edef72f28026a6686841e38de966cd469225d88274f85",
+    "included": true
+  },
+  "setup/revision-observe.json.gz": {
+    "kind": "file",
+    "bytes": 306,
+    "sha256": "013064970f9a5ed6eef360094f6545cbf9152cf9feab6db8a102e202936e4cee",
+    "included": true
+  },
+  "setup/target-shell-version.json.gz": {
+    "kind": "file",
+    "bytes": 505,
+    "sha256": "435d8e9c68bfcc6f7993d68e703d9a6b747bae7f177d3ce54f57706f3f933001",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 355,
+    "sha256": "41732a94129aebfd3bfb2f0f7b731be8c66b276b5af31889532f4042958f118b",
+    "included": true
+  }
+}

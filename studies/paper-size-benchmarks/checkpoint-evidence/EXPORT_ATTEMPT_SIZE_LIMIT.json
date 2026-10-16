@@ -1,0 +1,2775 @@
+{
+  "created": "2026-10-16T09:13:47.669677+00:00",
+  "scope": "Independent archives of all existing result groups, including failed/incomplete attempts; declared statuses are not substituted for final validation. No cross-revision timing pooling.",
+  "bulk_policy": "All measurement/provenance/log metadata is archived. Other regular payloads above16MiB remain at their original on-disk paths with size and SHA256 receipts; no source evidence is deleted.",
+  "excluded_generated_files": [
+    "__pycache__ directories",
+    "*.pyc"
+  ],
+  "state": "failed",
+  "groups": [
+    {
+      "label": "paper--beginner-memory-confirm-paper-01",
+      "source": "studies/paper-size-benchmarks/results/beginner-memory-confirm-paper-01",
+      "bundle": "paper--beginner-memory-confirm-paper-01.tar.gz",
+      "bundle_sha256": "99d925d0ddbd870524cf533fd149fc0333ff682d13e697ca9d43b43a0ba96755",
+      "bundle_bytes": 212594,
+      "file_catalog": "paper--beginner-memory-confirm-paper-01.files.json",
+      "archived_files": 77,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 42,
+          "expected_invocations": 42,
+          "valid_invocations": 42,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "paper",
+          "only": "beginner",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "7ab8fb160ab311c4010900f279abb006784510ec",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "ba7cab24374bc388d965f1429226322ddb6aac1e"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "59ab6feb67552803844a5fc1846948b86450b6b8b678c0cf3c875b89284eab2d",
+            "observe/target/release/observe": "b3c84ddf5f2a4c6c78190982dca464510a029f78f9aff57dc56ca8b1904a4003",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--bio-compiler-coverage-01",
+      "source": "studies/paper-size-benchmarks/results/bio-compiler-coverage-01",
+      "bundle": "paper--bio-compiler-coverage-01.tar.gz",
+      "bundle_sha256": "6530e3eee3d4e0b8c204dedda2b7c8a449b98dd65e9786b742ce059f4f1aded1",
+      "bundle_bytes": 3660,
+      "file_catalog": "paper--bio-compiler-coverage-01.files.json",
+      "archived_files": 24,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "scope": "Compiler only; no transformed script executed; timed worker verified terminal"
+        }
+      }
+    },
+    {
+      "label": "paper--checkpoint-review-01",
+      "source": "studies/paper-size-benchmarks/results/checkpoint-review-01",
+      "bundle": "paper--checkpoint-review-01.tar.gz",
+      "bundle_sha256": "03eaa4b4b40068a2c9f8c2fe8f4b11efdcae4fa4cee2e5906c712da07b58ab7d",
+      "bundle_bytes": 3639,
+      "file_catalog": "paper--checkpoint-review-01.files.json",
+      "archived_files": 11,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "paper--content-inputs-dpt-min-01",
+      "source": "studies/paper-size-benchmarks/results/content-inputs-dpt-min-01",
+      "bundle": "paper--content-inputs-dpt-min-01.tar.gz",
+      "bundle_sha256": "a9f5627d4e37b3191856ed27dea60f957c9d07156e1d726f8e5bdf3158d6dac1",
+      "bundle_bytes": 207743,
+      "file_catalog": "paper--content-inputs-dpt-min-01.files.json",
+      "archived_files": 61,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 30,
+          "expected_invocations": 30,
+          "valid_invocations": 30,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "min",
+          "only": "dpt",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "37a8e2886f5c0f05c9a5be4abfb0f4db6e854114",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "a26e759a86e3ff6f8c3b0e192b8ab23e681e4288"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "3e70d4e66c92c7be87cd19d5431ceadcfa772da34efb5c1b6db696d58eb15bf1",
+            "observe/target/release/observe": "ded0cb4a0a208f899dfa96603351ec7affca1a1ee6d9dff51c24588d1a1b1e9f",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--content-inputs-min-01",
+      "source": "studies/paper-size-benchmarks/results/content-inputs-min-01",
+      "bundle": "paper--content-inputs-min-01.tar.gz",
+      "bundle_sha256": "3c53f6c8630e877dd371ae1f293899c1bb3e08faf46db74806d381a733a91738",
+      "bundle_bytes": 310244,
+      "file_catalog": "paper--content-inputs-min-01.files.json",
+      "archived_files": 426,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 246,
+          "expected_invocations": 246,
+          "valid_invocations": 246,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "min",
+          "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "37a8e2886f5c0f05c9a5be4abfb0f4db6e854114",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "a26e759a86e3ff6f8c3b0e192b8ab23e681e4288"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "3e70d4e66c92c7be87cd19d5431ceadcfa772da34efb5c1b6db696d58eb15bf1",
+            "observe/target/release/observe": "ded0cb4a0a208f899dfa96603351ec7affca1a1ee6d9dff51c24588d1a1b1e9f",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--content-inputs-qualification-01",
+      "source": "studies/paper-size-benchmarks/results/content-inputs-qualification-01",
+      "bundle": "paper--content-inputs-qualification-01.tar.gz",
+      "bundle_sha256": "9f7affb43c6c30ef2623c81f079ddd86f8cea0735dd7584134eb1b7c9c9166e8",
+      "bundle_bytes": 3617,
+      "file_catalog": "paper--content-inputs-qualification-01.files.json",
+      "archived_files": 2,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "paper--content-inputs-qualification-02",
+      "source": "studies/paper-size-benchmarks/results/content-inputs-qualification-02",
+      "bundle": "paper--content-inputs-qualification-02.tar.gz",
+      "bundle_sha256": "fe3092d054d1be3f5492d2f949a276056fe6cd144d6f3b1b7581b16aed003978",
+      "bundle_bytes": 19869,
+      "file_catalog": "paper--content-inputs-qualification-02.files.json",
+      "archived_files": 13,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "paper--content-inputs-supplemental-min-01",
+      "source": "studies/paper-size-benchmarks/results/content-inputs-supplemental-min-01",
+      "bundle": "paper--content-inputs-supplemental-min-01.tar.gz",
+      "bundle_sha256": "551ede84330bd02d19e5f499aa7b940c2a502372a090542b26ce8d487cc27614",
+      "bundle_bytes": 2246461,
+      "file_catalog": "paper--content-inputs-supplemental-min-01.files.json",
+      "archived_files": 80,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 30,
+          "expected_invocations": 30,
+          "valid_invocations": 30,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "supplemental",
+          "profile": "min",
+          "only": "web-search,weather-tufte",
+          "repetitions": 2,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "5dd1fc3059e5f875cc6fc9620cd76229255e6b4b",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "a72d5ebc22a13d2566fabd115de2f234f525b685"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "3e70d4e66c92c7be87cd19d5431ceadcfa772da34efb5c1b6db696d58eb15bf1",
+            "observe/target/release/observe": "ded0cb4a0a208f899dfa96603351ec7affca1a1ee6d9dff51c24588d1a1b1e9f",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--content-inputs-tail-01",
+      "source": "studies/paper-size-benchmarks/results/content-inputs-tail-01",
+      "bundle": "paper--content-inputs-tail-01.tar.gz",
+      "bundle_sha256": "71f8b9f86839ab368a4182235ae25508ea3f5f9a6861da72bed7a36ad37ff7a9",
+      "bundle_bytes": 5885,
+      "file_catalog": "paper--content-inputs-tail-01.files.json",
+      "archived_files": 6,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "paper--coverage-planning",
+      "source": "studies/paper-size-benchmarks/results/coverage-planning",
+      "bundle": "paper--coverage-planning.tar.gz",
+      "bundle_sha256": "b9c48d17e49c7f4c3e65bab6e4584eb0ab0c0048c4a0774c1540124464e66b0e",
+      "bundle_bytes": 3377,
+      "file_catalog": "paper--coverage-planning.files.json",
+      "archived_files": 1,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "paper--final-cleanup-min-01",
+      "source": "studies/paper-size-benchmarks/results/final-cleanup-min-01",
+      "bundle": "paper--final-cleanup-min-01.tar.gz",
+      "bundle_sha256": "0b550e1ddabffb4c794d2ab9bae1de5845fc40c004270aac6b7f6b0b8b8102f0",
+      "bundle_bytes": 310361,
+      "file_catalog": "paper--final-cleanup-min-01.files.json",
+      "archived_files": 426,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 246,
+          "expected_invocations": 246,
+          "valid_invocations": 246,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "min",
+          "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "5dd1fc3059e5f875cc6fc9620cd76229255e6b4b",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "a72d5ebc22a13d2566fabd115de2f234f525b685"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "0cf040e55888e84121d725bb8c7e449d5d7409ef0b2b7ff1a25fdfb8ac933961",
+            "observe/target/release/observe": "11e50b5eea0092cde1fcdc5b70f8f296383e03d2f062e92e99e99ee9b5c3507c",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--final-cleanup-qualification-01",
+      "source": "studies/paper-size-benchmarks/results/final-cleanup-qualification-01",
+      "bundle": "paper--final-cleanup-qualification-01.tar.gz",
+      "bundle_sha256": "6910c1002d956de839cce5a46f18bb1ad052636518e8dbfbdb590a68d69fd2ac",
+      "bundle_bytes": 24515,
+      "file_catalog": "paper--final-cleanup-qualification-01.files.json",
+      "archived_files": 18,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "paper--final-cleanup-qualification-02",
+      "source": "studies/paper-size-benchmarks/results/final-cleanup-qualification-02",
+      "bundle": "paper--final-cleanup-qualification-02.tar.gz",
+      "bundle_sha256": "875421945268273b4e4ddc4ace36e25f4c3ad8e7e4c123b4b8d4213a3577695d",
+      "bundle_bytes": 8134,
+      "file_catalog": "paper--final-cleanup-qualification-02.files.json",
+      "archived_files": 3,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "paper--final-cleanup-qualification-03",
+      "source": "studies/paper-size-benchmarks/results/final-cleanup-qualification-03",
+      "bundle": "paper--final-cleanup-qualification-03.tar.gz",
+      "bundle_sha256": "367ddfddc1935cd6e8245b635c355f0877cab0d2dd85061fb1bafc18fc6d98f5",
+      "bundle_bytes": 18561,
+      "file_catalog": "paper--final-cleanup-qualification-03.files.json",
+      "archived_files": 10,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "paper--final-cleanup-supplemental-min-01",
+      "source": "studies/paper-size-benchmarks/results/final-cleanup-supplemental-min-01",
+      "bundle": "paper--final-cleanup-supplemental-min-01.tar.gz",
+      "bundle_sha256": "872e9e0dd348141fd83b4e27e9aaa6a46e3d5ff3b79bd17a888c24d36927f95b",
+      "bundle_bytes": 2246543,
+      "file_catalog": "paper--final-cleanup-supplemental-min-01.files.json",
+      "archived_files": 80,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 30,
+          "expected_invocations": 30,
+          "valid_invocations": 30,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "supplemental",
+          "profile": "min",
+          "only": "web-search,weather-tufte",
+          "repetitions": 2,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "5dd1fc3059e5f875cc6fc9620cd76229255e6b4b",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "a72d5ebc22a13d2566fabd115de2f234f525b685"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "0cf040e55888e84121d725bb8c7e449d5d7409ef0b2b7ff1a25fdfb8ac933961",
+            "observe/target/release/observe": "11e50b5eea0092cde1fcdc5b70f8f296383e03d2f062e92e99e99ee9b5c3507c",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--full-music-diagnostic-01",
+      "source": "studies/paper-size-benchmarks/results/full-music-diagnostic-01",
+      "bundle": "paper--full-music-diagnostic-01.tar.gz",
+      "bundle_sha256": "529e4185e5c696eb2ea54d392c198539cf187e43c4b3899a944350e952d3c519",
+      "bundle_bytes": 179419,
+      "file_catalog": "paper--full-music-diagnostic-01.files.json",
+      "archived_files": 45,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": false,
+          "invocations": 19,
+          "expected_invocations": 21,
+          "valid_invocations": 18,
+          "failed_sequences": [
+            "sequences/file-mod.original.0/failed.json"
+          ]
+        },
+        "configuration.json": {
+          "profile": "paper",
+          "only": "file-mod",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "failed"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "e22fd8e54b4c9f09faa51f298deca3959a317f49108104e92fb75c205944655f",
+            "observe/target/release/observe": "db8e4211fa98dfab9f2ec99cc3341e8bb735577cc2b6d31f4166f6ccc35b747d",
+            "original/target/release/incr": "a0b5741ec10bf5227d38c720502ce842b6189456a96f4bc49ca49c70d4681d54"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--general-min-01",
+      "source": "studies/paper-size-benchmarks/results/general-min-01",
+      "bundle": "paper--general-min-01.tar.gz",
+      "bundle_sha256": "3e1d4f8d067407f8502ca98923d6dd2b9b6aeaea9963de56c2040afdf8f8b31d",
+      "bundle_bytes": 299956,
+      "file_catalog": "paper--general-min-01.files.json",
+      "archived_files": 425,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 246,
+          "expected_invocations": 246,
+          "valid_invocations": 246,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "native_transform": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "ee5283b2836f2c2507a834641cf0cb41cb7eb84f",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "cb347d64d726508cba142b531aa207bdb83b2a9b"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "870ff91c802353c1adaaced03a7b3410620b2dd24c99f5e9aee12ac0a8074371",
+            "observe/target/release/observe": "c487eb091caef690987dfe5de748b7a39d4c0d1b17fed200c15c4379a469f9a4",
+            "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--general-unannotated-dpt-min-01",
+      "source": "studies/paper-size-benchmarks/results/general-unannotated-dpt-min-01",
+      "bundle": "paper--general-unannotated-dpt-min-01.tar.gz",
+      "bundle_sha256": "aa0a67152ab2bb32ae29baafe25a0af1c9c7bd4b097418b49522a2034c4f087d",
+      "bundle_bytes": 205796,
+      "file_catalog": "paper--general-unannotated-dpt-min-01.files.json",
+      "archived_files": 61,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 30,
+          "expected_invocations": 30,
+          "valid_invocations": 30,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "min",
+          "only": "dpt",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "37a8e2886f5c0f05c9a5be4abfb0f4db6e854114",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "a26e759a86e3ff6f8c3b0e192b8ab23e681e4288"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "58a75a31be8c6fa1f262809e255e98218109ff3d3129bfc3d7f6dbd8b231f568",
+            "observe/target/release/observe": "ab841dad62b9b050f14a01d5e19720ebfeeb2c1c1524f397897a3ddcd3f9e74d",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--general-unannotated-min-01",
+      "source": "studies/paper-size-benchmarks/results/general-unannotated-min-01",
+      "bundle": "paper--general-unannotated-min-01.tar.gz",
+      "bundle_sha256": "8af90864fb470276c4931bf8d7396878a3cc21fccc99987fad6bc90078d7eb6d",
+      "bundle_bytes": 304213,
+      "file_catalog": "paper--general-unannotated-min-01.files.json",
+      "archived_files": 425,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 246,
+          "expected_invocations": 246,
+          "valid_invocations": 246,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "ee5283b2836f2c2507a834641cf0cb41cb7eb84f",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "cb347d64d726508cba142b531aa207bdb83b2a9b"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "dc2b7271bcbd6611250b4100da6e987c6053aeda586a261d45ee4f2ff9c2b97c",
+            "observe/target/release/observe": "ab841dad62b9b050f14a01d5e19720ebfeeb2c1c1524f397897a3ddcd3f9e74d",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--general-unannotated-supplemental-min-01",
+      "source": "studies/paper-size-benchmarks/results/general-unannotated-supplemental-min-01",
+      "bundle": "paper--general-unannotated-supplemental-min-01.tar.gz",
+      "bundle_sha256": "f56c503884926b187a055b3e232d8187e81d7d0e4710307076d07a859af85bfe",
+      "bundle_bytes": 2243607,
+      "file_catalog": "paper--general-unannotated-supplemental-min-01.files.json",
+      "archived_files": 80,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 30,
+          "expected_invocations": 30,
+          "valid_invocations": 30,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "supplemental",
+          "profile": "min",
+          "only": "web-search,weather-tufte",
+          "repetitions": 2,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "37a8e2886f5c0f05c9a5be4abfb0f4db6e854114",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "a26e759a86e3ff6f8c3b0e192b8ab23e681e4288"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "dc2b7271bcbd6611250b4100da6e987c6053aeda586a261d45ee4f2ff9c2b97c",
+            "observe/target/release/observe": "ab841dad62b9b050f14a01d5e19720ebfeeb2c1c1524f397897a3ddcd3f9e74d",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--guarded-inherited-bio-paper-01",
+      "source": "studies/paper-size-benchmarks/results/guarded-inherited-bio-paper-01",
+      "bundle": "paper--guarded-inherited-bio-paper-01.tar.gz",
+      "bundle_sha256": "acaec8d86b4a14003b7bb027884857f9578a56dca4de1750f389ae0bcf6432b9",
+      "bundle_bytes": 328566,
+      "file_catalog": "paper--guarded-inherited-bio-paper-01.files.json",
+      "archived_files": 273,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 21,
+          "expected_invocations": 21,
+          "valid_invocations": 21,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "paper",
+          "only": "bio",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "2e71f4f6f1f183acf6fe4efad72a2d879d8a149b",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "49e450edb00f6bfc44858f95a17dd9ff3f1d7866"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "1d889d2a80e890d62d933326ffebc1bd54627c811664f0ce6dcf9afd141b9236",
+            "observe/target/release/observe": "4b55017401e41fa527abaa26003848ba770ce452f9db921a9a7415b0d5d865c9",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--guarded-inherited-components",
+      "source": "studies/paper-size-benchmarks/results/guarded-inherited-components",
+      "bundle": "paper--guarded-inherited-components.tar.gz",
+      "bundle_sha256": "75576bf18b396ca5a73e1752e6c6cc2a8daf80440df5d2ac00c26095087d41b6",
+      "bundle_bytes": 1796,
+      "file_catalog": "paper--guarded-inherited-components.files.json",
+      "archived_files": 4,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "paper--guarded-inherited-min-01",
+      "source": "studies/paper-size-benchmarks/results/guarded-inherited-min-01",
+      "bundle": "paper--guarded-inherited-min-01.tar.gz",
+      "bundle_sha256": "dc5e7023ae79432f20846e451c67f29d5cab9dde600873e83888482d3fd17fba",
+      "bundle_bytes": 206497,
+      "file_catalog": "paper--guarded-inherited-min-01.files.json",
+      "archived_files": 49,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 21,
+          "expected_invocations": 21,
+          "valid_invocations": 21,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "min",
+          "only": "bio",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "2e71f4f6f1f183acf6fe4efad72a2d879d8a149b",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "49e450edb00f6bfc44858f95a17dd9ff3f1d7866"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "55625f1479805350bcf7b7775b479e2ee25f83bab86663d00563e24b383e9c67",
+            "observe/target/release/observe": "56039e0e35c3c481c51fc3c6500c4399119c412b4a674f1e6399585856e3632f",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--historical-eval-01",
+      "source": "studies/paper-size-benchmarks/results/historical-eval-01",
+      "bundle": "paper--historical-eval-01.tar.gz",
+      "bundle_sha256": "ff891f15a51357c66d93b638f23974e189be93a62d7843740086f50d0acaec78",
+      "bundle_bytes": 129372,
+      "file_catalog": "paper--historical-eval-01.files.json",
+      "archived_files": 34,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": false,
+          "invocations": 12,
+          "expected_invocations": 828,
+          "valid_invocations": 11,
+          "failed_sequences": [
+            "sequences/file-mod.original.0/failed.json"
+          ]
+        },
+        "configuration.json": {
+          "profile": "paper",
+          "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun,dpt",
+          "repetitions": 3,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "failed"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "e22fd8e54b4c9f09faa51f298deca3959a317f49108104e92fb75c205944655f",
+            "observe/target/release/observe": "db8e4211fa98dfab9f2ec99cc3341e8bb735577cc2b6d31f4166f6ccc35b747d",
+            "original/target/release/incr": "a0b5741ec10bf5227d38c720502ce842b6189456a96f4bc49ca49c70d4681d54"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--historical-eval-02",
+      "source": "studies/paper-size-benchmarks/results/historical-eval-02",
+      "bundle": "paper--historical-eval-02.tar.gz",
+      "bundle_sha256": "658af47405af239b6b1af08820d8eaa4d15e923be8b2a11eabe2c9387fb427ab",
+      "bundle_bytes": 900865,
+      "file_catalog": "paper--historical-eval-02.files.json",
+      "archived_files": 538,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": false,
+          "invocations": 285,
+          "expected_invocations": 828,
+          "valid_invocations": 282,
+          "failed_sequences": [
+            "sequences/file-mod.original.1/failed.json",
+            "sequences/file-mod.original.2/failed.json",
+            "sequences/file-mod.original.0/failed.json"
+          ]
+        },
+        "configuration.json": {
+          "profile": "paper",
+          "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun,dpt",
+          "repetitions": 3,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "interrupted",
+          "error": "KeyboardInterrupt('Study termination requested')"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "e22fd8e54b4c9f09faa51f298deca3959a317f49108104e92fb75c205944655f",
+            "observe/target/release/observe": "db8e4211fa98dfab9f2ec99cc3341e8bb735577cc2b6d31f4166f6ccc35b747d",
+            "original/target/release/incr": "a0b5741ec10bf5227d38c720502ce842b6189456a96f4bc49ca49c70d4681d54"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--historical-inputs-01",
+      "source": "studies/paper-size-benchmarks/results/historical-inputs-01",
+      "bundle": "paper--historical-inputs-01.tar.gz",
+      "bundle_sha256": "174345f2a237a6f7fae4342b1ff782c031cbb4a08eb891cd13226e54eae2ae95",
+      "bundle_bytes": 122409,
+      "file_catalog": "paper--historical-inputs-01.files.json",
+      "archived_files": 15,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "configuration.json": {
+          "profile": "paper",
+          "only": "file-mod,word-freq,nlp-ngrams,nlp-uppercase,poet,covid,nginx-analysis,spell,bio,weather,beginner,unixfun,dpt"
+        },
+        "status.json": {
+          "state": "complete"
+        }
+      }
+    },
+    {
+      "label": "paper--inherited-fd-runtime-01",
+      "source": "studies/paper-size-benchmarks/results/inherited-fd-runtime-01",
+      "bundle": "paper--inherited-fd-runtime-01.tar.gz",
+      "bundle_sha256": "73d87e5adbcb8952593c9c97570fb46ad8a4c01be3afa111adc766c1c681a80a",
+      "bundle_bytes": 5577,
+      "file_catalog": "paper--inherited-fd-runtime-01.files.json",
+      "archived_files": 31,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {}
+      }
+    },
+    {
+      "label": "paper--logs",
+      "source": "studies/paper-size-benchmarks/results/logs",
+      "bundle": "paper--logs.tar.gz",
+      "bundle_sha256": "eeabf11b939975e4f48c9d145576c5463c6f897150f7db8089e53427dd506b6c",
+      "bundle_bytes": 30828,
+      "file_catalog": "paper--logs.files.json",
+      "archived_files": 21,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "paper--maintenance",
+      "source": "studies/paper-size-benchmarks/results/maintenance",
+      "bundle": "paper--maintenance.tar.gz",
+      "bundle_sha256": "de071455fe78057eb29c96ae17c701086c58d0fdd1fbc2343a93d0b0a1a1e45f",
+      "bundle_bytes": 4186693,
+      "file_catalog": "paper--maintenance.files.json",
+      "archived_files": 734,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "paper--memory-queue-min-all-01",
+      "source": "studies/paper-size-benchmarks/results/memory-queue-min-all-01",
+      "bundle": "paper--memory-queue-min-all-01.tar.gz",
+      "bundle_sha256": "3e5c0c12c85a34ce81949f816eba9ab20a098f2a6b63dc2fec2d6b66078b8fc6",
+      "bundle_bytes": 335962,
+      "file_catalog": "paper--memory-queue-min-all-01.files.json",
+      "archived_files": 473,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 276,
+          "expected_invocations": 276,
+          "valid_invocations": 276,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "min",
+          "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun,dpt",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "7ab8fb160ab311c4010900f279abb006784510ec",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "ba7cab24374bc388d965f1429226322ddb6aac1e"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "59ab6feb67552803844a5fc1846948b86450b6b8b678c0cf3c875b89284eab2d",
+            "observe/target/release/observe": "b3c84ddf5f2a4c6c78190982dca464510a029f78f9aff57dc56ca8b1904a4003",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--memory-queue-qualification-01",
+      "source": "studies/paper-size-benchmarks/results/memory-queue-qualification-01",
+      "bundle": "paper--memory-queue-qualification-01.tar.gz",
+      "bundle_sha256": "fbb27236392970b6f5c0d0c1bf9f69e89127911b927d716e59fae189cf928eca",
+      "bundle_bytes": 46221,
+      "file_catalog": "paper--memory-queue-qualification-01.files.json",
+      "archived_files": 35,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true
+        },
+        "status.json": {
+          "phase": "complete-review-required"
+        }
+      }
+    },
+    {
+      "label": "paper--memory-queue-supplemental-min-01",
+      "source": "studies/paper-size-benchmarks/results/memory-queue-supplemental-min-01",
+      "bundle": "paper--memory-queue-supplemental-min-01.tar.gz",
+      "bundle_sha256": "b1eb7cbca0a5a2fcfaead328daad123f119cd42aac088e5474a79221a08f7fcd",
+      "bundle_bytes": 1367134,
+      "file_catalog": "paper--memory-queue-supplemental-min-01.files.json",
+      "archived_files": 48,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 15,
+          "expected_invocations": 15,
+          "valid_invocations": 15,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "supplemental",
+          "profile": "min",
+          "only": "web-search,weather-tufte",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "7ab8fb160ab311c4010900f279abb006784510ec",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "ba7cab24374bc388d965f1429226322ddb6aac1e"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "59ab6feb67552803844a5fc1846948b86450b6b8b678c0cf3c875b89284eab2d",
+            "observe/target/release/observe": "b3c84ddf5f2a4c6c78190982dca464510a029f78f9aff57dc56ca8b1904a4003",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--memory-queue-targeted-paper-01",
+      "source": "studies/paper-size-benchmarks/results/memory-queue-targeted-paper-01",
+      "bundle": "paper--memory-queue-targeted-paper-01.tar.gz",
+      "bundle_sha256": "03f644082057b7147daa6584a07bdb8083b6804aa73914899904de552bb648bf",
+      "bundle_bytes": 405597,
+      "file_catalog": "paper--memory-queue-targeted-paper-01.files.json",
+      "archived_files": 346,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 216,
+          "expected_invocations": 216,
+          "valid_invocations": 216,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "paper",
+          "only": "beginner,dpt",
+          "repetitions": 3,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "7ab8fb160ab311c4010900f279abb006784510ec",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "ba7cab24374bc388d965f1429226322ddb6aac1e"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "59ab6feb67552803844a5fc1846948b86450b6b8b678c0cf3c875b89284eab2d",
+            "observe/target/release/observe": "b3c84ddf5f2a4c6c78190982dca464510a029f78f9aff57dc56ca8b1904a4003",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--min-matrix-01",
+      "source": "studies/paper-size-benchmarks/results/min-matrix-01",
+      "bundle": "paper--min-matrix-01.tar.gz",
+      "bundle_sha256": "26350e96ddcaf0429edc9c7116ac382e464f3a645225d3253f9d3ef0022e7ab2",
+      "bundle_bytes": 76883,
+      "file_catalog": "paper--min-matrix-01.files.json",
+      "archived_files": 297,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": false,
+          "invocations": 186,
+          "expected_invocations": 249,
+          "valid_invocations": 185,
+          "failed_sequences": [
+            "sequences/dpt.bash.0/failed.json"
+          ]
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "nlp-ngrams,nlp-uppercase,covid,weather,nginx-analysis,beginner,unixfun,poet,dpt,spell,bio",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "interrupted",
+          "error": "KeyboardInterrupt('Study termination requested')"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "e22fd8e54b4c9f09faa51f298deca3959a317f49108104e92fb75c205944655f",
+            "observe/target/release/observe": "db8e4211fa98dfab9f2ec99cc3341e8bb735577cc2b6d31f4166f6ccc35b747d",
+            "original/target/release/incr": "a0b5741ec10bf5227d38c720502ce842b6189456a96f4bc49ca49c70d4681d54"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--min-matrix-02",
+      "source": "studies/paper-size-benchmarks/results/min-matrix-02",
+      "bundle": "paper--min-matrix-02.tar.gz",
+      "bundle_sha256": "3e30bbc6c1362964a07439db7e6547cfa5df5c72bbaa769ba57a87e114c1b8e8",
+      "bundle_bytes": 68878,
+      "file_catalog": "paper--min-matrix-02.files.json",
+      "archived_files": 159,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 87,
+          "expected_invocations": 87,
+          "valid_invocations": 87,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "nlp-ngrams,nlp-uppercase,dpt,spell,bio",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "e22fd8e54b4c9f09faa51f298deca3959a317f49108104e92fb75c205944655f",
+            "observe/target/release/observe": "db8e4211fa98dfab9f2ec99cc3341e8bb735577cc2b6d31f4166f6ccc35b747d",
+            "original/target/release/incr": "a0b5741ec10bf5227d38c720502ce842b6189456a96f4bc49ca49c70d4681d54"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--min-pilot-01",
+      "source": "studies/paper-size-benchmarks/results/min-pilot-01",
+      "bundle": "paper--min-pilot-01.tar.gz",
+      "bundle_sha256": "72d76bf080730780debba130a42f6fe5fab50665d03c0022e0ef6a2f1620549d",
+      "bundle_bytes": 27997,
+      "file_catalog": "paper--min-pilot-01.files.json",
+      "archived_files": 53,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 27,
+          "expected_invocations": 27,
+          "valid_invocations": 27,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "file-mod,word-freq",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "e22fd8e54b4c9f09faa51f298deca3959a317f49108104e92fb75c205944655f",
+            "observe/target/release/observe": "db8e4211fa98dfab9f2ec99cc3341e8bb735577cc2b6d31f4166f6ccc35b747d",
+            "original/target/release/incr": "a0b5741ec10bf5227d38c720502ce842b6189456a96f4bc49ca49c70d4681d54"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--min-pilot-02",
+      "source": "studies/paper-size-benchmarks/results/min-pilot-02",
+      "bundle": "paper--min-pilot-02.tar.gz",
+      "bundle_sha256": "d677bca05835d85202b6190a4d872041de6a435ddcce58e516c25c2b0f966548",
+      "bundle_bytes": 28729,
+      "file_catalog": "paper--min-pilot-02.files.json",
+      "archived_files": 52,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 27,
+          "expected_invocations": 27,
+          "valid_invocations": 27,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "file-mod,word-freq",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "e22fd8e54b4c9f09faa51f298deca3959a317f49108104e92fb75c205944655f",
+            "observe/target/release/observe": "db8e4211fa98dfab9f2ec99cc3341e8bb735577cc2b6d31f4166f6ccc35b747d",
+            "original/target/release/incr": "a0b5741ec10bf5227d38c720502ce842b6189456a96f4bc49ca49c70d4681d54"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--min-repeat-01",
+      "source": "studies/paper-size-benchmarks/results/min-repeat-01",
+      "bundle": "paper--min-repeat-01.tar.gz",
+      "bundle_sha256": "2f5550deb555f01d287f6ff9744e4f0bcb91ccc5bc4c206ccdf3eec56d965e88",
+      "bundle_bytes": 129843,
+      "file_catalog": "paper--min-repeat-01.files.json",
+      "archived_files": 41,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 12,
+          "expected_invocations": 12,
+          "valid_invocations": 12,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "word-freq",
+          "repetitions": 2,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "e22fd8e54b4c9f09faa51f298deca3959a317f49108104e92fb75c205944655f",
+            "observe/target/release/observe": "db8e4211fa98dfab9f2ec99cc3341e8bb735577cc2b6d31f4166f6ccc35b747d",
+            "original/target/release/incr": "a0b5741ec10bf5227d38c720502ce842b6189456a96f4bc49ca49c70d4681d54"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--native-transform-min-01",
+      "source": "studies/paper-size-benchmarks/results/native-transform-min-01",
+      "bundle": "paper--native-transform-min-01.tar.gz",
+      "bundle_sha256": "7cfb142cb644bb9fcf323bbed2ddb63b65b409993ab7b6acd03a7852cf0e871b",
+      "bundle_bytes": 200245,
+      "file_catalog": "paper--native-transform-min-01.files.json",
+      "archived_files": 80,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 36,
+          "expected_invocations": 36,
+          "valid_invocations": 36,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "poet,covid,weather",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "native_transform": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "6e7ac7d7c068cf2c2b4d190393073bfcfd5406255dc956579cf158d43b005c54",
+            "observe/target/release/observe": "c487eb091caef690987dfe5de748b7a39d4c0d1b17fed200c15c4379a469f9a4",
+            "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--native-transform-min-02",
+      "source": "studies/paper-size-benchmarks/results/native-transform-min-02",
+      "bundle": "paper--native-transform-min-02.tar.gz",
+      "bundle_sha256": "e576da365966f129522fca9650b05f56afeaf58adbbdd52d095f85492436fe41",
+      "bundle_bytes": 304198,
+      "file_catalog": "paper--native-transform-min-02.files.json",
+      "archived_files": 425,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 246,
+          "expected_invocations": 246,
+          "valid_invocations": 246,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "native_transform": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "6e7ac7d7c068cf2c2b4d190393073bfcfd5406255dc956579cf158d43b005c54",
+            "observe/target/release/observe": "c487eb091caef690987dfe5de748b7a39d4c0d1b17fed200c15c4379a469f9a4",
+            "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--native-transform-validation-01",
+      "source": "studies/paper-size-benchmarks/results/native-transform-validation-01",
+      "bundle": "paper--native-transform-validation-01.tar.gz",
+      "bundle_sha256": "9d9914533a12f5771a4894e923af7ab3431c1950880ea07c0c2cf6f6e78f90af",
+      "bundle_bytes": 1329,
+      "file_catalog": "paper--native-transform-validation-01.files.json",
+      "archived_files": 6,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "paper--optimization-min-01",
+      "source": "studies/paper-size-benchmarks/results/optimization-min-01",
+      "bundle": "paper--optimization-min-01.tar.gz",
+      "bundle_sha256": "b2db6f1c43c4d4083e8bc94e2b8f37c2c28501a524a4e3c34a97cb56598f7a8a",
+      "bundle_bytes": 57520,
+      "file_catalog": "paper--optimization-min-01.files.json",
+      "archived_files": 142,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 69,
+          "expected_invocations": 69,
+          "valid_invocations": 69,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "d33591ff526144e1dd9365a897a10588eedd74eab546284b34740c150b191b69",
+            "observe/target/release/observe": "db8e4211fa98dfab9f2ec99cc3341e8bb735577cc2b6d31f4166f6ccc35b747d",
+            "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--optimization-min-02",
+      "source": "studies/paper-size-benchmarks/results/optimization-min-02",
+      "bundle": "paper--optimization-min-02.tar.gz",
+      "bundle_sha256": "5695098899606b1d24b2ad41702284ad2dcb4dbc60a732352021139ef60983a9",
+      "bundle_bytes": 37207,
+      "file_catalog": "paper--optimization-min-02.files.json",
+      "archived_files": 58,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 27,
+          "expected_invocations": 27,
+          "valid_invocations": 27,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "file-mod,word-freq",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "859da7b8615212072848044f99a01c56be54b9434e0c47a2138abe5ed95b3b11",
+            "observe/target/release/observe": "b969d920c0dc41b1b7532cc4ad01b04d7a4a705de21de804f928824487170315",
+            "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--optimization-min-03",
+      "source": "studies/paper-size-benchmarks/results/optimization-min-03",
+      "bundle": "paper--optimization-min-03.tar.gz",
+      "bundle_sha256": "8675c024dec53f98ab865572a1e9ec26a919cefd773909da5f834f4e234244cd",
+      "bundle_bytes": 44536,
+      "file_catalog": "paper--optimization-min-03.files.json",
+      "archived_files": 92,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 42,
+          "expected_invocations": 42,
+          "valid_invocations": 42,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "file-mod,word-freq,nlp-ngrams,nlp-uppercase",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "5e083e75ffd58cb0f0e0506bd35f3576e501f58ab0956d86ebb23f7851f00815",
+            "observe/target/release/observe": "b969d920c0dc41b1b7532cc4ad01b04d7a4a705de21de804f928824487170315",
+            "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--optimization-min-04",
+      "source": "studies/paper-size-benchmarks/results/optimization-min-04",
+      "bundle": "paper--optimization-min-04.tar.gz",
+      "bundle_sha256": "cc1e4e99071efdba3cd9624aea2156d7b3adbb5ec0c73521ae49b220e9a2d818",
+      "bundle_bytes": 21679,
+      "file_catalog": "paper--optimization-min-04.files.json",
+      "archived_files": 23,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 6,
+          "expected_invocations": 6,
+          "valid_invocations": 6,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "word-freq",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "586adb2b91b730c431cd1d9c4983b1f832290b1b19a026e73a227fac9699c965",
+            "observe/target/release/observe": "b969d920c0dc41b1b7532cc4ad01b04d7a4a705de21de804f928824487170315",
+            "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--optimization-min-05",
+      "source": "studies/paper-size-benchmarks/results/optimization-min-05",
+      "bundle": "paper--optimization-min-05.tar.gz",
+      "bundle_sha256": "2e3c566c3f9ef76dfc5490f1ac772768eb7afe75a51b647283f2f3b54364a8fc",
+      "bundle_bytes": 178473,
+      "file_catalog": "paper--optimization-min-05.files.json",
+      "archived_files": 26,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 6,
+          "expected_invocations": 6,
+          "valid_invocations": 6,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "word-freq",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "0ca257f07cfcf56e3d81f3cde2eaf9665335d923a52a025c10e8d965511510fd",
+            "observe/target/release/observe": "b969d920c0dc41b1b7532cc4ad01b04d7a4a705de21de804f928824487170315",
+            "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--optimization-min-06",
+      "source": "studies/paper-size-benchmarks/results/optimization-min-06",
+      "bundle": "paper--optimization-min-06.tar.gz",
+      "bundle_sha256": "a37741d9717a1dcabc77e58d96d2a7ff1ea07e6f02bcdcd1d0e2e364014c34b4",
+      "bundle_bytes": 203111,
+      "file_catalog": "paper--optimization-min-06.files.json",
+      "archived_files": 95,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 42,
+          "expected_invocations": 42,
+          "valid_invocations": 42,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "file-mod,word-freq,nlp-ngrams,nlp-uppercase",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "23393f3994e1131a5095f813ba581e1eadff40d66a3fad575e96730d6bec039a",
+            "observe/target/release/observe": "b969d920c0dc41b1b7532cc4ad01b04d7a4a705de21de804f928824487170315",
+            "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--optimization-min-07",
+      "source": "studies/paper-size-benchmarks/results/optimization-min-07",
+      "bundle": "paper--optimization-min-07.tar.gz",
+      "bundle_sha256": "74484a4916c5113530d1ac7f966e3afc6e4e1fddab7fbcf1fd2b5a63a47e797c",
+      "bundle_bytes": 198277,
+      "file_catalog": "paper--optimization-min-07.files.json",
+      "archived_files": 96,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 48,
+          "expected_invocations": 48,
+          "valid_invocations": 48,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "poet,covid,spell",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "b524c19f7dd91786cfbb73829a8fe8aef3ca597797f66a3df6994d3d49845f14",
+            "observe/target/release/observe": "b969d920c0dc41b1b7532cc4ad01b04d7a4a705de21de804f928824487170315",
+            "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--optimization-min-08",
+      "source": "studies/paper-size-benchmarks/results/optimization-min-08",
+      "bundle": "paper--optimization-min-08.tar.gz",
+      "bundle_sha256": "b8f4b67d3d62745c84710b1964a6e6477b8c5cd57b557e87babf94c927c7a3df",
+      "bundle_bytes": 243720,
+      "file_catalog": "paper--optimization-min-08.files.json",
+      "archived_files": 269,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 162,
+          "expected_invocations": 162,
+          "valid_invocations": 162,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "poet,covid,nginx-analysis,weather,beginner,unixfun",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "8dd19988516c9927700daf2d69085721b4063706401dc6e10f0c5e04c4543ccb",
+            "observe/target/release/observe": "b969d920c0dc41b1b7532cc4ad01b04d7a4a705de21de804f928824487170315",
+            "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--optimization-min-09",
+      "source": "studies/paper-size-benchmarks/results/optimization-min-09",
+      "bundle": "paper--optimization-min-09.tar.gz",
+      "bundle_sha256": "fea77748bd060e4331301d2543c12645768599db3787743215547c294a3c5484",
+      "bundle_bytes": 591253,
+      "file_catalog": "paper--optimization-min-09.files.json",
+      "archived_files": 99,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": false,
+          "invocations": 47,
+          "expected_invocations": 51,
+          "valid_invocations": 47,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "bio,dpt",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "interrupted",
+          "error": "KeyboardInterrupt('Study termination requested')"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "8dd19988516c9927700daf2d69085721b4063706401dc6e10f0c5e04c4543ccb",
+            "observe/target/release/observe": "b969d920c0dc41b1b7532cc4ad01b04d7a4a705de21de804f928824487170315",
+            "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--optimization-min-10",
+      "source": "studies/paper-size-benchmarks/results/optimization-min-10",
+      "bundle": "paper--optimization-min-10.tar.gz",
+      "bundle_sha256": "a28f541c6039cb1bcabc3b7ea848cdee970cd6bec59652bc3006d444fff7c712",
+      "bundle_bytes": 297142,
+      "file_catalog": "paper--optimization-min-10.files.json",
+      "archived_files": 425,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 246,
+          "expected_invocations": 246,
+          "valid_invocations": 246,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "570094c9abd59a862418c0e20bc841b9c82461b46de3d3344ecf1b826a66c0e9",
+            "observe/target/release/observe": "6fab1b418310250bcc9f7753f5cda5756fd0c079f9b305408dfd463cdf5d5bdd",
+            "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--optimization-min-11",
+      "source": "studies/paper-size-benchmarks/results/optimization-min-11",
+      "bundle": "paper--optimization-min-11.tar.gz",
+      "bundle_sha256": "1941f9ae197b0250b3c0ffc8983e71c55498e1a7d2a0f183c5cbdd2d052382a2",
+      "bundle_bytes": 1596,
+      "file_catalog": "paper--optimization-min-11.files.json",
+      "archived_files": 4,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "configuration.json": {
+          "profile": "min",
+          "only": "dpt",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "error",
+          "error": "FileNotFoundError(2, 'No such file or directory')"
+        }
+      }
+    },
+    {
+      "label": "paper--optimization-min-12",
+      "source": "studies/paper-size-benchmarks/results/optimization-min-12",
+      "bundle": "paper--optimization-min-12.tar.gz",
+      "bundle_sha256": "a2a83dc23a6dd83ec510ef90230fa4e3f58e537b7a0f830ba8411038f7995128",
+      "bundle_bytes": 196046,
+      "file_catalog": "paper--optimization-min-12.files.json",
+      "archived_files": 53,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": false,
+          "invocations": 23,
+          "expected_invocations": 30,
+          "valid_invocations": 23,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "dpt",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "interrupted",
+          "error": "KeyboardInterrupt('Study termination requested')"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "570094c9abd59a862418c0e20bc841b9c82461b46de3d3344ecf1b826a66c0e9",
+            "observe/target/release/observe": "6fab1b418310250bcc9f7753f5cda5756fd0c079f9b305408dfd463cdf5d5bdd",
+            "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--optimization-min-13",
+      "source": "studies/paper-size-benchmarks/results/optimization-min-13",
+      "bundle": "paper--optimization-min-13.tar.gz",
+      "bundle_sha256": "8a25988459bf1d6b3b2e518df0c94c576dca015530108929364e66c86fb53b59",
+      "bundle_bytes": 201627,
+      "file_catalog": "paper--optimization-min-13.files.json",
+      "archived_files": 63,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 30,
+          "expected_invocations": 30,
+          "valid_invocations": 30,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "profile": "min",
+          "only": "dpt",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ]
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "b440cfc1f3702a81e644c8634a3a886afe23d55d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "b5ad47a8d6155559d01f0fca616e72ab19d749e6"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "570094c9abd59a862418c0e20bc841b9c82461b46de3d3344ecf1b826a66c0e9",
+            "observe/target/release/observe": "6fab1b418310250bcc9f7753f5cda5756fd0c079f9b305408dfd463cdf5d5bdd",
+            "original/target/release/incr": "f42164a94db943701fef114a048acffd143d552e1ceff46dd82f4e0e012bd824"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--replay-final-paper-01",
+      "source": "studies/paper-size-benchmarks/results/replay-final-paper-01",
+      "bundle": "paper--replay-final-paper-01.tar.gz",
+      "bundle_sha256": "84bb9f0bcc0e59e2b7b077638e63f2c05f3d43f100663a0a23de1af701181654",
+      "bundle_bytes": 2121548,
+      "file_catalog": "paper--replay-final-paper-01.files.json",
+      "archived_files": 1264,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": false,
+          "invocations": 749,
+          "expected_invocations": 828,
+          "valid_invocations": 748,
+          "failed_sequences": [
+            "sequences/dpt.original.0/failed.json"
+          ]
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "paper",
+          "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun,dpt",
+          "repetitions": 3,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "failed"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "e75403efaaf727a37e06f12cf52e721e7e8b513d",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "ba7cab24374bc388d965f1429226322ddb6aac1e"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "4bed38271938fc9b64680228ac661aecef04da04b736619d3c29eab2cc95c981",
+            "observe/target/release/observe": "7d0a60d32735056ef2b7ae96af236d842cbe5905457cc7638b65f9bdb784a978",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--replay-mtime-min-bio-01",
+      "source": "studies/paper-size-benchmarks/results/replay-mtime-min-bio-01",
+      "bundle": "paper--replay-mtime-min-bio-01.tar.gz",
+      "bundle_sha256": "76b8227b2de5715a943d4a98d70b193ea84dc9f5549b7c1fea765757580a3e84",
+      "bundle_bytes": 202020,
+      "file_catalog": "paper--replay-mtime-min-bio-01.files.json",
+      "archived_files": 40,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 14,
+          "expected_invocations": 14,
+          "valid_invocations": 14,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "min",
+          "only": "bio",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "049ea21ade3fb460aa5862fd93da272f90248022",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "e1a64f28ff5b2585143fbc34016a08ca84c962d4"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "68fa115e8d424fd20c5d2d0484a18afd9a67a57889e6c575c75df868d695f1a9",
+            "observe/target/release/observe": "4b55017401e41fa527abaa26003848ba770ce452f9db921a9a7415b0d5d865c9",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--replay-reuse-bio-paper-01",
+      "source": "studies/paper-size-benchmarks/results/replay-reuse-bio-paper-01",
+      "bundle": "paper--replay-reuse-bio-paper-01.tar.gz",
+      "bundle_sha256": "640bbac8e4c5f9ea5328ae7f2891493f26aa00bc820c4a620ca815ca2d7af3e5",
+      "bundle_bytes": 226974,
+      "file_catalog": "paper--replay-reuse-bio-paper-01.files.json",
+      "archived_files": 54,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 21,
+          "expected_invocations": 21,
+          "valid_invocations": 21,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "paper",
+          "only": "bio",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "7d77b1900a5e014b7587006247163c9e48423126",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "ec35e0ea8f379a694f6e9b1b257da623b7cbb134"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "4bed38271938fc9b64680228ac661aecef04da04b736619d3c29eab2cc95c981",
+            "observe/target/release/observe": "7d0a60d32735056ef2b7ae96af236d842cbe5905457cc7638b65f9bdb784a978",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--replay-reuse-min-all-01",
+      "source": "studies/paper-size-benchmarks/results/replay-reuse-min-all-01",
+      "bundle": "paper--replay-reuse-min-all-01.tar.gz",
+      "bundle_sha256": "3c4effd68a432cfba2493a343800134e2f7a7136340ca9e1d1d50f948b11ca83",
+      "bundle_bytes": 339835,
+      "file_catalog": "paper--replay-reuse-min-all-01.files.json",
+      "archived_files": 477,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 276,
+          "expected_invocations": 276,
+          "valid_invocations": 276,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "min",
+          "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun,dpt",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "7d77b1900a5e014b7587006247163c9e48423126",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "ec35e0ea8f379a694f6e9b1b257da623b7cbb134"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "4bed38271938fc9b64680228ac661aecef04da04b736619d3c29eab2cc95c981",
+            "observe/target/release/observe": "7d0a60d32735056ef2b7ae96af236d842cbe5905457cc7638b65f9bdb784a978",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--replay-reuse-min-bio-02",
+      "source": "studies/paper-size-benchmarks/results/replay-reuse-min-bio-02",
+      "bundle": "paper--replay-reuse-min-bio-02.tar.gz",
+      "bundle_sha256": "fc70373acabba8af4a5b6d28b7f6a1306ac9181848d8ccbfe2329928ead2c69e",
+      "bundle_bytes": 207396,
+      "file_catalog": "paper--replay-reuse-min-bio-02.files.json",
+      "archived_files": 49,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 21,
+          "expected_invocations": 21,
+          "valid_invocations": 21,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "min",
+          "only": "bio",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "049ea21ade3fb460aa5862fd93da272f90248022",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "e1a64f28ff5b2585143fbc34016a08ca84c962d4"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "4bed38271938fc9b64680228ac661aecef04da04b736619d3c29eab2cc95c981",
+            "observe/target/release/observe": "bc39c851d4c4ca796b92198559c0e2f43237358e2ef4b73084fd413e48fb03d5",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--replay-reuse-supplemental-min-01",
+      "source": "studies/paper-size-benchmarks/results/replay-reuse-supplemental-min-01",
+      "bundle": "paper--replay-reuse-supplemental-min-01.tar.gz",
+      "bundle_sha256": "be9913f8d080a7122a908d8f3bc16ddbeecbf442178f43bc83cbdadde64637c3",
+      "bundle_bytes": 2251798,
+      "file_catalog": "paper--replay-reuse-supplemental-min-01.files.json",
+      "archived_files": 81,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 30,
+          "expected_invocations": 30,
+          "valid_invocations": 30,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "supplemental",
+          "profile": "min",
+          "only": "web-search,weather-tufte",
+          "repetitions": 2,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "7d77b1900a5e014b7587006247163c9e48423126",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "ec35e0ea8f379a694f6e9b1b257da623b7cbb134"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "4bed38271938fc9b64680228ac661aecef04da04b736619d3c29eab2cc95c981",
+            "observe/target/release/observe": "7d0a60d32735056ef2b7ae96af236d842cbe5905457cc7638b65f9bdb784a978",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--supplemental-min-prepare-01",
+      "source": "studies/paper-size-benchmarks/results/supplemental-min-prepare-01",
+      "bundle": "paper--supplemental-min-prepare-01.tar.gz",
+      "bundle_sha256": "2e215841d555fa430fdf5c57b4810c5462661bee9d229b20db40abf88df325ae",
+      "bundle_bytes": 1813,
+      "file_catalog": "paper--supplemental-min-prepare-01.files.json",
+      "archived_files": 4,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "configuration.json": {
+          "suite": "supplemental",
+          "profile": "min",
+          "only": "web-search,weather-tufte"
+        },
+        "status.json": {
+          "state": "complete"
+        }
+      }
+    },
+    {
+      "label": "paper--trusted-cache-min-all-01",
+      "source": "studies/paper-size-benchmarks/results/trusted-cache-min-all-01",
+      "bundle": "paper--trusted-cache-min-all-01.tar.gz",
+      "bundle_sha256": "ead41ba43b4bd8b359e1d525423fbcb2d17650b094ee8c4f8fb7fe0c268d764e",
+      "bundle_bytes": 336072,
+      "file_catalog": "paper--trusted-cache-min-all-01.files.json",
+      "archived_files": 474,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 276,
+          "expected_invocations": 276,
+          "valid_invocations": 276,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "min",
+          "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun,dpt",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "7ab8fb160ab311c4010900f279abb006784510ec",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "ba7cab24374bc388d965f1429226322ddb6aac1e"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "611fcf005314404d72b24ad817e921c6a658b680bd39ad934ab4143e2bfb9964",
+            "observe/target/release/observe": "b3c84ddf5f2a4c6c78190982dca464510a029f78f9aff57dc56ca8b1904a4003",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--trusted-cache-qualification-01",
+      "source": "studies/paper-size-benchmarks/results/trusted-cache-qualification-01",
+      "bundle": "paper--trusted-cache-qualification-01.tar.gz",
+      "bundle_sha256": "49abb83c27e2be5850d10f3431305ed554e30a182af3d05cc202f44bb7474bef",
+      "bundle_bytes": 13323,
+      "file_catalog": "paper--trusted-cache-qualification-01.files.json",
+      "archived_files": 6,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "status.json": {
+          "phase": "failed",
+          "error": "FileNotFoundError(2, 'No such file or directory')"
+        }
+      }
+    },
+    {
+      "label": "paper--trusted-cache-qualification-02",
+      "source": "studies/paper-size-benchmarks/results/trusted-cache-qualification-02",
+      "bundle": "paper--trusted-cache-qualification-02.tar.gz",
+      "bundle_sha256": "f105bfe799669db341bfd353d869323907538ee44afb284fe3842b5b93c3a6f2",
+      "bundle_bytes": 18126,
+      "file_catalog": "paper--trusted-cache-qualification-02.files.json",
+      "archived_files": 19,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "status.json": {
+          "phase": "failed",
+          "error": "RuntimeError('harness failed: 1')"
+        }
+      }
+    },
+    {
+      "label": "paper--trusted-cache-qualification-03",
+      "source": "studies/paper-size-benchmarks/results/trusted-cache-qualification-03",
+      "bundle": "paper--trusted-cache-qualification-03.tar.gz",
+      "bundle_sha256": "ad319232280214fdbf029e9f7845df71165a99103fd017166458f643a952ab19",
+      "bundle_bytes": 17139,
+      "file_catalog": "paper--trusted-cache-qualification-03.files.json",
+      "archived_files": 10,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "status.json": {
+          "phase": "failed",
+          "error": "RuntimeError('incr-integration failed: 1')"
+        }
+      }
+    },
+    {
+      "label": "paper--trusted-cache-qualification-04",
+      "source": "studies/paper-size-benchmarks/results/trusted-cache-qualification-04",
+      "bundle": "paper--trusted-cache-qualification-04.tar.gz",
+      "bundle_sha256": "7f78201e274e17061df9576dc130e2daf412a4ffa6fcb4ff322ad85c7852c637",
+      "bundle_bytes": 33811,
+      "file_catalog": "paper--trusted-cache-qualification-04.files.json",
+      "archived_files": 23,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true
+        },
+        "status.json": {
+          "phase": "complete-review-required"
+        }
+      }
+    },
+    {
+      "label": "paper--trusted-cache-supplemental-min-01",
+      "source": "studies/paper-size-benchmarks/results/trusted-cache-supplemental-min-01",
+      "bundle": "paper--trusted-cache-supplemental-min-01.tar.gz",
+      "bundle_sha256": "d06b3052b144ee6ec6a1b3468fda855089487b8874c4e21abd656731d5b84869",
+      "bundle_bytes": 1366726,
+      "file_catalog": "paper--trusted-cache-supplemental-min-01.files.json",
+      "archived_files": 48,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "invocations": 15,
+          "expected_invocations": 15,
+          "valid_invocations": 15,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "supplemental",
+          "profile": "min",
+          "only": "web-search,weather-tufte",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "complete"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "7ab8fb160ab311c4010900f279abb006784510ec",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "ba7cab24374bc388d965f1429226322ddb6aac1e"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "611fcf005314404d72b24ad817e921c6a658b680bd39ad934ab4143e2bfb9964",
+            "observe/target/release/observe": "b3c84ddf5f2a4c6c78190982dca464510a029f78f9aff57dc56ca8b1904a4003",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--trusted-cache-targeted-paper-01",
+      "source": "studies/paper-size-benchmarks/results/trusted-cache-targeted-paper-01",
+      "bundle": "paper--trusted-cache-targeted-paper-01.tar.gz",
+      "bundle_sha256": "24461b5520fc44d118fc87e2fb84e9e781644eaac8949d5f3b62eb7fb1adb3e4",
+      "bundle_bytes": 212192,
+      "file_catalog": "paper--trusted-cache-targeted-paper-01.files.json",
+      "archived_files": 82,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": false,
+          "invocations": 44,
+          "expected_invocations": 216,
+          "valid_invocations": 44,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "paper",
+          "only": "beginner,dpt",
+          "repetitions": 3,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "interrupted",
+          "error": "KeyboardInterrupt('Study termination requested')"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "7ab8fb160ab311c4010900f279abb006784510ec",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "ba7cab24374bc388d965f1429226322ddb6aac1e"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "611fcf005314404d72b24ad817e921c6a658b680bd39ad934ab4143e2bfb9964",
+            "observe/target/release/observe": "b3c84ddf5f2a4c6c78190982dca464510a029f78f9aff57dc56ca8b1904a4003",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--unannotated-checkpoint-01",
+      "source": "studies/paper-size-benchmarks/results/unannotated-checkpoint-01",
+      "bundle": "paper--unannotated-checkpoint-01.tar.gz",
+      "bundle_sha256": "d90555ee6326b8a02fe0d8e54d28591176d2107ae3430c62c9e9c43fddf39ddf",
+      "bundle_bytes": 23361,
+      "file_catalog": "paper--unannotated-checkpoint-01.files.json",
+      "archived_files": 32,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "paper--unannotated-paper-final-01",
+      "source": "studies/paper-size-benchmarks/results/unannotated-paper-final-01",
+      "bundle": "paper--unannotated-paper-final-01.tar.gz",
+      "bundle_sha256": "720902522f9db9676f6ef2ee96d46a5aed82f9987e2204442c1f38c0a59598c7",
+      "bundle_bytes": 911707,
+      "file_catalog": "paper--unannotated-paper-final-01.files.json",
+      "archived_files": 348,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": false,
+          "invocations": 186,
+          "expected_invocations": 276,
+          "valid_invocations": 186,
+          "failed_sequences": []
+        },
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "paper",
+          "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun,dpt",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "interrupted",
+          "error": "KeyboardInterrupt('Study termination requested')"
+        },
+        "frozen-build.json": {
+          "revisions": {
+            "/users/jxia3/atlas/incr": "2e71f4f6f1f183acf6fe4efad72a2d879d8a149b",
+            "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+            "/users/jxia3/atlas/observe": "49e450edb00f6bfc44858f95a17dd9ff3f1d7866"
+          },
+          "binary_hashes": {
+            "candidate/target/release/incr": "0cf040e55888e84121d725bb8c7e449d5d7409ef0b2b7ff1a25fdfb8ac933961",
+            "observe/target/release/observe": "11e50b5eea0092cde1fcdc5b70f8f296383e03d2f062e92e99e99ee9b5c3507c",
+            "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+          }
+        }
+      }
+    },
+    {
+      "label": "paper--unannotated-paper-inputs-final-01",
+      "source": "studies/paper-size-benchmarks/results/unannotated-paper-inputs-final-01",
+      "bundle": "paper--unannotated-paper-inputs-final-01.tar.gz",
+      "bundle_sha256": "f9804a9edf460b89e23ee922e14c1bfee34d99f5bd7c2ad4ae53e256d0d57226",
+      "bundle_bytes": 130536,
+      "file_catalog": "paper--unannotated-paper-inputs-final-01.files.json",
+      "archived_files": 16,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "configuration.json": {
+          "suite": "paper",
+          "profile": "paper",
+          "only": "file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun,dpt"
+        },
+        "status.json": {
+          "state": "complete"
+        }
+      }
+    },
+    {
+      "label": "paper--_root_files",
+      "source": "studies/paper-size-benchmarks/results",
+      "bundle": "paper--_root_files.tar.gz",
+      "bundle_sha256": "bffb940ed1576e0755f9ffcfb2c210638755ac1c27aed37bb09922e06eeda210",
+      "bundle_bytes": 17766,
+      "file_catalog": "paper--_root_files.files.json",
+      "archived_files": 4,
+      "retained_bulk_files": 0,
+      "declared_metadata": {}
+    },
+    {
+      "label": "probes--baseline-01",
+      "source": "studies/observe-performance-regression/results/baseline-01",
+      "bundle": "probes--baseline-01.tar.gz",
+      "bundle_sha256": "c08cf5ce93e4c6799aebf5e52be200c93bd97d3eb9980c7c1be8e45c00f54f9c",
+      "bundle_bytes": 2091,
+      "file_catalog": "probes--baseline-01.files.json",
+      "archived_files": 2,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {}
+      }
+    },
+    {
+      "label": "probes--baseline-02",
+      "source": "studies/observe-performance-regression/results/baseline-02",
+      "bundle": "probes--baseline-02.tar.gz",
+      "bundle_sha256": "cc2141912089f27ddebe64ba693fc7a8049ba1bb640ca2c6099a054b3020b347",
+      "bundle_bytes": 2879,
+      "file_catalog": "probes--baseline-02.files.json",
+      "archived_files": 2,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {}
+      }
+    },
+    {
+      "label": "probes--beginner-buffer-128-before",
+      "source": "studies/observe-performance-regression/results/beginner-buffer-128-before",
+      "bundle": "probes--beginner-buffer-128-before.tar.gz",
+      "bundle_sha256": "723a8b3b4c6daec25d1eae951c1c5443aa839f684a69924cc8a0abb253232208",
+      "bundle_bytes": 6550,
+      "file_catalog": "probes--beginner-buffer-128-before.files.json",
+      "archived_files": 24,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "scope": "Repeated unchanged script diagnostic, not final benchmark samples"
+        }
+      }
+    },
+    {
+      "label": "probes--beginner-buffer-128-before-02",
+      "source": "studies/observe-performance-regression/results/beginner-buffer-128-before-02",
+      "bundle": "probes--beginner-buffer-128-before-02.tar.gz",
+      "bundle_sha256": "e312a7f511179a01190b3289b985eca20f7028db5ec571d3af4057b7e4da5430",
+      "bundle_bytes": 9712,
+      "file_catalog": "probes--beginner-buffer-128-before-02.files.json",
+      "archived_files": 45,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "scope": "Repeated unchanged script diagnostic, not final benchmark samples"
+        }
+      }
+    },
+    {
+      "label": "probes--beginner-buffer-128-memory-01",
+      "source": "studies/observe-performance-regression/results/beginner-buffer-128-memory-01",
+      "bundle": "probes--beginner-buffer-128-memory-01.tar.gz",
+      "bundle_sha256": "710c75ea10d1a185d8bf2f8de5cb9d9c2b81402bd2ea01f4be724b107d65c422",
+      "bundle_bytes": 9682,
+      "file_catalog": "probes--beginner-buffer-128-memory-01.files.json",
+      "archived_files": 45,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "scope": "Repeated unchanged script diagnostic, not final benchmark samples"
+        }
+      }
+    },
+    {
+      "label": "probes--beginner-buffer-full-before",
+      "source": "studies/observe-performance-regression/results/beginner-buffer-full-before",
+      "bundle": "probes--beginner-buffer-full-before.tar.gz",
+      "bundle_sha256": "b3db6be2326620c8ebab8b48dfefcb4a6f29f767bd9a0a3d77d20b066ff7fec4",
+      "bundle_bytes": 9709,
+      "file_catalog": "probes--beginner-buffer-full-before.files.json",
+      "archived_files": 45,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "scope": "Repeated unchanged script diagnostic, not final benchmark samples"
+        }
+      }
+    },
+    {
+      "label": "probes--beginner-buffer-full-memory-01",
+      "source": "studies/observe-performance-regression/results/beginner-buffer-full-memory-01",
+      "bundle": "probes--beginner-buffer-full-memory-01.tar.gz",
+      "bundle_sha256": "c006ad74eb4712f6619ab8748f0f09fca6b3ea2065151cc8b8d6e8e2828aa27a",
+      "bundle_bytes": 9672,
+      "file_catalog": "probes--beginner-buffer-full-memory-01.files.json",
+      "archived_files": 45,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "summary.json": {
+          "complete": true,
+          "scope": "Repeated unchanged script diagnostic, not final benchmark samples"
+        }
+      }
+    },
+    {
+      "label": "probes--beginner-diagnosis-128-before",
+      "source": "studies/observe-performance-regression/results/beginner-diagnosis-128-before",
+      "bundle": "probes--beginner-diagnosis-128-before.tar.gz",
+      "bundle_sha256": "602da51b9d40250c29774a84e00672afba134621faff92c72a1a051c15c42c0d",
+      "bundle_bytes": 17936081,
+      "file_catalog": "probes--beginner-diagnosis-128-before.files.json",
+      "archived_files": 131,
+      "retained_bulk_files": 9,
+      "declared_metadata": {
+        "summary.json": {
+          "scope": "Profiled diagnostic; not final measurements"
+        }
+      }
+    },
+    {
+      "label": "probes--beginner-diagnosis-128-trusted-cache",
+      "source": "studies/observe-performance-regression/results/beginner-diagnosis-128-trusted-cache",
+      "bundle": "probes--beginner-diagnosis-128-trusted-cache.tar.gz",
+      "bundle_sha256": "6dac1d2ed0d536cb60ee65601f79aae440a003276954a12f1d37b968b4b68391",
+      "bundle_bytes": 17934993,
+      "file_catalog": "probes--beginner-diagnosis-128-trusted-cache.files.json",
+      "archived_files": 131,
+      "retained_bulk_files": 9,
+      "declared_metadata": {
+        "summary.json": {
+          "scope": "Profiled diagnostic; not final measurements"
+        }
+      }
+    },
+    {
+      "label": "probes--beginner-diagnosis-16-01",
+      "source": "studies/observe-performance-regression/results/beginner-diagnosis-16-01",
+      "bundle": "probes--beginner-diagnosis-16-01.tar.gz",
+      "bundle_sha256": "26e156ce95389bec6de7577e19241bb89877c64f5fc2ae6168da9c8c82054aaf",
+      "bundle_bytes": 5741003,
+      "file_catalog": "probes--beginner-diagnosis-16-01.files.json",
+      "archived_files": 57,
+      "retained_bulk_files": 2,
+      "declared_metadata": {}
+    },
+    {
+      "label": "probes--beginner-diagnosis-16-02",
+      "source": "studies/observe-performance-regression/results/beginner-diagnosis-16-02",
+      "bundle": "probes--beginner-diagnosis-16-02.tar.gz",
+      "bundle_sha256": "cf5805c44be7f53133e3fa69bc00f1b8f2fedf70441ebf91d282d9adf61dced3",
+      "bundle_bytes": 8626538,
+      "file_catalog": "probes--beginner-diagnosis-16-02.files.json",
+      "archived_files": 137,
+      "retained_bulk_files": 3,
+      "declared_metadata": {
+        "summary.json": {
+          "scope": "Profiled diagnostic; not final measurements"
+        }
+      }
+    },
+    {
+      "label": "probes--beginner-diagnosis-32-03",
+      "source": "studies/observe-performance-regression/results/beginner-diagnosis-32-03",
+      "bundle": "probes--beginner-diagnosis-32-03.tar.gz",
+      "bundle_sha256": "bc2ea2c9e2a35e3489f037c8452959530e8a98569be3e69258c67770ada12584",
+      "bundle_bytes": 4477710,
+      "file_catalog": "probes--beginner-diagnosis-32-03.files.json",
+      "archived_files": 131,
+      "retained_bulk_files": 9,
+      "declared_metadata": {
+        "summary.json": {
+          "scope": "Profiled diagnostic; not final measurements"
+        }
+      }
+    },
+    {
+      "label": "probes--bio-replay-real-01pct-01",
+      "source": "studies/observe-performance-regression/results/bio-replay-real-01pct-01",
+      "bundle": "probes--bio-replay-real-01pct-01.tar.gz",
+      "bundle_sha256": "09a08ac0134c077194d863e929997fe42fe0ee631facde2708aa3b8d21a5e8e9",
+      "bundle_bytes": 11813,
+      "file_catalog": "probes--bio-replay-real-01pct-01.files.json",
+      "archived_files": 6,
+      "retained_bulk_files": 0,
+      "declared_metadata": {
+        "configuration.json": {
+          "profile": "scaled",
+          "only": "bio",
+          "repetitions": 1,
+          "modes": [
+            "bash",
+            "original",
+            "observe"
+          ],
+          "annotations": false,
+          "native_transform": true,
+          "assume_directory_access": true,
+          "content_validated_inputs": true
+        },
+        "status.json": {
+          "state": "error",
+          "error": "Service PATH omitted cargo; no measurements ran. Preserve and relaunch with explicit PATH."
+        }
+      }
+    }
+  ],
+  "error": "RuntimeError('Archive exceeds portable Git size limit; split this generated archive before publication: /users/jxia3/atlas/incr/studies/paper-size-benchmarks/checkpoint-evidence/trusted-cache-2026-10-16/probes--bio-replay-real-01pct-02.tar.gz')"
+}

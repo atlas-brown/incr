@@ -1,0 +1,320 @@
+{
+  "configuration.json": {
+    "kind": "file",
+    "bytes": 958,
+    "sha256": "2b9e4f6a86e537a2fe85299931a8600d6aecbfd681e526e1f74dcdb63b82e177",
+    "included": true
+  },
+  "environment.json": {
+    "kind": "file",
+    "bytes": 33486,
+    "sha256": "336728219a429cf2805b1abfd19a9b996f473b82ab23198b5880db190cecb0e5",
+    "included": true
+  },
+  "events.jsonl": {
+    "kind": "file",
+    "bytes": 7836,
+    "sha256": "8eef65d204fc6ab533b7232a2b7b023124e8f08c6ffe5e70e0813aebeb1d35dc",
+    "included": true
+  },
+  "frozen-build.json": {
+    "kind": "file",
+    "bytes": 13359,
+    "sha256": "c4cc85a897eba47d07888cd46016af48cdaa1bfd4fda9f1e4db899d53f975667",
+    "included": true
+  },
+  "inputs/file-mod.json": {
+    "kind": "file",
+    "bytes": 593,
+    "sha256": "4f1413853356b3ec6422901b6e873288cb2fc463523fe0849d0bc32534f73298",
+    "included": true
+  },
+  "inputs/word-freq.json": {
+    "kind": "file",
+    "bytes": 277,
+    "sha256": "0e881ef7cd5da63af4c521ea45fd3eed25275b3a2ee1652003093d1d96437121",
+    "included": true
+  },
+  "references/file-mod/0.file-mod-1.sh.json": {
+    "kind": "file",
+    "bytes": 8418,
+    "sha256": "e6baff48b56c8aef403058c830a4884ee95bc68f23db8c7b338958b1d2bb4bf7",
+    "included": true
+  },
+  "references/file-mod/0.file-mod-2.sh.json": {
+    "kind": "file",
+    "bytes": 9222,
+    "sha256": "cb95e903b0227b73c782420b615ad3a879cb8d4953259890606c815a8c9484eb",
+    "included": true
+  },
+  "references/file-mod/0.file-mod-3.sh.json": {
+    "kind": "file",
+    "bytes": 9824,
+    "sha256": "e7708261f3b9e392cf40e1e57740f450342577b46c6090f112f91544d9e10bc6",
+    "included": true
+  },
+  "references/file-mod/0.file-mod-4.sh.json": {
+    "kind": "file",
+    "bytes": 10430,
+    "sha256": "ff3a6596b5445312be57e2f9b84145b41f4bba7b8c6e57e5edb78545a671d4f6",
+    "included": true
+  },
+  "references/file-mod/0.file-mod-5.sh.json": {
+    "kind": "file",
+    "bytes": 10430,
+    "sha256": "ff3a6596b5445312be57e2f9b84145b41f4bba7b8c6e57e5edb78545a671d4f6",
+    "included": true
+  },
+  "references/file-mod/0.file-mod-6.sh.json": {
+    "kind": "file",
+    "bytes": 11537,
+    "sha256": "d296815be3f74c617849eecd25c22f997fcd30290753e10f08a82f70130c5849",
+    "included": true
+  },
+  "references/file-mod/0.file-mod-7.sh.json": {
+    "kind": "file",
+    "bytes": 12146,
+    "sha256": "81005a98f5dbf731417e84dc9ad4c5cd6b42648d90903f72d80209972719267d",
+    "included": true
+  },
+  "references/word-freq/0.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "e5c1953908896a46a4802c26aab0721d136582758ed08d7568208aa655a6e136",
+    "included": true
+  },
+  "references/word-freq/0.wf.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "94a024dc1fce1e81148f49546c567ba4c9b7212a67bb88f41c6d128017000f16",
+    "included": true
+  },
+  "report.md": {
+    "kind": "file",
+    "bytes": 486,
+    "sha256": "64e74b5662eaa3ce83b57ccebcc05535ce147747acd3a0a4301779baefd2a0c0",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/00.file-mod-1.sh.json": {
+    "kind": "file",
+    "bytes": 10052,
+    "sha256": "97234dc0bf2617cc2c4e32f7123201ee3eb51a52639a97fb786256229ce2f6d4",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/01.file-mod-2.sh.json": {
+    "kind": "file",
+    "bytes": 10934,
+    "sha256": "75c6ed90c7fa52b2a777fc7ae06ff5b411acd001c5db6cc7b21082a96369daa7",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/02.file-mod-3.sh.json": {
+    "kind": "file",
+    "bytes": 11590,
+    "sha256": "55ae57897447e1fa73d71c18260cc30f9b41a1e5b840b298be19b3fd4845d63a",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/03.file-mod-4.sh.json": {
+    "kind": "file",
+    "bytes": 12251,
+    "sha256": "40a6b3e0dbe399ab8dcdb2e574a1891e2c739628eebfc785d40053b8084613a5",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/04.file-mod-5.sh.json": {
+    "kind": "file",
+    "bytes": 12250,
+    "sha256": "1d3c0dd91c072dbe20dd754751c24f473c621e46deb5afa7ccd46ba2ca7d68c3",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/05.file-mod-6.sh.json": {
+    "kind": "file",
+    "bytes": 13442,
+    "sha256": "a630a9990ec074eddb3648e168db6f789e6473c2192264dd97d47461f51ef67a",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/06.file-mod-7.sh.json": {
+    "kind": "file",
+    "bytes": 14104,
+    "sha256": "548d3f5a72b6d990e7ca5c819b10f44cbc3de3d7870eb082c7aed0efa3ae6e35",
+    "included": true
+  },
+  "sequences/file-mod.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 156,
+    "sha256": "42d72b7fb9a3532c3d28662eb35589f8713327924a6ee43a083532c6e61ad452",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/00.file-mod-1.sh.json": {
+    "kind": "file",
+    "bytes": 10168,
+    "sha256": "c2eb29c73b235e04fce2094e1a89a5be715496f7c2be9f7fb1f7659e12fdb16d",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/01.file-mod-2.sh.json": {
+    "kind": "file",
+    "bytes": 11050,
+    "sha256": "104549837e9ad12c41f1ff61f30815983a771124475fd14540fd769d084435f1",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/02.file-mod-3.sh.json": {
+    "kind": "file",
+    "bytes": 11705,
+    "sha256": "40edb776b72c3bd6326caf2213de7d2ba8b961195a539c04284e5f2acb605a5c",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/03.file-mod-4.sh.json": {
+    "kind": "file",
+    "bytes": 12366,
+    "sha256": "00bfdddcbce15d8986ed36bc241d0af1a5f5575e8ba6ae2c052ebe9d6078e827",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/04.file-mod-5.sh.json": {
+    "kind": "file",
+    "bytes": 12364,
+    "sha256": "8ff81639cea90bd5da5e655c5da1b57696a3a3cf142c752a986525c70e40bd19",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/05.file-mod-6.sh.json": {
+    "kind": "file",
+    "bytes": 13556,
+    "sha256": "c63bf11cbd9085ecbd3c68310cfb0fda8cfd06dc8161eb42b197e93d43069e39",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/06.file-mod-7.sh.json": {
+    "kind": "file",
+    "bytes": 14219,
+    "sha256": "4771f8391bfd1766c48c5383b5ab0b9c0d54986cdcf13a397d8215d10c66ee47",
+    "included": true
+  },
+  "sequences/file-mod.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 162,
+    "sha256": "39fea90b5745cf654a890968525f9c72f22b5c29cde99b65e454119b9d195509",
+    "included": true
+  },
+  "sequences/file-mod.original.0/00.file-mod-1.sh.json": {
+    "kind": "file",
+    "bytes": 10175,
+    "sha256": "abca7e4bcba67d5078b9bcc14e02b395c0bbdd965badbd431d09f556ae1d55ad",
+    "included": true
+  },
+  "sequences/file-mod.original.0/01.file-mod-2.sh.json": {
+    "kind": "file",
+    "bytes": 11061,
+    "sha256": "5af77b151f3a1776e1f076f8b422710ef63fc692bac767d172cba8aba71b4066",
+    "included": true
+  },
+  "sequences/file-mod.original.0/02.file-mod-3.sh.json": {
+    "kind": "file",
+    "bytes": 11737,
+    "sha256": "7d841158fe9b723871dc75571b797a0261e5cb21e2b31cda18acb985c8ca401a",
+    "included": true
+  },
+  "sequences/file-mod.original.0/03.file-mod-4.sh.json": {
+    "kind": "file",
+    "bytes": 12434,
+    "sha256": "948043459f633194a34484451923d16fcdd54f051e87ea9f265899af160dd596",
+    "included": true
+  },
+  "sequences/file-mod.original.0/04.file-mod-5.sh.json": {
+    "kind": "file",
+    "bytes": 12431,
+    "sha256": "158b84802778648c693f238f162a14399dd7f4c8a03164c18997115474e39b2b",
+    "included": true
+  },
+  "sequences/file-mod.original.0/05.file-mod-6.sh.json": {
+    "kind": "file",
+    "bytes": 13645,
+    "sha256": "e4736cd4df2ff76196f98583ebf98d7c0be8e8b6ed17ff4bfaf2a0a396f27f42",
+    "included": true
+  },
+  "sequences/file-mod.original.0/06.file-mod-7.sh.json": {
+    "kind": "file",
+    "bytes": 14306,
+    "sha256": "c02b4a07424a8446564f10b413c3f1ee48bac8e03ee0fc485337fa7016aef59b",
+    "included": true
+  },
+  "sequences/file-mod.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 167,
+    "sha256": "83c6a48e685282cef75db63b867470fd6f6169e099da46d6e352bdad5d74fc74",
+    "included": true
+  },
+  "sequences/word-freq.bash.0/00.wf.sh.json": {
+    "kind": "file",
+    "bytes": 1939,
+    "sha256": "27681074f3d957badbdcd8909a8b9cf63fbdb94a610a92d485f1eab101979ff0",
+    "included": true
+  },
+  "sequences/word-freq.bash.0/01.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 1944,
+    "sha256": "b0c64ba82ca626f4d1ebe05eba7da068e0cdb538688ffee7b1b7920c08f9b072",
+    "included": true
+  },
+  "sequences/word-freq.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 158,
+    "sha256": "726e5ccfe66067ab34e3962027cda06757c0b39952b1ceccbdb8a44f4a5709c0",
+    "included": true
+  },
+  "sequences/word-freq.observe.0/00.wf.sh.json": {
+    "kind": "file",
+    "bytes": 2055,
+    "sha256": "4acd1e29d11dcb5a4fdbb53aff2d2dc500164ad1bf25806775b858214ff2afbf",
+    "included": true
+  },
+  "sequences/word-freq.observe.0/01.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 2061,
+    "sha256": "e16dd9973764b319f10cc475dc9d0af4fb43d9511c3cef1a8b4c693493724d20",
+    "included": true
+  },
+  "sequences/word-freq.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 162,
+    "sha256": "a1b2f7186b4c14fd90ffc5f3fb6e3b58ae243b84d0e5784da4cbf74ddf5e2087",
+    "included": true
+  },
+  "sequences/word-freq.original.0/00.wf.sh.json": {
+    "kind": "file",
+    "bytes": 2064,
+    "sha256": "cb8ebf5627989a7946e235cb993a3b97cfc46f308ec47476ebf5c86285bf6b50",
+    "included": true
+  },
+  "sequences/word-freq.original.0/01.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 2070,
+    "sha256": "224f4b74d63717727b8c42cca8543519aebb3edccb488c7a60900177fb788d9b",
+    "included": true
+  },
+  "sequences/word-freq.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 168,
+    "sha256": "692adf92ec996c8c4c8c0df906e94c44459f07bb0c48e5fc11ce7270b47bc6b5",
+    "included": true
+  },
+  "status.json": {
+    "kind": "file",
+    "bytes": 157,
+    "sha256": "980f30e8b11ced63c8b3254d152d7dfd9edc8d13e2feea4e3acda4c1f780e5d0",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 11829,
+    "sha256": "daaefd33855c30ba62b80ef823a39fab5ddcc92fbd30925783460ae890ee4178",
+    "included": true
+  },
+  "superseded.json": {
+    "kind": "file",
+    "bytes": 181,
+    "sha256": "5f16587d216cbcc18537a32548c50ecffcd396ccfea0361b33e3e1a1da73e18c",
+    "included": true
+  },
+  "timings.csv": {
+    "kind": "file",
+    "bytes": 6296,
+    "sha256": "674ef06243d296c60aef037dbe2ffe412b3bbf52693c8cdbdecad36b4f2b7bb6",
+    "included": true
+  }
+}

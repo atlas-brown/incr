@@ -1,0 +1,86 @@
+{
+  "frozen-build.json": {
+    "kind": "file",
+    "bytes": 15232,
+    "sha256": "1f94f910331be6330bd7a606af08d7bf3df30771de96b09a38383c8a527b0681",
+    "included": true
+  },
+  "input.json": {
+    "kind": "file",
+    "bytes": 1196,
+    "sha256": "199ade54222f105db2d785ca9f9c1aab781e1f4eb6391f2d8339f052830a0f77",
+    "included": true
+  },
+  "measurements.json": {
+    "kind": "file",
+    "bytes": 6463,
+    "sha256": "7c8e369404526a327755c419c4ce760381ae43382129863732cb9508ccedf23b",
+    "included": true
+  },
+  "provenance-check.json": {
+    "kind": "file",
+    "bytes": 66,
+    "sha256": "abc9aa02501f817997d775d1c7afd21c88d8eb07ba34bfa9fae4a0de4865888a",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 12314,
+    "sha256": "65922bf8b4ac1e57bef89080d4ecc4040fc00298ea5069a897a48e6d18bb977e",
+    "included": true
+  },
+  "source-0-new/src/execution/byte_sort_executor.rs": {
+    "kind": "file",
+    "bytes": 11604,
+    "sha256": "aec460ce34cfa9397c28f46dfd98ded5abfb2e6057335cbfe3ffa50e16c8d958",
+    "included": true
+  },
+  "source-0-new/src/ops/profile.rs": {
+    "kind": "file",
+    "bytes": 2186,
+    "sha256": "754dff75227328efd67d175a820927e3a16d78580b751f25f500032080e93d49",
+    "included": true
+  },
+  "source-0.patch": {
+    "kind": "file",
+    "bytes": 36636,
+    "sha256": "436ab73cc86b197007286d9ea1ad9df43deec7dec3bc52eed1f3e4ea201375d3",
+    "included": true
+  },
+  "source-1.patch": {
+    "kind": "file",
+    "bytes": 7732,
+    "sha256": "8b6dfc87c83db3b5b58e91ef305085c554df123bdf05255db1ae6624c776d48a",
+    "included": true
+  },
+  "source-2.patch": {
+    "kind": "file",
+    "bytes": 1516,
+    "sha256": "829c5c06e43c099a7fa961c49cbecaae1c13ef0c7b77336b78efb422049334a3",
+    "included": true
+  },
+  "sources/candidate.tar.gz": {
+    "kind": "file",
+    "bytes": 73366,
+    "sha256": "400991bf804a5c2f3f4071f99ed6269d1d50a5c4233ea6f5f5ca02a9221d958c",
+    "included": true
+  },
+  "sources/observe.tar.gz": {
+    "kind": "file",
+    "bytes": 33881,
+    "sha256": "d16c1bd5b4c850747cca25cfc295887f241177c9faa19b9458e6b20402221f10",
+    "included": true
+  },
+  "sources/original.tar.gz": {
+    "kind": "file",
+    "bytes": 49622,
+    "sha256": "294dcf52ec7aea3b68d4a3bac84b2a72108e9f7394dcf2d04c76505e5031b6db",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 36,
+    "sha256": "215b05cf1cda06785b7acb39a1d397e1d592fbacaeee1bc4a79df730f0bc0498",
+    "included": true
+  }
+}

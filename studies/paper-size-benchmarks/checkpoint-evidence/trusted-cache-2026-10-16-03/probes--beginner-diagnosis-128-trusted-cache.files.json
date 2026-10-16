@@ -1,0 +1,851 @@
+{
+  "bash-beginner-01.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "bash-beginner-01.stdout": {
+    "kind": "file",
+    "bytes": 134217703,
+    "sha256": "55677037e0ab6d391c425333fabeac5d919b6841477296e2b7c67d8f67360b31",
+    "included": false,
+    "reason": "Large raw workload payload retained at original source path"
+  },
+  "bash-beginner-02.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "bash-beginner-02.stdout": {
+    "kind": "file",
+    "bytes": 134217703,
+    "sha256": "8a4e025279529775319f836a3a21a48ea17a87c0c4129f2d32c6d9573e817f4a",
+    "included": false,
+    "reason": "Large raw workload payload retained at original source path"
+  },
+  "bash-beginner-03.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "bash-beginner-03.stdout": {
+    "kind": "file",
+    "bytes": 121597379,
+    "sha256": "9f601ec799febbde3ea5fd434ec9fe4eb7f74b1f96cfc1c40b5a1e4192af9219",
+    "included": false,
+    "reason": "Large raw workload payload retained at original source path"
+  },
+  "bash-beginner-04.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "bash-beginner-04.stdout": {
+    "kind": "file",
+    "bytes": 98441,
+    "sha256": "228af17ed7a85ea289973ce3a097b5c8ac097d77ee3a19ec713ca5cb1e063fe6",
+    "included": true
+  },
+  "bash-beginner-05.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "bash-beginner-05.stdout": {
+    "kind": "file",
+    "bytes": 99884,
+    "sha256": "93f8737a6d49e3ab2c495624e6c05c460b34799b54140ed07b484c2e6cd4fcbc",
+    "included": true
+  },
+  "bash-beginner-06.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "bash-beginner-06.stdout": {
+    "kind": "file",
+    "bytes": 4,
+    "sha256": "774b11a99fc0c33ff82cb34de26b0be1c6005495b399843bbb60e889298006b9",
+    "included": true
+  },
+  "bash-beginner-07.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "bash-beginner-07.stdout": {
+    "kind": "file",
+    "bytes": 4,
+    "sha256": "774b11a99fc0c33ff82cb34de26b0be1c6005495b399843bbb60e889298006b9",
+    "included": true
+  },
+  "bash-beginner-08.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "bash-beginner-08.stdout": {
+    "kind": "file",
+    "bytes": 1146094,
+    "sha256": "a5d9eeefc4d1f938d28be9bf18a61b597ee4e56f91d21e4311ead5e422875afa",
+    "included": true
+  },
+  "bash-beginner-09.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "bash-beginner-09.stdout": {
+    "kind": "file",
+    "bytes": 13178983,
+    "sha256": "be7f3f1fce323725167bf5fbde93bb73de83693c4e07ba21ed46707ffcc88f97",
+    "included": true
+  },
+  "bash-beginner-10.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "bash-beginner-10.stdout": {
+    "kind": "file",
+    "bytes": 11347797,
+    "sha256": "71b8f5ea19edfb95d0a43e77eb2160386c37752480be67c2e042fde67c948d4a",
+    "included": true
+  },
+  "bash-beginner-11.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "bash-beginner-11.stdout": {
+    "kind": "file",
+    "bytes": 11347797,
+    "sha256": "fe9ae236e0b0804c0192b3d4ae7ac3c70247e8be40359cd6a008e5735b5bc83c",
+    "included": true
+  },
+  "bash-beginner-12.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "bash-beginner-12.stdout": {
+    "kind": "file",
+    "bytes": 11347797,
+    "sha256": "09d136701241de343b4d4cc0d11bf645a38ba4d9e33591be61171d2050f05373",
+    "included": true
+  },
+  "bash-beginner-13.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "bash-beginner-13.stdout": {
+    "kind": "file",
+    "bytes": 310,
+    "sha256": "2b4b90359062409fc8695e5646af9e8f718ac6ccaa1fbd3c7a7c525f13092259",
+    "included": true
+  },
+  "bash-beginner-14.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "bash-beginner-14.stdout": {
+    "kind": "file",
+    "bytes": 310,
+    "sha256": "2b4b90359062409fc8695e5646af9e8f718ac6ccaa1fbd3c7a7c525f13092259",
+    "included": true
+  },
+  "measurements.json": {
+    "kind": "file",
+    "bytes": 5047,
+    "sha256": "340fb73d26e93d73d0f9ebd0d0aaa28a0efd6d3315735a9e8727263dda300b72",
+    "included": true
+  },
+  "observe-beginner-01/1369807-1466651826.json": {
+    "kind": "file",
+    "bytes": 1395,
+    "sha256": "2a79a79ac91f031450e0b08174c083408af458037199e59a5e5fb68225d12bd9",
+    "included": true
+  },
+  "observe-beginner-01.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-beginner-01.stdout": {
+    "kind": "file",
+    "bytes": 134217703,
+    "sha256": "55677037e0ab6d391c425333fabeac5d919b6841477296e2b7c67d8f67360b31",
+    "included": false,
+    "reason": "Large raw workload payload retained at original source path"
+  },
+  "observe-beginner-02/1369830-2040890452.json": {
+    "kind": "file",
+    "bytes": 1388,
+    "sha256": "48b64e397984ccd62e88bb98f94ba36103fa2be36d1825b700e2c27d0e02037d",
+    "included": true
+  },
+  "observe-beginner-02.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-beginner-02.stdout": {
+    "kind": "file",
+    "bytes": 134217703,
+    "sha256": "8a4e025279529775319f836a3a21a48ea17a87c0c4129f2d32c6d9573e817f4a",
+    "included": false,
+    "reason": "Large raw workload payload retained at original source path"
+  },
+  "observe-beginner-03/1369853-474391737.json": {
+    "kind": "file",
+    "bytes": 1219,
+    "sha256": "00c832bf31c55ea796dc929ab7105c614dbebdee02947bbce2f8cbae35b49fd6",
+    "included": true
+  },
+  "observe-beginner-03/1369854-1082326985.json": {
+    "kind": "file",
+    "bytes": 1397,
+    "sha256": "e81fb488698d16393d25bcb5048e4b30c9e806f7daaa8d3d4a9840f41bc51f40",
+    "included": true
+  },
+  "observe-beginner-03.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-beginner-03.stdout": {
+    "kind": "file",
+    "bytes": 121597379,
+    "sha256": "9f601ec799febbde3ea5fd434ec9fe4eb7f74b1f96cfc1c40b5a1e4192af9219",
+    "included": false,
+    "reason": "Large raw workload payload retained at original source path"
+  },
+  "observe-beginner-04/1369883-477600234.json": {
+    "kind": "file",
+    "bytes": 1220,
+    "sha256": "b8d3eb19a06da82c8fbd1dbc890e1b1a447e3609b355313d2aaf75d226c341d4",
+    "included": true
+  },
+  "observe-beginner-04/1369884-651285846.json": {
+    "kind": "file",
+    "bytes": 1226,
+    "sha256": "9fe1bc95e1a1683c7ff5c561c7a030655c27d6ea07465b3eb6f7bb48fe969277",
+    "included": true
+  },
+  "observe-beginner-04/1369885-689837946.json": {
+    "kind": "file",
+    "bytes": 1407,
+    "sha256": "a8f7486d604d073c968afbc2068f665df69ff0e510d6c849c461c9044c734e57",
+    "included": true
+  },
+  "observe-beginner-04.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-beginner-04.stdout": {
+    "kind": "file",
+    "bytes": 98441,
+    "sha256": "228af17ed7a85ea289973ce3a097b5c8ac097d77ee3a19ec713ca5cb1e063fe6",
+    "included": true
+  },
+  "observe-beginner-05/1369919-441505583.json": {
+    "kind": "file",
+    "bytes": 1218,
+    "sha256": "f476db3fc1bba5126f4113ce752b221cc5dbb59148aac6ff8f85e2bb71ceffa5",
+    "included": true
+  },
+  "observe-beginner-05/1369920-612749519.json": {
+    "kind": "file",
+    "bytes": 1225,
+    "sha256": "59609fb3215bc75b480d31267e6e8cc354901d77d73b9b32a276c3413d6128b8",
+    "included": true
+  },
+  "observe-beginner-05/1369921-647103419.json": {
+    "kind": "file",
+    "bytes": 1416,
+    "sha256": "03377ac84f68bb4827e7aaf18adebe62fc206a41951391eb4bb6785bb090eaa3",
+    "included": true
+  },
+  "observe-beginner-05.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-beginner-05.stdout": {
+    "kind": "file",
+    "bytes": 99884,
+    "sha256": "93f8737a6d49e3ab2c495624e6c05c460b34799b54140ed07b484c2e6cd4fcbc",
+    "included": true
+  },
+  "observe-beginner-06/1369955-457470741.json": {
+    "kind": "file",
+    "bytes": 1219,
+    "sha256": "c8a6469f8abf2fa887e8bc6d3b07239b9f882c991b43487441661f73d66adfdc",
+    "included": true
+  },
+  "observe-beginner-06/1369956-642058235.json": {
+    "kind": "file",
+    "bytes": 1225,
+    "sha256": "90cb697baeb93a299f3ff5b1a4ca820f880d2a097f19726abb0b91ff466b8fc2",
+    "included": true
+  },
+  "observe-beginner-06/1369957-650056722.json": {
+    "kind": "file",
+    "bytes": 1243,
+    "sha256": "64412b71035fbe813dc4fb0e52f3010599b4cc7eb0e5a1192c0eeb8bc9b75278",
+    "included": true
+  },
+  "observe-beginner-06/1369958-652815086.json": {
+    "kind": "file",
+    "bytes": 1384,
+    "sha256": "332be215bad2663c878e3ac3f4fd83641d99df03a1653bd0ee670f7c3f5620d6",
+    "included": true
+  },
+  "observe-beginner-06.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-beginner-06.stdout": {
+    "kind": "file",
+    "bytes": 4,
+    "sha256": "774b11a99fc0c33ff82cb34de26b0be1c6005495b399843bbb60e889298006b9",
+    "included": true
+  },
+  "observe-beginner-07/1369997-506823086.json": {
+    "kind": "file",
+    "bytes": 1219,
+    "sha256": "956efe973b58defe2615f2d383a10d82b85ff3756678cc029f032863b7f5bcf3",
+    "included": true
+  },
+  "observe-beginner-07/1369998-665276554.json": {
+    "kind": "file",
+    "bytes": 1225,
+    "sha256": "62031907d081eafcbc5b92de275fc75108e36a4ef4a33337c29a70e64dfeb68e",
+    "included": true
+  },
+  "observe-beginner-07/1369999-718185473.json": {
+    "kind": "file",
+    "bytes": 1426,
+    "sha256": "fdb4c5e8f8d2fd29347b4941cd77b39bfbf17e101d3bf3e3f9b96708993cc31d",
+    "included": true
+  },
+  "observe-beginner-07.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-beginner-07.stdout": {
+    "kind": "file",
+    "bytes": 4,
+    "sha256": "774b11a99fc0c33ff82cb34de26b0be1c6005495b399843bbb60e889298006b9",
+    "included": true
+  },
+  "observe-beginner-08/1370033-466551731.json": {
+    "kind": "file",
+    "bytes": 1218,
+    "sha256": "e2c2ae6c76c2cc26ef1f82e31dbaaee4b73c0058c520cebaa0c92a36e3bc8f3d",
+    "included": true
+  },
+  "observe-beginner-08/1370034-644175948.json": {
+    "kind": "file",
+    "bytes": 1225,
+    "sha256": "1345c29a9b2ca0502e13fdc6174cc7c2c249594280f4add1b8991791804bae7c",
+    "included": true
+  },
+  "observe-beginner-08/1370035-890731364.json": {
+    "kind": "file",
+    "bytes": 1410,
+    "sha256": "9434bd1ef58d12f02407dc5e5c9ce377a42b97c732ee0459415e1a925e87561b",
+    "included": true
+  },
+  "observe-beginner-08.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-beginner-08.stdout": {
+    "kind": "file",
+    "bytes": 1146094,
+    "sha256": "a5d9eeefc4d1f938d28be9bf18a61b597ee4e56f91d21e4311ead5e422875afa",
+    "included": true
+  },
+  "observe-beginner-09/1370090-475770461.json": {
+    "kind": "file",
+    "bytes": 1215,
+    "sha256": "34426d0c8c697b4393b789495574cfc227f207a41e9703028fbcb7680ff5a80f",
+    "included": true
+  },
+  "observe-beginner-09/1370091-673648656.json": {
+    "kind": "file",
+    "bytes": 1225,
+    "sha256": "e25365f6a494f5cdacfd9a4a726fea797bc35153e3e541a4dd59993daed1e898",
+    "included": true
+  },
+  "observe-beginner-09/1370092-995804371.json": {
+    "kind": "file",
+    "bytes": 1412,
+    "sha256": "4fbf3d4591ad9cb3f78b6eecf906edfc94c94071362b8b539294606886736ac1",
+    "included": true
+  },
+  "observe-beginner-09.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-beginner-09.stdout": {
+    "kind": "file",
+    "bytes": 13178983,
+    "sha256": "be7f3f1fce323725167bf5fbde93bb73de83693c4e07ba21ed46707ffcc88f97",
+    "included": true
+  },
+  "observe-beginner-10/1370126-507250857.json": {
+    "kind": "file",
+    "bytes": 1219,
+    "sha256": "c94bc99c7cad1d1fc3d76c8a4be4690ec6d798390fc5055114ba3bcd02a5b992",
+    "included": true
+  },
+  "observe-beginner-10/1370127-1034979357.json": {
+    "kind": "file",
+    "bytes": 1613,
+    "sha256": "e6ad6b2b805d1188e8c98734dce8b1a37f9ebce6821520581a648ce3256f843d",
+    "included": true
+  },
+  "observe-beginner-10/1370128-1050766378.json": {
+    "kind": "file",
+    "bytes": 1240,
+    "sha256": "050d10961872478a52359927092639600bc045ea39842f3f880363ba87e29565",
+    "included": true
+  },
+  "observe-beginner-10/1370129-1225134697.json": {
+    "kind": "file",
+    "bytes": 1403,
+    "sha256": "eb99b784ff5385d2c282731aebb2efd0717c1ebc00449b005c92ff08a8f93b1e",
+    "included": true
+  },
+  "observe-beginner-10/1370130-1292619973.json": {
+    "kind": "file",
+    "bytes": 1395,
+    "sha256": "e1189c53a9a241fde97d316a1d7744365c58d84b0affaaef497fcfede6af3492",
+    "included": true
+  },
+  "observe-beginner-10.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-beginner-10.stdout": {
+    "kind": "file",
+    "bytes": 11347797,
+    "sha256": "71b8f5ea19edfb95d0a43e77eb2160386c37752480be67c2e042fde67c948d4a",
+    "included": true
+  },
+  "observe-beginner-11/1370174-422153795.json": {
+    "kind": "file",
+    "bytes": 1219,
+    "sha256": "f000fbdd919f5fb59506640e75be5903a4db72d8f4384666d9f75129fe8e31e2",
+    "included": true
+  },
+  "observe-beginner-11/1370175-601693826.json": {
+    "kind": "file",
+    "bytes": 1225,
+    "sha256": "bc26f771aa027767e2b4ef0c4bebc8248b566b10b560a2068ae1b46e135fd7d3",
+    "included": true
+  },
+  "observe-beginner-11/1370176-629411969.json": {
+    "kind": "file",
+    "bytes": 1244,
+    "sha256": "3749a736f13cb3d977f611be369272dd4693ec8244d670a358c9693ea83abb9a",
+    "included": true
+  },
+  "observe-beginner-11/1370177-673525588.json": {
+    "kind": "file",
+    "bytes": 1225,
+    "sha256": "6308b4f334f95ad1f7f0ffdcfd8d271df2a1d34d031fe3212b01e952d66c3176",
+    "included": true
+  },
+  "observe-beginner-11/1370178-695489268.json": {
+    "kind": "file",
+    "bytes": 1602,
+    "sha256": "5347a51f4f26e6c80505281cb66e672a04910dc32cb286a6a80061bd822f4ce1",
+    "included": true
+  },
+  "observe-beginner-11/1370179-1106241848.json": {
+    "kind": "file",
+    "bytes": 1398,
+    "sha256": "2c4a88b92666c51ed22bf97f58a60093c80952b26b8e2d9bf472651fc9e52c9d",
+    "included": true
+  },
+  "observe-beginner-11.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-beginner-11.stdout": {
+    "kind": "file",
+    "bytes": 11347797,
+    "sha256": "fe9ae236e0b0804c0192b3d4ae7ac3c70247e8be40359cd6a008e5735b5bc83c",
+    "included": true
+  },
+  "observe-beginner-12/1370229-476864729.json": {
+    "kind": "file",
+    "bytes": 1218,
+    "sha256": "3d76caaa4ebc574288cd7088872ef9ac1ead0326ac37d088cffb4ad3af5b63d6",
+    "included": true
+  },
+  "observe-beginner-12/1370230-620552410.json": {
+    "kind": "file",
+    "bytes": 1225,
+    "sha256": "9ef2d77dff5e82277e6750b73d7fc672a25a5749d6f718d895559d8580de1780",
+    "included": true
+  },
+  "observe-beginner-12/1370231-666943485.json": {
+    "kind": "file",
+    "bytes": 1244,
+    "sha256": "7c0d25f7a369fc809885e1401a8dafc2f398ef2a92c50b0389f9bd878e5a1441",
+    "included": true
+  },
+  "observe-beginner-12/1370232-693061871.json": {
+    "kind": "file",
+    "bytes": 1225,
+    "sha256": "54e72aec7601418ae3327c68ffd772f14062887b8b2850f544b4d5e9e03a90e6",
+    "included": true
+  },
+  "observe-beginner-12/1370233-707927253.json": {
+    "kind": "file",
+    "bytes": 1603,
+    "sha256": "3635ba504a9e0530557b3295078e09a20222d4956123aa6d35e81e30bd8b1458",
+    "included": true
+  },
+  "observe-beginner-12/1370234-1135180685.json": {
+    "kind": "file",
+    "bytes": 1401,
+    "sha256": "e79c8683eece07a6ed6ad1211a59ee98aa5958227bcb83ee7c28713612320f95",
+    "included": true
+  },
+  "observe-beginner-12.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-beginner-12.stdout": {
+    "kind": "file",
+    "bytes": 11347797,
+    "sha256": "09d136701241de343b4d4cc0d11bf645a38ba4d9e33591be61171d2050f05373",
+    "included": true
+  },
+  "observe-beginner-13/1370284-510459519.json": {
+    "kind": "file",
+    "bytes": 1218,
+    "sha256": "828c36a1486a72fbb11ee7f117a99d97034b2e5772c4de30baef6597cb665897",
+    "included": true
+  },
+  "observe-beginner-13/1370285-1132584188.json": {
+    "kind": "file",
+    "bytes": 1615,
+    "sha256": "516be5ed23487478b6c3e3617de1513bbcc1388d322fd82c7bd4602d5d1c0ccc",
+    "included": true
+  },
+  "observe-beginner-13/1370286-1141000198.json": {
+    "kind": "file",
+    "bytes": 1239,
+    "sha256": "b624b72efb5dcb2cd28fe4ae5ebf98e99412679082f749fe1d10b077fe269c51",
+    "included": true
+  },
+  "observe-beginner-13/1370287-1185133683.json": {
+    "kind": "file",
+    "bytes": 1226,
+    "sha256": "7458c1a64bf09ee4a4574f27d78c120ae0dbe6f4ff8feeb97fcb3f1b0d5fa1e7",
+    "included": true
+  },
+  "observe-beginner-13/1370288-1200007323.json": {
+    "kind": "file",
+    "bytes": 1412,
+    "sha256": "dd50d7749124bff7e5d752241750464b0655ef0f76e16509e686fd2ac1c25e3b",
+    "included": true
+  },
+  "observe-beginner-13/1370289-1210651886.json": {
+    "kind": "file",
+    "bytes": 1226,
+    "sha256": "19b2a3bbb3a320f8c5db86bb5d8ae99413e43defaff120a2ccd9a039d0ef7513",
+    "included": true
+  },
+  "observe-beginner-13/1370290-1210071233.json": {
+    "kind": "file",
+    "bytes": 1170,
+    "sha256": "59292eda645112466326038e3741c3865edbaca56b912b7cc802f81541ee0aeb",
+    "included": true
+  },
+  "observe-beginner-13.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-beginner-13.stdout": {
+    "kind": "file",
+    "bytes": 310,
+    "sha256": "2b4b90359062409fc8695e5646af9e8f718ac6ccaa1fbd3c7a7c525f13092259",
+    "included": true
+  },
+  "observe-beginner-14/1370346-472199765.json": {
+    "kind": "file",
+    "bytes": 1219,
+    "sha256": "0dad4256e21a383349ea87abb6c5823ab78414175804c290c892418c6b2babae",
+    "included": true
+  },
+  "observe-beginner-14/1370347-638591222.json": {
+    "kind": "file",
+    "bytes": 1224,
+    "sha256": "1d034ad8e3a34b8d69f9125c6c437c1cca3ede7b0231234a3997bfac750ee8d7",
+    "included": true
+  },
+  "observe-beginner-14/1370348-660446609.json": {
+    "kind": "file",
+    "bytes": 1242,
+    "sha256": "ec1d4f1edaf0f9e88b1c5ff3f1d974612975051efde90d46d37379f72f7ab008",
+    "included": true
+  },
+  "observe-beginner-14/1370349-702423993.json": {
+    "kind": "file",
+    "bytes": 1225,
+    "sha256": "3f226da2bdc0e93aae027359a89e378e408025e18a7f155ba3186b493e78b78b",
+    "included": true
+  },
+  "observe-beginner-14/1370350-718787542.json": {
+    "kind": "file",
+    "bytes": 1605,
+    "sha256": "c4d3c4d12845fc83bfa85b20e6fc13176bf7b1e58c614c4b6fb66e575cefca0d",
+    "included": true
+  },
+  "observe-beginner-14/1370351-730024463.json": {
+    "kind": "file",
+    "bytes": 1225,
+    "sha256": "063d973eb12971ff8f919b76cfea8fe338c906b54d00da2c9dcafac4ed97b6f6",
+    "included": true
+  },
+  "observe-beginner-14/1370352-727411786.json": {
+    "kind": "file",
+    "bytes": 1168,
+    "sha256": "f743174d112df471c87faa9aaa65ad75027c8da6fb9b3225ca6b1894eb60cafe",
+    "included": true
+  },
+  "observe-beginner-14.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "observe-beginner-14.stdout": {
+    "kind": "file",
+    "bytes": 310,
+    "sha256": "2b4b90359062409fc8695e5646af9e8f718ac6ccaa1fbd3c7a7c525f13092259",
+    "included": true
+  },
+  "original-beginner-01.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-beginner-01.stdout": {
+    "kind": "file",
+    "bytes": 134217703,
+    "sha256": "55677037e0ab6d391c425333fabeac5d919b6841477296e2b7c67d8f67360b31",
+    "included": false,
+    "reason": "Large raw workload payload retained at original source path"
+  },
+  "original-beginner-02.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-beginner-02.stdout": {
+    "kind": "file",
+    "bytes": 134217703,
+    "sha256": "8a4e025279529775319f836a3a21a48ea17a87c0c4129f2d32c6d9573e817f4a",
+    "included": false,
+    "reason": "Large raw workload payload retained at original source path"
+  },
+  "original-beginner-03.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-beginner-03.stdout": {
+    "kind": "file",
+    "bytes": 121597379,
+    "sha256": "9f601ec799febbde3ea5fd434ec9fe4eb7f74b1f96cfc1c40b5a1e4192af9219",
+    "included": false,
+    "reason": "Large raw workload payload retained at original source path"
+  },
+  "original-beginner-04.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-beginner-04.stdout": {
+    "kind": "file",
+    "bytes": 98441,
+    "sha256": "228af17ed7a85ea289973ce3a097b5c8ac097d77ee3a19ec713ca5cb1e063fe6",
+    "included": true
+  },
+  "original-beginner-05.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-beginner-05.stdout": {
+    "kind": "file",
+    "bytes": 99884,
+    "sha256": "93f8737a6d49e3ab2c495624e6c05c460b34799b54140ed07b484c2e6cd4fcbc",
+    "included": true
+  },
+  "original-beginner-06.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-beginner-06.stdout": {
+    "kind": "file",
+    "bytes": 4,
+    "sha256": "774b11a99fc0c33ff82cb34de26b0be1c6005495b399843bbb60e889298006b9",
+    "included": true
+  },
+  "original-beginner-07.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-beginner-07.stdout": {
+    "kind": "file",
+    "bytes": 4,
+    "sha256": "774b11a99fc0c33ff82cb34de26b0be1c6005495b399843bbb60e889298006b9",
+    "included": true
+  },
+  "original-beginner-08.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-beginner-08.stdout": {
+    "kind": "file",
+    "bytes": 1146094,
+    "sha256": "a5d9eeefc4d1f938d28be9bf18a61b597ee4e56f91d21e4311ead5e422875afa",
+    "included": true
+  },
+  "original-beginner-09.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-beginner-09.stdout": {
+    "kind": "file",
+    "bytes": 13178983,
+    "sha256": "be7f3f1fce323725167bf5fbde93bb73de83693c4e07ba21ed46707ffcc88f97",
+    "included": true
+  },
+  "original-beginner-10.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-beginner-10.stdout": {
+    "kind": "file",
+    "bytes": 11347797,
+    "sha256": "71b8f5ea19edfb95d0a43e77eb2160386c37752480be67c2e042fde67c948d4a",
+    "included": true
+  },
+  "original-beginner-11.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-beginner-11.stdout": {
+    "kind": "file",
+    "bytes": 11347797,
+    "sha256": "fe9ae236e0b0804c0192b3d4ae7ac3c70247e8be40359cd6a008e5735b5bc83c",
+    "included": true
+  },
+  "original-beginner-12.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-beginner-12.stdout": {
+    "kind": "file",
+    "bytes": 11347797,
+    "sha256": "09d136701241de343b4d4cc0d11bf645a38ba4d9e33591be61171d2050f05373",
+    "included": true
+  },
+  "original-beginner-13.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-beginner-13.stdout": {
+    "kind": "file",
+    "bytes": 310,
+    "sha256": "2b4b90359062409fc8695e5646af9e8f718ac6ccaa1fbd3c7a7c525f13092259",
+    "included": true
+  },
+  "original-beginner-14.stderr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "original-beginner-14.stdout": {
+    "kind": "file",
+    "bytes": 310,
+    "sha256": "2b4b90359062409fc8695e5646af9e8f718ac6ccaa1fbd3c7a7c525f13092259",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 123,
+    "sha256": "ea326126b06bcce4965690a2ea4afc7f56fed257179d5a3df833c61b71b4977b",
+    "included": true
+  }
+}

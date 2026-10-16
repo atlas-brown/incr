@@ -1,0 +1,206 @@
+{
+  "case-results.csv": {
+    "kind": "file",
+    "bytes": 645,
+    "sha256": "08d8d89f7c6d83e3fd2b2bda97a2a03132ec25243a703e9c2b90d51016ff9b9b",
+    "included": true
+  },
+  "case-results.json": {
+    "kind": "file",
+    "bytes": 6839,
+    "sha256": "ea6778e0f4b6949b023d3b1bcf2bd0943a37165cb61ce5067f704f2a6b422b23",
+    "included": true
+  },
+  "progress.md": {
+    "kind": "file",
+    "bytes": 1626,
+    "sha256": "57415733e7f9f7332596206d44cbb7fa29ee2c93d0adf2e065dee36c2b30752a",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 1776,
+    "sha256": "180cf87a94086ff68116de81a88d4bf586c88dfc484ae86364414db3e116d890",
+    "included": true
+  },
+  "qualification-scope.json": {
+    "kind": "file",
+    "bytes": 261,
+    "sha256": "97fa7c4cacab18119c35d2b96da771b26407c5d8b798b98e94f0115e5e5c2660",
+    "included": true
+  },
+  "records/comsub-eof.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1813,
+    "sha256": "cb0a2d5fdfbeaddf5c5ba7635f84f9fd483e6691fed2ba810d2d4dfb2fa0af7d",
+    "included": true
+  },
+  "records/comsub-eof.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1814,
+    "sha256": "2a1db7b570f0a9bca3dae591505b364ec36de953c7ffcef52eba77aa7b26f451",
+    "included": true
+  },
+  "records/comsub-eof.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1852,
+    "sha256": "44c87483ae4d1c540c2a9f0634e4831aebf5135c04115dc848d8b334a24d0ef8",
+    "included": true
+  },
+  "records/comsub-eof.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1854,
+    "sha256": "ba858ab14678fc117e94518ac608cd0a106f532721e1fa1e373ff32ec92471fe",
+    "included": true
+  },
+  "records/comsub-posix.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2448,
+    "sha256": "3755af08fb8939d11f35fa646ea259530b491a23691d7a2a5ba7a92a44fefa38",
+    "included": true
+  },
+  "records/comsub-posix.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2449,
+    "sha256": "2377e5f741a17f68276f649a8e8e8804b56a9ee6c4f792cfbe42bb78a4c172a4",
+    "included": true
+  },
+  "records/comsub-posix.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 2489,
+    "sha256": "c41afee13b7644143ef09f21cfca6f4cca6f74312cb254fd328c389a8b703510",
+    "included": true
+  },
+  "records/comsub-posix.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 2492,
+    "sha256": "5776ce008c15858f346653d6d3466fe2c14bef19a59c3ba897f10892b83d91eb",
+    "included": true
+  },
+  "records/type.bash.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1956,
+    "sha256": "31bd46a5475e22f02070b05ea2bae1a5e8ec34b343e99c0c7656db1a701bc3b7",
+    "included": true
+  },
+  "records/type.bash.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1956,
+    "sha256": "925e7af3b98294edafa78c123e0bb8249cc218f5ed12cb31ccb875e39de0d275",
+    "included": true
+  },
+  "records/type.observe.cold.json.gz": {
+    "kind": "file",
+    "bytes": 1995,
+    "sha256": "ee6927125cfdcf1f2dfc2ecf57094ac2f793461ccc7e91fbf0667104eea318d7",
+    "included": true
+  },
+  "records/type.observe.warm.json.gz": {
+    "kind": "file",
+    "bytes": 1995,
+    "sha256": "9480f868c360d1127717710552dbcb81318bc771510228abcad3e87fe9f5008b",
+    "included": true
+  },
+  "setup/build-incr.json.gz": {
+    "kind": "file",
+    "bytes": 329,
+    "sha256": "527fb9eb04a9ff67815e3b2493d90229aca6b371d5779f72d40ebd9ea23dff68",
+    "included": true
+  },
+  "setup/build-observe.json.gz": {
+    "kind": "file",
+    "bytes": 328,
+    "sha256": "3732bc56251115df4b3d7a5cdea7d7934363b0ef7a5345301d2334a6ab9f98d6",
+    "included": true
+  },
+  "setup/default-policy.json.gz": {
+    "kind": "file",
+    "bytes": 866,
+    "sha256": "dfbaec9110d9eeb3535af4c5648ae9cd592693ad000ef9fb61c52e63f2c94d58",
+    "included": true
+  },
+  "setup/harness-tests.json.gz": {
+    "kind": "file",
+    "bytes": 783,
+    "sha256": "ca480d745b828f2d684bdb0c5b9089302ddd4e0e60c8bb8e106b441b7f2ad285",
+    "included": true
+  },
+  "setup/launcher-bash.json.gz": {
+    "kind": "file",
+    "bytes": 385,
+    "sha256": "d97ec3742b36b078802b3c806dd9477d0749a7de7eb38387dd84cf2d4b2e7d60",
+    "included": true
+  },
+  "setup/launcher-observe.json.gz": {
+    "kind": "file",
+    "bytes": 422,
+    "sha256": "74b4856c80ade8829b9c8947aa3becaedf1704d35d98f451118f976dec96be69",
+    "included": true
+  },
+  "setup/locale-de_DE.UTF-8.json.gz": {
+    "kind": "file",
+    "bytes": 705,
+    "sha256": "00b6a5aca980581a507867090401eb4f5d1bd4918d2143549fba25e2a149cd14",
+    "included": true
+  },
+  "setup/locale-fr_FR.ISO8859-1.json.gz": {
+    "kind": "file",
+    "bytes": 706,
+    "sha256": "1c8a6fadca62c2b5c196afae71b102f771135936395a454dca678949c4c49e63",
+    "included": true
+  },
+  "setup/locale-ja_JP.SJIS.json.gz": {
+    "kind": "file",
+    "bytes": 832,
+    "sha256": "8ef333d302a67117521ac93ef43932e3e4c783326a8f65cf69218aafa075a02a",
+    "included": true
+  },
+  "setup/locale-zh_HK.big5hkscs.json.gz": {
+    "kind": "file",
+    "bytes": 714,
+    "sha256": "829bf93811181198faec193e87716a4353b070ab3cc6f6a07df1754934c437d9",
+    "included": true
+  },
+  "setup/locale-zh_TW.BIG5.json.gz": {
+    "kind": "file",
+    "bytes": 705,
+    "sha256": "bfb069e29aaf82344211a4e7680322b470b256d465c25d68b85195f1fe55fc0d",
+    "included": true
+  },
+  "setup/namespace-check.json.gz": {
+    "kind": "file",
+    "bytes": 244,
+    "sha256": "7c4c870e7364f9c60209527cf79cbd4907114e83142c459101cbcdf104dc457b",
+    "included": true
+  },
+  "setup/native-transform-probe.json.gz": {
+    "kind": "file",
+    "bytes": 530,
+    "sha256": "7ea5e387a52f563b9af0ab9081898afb1762e171100192f3d5238cae7b208ebb",
+    "included": true
+  },
+  "setup/parser-imports.json.gz": {
+    "kind": "file",
+    "bytes": 284,
+    "sha256": "462fae39d7f7a09a560478deb9107719798d6630d0a7ea3233708832a701dda1",
+    "included": true
+  },
+  "setup/revision-incr.json.gz": {
+    "kind": "file",
+    "bytes": 307,
+    "sha256": "50afaa4e3e08aadd0c8c9ea5459d16ed7a3140294fce7e6944ffa64f1fedf194",
+    "included": true
+  },
+  "setup/revision-observe.json.gz": {
+    "kind": "file",
+    "bytes": 305,
+    "sha256": "aa4414c55c625168e7f43eb32dd17206550f2bbf8290fc6cb2593b341e3bdc30",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 183,
+    "sha256": "2f4b7da6502558459a0244293b77d2f4ce45d13f25765fcbd08c1ac5cf63428e",
+    "included": true
+  }
+}

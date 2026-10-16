@@ -1,0 +1,140 @@
+{
+  "binaries.json": {
+    "kind": "file",
+    "bytes": 162,
+    "sha256": "4621330f6fe7bb354e2a7f839a56d90861446c16865be5392f3849eaae859bcd",
+    "included": true
+  },
+  "chunk_tests/chunk-tests.json": {
+    "kind": "file",
+    "bytes": 15119,
+    "sha256": "0a2994dcefec6a32aea3286ba6c1a7a206dd9ba82f8692d2c3a17a80986b5adc",
+    "included": true
+  },
+  "chunk_tests.log": {
+    "kind": "file",
+    "bytes": 108,
+    "sha256": "fd0abf6dda291d43efcb3827b5f0947235a9d7aea49b725b5c9ded07df99ee6e",
+    "included": true
+  },
+  "commands.json": {
+    "kind": "file",
+    "bytes": 9198,
+    "sha256": "d41a426f22eb556812ff54f403042f7728c9c1e0abd6adf1b2c9f6034a7c64e4",
+    "included": true
+  },
+  "defaults-gate.json": {
+    "kind": "file",
+    "bytes": 696,
+    "sha256": "028eb2757f8d340b8fe8e1ee2e8839f9f00b98bd325766fd0ea878ddc9910c6f",
+    "included": true
+  },
+  "full-bash-gate.json": {
+    "kind": "file",
+    "bytes": 1573,
+    "sha256": "c5cc148a265f8ef6d6883462ec2a6758f61f9d523326c3dfadf0b5499f200aed",
+    "included": true
+  },
+  "incr-integration.log": {
+    "kind": "file",
+    "bytes": 1191,
+    "sha256": "e88c807d7662106c34e8f098a049ef572bc51300f909b41cadbf62bbee72ca7e",
+    "included": true
+  },
+  "incr.patch": {
+    "kind": "file",
+    "bytes": 30141,
+    "sha256": "a16e05cfe4a0bd94932a9edafeaa15aa8084f1506ce22dfa975adc96c5ccfadf",
+    "included": true
+  },
+  "inherited_fd_tests.log": {
+    "kind": "file",
+    "bytes": 104,
+    "sha256": "1d7d8ab51a26cba2a5a61026a47497fa41a6470bea315203fba46f32e17de1e1",
+    "included": true
+  },
+  "native_transform_tests.log": {
+    "kind": "file",
+    "bytes": 107,
+    "sha256": "eac1f83706af4738c02b91350006a8a33ea78b0a732867c96875d9af765c39d1",
+    "included": true
+  },
+  "observe.patch": {
+    "kind": "file",
+    "bytes": 2847,
+    "sha256": "563080fa18263070319fe2939036b9c2af992cf93eb797572ba1b58ba0ed3b24",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 353,
+    "sha256": "8e8007a2479823544b7eefb3ec3156c2dde5294f426156ac9f839d1899f78ee8",
+    "included": true
+  },
+  "regressions-final.log": {
+    "kind": "file",
+    "bytes": 173,
+    "sha256": "9bb00bcb8a68c069dd558fc919e51fdac202d51c535988a072748bedf61ecd3a",
+    "included": true
+  },
+  "regressions-live.log": {
+    "kind": "file",
+    "bytes": 185,
+    "sha256": "186dd944d7e4c5b40670d0b67ad53c88a863be3cfb82e8019822d0a93d3be5fd",
+    "included": true
+  },
+  "shell_ast_tests/shell-ast-tests.json": {
+    "kind": "file",
+    "bytes": 46302,
+    "sha256": "d498d36c208d63164a3833a81eb8fe0c2b1a456221fb5c4e32de79a900127d4d",
+    "included": true
+  },
+  "shell_ast_tests.log": {
+    "kind": "file",
+    "bytes": 110,
+    "sha256": "bd0350e0d702c24fdcd77eab02bb460a06ff2b9c1dc708f1f76fe922a7aefe16",
+    "included": true
+  },
+  "source-fingerprints.json": {
+    "kind": "file",
+    "bytes": 7433,
+    "sha256": "10522d785b8c0241f56a37eefbcb7319df7a323bf48b76301119e0effd892b2c",
+    "included": true
+  },
+  "status.json": {
+    "kind": "file",
+    "bytes": 107,
+    "sha256": "6ffe016d7452f4db920d6ee1ec8e7aa32c0d9d599a99370cdf2136d99de1f399",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 129,
+    "sha256": "fff6698a3c7d44122bbb9f33023f6ac75aa1202ee8e092c9e2d7c6b58774dd57",
+    "included": true
+  },
+  "trusted-cache-defaults-full-01.log": {
+    "kind": "file",
+    "bytes": 39416,
+    "sha256": "e2a720e9fd93330fd3010037fe0ccf6e26b99f4de6857d42f08c59b69b10bccf",
+    "included": true
+  },
+  "trusted-cache-min-all-01.log": {
+    "kind": "file",
+    "bytes": 25655,
+    "sha256": "d7c09bc3d821ee822940c988a401e3aaa744ce2f261b4b233f521ac3bbc1b49e",
+    "included": true
+  },
+  "trusted-cache-supplemental-min-01.log": {
+    "kind": "file",
+    "bytes": 1521,
+    "sha256": "e387f2d6ba253a51cf802ef03c3beb6880616c1f0174947fe1e1645b4a769f61",
+    "included": true
+  },
+  "trusted-cache-system-bash-full-01.log": {
+    "kind": "file",
+    "bytes": 38933,
+    "sha256": "8665d6ff51b9707e60703744388c207b48f9cf996e8e7a208271286d546ef912",
+    "included": true
+  }
+}

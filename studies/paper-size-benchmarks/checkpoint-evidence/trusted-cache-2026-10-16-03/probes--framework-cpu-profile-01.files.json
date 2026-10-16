@@ -1,0 +1,68 @@
+{
+  "measurements.json": {
+    "kind": "file",
+    "bytes": 15355,
+    "sha256": "43400fac0fe9183941aee93810529258fa21d25fec65ed78fa9a7c1c83b56c1e",
+    "included": true
+  },
+  "observe-user-cycles.txt": {
+    "kind": "file",
+    "bytes": 3290,
+    "sha256": "dae80e6714f58a5a9297f0c6aa3fbb6ee9d02d5dc26293cc560a548c93ecd20b",
+    "included": true
+  },
+  "perf.data": {
+    "kind": "file",
+    "bytes": 1030832,
+    "sha256": "429fb35827030db550ba1171c6765c033c1a8ab0e4e570f06b1f8d55ba19e3ec",
+    "included": true
+  },
+  "provenance-check.json": {
+    "kind": "file",
+    "bytes": 66,
+    "sha256": "47033c13fbb52709d26a213cb58837b4bbfd383a1c2ffa7e044538286cc0e240",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 12496,
+    "sha256": "a510b1d243716b42cb97a062ea2ed79b687ac7346ea6e8f1da77e92bdb605771",
+    "included": true
+  },
+  "source-0-new/src/execution/byte_sort_executor.rs": {
+    "kind": "file",
+    "bytes": 11604,
+    "sha256": "aec460ce34cfa9397c28f46dfd98ded5abfb2e6057335cbfe3ffa50e16c8d958",
+    "included": true
+  },
+  "source-0-new/src/ops/profile.rs": {
+    "kind": "file",
+    "bytes": 2186,
+    "sha256": "754dff75227328efd67d175a820927e3a16d78580b751f25f500032080e93d49",
+    "included": true
+  },
+  "source-0.patch": {
+    "kind": "file",
+    "bytes": 36636,
+    "sha256": "436ab73cc86b197007286d9ea1ad9df43deec7dec3bc52eed1f3e4ea201375d3",
+    "included": true
+  },
+  "source-1.patch": {
+    "kind": "file",
+    "bytes": 7732,
+    "sha256": "8b6dfc87c83db3b5b58e91ef305085c554df123bdf05255db1ae6624c776d48a",
+    "included": true
+  },
+  "source-2.patch": {
+    "kind": "file",
+    "bytes": 1516,
+    "sha256": "829c5c06e43c099a7fa961c49cbecaae1c13ef0c7b77336b78efb422049334a3",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 36,
+    "sha256": "33cbac1e18c738bdbfca16735524b1fb07370699aa5d3f2fbec7eed5aa3de5fd",
+    "included": true
+  }
+}

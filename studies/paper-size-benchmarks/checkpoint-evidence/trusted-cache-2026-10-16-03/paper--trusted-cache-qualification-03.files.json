@@ -1,0 +1,62 @@
+{
+  "binaries.json": {
+    "kind": "file",
+    "bytes": 162,
+    "sha256": "4621330f6fe7bb354e2a7f839a56d90861446c16865be5392f3849eaae859bcd",
+    "included": true
+  },
+  "commands.json": {
+    "kind": "file",
+    "bytes": 4645,
+    "sha256": "f5f8fd4d1429a1bfd381edc60e765a4033b606bb584b59deea69075d853e4aa3",
+    "included": true
+  },
+  "controller.py": {
+    "kind": "file",
+    "bytes": 6309,
+    "sha256": "96861a9c544315ddb34c88ac8ab5833051a5c3a5af5d4e797d80ce1227d134c0",
+    "included": true
+  },
+  "harness.log": {
+    "kind": "file",
+    "bytes": 811,
+    "sha256": "b5b865909c1f7af5014e67eca8e0ff3579ce9f286487fbf409417c63dee3c65b",
+    "included": true
+  },
+  "incr-integration.log": {
+    "kind": "file",
+    "bytes": 1425,
+    "sha256": "625ede8d2e45a1a7d29fabbf1fa1f0e46dc068cb05e3d286d54bc71d39a51044",
+    "included": true
+  },
+  "incr.patch": {
+    "kind": "file",
+    "bytes": 29342,
+    "sha256": "73bbb0f50a230b696c304dee09e86bc322978cd37ca88e8cdf8f1dc8977c9abf",
+    "included": true
+  },
+  "observe.patch": {
+    "kind": "file",
+    "bytes": 2847,
+    "sha256": "563080fa18263070319fe2939036b9c2af992cf93eb797572ba1b58ba0ed3b24",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 353,
+    "sha256": "932c710189b3f4213c1194322fc7cc544c7e3361da8a39532eeeb5d427e42c8f",
+    "included": true
+  },
+  "source-fingerprints.json": {
+    "kind": "file",
+    "bytes": 7433,
+    "sha256": "10522d785b8c0241f56a37eefbcb7319df7a323bf48b76301119e0effd892b2c",
+    "included": true
+  },
+  "status.json": {
+    "kind": "file",
+    "bytes": 130,
+    "sha256": "70e9f2d362f6a195f394173c161856b12f54b0a78fbc6184dbbe1419683a069b",
+    "included": true
+  }
+}

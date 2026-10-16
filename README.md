@@ -81,10 +81,10 @@ see the [minimum-input qualification results](qualification/results/2026-10-08/E
 
 ### Backend selection
 
-With annotations disabled, commands start in Observe mode. An observed execution
-without filesystem outputs creates a read-only witness for later invocations;
-Observe still traces unexpected writes and coordinates effects. Valid cache
-candidates can replay after dependency and complete-stdin validation.
+With annotations disabled, commands use Observe to trace filesystem accesses and
+coordinate effects. Valid cache candidates can replay after dependency and
+complete-stdin validation. Read-only witness files are no longer needed; the
+legacy `-o` / `--skip_introspection` option is accepted as a no-op.
 
 Static tool annotations are opt-in with `-a`. They can select read-only tracing
 or omit tracing for guarded stream-only system-tool forms. They are disabled in
@@ -103,6 +103,13 @@ This fallback works without the observe project. It adds sandbox setup and commi
 ---
 
 ## Cache correctness and execution limits
+
+The cache directory is trusted private state, as in original Incr. Cached stdout,
+stderr and filesystem payloads are not checksummed on capture or replay. Missing
+or nonregular payloads invalidate an entry, but externally modified bytes are
+outside this contract. Application inputs and replay preconditions are still
+validated independently. Cache format 34 and effect manifest 5 separate this
+representation from earlier checksum-bearing entries.
 
 Incr reuses deterministic command output when its arguments, environment, working
 directory, executable identity, umask, stdin and recorded filesystem dependencies match. Observe reports
@@ -174,12 +181,13 @@ entries. External network state, clocks and randomness are not general memoizati
 With `-a`, plain `cat` and simple alphanumeric `tr` translations can reuse independent
 chunks. `--assume-text` (or `INCR_ASSUME_TEXT=true`) additionally enables line-wise
 `rev` in the C/POSIX locale, assuming NUL-free ASCII input. Do not enable that
-assumption for arbitrary binary input. Chunk caches validate payloads and preserve
-output order, compression and command status.
+assumption for arbitrary binary input. Chunk caches preserve output order, compression and command status.
 
-Streaming stdin buffering keeps at most 64 MiB per stream queued in memory and spills excess
-input to an unlinked temporary file. Hashing can continue while a child reads
-slowly, and closing the process releases the spill file.
+Streaming stdin uses an in-memory queue, as in original Incr, so hashing can
+finish ahead of a slow child and cancel its execution on a cache hit. This
+assumes enough RAM for the queued input; large backlogs can consume substantial
+memory. Ordered speculative output retains a 64 MiB memory queue with an unlinked
+temporary file for overflow.
 
 Batch mode requires finite stdin and checks the cache before execution. Cache writers
 use nonblocking entry locks; contending commands execute with private temporary entries.

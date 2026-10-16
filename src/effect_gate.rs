@@ -8,6 +8,13 @@ use std::path::PathBuf;
 use std::ptr::NonNull;
 use std::sync::atomic::{AtomicU32, Ordering};
 
+const VERSION: u32 = 1;
+const MAPPING_BYTES: usize = 8;
+const RUNNING: u32 = 0;
+const REPLAY: u32 = 1;
+const LIVE: u32 = 2;
+const ATTACHING: u32 = 3;
+
 #[derive(Debug)]
 pub(crate) struct EffectGate {
     pub(crate) path: PathBuf,
@@ -29,12 +36,12 @@ impl EffectGate {
             .write(true)
             .create_new(true)
             .open(&path)?;
-        file.write_all(&1u32.to_ne_bytes())?;
-        file.write_all(&3u32.to_ne_bytes())?; // not ready until a compatible Observe attaches
+        file.write_all(&VERSION.to_ne_bytes())?;
+        file.write_all(&ATTACHING.to_ne_bytes())?; // not ready until a compatible Observe attaches
         let raw = unsafe {
             libc::mmap(
                 std::ptr::null_mut(),
-                8,
+                MAPPING_BYTES,
                 libc::PROT_READ | libc::PROT_WRITE,
                 libc::MAP_SHARED,
                 file.as_raw_fd(),
@@ -54,21 +61,21 @@ impl EffectGate {
 
     pub(crate) fn has_live_effects(&self) -> bool {
         let state = unsafe { &*self.mapping.as_ptr().cast::<AtomicU32>().add(1) };
-        state.load(Ordering::SeqCst) == 2
+        state.load(Ordering::SeqCst) == LIVE
     }
 
     /// Win the race against the first live effect. A losing execution must finish.
     pub(crate) fn claim_replay(&self) -> bool {
         let state = unsafe { &*self.mapping.as_ptr().cast::<AtomicU32>().add(1) };
         let deadline = std::time::Instant::now() + std::time::Duration::from_millis(100);
-        while state.load(Ordering::SeqCst) == 3 {
+        while state.load(Ordering::SeqCst) == ATTACHING {
             if std::time::Instant::now() >= deadline {
                 return false;
             }
             std::thread::sleep(std::time::Duration::from_micros(50));
         }
         state
-            .compare_exchange(0, 1, Ordering::SeqCst, Ordering::SeqCst)
+            .compare_exchange(RUNNING, REPLAY, Ordering::SeqCst, Ordering::SeqCst)
             .is_ok()
     }
 }
@@ -76,7 +83,7 @@ impl EffectGate {
 impl Drop for EffectGate {
     fn drop(&mut self) {
         unsafe {
-            libc::munmap(self.mapping.as_ptr(), 8);
+            libc::munmap(self.mapping.as_ptr(), MAPPING_BYTES);
         }
         let _ = fs::remove_file(&self.path);
     }

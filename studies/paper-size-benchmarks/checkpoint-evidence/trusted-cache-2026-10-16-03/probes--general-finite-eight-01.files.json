@@ -1,0 +1,1076 @@
+{
+  "configuration.json": {
+    "kind": "file",
+    "bytes": 447,
+    "sha256": "b8531e191e00dc2d19eb3d426b884c60554c89d0596fc2309224cba838955785",
+    "included": true
+  },
+  "events.jsonl": {
+    "kind": "file",
+    "bytes": 25565,
+    "sha256": "c742d7eef7ff81a91adffda9763501c0f81f1b5b7fa9f7e1ce0d8151aca08774",
+    "included": true
+  },
+  "frozen-build.json": {
+    "kind": "file",
+    "bytes": 15328,
+    "sha256": "2b0f188be7b5053d8153af0c122769451fa8f59c19a2b9f3902d8f9160de7a75",
+    "included": true
+  },
+  "inputs/covid.json": {
+    "kind": "file",
+    "bytes": 445,
+    "sha256": "d63a8dbbceadcb403b790f36fdb537e83ceae38dde4853a71163ef2ebd1e9ad3",
+    "included": true
+  },
+  "inputs/poet.json": {
+    "kind": "file",
+    "bytes": 453,
+    "sha256": "c3f6141a0ee0191fa0045a4727ccf72663e6acb5bc6993bb95bf712ebe17a48b",
+    "included": true
+  },
+  "inputs/weather.json": {
+    "kind": "file",
+    "bytes": 456,
+    "sha256": "27c72a569dcf98240cbc7136e34a9610b91209da6c893a0abe288bc39213cad0",
+    "included": true
+  },
+  "inputs/word-freq.json": {
+    "kind": "file",
+    "bytes": 449,
+    "sha256": "cbc7ee127a222059c2f50ea45c2d42759cec2943979d384023cfe064eef9cc54",
+    "included": true
+  },
+  "provenance-check.json": {
+    "kind": "file",
+    "bytes": 66,
+    "sha256": "20fa95703e7a08845e3f886c3f06ff1475f5857f37b14cbedb5a7ca985e9a80a",
+    "included": true
+  },
+  "provenance.json": {
+    "kind": "file",
+    "bytes": 12657,
+    "sha256": "a0f9c95db999ad04459586ffe3a243304546cd998cb2eb0c8b9f5de67d9e49a1",
+    "included": true
+  },
+  "references/covid/0.1.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "f31d0d6754bbe85e378e5c17efa06652b40d75ca172be41e8e96ac52e21ea8ae",
+    "included": true
+  },
+  "references/covid/0.2.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "bc98ae46ee1d73066db7f682f407d168ecc28779831ece89cf671077dae36240",
+    "included": true
+  },
+  "references/covid/0.3.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "e9298571052eef86e7e99ab0b8e2e5465f11d86d1d9aae52291925340e02673c",
+    "included": true
+  },
+  "references/covid/0.4.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "31e1ec219b5f2db444b6b8cd934a6a0c517e9bda4948d067249082940c292f13",
+    "included": true
+  },
+  "references/covid/0.5.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "4a633ed437a6bea63aaae9daed3b84152ae2d34a20dcdfcc93e902d4ea92fff2",
+    "included": true
+  },
+  "references/covid/1.1.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "f31d0d6754bbe85e378e5c17efa06652b40d75ca172be41e8e96ac52e21ea8ae",
+    "included": true
+  },
+  "references/covid/1.2.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "bc98ae46ee1d73066db7f682f407d168ecc28779831ece89cf671077dae36240",
+    "included": true
+  },
+  "references/covid/1.3.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "e9298571052eef86e7e99ab0b8e2e5465f11d86d1d9aae52291925340e02673c",
+    "included": true
+  },
+  "references/covid/1.4.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "31e1ec219b5f2db444b6b8cd934a6a0c517e9bda4948d067249082940c292f13",
+    "included": true
+  },
+  "references/covid/1.5.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "4a633ed437a6bea63aaae9daed3b84152ae2d34a20dcdfcc93e902d4ea92fff2",
+    "included": true
+  },
+  "references/poet/0.poet-1.sh.json": {
+    "kind": "file",
+    "bytes": 511,
+    "sha256": "5f14aa06c5fd10d28f367d8371839035dcd287ee1023add7f43fbd4192d33e21",
+    "included": true
+  },
+  "references/poet/0.poet-2.sh.json": {
+    "kind": "file",
+    "bytes": 674,
+    "sha256": "2f62bb412125b6e1bbcfcb08b6e9de47abd0464054b9b1b7e05713a90698fd8d",
+    "included": true
+  },
+  "references/poet/0.poet-3.sh.json": {
+    "kind": "file",
+    "bytes": 839,
+    "sha256": "baecd828fabb5a78763b14aa86d5b1a41dfadd0883acfaef0421f50e646b33b3",
+    "included": true
+  },
+  "references/poet/0.poet-4.sh.json": {
+    "kind": "file",
+    "bytes": 1004,
+    "sha256": "2d6704610479ffa015faca6596c5346cdee74a2f0ec8abc4743fc5f152f0607e",
+    "included": true
+  },
+  "references/poet/1.poet-1.sh.json": {
+    "kind": "file",
+    "bytes": 511,
+    "sha256": "5f14aa06c5fd10d28f367d8371839035dcd287ee1023add7f43fbd4192d33e21",
+    "included": true
+  },
+  "references/poet/1.poet-2.sh.json": {
+    "kind": "file",
+    "bytes": 674,
+    "sha256": "2f62bb412125b6e1bbcfcb08b6e9de47abd0464054b9b1b7e05713a90698fd8d",
+    "included": true
+  },
+  "references/poet/1.poet-3.sh.json": {
+    "kind": "file",
+    "bytes": 839,
+    "sha256": "baecd828fabb5a78763b14aa86d5b1a41dfadd0883acfaef0421f50e646b33b3",
+    "included": true
+  },
+  "references/poet/1.poet-4.sh.json": {
+    "kind": "file",
+    "bytes": 1004,
+    "sha256": "2d6704610479ffa015faca6596c5346cdee74a2f0ec8abc4743fc5f152f0607e",
+    "included": true
+  },
+  "references/weather/0.temp-analytics-1.sh.json": {
+    "kind": "file",
+    "bytes": 515,
+    "sha256": "9c8c5aedf51d278246206fcfc5852dab93edefbd8c612767ddabf28cb3262034",
+    "included": true
+  },
+  "references/weather/0.temp-analytics-2.sh.json": {
+    "kind": "file",
+    "bytes": 683,
+    "sha256": "94155fca3ba26b120112c877effaed7d98fd5961bd40dcae78da00da1005278b",
+    "included": true
+  },
+  "references/weather/0.temp-analytics-3.sh.json": {
+    "kind": "file",
+    "bytes": 855,
+    "sha256": "d68647ea911b3f03e1808222f3ad85796505f69aa576a1ce6a9176d21b994d46",
+    "included": true
+  },
+  "references/weather/1.temp-analytics-1.sh.json": {
+    "kind": "file",
+    "bytes": 515,
+    "sha256": "9c8c5aedf51d278246206fcfc5852dab93edefbd8c612767ddabf28cb3262034",
+    "included": true
+  },
+  "references/weather/1.temp-analytics-2.sh.json": {
+    "kind": "file",
+    "bytes": 683,
+    "sha256": "94155fca3ba26b120112c877effaed7d98fd5961bd40dcae78da00da1005278b",
+    "included": true
+  },
+  "references/weather/1.temp-analytics-3.sh.json": {
+    "kind": "file",
+    "bytes": 855,
+    "sha256": "d68647ea911b3f03e1808222f3ad85796505f69aa576a1ce6a9176d21b994d46",
+    "included": true
+  },
+  "references/word-freq/0.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "e5c1953908896a46a4802c26aab0721d136582758ed08d7568208aa655a6e136",
+    "included": true
+  },
+  "references/word-freq/0.wf.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "94a024dc1fce1e81148f49546c567ba4c9b7212a67bb88f41c6d128017000f16",
+    "included": true
+  },
+  "references/word-freq/1.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "e5c1953908896a46a4802c26aab0721d136582758ed08d7568208aa655a6e136",
+    "included": true
+  },
+  "references/word-freq/1.wf.sh.json": {
+    "kind": "file",
+    "bytes": 347,
+    "sha256": "94a024dc1fce1e81148f49546c567ba4c9b7212a67bb88f41c6d128017000f16",
+    "included": true
+  },
+  "report.md": {
+    "kind": "file",
+    "bytes": 854,
+    "sha256": "7ac6a01739e719cefc19b93807bc9fcfcf7ab933359ab6e56125ad82231c704c",
+    "included": true
+  },
+  "sequences/covid.bash.0/00.1.sh.json": {
+    "kind": "file",
+    "bytes": 2043,
+    "sha256": "91f02b0c9d8a0972d338b837d8f36f83214f21191948cc0dcc48e3e3c7cdbada",
+    "included": true
+  },
+  "sequences/covid.bash.0/01.2.sh.json": {
+    "kind": "file",
+    "bytes": 2046,
+    "sha256": "6eb37b6af5c4c77ed635b8026bddefd6b016943ad1e074e31d312f9e4228f23b",
+    "included": true
+  },
+  "sequences/covid.bash.0/02.3.sh.json": {
+    "kind": "file",
+    "bytes": 2047,
+    "sha256": "107750b8b4b04db6d6961e49b87857ec873655d83f0879b1cb97811fac29b9f3",
+    "included": true
+  },
+  "sequences/covid.bash.0/03.4.sh.json": {
+    "kind": "file",
+    "bytes": 2043,
+    "sha256": "f6ac247bcb260f5cfe29ccaaaaecb1ae873277ed06460f99e83c1c125e08f1f2",
+    "included": true
+  },
+  "sequences/covid.bash.0/04.5.sh.json": {
+    "kind": "file",
+    "bytes": 2045,
+    "sha256": "24c3d19d52a1fdee140ef22894b6c57e56a1355d7520c2225aa81873ba57453c",
+    "included": true
+  },
+  "sequences/covid.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 154,
+    "sha256": "28d4e2bcfa75a086a741908f1c98bb318963228e92c814df9ff33ef45ef78de9",
+    "included": true
+  },
+  "sequences/covid.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 2666,
+    "sha256": "f08e42ab072e1748336966a89dc6733300fbb91e87af576306151229a7066d44",
+    "included": true
+  },
+  "sequences/covid.bash.1/00.1.sh.json": {
+    "kind": "file",
+    "bytes": 2044,
+    "sha256": "a18298a5dbce36fe929c735abf698a1e74ddf68b22ca736627af9e59f15e3a8f",
+    "included": true
+  },
+  "sequences/covid.bash.1/01.2.sh.json": {
+    "kind": "file",
+    "bytes": 2046,
+    "sha256": "3f6f48e2c51b8074413b485712f291ddbc9f3e36bca55643ce15b6dc72763177",
+    "included": true
+  },
+  "sequences/covid.bash.1/02.3.sh.json": {
+    "kind": "file",
+    "bytes": 2046,
+    "sha256": "1da564db891f998397e183da47e906f84666917c1d71aa8396d99a4bd6610f47",
+    "included": true
+  },
+  "sequences/covid.bash.1/03.4.sh.json": {
+    "kind": "file",
+    "bytes": 2043,
+    "sha256": "4f0314aab3fb51c60de24916e11372b6b2b1474522ce65335f34a447c090dacb",
+    "included": true
+  },
+  "sequences/covid.bash.1/04.5.sh.json": {
+    "kind": "file",
+    "bytes": 2045,
+    "sha256": "67cbc05827f50d666b1f4bec6df86f706aa222d69d3ff3686c91d174f6001cd5",
+    "included": true
+  },
+  "sequences/covid.bash.1/complete.json": {
+    "kind": "file",
+    "bytes": 154,
+    "sha256": "2dc1154ed87e23da0624cba76aa4223e219a4583604ce7a49784e34e6a2e0afa",
+    "included": true
+  },
+  "sequences/covid.bash.1/setup.json": {
+    "kind": "file",
+    "bytes": 2666,
+    "sha256": "f08e42ab072e1748336966a89dc6733300fbb91e87af576306151229a7066d44",
+    "included": true
+  },
+  "sequences/covid.observe.0/00.1.sh.json": {
+    "kind": "file",
+    "bytes": 2177,
+    "sha256": "c9bdca2ed35f8f5c7b8bf1122bcec25d3437caa82302b85e495afb78ae39f792",
+    "included": true
+  },
+  "sequences/covid.observe.0/01.2.sh.json": {
+    "kind": "file",
+    "bytes": 2183,
+    "sha256": "e30513236bcbc3e7a085652e4c80b0df13938ae5bf4f6ddfed99c5a1ee0aab7b",
+    "included": true
+  },
+  "sequences/covid.observe.0/02.3.sh.json": {
+    "kind": "file",
+    "bytes": 2185,
+    "sha256": "f36d63792a16dfdd50ce8f12525c98a4fbaf9c662569e4b45fd877bc5e32f593",
+    "included": true
+  },
+  "sequences/covid.observe.0/03.4.sh.json": {
+    "kind": "file",
+    "bytes": 2183,
+    "sha256": "a3b8116fb4c289b0bfb828959cd79f4f720fe1f1dedca07f1c125280e50ba751",
+    "included": true
+  },
+  "sequences/covid.observe.0/04.5.sh.json": {
+    "kind": "file",
+    "bytes": 2183,
+    "sha256": "a566125f119de05196aa678a013a806e7b2d6e1de649cde142826a9fb151b9a0",
+    "included": true
+  },
+  "sequences/covid.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 164,
+    "sha256": "0ef8582f014e184a2d40c41fb86e26058ad16c0f69b8fb05ef15211b58fb9564",
+    "included": true
+  },
+  "sequences/covid.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 2666,
+    "sha256": "df95779d6ecd54a64e187e8766cba7db9eba7e18b62fceba427e6463943d9521",
+    "included": true
+  },
+  "sequences/covid.observe.1/00.1.sh.json": {
+    "kind": "file",
+    "bytes": 2176,
+    "sha256": "a5cc3f612b5a53be6a67fa1bb5b7f167258917cc8b1e0ace6f6d8be5e9a8e1e6",
+    "included": true
+  },
+  "sequences/covid.observe.1/01.2.sh.json": {
+    "kind": "file",
+    "bytes": 2181,
+    "sha256": "f254d1e4a9b9e0baf8fed9f2a9f1144f2384cc1bf4e40b3d169e9c5a7764ed5a",
+    "included": true
+  },
+  "sequences/covid.observe.1/02.3.sh.json": {
+    "kind": "file",
+    "bytes": 2185,
+    "sha256": "a27ea4641840f9f7b20c06c9e22f1887e002d1284a981a10910b9345cc40b343",
+    "included": true
+  },
+  "sequences/covid.observe.1/03.4.sh.json": {
+    "kind": "file",
+    "bytes": 2181,
+    "sha256": "a4424de73e7f890453e618afe729c5dcc41f4c8496310deef76ce89029ca0705",
+    "included": true
+  },
+  "sequences/covid.observe.1/04.5.sh.json": {
+    "kind": "file",
+    "bytes": 2182,
+    "sha256": "9827bcd63653755d9de796321c7b51cfe2b9a6dfcb629fffff929bee36bfa849",
+    "included": true
+  },
+  "sequences/covid.observe.1/complete.json": {
+    "kind": "file",
+    "bytes": 164,
+    "sha256": "0a20cfb92c265f8332c1be8867e6b6b898acc166d0092360ec353e3e98b54636",
+    "included": true
+  },
+  "sequences/covid.observe.1/setup.json": {
+    "kind": "file",
+    "bytes": 2666,
+    "sha256": "df95779d6ecd54a64e187e8766cba7db9eba7e18b62fceba427e6463943d9521",
+    "included": true
+  },
+  "sequences/covid.original.0/00.1.sh.json": {
+    "kind": "file",
+    "bytes": 2180,
+    "sha256": "218a1737b8f9d12fde69a7a612fe540f37e7c8dda23324dbd6441111e6a8c812",
+    "included": true
+  },
+  "sequences/covid.original.0/01.2.sh.json": {
+    "kind": "file",
+    "bytes": 2205,
+    "sha256": "c6449536e23f1ebd4219b9a64a99019aa4b07fe8e8d432e15963dd90ae7adab1",
+    "included": true
+  },
+  "sequences/covid.original.0/02.3.sh.json": {
+    "kind": "file",
+    "bytes": 2187,
+    "sha256": "82d6b117251347018d916b9e55e23ef53e7a2a29441c48971ae425e3e60a1ad6",
+    "included": true
+  },
+  "sequences/covid.original.0/03.4.sh.json": {
+    "kind": "file",
+    "bytes": 2206,
+    "sha256": "08dc0f890f97e5f3b29e96a7d11b501af636956ba13079f28851193e66903160",
+    "included": true
+  },
+  "sequences/covid.original.0/04.5.sh.json": {
+    "kind": "file",
+    "bytes": 2185,
+    "sha256": "a7b82390079f76c053e88704514aeca031c8bca9863e2fe8479b1bcdb272faf8",
+    "included": true
+  },
+  "sequences/covid.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 165,
+    "sha256": "3f1b2b5e24a6023f2e54fa80970d3815ca04f8a50401144ed9e9145133c6cfe5",
+    "included": true
+  },
+  "sequences/covid.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 2663,
+    "sha256": "7365d163c31ff3b2ac8aab1c6911f8541b12fe58e5ef38435fb3f957a5954501",
+    "included": true
+  },
+  "sequences/covid.original.1/00.1.sh.json": {
+    "kind": "file",
+    "bytes": 2181,
+    "sha256": "eafd6f0c0be2a9a86f8528823a3d4ccf0ea9d2f74020eb04f4375589facb068e",
+    "included": true
+  },
+  "sequences/covid.original.1/01.2.sh.json": {
+    "kind": "file",
+    "bytes": 2206,
+    "sha256": "488c8d04569c8170f6b94c299a1d3ffe3d4ec43de56b4405297c328ce0031c95",
+    "included": true
+  },
+  "sequences/covid.original.1/02.3.sh.json": {
+    "kind": "file",
+    "bytes": 2189,
+    "sha256": "2cde324ac460eebfa65f2d7ce33945e71253aef475b47618e1dde5d65a55b925",
+    "included": true
+  },
+  "sequences/covid.original.1/03.4.sh.json": {
+    "kind": "file",
+    "bytes": 2207,
+    "sha256": "4503d8d4d4a3345bed13cabd67a188f748aa83b473c8003eb6c88575106f004f",
+    "included": true
+  },
+  "sequences/covid.original.1/04.5.sh.json": {
+    "kind": "file",
+    "bytes": 2184,
+    "sha256": "3fb4da420dc22fb747946cb5009944aa76d10f4f74a70bf9ed46dcd861251c07",
+    "included": true
+  },
+  "sequences/covid.original.1/complete.json": {
+    "kind": "file",
+    "bytes": 165,
+    "sha256": "690e03568b1086b2a6d87e5b5f3ed1f0c10688fe228d5f9dcb2ec47aaf421f84",
+    "included": true
+  },
+  "sequences/covid.original.1/setup.json": {
+    "kind": "file",
+    "bytes": 2663,
+    "sha256": "7365d163c31ff3b2ac8aab1c6911f8541b12fe58e5ef38435fb3f957a5954501",
+    "included": true
+  },
+  "sequences/poet.bash.0/00.poet-1.sh.json": {
+    "kind": "file",
+    "bytes": 2228,
+    "sha256": "ea844393e36e90c17ea7933f895bf69b4b1780c88ccdc7bd1954e39613d353e9",
+    "included": true
+  },
+  "sequences/poet.bash.0/01.poet-2.sh.json": {
+    "kind": "file",
+    "bytes": 2401,
+    "sha256": "66b7218c895a99d670bdcaf5268741da91185b7189eed7ec916700bd7b481dc1",
+    "included": true
+  },
+  "sequences/poet.bash.0/02.poet-3.sh.json": {
+    "kind": "file",
+    "bytes": 2575,
+    "sha256": "e2c1d93d95e07777eead05efc89a0555ecf14fd173697ce7fd1c03c438c11b5b",
+    "included": true
+  },
+  "sequences/poet.bash.0/03.poet-4.sh.json": {
+    "kind": "file",
+    "bytes": 2749,
+    "sha256": "71d3dbb1009f6e83e7307eeee5929e9d57369634b8b97ff6e89880536a68acfa",
+    "included": true
+  },
+  "sequences/poet.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 152,
+    "sha256": "31e8ab3484dc9f81617524220a789c42a05e0e7fff917a05e51ff69948ebb62f",
+    "included": true
+  },
+  "sequences/poet.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 2631,
+    "sha256": "9b0cefed88be8258774e1ceed6fd56942ea79435052c0ce520dc8da38f4b59c3",
+    "included": true
+  },
+  "sequences/poet.bash.1/00.poet-1.sh.json": {
+    "kind": "file",
+    "bytes": 2228,
+    "sha256": "53c1a7b899ed19b9004ffca29913945fcba81d8e5e8352d887ef03b40c046275",
+    "included": true
+  },
+  "sequences/poet.bash.1/01.poet-2.sh.json": {
+    "kind": "file",
+    "bytes": 2401,
+    "sha256": "045c4ca052709cccecb1eb5afeed31c27dacabea3de252a02b23527fee004341",
+    "included": true
+  },
+  "sequences/poet.bash.1/02.poet-3.sh.json": {
+    "kind": "file",
+    "bytes": 2576,
+    "sha256": "1ea68130919a25e0c5aa27e0fed7d56c05902f1e17a8ece228e289037cedf8da",
+    "included": true
+  },
+  "sequences/poet.bash.1/03.poet-4.sh.json": {
+    "kind": "file",
+    "bytes": 2750,
+    "sha256": "7d472b6846bde1f748b0c5ae4499563c62d9886c741bf086ceeac57f11c855bf",
+    "included": true
+  },
+  "sequences/poet.bash.1/complete.json": {
+    "kind": "file",
+    "bytes": 152,
+    "sha256": "ff40aa6fc56fd4a1829afc3fe4bf8d7b11e7fc5ee81e92f2128332477b07943b",
+    "included": true
+  },
+  "sequences/poet.bash.1/setup.json": {
+    "kind": "file",
+    "bytes": 2631,
+    "sha256": "9b0cefed88be8258774e1ceed6fd56942ea79435052c0ce520dc8da38f4b59c3",
+    "included": true
+  },
+  "sequences/poet.observe.0/00.poet-1.sh.json": {
+    "kind": "file",
+    "bytes": 2364,
+    "sha256": "5714b69abd1deb97afecc37c235131de00ccec50a414e4e3c15ba3a5a097e217",
+    "included": true
+  },
+  "sequences/poet.observe.0/01.poet-2.sh.json": {
+    "kind": "file",
+    "bytes": 2534,
+    "sha256": "e9dfebbdacf299634d18e238ac2cb7eb9b913b7f86063c1d5ba109952590a946",
+    "included": true
+  },
+  "sequences/poet.observe.0/02.poet-3.sh.json": {
+    "kind": "file",
+    "bytes": 2711,
+    "sha256": "7aa495c27a6eec75403ad141f0e7e33b14e5bd907b5f480970d4cf62d92ef2ae",
+    "included": true
+  },
+  "sequences/poet.observe.0/03.poet-4.sh.json": {
+    "kind": "file",
+    "bytes": 2884,
+    "sha256": "319302ef19a936203f084466c7fc6ed220e15f9b930f60d73a145c716a33a866",
+    "included": true
+  },
+  "sequences/poet.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 162,
+    "sha256": "7538f7ebe8036fda23f1f1d0f97b046fc9b1623294bdff85882425461115748c",
+    "included": true
+  },
+  "sequences/poet.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 2631,
+    "sha256": "db3a8d846d448b6acafbfb44e3c67ef366dc4f26347754b2a4a8ca54d45bde87",
+    "included": true
+  },
+  "sequences/poet.observe.1/00.poet-1.sh.json": {
+    "kind": "file",
+    "bytes": 2363,
+    "sha256": "be57914ac1897ed79b249e0101b0cd6cb9bb31ffb229453a99f4dab1faa37fa3",
+    "included": true
+  },
+  "sequences/poet.observe.1/01.poet-2.sh.json": {
+    "kind": "file",
+    "bytes": 2534,
+    "sha256": "3d17159c7c20a2da13808258361e51f7a01c0c3cd1278bf0c5d1b919115b9a1f",
+    "included": true
+  },
+  "sequences/poet.observe.1/02.poet-3.sh.json": {
+    "kind": "file",
+    "bytes": 2712,
+    "sha256": "a01ee54934c20b69e0ef4673441da6453d8b61489535dfebacc0cb4be407a6a2",
+    "included": true
+  },
+  "sequences/poet.observe.1/03.poet-4.sh.json": {
+    "kind": "file",
+    "bytes": 2885,
+    "sha256": "77cad70d25414b2a94d2b5615f3e094b0e80c205f70662259e6c7bb365368825",
+    "included": true
+  },
+  "sequences/poet.observe.1/complete.json": {
+    "kind": "file",
+    "bytes": 163,
+    "sha256": "d0de0b2893e48e0504c807d1f049be086f1b48b4fc5169258e837bc572d8887c",
+    "included": true
+  },
+  "sequences/poet.observe.1/setup.json": {
+    "kind": "file",
+    "bytes": 2631,
+    "sha256": "db3a8d846d448b6acafbfb44e3c67ef366dc4f26347754b2a4a8ca54d45bde87",
+    "included": true
+  },
+  "sequences/poet.original.0/00.poet-1.sh.json": {
+    "kind": "file",
+    "bytes": 2364,
+    "sha256": "307bca23ae61aa6b87c41d4904ae4f0dfb0b64d40f082776f588fce1059c71db",
+    "included": true
+  },
+  "sequences/poet.original.0/01.poet-2.sh.json": {
+    "kind": "file",
+    "bytes": 2537,
+    "sha256": "7e1f4b382f03269aa6bbf4203996d2296b399157959f5c5f77745e390e7d34f1",
+    "included": true
+  },
+  "sequences/poet.original.0/02.poet-3.sh.json": {
+    "kind": "file",
+    "bytes": 2711,
+    "sha256": "c661d882facc069a4e36fc07530e35c481ad5d44042b9b9f444cf21dd1c4fc16",
+    "included": true
+  },
+  "sequences/poet.original.0/03.poet-4.sh.json": {
+    "kind": "file",
+    "bytes": 2886,
+    "sha256": "7b313619bcf709328a6c3e57857522bea5c63e77b3eec69a5d456a3e5a1c7ef6",
+    "included": true
+  },
+  "sequences/poet.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 164,
+    "sha256": "c528e31789fcd1c8b2c095b89afbb8d09d72cbe44f5db87a42f9ba016b416d97",
+    "included": true
+  },
+  "sequences/poet.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 2628,
+    "sha256": "e5e77bcead0d62a8c0c8bc4ee6deabffc68b765be8d8738ac62a70332a3234d5",
+    "included": true
+  },
+  "sequences/poet.original.1/00.poet-1.sh.json": {
+    "kind": "file",
+    "bytes": 2362,
+    "sha256": "ae71676b0f41df3a6fde026fe94b37d7eac8f331c38f149e0a18a0c5a4d48edc",
+    "included": true
+  },
+  "sequences/poet.original.1/01.poet-2.sh.json": {
+    "kind": "file",
+    "bytes": 2537,
+    "sha256": "c020fc0fb54876c9c6b644e3b9cffcda5bb96dbfa5ef253ec9cd27d5c8127361",
+    "included": true
+  },
+  "sequences/poet.original.1/02.poet-3.sh.json": {
+    "kind": "file",
+    "bytes": 2711,
+    "sha256": "0638c9b05a70cd696ac810ef67c77620a754839131e36d6a9b5ad7245662e77a",
+    "included": true
+  },
+  "sequences/poet.original.1/03.poet-4.sh.json": {
+    "kind": "file",
+    "bytes": 2887,
+    "sha256": "f834cf0420f1409d4007297d9e540fae1f4c5803127037c2521e53209252882a",
+    "included": true
+  },
+  "sequences/poet.original.1/complete.json": {
+    "kind": "file",
+    "bytes": 163,
+    "sha256": "07501d780992266501387b98383d07785eac095381654ce52a54990c83eb53fd",
+    "included": true
+  },
+  "sequences/poet.original.1/setup.json": {
+    "kind": "file",
+    "bytes": 2628,
+    "sha256": "e5e77bcead0d62a8c0c8bc4ee6deabffc68b765be8d8738ac62a70332a3234d5",
+    "included": true
+  },
+  "sequences/weather.bash.0/00.temp-analytics-1.sh.json": {
+    "kind": "file",
+    "bytes": 2252,
+    "sha256": "d493b77c879b877e0fe01839041edfc91d2e3106e7cdba697922f77165e4404a",
+    "included": true
+  },
+  "sequences/weather.bash.0/01.temp-analytics-2.sh.json": {
+    "kind": "file",
+    "bytes": 2430,
+    "sha256": "4c15632342d07ada3ab08599ae42e555ede9a357cf50c7f15de6ad1368c71037",
+    "included": true
+  },
+  "sequences/weather.bash.0/02.temp-analytics-3.sh.json": {
+    "kind": "file",
+    "bytes": 2612,
+    "sha256": "3948bb15938deaa0496b1b58d3d9dc8fb520323e7cd04154ae10ebaa7eda6c42",
+    "included": true
+  },
+  "sequences/weather.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 157,
+    "sha256": "94367ae040e3f28d3bde505c48b2b373e33120547c4646a4331a3682c9f248b2",
+    "included": true
+  },
+  "sequences/weather.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 3245,
+    "sha256": "18e8685523ccc9d26f3f5dc1af2c9195cc8edcb6e80e35b64455a091b39be3e1",
+    "included": true
+  },
+  "sequences/weather.bash.1/00.temp-analytics-1.sh.json": {
+    "kind": "file",
+    "bytes": 2252,
+    "sha256": "c9eb246e9e764364d79dfe6b6d8a006fba64075ded3c2bff7d33fa09344b7d9c",
+    "included": true
+  },
+  "sequences/weather.bash.1/01.temp-analytics-2.sh.json": {
+    "kind": "file",
+    "bytes": 2431,
+    "sha256": "2412f770451df264001de75f10792119b65da17acc6851807d94cdc9a749c713",
+    "included": true
+  },
+  "sequences/weather.bash.1/02.temp-analytics-3.sh.json": {
+    "kind": "file",
+    "bytes": 2611,
+    "sha256": "d1c92d7325fbd3ed97eddfb4af872bd2b2646fe892ff3f18ade4812a11c1ab4f",
+    "included": true
+  },
+  "sequences/weather.bash.1/complete.json": {
+    "kind": "file",
+    "bytes": 156,
+    "sha256": "f0fa85b888a4048df9180db2fd0feece3a4278add3ef0f04a7f76f1e8e6393b6",
+    "included": true
+  },
+  "sequences/weather.bash.1/setup.json": {
+    "kind": "file",
+    "bytes": 3245,
+    "sha256": "18e8685523ccc9d26f3f5dc1af2c9195cc8edcb6e80e35b64455a091b39be3e1",
+    "included": true
+  },
+  "sequences/weather.observe.0/00.temp-analytics-1.sh.json": {
+    "kind": "file",
+    "bytes": 2384,
+    "sha256": "4e1b1315a1adf518999d23c84bb19248d9372faca53e0ea7dd5b6c66ad0616b4",
+    "included": true
+  },
+  "sequences/weather.observe.0/01.temp-analytics-2.sh.json": {
+    "kind": "file",
+    "bytes": 2562,
+    "sha256": "c4897c62e02237a8fd73bbb6a20b44f8a8ca4ade29be52b662136b9e6081d87b",
+    "included": true
+  },
+  "sequences/weather.observe.0/02.temp-analytics-3.sh.json": {
+    "kind": "file",
+    "bytes": 2744,
+    "sha256": "4b94b4274347a9f83817fe169b9ef0cd43767411eb69749f800fac520b6bc743",
+    "included": true
+  },
+  "sequences/weather.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 164,
+    "sha256": "b06b4259919075121e1755a28a72806790c54b3bac95f6820bc51066364072c3",
+    "included": true
+  },
+  "sequences/weather.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 3245,
+    "sha256": "d419108f3108018143fdfa035a621712c3bf3b6272aad060c299079c6b71915b",
+    "included": true
+  },
+  "sequences/weather.observe.1/00.temp-analytics-1.sh.json": {
+    "kind": "file",
+    "bytes": 2383,
+    "sha256": "1a1aa7e2a393ea6cd108c6168395ae95e5e633c03b75d81f4e18912f11843497",
+    "included": true
+  },
+  "sequences/weather.observe.1/01.temp-analytics-2.sh.json": {
+    "kind": "file",
+    "bytes": 2562,
+    "sha256": "792f5de7629ba7d200e232c0114fb406f4e457253c6fc4f3c3779f801e1ccb10",
+    "included": true
+  },
+  "sequences/weather.observe.1/02.temp-analytics-3.sh.json": {
+    "kind": "file",
+    "bytes": 2743,
+    "sha256": "f005df9c35abfab6d472d8e2d333a4cfd586bb47200e3472ea7a91c94152f65d",
+    "included": true
+  },
+  "sequences/weather.observe.1/complete.json": {
+    "kind": "file",
+    "bytes": 165,
+    "sha256": "431e010f157980e6e7355edda16c1789bf806d9e38bcdaeff2c7f1ec2f01e0cd",
+    "included": true
+  },
+  "sequences/weather.observe.1/setup.json": {
+    "kind": "file",
+    "bytes": 3245,
+    "sha256": "d419108f3108018143fdfa035a621712c3bf3b6272aad060c299079c6b71915b",
+    "included": true
+  },
+  "sequences/weather.original.0/00.temp-analytics-1.sh.json": {
+    "kind": "file",
+    "bytes": 2384,
+    "sha256": "be7f8031614952c17616cbaf65cb58f7807d363a12e7df60b4f5aeeeee91ebaa",
+    "included": true
+  },
+  "sequences/weather.original.0/01.temp-analytics-2.sh.json": {
+    "kind": "file",
+    "bytes": 2561,
+    "sha256": "1916e035481ecddcb51fbf7149289eb536f0440376c1256988ebc1eb2c18db42",
+    "included": true
+  },
+  "sequences/weather.original.0/02.temp-analytics-3.sh.json": {
+    "kind": "file",
+    "bytes": 2745,
+    "sha256": "926945149741f852183cc0d526f36bd261cce3f69ad7f4bd183a99681a7ef0e0",
+    "included": true
+  },
+  "sequences/weather.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 165,
+    "sha256": "1d5f7e54353017c33e7654dd0daf32167f38df7214362337ae7fbeadf12331b8",
+    "included": true
+  },
+  "sequences/weather.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 3242,
+    "sha256": "858ef07f38a01e7ac3221ffd4d71f7ac9f72b3824a5185c57253d8beaf7045f1",
+    "included": true
+  },
+  "sequences/weather.original.1/00.temp-analytics-1.sh.json": {
+    "kind": "file",
+    "bytes": 2382,
+    "sha256": "a6859ab0398241bd8be8a2242c8e9fb5dee355020d9e5efaa69249a7c7145fb9",
+    "included": true
+  },
+  "sequences/weather.original.1/01.temp-analytics-2.sh.json": {
+    "kind": "file",
+    "bytes": 2564,
+    "sha256": "26ec11c253414895c51accd8b682f4f30f96bd788ce3d632074cd512e2f8a6a4",
+    "included": true
+  },
+  "sequences/weather.original.1/02.temp-analytics-3.sh.json": {
+    "kind": "file",
+    "bytes": 2768,
+    "sha256": "da425f57ba88ec9132dbaccd613449ab0b10a31788ebc2700c6ed8d363c13072",
+    "included": true
+  },
+  "sequences/weather.original.1/complete.json": {
+    "kind": "file",
+    "bytes": 165,
+    "sha256": "049a7e4a2573e3742c795b45817ee1795ba67eaa54f85886ee75362f15036389",
+    "included": true
+  },
+  "sequences/weather.original.1/setup.json": {
+    "kind": "file",
+    "bytes": 3242,
+    "sha256": "858ef07f38a01e7ac3221ffd4d71f7ac9f72b3824a5185c57253d8beaf7045f1",
+    "included": true
+  },
+  "sequences/word-freq.bash.0/00.wf.sh.json": {
+    "kind": "file",
+    "bytes": 2055,
+    "sha256": "74176db1169536286b3c181dcf51d7ac8bdc9c62c869b1a2198ac0315729a62e",
+    "included": true
+  },
+  "sequences/word-freq.bash.0/01.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 2061,
+    "sha256": "5a388868a63277f31c6275ef44c17fa6074179b37e000eaeea40a3f08b08d9ee",
+    "included": true
+  },
+  "sequences/word-freq.bash.0/complete.json": {
+    "kind": "file",
+    "bytes": 158,
+    "sha256": "2418b051b964de9b47b02e9a994fa377a7a8f5ae0d0494136fed162ffbfe870f",
+    "included": true
+  },
+  "sequences/word-freq.bash.0/setup.json": {
+    "kind": "file",
+    "bytes": 2429,
+    "sha256": "8ccc6f2479eb33d3983ee8b60e56a97a52d826a880b911cb96e487ccf720c1a3",
+    "included": true
+  },
+  "sequences/word-freq.bash.1/00.wf.sh.json": {
+    "kind": "file",
+    "bytes": 2056,
+    "sha256": "8e46490d7249d978724a785ed700b7ee0cc83d4c6375a4f164363d7fcc8af3bc",
+    "included": true
+  },
+  "sequences/word-freq.bash.1/01.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 2060,
+    "sha256": "6ec1ec85753705b8e3dd9de546b9f7d97325b09196fcd3a80afc5542363eda96",
+    "included": true
+  },
+  "sequences/word-freq.bash.1/complete.json": {
+    "kind": "file",
+    "bytes": 157,
+    "sha256": "1f21520ba0a2367bc2c4624b170d0bde16d5a1608f54a9fb7f84569c46486f1e",
+    "included": true
+  },
+  "sequences/word-freq.bash.1/setup.json": {
+    "kind": "file",
+    "bytes": 2429,
+    "sha256": "8ccc6f2479eb33d3983ee8b60e56a97a52d826a880b911cb96e487ccf720c1a3",
+    "included": true
+  },
+  "sequences/word-freq.observe.0/00.wf.sh.json": {
+    "kind": "file",
+    "bytes": 2193,
+    "sha256": "35691e21905bd826837b1d5c7b88715abec0ffa6c6720c6c188ca2a0a4f534c7",
+    "included": true
+  },
+  "sequences/word-freq.observe.0/01.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 2193,
+    "sha256": "e8f0a1e2b49a8bc19e69241c227710262b8feb451507dc4f4b45d20f50ce28ef",
+    "included": true
+  },
+  "sequences/word-freq.observe.0/complete.json": {
+    "kind": "file",
+    "bytes": 168,
+    "sha256": "b30fa1fcb75669e2fe60f6fe8db71cf17fe634933d35f0576e1fb9a16afc2ad4",
+    "included": true
+  },
+  "sequences/word-freq.observe.0/setup.json": {
+    "kind": "file",
+    "bytes": 2429,
+    "sha256": "24c7fad3fe02656dd5fa1215e9134f925b9a4e61942816ec5e344356abb56e61",
+    "included": true
+  },
+  "sequences/word-freq.observe.1/00.wf.sh.json": {
+    "kind": "file",
+    "bytes": 2193,
+    "sha256": "ba075a17f7406c8636d00e49e49752327ef087de8f42329346c2d0cb6ff596f8",
+    "included": true
+  },
+  "sequences/word-freq.observe.1/01.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 2194,
+    "sha256": "b4a01bd4ab7c16424919059db05df329716500f6a97d6feeba46cebce2625f18",
+    "included": true
+  },
+  "sequences/word-freq.observe.1/complete.json": {
+    "kind": "file",
+    "bytes": 168,
+    "sha256": "65939f3300504004a05633857e1e6764fa8257bdee6098be8c56ef2f8b10beb2",
+    "included": true
+  },
+  "sequences/word-freq.observe.1/setup.json": {
+    "kind": "file",
+    "bytes": 2429,
+    "sha256": "24c7fad3fe02656dd5fa1215e9134f925b9a4e61942816ec5e344356abb56e61",
+    "included": true
+  },
+  "sequences/word-freq.original.0/00.wf.sh.json": {
+    "kind": "file",
+    "bytes": 2193,
+    "sha256": "36f1a46631bee07818b01b6fa26c27b602babde1b4309009fd272b5ea61b5daa",
+    "included": true
+  },
+  "sequences/word-freq.original.0/01.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 2197,
+    "sha256": "1d4416b13edf1007eebc6dec4c65aea1a718fdad0a35bd99f01bbe73e12a37c0",
+    "included": true
+  },
+  "sequences/word-freq.original.0/complete.json": {
+    "kind": "file",
+    "bytes": 169,
+    "sha256": "b1d4ea936e4fccd6baa95bd6f6d71535f11a60466666b290e2e189698cb38fee",
+    "included": true
+  },
+  "sequences/word-freq.original.0/setup.json": {
+    "kind": "file",
+    "bytes": 2426,
+    "sha256": "8518354c5dab4b5bcd107626a532e5d9ab1873affd9fed5d08adbf0dd04de1f1",
+    "included": true
+  },
+  "sequences/word-freq.original.1/00.wf.sh.json": {
+    "kind": "file",
+    "bytes": 2193,
+    "sha256": "a1f4723e9bcdc45a88cc7f32c165395f08216c5bd13d69b699126fd73155b4ea",
+    "included": true
+  },
+  "sequences/word-freq.original.1/01.top-n.sh.json": {
+    "kind": "file",
+    "bytes": 2198,
+    "sha256": "702bb320340c26345f29bfeaa5ec77d40a62305c7d1b96a7c7d45322c5dbf9b2",
+    "included": true
+  },
+  "sequences/word-freq.original.1/complete.json": {
+    "kind": "file",
+    "bytes": 169,
+    "sha256": "cc6b7993c56981d35bcaef49781015bc52d18a0fa79faefee76fac0cc189eb93",
+    "included": true
+  },
+  "sequences/word-freq.original.1/setup.json": {
+    "kind": "file",
+    "bytes": 2426,
+    "sha256": "8518354c5dab4b5bcd107626a532e5d9ab1873affd9fed5d08adbf0dd04de1f1",
+    "included": true
+  },
+  "source-0.patch": {
+    "kind": "file",
+    "bytes": 17451,
+    "sha256": "f95d102632266785b79a2e099a203d105f9dd38a0f67512700fd24a466a2633e",
+    "included": true
+  },
+  "source-1.patch": {
+    "kind": "file",
+    "bytes": 6937,
+    "sha256": "75c79ae21da612076c710177db34ccdad8984ae1bbdfc3bd6c2d21400bd9efac",
+    "included": true
+  },
+  "source-2.patch": {
+    "kind": "file",
+    "bytes": 1516,
+    "sha256": "829c5c06e43c099a7fa961c49cbecaae1c13ef0c7b77336b78efb422049334a3",
+    "included": true
+  },
+  "sources/candidate.tar.gz": {
+    "kind": "file",
+    "bytes": 75868,
+    "sha256": "c78e2cdf663cf508e5dc8d92d5167b1c7b760252b9c1c641723044c4174e02d6",
+    "included": true
+  },
+  "sources/observe.tar.gz": {
+    "kind": "file",
+    "bytes": 34793,
+    "sha256": "1f58021b5fb68b09f9257a4f2272a9116530af19e7474554155ddad7f3c9994c",
+    "included": true
+  },
+  "sources/original.tar.gz": {
+    "kind": "file",
+    "bytes": 49622,
+    "sha256": "75cb0b17eda5ab0ada825eca0f948bb9f9b278c69108896a156e96972c84b3fb",
+    "included": true
+  },
+  "status.json": {
+    "kind": "file",
+    "bytes": 102,
+    "sha256": "3f7d9d2e2df0f9b179ead0ed4266f6151d7292d6f3a75b47cc9355efd1f88415",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 23316,
+    "sha256": "7ab462cca152526174f0cf8caed5901e5872826ccf881f10df1318a6d6537956",
+    "included": true
+  },
+  "timings.csv": {
+    "kind": "file",
+    "bytes": 23173,
+    "sha256": "6e5006c63e92e766114374aee5f9bc8ad3ae61c99e55959c052bd1fcec37ab93",
+    "included": true
+  }
+}

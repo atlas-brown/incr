@@ -41,7 +41,6 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
         CommandResult::BrokenPipe => return Ok(BROKEN_PIPE_CODE),
     };
     cache.save_data(&cache_data)?;
-    dependency::save_introspection(config, command, &cache_data)?;
 
     Ok(if broken_pipe {
         BROKEN_PIPE_CODE

@@ -1,6 +1,6 @@
 use anyhow::Result;
 use std::collections::{HashMap, HashSet};
-use std::fs::{self, File};
+use std::fs;
 use std::io::{BufReader, ErrorKind};
 use std::os::unix::fs::{MetadataExt, OpenOptionsExt};
 use std::path::{Path, PathBuf};
@@ -8,8 +8,7 @@ use std::time::UNIX_EPOCH;
 
 use crate::cache::batch_cache::CacheCursor;
 use crate::cache::{CacheData, DependencyKey};
-use crate::command::Command;
-use crate::config::{BUFFER_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, INTROSPECT_DIRECTORY};
+use crate::config::{BUFFER_SIZE, DYNAMIC_EXCLUDED_PATHS};
 use crate::ops;
 
 pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {
@@ -339,34 +338,10 @@ fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
     Ok(Some(ops::data::hash_stream(&mut file_reader)?))
 }
 
-pub(crate) fn save_introspection(config: &Config, command: &Command, cache_data: &CacheData) -> Result<()> {
-    if config.skip_introspection {
-        return Ok(());
-    }
-
-    let introspect_file = get_introspect_file(&config.cache_directory, command.hash);
-    if let Some(parent) = introspect_file.parent() {
-        fs::create_dir_all(parent)?;
-    }
-    if cache_data.write_outputs.is_empty() {
-        File::create(&introspect_file)?;
-    } else if introspect_file.exists() {
-        ops::file::remove_file(&introspect_file)?;
-    }
-
-    Ok(())
-}
-
-pub(crate) fn get_introspect_file(cache_directory: &Path, command_hash: u64) -> PathBuf {
-    cache_directory
-        .join(INTROSPECT_DIRECTORY)
-        .join(format!("command_{command_hash}.incr"))
-}
-
 #[cfg(test)]
 mod content_input_tests {
     use super::*;
-    use std::fs::{FileTimes, Permissions};
+    use std::fs::{File, FileTimes, Permissions};
     use std::os::unix::fs::PermissionsExt;
 
     #[test]

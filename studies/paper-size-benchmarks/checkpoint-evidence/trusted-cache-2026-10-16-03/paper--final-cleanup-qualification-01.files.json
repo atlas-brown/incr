@@ -1,0 +1,110 @@
+{
+  "cleanup-scope.json": {
+    "kind": "file",
+    "bytes": 946,
+    "sha256": "5d44ae6af6d4a0e63b9870c9f97cf00682c449da2ce0431092c2a32e73724e9c",
+    "included": true
+  },
+  "dpt-driver.py": {
+    "kind": "file",
+    "bytes": 3336,
+    "sha256": "ea3d620b3ce7e217afaeda15012456d93eead14ff09f4e1290289e70c2c133ac",
+    "included": true
+  },
+  "final-cleanup-default-bash-full.log": {
+    "kind": "file",
+    "bytes": 39428,
+    "sha256": "9450d4db506b3602bd188a526187163dbcc3b2f7ff5051ea497c5cec8c8f25af",
+    "included": true
+  },
+  "final-cleanup-system-analysis.log": {
+    "kind": "file",
+    "bytes": 5492,
+    "sha256": "0af19df92a13fde15ff0259babaa4650805babd5eabacdd50913cee221a12e8d",
+    "included": true
+  },
+  "final-cleanup-system-bash-full.log": {
+    "kind": "file",
+    "bytes": 38931,
+    "sha256": "bb13d54c96ade17dc6bc2fecc3f0f144d05318ef92b30911b1fe9b5436018cda",
+    "included": true
+  },
+  "incr-clippy-before.log": {
+    "kind": "file",
+    "bytes": 3690,
+    "sha256": "c3f028ff9b752712b78e6de810d5618dec53d88dbca7f5e6b5a2d9f75cbafd7b",
+    "included": true
+  },
+  "incr-clippy.log": {
+    "kind": "file",
+    "bytes": 123,
+    "sha256": "d52b770612efddf1d2433b4fbef1a8f2804718989838f96eade564c9a942f211",
+    "included": true
+  },
+  "incr-rust.log": {
+    "kind": "file",
+    "bytes": 3592,
+    "sha256": "5bc33e9c7de55d857a51e53a297c9e9478b96619489e3f957836c407ea0d9edb",
+    "included": true
+  },
+  "native-frontend.log": {
+    "kind": "file",
+    "bytes": 98,
+    "sha256": "143fec4643b8ea266b32b2e95717ef6897a33f4848984c2ca5fcfd8f7d846d39",
+    "included": true
+  },
+  "observe-clippy-before.log": {
+    "kind": "file",
+    "bytes": 867,
+    "sha256": "0647af1c29b7d7baa135905ae7c4afa77e1b1efea83dfbfd257179342f39f8ec",
+    "included": true
+  },
+  "observe-clippy.log": {
+    "kind": "file",
+    "bytes": 129,
+    "sha256": "36c518d00c458472a8cc1b216712e43601e9cfdcdd59d258055c411cb1cf5b6b",
+    "included": true
+  },
+  "observe-integration.log": {
+    "kind": "file",
+    "bytes": 1398,
+    "sha256": "107c02556ad384376aa711bc3089cacf4e8a4aba1c5aee194686091cf661a6bd",
+    "included": true
+  },
+  "observe-rust.log": {
+    "kind": "file",
+    "bytes": 899,
+    "sha256": "72aa2887a3ad9205d86a5f85d9629f66913633d509f7ef6de3c08d2f4f3bb765",
+    "included": true
+  },
+  "pre-style/scope.json": {
+    "kind": "file",
+    "bytes": 227,
+    "sha256": "6e433a7ff020a32f7fedf61c6361a6f2a6ee605c05c637225ee2c1f94d45a67b",
+    "included": true
+  },
+  "pre-style/shell-ast-tests.json": {
+    "kind": "file",
+    "bytes": 46308,
+    "sha256": "cb5e4142e2d27bea387a79e75a923f03e3e089cfa2ea5a9f7e0df2d665dc9479",
+    "included": true
+  },
+  "qualification-queue.json": {
+    "kind": "file",
+    "bytes": 10626,
+    "sha256": "48676ade9e08cd4c21f729ca990abfc09b2ea1dc9fb175e15cc340749c81c140",
+    "included": true
+  },
+  "queue.py": {
+    "kind": "file",
+    "bytes": 4470,
+    "sha256": "817a02064ffbe615ecb8485b3caefecda049f78a79f1c0b65ef441c27530b247",
+    "included": true
+  },
+  "shell-ast.log": {
+    "kind": "file",
+    "bytes": 110,
+    "sha256": "23d66650b65c55780604c6bfb813357cb2286adc5d32cbfb72383816a21ce89b",
+    "included": true
+  }
+}

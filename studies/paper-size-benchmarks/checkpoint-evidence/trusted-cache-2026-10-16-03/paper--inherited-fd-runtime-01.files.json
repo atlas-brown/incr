@@ -1,0 +1,188 @@
+{
+  "dup-cache/batch_12451282721661802355/stderr.incr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "dup-cache/batch_12451282721661802355/stdout.incr": {
+    "kind": "file",
+    "bytes": 1,
+    "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+    "included": true
+  },
+  "dup-cache/introspect/command_14491596406619017248.incr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "dup-cache/locks/batch_12451282721661802355.lock": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "fork-cache/batch_463219343918587348/stderr.incr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "fork-cache/batch_463219343918587348/stdout.incr": {
+    "kind": "file",
+    "bytes": 1,
+    "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+    "included": true
+  },
+  "fork-cache/introspect/command_993504424083402459.incr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "fork-cache/locks/batch_463219343918587348.lock": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "input": {
+    "kind": "file",
+    "bytes": 3,
+    "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+    "included": true
+  },
+  "mmap-cache/batch_3128891390396393148/stderr.incr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "mmap-cache/batch_3128891390396393148/stdout.incr": {
+    "kind": "file",
+    "bytes": 1,
+    "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+    "included": true
+  },
+  "mmap-cache/introspect/command_11399764690822413077.incr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "mmap-cache/locks/batch_3128891390396393148.lock": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "pread-cache/batch_8141965412731914505/stderr.incr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "pread-cache/batch_8141965412731914505/stdout.incr": {
+    "kind": "file",
+    "bytes": 1,
+    "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+    "included": true
+  },
+  "pread-cache/introspect/command_13950818081774586549.incr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "pread-cache/locks/batch_8141965412731914505.lock": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "probe": {
+    "kind": "file",
+    "bytes": 16416,
+    "sha256": "e60371e2e1e70f54ea20bfacd2b368048f374bfaf370d86d4a83a6afdb7259c3",
+    "included": true
+  },
+  "probe.c": {
+    "kind": "file",
+    "bytes": 638,
+    "sha256": "899d7563e17922f5f022a9a1bed034ed8a22ca2bf4f6dc4bd3d290aeb760599e",
+    "included": true
+  },
+  "read-cache/batch_3485227239877619429/stderr.incr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "read-cache/batch_3485227239877619429/stdout.incr": {
+    "kind": "file",
+    "bytes": 1,
+    "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+    "included": true
+  },
+  "read-cache/introspect/command_7606155785616410787.incr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "read-cache/locks/batch_3485227239877619429.lock": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "summary.json": {
+    "kind": "file",
+    "bytes": 3013,
+    "sha256": "c143867e8151db120231fbe57c66e925cb92df7b257f6445ee8fde3a58dfe0c7",
+    "included": true
+  },
+  "unused-cache/batch_12225584187868460623/data.incr": {
+    "kind": "file",
+    "bytes": 1241,
+    "sha256": "3cdcc6eacad36cedb075229d62a6c5f3619a919fe2ac331c08feac70d56258b8",
+    "included": true
+  },
+  "unused-cache/batch_12225584187868460623/outputs/effects.json": {
+    "kind": "file",
+    "bytes": 26,
+    "sha256": "6e9128aa409223f44290c9ad6c8364ddb54aa04bcbcaca6c33008022080e2170",
+    "included": true
+  },
+  "unused-cache/batch_12225584187868460623/stderr.incr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "unused-cache/batch_12225584187868460623/stdout.incr": {
+    "kind": "file",
+    "bytes": 1,
+    "sha256": "2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881",
+    "included": true
+  },
+  "unused-cache/candidates/5771988192878505873/3244421341483603138": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "unused-cache/introspect/command_5771988192878505873.incr": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  },
+  "unused-cache/locks/batch_12225584187868460623.lock": {
+    "kind": "file",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "included": true
+  }
+}
