@@ -20,10 +20,13 @@ COLORS = ('#9099A2', '#D68A32', '#227C9D')
 def main():
     source = ROOT / 'family-statistics.json'
     records = json.loads(source.read_text())
+    image_source = ROOT / 'image-family-statistics.json'
+    records += json.loads(image_source.read_text())
     selected = [r for r in records if
                 (r['cohort'] == 'new-full' and r['benchmark'] != 'dpt') or
-                (r['cohort'] == 'final-targeted' and r['benchmark'] == 'dpt')]
-    assert len(selected) == 13
+                (r['cohort'] == 'final-targeted' and r['benchmark'] == 'dpt') or
+                r['cohort'] == 'image-api-final']
+    assert len(selected) == 14
     rows = []
     for record in selected:
         times = {}
@@ -40,11 +43,11 @@ def main():
                              mode=mode, repetitions=3, median_reexecution_seconds=times[mode],
                              speedup_over_bash=times['bash'] / times[mode]))
     with (OUT / 'reexecution-data.csv').open('w') as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
     plt.rcParams.update({'font.size': 10, 'svg.fonttype': 'none', 'pdf.fonttype': 42})
-    names = [r['benchmark'] + (' †' if r['benchmark'] == 'dpt' else '') for r in selected]
+    names = [r['benchmark'] + (' †' if r['benchmark'] == 'dpt' else ' ‡' if r['benchmark'] == 'image-annotation' else '') for r in selected]
     y = np.arange(len(names))
     fig, ax = plt.subplots(figsize=(10, 8))
     for i, (mode, label, color) in enumerate(zip(MODES, LABELS, COLORS)):
@@ -67,7 +70,7 @@ def main():
     ax.legend(loc='lower right', frameon=False)
     ax.spines[['top', 'right']].set_visible(False)
     fig.text(.02, .015, 'First execution excluded per repetition; ratio of median sequence totals, n = 3. Annotations off.\n'
-             '† DPT: completed same-binary targeted cohort; other benchmarks: new full reproduction. No cohort pooling.', fontsize=9)
+             '† DPT: same-binary targeted run. ‡ Image: live API, image-payload validation. Others: new full run; no pooling.', fontsize=9)
     fig.tight_layout(rect=(0, .06, 1, 1))
     save(fig, 'reexecution-speedup')
     # Absolute-time small multiples follow the historical perf-bars presentation,
@@ -83,27 +86,32 @@ def main():
         ax.set_ylim(0, max(values) * 1.22)
         ax.set_xticks(range(3), ['Bash', 'Incr', 'Observe'], rotation=35, fontsize=8)
         ax.spines[['top', 'right']].set_visible(False)
-    axes.flat[-1].axis('off')
+    for unused in list(axes.flat)[len(selected):]:
+        unused.axis('off')
     fig.suptitle('Median cumulative re-execution time (seconds; first execution excluded)', fontsize=13)
     fig.text(.02, .01, 'Three repetitions per mode; annotations off. Each panel has its own linear seconds axis.\n'
-             '† DPT uses the completed same-binary targeted cohort; other panels use the new full reproduction.', fontsize=9)
+             '† DPT: same-binary targeted run. ‡ Image: live API, image-payload validation. Others: new full run.', fontsize=9)
     fig.tight_layout(rect=(0, .07, 1, .96))
     save(fig, 'reexecution-times')
     (OUT / 'provenance.json').write_text(json.dumps({
         'source': '../family-statistics.json',
         'source_sha256': hashlib.sha256(source.read_bytes()).hexdigest(),
+        'image_source_sha256': hashlib.sha256(image_source.read_bytes()).hexdigest(),
         'historical_reference': '15d749a:evaluation/scripts/perf-bars-color.py (drop first execution)',
         'aggregation': 'Per repetition sum excluding first execution; median of three sums per mode; Bash median divided by mode median.',
         'uncertainty': 'Descriptive medians; no confidence intervals or significance claims.',
         'matplotlib_version': matplotlib.__version__,
         'outputs': {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
-                    for p in OUT.iterdir() if p.suffix in ('.png', '.pdf', '.svg', '.csv')},
+                    for p in OUT.iterdir() if p.name == 'reexecution-data.csv' or (p.stem in ('reexecution-speedup', 'reexecution-times') and p.suffix in ('.png', '.pdf', '.svg'))},
     }, indent=2) + '\n')
 
 
 def save(fig, name):
     for extension in ('png', 'pdf', 'svg'):
-        fig.savefig(OUT / f'{name}.{extension}', dpi=180)
+        target = OUT / f'{name}.{extension}'
+        fig.savefig(target, dpi=180)
+        if extension == 'svg':
+            target.write_text('\n'.join(line.rstrip() for line in target.read_text().splitlines())+'\n')
     plt.close(fig)
 
 

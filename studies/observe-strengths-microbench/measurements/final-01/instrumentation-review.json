@@ -1,0 +1,673 @@
+{
+  "diagnosis": "Expected uncached execution, not evidence of native bypass: GNU install performs extended-attribute operations, a replay barrier.",
+  "measured_runtime_hashes": {
+    "original": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb",
+    "observe": "b3c84ddf5f2a4c6c78190982dca464510a029f78f9aff57dc56ca8b1904a4003",
+    "candidate": "59ab6feb67552803844a5fc1846948b86450b6b8b678c0cf3c875b89284eab2d"
+  },
+  "same_binary_profile_witness": "../filesystem-probe-01/profile-audit.json",
+  "profile_witness_sha256": "d4fd1ddc2995e983f8ef8962360e9bf13683d821bccfe6419c57cdf06ef647d1",
+  "profile_phases": 12,
+  "independent_observe_command": [
+    "observe",
+    "--json",
+    "--dependencies",
+    "--directory-access-only",
+    "--output",
+    "report.json",
+    "--snapshot-dir",
+    "snapshot",
+    "--",
+    "/usr/bin/install",
+    "-m",
+    "644",
+    "input",
+    "output"
+  ],
+  "independent_report": {
+    "dependency_version": 10,
+    "guarded_descriptors": [],
+    "directory_access_only": true,
+    "overwrites": [],
+    "replay_barriers": [
+      "extended file attributes"
+    ],
+    "dependencies": [
+      {
+        "path": "/",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 0,
+        "gid": 0,
+        "access": 5
+      },
+      {
+        "path": "/etc",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 0,
+        "gid": 0,
+        "access": 5
+      },
+      {
+        "path": "/etc/ld.so.cache",
+        "kind": "file",
+        "device": 66307,
+        "inode": 330326,
+        "modified": 1791421084750542448,
+        "changed_sec": 1791421084,
+        "changed_nsec": 754542582,
+        "size": 36148,
+        "mode": 33188
+      },
+      {
+        "path": "/etc/ld.so.preload",
+        "kind": "absent"
+      },
+      {
+        "path": "/etc/locale.alias",
+        "kind": "file",
+        "device": 66307,
+        "inode": 328372,
+        "modified": 1657149803000000000,
+        "changed_sec": 1661278671,
+        "changed_nsec": 574685475,
+        "size": 2996,
+        "mode": 33188
+      },
+      {
+        "path": "/etc/selinux",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 0,
+        "gid": 0,
+        "access": 5
+      },
+      {
+        "path": "/etc/selinux/config",
+        "kind": "absent"
+      },
+      {
+        "path": "/lib",
+        "kind": "symlink",
+        "target": "usr/lib",
+        "modified": 1660046005000000000,
+        "changed_sec": 1661278671,
+        "changed_nsec": 538683788,
+        "mode": 41471
+      },
+      {
+        "path": "/lib/x86_64-linux-gnu",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 0,
+        "gid": 0,
+        "access": 5
+      },
+      {
+        "path": "/lib/x86_64-linux-gnu/libacl.so.1",
+        "kind": "symlink",
+        "target": "libacl.so.1.1.2301",
+        "modified": 1630247187000000000,
+        "changed_sec": 1661278679,
+        "changed_nsec": 275051150,
+        "mode": 41471
+      },
+      {
+        "path": "/lib/x86_64-linux-gnu/libattr.so.1",
+        "kind": "symlink",
+        "target": "libattr.so.1.1.2501",
+        "modified": 1787535743000000000,
+        "changed_sec": 1791419543,
+        "changed_nsec": 466852493,
+        "mode": 41471
+      },
+      {
+        "path": "/lib/x86_64-linux-gnu/libc.so.6",
+        "kind": "file",
+        "device": 66307,
+        "inode": 246278,
+        "modified": 1788445204000000000,
+        "changed_sec": 1792014231,
+        "changed_nsec": 164134955,
+        "size": 2220400,
+        "mode": 33261
+      },
+      {
+        "path": "/lib/x86_64-linux-gnu/libpcre2-8.so.0",
+        "kind": "symlink",
+        "target": "libpcre2-8.so.0.10.4",
+        "modified": 1663670777000000000,
+        "changed_sec": 1672876565,
+        "changed_nsec": 524189185,
+        "mode": 41471
+      },
+      {
+        "path": "/lib/x86_64-linux-gnu/libselinux.so.1",
+        "kind": "file",
+        "device": 66307,
+        "inode": 249781,
+        "modified": 1647545252000000000,
+        "changed_sec": 1661278685,
+        "changed_nsec": 555355545,
+        "size": 166280,
+        "mode": 33188
+      },
+      {
+        "path": "/users",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 0,
+        "gid": 0,
+        "access": 5
+      },
+      {
+        "path": "/users/jxia3",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 20012,
+        "gid": 4431,
+        "access": 7
+      },
+      {
+        "path": "/users/jxia3/atlas",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 20012,
+        "gid": 4431,
+        "access": 7
+      },
+      {
+        "path": "/users/jxia3/atlas/incr",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 20012,
+        "gid": 4431,
+        "access": 7
+      },
+      {
+        "path": "/users/jxia3/atlas/incr/studies",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 20012,
+        "gid": 4431,
+        "access": 7
+      },
+      {
+        "path": "/users/jxia3/atlas/incr/studies/observe-strengths-microbench",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 20012,
+        "gid": 4431,
+        "access": 7
+      },
+      {
+        "path": "/users/jxia3/atlas/incr/studies/observe-strengths-microbench/.work",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 20012,
+        "gid": 4431,
+        "access": 7
+      },
+      {
+        "path": "/users/jxia3/atlas/incr/studies/observe-strengths-microbench/.work/instrumentation-review",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 20012,
+        "gid": 4431,
+        "access": 7
+      },
+      {
+        "path": "/users/jxia3/atlas/incr/studies/observe-strengths-microbench/.work/instrumentation-review/input",
+        "kind": "file",
+        "device": 66307,
+        "inode": 827450,
+        "modified": 1792189095467605735,
+        "changed_sec": 1792189095,
+        "changed_nsec": 467605735,
+        "size": 33,
+        "mode": 33188
+      },
+      {
+        "path": "/users/jxia3/atlas/incr/studies/observe-strengths-microbench/.work/instrumentation-review/output",
+        "kind": "absent"
+      },
+      {
+        "path": "/usr",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 0,
+        "gid": 0,
+        "access": 5
+      },
+      {
+        "path": "/usr/bin",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 0,
+        "gid": 0,
+        "access": 5
+      },
+      {
+        "path": "/usr/bin/install",
+        "kind": "file",
+        "device": 66307,
+        "inode": 248153,
+        "modified": 1787670771000000000,
+        "changed_sec": 1791419514,
+        "changed_nsec": 359492462,
+        "size": 145944,
+        "mode": 33261
+      },
+      {
+        "path": "/usr/lib",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 0,
+        "gid": 0,
+        "access": 5
+      },
+      {
+        "path": "/usr/lib/locale",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 0,
+        "gid": 0,
+        "access": 5
+      },
+      {
+        "path": "/usr/lib/locale/C.UTF-8",
+        "kind": "absent"
+      },
+      {
+        "path": "/usr/lib/locale/C.UTF-8/LC_ADDRESS",
+        "kind": "absent"
+      },
+      {
+        "path": "/usr/lib/locale/C.UTF-8/LC_COLLATE",
+        "kind": "absent"
+      },
+      {
+        "path": "/usr/lib/locale/C.UTF-8/LC_CTYPE",
+        "kind": "absent"
+      },
+      {
+        "path": "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION",
+        "kind": "absent"
+      },
+      {
+        "path": "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT",
+        "kind": "absent"
+      },
+      {
+        "path": "/usr/lib/locale/C.UTF-8/LC_MESSAGES",
+        "kind": "absent"
+      },
+      {
+        "path": "/usr/lib/locale/C.UTF-8/LC_MONETARY",
+        "kind": "absent"
+      },
+      {
+        "path": "/usr/lib/locale/C.UTF-8/LC_NAME",
+        "kind": "absent"
+      },
+      {
+        "path": "/usr/lib/locale/C.UTF-8/LC_NUMERIC",
+        "kind": "absent"
+      },
+      {
+        "path": "/usr/lib/locale/C.UTF-8/LC_PAPER",
+        "kind": "absent"
+      },
+      {
+        "path": "/usr/lib/locale/C.UTF-8/LC_TELEPHONE",
+        "kind": "absent"
+      },
+      {
+        "path": "/usr/lib/locale/C.UTF-8/LC_TIME",
+        "kind": "absent"
+      },
+      {
+        "path": "/usr/lib/locale/C.utf8",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 0,
+        "gid": 0,
+        "access": 5
+      },
+      {
+        "path": "/usr/lib/locale/C.utf8/LC_ADDRESS",
+        "kind": "file",
+        "device": 66307,
+        "inode": 246492,
+        "modified": 1788445204000000000,
+        "changed_sec": 1791419523,
+        "changed_nsec": 414990743,
+        "size": 127,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/locale/C.utf8/LC_COLLATE",
+        "kind": "file",
+        "device": 66307,
+        "inode": 246725,
+        "modified": 1788445204000000000,
+        "changed_sec": 1791419523,
+        "changed_nsec": 414990743,
+        "size": 1406,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/locale/C.utf8/LC_CTYPE",
+        "kind": "file",
+        "device": 66307,
+        "inode": 247046,
+        "modified": 1788445204000000000,
+        "changed_sec": 1791419523,
+        "changed_nsec": 418990550,
+        "size": 353616,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/locale/C.utf8/LC_IDENTIFICATION",
+        "kind": "file",
+        "device": 66307,
+        "inode": 247259,
+        "modified": 1788445204000000000,
+        "changed_sec": 1791419523,
+        "changed_nsec": 418990550,
+        "size": 258,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/locale/C.utf8/LC_MEASUREMENT",
+        "kind": "file",
+        "device": 66307,
+        "inode": 247274,
+        "modified": 1788445204000000000,
+        "changed_sec": 1791419523,
+        "changed_nsec": 418990550,
+        "size": 23,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/locale/C.utf8/LC_MESSAGES",
+        "kind": "directory",
+        "modified": 1791419523498986713,
+        "changed_sec": 1791419523,
+        "changed_nsec": 498986713,
+        "mode": 16877
+      },
+      {
+        "path": "/usr/lib/locale/C.utf8/LC_MESSAGES/SYS_LC_MESSAGES",
+        "kind": "file",
+        "device": 66307,
+        "inode": 247295,
+        "modified": 1788445204000000000,
+        "changed_sec": 1791419523,
+        "changed_nsec": 422990360,
+        "size": 48,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/locale/C.utf8/LC_MONETARY",
+        "kind": "file",
+        "device": 66307,
+        "inode": 247314,
+        "modified": 1788445204000000000,
+        "changed_sec": 1791419523,
+        "changed_nsec": 422990360,
+        "size": 270,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/locale/C.utf8/LC_NAME",
+        "kind": "file",
+        "device": 66307,
+        "inode": 247318,
+        "modified": 1788445204000000000,
+        "changed_sec": 1791419523,
+        "changed_nsec": 426990168,
+        "size": 62,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/locale/C.utf8/LC_NUMERIC",
+        "kind": "file",
+        "device": 66307,
+        "inode": 247321,
+        "modified": 1788445204000000000,
+        "changed_sec": 1791419523,
+        "changed_nsec": 426990168,
+        "size": 50,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/locale/C.utf8/LC_PAPER",
+        "kind": "file",
+        "device": 66307,
+        "inode": 247336,
+        "modified": 1788445204000000000,
+        "changed_sec": 1791419523,
+        "changed_nsec": 426990168,
+        "size": 34,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/locale/C.utf8/LC_TELEPHONE",
+        "kind": "file",
+        "device": 66307,
+        "inode": 247337,
+        "modified": 1788445204000000000,
+        "changed_sec": 1791419523,
+        "changed_nsec": 430989976,
+        "size": 47,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/locale/C.utf8/LC_TIME",
+        "kind": "file",
+        "device": 66307,
+        "inode": 247360,
+        "modified": 1788445204000000000,
+        "changed_sec": 1791419523,
+        "changed_nsec": 430989976,
+        "size": 3360,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/locale/locale-archive",
+        "kind": "file",
+        "device": 66307,
+        "inode": 246109,
+        "modified": 1791419671246994672,
+        "changed_sec": 1791419671,
+        "changed_nsec": 246994672,
+        "size": 3048928,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/x86_64-linux-gnu",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 0,
+        "gid": 0,
+        "access": 5
+      },
+      {
+        "path": "/usr/lib/x86_64-linux-gnu/gconv",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 0,
+        "gid": 0,
+        "access": 5
+      },
+      {
+        "path": "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache",
+        "kind": "file",
+        "device": 66307,
+        "inode": 272325,
+        "modified": 1788445204000000000,
+        "changed_sec": 1791419511,
+        "changed_nsec": 399690437,
+        "size": 27002,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/x86_64-linux-gnu/libacl.so.1.1.2301",
+        "kind": "file",
+        "device": 66307,
+        "inode": 249558,
+        "modified": 1630247187000000000,
+        "changed_sec": 1661278681,
+        "changed_nsec": 935179470,
+        "size": 34888,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/x86_64-linux-gnu/libattr.so.1.1.2501",
+        "kind": "file",
+        "device": 66307,
+        "inode": 246091,
+        "modified": 1787535743000000000,
+        "changed_sec": 1791419543,
+        "changed_nsec": 462852489,
+        "size": 26696,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+        "kind": "file",
+        "device": 66307,
+        "inode": 246278,
+        "modified": 1788445204000000000,
+        "changed_sec": 1792014231,
+        "changed_nsec": 164134955,
+        "size": 2220400,
+        "mode": 33261
+      },
+      {
+        "path": "/usr/lib/x86_64-linux-gnu/libpcre2-8.so.0.10.4",
+        "kind": "file",
+        "device": 66307,
+        "inode": 247425,
+        "modified": 1663670777000000000,
+        "changed_sec": 1672876565,
+        "changed_nsec": 524189185,
+        "size": 613064,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/lib/x86_64-linux-gnu/libselinux.so.1",
+        "kind": "file",
+        "device": 66307,
+        "inode": 249781,
+        "modified": 1647545252000000000,
+        "changed_sec": 1661278685,
+        "changed_nsec": 555355545,
+        "size": 166280,
+        "mode": 33188
+      },
+      {
+        "path": "/usr/share",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 0,
+        "gid": 0,
+        "access": 5
+      },
+      {
+        "path": "/usr/share/locale",
+        "kind": "parent_directory",
+        "mode": 16877,
+        "uid": 0,
+        "gid": 0,
+        "access": 5
+      },
+      {
+        "path": "/usr/share/locale/locale.alias",
+        "kind": "symlink",
+        "target": "/etc/locale.alias",
+        "modified": 1788445204000000000,
+        "changed_sec": 1791419548,
+        "changed_nsec": 566859500,
+        "mode": 41471
+      }
+    ],
+    "reads": [
+      "/",
+      "/etc",
+      "/etc/ld.so.cache",
+      "/etc/ld.so.preload",
+      "/etc/locale.alias",
+      "/etc/selinux",
+      "/etc/selinux/config",
+      "/lib",
+      "/lib/x86_64-linux-gnu",
+      "/lib/x86_64-linux-gnu/libacl.so.1",
+      "/lib/x86_64-linux-gnu/libattr.so.1",
+      "/lib/x86_64-linux-gnu/libc.so.6",
+      "/lib/x86_64-linux-gnu/libpcre2-8.so.0",
+      "/lib/x86_64-linux-gnu/libselinux.so.1",
+      "/users",
+      "/users/jxia3",
+      "/users/jxia3/atlas",
+      "/users/jxia3/atlas/incr",
+      "/users/jxia3/atlas/incr/studies",
+      "/users/jxia3/atlas/incr/studies/observe-strengths-microbench",
+      "/users/jxia3/atlas/incr/studies/observe-strengths-microbench/.work",
+      "/users/jxia3/atlas/incr/studies/observe-strengths-microbench/.work/instrumentation-review",
+      "/users/jxia3/atlas/incr/studies/observe-strengths-microbench/.work/instrumentation-review/input",
+      "/users/jxia3/atlas/incr/studies/observe-strengths-microbench/.work/instrumentation-review/output",
+      "/usr",
+      "/usr/bin",
+      "/usr/bin/install",
+      "/usr/lib",
+      "/usr/lib/locale",
+      "/usr/lib/locale/C.UTF-8",
+      "/usr/lib/locale/C.UTF-8/LC_ADDRESS",
+      "/usr/lib/locale/C.UTF-8/LC_COLLATE",
+      "/usr/lib/locale/C.UTF-8/LC_CTYPE",
+      "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION",
+      "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT",
+      "/usr/lib/locale/C.UTF-8/LC_MESSAGES",
+      "/usr/lib/locale/C.UTF-8/LC_MONETARY",
+      "/usr/lib/locale/C.UTF-8/LC_NAME",
+      "/usr/lib/locale/C.UTF-8/LC_NUMERIC",
+      "/usr/lib/locale/C.UTF-8/LC_PAPER",
+      "/usr/lib/locale/C.UTF-8/LC_TELEPHONE",
+      "/usr/lib/locale/C.UTF-8/LC_TIME",
+      "/usr/lib/locale/C.utf8",
+      "/usr/lib/locale/C.utf8/LC_ADDRESS",
+      "/usr/lib/locale/C.utf8/LC_COLLATE",
+      "/usr/lib/locale/C.utf8/LC_CTYPE",
+      "/usr/lib/locale/C.utf8/LC_IDENTIFICATION",
+      "/usr/lib/locale/C.utf8/LC_MEASUREMENT",
+      "/usr/lib/locale/C.utf8/LC_MESSAGES",
+      "/usr/lib/locale/C.utf8/LC_MESSAGES/SYS_LC_MESSAGES",
+      "/usr/lib/locale/C.utf8/LC_MONETARY",
+      "/usr/lib/locale/C.utf8/LC_NAME",
+      "/usr/lib/locale/C.utf8/LC_NUMERIC",
+      "/usr/lib/locale/C.utf8/LC_PAPER",
+      "/usr/lib/locale/C.utf8/LC_TELEPHONE",
+      "/usr/lib/locale/C.utf8/LC_TIME",
+      "/usr/lib/locale/locale-archive",
+      "/usr/lib/x86_64-linux-gnu",
+      "/usr/lib/x86_64-linux-gnu/gconv",
+      "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache",
+      "/usr/lib/x86_64-linux-gnu/libacl.so.1.1.2301",
+      "/usr/lib/x86_64-linux-gnu/libattr.so.1.1.2501",
+      "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "/usr/lib/x86_64-linux-gnu/libpcre2-8.so.0.10.4",
+      "/usr/lib/x86_64-linux-gnu/libselinux.so.1",
+      "/usr/share",
+      "/usr/share/locale",
+      "/usr/share/locale/locale.alias"
+    ],
+    "writes": [
+      "/users/jxia3/atlas/incr/studies/observe-strengths-microbench/.work/instrumentation-review/output"
+    ]
+  },
+  "cache_policy_source": "src/cache/batch_cache.rs::save_data rejects CacheData::is_reusable() == false; replay_barriers prevent metadata persistence.",
+  "scope": "Separate untimed diagnostic, not a replacement timing or proof of per-invocation replayability. Final static compiler receipts and earlier dynamic profiles are retained. Original cache-presence audit stays false; output/capture/coverage validation passed."
+}

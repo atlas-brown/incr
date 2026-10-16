@@ -1,17 +1,18 @@
 {
   "source": "../family-statistics.json",
   "source_sha256": "aa911765d654dd775a755804a5a54541ba1ec606fc310f7ac3a30245ba043c4a",
+  "image_source_sha256": "e2cecd120095855d0258a854895afc8407a603b387c71cfa069044b2349172c3",
   "historical_reference": "15d749a:evaluation/scripts/perf-bars-color.py (drop first execution)",
   "aggregation": "Per repetition sum excluding first execution; median of three sums per mode; Bash median divided by mode median.",
   "uncertainty": "Descriptive medians; no confidence intervals or significance claims.",
   "matplotlib_version": "3.10.9",
   "outputs": {
-    "reexecution-times.svg": "6167bef892e1a95757587758444ab13f91c13400fcbf1a6b2847e48051b891e6",
-    "reexecution-speedup.svg": "0427f4868467f053f8bbb7a133e5cacef709cd6e2de251109769f4096503ce53",
-    "reexecution-speedup.png": "4673b9c55a007b89fe6ae1f649ae5394ef4f7d9c9cc4c0c9e7cb4d81ce83bfc9",
-    "reexecution-speedup.pdf": "95f4d8cd3f300396d638ce623d828519197259fd698e0cd3831f669103c636ae",
-    "reexecution-times.pdf": "79df74ddc4226e62183d15bdd4104f0ec3d37287c1572c4e15edd62fd6ebc3d6",
-    "reexecution-data.csv": "df09fbb5b2124d63aa6ab739a44481b586cdfb28bd83e86d067ee269df250e83",
-    "reexecution-times.png": "0f47c3cd7f085e6e6e26fe616827d3e05a8e5a0f631f431bf43f5cbd24b4d6b4"
+    "reexecution-times.svg": "cc0b3bd063f27953850c25d1c93c852477140572af662ca3947b6bad8433ae66",
+    "reexecution-speedup.svg": "a8f8c2b2da61a321ecb0ceefa51a01351fe5136ad0eee7346c20fd4df731cc92",
+    "reexecution-speedup.png": "6ec79a4275c463d0de98582b889813f5be4f66fe18e44de46900dc5ebe85a537",
+    "reexecution-speedup.pdf": "9f5ba1dd56a606b79f4128c65a1e609d80111fec1ee29341b82ed9030fe5bbbc",
+    "reexecution-times.pdf": "c86390277857be912c0c73755f57aeb1045ed023739db0939ff4a32f81b4d632",
+    "reexecution-data.csv": "b1c124a77de84eb3ddb2366195b9952dd04de6517f0f2fd875e8af5e63996ff7",
+    "reexecution-times.png": "b4e9e0d8e03c8c4930caf1de25905a74c4caae5e5b233db876b8625b999e783f"
   }
 }

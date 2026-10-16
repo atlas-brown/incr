@@ -42,10 +42,12 @@ def band(ax, left, right, bot_left, top_left, bot_right, top_right, color):
 def main():
     classification = json.loads((OUT/'historical-deltas.json').read_text())
     raw = list(csv.DictReader((OUT.parent/'invocations.csv').open()))
+    raw += list(csv.DictReader((OUT.parent/'image-invocations.csv').open()))
     fig, axes = plt.subplots(2, 7, figsize=(18, 6))
     plotted = []
     for ax, benchmark in zip(axes.flat, classification['BENCHMARKS']):
-        cohort = 'final-targeted' if benchmark == 'dpt' else 'new-full'
+        cohort = ('final-targeted' if benchmark == 'dpt' else
+                  'image-api-final' if benchmark == 'image-annotation' else 'new-full')
         rows = [r for r in raw if r['benchmark'] == benchmark and r['cohort'] == cohort]
         title = classification['BENCHMARKS_TO_NAMES'][benchmark]
         if not rows:
@@ -90,7 +92,7 @@ def main():
                     ax.bar(centers[j], times[mode][i], width, bottom=bottoms[j],
                            color=color, edgecolor='black', linewidth=.6, zorder=3)
             bottoms = tops
-        ax.set_title(title + (' †' if benchmark == 'dpt' else ''), fontsize=13)
+        ax.set_title(title + (' †' if benchmark == 'dpt' else ' ‡' if benchmark == 'image-annotation' else ''), fontsize=13)
         ax.set_xlim(0, 2)
         ax.set_ylim(0, max(bottoms)*1.04)
         ax.set_xticks(centers, ['Bash', 'Incr', 'Observe'], rotation=40, fontsize=8)
@@ -101,13 +103,16 @@ def main():
                         for k,label in [('add','Addition'),('mod','Modification'),('del','Deletion')]],
                loc='lower center', bbox_to_anchor=(.5,.045), ncols=3, frameon=False)
     fig.text(.03, .012, 'Bars left to right: original Bash / original Incr / Observe Incr. First execution excluded; mean of 3 repetitions; annotations off.\n'
-             '† DPT: completed same-binary targeted run; other measured panels: new full reproduction. Each panel has its own seconds axis.', fontsize=9)
+             '† DPT: same-binary targeted run. ‡ Image: live API, payload validation. Others: new full run. Each panel has its own seconds axis.', fontsize=9)
     fig.tight_layout(rect=(.015,.13,1,1))
     for ext in ('png','pdf','svg'):
-        fig.savefig(OUT/f'reexecution-historical-bars.{ext}', dpi=200)
+        target = OUT/f'reexecution-historical-bars.{ext}'
+        fig.savefig(target, dpi=200)
+        if ext == 'svg':
+            target.write_text('\n'.join(line.rstrip() for line in target.read_text().splitlines())+'\n')
     plt.close(fig)
     with (OUT/'reexecution-historical-segments.csv').open('w') as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(plotted[0]))
+        writer = csv.DictWriter(stream, fieldnames=list(plotted[0]), lineterminator="\n")
         writer.writeheader(); writer.writerows(plotted)
 
 

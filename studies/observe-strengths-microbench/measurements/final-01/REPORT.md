@@ -1,6 +1,6 @@
 # Synthetic strengths results
 
-**Performance qualification pending:** zero cache entries in some cold engine samples. All raw-output, native-reference and coverage checks passed, but the instrumentation gate did not. Inspect audit.json; do not certify these timings as fully audited speedups.
+**Cache-presence warning diagnosed:** artifact installation performs extended-attribute operations that Observe traces but cannot cache for replay. A separate same-binary Observe diagnostic reproduced that barrier, and the earlier same-binary installation pilot verified dynamic Observe backend coverage. See instrumentation-review.json. The original cache-presence audit remains false; all raw-output, native-reference and coverage checks passed. Do not interpret this case as evidence of replay reuse.
 
 Median complete development episode seconds (six phases), with three independent paired repetitions. Cold, unchanged and edited phases are also retained separately. This is a deliberately synthetic strengths study, not a representative application sample.
 

@@ -1,0 +1,75 @@
+[
+  {
+    "cohort": "image-api-final",
+    "benchmark": "image-annotation",
+    "expected_versions": 7,
+    "modes": {
+      "bash": {
+        "complete_repetitions": 3,
+        "samples": [
+          {
+            "repetition": 0,
+            "seconds": 241.70425952097867,
+            "edited_seconds": 203.7671227150131
+          },
+          {
+            "repetition": 1,
+            "seconds": 243.15276218869258,
+            "edited_seconds": 208.3992187047843
+          },
+          {
+            "repetition": 2,
+            "seconds": 237.36951522820164,
+            "edited_seconds": 203.13868152722716
+          }
+        ],
+        "median_seconds": 241.70425952097867,
+        "median_edited_seconds": 203.7671227150131
+      },
+      "original": {
+        "complete_repetitions": 3,
+        "samples": [
+          {
+            "repetition": 0,
+            "seconds": 79.22013583406806,
+            "edited_seconds": 10.137387759052217
+          },
+          {
+            "repetition": 1,
+            "seconds": 78.58622009726241,
+            "edited_seconds": 10.505923164193518
+          },
+          {
+            "repetition": 2,
+            "seconds": 76.01931014109869,
+            "edited_seconds": 10.192925146082416
+          }
+        ],
+        "median_seconds": 78.58622009726241,
+        "median_edited_seconds": 10.192925146082416
+      },
+      "observe": {
+        "complete_repetitions": 3,
+        "samples": [
+          {
+            "repetition": 0,
+            "seconds": 57.23253868392203,
+            "edited_seconds": 3.0792609519558027
+          },
+          {
+            "repetition": 1,
+            "seconds": 58.40034800604917,
+            "edited_seconds": 3.33338740398176
+          },
+          {
+            "repetition": 2,
+            "seconds": 57.51281063002534,
+            "edited_seconds": 3.171968818991445
+          }
+        ],
+        "median_seconds": 57.51281063002534,
+        "median_edited_seconds": 3.171968818991445
+      }
+    }
+  }
+]

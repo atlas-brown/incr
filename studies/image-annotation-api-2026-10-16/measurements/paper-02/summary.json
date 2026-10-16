@@ -1,0 +1,430 @@
+{
+  "run": "paper-02",
+  "suite": "paper",
+  "profile": "paper",
+  "expected_invocations": 63,
+  "invocations": 63,
+  "valid_invocations": 63,
+  "complete": true,
+  "failed_sequences": [],
+  "archived_sequences": [],
+  "statistics": [
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-1.sh",
+      "mode": "bash",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 35.640504663616106,
+      "median_sec": 34.75354348390829,
+      "stdev_sec": 2.0060398244422193,
+      "min_sec": 34.23083370097447,
+      "max_sec": 37.937136805965565
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-1.sh",
+      "mode": "observe",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 54.52036004835585,
+      "median_sec": 54.3408418110339,
+      "stdev_sec": 0.4825704041147453,
+      "min_sec": 54.15327773196623,
+      "max_sec": 55.06696060206741
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-1.sh",
+      "mode": "original",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 67.663143334367,
+      "median_sec": 68.0802969330689,
+      "stdev_sec": 1.6677793531755127,
+      "min_sec": 65.82638499501627,
+      "max_sec": 69.08274807501584
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-2.sh",
+      "mode": "bash",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 34.2070557026503,
+      "median_sec": 33.8502741829725,
+      "stdev_sec": 1.778581506594444,
+      "min_sec": 32.63390931300819,
+      "max_sec": 36.13698361197021
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-2.sh",
+      "mode": "observe",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 0.5283046379918233,
+      "median_sec": 0.5416426399024203,
+      "stdev_sec": 0.02939576099130903,
+      "min_sec": 0.494604469044134,
+      "max_sec": 0.5486668050289154
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-2.sh",
+      "mode": "original",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 1.8922308710558962,
+      "median_sec": 1.901093184016645,
+      "stdev_sec": 0.041864365555611606,
+      "min_sec": 1.8466448890976608,
+      "max_sec": 1.9289545400533825
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-3.sh",
+      "mode": "bash",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 34.41832073498517,
+      "median_sec": 34.35558674694039,
+      "stdev_sec": 1.6617203796822555,
+      "min_sec": 32.78885572205763,
+      "max_sec": 36.110519735957496
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-3.sh",
+      "mode": "observe",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 0.5171630330150947,
+      "median_sec": 0.5250648779328912,
+      "stdev_sec": 0.016079198974372468,
+      "min_sec": 0.4986618090188131,
+      "max_sec": 0.5277624120935798
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-3.sh",
+      "mode": "original",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 1.8460844480044518,
+      "median_sec": 1.83454869792331,
+      "stdev_sec": 0.03524710073069099,
+      "min_sec": 1.818050652043894,
+      "max_sec": 1.8856539940461516
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-4.sh",
+      "mode": "bash",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 34.23545432265382,
+      "median_sec": 34.60703801398631,
+      "stdev_sec": 1.0433936822438397,
+      "min_sec": 33.05713310895953,
+      "max_sec": 35.04219184501562
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-4.sh",
+      "mode": "observe",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 0.5339898213666553,
+      "median_sec": 0.5365549710113555,
+      "stdev_sec": 0.023020918148548963,
+      "min_sec": 0.5097937640966848,
+      "max_sec": 0.5556207289919257
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-4.sh",
+      "mode": "original",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 1.9353429486897464,
+      "median_sec": 1.930320099927485,
+      "stdev_sec": 0.039834642084564796,
+      "min_sec": 1.8982579470612109,
+      "max_sec": 1.9774507990805432
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-5.sh",
+      "mode": "bash",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 33.447738242025174,
+      "median_sec": 33.10214894299861,
+      "stdev_sec": 1.1684219624167604,
+      "min_sec": 32.49109236209188,
+      "max_sec": 34.74997342098504
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-5.sh",
+      "mode": "observe",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 0.5409063692592705,
+      "median_sec": 0.5114811619278044,
+      "stdev_sec": 0.05160928710688746,
+      "min_sec": 0.5107398419640958,
+      "max_sec": 0.6004981038859114
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-5.sh",
+      "mode": "original",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 1.3750287756944697,
+      "median_sec": 1.3826791770989075,
+      "stdev_sec": 0.07068907774220351,
+      "min_sec": 1.3008256719913334,
+      "max_sec": 1.441581477993168
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-6.sh",
+      "mode": "bash",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 34.08889805036597,
+      "median_sec": 34.49090293701738,
+      "stdev_sec": 1.0952657960132164,
+      "min_sec": 32.84943462209776,
+      "max_sec": 34.92635659198277
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-6.sh",
+      "mode": "observe",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 0.5493591007155677,
+      "median_sec": 0.5443281909683719,
+      "stdev_sec": 0.01819732643505977,
+      "min_sec": 0.5342065010918304,
+      "max_sec": 0.5695426100865006
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-6.sh",
+      "mode": "original",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 1.8614291796693578,
+      "median_sec": 1.8611504720756784,
+      "stdev_sec": 0.055821011370103334,
+      "min_sec": 1.8057480439310893,
+      "max_sec": 1.9173890230013058
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-7.sh",
+      "mode": "bash",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 34.70420726299441,
+      "median_sec": 34.26527719502337,
+      "stdev_sec": 0.8688542906214325,
+      "min_sec": 34.14238293003291,
+      "max_sec": 35.70496166392695
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-7.sh",
+      "mode": "observe",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 0.5251494292945912,
+      "median_sec": 0.5203915568999946,
+      "stdev_sec": 0.011552359418288076,
+      "min_sec": 0.5167358219623566,
+      "max_sec": 0.5383209090214223
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-7.sh",
+      "mode": "original",
+      "samples": 3,
+      "valid_samples": 3,
+      "mean_sec": 1.3686291333287954,
+      "median_sec": 1.3695090039400384,
+      "stdev_sec": 0.01331768505426828,
+      "min_sec": 1.3548933300189674,
+      "max_sec": 1.3814850660273805
+    }
+  ],
+  "ratios": [
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 0.6537100017682459
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-1.sh",
+      "cold": true,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 1.2410619312556705
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 64.74873253560143
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-2.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 3.5817040680327756
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 66.55216737809755
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-3.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 3.569637290665687
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 64.11255973949851
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-4.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 3.6243068149437163
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-5.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 61.83646587084798
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-5.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 2.5420827962840695
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-6.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 62.05212220196857
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-6.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 3.388365055288523
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-7.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "bash",
+      "speedup": 66.08444249784478
+    },
+    {
+      "benchmark": "image-annotation",
+      "script": "image-annotation-7.sh",
+      "cold": false,
+      "unchanged_source": false,
+      "reference": "original",
+      "speedup": 2.606170847728448
+    }
+  ],
+  "family_totals": [
+    {
+      "benchmark": "image-annotation",
+      "complete_mode_totals_sec": {
+        "bash": 240.74217897929094,
+        "original": 77.94188869080973,
+        "observe": 57.71523243999885
+      },
+      "peak_cache_bytes": {
+        "bash": 0,
+        "original": 8634368,
+        "observe": 5398528
+      },
+      "input_bytes": 39308517,
+      "paper_nominal_bytes": null,
+      "size_ratio_to_paper_nominal": null
+    }
+  ],
+  "cold_overheads": [
+    {
+      "benchmark": "image-annotation",
+      "mode": "original",
+      "bash_sec": 35.640504663616106,
+      "mode_sec": 67.663143334367,
+      "time_ratio": 1.8984900458898795
+    },
+    {
+      "benchmark": "image-annotation",
+      "mode": "observe",
+      "bash_sec": 35.640504663616106,
+      "mode_sec": 54.52036004835585,
+      "time_ratio": 1.5297303044087756
+    }
+  ],
+  "summed_comparisons": [
+    {
+      "reference": "bash",
+      "matched_families": 1,
+      "reference_sum_sec": 240.74217897929094,
+      "observe_sum_sec": 57.71523243999885,
+      "summed_time_speedup": 4.171206955279408
+    },
+    {
+      "reference": "original",
+      "matched_families": 1,
+      "reference_sum_sec": 77.94188869080973,
+      "observe_sum_sec": 57.71523243999885,
+      "summed_time_speedup": 1.3504561169677114
+    }
+  ],
+  "historical_comparisons": []
+}

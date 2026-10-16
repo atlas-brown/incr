@@ -38,3 +38,6 @@ unixfun,new-full,observe,3,92.60688512097113,0.988176476072301
 dpt,final-targeted,bash,3,5004.948060272145,1.0
 dpt,final-targeted,original,3,809.5971814729273,6.18202258457283
 dpt,final-targeted,observe,3,797.346028734115,6.277008826667283
+image-annotation,image-api-final,bash,3,203.7671227150131,1.0
+image-annotation,image-api-final,original,3,10.192925146082416,19.991034937927477
+image-annotation,image-api-final,observe,3,3.171968818991445,64.23995138130097

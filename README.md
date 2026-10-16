@@ -205,7 +205,7 @@ Bash syntax subset while preserving source bytes. Unsupported constructs use the
 Python transformer. It is off by default. Commands execute through the general
 tracing/cache backends; no sort or cut implementation is substituted.
 
-See [the benchmark harness](studies/paper-size-benchmarks/README.md) for methodology and explicit reproduction commands, and [the consolidated study](studies/evaluation-checkpoint-2026-10-16/README.md) for all saved measurements. All active and pending evaluations were cancelled; no background work is scheduled.
+See [the benchmark harness](studies/paper-size-benchmarks/README.md) for methodology and explicit reproduction commands, and [the consolidated study](studies/evaluation-checkpoint-2026-10-16/README.md) for all saved measurements. The [final combined tables](studies/final-results-2026-10-16/README.md) cover all fourteen application benchmarks and all synthetic scales. Completed live-image and microbenchmark evidence is separately labelled; no measurement jobs remain active.
 
 ## Development Setup
 

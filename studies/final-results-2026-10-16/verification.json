@@ -1,0 +1,23 @@
+{
+  "image_invocations": 63,
+  "image_valid": 63,
+  "micro_invocations": 2754,
+  "micro_valid": 2754,
+  "micro_archive_members_verified": 16562,
+  "application_families": 14,
+  "application_invocations": 891,
+  "micro_scenario_scale_comparisons": 51,
+  "binary_hashes": {
+    "original": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb",
+    "observe": "b3c84ddf5f2a4c6c78190982dca464510a029f78f9aff57dc56ca8b1904a4003",
+    "candidate": "59ab6feb67552803844a5fc1846948b86450b6b8b678c0cf3c875b89284eab2d"
+  },
+  "qualification": "Image title text is nondeterministic; image validation preserves payloads. Micro zero-cache artifact samples have a separately reproduced extended-attribute replay barrier; original audit is retained.",
+  "source_hashes": {
+    "evaluation-checkpoint-2026-10-16/family-statistics.json": "aa911765d654dd775a755804a5a54541ba1ec606fc310f7ac3a30245ba043c4a",
+    "evaluation-checkpoint-2026-10-16/image-family-statistics.json": "e2cecd120095855d0258a854895afc8407a603b387c71cfa069044b2349172c3",
+    "observe-strengths-microbench/measurements/final-01/summary.json": "7eb8f3675761e6a649e6128c1bfb9676f41ceede674a9fa59842d260e312e498",
+    "observe-strengths-microbench/measurements/final-01/raw-catalog.json": "f7612fc2be795780ae4324a9553d11deff4af6518e82171d8e7f7db67b6ce248",
+    "image-annotation-api-2026-10-16/measurements/paper-02/summary.json": "36134c2ec0a88978fe9096b494df29ddb8bec2cbe6dac21503ddbd76d71fec43"
+  }
+}

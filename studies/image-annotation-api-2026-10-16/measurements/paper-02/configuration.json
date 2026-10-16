@@ -1,0 +1,39 @@
+{
+  "suite": "paper",
+  "profile": "paper",
+  "only": "image-annotation",
+  "repetitions": 3,
+  "modes": [
+    "bash",
+    "original",
+    "observe"
+  ],
+  "native_transform": true,
+  "assume_directory_access": true,
+  "content_validated_inputs": false,
+  "reserve_gib": 8,
+  "annotations": false,
+  "work_budget_gib": 32,
+  "started": "2026-10-16T21:40:56.124372+00:00",
+  "manifest_sha256": "0031fa5e2ad65a9b523481717a72b8b59a63803cd0ef475827a4097f60a3ea42",
+  "harness_sha256": {
+    "cleanup.py": "d1430b03e434b397112f165a1cf5172abe68cca76967de2a283e2189c7faa627",
+    "cohort_report.py": "dd53f79cf1f702908aaae4073161a11f421f85c63dba356b6806a9893b729f04",
+    "common.py": "c2a8202e15e6d8c156931d8bcce98d49d4e4f023555b1351fdcf9bd2808fc43d",
+    "fdguard.c": "7237bf748ec33b87ce1211b8e5f3faea179b46491c2a0e391892ae3afd666e43",
+    "image_annotation.py": "e6ac9036aa402671d7b79ba53dc03ed957dd7a973a771b6f70bb6868436c52d1",
+    "launch.py": "a68bca148121f695ad519b5cea3b5bb1424ae093206615aaf6045417c5a6161b",
+    "monitor.py": "47efad2eb12043bbbbf7994d21c611b3905d2da9e1cb23f2fe74ef9dacd3568d",
+    "plots.py": "76e21a692c8ce92cc89c350ae33aa956aca0f9613d5443bbdb22d414c871a2bd",
+    "prepare.py": "391d1b5d07b4f8378228f0e8d50fd1e21de51df1874a1a3b7d45e425d9f08beb",
+    "setup_models.py": "ca4e97ff2e43c64fab2c138004c21a7e9e28128189ce3d9f8e93a5ea2903bf43",
+    "study.py": "847fd3d4d05738e08ce1d5985e173fd653d4d9d92d7c860716f5795296f33359",
+    "supplemental.py": "19c74ae2648a117951cfa54cf74679cc1ec7d7fd838852a0958e7045eb52a0be",
+    "test_cohort_report.py": "d8ce72bef93ba1815d475eddf2f1d0cf890e614d41a0105b24796434261e5cde",
+    "test_harness.py": "8963d361237e4e55d71072ce91a48b4a6647e22fe695414ccf313e31677bfce4",
+    "test_image_annotation.py": "2f8b74ef67b4c36b0c26955620d3487ffd90d91355dadfe96fe81b8655a7ad63",
+    "test_supplemental.py": "613ac15ad6a2718668420c1f0267efba0d11886d43a477d86a80e94fa209bd4a",
+    "validate.py": "3ac3f30ebc90605b9ca4e3c03e3ef419d265ca24bb0b9f3844b654fe3e17c60c",
+    "validation_worker.py": "c7651c61919ab5f0bb1adae2a16ec5af525685a6eca5c602122a24e7ae03476e"
+  }
+}

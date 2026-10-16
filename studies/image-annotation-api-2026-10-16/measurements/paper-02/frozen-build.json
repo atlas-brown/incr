@@ -1,0 +1,74 @@
+{
+  "directory": "/users/jxia3/atlas/incr/studies/image-annotation-api-2026-10-16/.work/builds/paper-02",
+  "sha256": {
+    "benchmarks/image-annotation/image-annotation-1.sh": "e38b69565c03461318a725394d177cdbb6de6e4c0b3cc6cb985120b1e8ca251a",
+    "benchmarks/image-annotation/image-annotation-2.sh": "e670b8853dfb120dad356d1a3f093a81d580760d8da270470e9432011ef2297f",
+    "benchmarks/image-annotation/image-annotation-3.sh": "ad1346c5ff470bbefc86b598f2fce0899fa012e5c3c394e0cd93df5cdd5d2ff4",
+    "benchmarks/image-annotation/image-annotation-4.sh": "0567889efaf6ecacf88c43120a3784b933016fe0e771c922b71f09d885664436",
+    "benchmarks/image-annotation/image-annotation-5.sh": "69466d0c117091104e147f5ac165cdc265a7e21d85abf95fd6846706f288b43c",
+    "benchmarks/image-annotation/image-annotation-6.sh": "59a30782de926921aefc71a4904657af0ffaa5e9e192ac3398193977fe4e78b7",
+    "benchmarks/image-annotation/image-annotation-7.sh": "b122eb33f16fd0741fa04e8f9413e6f896304f181161281d4f083286e1f3a5ef",
+    "candidate/incr.sh": "0e1b6fbd99c9e9a3b4219d7eb1dc282108213393d50108c07d3fe135a18762db",
+    "candidate/src/scripts/incrementize.py": "5dc1bf827803104f1e278d204609a985d22b312d18d06e103e8911a0ed9d4d52",
+    "candidate/src/scripts/insert.py": "df9dffa8edc129d5c32e5897b0a446fe3c8b734b480e7ecaf52bad88c68220cc",
+    "candidate/src/scripts/mod.rs": "d6f36dd93e495bf6475d38c297fdfe3530b82ed6a70427ffca6690a1abb0e23d",
+    "candidate/src/scripts/parse_observe.rs": "f00163fad1da871500d28348d53ade83234ee1e8fb36295599eef151c2656c84",
+    "candidate/src/scripts/parse_trace.rs": "fbf79217d0103807ab85c9f792817f5c09ef0c260ae1fb09caa719fcee4178ba",
+    "candidate/src/scripts/shell_ast.py": "16b34e7709b1ca94dd9e09fdd3e546d6fcc709d2ab7893acdcc9df25f243ea4b",
+    "candidate/src/scripts/try.sh": "aa000212d061d89b1ac70447bef7c07caa2773feedf910c37908cccbdb5b542a",
+    "candidate/target/release/incr": "59ab6feb67552803844a5fc1846948b86450b6b8b678c0cf3c875b89284eab2d",
+    "fdguard": "55335c8a3909e4332b8f4d476abb763700583cc1e78482f1a53ea858dbb12aea",
+    "harness/cleanup.py": "d1430b03e434b397112f165a1cf5172abe68cca76967de2a283e2189c7faa627",
+    "harness/cohort_report.py": "dd53f79cf1f702908aaae4073161a11f421f85c63dba356b6806a9893b729f04",
+    "harness/common.py": "c2a8202e15e6d8c156931d8bcce98d49d4e4f023555b1351fdcf9bd2808fc43d",
+    "harness/fdguard.c": "7237bf748ec33b87ce1211b8e5f3faea179b46491c2a0e391892ae3afd666e43",
+    "harness/image_annotation.py": "e6ac9036aa402671d7b79ba53dc03ed957dd7a973a771b6f70bb6868436c52d1",
+    "harness/launch.py": "a68bca148121f695ad519b5cea3b5bb1424ae093206615aaf6045417c5a6161b",
+    "harness/monitor.py": "47efad2eb12043bbbbf7994d21c611b3905d2da9e1cb23f2fe74ef9dacd3568d",
+    "harness/plots.py": "76e21a692c8ce92cc89c350ae33aa956aca0f9613d5443bbdb22d414c871a2bd",
+    "harness/prepare.py": "391d1b5d07b4f8378228f0e8d50fd1e21de51df1874a1a3b7d45e425d9f08beb",
+    "harness/setup_models.py": "ca4e97ff2e43c64fab2c138004c21a7e9e28128189ce3d9f8e93a5ea2903bf43",
+    "harness/study.py": "847fd3d4d05738e08ce1d5985e173fd653d4d9d92d7c860716f5795296f33359",
+    "harness/supplemental.py": "19c74ae2648a117951cfa54cf74679cc1ec7d7fd838852a0958e7045eb52a0be",
+    "harness/test_cohort_report.py": "d8ce72bef93ba1815d475eddf2f1d0cf890e614d41a0105b24796434261e5cde",
+    "harness/test_harness.py": "8963d361237e4e55d71072ce91a48b4a6647e22fe695414ccf313e31677bfce4",
+    "harness/test_image_annotation.py": "2f8b74ef67b4c36b0c26955620d3487ffd90d91355dadfe96fe81b8655a7ad63",
+    "harness/test_supplemental.py": "613ac15ad6a2718668420c1f0267efba0d11886d43a477d86a80e94fa209bd4a",
+    "harness/validate.py": "3ac3f30ebc90605b9ca4e3c03e3ef419d265ca24bb0b9f3844b654fe3e17c60c",
+    "harness/validation_worker.py": "c7651c61919ab5f0bb1adae2a16ec5af525685a6eca5c602122a24e7ae03476e",
+    "observe/target/release/observe": "b3c84ddf5f2a4c6c78190982dca464510a029f78f9aff57dc56ca8b1904a4003",
+    "original/incr.sh": "2134db7ba6f3ca65af3fde5904ba24b4b4a6608e74eee35e41e7a27357422150",
+    "original/src/scripts/incrementize.py": "31d2ed1c4a647d70d453b5d4ecaef2af385bc8a1dda1fcbd41f21cb47a2d0264",
+    "original/src/scripts/insert.py": "3fbfc26f683b6f8238853af5305a63370e2b1052c2ec0a11af39c7b146e442ee",
+    "original/src/scripts/mod.rs": "8ffee2f168ef7edf4abd0b8845f56f45593bca6d969adafcd6849fa9fccc60cf",
+    "original/src/scripts/parse_trace.py": "9fe8911be85a55fc4faa3d1192c640ca63f9242b0358d4f4c42974e2547f860b",
+    "original/src/scripts/parse_trace.rs": "01192fd9903bb6165f5545ab8f09ea651dbaed3700c506aacba6cc8146bee75e",
+    "original/src/scripts/try.sh": "0076bbf655bab30f211490b77d3c2dad5b7d4e8455a267e094e7247cb5fab73c",
+    "original/target/release/incr": "49017184c77283c6820a02c99eef1a8f47495ed062d720c3eb43abcdb26caaeb"
+  },
+  "source_archives": {
+    "candidate": {
+      "repository": "/users/jxia3/atlas/incr",
+      "revision": "2763f6b2a44823b971aaf83018ad14ec494d7b28",
+      "archive": "sources/candidate.tar.gz",
+      "sha256": "51670eb33eaef87c61f8a9c09efdc0ab41aeee558983ff20e5e80472507eb76d"
+    },
+    "original": {
+      "repository": "/users/jxia3/atlas/incr-main-qualification",
+      "revision": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+      "archive": "sources/original.tar.gz",
+      "sha256": "492a725dd8cee0a1ee72a8fbdd6a8659cd6b739281f00d6b60947ad162e663fa"
+    },
+    "observe": {
+      "repository": "/users/jxia3/atlas/observe",
+      "revision": "8cef18d01879cbb2bf647ad6619580b64e0915a6",
+      "archive": "sources/observe.tar.gz",
+      "sha256": "9c3a4fae4fe0f6c4184f59bccc1b9526fce686b8530707fc3c9b9a4011a6c8fc"
+    }
+  },
+  "revisions": {
+    "/users/jxia3/atlas/incr": "d57d4a591df000398a08fdbbdec6aafdc40b8def",
+    "/users/jxia3/atlas/incr-main-qualification": "4b8e5ddf8e275d947518c7cc0f5d2713fe992307",
+    "/users/jxia3/atlas/observe": "8cef18d01879cbb2bf647ad6619580b64e0915a6"
+  }
+}

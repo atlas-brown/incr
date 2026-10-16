@@ -1,0 +1,31 @@
+{
+  "verified_roundtrip": true,
+  "archive_sha256": "e9a0bdae5726b8a342fab7a44ac63fd40c9777d69bc2ec45f6152e9e28daf9a1",
+  "members": {
+    "harness/fdguard.c": "7237bf748ec33b87ce1211b8e5f3faea179b46491c2a0e391892ae3afd666e43",
+    "harness/launch.py": "a68bca148121f695ad519b5cea3b5bb1424ae093206615aaf6045417c5a6161b",
+    "harness/common.py": "c2a8202e15e6d8c156931d8bcce98d49d4e4f023555b1351fdcf9bd2808fc43d",
+    "harness/cleanup.py": "d1430b03e434b397112f165a1cf5172abe68cca76967de2a283e2189c7faa627",
+    "harness/plots.py": "76e21a692c8ce92cc89c350ae33aa956aca0f9613d5443bbdb22d414c871a2bd",
+    "harness/supplemental.py": "19c74ae2648a117951cfa54cf74679cc1ec7d7fd838852a0958e7045eb52a0be",
+    "harness/setup_models.py": "ca4e97ff2e43c64fab2c138004c21a7e9e28128189ce3d9f8e93a5ea2903bf43",
+    "harness/cohort_report.py": "dd53f79cf1f702908aaae4073161a11f421f85c63dba356b6806a9893b729f04",
+    "harness/study.py": "847fd3d4d05738e08ce1d5985e173fd653d4d9d92d7c860716f5795296f33359",
+    "harness/test_cohort_report.py": "d8ce72bef93ba1815d475eddf2f1d0cf890e614d41a0105b24796434261e5cde",
+    "harness/test_harness.py": "8963d361237e4e55d71072ce91a48b4a6647e22fe695414ccf313e31677bfce4",
+    "harness/monitor.py": "47efad2eb12043bbbbf7994d21c611b3905d2da9e1cb23f2fe74ef9dacd3568d",
+    "harness/prepare.py": "391d1b5d07b4f8378228f0e8d50fd1e21de51df1874a1a3b7d45e425d9f08beb",
+    "harness/image_annotation.py": "e6ac9036aa402671d7b79ba53dc03ed957dd7a973a771b6f70bb6868436c52d1",
+    "harness/test_supplemental.py": "613ac15ad6a2718668420c1f0267efba0d11886d43a477d86a80e94fa209bd4a",
+    "harness/validate.py": "3ac3f30ebc90605b9ca4e3c03e3ef419d265ca24bb0b9f3844b654fe3e17c60c",
+    "harness/validation_worker.py": "c7651c61919ab5f0bb1adae2a16ec5af525685a6eca5c602122a24e7ae03476e",
+    "harness/test_image_annotation.py": "2f8b74ef67b4c36b0c26955620d3487ffd90d91355dadfe96fe81b8655a7ad63",
+    "benchmarks/image-annotation/image-annotation-1.sh": "e38b69565c03461318a725394d177cdbb6de6e4c0b3cc6cb985120b1e8ca251a",
+    "benchmarks/image-annotation/image-annotation-7.sh": "b122eb33f16fd0741fa04e8f9413e6f896304f181161281d4f083286e1f3a5ef",
+    "benchmarks/image-annotation/image-annotation-4.sh": "0567889efaf6ecacf88c43120a3784b933016fe0e771c922b71f09d885664436",
+    "benchmarks/image-annotation/image-annotation-6.sh": "59a30782de926921aefc71a4904657af0ffaa5e9e192ac3398193977fe4e78b7",
+    "benchmarks/image-annotation/image-annotation-5.sh": "69466d0c117091104e147f5ac165cdc265a7e21d85abf95fd6846706f288b43c",
+    "benchmarks/image-annotation/image-annotation-2.sh": "e670b8853dfb120dad356d1a3f093a81d580760d8da270470e9432011ef2297f",
+    "benchmarks/image-annotation/image-annotation-3.sh": "ad1346c5ff470bbefc86b598f2fce0899fa012e5c3c394e0cd93df5cdd5d2ff4"
+  }
+}

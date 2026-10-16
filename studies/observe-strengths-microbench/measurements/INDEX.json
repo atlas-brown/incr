@@ -14,5 +14,5 @@
     "redirected-diagnostic-01": "Complete18 valid large limit-case samples plus6 dynamically verified Observe phases and detailed phase analysis.",
     "dummy-large-probe-01": "Complete18 valid large256-command samples; independently audited."
   },
-  "final": "final-01: all 2754 measurements complete and output validated; instrumentation audit pending for nine zero-cache artifact-generation Observe cold samples. See audit.json and REPORT.md."
+  "final": "final-01: all 2754 measurements complete and output/capture/coverage validated. Nine zero-cache installation samples are diagnosed as extended-attribute replay barriers with same-binary witnesses; the original cache-presence audit remains false and is preserved. See instrumentation-review.json and REPORT.md."
 }

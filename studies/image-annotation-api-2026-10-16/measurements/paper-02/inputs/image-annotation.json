@@ -1,0 +1,77 @@
+{
+  "name": "image-annotation",
+  "profile": "paper",
+  "version": 1,
+  "recipes": [
+    {
+      "url": "https://atlas.cs.brown.edu/data/small/jpg.zip",
+      "members": [
+        "jpg/100000.jpg",
+        "jpg/100001.jpg",
+        "jpg/100002.jpg",
+        "jpg/100100.jpg",
+        "jpg/100101.jpg",
+        "jpg/100200.jpg",
+        "jpg/100201.jpg",
+        "jpg/100300.jpg",
+        "jpg/100301.jpg",
+        "jpg/100302.jpg"
+      ],
+      "selection": "ten lexically first JPEG members; historical small recipe"
+    }
+  ],
+  "files": [
+    {
+      "path": "inputs/images/100000.jpg",
+      "bytes": 4035977,
+      "sha256": "979529d52133eea5c8815329118cbd3912b1663475472dc093e3d4caa5f48263"
+    },
+    {
+      "path": "inputs/images/100001.jpg",
+      "bytes": 3931657,
+      "sha256": "c6f2b083f4844aa0ceee9c9247e106cad94fc8a4f37aa224f3aea7757e04a8e9"
+    },
+    {
+      "path": "inputs/images/100002.jpg",
+      "bytes": 3930381,
+      "sha256": "35f5d1fa93b679d956ab64896b618169b7cbd182ca4c14dfe334b38809da5b30"
+    },
+    {
+      "path": "inputs/images/100100.jpg",
+      "bytes": 3909458,
+      "sha256": "3f312db6bd6d552e8912ab346af238fcb1b1648391d36a2df6be18b960ee7834"
+    },
+    {
+      "path": "inputs/images/100101.jpg",
+      "bytes": 3962542,
+      "sha256": "fd5da3b8e100e7b00e1512fa9371a035650ab3e468cb20e09c7a2081e1ec5e7e"
+    },
+    {
+      "path": "inputs/images/100200.jpg",
+      "bytes": 3844067,
+      "sha256": "c65f02619ee92da564e178e035a4d89b9cab96da4f331ad9c79462acdcbaacc9"
+    },
+    {
+      "path": "inputs/images/100201.jpg",
+      "bytes": 3773512,
+      "sha256": "d9807732678a20e7eb93555ee0b9c4fb954c98774a0c25648b70a80d9d1a6ccb"
+    },
+    {
+      "path": "inputs/images/100300.jpg",
+      "bytes": 4036048,
+      "sha256": "ec5a16b82570428e27be99598f5b15edc67ee8e75f6ff651e7e33a450dcb1dfa"
+    },
+    {
+      "path": "inputs/images/100301.jpg",
+      "bytes": 4060342,
+      "sha256": "ec01e5f0e2ee7ba9dc71cf73a2a5ae3676111d3e655cd87c6d37705495e981fe"
+    },
+    {
+      "path": "inputs/images/100302.jpg",
+      "bytes": 3824533,
+      "sha256": "ca1b3a1d57ad698bc12c3b9598d69d80728f043f0ff3c7020712fffaf90d49d1"
+    }
+  ],
+  "input_bytes": 39308517,
+  "preparation_code_sha256": "391d1b5d07b4f8378228f0e8d50fd1e21de51df1874a1a3b7d45e425d9f08beb"
+}
