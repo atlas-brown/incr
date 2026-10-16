@@ -7,6 +7,7 @@ for img in $(find "$IN" -type f -iname "*.jpg"); do
 
     base=$(echo "$title" | tr '[:upper:]' '[:lower:]' | sed 's/ /_/g; s/[^a-z0-9_-]//g')
     filename="${base}.${mode}.jpg"
+    filename="${img##*/}.$filename"
 
     cp "$img" "$OUT/$filename"
 done

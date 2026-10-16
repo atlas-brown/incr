@@ -28,6 +28,7 @@ def main():
     credentials = Path(os.environ['LLM_USER_PATH'])
     lock = None
     minimum_run = os.environ.get('INCR_IMAGE_MIN_RUN', 'minimum-01')
+    paper_run = os.environ.get('INCR_IMAGE_PAPER_RUN', 'paper-01')
     try:
         status('queued', wait_for='incr-strengths-microbench-final.service')
         while subprocess.run(['systemctl','--user','is-active','--quiet',
@@ -47,20 +48,27 @@ def main():
             command([client/'bin/python','-m','pip','freeze'], stdout=output)
         # Freeze the maintained runner at queue time, not after a later edit.
         harness = WORK/'queued-harness'
-        command([ROOT/'qualification/.venv/bin/python','-m','unittest','test_image_annotation'], cwd=harness)
+        command([ROOT/'qualification/.venv/bin/python','-m','unittest','test_image_annotation'],
+                cwd=harness, env=dict(os.environ, INCR_BENCH_STUDY=str(STUDY)))
         env = dict(os.environ, INCR_BENCH_STUDY=str(STUDY), INCR_IMAGE_CLIENT_BIN=str(client/'bin'))
         python = ROOT/'qualification/.venv/bin/python'
-        command([python,harness/'study.py','prepare','--profile','min','--only','image-annotation'],env=env)
-        status('minimum-validation', results=f'results/{minimum_run}/status.json')
-        command([python,harness/'study.py','run','--profile','min','--only','image-annotation',
-                 '--repetitions','1','--run-id',minimum_run,'--native-transform',
-                 '--assume-directory-access'],env=env)
+        if os.environ.get('INCR_IMAGE_REUSE_API_MINIMUM') == '1':
+            receipt = json.loads((STUDY/'minimum-validation-checkpoint.json').read_text())
+            if receipt['valid_invocations'] != 21:
+                raise RuntimeError('Prior live API minimum is not complete')
+            status('reuse-api-minimum-after-collision-regression', source='minimum-04')
+        else:
+            command([python,harness/'study.py','prepare','--profile','min','--only','image-annotation'],env=env)
+            status('minimum-validation', results=f'results/{minimum_run}/status.json')
+            command([python,harness/'study.py','run','--profile','min','--only','image-annotation',
+                     '--repetitions','1','--run-id',minimum_run,'--native-transform',
+                     '--assume-directory-access'],env=env)
         command([python,harness/'study.py','prepare','--profile','paper','--only','image-annotation'],env=env)
-        status('running', results='results/paper-01/status.json')
+        status('running', results=f'results/{paper_run}/status.json')
         command([python,harness/'study.py','run','--profile','paper','--only','image-annotation',
-                 '--repetitions','3','--run-id','paper-01','--native-transform',
+                 '--repetitions','3','--run-id',paper_run,'--native-transform',
                  '--assume-directory-access'],env=env)
-        status('complete', results='results/paper-01/summary.json')
+        status('complete', results=f'results/{paper_run}/summary.json')
     except BaseException as error:
         status('failed', error_type=type(error).__name__,
                detail='Inspect console.log and per-run status; no automatic retry or promotion of failed samples.')

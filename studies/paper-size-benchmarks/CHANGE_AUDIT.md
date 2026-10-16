@@ -108,3 +108,7 @@ locations and all environment values are recorded per sequence. Both cache
 namespaces are recreated with each fixture and removed after measurement and
 validation. The import-only torch-temp-interference-01 probe reproduces and fixes
 the cross-framework invalidation without relaxing metadata dependency checks.
+
+## Opt-in live image study repair
+
+The separate `image-annotation-api-2026-10-16` study found that different images can receive identical `gpt-4o-mini` titles, causing the original shell scripts to overwrite earlier output images. All seven versions now prefix output filenames with the input image basename using the same shell assignment. A deterministic identical-title regression covers all seven versions. This is a workload correctness repair shared by Bash/original/Observe, with no runtime optimization or annotation. The live study separately labels its image-payload validation because fresh generated titles are nondeterministic; it is excluded from the unchanged deterministic historical manifest.
