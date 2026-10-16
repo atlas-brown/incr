@@ -14,5 +14,5 @@
     "redirected-diagnostic-01": "Complete18 valid large limit-case samples plus6 dynamically verified Observe phases and detailed phase analysis.",
     "dummy-large-probe-01": "Complete18 valid large256-command samples; independently audited."
   },
-  "final": "final-01: framework frozen, explicit launch authorized after all recorded gates; inspect its status for actual completion."
+  "final": "final-01: all 2754 measurements complete and output validated; instrumentation audit pending for nine zero-cache artifact-generation Observe cold samples. See audit.json and REPORT.md."
 }

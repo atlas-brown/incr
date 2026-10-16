@@ -39,6 +39,7 @@ def audit(root):
         for p in PHASES
     }
     samples = {}
+    instrumentation_warnings = []
     for path in root.glob("samples/*/*/*/*/*.json"):
         value = json.loads(path.read_text())
         key = tuple(
@@ -62,9 +63,7 @@ def audit(root):
             and value["phase"] == "cold"
             and value["cache_entries"] < 1
         ):
-            raise RuntimeError(
-                "No cache activity: possible native bypass: " + str(path)
-            )
+            instrumentation_warnings.append(str(path.relative_to(root)))
         capture = path.parent / (value["phase"] + "-capture")
         for stream in ("stdout", "stderr"):
             if digest(capture / stream) != value[stream + "_sha256"]:
@@ -135,14 +134,20 @@ def audit(root):
         "Cache activity witnesses count new/rewritten/retained metadata entries, not exact logical hit rates.",
     ]
     report = {
-        "valid": True,
+        "valid": not instrumentation_warnings,
+        "output_validation_passed": True,
+        "instrumentation_warnings": instrumentation_warnings,
         "expected": len(expected),
         "verified": len(samples),
         "repetitions": config["repetitions"],
         "comparisons": comparisons,
     }
     (root / "audit.json").write_text(json.dumps(report, indent=2) + "\n")
+    if instrumentation_warnings:
+        lines[1:1] = ["", "**Performance qualification pending:** zero cache entries in some cold engine samples. All raw-output, native-reference and coverage checks passed, but the instrumentation gate did not. Inspect audit.json; do not certify these timings as fully audited speedups."]
     (root / "REPORT.md").write_text("\n".join(lines) + "\n")
+    if instrumentation_warnings:
+        raise RuntimeError(f"Output validation passed; {len(instrumentation_warnings)} cold samples require instrumentation review")
     print(json.dumps({"verified": len(samples), "valid": True}))
 
 
