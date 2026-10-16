@@ -1,0 +1,20 @@
+{
+  "captured_at_utc": "2026-10-16T20:55:47.963966+00:00",
+  "run": "final-01",
+  "state": "partial checkpoint; live run continues independently",
+  "completed_valid_samples": 1920,
+  "planned_samples": 2754,
+  "remaining_at_snapshot": 834,
+  "independent_full_audit": "pending; automatically runs after completion",
+  "service": "incr-strengths-microbench-final.service",
+  "files_sha256": {
+    "timings.csv": "74a8c056d70023a3cc818e8c6f2a43183f0ef227cd4a41c7de60c58a33b0097d",
+    "provenance.json": "0365fe25536fea895a39291045d77587f88efe5e5ff6643a3a639947cd03328c",
+    "configuration.json": "b28b58bdae128cb360e6d1aea9b89d1df300cbc8fabc1619e062ceff4f30268b",
+    "samples.jsonl": "bb0699e2379105ad3faf44f2b1c1cf6f0dd503f661794e9ee43c2500e363b3c5",
+    "observe-sources.tar.gz": "9c84a37814addaa16749b24eb745bf6520a1b541d41dc52c750bd47b5ff575d7",
+    "PLAN.md": "de2cc43e9154085ffdc225cdd625075bb960ae79932c4063a72bf00b79c69a81",
+    "candidate-sources.tar.gz": "6ea085fff0f799ad8a6f80c856e83fc33502bc51c9fc064a708280a66be9b830",
+    "original-sources.tar.gz": "723c057712867c06f9ad58ec84b63a5513f27443867f4ab7e499677a8f59430e"
+  }
+}

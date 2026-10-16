@@ -1,12 +1,12 @@
 # Consolidated evaluation measurements — 16 October 2026
 
-All benchmark execution and queued work was cancelled at the user's request. No study is scheduled to resume. This directory is the canonical home for the detailed measurements from both Incr and Observe, historical qualification, diagnostics, failed attempts and current evaluation. Results are descriptive, with annotations off in the final cohorts; do not pool revisions or select the faster replicate.
+All application benchmark execution and queued work covered by this archive was cancelled at the user's request. Those runs are not scheduled to resume. The separate synthetic microbenchmark study is tracked in `../observe-strengths-microbench/`. This directory is the canonical home for the detailed measurements from both Incr and Observe, historical qualification, diagnostics, failed attempts and current evaluation. Results are descriptive, with annotations off in the final cohorts; do not pool revisions or select the faster replicate.
 
 ## Final full reproduction (cancelled)
 
 792 completed invocations passed validation; zero completed samples failed. Twelve historical families completed three paired repetitions. DPT has complete Bash repetitions 0/1, Observe repetitions 0/1, and original repetition 0, plus four valid original repetition-1 samples. The in-flight invocation was cancelled and has no timing sample. Historical scope was 828; supplemental scope was 45 and never started. A pre-cancellation running status in raw evidence is superseded by admin/cancellation.json.
 
-Median whole-sequence seconds (three complete repetitions required):
+Median whole-sequence seconds (three complete repetitions per mode). The first twelve rows come from the full reproduction; DPT comes from the completed final targeted run using the same binaries:
 
 | Benchmark | Bash | Original Incr | Observe |
 |---|---:|---:|---:|
@@ -22,12 +22,15 @@ Median whole-sequence seconds (three complete repetitions required):
 | weather | 46.593 | 16.606 | 14.147 |
 | beginner | 197.372 | 78.772 | 70.224 |
 | unixfun | 100.735 | 110.852 | 106.148 |
+| DPT (final targeted) | 5332.129 | 1204.950 | 1187.345 |
 
-Observe is faster than original Incr on all twelve completed families and faster than Bash on eleven. Unixfun remains about 5.4 seconds slower than Bash. Original Incr is slower than Bash on file-mod, nlp-ngrams and unixfun. Small differences are not evidence of statistical significance.
+Across these thirteen completed same-binary benchmark results, Observe is faster than original Incr on all thirteen and faster than Bash on twelve. The DPT row does not imply that DPT completed in the cancelled full reproduction; cohorts remain separate in the detailed records. Unixfun remains about 5.4 seconds slower than Bash. Original Incr is slower than Bash on file-mod, nlp-ngrams and unixfun. Small differences are not evidence of statistical significance.
 
 ## Earlier final targeted run
 
 The same exact Incr/Observe/original binary hashes were used for the final targeted cohort and the cancelled full reproduction. The earlier beginner/DPT run completed all 216 invocations, three paired repetitions, with strict native validation. Its whole-sequence medians were beginner 197.455 / 76.038 / 75.311 seconds and DPT 5332.129 / 1204.950 / 1187.345 (Bash/original/Observe). The new completed DPT sequences are roughly 4–7% faster across modes; preserve them as independent replication rather than combining selected samples. The valid targeted DPT results remain available despite cancellation of the later reproduction.
+
+DPT medians excluding the first execution are **5004.948 / 809.597 / 797.346 seconds** (Bash/original/Observe), also from the three completed targeted repetitions. Observe is about **4.49× faster than Bash** over the whole sequence and **6.28×** excluding the first execution; its advantage over original Incr is about **1.5%**, a small difference. These values are recorded under `final-targeted` / `dpt` in `family-statistics.json`.
 
 The older full checkpoint used different binaries, completed twelve families, and stopped on a narrowly identified TensorFlow compatibility notice in DPT. Its results remain explicitly labelled old-full. Published paper timings are contextual, not matched samples: reconstructed inputs, repairs, annotations and timing methodology differ.
 

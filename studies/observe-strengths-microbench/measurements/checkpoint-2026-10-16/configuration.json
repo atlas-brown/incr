@@ -1,0 +1,11 @@
+{
+  "run_id": "final-01",
+  "scales": "small,medium,large",
+  "only": "builtin-control,compute-control,dummy-straightline,dummy-loop,checksums,text-summaries,directory-inventory,artifact-generation,redirected-transform,staged-artifacts,partitioned-logs,parameter-sweep,growing-manifest,localized-script-edit,shared-dependency,streaming-stages,build-graph",
+  "repetitions": 3,
+  "counts": "4,24,128",
+  "rows": "16,128,1024",
+  "timeout": 600,
+  "diagnostic": false,
+  "sandbox": false
+}
