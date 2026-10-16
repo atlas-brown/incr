@@ -1,0 +1,8 @@
+{
+  "time": "2026-10-16T17:52:23.797692+00:00",
+  "reason": "User requested cancellation and consolidation; no further evaluation is queued.",
+  "historical_state": "cancelled-partial",
+  "supplemental_state": "not-started",
+  "service_active": false,
+  "timer_disabled": true
+}

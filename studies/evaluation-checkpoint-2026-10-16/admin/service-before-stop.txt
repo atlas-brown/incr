@@ -1,0 +1,52 @@
+● incr-bench-study.service - /usr/bin/python3 /users/jxia3/atlas/incr/studies/observe-reproduction/reproduce.py
+     Loaded: loaded (/run/user/20012/systemd/transient/incr-bench-study.service; transient)
+  Transient: yes
+     Active: active (running) since Fri 2026-10-16 03:28:06 MDT; 8h ago
+   Main PID: 2654726 (python3)
+      Tasks: 235 (limit: 76717)
+     Memory: 4.6G
+        CPU: 1d 5h 46min 4.151s
+     CGroup: /user.slice/user-20012.slice/user@20012.service/app.slice/incr-bench-study.service
+             ├─2654726 /usr/bin/python3 /users/jxia3/atlas/incr/studies/observe-reproduction/reproduce.py
+             ├─2655249 /usr/bin/python3 /users/jxia3/atlas/incr/studies/paper-size-benchmarks/harness/study.py run --profile paper --only file-mod,word-freq,nlp-ngrams,poet,nlp-uppercase,covid,nginx-analysis,spell,bio,weather,beginner,unixfun,dpt --run-id historical-01 --repetitions 3 --modes bash,original,observe --native-transform --assume-directory-access --content-validated-inputs --release-inputs
+             ├─3613180 /usr/bin/time -f "{\"user_sec\":%U,\"system_sec\":%S,\"max_rss_kib\":%M,\"major_faults\":%F,\"minor_faults\":%R,\"voluntary_switches\":%w,\"involuntary_switches\":%c,\"filesystem_inputs\":%I,\"filesystem_outputs\":%O,\"exit_status\":%x}" -o /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/capture/resources.json -- /users/jxia3/atlas/incr/studies/observe-reproduction/.work/builds/historical-01/fdguard bash /users/jxia3/atlas/incr/studies/observe-reproduction/.work/builds/historical-01/original/incr.sh /users/jxia3/atlas/incr/studies/observe-reproduction/.work/fixture/scripts/dpt_4.sh
+             ├─3613182 bash /users/jxia3/atlas/incr/studies/observe-reproduction/.work/builds/historical-01/original/incr.sh /users/jxia3/atlas/incr/studies/observe-reproduction/.work/fixture/scripts/dpt_4.sh
+             ├─3613190 bash -- /users/jxia3/atlas/incr/studies/observe-reproduction/.work/fixture/scripts/dpt_4.sh
+             ├─3613197 bash -- /users/jxia3/atlas/incr/studies/observe-reproduction/.work/fixture/scripts/dpt_4.sh
+             ├─3613198 /users/jxia3/atlas/incr/studies/observe-reproduction/.work/builds/historical-01/original/target/release/incr --try /users/jxia3/atlas/incr/studies/observe-reproduction/.work/builds/historical-01/original/src/scripts/try.sh --cache /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache sort
+             ├─3613202 strace -yf --seccomp-bpf --trace=fork,clone,%file -o /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/trace_9110150787749098779.txt sort
+             ├─3613223 sort
+             ├─3617502 /users/jxia3/atlas/incr/studies/observe-reproduction/.work/builds/historical-01/original/target/release/incr --try /users/jxia3/atlas/incr/studies/observe-reproduction/.work/builds/historical-01/original/src/scripts/try.sh --cache /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache python3 scripts/segment.py
+             ├─3617503 /users/jxia3/atlas/incr/studies/observe-reproduction/.work/builds/historical-01/original/target/release/incr --try /users/jxia3/atlas/incr/studies/observe-reproduction/.work/builds/historical-01/original/src/scripts/try.sh --cache /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache python3 scripts/classify.py /users/jxia3/atlas/incr/studies/observe-reproduction/.work/fixture/inputs/dpt/expedition-2/102001.jpg
+             ├─3617504 /users/jxia3/atlas/incr/studies/observe-reproduction/.work/builds/historical-01/original/target/release/incr --try /users/jxia3/atlas/incr/studies/observe-reproduction/.work/builds/historical-01/original/src/scripts/try.sh --cache /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache awk -vi=/users/jxia3/atlas/incr/studies/observe-reproduction/.work/fixture/inputs/dpt/expedition-2/102001.jpg "{print \"g:\", \$5, \"c:\", \$6, i}"
+             ├─3617505 strace -yf --seccomp-bpf --trace=fork,clone,%file -o /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/trace_10964685019555785121.txt python3 scripts/segment.py
+             ├─3617506 /bin/sh /users/jxia3/atlas/incr/studies/observe-reproduction/.work/builds/historical-01/original/src/scripts/try.sh -D /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_5794511856896618721 strace -yf --seccomp-bpf --trace=fork,clone,%file -o /tmp/trace.txt python3 scripts/classify.py /users/jxia3/atlas/incr/studies/observe-reproduction/.work/fixture/inputs/dpt/expedition-2/102001.jpg
+             ├─3617514 /bin/sh /users/jxia3/atlas/incr/studies/observe-reproduction/.work/builds/historical-01/original/src/scripts/try.sh -D /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_13238900225722483768 strace -yf --seccomp-bpf --trace=fork,clone,%file -o /tmp/trace.txt awk -vi=/users/jxia3/atlas/incr/studies/observe-reproduction/.work/fixture/inputs/dpt/expedition-2/102001.jpg "{print \"g:\", \$5, \"c:\", \$6, i}"
+             ├─3617527 python3 scripts/segment.py
+             ├─3617709 unshare --mount --map-root-user --user --pid --fork /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_13238900225722483768/mount_and_execute.sh
+             ├─3617711 /bin/sh /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_13238900225722483768/mount_and_execute.sh
+             ├─3617712 unshare --mount --map-root-user --user --pid --fork /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_5794511856896618721/mount_and_execute.sh
+             ├─3617713 /bin/sh /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_5794511856896618721/mount_and_execute.sh
+             ├─3617732 mergerfs /boot /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_13238900225722483768/mergerdir.boot
+             ├─3617733 mergerfs /boot /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_5794511856896618721/mergerdir.boot
+             ├─3617812 mergerfs /proj /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_5794511856896618721/mergerdir.proj
+             ├─3617831 mergerfs /proj /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_13238900225722483768/mergerdir.proj
+             ├─3617859 mergerfs /run /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_5794511856896618721/mergerdir.run
+             ├─3617888 mergerfs /run /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_13238900225722483768/mergerdir.run
+             ├─3617917 mergerfs /sys /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_5794511856896618721/mergerdir.sys
+             ├─3617944 mergerfs /sys /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_13238900225722483768/mergerdir.sys
+             ├─3617988 strace -yf --seccomp-bpf --trace=fork,clone,%file -o /tmp/trace.txt python3 scripts/classify.py /users/jxia3/atlas/incr/studies/observe-reproduction/.work/fixture/inputs/dpt/expedition-2/102001.jpg
+             ├─3617999 strace -yf --seccomp-bpf --trace=fork,clone,%file -o /tmp/trace.txt awk -vi=/users/jxia3/atlas/incr/studies/observe-reproduction/.work/fixture/inputs/dpt/expedition-2/102001.jpg "{print \"g:\", \$5, \"c:\", \$6, i}"
+             ├─3618010 python3 scripts/classify.py /users/jxia3/atlas/incr/studies/observe-reproduction/.work/fixture/inputs/dpt/expedition-2/102001.jpg
+             └─3618019 awk -vi=/users/jxia3/atlas/incr/studies/observe-reproduction/.work/fixture/inputs/dpt/expedition-2/102001.jpg "{print \"g:\", \$5, \"c:\", \$6, i}"
+
+Oct 16 11:47:52 node0.jxia3-319344.brown-atlas-pg0.utah.cloudlab.us sudo[3616184]: pam_unix(sudo:session): session closed for user root
+Oct 16 11:47:52 node0.jxia3-319344.brown-atlas-pg0.utah.cloudlab.us sudo[3616253]:    jxia3 : PWD=/users/jxia3/atlas/incr/studies/observe-reproduction/.work/fixture ; USER=root ; COMMAND=/usr/bin/rm -rf /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_12520563419632416804
+Oct 16 11:47:52 node0.jxia3-319344.brown-atlas-pg0.utah.cloudlab.us sudo[3616253]: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=20012)
+Oct 16 11:47:52 node0.jxia3-319344.brown-atlas-pg0.utah.cloudlab.us sudo[3616253]: pam_unix(sudo:session): session closed for user root
+Oct 16 11:49:14 node0.jxia3-319344.brown-atlas-pg0.utah.cloudlab.us sudo[3617428]:    jxia3 : PWD=/users/jxia3/atlas/incr/studies/observe-reproduction/.work/fixture ; USER=root ; COMMAND=/usr/bin/rm -rf /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_15540929296217106309
+Oct 16 11:49:14 node0.jxia3-319344.brown-atlas-pg0.utah.cloudlab.us sudo[3617428]: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=20012)
+Oct 16 11:49:14 node0.jxia3-319344.brown-atlas-pg0.utah.cloudlab.us sudo[3617428]: pam_unix(sudo:session): session closed for user root
+Oct 16 11:49:14 node0.jxia3-319344.brown-atlas-pg0.utah.cloudlab.us sudo[3617499]:    jxia3 : PWD=/users/jxia3/atlas/incr/studies/observe-reproduction/.work/fixture ; USER=root ; COMMAND=/usr/bin/rm -rf /users/jxia3/atlas/incr/studies/observe-reproduction/.work/runner/cache/sandbox_15512117938698044975
+Oct 16 11:49:14 node0.jxia3-319344.brown-atlas-pg0.utah.cloudlab.us sudo[3617499]: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=20012)
+Oct 16 11:49:14 node0.jxia3-319344.brown-atlas-pg0.utah.cloudlab.us sudo[3617499]: pam_unix(sudo:session): session closed for user root

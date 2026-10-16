@@ -1,0 +1,121 @@
+{
+  "created": "2026-10-16T17:52:23.797692+00:00",
+  "scope": "All available measurement/statistics, correctness summaries, resources, logs, provenance and historical reports, including archived-only records; no cross-cohort pooling. No downloaded inputs, runtime caches, executable artifacts, output datasets or binary profiles.",
+  "source_roots": [
+    {
+      "path": "/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/results",
+      "label": "incr/studies/bash-parity-audit-2026-10-08/results"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/live-workflows-2026-10-09/evidence",
+      "label": "incr/studies/live-workflows-2026-10-09/evidence"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/observe-performance-regression/results",
+      "label": "incr/studies/observe-performance-regression/results"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/observe-reproduction/results",
+      "label": "incr/studies/observe-reproduction/results"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/results",
+      "label": "incr/studies/paper-size-benchmarks/results"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/checkpoint-evidence",
+      "label": "incr/studies/paper-size-benchmarks/checkpoint-evidence"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/results",
+      "label": "incr/qualification/results"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/run_results_parallel",
+      "label": "incr/evaluation/run_results_parallel"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/microbenchmark_results",
+      "label": "incr/evaluation/microbenchmark_results"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/introspect_results",
+      "label": "incr/evaluation/introspect_results"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/observe_results",
+      "label": "incr/evaluation/observe_results"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/analysis",
+      "label": "incr/evaluation/analysis"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/default_results",
+      "label": "incr/evaluation/default_results"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/batch_results",
+      "label": "incr/evaluation/batch_results"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/compaction_results",
+      "label": "incr/evaluation/compaction_results"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/annotation_results",
+      "label": "incr/evaluation/annotation_results"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/run_results",
+      "label": "incr/evaluation/run_results"
+    },
+    {
+      "path": "/users/jxia3/atlas/observe/evaluation/results",
+      "label": "observe/evaluation/results"
+    },
+    {
+      "path": "/users/jxia3/atlas/observe/evaluation/analysis",
+      "label": "observe/evaluation/analysis"
+    }
+  ],
+  "original_path_records": 88361,
+  "unique_content_files": 26287,
+  "archive_sources_read": 670,
+  "excluded_file_counts": {
+    ".diff": 412,
+    ".data": 3,
+    ".stdout": 83,
+    "(no suffix)": 41,
+    ".rs": 54,
+    ".py": 66,
+    ".incr": 225,
+    ".lock": 1,
+    ".c": 1,
+    ".strace": 1,
+    ".pdf": 13,
+    ".png": 9,
+    ".sh": 5,
+    ".part-001": 2
+  },
+  "payload_layout": "files.jsonl.gz maps original source paths (archive::member for archived records) to detailed-statistics.tar.gz members sha256/<hash>. Duplicate bytes are stored once.",
+  "files": {
+    "detailed-statistics.tar.gz": {
+      "bytes": 47452756,
+      "sha256": "b7ba12700870b46ae591f730b47aead2cd82989dc31db5c274bcbea82cdb6a81"
+    },
+    "files.jsonl.gz": {
+      "bytes": 3984764,
+      "sha256": "8c43d5d1cd273f84e0d601d3a49a844885a81f1741a2ba3bed33aba8d82b4ec7"
+    }
+  },
+  "verified_roundtrip": true,
+  "repositories": {
+    "incr": {
+      "head": "e05814207bfb1de1ea0f84e6440721d5f8977178"
+    },
+    "observe": {
+      "head": "878c75cc5abe559efd11b0e479b3f22e95ac2f40"
+    }
+  }
+}
