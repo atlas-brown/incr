@@ -1,5 +1,6 @@
 """Preparation for non-paper workloads, using their supplied full-data recipes."""
 from pathlib import Path, PurePosixPath
+import gzip
 import shutil
 import subprocess
 import sys
@@ -18,9 +19,10 @@ def prepare_inputs(name, profile, inputs, reserve, provenance):
         source = SOURCE / 'weather'
         target = inputs / 'tuft-weather.txt'
         if profile == 'min':
-            original = source / 'inputs/tuft_weather.min.txt'
-            first = original.read_text().splitlines()[0].split('\t')
-            with original.open() as stream, target.open('w') as output:
+            original = source / 'min_inputs/tuft_weather.min.txt.gz'
+            with gzip.open(original, 'rt') as stream:
+                first = stream.readline().split('\t')
+            with gzip.open(original, 'rt') as stream, target.open('w') as output:
                 for row in stream:
                     fields = row.rstrip('\n').split('\t')
                     if (fields[2], fields[5]) == (first[2], first[5]):
@@ -39,7 +41,7 @@ def prepare_inputs(name, profile, inputs, reserve, provenance):
         return
     if name != 'web-search':
         raise ValueError(name)
-    source = SOURCE / name / 'inputs'
+    source = SOURCE / name / 'min_inputs'
     articles = inputs / 'articles'
     index = inputs / 'index.txt'
     if profile == 'min':

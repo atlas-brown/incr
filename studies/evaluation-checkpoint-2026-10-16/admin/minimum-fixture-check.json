@@ -1,0 +1,37 @@
+[
+  {
+    "family": "file-mod",
+    "prepared": true,
+    "files": 6
+  },
+  {
+    "family": "word-freq",
+    "prepared": true,
+    "files": 3
+  },
+  {
+    "family": "bio",
+    "prepared": true,
+    "files": 6
+  },
+  {
+    "family": "covid",
+    "prepared": true,
+    "files": 3
+  },
+  {
+    "family": "weather",
+    "prepared": true,
+    "files": 3
+  },
+  {
+    "family": "weather-tufte",
+    "prepared": true,
+    "files": 3
+  },
+  {
+    "family": "web-search",
+    "prepared": true,
+    "files": 9
+  }
+]

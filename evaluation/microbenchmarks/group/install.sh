@@ -1,1 +1,0 @@
-pip install tensorflow segment-anything torch torchvision

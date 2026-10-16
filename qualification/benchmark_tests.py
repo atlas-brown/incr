@@ -12,6 +12,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class BenchmarkTests(unittest.TestCase):
+    def setUp(self):
+        (ROOT / "qualification/.work").mkdir(parents=True, exist_ok=True)
+
     def test_complete_ngrams(self):
         scripts = ROOT / 'evaluation/benchmarks/web-search/scripts/c'
         with tempfile.TemporaryDirectory(dir=ROOT / 'qualification/.work') as work:

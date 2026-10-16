@@ -1,7 +1,3 @@
-## Incremental Development Details
+# dpt workload
 
-`dpt_seq_1.sh`: segment only
-
-`dpt_seq_2.sh`: segment and classify
-
-`dpt_seq_3.sh`: segment, classify, and output in a certain format
+Programs are under `scripts/`; small deterministic seeds are under `min_inputs/` when required. Use the maintained [study harness](../../../studies/paper-size-benchmarks/README.md) for preparation, execution and validation. Measurements live in [the consolidated study](../../../studies/evaluation-checkpoint-2026-10-16/README.md).

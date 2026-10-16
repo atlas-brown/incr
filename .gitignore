@@ -1,28 +1,14 @@
-cache
-!/src/cache
+/target/
+/cache/
 debug_log.txt
-/target
-/venv
-.venv
-
-# Python runtime artifacts
 __pycache__/
 *.pyc
-
-# Superseded local Bash trials, indexed in QUALIFICATION_HISTORY.json.
-/studies/bash-parity-audit-2026-10-08/results/parser-fallback-system-bash-focus-01/
-/studies/bash-parity-audit-2026-10-08/results/parser-fallback-system-bash-full-01/
-/studies/bash-parity-audit-2026-10-08/results/source-introspection-options-01/
-/studies/bash-parity-audit-2026-10-08/results/source-introspection-system-bash-01/
-/studies/bash-parity-audit-2026-10-08/results/source-introspection-type-01/
-/studies/bash-parity-audit-2026-10-08/results/unannotated-benchmark-options-01/
-/studies/bash-parity-audit-2026-10-08/results/unannotated-defaults-01/
-/studies/bash-parity-audit-2026-10-08/results/version-matched-system-bash-full-01/
-
-/studies/bash-parity-audit-2026-10-08/results/function-locations-system-bash-full-01/
-
-/studies/bash-parity-audit-2026-10-08/results/function-locations-defaults-full-01/
-
-# Replay qualification is archived with member hashes in checkpoint-evidence/replay-reuse.
-/studies/bash-parity-audit-2026-10-08/results/replay-reuse-system-bash-full-01/
-/studies/bash-parity-audit-2026-10-08/results/replay-reuse-defaults-full-01/
+.venv/
+/venv/
+/qualification/.work/
+/qualification/.tools/
+/studies/*/.work/
+/studies/*/results/
+/evaluation/benchmarks/*/inputs/
+/evaluation/benchmarks/*/outputs/
+/evaluation/benchmarks/*/scripts/node_modules/

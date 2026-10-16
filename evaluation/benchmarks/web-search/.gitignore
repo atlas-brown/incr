@@ -1,6 +1,4 @@
-inputs
-outputs
-tmp
-
-node_modules
-package-lock.json
+inputs/
+outputs/
+tmp/
+node_modules/

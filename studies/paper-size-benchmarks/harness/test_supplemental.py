@@ -48,8 +48,8 @@ class SupplementalTests(unittest.TestCase):
 
     def test_min_preparation_rejects_escaping_article_names(self):
         source = self.fixture / 'source'
-        (source / 'web-search/inputs').mkdir(parents=True)
-        (source / 'web-search/inputs/index_min.txt').write_text('../../outside\n')
+        (source / 'web-search/min_inputs').mkdir(parents=True)
+        (source / 'web-search/min_inputs/index_min.txt').write_text('../../outside\n')
         with patch('prepare.SOURCE', source):
             with self.assertRaisesRegex(ValueError, 'Unsafe article'):
                 prepare_inputs('web-search', 'min', self.fixture / 'inputs', 0, {'recipes': []})

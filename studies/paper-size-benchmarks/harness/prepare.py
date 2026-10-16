@@ -171,23 +171,27 @@ def prepare(name, profile, reserve):
         elif profile == 'min':
             if name == 'file-mod':
                 songs = inputs / 'songs'
-                shutil.copytree(src / 'inputs/songs.min', songs)
+                shutil.copytree(src / 'min_inputs/songs.min', songs)
             elif name == 'word-freq':
-                shutil.copy2(src / 'inputs/10M.txt', inputs / 'text.txt')
+                with gzip.open(src / 'min_inputs/10M.txt.gz', 'rb') as source, (inputs / 'text.txt').open('wb') as output:
+                    shutil.copyfileobj(source, output)
             elif name in ('nlp-ngrams', 'nlp-uppercase', 'poet', 'spell'):
                 shutil.copytree(src / 'min_inputs/pg-min', inputs / 'books')
             elif name in ('beginner', 'nginx-analysis'):
                 shutil.copytree(src / 'min_inputs/nginx-logs', inputs / 'logs')
             elif name == 'covid':
-                shutil.copy2(src / 'inputs/in_min.csv', inputs / 'covid.csv')
+                shutil.copy2(src / 'min_inputs/in_min.csv', inputs / 'covid.csv')
             elif name == 'weather':
                 shutil.copy2(src / 'min_inputs/temperatures.min.txt', inputs / 'temperatures.txt')
             elif name == 'unixfun':
                 shutil.copy2(src / 'min_inputs/4.txt', inputs / 'chess.txt')
             elif name == 'bio':
-                shutil.copytree(src / 'inputs/bio-min', inputs / 'bio')
+                shutil.copytree(src / 'min_inputs', inputs / 'bio')
+                shutil.copy2(src / 'Gene_locs.txt', inputs / 'bio/Gene_locs.txt')
+                shutil.copy2(src / 'input_min.txt', inputs / 'bio/input_min.txt')
             elif name == 'dpt':
-                shutil.copytree(src / 'inputs/dpt.min/dpt.ref', inputs / 'dpt.ref')
+                (inputs / 'dpt.ref').mkdir()
+                shutil.copy2(src / 'min_inputs/jpg.min/jpg/100401.jpg', inputs / 'dpt.ref/100401.jpg')
             else:
                 raise ValueError(name)
         elif profile == 'paper':

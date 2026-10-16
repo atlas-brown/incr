@@ -1,6 +1,0 @@
-{
-  "current_correctness_gate": false,
-  "status": "Complete run with one retained failed native printf cold reference; no output normalization changed.",
-  "reason": "Two consecutive native current-time printf operations crossed a second boundary; warm/native and both Observe phases match expected output.",
-  "superseded_by": "final-cleanup-defaults-full-02"
-}

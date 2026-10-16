@@ -1,3 +1,0 @@
-# Raw transcripts and source diffs intentionally preserve upstream whitespace.
-results/upstream/diffs/*.diff -whitespace
-vendored-changes.diff -whitespace

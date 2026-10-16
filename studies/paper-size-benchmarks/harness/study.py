@@ -85,7 +85,7 @@ def doctor(build=False):
     if missing:
         raise RuntimeError(f'Missing dependencies: {missing}')
     if SUITE == 'supplemental':
-        node = ROOT / 'qualification/.work/node-v22.20.0-linux-x64/bin/node'
+        node = ROOT / 'qualification/.tools/node-v22.20.0-linux-x64/bin/node'
         if not node.is_file() or not (SOURCE / 'web-search/scripts/node_modules').is_dir():
             raise RuntimeError('Supplemental web-search requires its installed Node runtime and modules')
     if not Path('/dev/fuse').exists():
@@ -188,7 +188,7 @@ def freeze(run):
     if SUITE == 'supplemental':
         node = build / 'tools/node'
         node.parent.mkdir()
-        shutil.copy2(ROOT / 'qualification/.work/node-v22.20.0-linux-x64/bin/node', node)
+        shutil.copy2(ROOT / 'qualification/.tools/node-v22.20.0-linux-x64/bin/node', node)
     shutil.copytree(HARNESS, build / 'harness', ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
     subprocess.run(['cc', '-O2', '-Wall', '-Wextra', '-Werror', str(build / 'harness/fdguard.c'),
                     '-o', str(build / 'fdguard')], check=True, timeout=30)

@@ -376,7 +376,7 @@ def main():
     parser.add_argument("--content-validated-inputs", action="store_true")
     parser.add_argument("--assume-directory-access", action="store_true")
     parser.add_argument("--output", type=Path, default=STUDY / "results/latest")
-    parser.add_argument("--bash-build", type=Path, default=ROOT / "qualification/.work/bash-src")
+    parser.add_argument("--bash-build", type=Path, default=ROOT / "qualification/.tools/bash-5.2.37")
     parser.add_argument("--corpus-provenance", type=Path, default=STUDY / "corpus-provenance.json")
     parser.add_argument("--shell", type=Path, help="Shell under test; defaults to the verified Bash build. The test driver remains that build.")
     parser.add_argument("--python", type=Path, default=ROOT / "qualification/.venv/bin/python")

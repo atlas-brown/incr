@@ -1,13 +1,3 @@
-## Incremental Development Details
+# weather workload
 
-`temp-analytics-1.sh`: calculate the maximum temperatures.
-
-`temp-analytics-2.sh`: calculate the minimum temperatures.
-
-`temp-analytics-3.sh`: calculate the average temperatures.
-
-`tuft-weather-1.sh`: format data.
-
-`tuft-weather-1.sh`: process data.
-
-`tuft-weather-1.sh`: plot data.
+Programs are under `scripts/`; small deterministic seeds are under `min_inputs/` when required. Use the maintained [study harness](../../../studies/paper-size-benchmarks/README.md) for preparation, execution and validation. Measurements live in [the consolidated study](../../../studies/evaluation-checkpoint-2026-10-16/README.md).

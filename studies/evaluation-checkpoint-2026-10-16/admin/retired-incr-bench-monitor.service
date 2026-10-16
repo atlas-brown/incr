@@ -1,0 +1,13 @@
+[Unit]
+Description=Audit benchmark progress and saved correctness evidence
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /users/jxia3/atlas/incr/studies/paper-size-benchmarks/harness/monitor.py /users/jxia3/atlas/incr/studies/paper-size-benchmarks/results/replay-final-paper-01
+WorkingDirectory=/users/jxia3/atlas/incr/studies/paper-size-benchmarks
+TimeoutStartSec=60
+Nice=19
+CPUQuota=10%
+IOWeight=10
+StandardOutput=journal
+StandardError=journal

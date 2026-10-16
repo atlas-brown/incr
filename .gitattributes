@@ -1,8 +1,2 @@
-# Preserve the exact git diff used to verify the pinned baseline repair.
+# Preserve the exact reviewed baseline patch.
 studies/paper-size-benchmarks/reference/original-minimal-fixes.patch -whitespace
-
-# Raw Bash comparison evidence preserves literal whitespace.
-studies/bash-parity-audit-2026-10-08/results/**/diffs/*.diff -whitespace
-
-# Raw component transcripts preserve their original trailing newlines.
-studies/bash-parity-audit-2026-10-08/results/*components/*.log -whitespace

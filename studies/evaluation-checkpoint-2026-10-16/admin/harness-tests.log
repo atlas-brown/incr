@@ -1,0 +1,27 @@
+----------------------------------------------------------------------
+Ran 45 tests in 2.740s
+
+OK
+Launched incr-bench-study.service
+Log: /users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/test-nyis2s15/results/logs/launch-test.log
+Results: /users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work/test-nyis2s15/results/launch-test
+{
+  "checked_at": "2026-10-16T17:58:05.179734+00:00",
+  "run_state": "complete",
+  "recorded": 0,
+  "valid": 0,
+  "health": "attention",
+  "monitor_issues": [
+    "Complete status contradicts summary/sample counts"
+  ]
+}
+{
+  "checked_at": "2026-10-16T17:58:05.201284+00:00",
+  "run_state": "error",
+  "recorded": 0,
+  "valid": 0,
+  "health": "attention",
+  "monitor_issues": [
+    "Run terminated with state=error"
+  ]
+}

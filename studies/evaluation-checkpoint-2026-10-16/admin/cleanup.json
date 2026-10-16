@@ -1,0 +1,690 @@
+{
+  "time": "2026-10-16T17:55:10.472684+00:00",
+  "state": "complete",
+  "removed": [
+    {
+      "path": "/users/jxia3/atlas/incr/studies/observe-reproduction",
+      "reason": "Superseded experiment/controller; all measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/observe-performance-regression",
+      "reason": "Superseded experiment/controller; all measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/live-workflows-2026-10-09",
+      "reason": "Superseded experiment/controller; all measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/checkpoint-evidence",
+      "reason": "Historical evidence consolidated; discard old caches, snapshots and checkpoint narratives"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/REPLAY_REUSE_CHECKPOINT.json",
+      "reason": "Historical evidence consolidated; discard old caches, snapshots and checkpoint narratives"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/.work",
+      "reason": "Historical evidence consolidated; discard old caches, snapshots and checkpoint narratives"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/CHECKPOINT_VALIDATION.json",
+      "reason": "Historical evidence consolidated; discard old caches, snapshots and checkpoint narratives"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/RESULTS.md",
+      "reason": "Historical evidence consolidated; discard old caches, snapshots and checkpoint narratives"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/ACTIVE_GOAL_HANDOFF.md",
+      "reason": "Historical evidence consolidated; discard old caches, snapshots and checkpoint narratives"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/results",
+      "reason": "Historical evidence consolidated; discard old caches, snapshots and checkpoint narratives"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/MIN_VALIDATION.json",
+      "reason": "Historical evidence consolidated; discard old caches, snapshots and checkpoint narratives"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/FULL_INPUT_REVIEW.json",
+      "reason": "Historical evidence consolidated; discard old caches, snapshots and checkpoint narratives"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/REPLAY_QUALIFIED_CHECKPOINT.json",
+      "reason": "Historical evidence consolidated; discard old caches, snapshots and checkpoint narratives"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/CHECKPOINT.json",
+      "reason": "Historical evidence consolidated; discard old caches, snapshots and checkpoint narratives"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/OPTIMIZATION_VALIDATION.json",
+      "reason": "Historical evidence consolidated; discard old caches, snapshots and checkpoint narratives"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/GUARDED_DESCRIPTOR_CHECKPOINT.json",
+      "reason": "Historical evidence consolidated; discard old caches, snapshots and checkpoint narratives"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/UNANNOTATED_CHECKPOINT.json",
+      "reason": "Historical evidence consolidated; discard old caches, snapshots and checkpoint narratives"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/FINAL_UNANNOTATED_CHECKPOINT.json",
+      "reason": "Historical evidence consolidated; discard old caches, snapshots and checkpoint narratives"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/REPORT.md",
+      "reason": "Historical Bash measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/PROGRESS.md",
+      "reason": "Historical Bash measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/results",
+      "reason": "Historical Bash measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/case-notes.tsv",
+      "reason": "Historical Bash measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/reviewed-documents.json",
+      "reason": "Historical Bash measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/.gitattributes",
+      "reason": "Historical Bash measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/CASE_ANALYSIS.md",
+      "reason": "Historical Bash measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/paper-accounting.json",
+      "reason": "Historical Bash measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/DESIGN_COMPARISON.md",
+      "reason": "Historical Bash measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/QUALIFICATION_HISTORY.json",
+      "reason": "Historical Bash measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/results",
+      "reason": "Superseded reports, diagnostics or microbench runners; measurements saved in canonical study"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/.work",
+      "reason": "Superseded reports, diagnostics or microbench runners; measurements saved in canonical study"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/QUALIFICATION_LOG.md",
+      "reason": "Superseded reports, diagnostics or microbench runners; measurements saved in canonical study"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/ACTIVE_GOAL_HANDOFF.md",
+      "reason": "Superseded reports, diagnostics or microbench runners; measurements saved in canonical study"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/agents/benchmarks",
+      "reason": "Superseded reports, diagnostics or microbench runners; measurements saved in canonical study"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/agents/docs",
+      "reason": "Superseded reports, diagnostics or microbench runners; measurements saved in canonical study"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/AUDIT.md",
+      "reason": "Superseded audit/plan narrative preserved in Git history"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/OPTIMIZATIONS.md",
+      "reason": "Superseded audit/plan narrative preserved in Git history"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/EFFECT_REPLAY.md",
+      "reason": "Superseded audit/plan narrative preserved in Git history"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/SECOND_AUDIT.md",
+      "reason": "Superseded audit/plan narrative preserved in Git history"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/PLAN.md",
+      "reason": "Superseded audit/plan narrative preserved in Git history"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/CODE_REVIEW.md",
+      "reason": "Superseded audit/plan narrative preserved in Git history"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/progress.py",
+      "reason": "One-off historic reporting/probe tied to deleted frozen builds"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/report.py",
+      "reason": "One-off historic reporting/probe tied to deleted frozen builds"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/record_build.py",
+      "reason": "One-off historic reporting/probe tied to deleted frozen builds"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/report_probe.py",
+      "reason": "One-off historic reporting/probe tied to deleted frozen builds"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/run_results_parallel",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/microbenchmark_results",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/introspect_results",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmark-list.txt",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/observe_results",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/run.sh",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/analysis",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/scripts",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/war-and-peace",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/default_results",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/batch_results",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/compaction_results",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/annotation_results",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/koala",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/run_results",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/microbenchmarks",
+      "reason": "Legacy runner, analysis/plot artifacts or measurements consolidated"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/run_all.sh",
+      "reason": "Superseded by maintained study harness"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/run_lib.sh",
+      "reason": "Superseded by maintained study harness"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nlp-uppercase/inputs/pg-min",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nlp-uppercase/run.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nlp-uppercase/execute.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nlp-uppercase/setup.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nlp-uppercase/clean.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nlp-uppercase/validate.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/weather/inputs/temperatures.min.txt",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/weather/run.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/weather/execute.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/weather/setup.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/weather/clean.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/weather/validate.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/unixfun/inputs/4.min.txt",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/unixfun/run.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/unixfun/execute.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/unixfun/setup.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/unixfun/clean.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/unixfun/validate.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/web-search/inputs/wikipedia_min.tar.gz",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/web-search/execute.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/web-search/clean.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/web-search/validate.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nlp-ngrams/inputs/pg-min",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nlp-ngrams/run.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nlp-ngrams/execute.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nlp-ngrams/setup.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nlp-ngrams/clean.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nlp-ngrams/validate.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/file-mod/run.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/file-mod/execute.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/file-mod/setup.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/file-mod/clean.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/file-mod/validate.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/beginner/inputs/nginx-logs_min",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/beginner/run.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/beginner/execute.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/beginner/setup.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/beginner/clean.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/spell/inputs/pg-min",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/spell/run.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/spell/execute.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/spell/setup.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/spell/clean.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/dpt/inputs/models",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/dpt/run.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/dpt/execute.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/dpt/execute_manual.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/dpt/setup.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/dpt/clean.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/dpt/validate.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/image-annotation/run.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/image-annotation/execute.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/image-annotation/setup.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/image-annotation/clean.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/word-freq/inputs/1M.txt",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/word-freq/inputs/all_cmdsx100.txt",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/word-freq/inputs/dict.txt",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/word-freq/inputs/all_cmds.txt",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/word-freq/inputs/comm_min",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/word-freq/inputs/logs-popcount-org_min.txt",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/word-freq/inputs/chessdata_min",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/word-freq/run.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/word-freq/execute.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/word-freq/setup.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/word-freq/clean.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/word-freq/validate.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nginx-analysis/inputs/nginx-logs_min",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nginx-analysis/run.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nginx-analysis/execute.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nginx-analysis/setup.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nginx-analysis/clean.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/nginx-analysis/validate.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/poet/inputs/pg-min",
+      "reason": "Downloaded input, model payload or redundant prepared seed"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/poet/run.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/poet/execute.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/poet/setup.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/poet/clean.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/bio/outputs",
+      "reason": "Generated benchmark output or checksum cache"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/bio/hashes",
+      "reason": "Generated benchmark output or checksum cache"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/bio/run.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/bio/execute.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/bio/setup.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/bio/clean.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/bio/validate.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/covid/run.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/covid/execute.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/covid/setup.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/covid/clean.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/covid/validate.sh",
+      "reason": "Superseded per-family wrapper; workload programs remain under scripts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/dpt/min_inputs/songs.min",
+      "reason": "Unused duplicate seed collection"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/benchmarks/dpt/min_inputs/dpt.min",
+      "reason": "Unused duplicate seed collection"
+    },
+    {
+      "path": "/users/jxia3/atlas/observe/evaluation",
+      "reason": "Duplicate old benchmark implementation or historical design; retained in Git history and statistics archive"
+    },
+    {
+      "path": "/users/jxia3/atlas/observe/old",
+      "reason": "Duplicate old benchmark implementation or historical design; retained in Git history and statistics archive"
+    },
+    {
+      "path": "/users/jxia3/atlas/observe/docs",
+      "reason": "Duplicate old benchmark implementation or historical design; retained in Git history and statistics archive"
+    },
+    {
+      "path": "/users/jxia3/atlas/observe/CONTEXT.md",
+      "reason": "Duplicate old benchmark implementation or historical design; retained in Git history and statistics archive"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/target",
+      "reason": "Rebuildable Rust artifacts"
+    },
+    {
+      "path": "/users/jxia3/atlas/observe/target",
+      "reason": "Rebuildable Rust artifacts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/paper-size-benchmarks/harness/__pycache__",
+      "reason": "Generated Python bytecode"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/studies/bash-parity-audit-2026-10-08/harness/__pycache__",
+      "reason": "Generated Python bytecode"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/__pycache__",
+      "reason": "Generated Python bytecode"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/src/scripts/__pycache__",
+      "reason": "Generated Python bytecode"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/evaluation/bash-ts",
+      "reason": "Superseded duplicate Bash driver/corpus or rebuildable baseline artifacts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr/qualification/bash_suite.py",
+      "reason": "Superseded duplicate Bash driver/corpus or rebuildable baseline artifacts"
+    },
+    {
+      "path": "/users/jxia3/atlas/incr-main-qualification/target",
+      "reason": "Superseded duplicate Bash driver/corpus or rebuildable baseline artifacts"
+    },
+    {
+      "path": "/users/jxia3/.config/systemd/user/incr-bench-monitor.service",
+      "reason": "Retired benchmark monitoring configuration; no queued work"
+    },
+    {
+      "path": "/users/jxia3/.config/systemd/user/incr-bench-monitor.timer",
+      "reason": "Retired benchmark monitoring configuration; no queued work"
+    },
+    {
+      "path": "/users/jxia3/.config/systemd/user/incr-bench-monitor.service.d/trusted-cache-target.conf",
+      "reason": "Retired benchmark monitoring configuration; no queued work"
+    },
+    {
+      "path": "/users/jxia3/atlas/observe/scripts",
+      "reason": "Unused historical copy of try sandbox; supported Incr fallback is in Incr src/scripts"
+    }
+  ],
+  "retained": "Runtime source, current correctness/benchmark harnesses, tiny seed fixtures, installed Python environment and required Bash/Node tools. Git history is retained.",
+  "bytecode_directories_removed": 1531,
+  "runtime_sources_unchanged": true,
+  "installed_tools": "qualification/.venv, qualification/.tools/bash-5.2.37, qualification/.tools/node-v22.20.0-linux-x64, web-search node_modules"
+}

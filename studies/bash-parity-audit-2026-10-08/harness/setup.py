@@ -27,7 +27,7 @@ def checked(command, timeout=180, cwd=ROOT):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--bash-build", type=Path, default=ROOT / "qualification/.work/bash-src")
+    parser.add_argument("--bash-build", type=Path, default=ROOT / "qualification/.tools/bash-5.2.37")
     parser.add_argument("--corpus-provenance", type=Path, default=STUDY / "corpus-provenance.json")
     parser.add_argument("--venv", type=Path, default=ROOT / "qualification/.venv")
     args = parser.parse_args()

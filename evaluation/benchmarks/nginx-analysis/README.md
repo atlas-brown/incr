@@ -1,7 +1,3 @@
-## Incremental Development Details
+# nginx-analysis workload
 
-`nginx-1.sh`: find (1) broken links, (2) who are requesting broken links, (3) most requested URLs and those containing XYZ
-
-`nginx-2.sh`: further finds broken liks (404) for php files---mostly hacking attempts
-
-`nginx-3.sh`: further find 502 (bad-gateway) requests
+Programs are under `scripts/`; small deterministic seeds are under `min_inputs/` when required. Use the maintained [study harness](../../../studies/paper-size-benchmarks/README.md) for preparation, execution and validation. Measurements live in [the consolidated study](../../../studies/evaluation-checkpoint-2026-10-16/README.md).

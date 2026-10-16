@@ -1,3 +1,3 @@
-## Incremental Development Details
+# image-annotation workload
 
-Note: image-annotation-1.sh purposefully has a bug: the author didn't realize the model might give them names that include spaces.
+Programs are under `scripts/`; small deterministic seeds are under `min_inputs/` when required. Use the maintained [study harness](../../../studies/paper-size-benchmarks/README.md) for preparation, execution and validation. Measurements live in [the consolidated study](../../../studies/evaluation-checkpoint-2026-10-16/README.md).

@@ -66,7 +66,7 @@ Observe traces commands on the live filesystem, avoiding the fallback's per-comm
 mergerfs sandbox setup. The explicit live effect policy supports shared-file and
 FIFO interactions that require intermediate effects.
 Actual speedups depend on the workload and whether its effects can safely replay;
-see the [minimum-input qualification results](qualification/results/2026-10-08/EVALUATION.md).
+see the [consolidated evaluation results](studies/evaluation-checkpoint-2026-10-16/README.md).
 
 ### Enabling observe
 
@@ -163,7 +163,7 @@ that require intermediate effects. Live permits cache cancellation only before t
 first live effect. FIFO dependencies prevent cache reuse under either policy.
 
 The full upstream Bash correctness evaluation and its exact scope are maintained
-in [the Bash study](studies/bash-parity-audit-2026-10-08/REPORT.md). Shell-level
+in [the Bash correctness runner](studies/bash-parity-audit-2026-10-08/README.md). Shell-level
 fallbacks preserve Bash parsing, alias expansion, command lookup and source-sensitive
 behavior; passing those cases does not imply that every command is accelerated.
 
@@ -205,9 +205,7 @@ Bash syntax subset while preserving source bytes. Unsupported constructs use the
 Python transformer. It is off by default. Commands execute through the general
 tracing/cache backends; no sort or cut implementation is substituted.
 
-See [the historical-size study](studies/paper-size-benchmarks/README.md) and its
-[current handoff](studies/paper-size-benchmarks/ACTIVE_GOAL_HANDOFF.md) for evaluation
-methodology, incomplete results and outstanding performance regressions.
+See [the benchmark harness](studies/paper-size-benchmarks/README.md) for methodology and explicit reproduction commands, and [the consolidated study](studies/evaluation-checkpoint-2026-10-16/README.md) for all saved measurements. All active and pending evaluations were cancelled; no background work is scheduled.
 
 ## Development Setup
 
@@ -236,35 +234,11 @@ docker run -it --rm -v $(pwd):/app --privileged incr
 ## Testing and benchmarks
 
 ```bash
-# Integration tests (incr + observe)
 bash agents/test_incr_observe.sh
-
-# Benchmark: strace vs observe
-bash agents/run_bench.sh
-python3 agents/benchmarks/plot.py agents/benchmarks/results.txt   # requires matplotlib
+python3 qualification/regressions.py
 ```
 
-See `agents/README.md` for details.
-
----
-
-## Evaluation suite
-
-The `evaluation/` directory contains Koala-style benchmarks. **Entry point:** `evaluation/benchmarks/run_all.sh` (or `evaluation/run.sh`, which forwards arguments).
-
-```bash
-# EASY suite (12 benchmarks), min inputs: bash + incr (try+strace) + incr-observe
-bash evaluation/benchmarks/run_all.sh --mode easy --size min --run-mode all
-
-# War-and-peace (word count pipeline)
-bash evaluation/war-and-peace/with_cache.sh
-bash evaluation/war-and-peace/with_cache_observe.sh
-bash evaluation/war-and-peace/without_cache.sh
-```
-
-Results: `evaluation/run_results/<min|small>/`. See `evaluation/README.md` and `agents/docs/EVALUATION_BENCHMARK_SUITE.md`.
-
-For Koala upstream scripts, clone https://github.com/kbensh/koala and manually insert `target/release/incr` invocations where needed.
+[Qualification](qualification/README.md) documents maintained component tests; [studies](studies/README.md) lists the full Bash runner, single benchmark harness and consolidated detailed statistics. Workload programs and minimum seeds remain in `evaluation/benchmarks/`. Old duplicate launchers, result trees and caches were removed. Runtime and dependency setup is explicit; no benchmark runs automatically.
 
 When final-output streaming selects a prevalidated candidate, unexpected speculative
 paths are restored from selective pre-write snapshots before cached outputs are

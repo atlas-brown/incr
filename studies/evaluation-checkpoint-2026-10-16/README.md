@@ -38,8 +38,13 @@ The older full checkpoint used different binaries, completed twelve families, an
 - `files.jsonl.gz`: original path, size and SHA256 for each retained metadata/log/statistics record. `archive::member` identifies records recovered from earlier evidence bundles.
 - `detailed-statistics.tar.gz`: content-addressed members `sha256/<hash>`; duplicate records share bytes. Read a path via the index, then extract its hash member. All members were hash/size verified after collection.
 - `catalog.json`: collection scope, source roots, archive hashes, file counts and checkpoint revisions.
+- `supplementary-statistics.tar.gz` and `supplementary-catalog.json`: 38 additional loose records from scratch diagnostics and early microbenchmarks, verified by member hashes.
 - `admin/`: cancellation, service inventory, reproducible consolidation script and cleanup receipts.
 
 Timing, CPU, RSS, filesystem counters, cache/work peaks, cache-entry counts, correctness summaries, exact-output fingerprints, configurations, source/binary fingerprints, input recipes, environment records, historical reports and failures are retained. RSS is maximum single-process RSS, not aggregate concurrent RAM; sampled disk/cache peaks are allocated bytes, filesystem output counters are blocks. Byte-identical repeated records are stored once; measurements are never numerically pooled across cohorts.
 
 This is a statistics archive, not a runnable filesystem snapshot. Downloaded datasets/models, output datasets, caches, binary profiles, frozen executables, generated plots and duplicate old archives are intentionally excluded and removed during cleanup. Earlier full raw artifacts remain in Git history where previously committed. Paths inside historical records describe their original layout and need not exist after cleanup. Current runnable benchmark and correctness harnesses are documented in `../README.md`.
+
+## Cleanup verification
+
+The cleanup retains one benchmark runner and one full Bash runner, current regression/component tests, versioned minimum seeds and installed prerequisite programs. DPT model downloads and all evaluations are explicit. Runtime Rust/source implementation is unchanged. The reorganized harness passed 45 tests, Bash comparison/supervision passed 20 tests, and the two benchmark-component tests passed. Seven affected minimum seed preparation paths were checked and their scratch removed; full benchmarks were not rerun. See `admin/` for receipts. Published reference timings are retained separately under `references/`.

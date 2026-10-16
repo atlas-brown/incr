@@ -1,5 +1,5 @@
 {
-  "status": "Final cache-34/RAM queue implementation passed all qualification and all 216 targeted beginner/DPT checks. Detailed evidence is packaged and pinned by CHECKPOINT.json. Fresh full reproduction requires both clean checkpoint pushes; inspect studies/observe-reproduction/results/controller.json for live execution state.",
+  "status": "Historical measurements consolidated under studies/evaluation-checkpoint-2026-10-16. Full reproduction explicitly cancelled; no pending runs. Current directory retains reproducible harness/methodology only.",
   "comparison": {
     "candidate": "Incr + Observe with the general execution/cache improvements and native shell compiler",
     "reference": "Pinned original Incr with the archived salted-encryption fix and opt-in static annotations",
