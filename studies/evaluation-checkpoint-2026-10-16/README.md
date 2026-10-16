@@ -34,6 +34,12 @@ DPT medians excluding the first execution are **5004.948 / 809.597 / 797.346 sec
 
 The older full checkpoint used different binaries, completed twelve families, and stopped on a narrowly identified TensorFlow compatibility notice in DPT. Its results remain explicitly labelled old-full. Published paper timings are contextual, not matched samples: reconstructed inputs, repairs, annotations and timing methodology differ.
 
+## Re-execution figures
+
+[Speedup comparison](figures/reexecution-speedup.png) compares Original Bash, Original Incr and Observe Incr, normalized to Bash = 1×. [Absolute-time panels](figures/reexecution-times.png) show the corresponding cumulative seconds with an independent linear axis per benchmark. Both exclude the first execution of each repetition, following the historical `evaluation/scripts/perf-bars-color.py` convention at commit `15d749a`. Bars use the median of three per-repetition totals; speedups are ratios of those medians, not averages of individual execution speedups. All final cohorts have annotations off. DPT uses the completed same-binary targeted cohort; the other twelve benchmarks use the new full reproduction. No samples are pooled across cohorts.
+
+Observe has lower median re-execution time than original Incr on all thirteen benchmarks and than Bash on twelve; unixfun is about 1.2% slower than Bash. These are descriptive comparisons, not significance claims. PDF and SVG exports, exact plotted values in `figures/reexecution-data.csv`, source hashes and a standalone plotting script are included. Regenerate with `qualification/.venv/bin/python studies/evaluation-checkpoint-2026-10-16/figures/plot_reexecution.py` from the repository root. This only reads saved statistics and does not execute benchmarks.
+
 ## Detailed records
 
 - `invocations.csv`: every completed invocation from the old-full, final-targeted and new-full cohorts, including resource dictionaries and validation fields. No sample from an incomplete sequence is silently promoted to a full-sequence statistic.
