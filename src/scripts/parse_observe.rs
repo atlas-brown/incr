@@ -9,6 +9,7 @@ use std::path::{Path, PathBuf};
 #[derive(Deserialize)]
 struct Report {
     dependency_version: u32,
+    dependency_report_complete: bool,
     replay_barriers: Vec<String>,
     dependencies: Vec<Dependency>,
     reads: Vec<ReportPath>,
@@ -76,7 +77,7 @@ enum Write {
 pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
     let report: Report = serde_json::from_slice(&std::fs::read(path)?)
         .with_context(|| format!("decode Observe report {}", path.display()))?;
-    if report.dependency_version != 7 {
+    if report.dependency_version != 8 {
         anyhow::bail!("unsupported Observe dependency protocol");
     }
     let tracked = |path: &Path| {
@@ -87,6 +88,7 @@ pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
     };
     let mut trace = Trace {
         replay_barriers: report.replay_barriers,
+        dependency_report_complete: report.dependency_report_complete,
         ..Trace::default()
     };
     trace.reads.extend(
@@ -188,4 +190,29 @@ pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
         trace.writes.insert(path);
     }
     Ok(trace)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn parses_dependency_report_completeness() {
+        let path = std::env::temp_dir().join(format!(
+            "incr-observe-report-{}-{}.json",
+            std::process::id(),
+            rand::random::<u64>()
+        ));
+        std::fs::write(
+            &path,
+            r#"{"dependency_version":8,"dependency_report_complete":true,"replay_barriers":["uncapturable-output"],"dependencies":[],"reads":[],"writes":[]}"#,
+        )
+        .unwrap();
+
+        let trace = parse_observe(&path).unwrap();
+        std::fs::remove_file(path).unwrap();
+
+        assert!(trace.dependency_report_complete);
+        assert_eq!(trace.replay_barriers, vec!["uncapturable-output".to_owned()]);
+    }
 }

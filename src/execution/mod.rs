@@ -47,6 +47,7 @@ pub(crate) fn get_trace_type(
 #[derive(Default)]
 pub(crate) struct Trace {
     pub(crate) replay_barriers: Vec<String>,
+    pub(crate) dependency_report_complete: bool,
     pub(crate) reads: HashSet<PathBuf>,
     pub(crate) writes: HashSet<PathBuf>,
     pub(crate) initial_file_ids: HashMap<PathBuf, (u64, u64)>,
@@ -57,7 +58,12 @@ pub(crate) fn parse_trace(runtime: &Runtime) -> Result<Trace> {
     let trace_file = match &runtime.kind {
         RuntimeType::Sandbox(directory) => directory.join("upperdir").join("tmp").join(TRACE_FILE),
         RuntimeType::TraceFile(file) | RuntimeType::Observe(file) => file.clone(),
-        RuntimeType::Nothing => return Ok(Trace::default()),
+        RuntimeType::Nothing => {
+            return Ok(Trace {
+                dependency_report_complete: true,
+                ..Trace::default()
+            });
+        }
     };
     let mut trace = if trace_file
         .extension()

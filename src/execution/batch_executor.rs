@@ -31,6 +31,7 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
         && dependency::check_cache_valid(&cache, &cached_data)?
     {
         debug_log!("Cache valid: {} {:?}", command.name, command.arguments);
+        execution::record::write_outer_dependencies(&cached_data)?;
         let status = run::replay(config, &cache, &cached_data, &OutputMetadata::default())?;
         return Ok(status);
     }
@@ -43,6 +44,7 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     };
     cache.save_data(&cache_data)?;
     dependency::save_introspection(config, command, &cache_data)?;
+    execution::record::write_outer_dependencies(&cache_data)?;
     Ok(if broken_pipe {
         BROKEN_PIPE_CODE
     } else {

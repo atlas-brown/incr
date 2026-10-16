@@ -16,6 +16,7 @@ pub(crate) mod effects;
 pub(crate) struct CacheData {
     pub(crate) exit_code: i32,
     pub(crate) replay_barriers: Vec<String>,
+    pub(crate) dependency_report_complete: bool,
     pub(crate) read_dependencies: HashMap<PathBuf, DependencyKey>,
     pub(crate) write_outputs: HashSet<PathBuf>,
     pub(crate) compressed_output: bool,

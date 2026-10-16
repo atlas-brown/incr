@@ -10,18 +10,18 @@ use crate::config::Config;
 use crate::execution::{self, dependency};
 use crate::ops::debug_log;
 
-#[derive(serde::Serialize)]
+#[derive(Debug, PartialEq, serde::Serialize)]
 struct OuterDependencies {
     complete: bool,
     paths: Vec<String>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    incomplete_reasons: Vec<String>,
 }
 
-pub(crate) fn write_outer_dependencies(cache_data: &CacheData) -> Result<()> {
-    let Some(report_path) = std::env::var_os("INCR_DOCKER_DEPENDENCY_REPORT") else {
-        return Ok(());
-    };
+fn outer_dependencies(cache_data: &CacheData) -> OuterDependencies {
     let mut paths = Vec::with_capacity(cache_data.read_dependencies.len());
-    let mut complete = cache_data.is_reusable();
+    let mut complete = cache_data.dependency_report_complete;
+    let mut incomplete_reasons = Vec::new();
     for path in cache_data.read_dependencies.keys() {
         if let Some(path) = path.to_str() {
             paths.push(path.to_owned());
@@ -29,8 +29,83 @@ pub(crate) fn write_outer_dependencies(cache_data: &CacheData) -> Result<()> {
             complete = false;
         }
     }
+    if !complete {
+        incomplete_reasons.extend(cache_data.replay_barriers.iter().filter_map(|barrier| {
+            barrier
+                .strip_prefix("dependency report incomplete: ")
+                .map(str::to_owned)
+        }));
+        incomplete_reasons.sort_unstable();
+        incomplete_reasons.dedup();
+    }
     paths.sort_unstable();
-    let mut record = serde_json::to_vec(&OuterDependencies { complete, paths })?;
+    OuterDependencies {
+        complete,
+        paths,
+        incomplete_reasons,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::cache::DependencyKey;
+    use std::collections::{HashMap, HashSet};
+    use std::path::PathBuf;
+
+    #[test]
+    fn outer_report_completeness_is_independent_of_command_replayability() {
+        let cache_data = CacheData {
+            exit_code: 0,
+            replay_barriers: vec!["asynchronous filesystem operations".to_owned()],
+            dependency_report_complete: true,
+            read_dependencies: HashMap::from([(
+                PathBuf::from("/workspace/input"),
+                DependencyKey::Uncacheable,
+            )]),
+            write_outputs: HashSet::new(),
+            compressed_output: false,
+        };
+
+        assert!(!cache_data.is_reusable());
+        assert_eq!(
+            outer_dependencies(&cache_data),
+            OuterDependencies {
+                complete: true,
+                paths: vec!["/workspace/input".to_owned()],
+                incomplete_reasons: Vec::new(),
+            }
+        );
+    }
+
+    #[test]
+    fn outer_report_is_incomplete_when_trace_coverage_is_incomplete() {
+        let cache_data = CacheData {
+            exit_code: 0,
+            replay_barriers: vec!["dependency report incomplete: unreadable filesystem path".to_owned()],
+            dependency_report_complete: false,
+            read_dependencies: HashMap::from([(
+                PathBuf::from("/workspace/input"),
+                DependencyKey::DoesNotExist,
+            )]),
+            write_outputs: HashSet::new(),
+            compressed_output: false,
+        };
+
+        let report = outer_dependencies(&cache_data);
+        assert!(!report.complete);
+        assert_eq!(
+            report.incomplete_reasons,
+            vec!["unreadable filesystem path".to_owned()]
+        );
+    }
+}
+
+pub(crate) fn write_outer_dependencies(cache_data: &CacheData) -> Result<()> {
+    let Some(report_path) = std::env::var_os("INCR_DOCKER_DEPENDENCY_REPORT") else {
+        return Ok(());
+    };
+    let mut record = serde_json::to_vec(&outer_dependencies(cache_data))?;
     record.push(b'\n');
 
     let mut report = OpenOptions::new().create(true).append(true).open(report_path)?;
@@ -123,6 +198,7 @@ pub(crate) fn capture(
 
     let cache_data = CacheData {
         replay_barriers: trace.replay_barriers,
+        dependency_report_complete: trace.dependency_report_complete,
         exit_code,
         read_dependencies,
         write_outputs: write_set,
