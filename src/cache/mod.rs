@@ -53,6 +53,29 @@ pub(crate) enum DependencyKey {
         changed_nsec: i64,
         mode: u32,
     },
+    ContentState {
+        modified: u128,
+        size: u64,
+        mode: u32,
+        uid: u32,
+        gid: u32,
+        access: u8,
+        hash: u64,
+    },
+    DockerDirectoryState {
+        entry_hash: u64,
+        mode: u32,
+        uid: u32,
+        gid: u32,
+        access: u8,
+    },
+    DockerSymlinkState {
+        target: PathBuf,
+        modified: u128,
+        mode: u32,
+        uid: u32,
+        gid: u32,
+    },
     Hash(u64),
 }
 
@@ -73,7 +96,9 @@ impl DependencyKey {
     fn is_reusable(&self) -> bool {
         match self {
             Self::Uncacheable => false,
-            Self::SymlinkState { target, .. } => target.to_str().is_some(),
+            Self::SymlinkState { target, .. } | Self::DockerSymlinkState { target, .. } => {
+                target.to_str().is_some()
+            }
             Self::All(dependencies) => dependencies.iter().all(Self::is_reusable),
             _ => true,
         }

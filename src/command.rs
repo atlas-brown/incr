@@ -333,8 +333,11 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
             if let Some(executable) = &config.observe_detach_executable {
                 child.arg("--detach-executable").arg(executable);
             }
-            child.args(["--json", "--hash", "--dependencies", "--output"]);
-            child.arg(file);
+            child.args(["--json", "--hash", "--dependencies"]);
+            if std::env::var_os("INCR_DOCKER_DEPENDENCY_REPORT").is_some() {
+                child.arg("--hash-dependencies");
+            }
+            child.arg("--output").arg(file);
             child.args(["--no-filter", "--"]);
             child.arg(&command.name).args(&command.arguments);
         }

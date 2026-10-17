@@ -53,6 +53,26 @@ class ShellAstTests(unittest.TestCase):
         output.write_text(transformed)
         self.assertEqual(self.invoke(['bash', output]), 'cbabadc')
 
+    def test_dash_transform_descends_through_installer_loop(self):
+        source = self.work / 'source.sh'
+        source.write_text("""if [ "$RUN_STAGES" = "yes" ]; then
+    set -eux
+    for stage in /work/stages/*; do
+        if [ -f "$stage/install.sh" ]; then
+            chmod +x "$stage/install.sh"
+            bash "$stage/install.sh"
+        fi
+    done
+fi
+""")
+        transformed = self.invoke([PYTHON, ROOT / 'src/scripts/insert.py',
+                                   '--sys-path', '/usr/bin/env', '--cache-path', '', source])
+        self.assertEqual(transformed.count('/usr/bin/env'), 1, transformed)
+        self.assertIn('/usr/bin/env bash', transformed)
+        output = self.work / 'transformed.sh'
+        output.write_text(transformed)
+        self.invoke(['bash', '-n', output])
+
     def test_bash_nested_control_flow_and_functions(self):
         source = self.work / 'control.sh'
         source.write_text("""rev() { printf function; }

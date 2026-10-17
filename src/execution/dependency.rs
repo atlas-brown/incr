@@ -2,9 +2,11 @@ use anyhow::Result;
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
 use std::io::{BufReader, ErrorKind};
+use std::os::unix::ffi::OsStringExt;
 use std::os::unix::fs::{MetadataExt, OpenOptionsExt};
 use std::path::{Path, PathBuf};
 use std::time::UNIX_EPOCH;
+use xxhash_rust::xxh3::Xxh3;
 
 use crate::cache::batch_cache::CacheCursor;
 use crate::cache::{CacheData, DependencyKey};
@@ -218,10 +220,207 @@ fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
                 && metadata.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() == *modified
                 && fs::read_link(path)? == *target
         }
+        DependencyKey::ContentState {
+            modified,
+            size,
+            mode,
+            uid,
+            gid,
+            access,
+            hash,
+        } => {
+            let before = fs::symlink_metadata(path)?;
+            if !before.is_file()
+                || before.len() != *size
+                || before.mode() != *mode
+                || before.uid() != *uid
+                || before.gid() != *gid
+                || crate::ops::permissions::effective_access(path)? != *access
+                || before.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() != *modified
+            {
+                return Ok(false);
+            }
+            if get_file_hash(path)? != Some(*hash) {
+                return Ok(false);
+            }
+            let after = fs::symlink_metadata(path)?;
+            before.dev() == after.dev()
+                && before.ino() == after.ino()
+                && before.len() == after.len()
+                && before.mode() == after.mode()
+                && before.uid() == after.uid()
+                && before.gid() == after.gid()
+                && before.mtime() == after.mtime()
+                && before.mtime_nsec() == after.mtime_nsec()
+                && before.ctime() == after.ctime()
+                && before.ctime_nsec() == after.ctime_nsec()
+        }
+        DependencyKey::DockerDirectoryState {
+            entry_hash,
+            mode,
+            uid,
+            gid,
+            access,
+        } => {
+            let metadata = fs::symlink_metadata(path)?;
+            let current_hash = get_directory_hash(path)?;
+            let valid = metadata.is_dir()
+                && metadata.mode() == *mode
+                && metadata.uid() == *uid
+                && metadata.gid() == *gid
+                && crate::ops::permissions::effective_access(path)? == *access
+                && current_hash == Some(*entry_hash);
+            if !valid && std::env::var_os("INCR_DEBUG_CACHE").is_some() {
+                eprintln!(
+                    "[incr] command cache: directory state {} expected (hash {entry_hash}, mode {mode}, uid {uid}, gid {gid}, access {access}); current (hash {current_hash:?}, mode {}, uid {}, gid {})",
+                    path.display(),
+                    metadata.mode(),
+                    metadata.uid(),
+                    metadata.gid()
+                );
+            }
+            valid
+        }
+
+        DependencyKey::DockerSymlinkState {
+            target,
+            modified,
+            mode,
+            uid,
+            gid,
+        } => {
+            let metadata = fs::symlink_metadata(path)?;
+            metadata.file_type().is_symlink()
+                && metadata.mode() == *mode
+                && metadata.uid() == *uid
+                && metadata.gid() == *gid
+                && metadata.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() == *modified
+                && fs::read_link(path)? == *target
+        }
         DependencyKey::DoesNotExist => matches!(fs::symlink_metadata(path),
             Err(error) if error.kind() == ErrorKind::NotFound),
         DependencyKey::Hash(hash) => path.is_file() && get_file_hash(path)? == Some(*hash),
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::ffi::CString;
+    use std::os::unix::ffi::OsStrExt;
+
+    struct TestDirectory(PathBuf);
+
+    impl TestDirectory {
+        fn new() -> Self {
+            let path = std::env::temp_dir().join(format!(
+                "incr-dependency-test-{}-{}",
+                std::process::id(),
+                rand::random::<u64>()
+            ));
+            fs::create_dir(&path).unwrap();
+            Self(path)
+        }
+
+        fn path(&self) -> &Path {
+            &self.0
+        }
+    }
+
+    impl Drop for TestDirectory {
+        fn drop(&mut self) {
+            fs::remove_dir_all(&self.0).unwrap();
+        }
+    }
+
+    fn content_state(path: &Path) -> DependencyKey {
+        let metadata = fs::symlink_metadata(path).unwrap();
+        DependencyKey::ContentState {
+            modified: metadata
+                .modified()
+                .unwrap()
+                .duration_since(UNIX_EPOCH)
+                .unwrap()
+                .as_nanos(),
+            size: metadata.len(),
+            mode: metadata.mode(),
+            uid: metadata.uid(),
+            gid: metadata.gid(),
+            access: crate::ops::permissions::effective_access(path).unwrap(),
+            hash: get_file_hash(path).unwrap().unwrap(),
+        }
+    }
+
+    fn restore_mtime(path: &Path, metadata: &fs::Metadata) {
+        let path = CString::new(path.as_os_str().as_bytes()).unwrap();
+        let times = [
+            libc::timespec {
+                tv_sec: 0,
+                tv_nsec: libc::UTIME_OMIT,
+            },
+            libc::timespec {
+                tv_sec: metadata.mtime(),
+                tv_nsec: metadata.mtime_nsec() as _,
+            },
+        ];
+        assert_eq!(
+            unsafe { libc::utimensat(libc::AT_FDCWD, path.as_ptr(), times.as_ptr(), 0) },
+            0
+        );
+    }
+
+    #[test]
+    fn content_dependency_accepts_same_content_after_inode_and_ctime_change() {
+        let directory = TestDirectory::new();
+        let path = directory.path().join("input");
+        let replacement = directory.path().join("replacement");
+        fs::write(&path, b"stable input").unwrap();
+        let dependency = content_state(&path);
+        let original = fs::symlink_metadata(&path).unwrap();
+        fs::rename(&path, &replacement).unwrap();
+        fs::write(&path, b"stable input").unwrap();
+        restore_mtime(&path, &original);
+
+        let replaced = fs::symlink_metadata(&path).unwrap();
+        assert_ne!(original.ino(), replaced.ino());
+        assert_ne!(
+            (original.ctime(), original.ctime_nsec()),
+            (replaced.ctime(), replaced.ctime_nsec())
+        );
+        assert!(check_dependency(&path, &dependency).unwrap());
+    }
+
+    #[test]
+    fn content_dependency_rejects_changed_content_with_restored_mtime() {
+        let directory = TestDirectory::new();
+        let path = directory.path().join("input");
+        fs::write(&path, b"original").unwrap();
+        let dependency = content_state(&path);
+        let original = fs::symlink_metadata(&path).unwrap();
+        fs::write(&path, b"modified").unwrap();
+        restore_mtime(&path, &original);
+
+        assert!(!check_dependency(&path, &dependency).unwrap());
+    }
+
+    #[test]
+    fn docker_directory_dependency_detects_entry_changes() {
+        let directory = TestDirectory::new();
+        let path = directory.path().join("input");
+        fs::create_dir(&path).unwrap();
+        let metadata = fs::symlink_metadata(&path).unwrap();
+        let dependency = DependencyKey::DockerDirectoryState {
+            entry_hash: get_directory_hash(&path).unwrap().unwrap(),
+            mode: metadata.mode(),
+            uid: metadata.uid(),
+            gid: metadata.gid(),
+            access: crate::ops::permissions::effective_access(&path).unwrap(),
+        };
+        std::thread::sleep(std::time::Duration::from_millis(2));
+        fs::write(path.join("new-entry"), b"data").unwrap();
+
+        assert!(!check_dependency(&path, &dependency).unwrap());
+    }
 }
 
 fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
@@ -239,6 +438,49 @@ fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
     }
     let mut file_reader = BufReader::with_capacity(BUFFER_SIZE, file);
     Ok(Some(ops::data::hash_stream(&mut file_reader)?))
+}
+
+fn get_directory_hash(directory: &Path) -> Result<Option<u64>> {
+    let before = fs::symlink_metadata(directory)?;
+    if !before.is_dir() {
+        return Ok(None);
+    }
+    let mut entries = fs::read_dir(directory)?
+        .map(|entry| {
+            let entry = entry?;
+            let file_type = entry.file_type()?;
+            let kind = if file_type.is_dir() {
+                1
+            } else if file_type.is_file() {
+                2
+            } else if file_type.is_symlink() {
+                3
+            } else {
+                4
+            };
+            Ok((entry.file_name().into_vec(), kind))
+        })
+        .collect::<Result<Vec<_>>>()?;
+    entries.sort_unstable_by(|left, right| left.0.cmp(&right.0));
+
+    let mut hasher = Xxh3::new();
+    for (name, kind) in entries {
+        hasher.update(&(name.len() as u64).to_le_bytes());
+        hasher.update(&name);
+        hasher.update(&[kind]);
+    }
+    let after = fs::symlink_metadata(directory)?;
+    let stable = before.dev() == after.dev()
+        && before.ino() == after.ino()
+        && before.mtime() == after.mtime()
+        && before.mtime_nsec() == after.mtime_nsec()
+        && before.ctime() == after.ctime()
+        && before.ctime_nsec() == after.ctime_nsec()
+        && before.len() == after.len()
+        && before.mode() == after.mode()
+        && before.uid() == after.uid()
+        && before.gid() == after.gid();
+    Ok(stable.then_some(hasher.digest()))
 }
 
 pub(crate) fn save_introspection(config: &Config, command: &Command, cache_data: &CacheData) -> Result<()> {

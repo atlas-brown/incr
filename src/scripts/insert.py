@@ -138,6 +138,7 @@ DASH_CHILD_FIELDS = {
     AST.QArgChar: ("arg",),
     AST.DefunNode: ("body",),
     AST.ForNode: ("body", "argument"),
+    AST.IfNode: ("cond", "then_b", "else_b"),
     AST.WhileNode: ("test", "body"),
     AST.SemiNode: ("left_operand", "right_operand"),
     AST.RedirNode: ("node", "redir_list"),

@@ -45,12 +45,20 @@ enum ObservedDependency {
         changed_nsec: i64,
         size: u64,
         mode: u32,
+        uid: u32,
+        gid: u32,
+        access: Option<u8>,
+        content_hash: Option<u64>,
     },
     Directory {
         modified: u64,
         changed_sec: i64,
         changed_nsec: i64,
         mode: u32,
+        uid: u32,
+        gid: u32,
+        access: Option<u8>,
+        entry_hash: Option<u64>,
     },
     Symlink {
         #[serde(with = "crate::ops::unix_path")]
@@ -59,6 +67,8 @@ enum ObservedDependency {
         changed_sec: i64,
         changed_nsec: i64,
         mode: u32,
+        uid: u32,
+        gid: u32,
     },
     Uncacheable,
 }
@@ -75,9 +85,14 @@ enum Write {
 }
 
 pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
+    let docker_dependency_report = std::env::var_os("INCR_DOCKER_DEPENDENCY_REPORT").is_some();
+    parse_observe_with_mode(path, docker_dependency_report)
+}
+
+fn parse_observe_with_mode(path: &Path, docker_dependency_report: bool) -> Result<Trace> {
     let report: Report = serde_json::from_slice(&std::fs::read(path)?)
         .with_context(|| format!("decode Observe report {}", path.display()))?;
-    if report.dependency_version != 8 {
+    if report.dependency_version != 10 {
         anyhow::bail!("unsupported Observe dependency protocol");
     }
     let tracked = |path: &Path| {
@@ -127,21 +142,61 @@ pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
                 changed_nsec,
                 size,
                 mode,
+                uid,
+                gid,
+                access,
+                content_hash,
             } => {
                 trace.initial_file_ids.insert(path.clone(), (device, inode));
-                DependencyKey::FileState {
-                    modified: modified.into(),
-                    changed_sec,
-                    changed_nsec,
-                    size,
-                    mode,
+                if let Some(hash) = content_hash {
+                    match access {
+                        Some(access) => DependencyKey::ContentState {
+                            modified: modified.into(),
+                            size,
+                            mode,
+                            uid,
+                            gid,
+                            access,
+                            hash,
+                        },
+                        None => DependencyKey::Uncacheable,
+                    }
+                } else {
+                    DependencyKey::FileState {
+                        modified: modified.into(),
+                        changed_sec,
+                        changed_nsec,
+                        size,
+                        mode,
+                    }
                 }
             }
+            ObservedDependency::Directory {
+                modified: _,
+                mode,
+                uid,
+                gid,
+                access,
+                entry_hash,
+                ..
+            } if docker_dependency_report => match entry_hash {
+                Some(entry_hash) => DependencyKey::DockerDirectoryState {
+                    entry_hash,
+                    mode,
+                    uid,
+                    gid,
+                    access: access.ok_or_else(|| {
+                        anyhow::anyhow!("Docker directory dependency is missing access state")
+                    })?,
+                },
+                None => DependencyKey::Uncacheable,
+            },
             ObservedDependency::Directory {
                 modified,
                 changed_sec,
                 changed_nsec,
                 mode,
+                ..
             } => DependencyKey::DirectoryState {
                 modified: modified.into(),
                 changed_sec,
@@ -151,9 +206,26 @@ pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
             ObservedDependency::Symlink {
                 target,
                 modified,
+                changed_sec: _,
+                changed_nsec: _,
+                mode,
+                uid,
+                gid,
+                ..
+            } if docker_dependency_report => DependencyKey::DockerSymlinkState {
+                target,
+                modified: modified.into(),
+                mode,
+                uid,
+                gid,
+            },
+            ObservedDependency::Symlink {
+                target,
+                modified,
                 changed_sec,
                 changed_nsec,
                 mode,
+                ..
             } => DependencyKey::SymlinkState {
                 target,
                 modified: modified.into(),
@@ -205,7 +277,7 @@ mod tests {
         ));
         std::fs::write(
             &path,
-            r#"{"dependency_version":8,"dependency_report_complete":true,"replay_barriers":["uncapturable-output"],"dependencies":[],"reads":[],"writes":[]}"#,
+            r#"{"dependency_version":10,"dependency_report_complete":true,"replay_barriers":["uncapturable-output"],"dependencies":[],"reads":[],"writes":[]}"#,
         )
         .unwrap();
 
@@ -214,5 +286,58 @@ mod tests {
 
         assert!(trace.dependency_report_complete);
         assert_eq!(trace.replay_barriers, vec!["uncapturable-output".to_owned()]);
+    }
+
+    #[test]
+    fn parses_hashed_dependencies_and_docker_metadata_keys() {
+        let path = std::env::temp_dir().join(format!(
+            "incr-observe-report-{}-{}.json",
+            std::process::id(),
+            rand::random::<u64>()
+        ));
+        std::fs::write(
+            &path,
+            r#"{"dependency_version":10,"dependency_report_complete":true,"replay_barriers":[],"dependencies":[{"path":"/input","kind":"file","device":2,"inode":3,"modified":4,"changed_sec":5,"changed_nsec":6,"size":7,"mode":33188,"uid":1,"gid":2,"access":7,"content_hash":8},{"path":"/directory","kind":"directory","modified":9,"changed_sec":10,"changed_nsec":11,"mode":16877,"uid":1,"gid":2,"access":7,"entry_hash":15},{"path":"/link","kind":"symlink","target":"/target","modified":12,"changed_sec":13,"changed_nsec":14,"mode":41471,"uid":1,"gid":2}],"reads":[],"writes":[]}"#,
+        )
+        .unwrap();
+
+        let trace = parse_observe_with_mode(&path, true).unwrap();
+        std::fs::remove_file(path).unwrap();
+
+        assert!(matches!(
+            trace.initial_dependencies.get(Path::new("/input")),
+            Some(DependencyKey::ContentState { hash: 8, .. })
+        ));
+        assert!(matches!(
+            trace.initial_dependencies.get(Path::new("/directory")),
+            Some(DependencyKey::DockerDirectoryState { .. })
+        ));
+        assert!(matches!(
+            trace.initial_dependencies.get(Path::new("/link")),
+            Some(DependencyKey::DockerSymlinkState { .. })
+        ));
+        assert_eq!(trace.initial_file_ids.get(Path::new("/input")), Some(&(2, 3)));
+    }
+
+    #[test]
+    fn keeps_strict_metadata_keys_outside_docker_mode() {
+        let path = std::env::temp_dir().join(format!(
+            "incr-observe-report-{}-{}.json",
+            std::process::id(),
+            rand::random::<u64>()
+        ));
+        std::fs::write(
+            &path,
+            r#"{"dependency_version":10,"dependency_report_complete":true,"replay_barriers":[],"dependencies":[{"path":"/directory","kind":"directory","modified":9,"changed_sec":10,"changed_nsec":11,"mode":16877,"uid":1,"gid":2,"access":null,"entry_hash":null}],"reads":[],"writes":[]}"#,
+        )
+        .unwrap();
+
+        let trace = parse_observe_with_mode(&path, false).unwrap();
+        std::fs::remove_file(path).unwrap();
+
+        assert!(matches!(
+            trace.initial_dependencies.get(Path::new("/directory")),
+            Some(DependencyKey::DirectoryState { changed_sec: 10, .. })
+        ));
     }
 }
