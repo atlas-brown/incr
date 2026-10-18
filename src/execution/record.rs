@@ -139,6 +139,14 @@ pub(crate) fn capture(
                 (
                     path.clone(),
                     trace.initial_dependencies.get(path).cloned().unwrap_or_else(|| {
+                        if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
+                            eprintln!(
+                                "[incr] command cache: dependency report omitted {} (read={}, write={})",
+                                path.display(),
+                                trace.reads.contains(path),
+                                trace.writes.contains(path)
+                            );
+                        }
                         if path.ancestors().skip(1).any(|parent| {
                             matches!(
                                 trace.initial_dependencies.get(parent),
@@ -183,8 +191,12 @@ pub(crate) fn capture(
         }
         RuntimeType::Observe(_) | RuntimeType::TraceFile(_) if config.observe_command.is_some() => {
             if trace.replay_barriers.is_empty()
-                && let Err(error) = cache.capture_observe_output(&write_set, &replaced_paths)
+                && let Err(error) =
+                    cache.capture_observe_output(&write_set, &replaced_paths, &read_dependencies)
             {
+                if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
+                    eprintln!("[incr] command cache: cannot capture output: {error:#}");
+                }
                 debug_log!("Cannot capture output for reuse: {error:#}");
                 trace.replay_barriers.push("uncapturable-output".to_owned());
             }

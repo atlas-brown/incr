@@ -255,6 +255,40 @@ fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
                 && before.ctime() == after.ctime()
                 && before.ctime_nsec() == after.ctime_nsec()
         }
+        DependencyKey::ContentHashState {
+            size,
+            mode,
+            uid,
+            gid,
+            access,
+            hash,
+        } => {
+            let before = fs::symlink_metadata(path)?;
+            if !before.is_file()
+                || before.len() != *size
+                || before.mode() != *mode
+                || before.uid() != *uid
+                || before.gid() != *gid
+                || crate::ops::permissions::effective_access(path)? != *access
+            {
+                return Ok(false);
+            }
+            if get_file_hash(path)? != Some(*hash) {
+                return Ok(false);
+            }
+            let after = fs::symlink_metadata(path)?;
+            before.dev() == after.dev()
+                && before.ino() == after.ino()
+                && before.len() == after.len()
+                && before.mode() == after.mode()
+                && before.uid() == after.uid()
+                && before.gid() == after.gid()
+                && before.mtime() == after.mtime()
+                && before.mtime_nsec() == after.mtime_nsec()
+                && before.ctime() == after.ctime()
+                && before.ctime_nsec() == after.ctime_nsec()
+        }
+        DependencyKey::ExtendedAttributes(hash) => extended_attributes_hash(path)? == *hash,
         DependencyKey::DockerDirectoryState {
             entry_hash,
             mode,
@@ -297,10 +331,65 @@ fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
                 && metadata.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() == *modified
                 && fs::read_link(path)? == *target
         }
-        DependencyKey::DoesNotExist => matches!(fs::symlink_metadata(path),
-            Err(error) if error.kind() == ErrorKind::NotFound),
+        DependencyKey::DoesNotExist => matches!(
+            fs::symlink_metadata(path),
+            Err(error) if matches!(error.kind(), ErrorKind::NotFound | ErrorKind::NotADirectory)
+        ),
         DependencyKey::Hash(hash) => path.is_file() && get_file_hash(path)? == Some(*hash),
     })
+}
+
+fn extended_attributes_hash(path: &Path) -> Result<u64> {
+    use std::ffi::CString;
+    use std::os::unix::ffi::OsStrExt;
+
+    let path = CString::new(path.as_os_str().as_bytes())?;
+    let length = unsafe { libc::llistxattr(path.as_ptr(), std::ptr::null_mut(), 0) };
+    if length < 0 {
+        let error = std::io::Error::last_os_error();
+        if error.raw_os_error() == Some(libc::ENOTSUP) {
+            return Ok(xxhash_rust::xxh3::Xxh3::new().digest());
+        }
+        return Err(error.into());
+    }
+    let mut names = vec![0u8; length as usize];
+    let length = unsafe { libc::llistxattr(path.as_ptr(), names.as_mut_ptr().cast(), names.len()) };
+    if length < 0 {
+        return Err(std::io::Error::last_os_error().into());
+    }
+    names.truncate(length as usize);
+    let mut names = names
+        .split(|byte| *byte == 0)
+        .filter(|name| !name.is_empty())
+        .map(<[u8]>::to_vec)
+        .collect::<Vec<_>>();
+    names.sort_unstable();
+    let mut hasher = xxhash_rust::xxh3::Xxh3::new();
+    for name in names {
+        hasher.update(&(name.len() as u64).to_le_bytes());
+        hasher.update(&name);
+        let name = CString::new(name)?;
+        let length = unsafe { libc::lgetxattr(path.as_ptr(), name.as_ptr(), std::ptr::null_mut(), 0) };
+        if length < 0 {
+            return Err(std::io::Error::last_os_error().into());
+        }
+        let mut value = vec![0u8; length as usize];
+        let length = unsafe {
+            libc::lgetxattr(
+                path.as_ptr(),
+                name.as_ptr(),
+                value.as_mut_ptr().cast(),
+                value.len(),
+            )
+        };
+        if length < 0 {
+            return Err(std::io::Error::last_os_error().into());
+        }
+        value.truncate(length as usize);
+        hasher.update(&(value.len() as u64).to_le_bytes());
+        hasher.update(&value);
+    }
+    Ok(hasher.digest())
 }
 
 #[cfg(test)]
@@ -342,6 +431,18 @@ mod tests {
                 .duration_since(UNIX_EPOCH)
                 .unwrap()
                 .as_nanos(),
+            size: metadata.len(),
+            mode: metadata.mode(),
+            uid: metadata.uid(),
+            gid: metadata.gid(),
+            access: crate::ops::permissions::effective_access(path).unwrap(),
+            hash: get_file_hash(path).unwrap().unwrap(),
+        }
+    }
+
+    fn content_hash_state(path: &Path) -> DependencyKey {
+        let metadata = fs::symlink_metadata(path).unwrap();
+        DependencyKey::ContentHashState {
             size: metadata.len(),
             mode: metadata.mode(),
             uid: metadata.uid(),
@@ -404,6 +505,91 @@ mod tests {
     }
 
     #[test]
+    fn content_hash_dependency_accepts_timestamp_only_changes() {
+        let directory = TestDirectory::new();
+        let path = directory.path().join("input");
+        fs::write(&path, b"unchanged content").unwrap();
+        let dependency = content_hash_state(&path);
+        let path_c = CString::new(path.as_os_str().as_bytes()).unwrap();
+        let times = [
+            libc::timespec {
+                tv_sec: 0,
+                tv_nsec: libc::UTIME_OMIT,
+            },
+            libc::timespec {
+                tv_sec: 1_700_000_000,
+                tv_nsec: 0,
+            },
+        ];
+        assert_eq!(
+            unsafe { libc::utimensat(libc::AT_FDCWD, path_c.as_ptr(), times.as_ptr(), 0) },
+            0
+        );
+
+        assert!(check_dependency(&path, &dependency).unwrap());
+    }
+
+    #[test]
+    fn content_hash_dependency_rejects_changed_bytes() {
+        let directory = TestDirectory::new();
+        let path = directory.path().join("input");
+        fs::write(&path, b"original").unwrap();
+        let dependency = content_hash_state(&path);
+        fs::write(&path, b"modified").unwrap();
+
+        assert!(!check_dependency(&path, &dependency).unwrap());
+    }
+
+    #[test]
+    fn missing_path_beneath_a_file_is_valid_while_parent_dependency_guards_it() {
+        let directory = TestDirectory::new();
+        let parent = directory.path().join("README.md");
+        let nested = parent.join("install.sh");
+        fs::write(&parent, b"not a directory").unwrap();
+        let parent_dependency = capture_dependency(&parent, false).unwrap();
+        let nested_dependency = DependencyKey::DoesNotExist;
+
+        assert!(check_dependency(&parent, &parent_dependency).unwrap());
+        assert!(check_dependency(&nested, &nested_dependency).unwrap());
+
+        fs::remove_file(&parent).unwrap();
+        fs::create_dir(&parent).unwrap();
+
+        assert!(!check_dependency(&parent, &parent_dependency).unwrap());
+        assert!(check_dependency(&nested, &nested_dependency).unwrap());
+    }
+
+    #[test]
+    fn extended_attribute_dependency_rejects_changed_values() {
+        let directory = TestDirectory::new();
+        let path = directory.path().join("input");
+        fs::write(&path, b"unchanged content").unwrap();
+        set_xattr(&path, b"user.incr-cache", b"original");
+        let dependency = DependencyKey::ExtendedAttributes(extended_attributes_hash(&path).unwrap());
+
+        set_xattr(&path, b"user.incr-cache", b"changed");
+
+        assert!(!check_dependency(&path, &dependency).unwrap());
+    }
+
+    fn set_xattr(path: &Path, name: &[u8], value: &[u8]) {
+        let path = CString::new(path.as_os_str().as_bytes()).unwrap();
+        let name = CString::new(name).unwrap();
+        assert_eq!(
+            unsafe {
+                libc::setxattr(
+                    path.as_ptr(),
+                    name.as_ptr(),
+                    value.as_ptr().cast(),
+                    value.len(),
+                    0,
+                )
+            },
+            0
+        );
+    }
+
+    #[test]
     fn docker_directory_dependency_detects_entry_changes() {
         let directory = TestDirectory::new();
         let path = directory.path().join("input");
@@ -420,6 +606,22 @@ mod tests {
         fs::write(path.join("new-entry"), b"data").unwrap();
 
         assert!(!check_dependency(&path, &dependency).unwrap());
+    }
+
+    #[test]
+    fn parent_directory_dependency_ignores_unrelated_entry_changes() {
+        let directory = TestDirectory::new();
+        let metadata = fs::symlink_metadata(directory.path()).unwrap();
+        let dependency = DependencyKey::ParentDirectory {
+            mode: metadata.mode(),
+            uid: metadata.uid(),
+            gid: metadata.gid(),
+            access: crate::ops::permissions::effective_access(directory.path()).unwrap(),
+        };
+
+        fs::write(directory.path().join("unrelated-entry"), b"data").unwrap();
+
+        assert!(check_dependency(directory.path(), &dependency).unwrap());
     }
 }
 

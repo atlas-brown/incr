@@ -1,7 +1,7 @@
 use anyhow::Result;
 use bincode::{Decode, Encode};
 use serde::{Deserialize, Serialize};
-use std::collections::{BTreeMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs;
 use std::os::fd::AsRawFd;
 use std::path::{Path, PathBuf};
@@ -73,7 +73,7 @@ impl<'c> CacheCursor<'c> {
         debug_info: CacheInfo<'c>,
     ) -> Result<Self> {
         let key_data = ops::data::encode_to_bytes(&CacheKey {
-            version: 26,
+            version: 31,
             assume_text: config.assume_text,
             effect_policy: config.effect_policy,
             observe: config.observe_command.is_some(),
@@ -198,8 +198,14 @@ impl<'c> CacheCursor<'c> {
         &self,
         write_set: &HashSet<PathBuf>,
         replaced_paths: &HashSet<PathBuf>,
+        dependencies: &HashMap<PathBuf, crate::cache::DependencyKey>,
     ) -> Result<()> {
-        cache::effects::capture(&self.directory.join(OUTPUT_DIRECTORY), write_set, replaced_paths)
+        cache::effects::capture(
+            &self.directory.join(OUTPUT_DIRECTORY),
+            write_set,
+            replaced_paths,
+            dependencies,
+        )
     }
 
     pub(crate) fn commit_output(&self) -> Result<()> {
@@ -253,7 +259,19 @@ impl<'c> CacheCursor<'c> {
         else {
             return Ok(None);
         };
-        if self.output_hashes().ok() != Some(entry.output_hashes) {
+        let output_hashes = match self.output_hashes() {
+            Ok(output_hashes) => output_hashes,
+            Err(error) => {
+                if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
+                    eprintln!("[incr] command cache: saved output streams are unavailable: {error:#}");
+                }
+                return Ok(None);
+            }
+        };
+        if output_hashes != entry.output_hashes {
+            if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
+                eprintln!("[incr] command cache: saved output streams failed their integrity check");
+            }
             return Ok(None);
         }
         Ok(Some(entry.data))
@@ -277,6 +295,20 @@ impl<'c> CacheCursor<'c> {
         // Unsupported effects must run again. In particular, the binary cache's
         // UTF-8 path encoding cannot represent every path in an Observe report.
         if !data.is_reusable() {
+            if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
+                let reason = if !data.replay_barriers.is_empty() {
+                    format!("replay barriers: {:?}", data.replay_barriers)
+                } else if let Some((path, dependency)) = data
+                    .read_dependencies
+                    .iter()
+                    .find(|(path, dependency)| path.to_str().is_none() || !dependency.is_reusable())
+                {
+                    format!("unreusable dependency {} ({dependency:?})", path.display())
+                } else {
+                    "filesystem output path is not UTF-8".to_owned()
+                };
+                eprintln!("[incr] command cache: not saving record: {reason}");
+            }
             let metadata = self
                 .directory
                 .join(ops::file::add_data_extension(DATA_FILE.to_owned()));

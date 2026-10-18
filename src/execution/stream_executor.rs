@@ -35,7 +35,27 @@ enum CacheStatus {
 }
 
 pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
-    let candidates = crate::cache::candidates::validate(config, command)?;
+    let mut candidates = crate::cache::candidates::validate(config, command)?;
+    if stdin_is_known_empty()
+        && let Some(index) = candidates
+            .iter()
+            .position(|candidate| candidate.stdin_hash == ops::data::hash_bytes(&[]))
+    {
+        let candidate = candidates.remove(index);
+        if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
+            eprintln!(
+                "[incr] command cache: {} {:?} replayed without starting command (empty stdin)",
+                command.name, command.arguments
+            );
+        }
+        execution::record::write_outer_dependencies(&candidate.data)?;
+        return run::replay(
+            config,
+            &candidate.cache,
+            &candidate.data,
+            &run::OutputMetadata::default(),
+        );
+    }
     let mut runtime = create_child_runtime(config)?;
     if config.observe_command.is_some() && !matches!(runtime.kind, RuntimeType::Nothing) {
         runtime.effect_gate = Some(Arc::new(crate::effect_gate::EffectGate::create(
@@ -129,6 +149,41 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
             })
         }
     }
+}
+
+fn stdin_is_known_empty() -> bool {
+    let stdin = io::stdin();
+    stdin_is_known_empty_fd(stdin.as_raw_fd(), stdin.is_terminal())
+}
+
+fn stdin_is_known_empty_fd(fd: std::os::fd::RawFd, is_terminal: bool) -> bool {
+    if is_terminal
+        || fs::read_link(format!("/proc/self/fd/{fd}"))
+            .is_ok_and(|target| target == std::path::Path::new("/dev/null"))
+    {
+        return true;
+    }
+
+    let mut metadata = std::mem::MaybeUninit::<libc::stat>::uninit();
+    if unsafe { libc::fstat(fd, metadata.as_mut_ptr()) } == 0 {
+        let metadata = unsafe { metadata.assume_init() };
+        if metadata.st_mode & libc::S_IFMT == libc::S_IFREG {
+            let offset = unsafe { libc::lseek(fd, 0, libc::SEEK_CUR) };
+            return offset >= 0 && offset as u64 == metadata.st_size as u64;
+        }
+    }
+
+    let mut descriptor = libc::pollfd {
+        fd,
+        events: libc::POLLIN | libc::POLLHUP,
+        revents: 0,
+    };
+    if unsafe { libc::poll(&mut descriptor, 1, 0) } != 1 || descriptor.revents & libc::POLLHUP == 0 {
+        return false;
+    }
+
+    let mut available = 0;
+    (unsafe { libc::ioctl(fd, libc::FIONREAD, &mut available) } == 0) && available == 0
 }
 
 fn create_child_runtime(config: &Config) -> Result<Runtime> {
@@ -345,4 +400,49 @@ fn save_command_data(
     dependency::save_introspection(config, command, &cache_data)?;
 
     Ok((exit_code, cache_data))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::os::fd::{FromRawFd, OwnedFd};
+
+    fn pipe() -> (OwnedFd, OwnedFd) {
+        let mut descriptors = [-1; 2];
+        assert_eq!(unsafe { libc::pipe(descriptors.as_mut_ptr()) }, 0);
+        unsafe {
+            (
+                OwnedFd::from_raw_fd(descriptors[0]),
+                OwnedFd::from_raw_fd(descriptors[1]),
+            )
+        }
+    }
+
+    #[test]
+    fn detects_closed_empty_pipe_as_known_empty_stdin() {
+        let (reader, writer) = pipe();
+        drop(writer);
+
+        assert!(stdin_is_known_empty_fd(reader.as_raw_fd(), false));
+    }
+
+    #[test]
+    fn does_not_treat_open_or_buffered_pipes_as_empty() {
+        let (reader, _writer) = pipe();
+        assert!(!stdin_is_known_empty_fd(reader.as_raw_fd(), false));
+
+        let (reader, writer) = pipe();
+        assert_eq!(
+            unsafe { libc::write(writer.as_raw_fd(), b"x".as_ptr().cast(), 1) },
+            1
+        );
+        drop(writer);
+        assert!(!stdin_is_known_empty_fd(reader.as_raw_fd(), false));
+    }
+
+    #[test]
+    fn detects_dev_null_as_known_empty_stdin() {
+        let null = fs::File::open("/dev/null").unwrap();
+        assert!(stdin_is_known_empty_fd(null.as_raw_fd(), false));
+    }
 }

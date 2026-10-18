@@ -48,7 +48,7 @@ struct CommandKey<'c> {
 #[derive(Clone, Debug, Encode)]
 struct ExecutableState {
     path_bytes: Vec<u8>,
-    device: u64,
+    // Overlay mounts can assign a different device number to the same executable.
     inode: u64,
     changed_sec: i64,
     changed_nsec: i64,
@@ -193,7 +193,6 @@ fn executable_state(name: &str, environment: &BTreeMap<String, String>) -> Optio
         }
         return Some(ExecutableState {
             path_bytes: path.as_os_str().as_bytes().to_vec(),
-            device: metadata.dev(),
             inode: metadata.ino(),
             changed_sec: metadata.ctime(),
             changed_nsec: metadata.ctime_nsec(),
@@ -616,6 +615,7 @@ mod tests {
         let mut first = HashMap::from([
             ("PATH".to_owned(), "/bin:/usr/bin".to_owned()),
             ("EXECID".to_owned(), "first-run".to_owned()),
+            ("LOWER_DIRS".to_owned(), "/tmp/first/lower".to_owned()),
             ("SANDBOX_DIR".to_owned(), "/tmp/try-first".to_owned()),
             (
                 "UPDATED_DIRS_AND_MOUNTS".to_owned(),
@@ -625,6 +625,7 @@ mod tests {
         ]);
         let mut second = first.clone();
         second.insert("EXECID".to_owned(), "second-run".to_owned());
+        second.insert("LOWER_DIRS".to_owned(), "/tmp/second/lower".to_owned());
         second.insert("SANDBOX_DIR".to_owned(), "/tmp/try-second".to_owned());
         second.insert(
             "UPDATED_DIRS_AND_MOUNTS".to_owned(),
@@ -638,6 +639,7 @@ mod tests {
         assert_eq!(first_command.hash, second_command.hash);
         for variable in [
             "EXECID",
+            "LOWER_DIRS",
             "SANDBOX_DIR",
             "UPDATED_DIRS_AND_MOUNTS",
             "try_mount_log",

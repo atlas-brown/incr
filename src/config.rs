@@ -39,6 +39,7 @@ pub(crate) const EXCLUDED_VARIABLES: &[&str] = &[
     "IGNORE_FILE",
     "INCR_DEBUG_CACHE",
     "INCR_DOCKER_DEPENDENCY_REPORT",
+    "LOWER_DIRS",
     "SANDBOX_DIR",
     "SHLVL",
     "SSH_CLIENT",

@@ -62,6 +62,15 @@ pub(crate) enum DependencyKey {
         access: u8,
         hash: u64,
     },
+    ContentHashState {
+        size: u64,
+        mode: u32,
+        uid: u32,
+        gid: u32,
+        access: u8,
+        hash: u64,
+    },
+    ExtendedAttributes(u64),
     DockerDirectoryState {
         entry_hash: u64,
         mode: u32,

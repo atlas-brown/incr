@@ -16,6 +16,30 @@ impl Drop for TestDirectory {
     }
 }
 
+fn capture(directory: &Path, writes: &HashSet<PathBuf>, replaced_paths: &HashSet<PathBuf>) -> Result<()> {
+    super::capture(directory, writes, replaced_paths, &HashMap::new())
+}
+
+fn capture_with_dependencies(
+    directory: &Path,
+    writes: &HashSet<PathBuf>,
+    replaced_paths: &HashSet<PathBuf>,
+    dependencies: &HashMap<PathBuf, crate::cache::DependencyKey>,
+) -> Result<()> {
+    super::capture(directory, writes, replaced_paths, dependencies)
+}
+
+fn test_metadata(mode: u32) -> MetadataState {
+    MetadataState {
+        mode,
+        uid: unsafe { libc::getuid() },
+        gid: unsafe { libc::getgid() },
+        mtime_sec: 0,
+        mtime_nsec: 0,
+        extended_attributes: Vec::new(),
+    }
+}
+
 #[test]
 fn invalid_hard_link_is_rejected_before_deletion() -> Result<()> {
     let fixture = TestDirectory::create()?;
@@ -24,8 +48,12 @@ fn invalid_hard_link_is_rejected_before_deletion() -> Result<()> {
     let cache = fixture.0.join("cache");
     fs::create_dir(&cache)?;
     fs::write(&output, b"preserve")?;
+    let directory_metadata = fs::symlink_metadata(&directory).or_else(|_| {
+        fs::create_dir(&directory)?;
+        fs::symlink_metadata(&directory)
+    })?;
     let manifest = Manifest {
-        version: 3,
+        version: 5,
         entries: vec![
             Entry {
                 path: output.clone(),
@@ -33,7 +61,9 @@ fn invalid_hard_link_is_rejected_before_deletion() -> Result<()> {
             },
             Entry {
                 path: directory.clone(),
-                effect: Effect::Directory { mode: 0o755 },
+                effect: Effect::Directory {
+                    metadata: MetadataState::capture(&directory, &directory_metadata)?,
+                },
             },
             Entry {
                 path: fixture.0.join("link"),
@@ -99,16 +129,19 @@ fn replay_failure_restores_directory_permissions() -> Result<()> {
     fs::create_dir(&cache)?;
     fs::write(output.join("blocker"), b"not a directory")?;
     let manifest = Manifest {
-        version: 3,
+        version: 5,
         entries: vec![
             Entry {
                 path: output.clone(),
-                effect: Effect::Directory { mode: 0o500 },
+                effect: Effect::Directory {
+                    metadata: test_metadata(0o500),
+                },
             },
             Entry {
                 path: output.join("blocker/child"),
                 effect: Effect::Symlink {
                     target: PathBuf::from("target"),
+                    metadata: test_metadata(0o777),
                 },
             },
         ],
@@ -153,10 +186,12 @@ fn directory_replacement_keeps_removed_file_alias_permissions() -> Result<()> {
     fs::hard_link(&output, &alias)?;
     fs::set_permissions(&output, fs::Permissions::from_mode(0o444))?;
     let manifest = Manifest {
-        version: 3,
+        version: 5,
         entries: vec![Entry {
             path: output.clone(),
-            effect: Effect::Directory { mode: 0o500 },
+            effect: Effect::Directory {
+                metadata: test_metadata(0o500),
+            },
         }],
     };
     fs::write(cache.join(MANIFEST), serde_json::to_vec(&manifest)?)?;
@@ -215,6 +250,149 @@ fn replay_preserves_overwrite_and_replacement_alias_semantics() -> Result<()> {
             fs::metadata(&output)?.ino() == fs::metadata(&alias)?.ino(),
             !replace
         );
+    }
+    Ok(())
+}
+
+#[test]
+fn replay_restores_file_owner_mode_and_mtime() -> Result<()> {
+    let fixture = TestDirectory::create()?;
+    let output = fixture.0.join("output");
+    let cache = fixture.0.join("cache");
+    fs::write(&output, b"cached bytes")?;
+    fs::set_permissions(&output, fs::Permissions::from_mode(0o640))?;
+    set_mtime(&output, 1_600_000_000, 123_000_000)?;
+    capture(&cache, &HashSet::from([output.clone()]), &HashSet::new())?;
+
+    fs::write(&output, b"changed bytes")?;
+    fs::set_permissions(&output, fs::Permissions::from_mode(0o600))?;
+    set_mtime(&output, 1_700_000_000, 456_000_000)?;
+    replay(&cache)?;
+
+    let metadata = fs::metadata(&output)?;
+    assert_eq!(fs::read(&output)?, b"cached bytes");
+    assert_eq!(metadata.uid(), unsafe { libc::getuid() });
+    assert_eq!(metadata.gid(), unsafe { libc::getgid() });
+    assert_eq!(metadata.mode() & 0o7777, 0o640);
+    assert_eq!(
+        (metadata.mtime(), metadata.mtime_nsec()),
+        (1_600_000_000, 123_000_000)
+    );
+    Ok(())
+}
+
+#[test]
+fn replay_links_output_to_an_unchanged_dependency_inode() -> Result<()> {
+    let fixture = TestDirectory::create()?;
+    let source = fixture.0.join("source");
+    let output = fixture.0.join("output");
+    let cache = fixture.0.join("cache");
+    fs::write(&source, b"shared input")?;
+    fs::hard_link(&source, &output)?;
+
+    let metadata = fs::metadata(&source)?;
+    let dependencies = HashMap::from([(
+        source.clone(),
+        crate::cache::DependencyKey::ContentState {
+            modified: metadata
+                .modified()?
+                .duration_since(std::time::UNIX_EPOCH)?
+                .as_nanos(),
+            size: metadata.len(),
+            mode: metadata.mode(),
+            uid: metadata.uid(),
+            gid: metadata.gid(),
+            access: crate::ops::permissions::effective_access(&source)?,
+            hash: crate::ops::data::hash_stream(&mut fs::File::open(&source)?)?,
+        },
+    )]);
+    capture_with_dependencies(
+        &cache,
+        &HashSet::from([output.clone()]),
+        &HashSet::new(),
+        &dependencies,
+    )?;
+    fs::remove_file(&output)?;
+    replay(&cache)?;
+
+    assert_eq!(fs::read(&output)?, b"shared input");
+    assert_eq!(fs::metadata(&source)?.ino(), fs::metadata(&output)?.ino());
+    Ok(())
+}
+
+#[test]
+fn replay_restores_extended_attributes_and_removes_uncaptured_attributes() -> Result<()> {
+    let fixture = TestDirectory::create()?;
+    let output = fixture.0.join("output");
+    let cache = fixture.0.join("cache");
+    fs::write(&output, b"cached")?;
+    set_test_xattr(&output, b"user.incr-cache", b"original")?;
+    capture(&cache, &HashSet::from([output.clone()]), &HashSet::new())?;
+
+    set_test_xattr(&output, b"user.incr-cache", b"changed")?;
+    set_test_xattr(&output, b"user.extra", b"remove me")?;
+    replay(&cache)?;
+
+    assert_eq!(get_test_xattr(&output, b"user.incr-cache")?, b"original");
+    assert!(get_test_xattr(&output, b"user.extra").is_err());
+    Ok(())
+}
+
+fn set_test_xattr(path: &Path, name: &[u8], value: &[u8]) -> Result<()> {
+    let path = CString::new(path.as_os_str().as_bytes())?;
+    let name = CString::new(name)?;
+    if unsafe {
+        libc::setxattr(
+            path.as_ptr(),
+            name.as_ptr(),
+            value.as_ptr().cast(),
+            value.len(),
+            0,
+        )
+    } != 0
+    {
+        return Err(std::io::Error::last_os_error().into());
+    }
+    Ok(())
+}
+
+fn get_test_xattr(path: &Path, name: &[u8]) -> Result<Vec<u8>> {
+    let path = CString::new(path.as_os_str().as_bytes())?;
+    let name = CString::new(name)?;
+    let length = unsafe { libc::getxattr(path.as_ptr(), name.as_ptr(), std::ptr::null_mut(), 0) };
+    if length < 0 {
+        return Err(std::io::Error::last_os_error().into());
+    }
+    let mut value = vec![0u8; length as usize];
+    let length = unsafe {
+        libc::getxattr(
+            path.as_ptr(),
+            name.as_ptr(),
+            value.as_mut_ptr().cast(),
+            value.len(),
+        )
+    };
+    if length < 0 {
+        return Err(std::io::Error::last_os_error().into());
+    }
+    value.truncate(length as usize);
+    Ok(value)
+}
+
+fn set_mtime(path: &Path, seconds: i64, nanoseconds: i64) -> Result<()> {
+    let path = CString::new(path.as_os_str().as_bytes())?;
+    let times = [
+        libc::timespec {
+            tv_sec: 0,
+            tv_nsec: libc::UTIME_OMIT,
+        },
+        libc::timespec {
+            tv_sec: seconds,
+            tv_nsec: nanoseconds as _,
+        },
+    ];
+    if unsafe { libc::utimensat(libc::AT_FDCWD, path.as_ptr(), times.as_ptr(), 0) } != 0 {
+        return Err(std::io::Error::last_os_error().into());
     }
     Ok(())
 }
