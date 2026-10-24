@@ -9,7 +9,7 @@ import unittest
 from bounded import run
 
 ROOT = Path(__file__).resolve().parents[1]
-PYTHON = ROOT / 'qualification/.venv/bin/python'
+PYTHON = Path(os.environ.get('INCR_QUALIFICATION_PYTHON', ROOT / 'qualification/.venv/bin/python'))
 RESULTS = Path(os.environ.get('INCR_QUALIFICATION_RESULTS', ROOT / 'qualification/.work/test-results')) / 'shell-ast-tests.json'
 RECORDS = []
 
@@ -72,6 +72,82 @@ fi
         output = self.work / 'transformed.sh'
         output.write_text(transformed)
         self.invoke(['bash', '-n', output])
+
+    def test_recursive_instrumentation_of_static_executed_script(self):
+        rootfs = self.work / 'rootfs'
+        (rootfs / 'bin').mkdir(parents=True)
+        (rootfs / 'usr/bin').mkdir(parents=True)
+        (rootfs / 'work').mkdir()
+        shell = rootfs / 'bin/sh'
+        shell.write_bytes(Path('/bin/sh').read_bytes())
+        shell.chmod(0o755)
+        rev = rootfs / 'usr/bin/rev'
+        rev.write_bytes(Path('/usr/bin/rev').read_bytes())
+        rev.chmod(0o755)
+
+        installer = rootfs / 'work/install.sh'
+        installer.write_text(
+            '#!/bin/sh\nprintf "%s:%s:" "$0" "$1"\nprintf abc | rev\n'
+        )
+        installer.chmod(0o755)
+        run_body = self.work / 'run.sh'
+        run_body.write_text('./install.sh arg-one\n')
+        incr = self.work / 'fake-incr'
+        incr.write_text("""#!/bin/sh
+echo incr >> "$INCR_LOG"
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        --try|--cache|--observe) shift 2 ;;
+        *) break ;;
+    esac
+done
+exec "$@"
+""")
+        incr.chmod(0o755)
+        recursive = self.work / 'recursive'
+        transformed = self.invoke([
+            PYTHON, ROOT / 'src/scripts/insert.py',
+            '--sys-path', incr, '--cache-path', '',
+            '--rootfs', rootfs, '--cwd', '/work',
+            '--target-path', '/bin:/usr/bin',
+            '--recursive-dir', recursive, '--recursive-dest', recursive,
+            run_body,
+        ])
+        self.assertEqual(len(list(recursive.glob('*.sh'))), 1)
+        child_script = next(recursive.glob('*.sh')).read_text()
+        self.assertIn(str(incr), child_script)
+
+        transformed_run = self.work / 'transformed-run.sh'
+        transformed_run.write_text(transformed)
+        log = self.work / 'incr.log'
+        result = run(
+            ['/bin/sh', transformed_run],
+            cwd=self.work,
+            env={**os.environ, 'INCR_LOG': str(log)},
+            timeout=3,
+        )
+        self.assertEqual(
+            (result['returncode'], result['stdout']),
+            (0, './install.sh:arg-one:cba'),
+        )
+        self.assertEqual(len(log.read_text().splitlines()), 1)
+
+    def test_recursive_instrumentation_skips_dynamic_script_path(self):
+        rootfs = self.work / 'rootfs'
+        rootfs.mkdir()
+        source = self.work / 'run.sh'
+        source.write_text('./"$INSTALLER"\n')
+        recursive = self.work / 'recursive'
+        transformed = self.invoke([
+            PYTHON, ROOT / 'src/scripts/insert.py',
+            '--sys-path', '/usr/bin/env', '--cache-path', '',
+            '--rootfs', rootfs, '--cwd', '/work',
+            '--target-path', '/bin:/usr/bin',
+            '--recursive-dir', recursive,
+            source,
+        ])
+        self.assertNotIn('/usr/bin/env', transformed)
+        self.assertFalse(recursive.exists())
 
     def test_bash_nested_control_flow_and_functions(self):
         source = self.work / 'control.sh'
