@@ -149,6 +149,59 @@ exec "$@"
         self.assertNotIn('/usr/bin/env', transformed)
         self.assertFalse(recursive.exists())
 
+    def test_recursive_instrumentation_resolves_script_path_in_literal_glob_loop(self):
+        rootfs = self.work / 'rootfs'
+        (rootfs / 'bin').mkdir(parents=True)
+        (rootfs / 'work/stages/alpha').mkdir(parents=True)
+        (rootfs / 'work/stages/beta').mkdir(parents=True)
+        (rootfs / 'usr/bin').mkdir(parents=True)
+        bash = rootfs / 'bin/bash'
+        bash.write_bytes(Path('/bin/bash').read_bytes())
+        bash.chmod(0o755)
+        (rootfs / 'usr/bin/rev').touch()
+        (rootfs / 'usr/bin/rev').chmod(0o755)
+        for stage in ('alpha', 'beta'):
+            installer = rootfs / f'work/stages/{stage}/install.sh'
+            installer.write_text(
+                f"#!/bin/bash\nprintf '%s:%s' {stage} \"$1\" | rev\n"
+            )
+            installer.chmod(0o755)
+
+        source = self.work / 'run.sh'
+        source.write_text(
+            'for stage in /work/stages/*; do\n'
+            '    bash "$stage/install.sh"\n'
+            'done\n'
+        )
+        recursive = self.work / 'recursive'
+        transformed = self.invoke([
+            PYTHON, ROOT / 'src/scripts/insert.py',
+            '--sys-path', '/usr/bin/env', '--cache-path', '',
+            '--rootfs', rootfs, '--cwd', '/work',
+            '--target-path', '/bin:/usr/bin',
+            '--recursive-dir', recursive, '--recursive-dest', recursive.resolve(),
+            source,
+        ])
+        sidecars = list(recursive.glob('*.sh'))
+        dispatcher = next(recursive.glob('*-dispatch'))
+        self.assertEqual(len(sidecars), 2)
+        for stage in ('alpha', 'beta'):
+            sidecar = next(
+                path for path in sidecars
+                if f"printf '%s:%s' {stage}" in path.read_text()
+            )
+            self.assertIn('/usr/bin/env', sidecar.read_text())
+            self.assertIn(f'/work/stages/{stage}/install.sh', dispatcher.read_text())
+            self.assertIn(str(recursive), transformed)
+        output = self.work / 'transformed-loop.sh'
+        output.write_text(transformed)
+        self.invoke(['sh', '-n', output])
+
+        self.assertEqual(
+            self.invoke([dispatcher, '/work/stages/alpha/install.sh', 'hello']),
+            'olleh:ahpla',
+        )
+
     def test_bash_nested_control_flow_and_functions(self):
         source = self.work / 'control.sh'
         source.write_text("""rev() { printf function; }

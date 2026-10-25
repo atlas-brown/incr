@@ -3,6 +3,7 @@ import argparse
 import copy
 from collections import deque
 from dataclasses import dataclass, field
+import fnmatch
 import hashlib
 import logging
 from pathlib import Path
@@ -149,12 +150,27 @@ DASH_CHILD_FIELDS = {
 }
 
 
-def transform_node(node, prefix_words, state, plan=None, relative_paths=True):
+def transform_node(
+    node, prefix_words, state, plan=None, relative_paths=True, loop_values=None
+):
+    loop_values = loop_values or {}
     if isinstance(node, list):
         return [
-            transform_node(child, prefix_words, state, plan, relative_paths)
+            transform_node(child, prefix_words, state, plan, relative_paths, loop_values)
             for child in node
         ]
+    if isinstance(node, AST.ForNode) and plan is not None:
+        transformed = copy.copy(node)
+        variable = plan.literal_chars(node.variable)
+        patterns = [plan.literal_chars(word) for word in node.argument]
+        nested_values = plan.loop_values(variable, patterns, loop_values)
+        transformed.argument = transform_node(
+            node.argument, prefix_words, state, plan, relative_paths, loop_values
+        )
+        transformed.body = transform_node(
+            node.body, prefix_words, state, plan, relative_paths, nested_values
+        )
+        return transformed
     fields = DASH_CHILD_FIELDS.get(type(node))
     transformed = copy.copy(node) if fields is not None else node
     if fields is not None:
@@ -163,7 +179,12 @@ def transform_node(node, prefix_words, state, plan=None, relative_paths=True):
                 transformed,
                 field_name,
                 transform_node(
-                    getattr(node, field_name), prefix_words, state, plan, relative_paths
+                    getattr(node, field_name),
+                    prefix_words,
+                    state,
+                    plan,
+                    relative_paths,
+                    loop_values,
                 ),
             )
     if isinstance(transformed, AST.CommandNode) and transformed.arguments:
@@ -182,24 +203,28 @@ def transform_node(node, prefix_words, state, plan=None, relative_paths=True):
                         transformed.arguments[1:],
                         False,
                         relative_paths,
+                        loop_values,
                     )
                 if nested is None:
                     transformed.arguments = [
                         *copy.deepcopy(prefix_words), *transformed.arguments
                     ]
                 else:
-                    fixed_args, remaining = nested
+                    fixed_args, remaining, dynamic_word = nested
                     transformed.arguments = [
                         *parse_prefix(fixed_args, False),
+                        *([copy.deepcopy(dynamic_word)] if dynamic_word is not None else []),
                         *copy.deepcopy(remaining),
                     ]
                 state.modified = True
     return transformed
 
 
-def transform_ast(ast, prefix_words, state, plan=None, relative_paths=True):
+def transform_ast(
+    ast, prefix_words, state, plan=None, relative_paths=True, loop_values=None
+):
     return [
-        transform_node(node, prefix_words, state, plan, relative_paths)
+        transform_node(node, prefix_words, state, plan, relative_paths, loop_values)
         for node, _, _, _ in ast
     ]
 
@@ -217,14 +242,17 @@ BASH_CHILD_FIELDS = {
 }
 
 
-def transform_bash_node(node, prefix_words, state, plan=None, relative_paths=True):
+def transform_bash_node(
+    node, prefix_words, state, plan=None, relative_paths=True, loop_values=None
+):
+    loop_values = loop_values or {}
     if isinstance(node, BashAST.CondCom):
         transformed = copy.copy(node)
         transformed.left = transform_bash_node(
-            node.left, prefix_words, state, plan, relative_paths
+            node.left, prefix_words, state, plan, relative_paths, loop_values
         )
         transformed.right = transform_bash_node(
-            node.right, prefix_words, state, plan, relative_paths
+            node.right, prefix_words, state, plan, relative_paths, loop_values
         )
         return transformed
     if not isinstance(node, BashAST.Command):
@@ -250,15 +278,17 @@ def transform_bash_node(node, prefix_words, state, plan=None, relative_paths=Tru
                 transformed.value.simple_com.words[1:],
                 True,
                 relative_paths,
+                loop_values,
             )
         if nested is None:
             transformed.value.simple_com.words = [
                 *copy.deepcopy(prefix_words), *transformed.value.simple_com.words,
             ]
         else:
-            fixed_args, remaining = nested
+            fixed_args, remaining, dynamic_word = nested
             transformed.value.simple_com.words = [
                 *parse_prefix(fixed_args, True),
+                *([copy.deepcopy(dynamic_word)] if dynamic_word is not None else []),
                 *copy.deepcopy(remaining),
             ]
         state.modified = True
@@ -267,8 +297,31 @@ def transform_bash_node(node, prefix_words, state, plan=None, relative_paths=Tru
         transformed = copy.deepcopy(node)
         for clause in transformed.value.case_com.clauses:
             clause.action = transform_bash_node(
-                clause.action, prefix_words, state, plan, relative_paths
+                clause.action,
+                prefix_words,
+                state,
+                plan,
+                relative_paths,
+                loop_values,
             )
+        return transformed
+    if node.type == BashAST.CommandType.CM_FOR and plan is not None:
+        transformed = copy.deepcopy(node)
+        loop = transformed.value.for_com
+        variable = loop.name.word.decode("utf8", errors="surrogateescape")
+        patterns = [
+            word.word.decode("utf8", errors="surrogateescape")
+            for word in loop.map_list
+        ]
+        nested_values = plan.loop_values(variable, patterns, loop_values)
+        loop.action = transform_bash_node(
+            loop.action,
+            prefix_words,
+            state,
+            plan,
+            relative_paths,
+            nested_values,
+        )
         return transformed
     fields = BASH_CHILD_FIELDS.get(node.type.value)
     if fields is None:
@@ -281,7 +334,12 @@ def transform_bash_node(node, prefix_words, state, plan=None, relative_paths=Tru
             command,
             child,
             transform_bash_node(
-                getattr(command, child), prefix_words, state, plan, relative_paths
+                getattr(command, child),
+                prefix_words,
+                state,
+                plan,
+                relative_paths,
+                loop_values,
             ),
         )
     return transformed
@@ -337,6 +395,57 @@ class RecursivePlan:
                 resolved.append(part)
         return "/" + "/".join(resolved)
 
+    @staticmethod
+    def literal_chars(chars):
+        if not all(hasattr(character, "char") for character in chars):
+            return None
+        return "".join(chr(character.char) for character in chars)
+
+    def expand_literal_glob(self, pattern):
+        if not pattern or not pattern.startswith("/"):
+            return []
+        parts = [part for part in pattern.split("/") if part]
+        candidates = [""]
+        for part in parts:
+            expanded = []
+            for parent in candidates:
+                logical_parent = "/" + parent if parent else "/"
+                resolved_parent = self.rootfs_path(logical_parent)
+                if resolved_parent is None:
+                    continue
+                host_parent = Path(self.rootfs, resolved_parent.lstrip("/"))
+                if any(char in part for char in "*?["):
+                    try:
+                        names = os.listdir(host_parent)
+                    except OSError:
+                        continue
+                    matches = sorted(name for name in names if fnmatch.fnmatchcase(name, part))
+                    expanded.extend(
+                        posixpath.join(parent, name) if parent else name
+                        for name in matches
+                    )
+                else:
+                    candidate = posixpath.join(parent, part) if parent else part
+                    if self.rootfs_path("/" + candidate):
+                        expanded.append(candidate)
+            candidates = expanded
+            if not candidates:
+                return []
+        return ["/" + candidate for candidate in candidates]
+
+    def loop_values(self, variable, patterns, current):
+        if not variable or len(patterns) != 1 or not patterns[0]:
+            return current
+        pattern = patterns[0]
+        if not pattern.startswith("/") or not any(char in pattern for char in "*?["):
+            return current
+        values = self.expand_literal_glob(pattern)
+        if not values:
+            return current
+        nested = dict(current)
+        nested[variable] = values
+        return nested
+
     def resolve_executable(self, command, relative_paths):
         if not self.rootfs:
             return None
@@ -377,6 +486,46 @@ class RecursivePlan:
         if not re.fullmatch(r"[A-Za-z0-9_./+@:-]+", value):
             return None
         return value
+
+    @staticmethod
+    def dynamic_word_template(word, use_bash):
+        if use_bash:
+            value = word.word.decode("utf8", errors="surrogateescape")
+            if value.startswith('"') and value.endswith('"'):
+                value = value[1:-1]
+            match = re.fullmatch(
+                r"\$(?:\{([A-Za-z_][A-Za-z0-9_]*)\}|([A-Za-z_][A-Za-z0-9_]*))([A-Za-z0-9_./+-]*)",
+                value,
+            )
+            if not match:
+                return None
+            return match.group(1) or match.group(2), match.group(3)
+
+        components = []
+
+        def collect(value):
+            if isinstance(value, list):
+                for child in value:
+                    collect(child)
+            elif hasattr(value, "var"):
+                components.append(("var", value.var))
+            elif hasattr(value, "char"):
+                components.append(("char", chr(value.char)))
+            elif hasattr(value, "arg"):
+                collect(value.arg)
+            else:
+                components.append(("unknown", None))
+
+        collect(word)
+        variables = [index for index, item in enumerate(components) if item[0] == "var"]
+        if len(variables) != 1 or variables[0] != 0:
+            return None
+        if any(kind != "char" for kind, _ in components[1:]):
+            return None
+        suffix = "".join(value for _, value in components[1:])
+        if not re.fullmatch(r"[A-Za-z0-9_./+-]*", suffix):
+            return None
+        return components[0][1], suffix
 
     def script_interpreter(self, script_path):
         host_path = Path(self.rootfs, script_path.lstrip("/"))
@@ -434,7 +583,43 @@ class RecursivePlan:
         self.outputs[output_key] = container_path
         return container_path
 
-    def instrumented_script_command(self, command, argument_words, use_bash, relative_paths):
+    def write_script_dispatcher(self, scripts, interpreter, mode):
+        if self.output_dir is None:
+            return None
+        identity = "\0".join(
+            [mode, interpreter]
+            + [part for pair in sorted(scripts) for part in pair]
+        )
+        name = hashlib.sha256(identity.encode()).hexdigest() + "-dispatch"
+        output_path = self.output_dir / name
+        container_path = posixpath.join(self.container_dir, name)
+        if not output_path.exists():
+            lines = [
+                "#!/bin/sh",
+                "original=$1",
+                "shift",
+                'case "$original" in',
+            ]
+            for original, sidecar in sorted(scripts):
+                lines.append(
+                    f"    {shlex.quote(original)}) script={shlex.quote(sidecar)} ;;"
+                )
+            lines.extend([
+                f'    *) exec {shlex.quote(interpreter)} "$original" "$@" ;;',
+                "esac",
+                "exec "
+                + shlex.quote(interpreter)
+                + """ -c 'script=$1; shift; . "$script" "$@"' "$original" "$script" "$@" """.rstrip(),
+                "",
+            ])
+            output_path.write_text("\n".join(lines), encoding="utf-8")
+            output_path.chmod(0o755)
+        return container_path
+
+    def instrumented_script_command(
+        self, command, argument_words, use_bash, relative_paths, loop_values=None
+    ):
+        loop_values = loop_values or {}
         command_executable = self.resolve_executable(command, relative_paths)
         if not command_executable:
             return None
@@ -443,15 +628,27 @@ class RecursivePlan:
         mode = None
         script_argument_index = 0
         script_argument = command
+        dynamic_word = None
+        dynamic_paths = None
         if command_executable[0].endswith(("/bash", "/sh")):
             words = [self.literal_word(word, use_bash) for word in argument_words]
             if words and words[0] == "--":
                 script_argument_index = 1
-            if len(words) <= script_argument_index or words[script_argument_index] is None:
+            if len(words) <= script_argument_index:
                 return None
             if script_argument_index > 0 and len(words) < 2:
                 return None
             script_argument = words[script_argument_index]
+            if script_argument is None:
+                dynamic_word = argument_words[script_argument_index]
+                template = self.dynamic_word_template(dynamic_word, use_bash)
+                if template is None or template[0] not in loop_values:
+                    return None
+                variable, suffix = template
+                dynamic_paths = [
+                    (posixpath.normpath(value + suffix), value + suffix)
+                    for value in loop_values[variable]
+                ]
             interpreter = command
             mode = "bash" if command_executable[0].endswith("/bash") else "sh"
         else:
@@ -460,29 +657,42 @@ class RecursivePlan:
                 return None
             interpreter, mode = interpreter_info
 
-        if "/" in script_argument:
-            if script_argument.startswith("/"):
-                target = script_argument
-            elif relative_paths:
-                target = posixpath.join(self.cwd, script_argument)
-            else:
+        if dynamic_paths is not None:
+            resolved_scripts = []
+            for runtime_path, _ in dynamic_paths:
+                resolved_script = self.rootfs_path(runtime_path)
+                if not resolved_script:
+                    continue
+                transformed_path = self.transform_file(resolved_script, mode)
+                if transformed_path is None:
+                    continue
+                resolved_scripts.append((runtime_path, transformed_path))
+            if not resolved_scripts:
                 return None
         else:
-            target = None
-            for directory in self.path:
-                if directory.startswith("/") or relative_paths:
-                    candidate = posixpath.join(directory or self.cwd, script_argument)
-                    if self.rootfs_path(posixpath.normpath(candidate)):
-                        target = candidate
-                        break
-            if target is None:
+            if "/" in script_argument:
+                if script_argument.startswith("/"):
+                    target = script_argument
+                elif relative_paths:
+                    target = posixpath.join(self.cwd, script_argument)
+                else:
+                    return None
+            else:
+                target = None
+                for directory in self.path:
+                    if directory.startswith("/") or relative_paths:
+                        candidate = posixpath.join(directory or self.cwd, script_argument)
+                        if self.rootfs_path(posixpath.normpath(candidate)):
+                            target = candidate
+                            break
+                if target is None:
+                    return None
+            resolved_script = self.rootfs_path(posixpath.normpath(target))
+            if not resolved_script:
                 return None
-        resolved_script = self.rootfs_path(posixpath.normpath(target))
-        if not resolved_script:
-            return None
-        transformed_path = self.transform_file(resolved_script, mode)
-        if transformed_path is None:
-            return None
+            transformed_path = self.transform_file(resolved_script, mode)
+            if transformed_path is None:
+                return None
 
         if command_executable[0].endswith(("/bash", "/sh")):
             remaining = argument_words[script_argument_index + 1:]
@@ -490,6 +700,14 @@ class RecursivePlan:
         else:
             remaining = argument_words
             script_argv0 = command
+        if dynamic_paths is not None:
+            dispatcher = self.write_script_dispatcher(
+                resolved_scripts, interpreter, mode
+            )
+            if dispatcher is None:
+                return None
+            return [dispatcher], remaining, dynamic_word
+
         launch_script = 'script=$1; shift; . "$script" "$@"'
         # Cache the transformed commands inside the script, not this whole call.
         fixed_args = [
@@ -499,7 +717,7 @@ class RecursivePlan:
             script_argv0,
             transformed_path,
         ]
-        return fixed_args, remaining
+        return fixed_args, remaining, None
 
 
 def record_aliases(words, state):
