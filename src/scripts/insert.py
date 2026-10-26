@@ -3,6 +3,7 @@ import argparse
 import copy
 from collections import deque
 from dataclasses import dataclass, field
+import json
 import fnmatch
 import hashlib
 import logging
@@ -11,7 +12,6 @@ import os
 import posixpath
 import re
 import shlex
-import shutil
 import stat
 import subprocess
 import sys
@@ -191,11 +191,13 @@ def transform_node(
         first_word = transformed.arguments[0]
         if all(hasattr(character, "char") for character in first_word):
             command_name = "".join(chr(character.char) for character in first_word)
-            available = shutil.which(command_name) or (
-                plan is not None
-                and plan.resolve_executable(command_name, relative_paths) is not None
-            )
-            if command_name not in AVOID_SET and available:
+            if not command_name:
+                record_unwrapped(state, transformed, "dynamic command name")
+            elif command_name in AVOID_SET:
+                record_unwrapped(state, transformed, "shell-sensitive or excluded command")
+            elif command_name in state.functions or command_name in state.aliases:
+                record_unwrapped(state, transformed, "shell function or alias")
+            else:
                 nested = None
                 if plan is not None:
                     nested = plan.instrumented_script_command(
@@ -217,6 +219,8 @@ def transform_node(
                         *copy.deepcopy(remaining),
                     ]
                 state.modified = True
+        else:
+            record_unwrapped(state, transformed, "dynamic command name")
     return transformed
 
 
@@ -261,14 +265,23 @@ def transform_bash_node(
         command = node.value.simple_com
         if not command.words:
             return node
-        name = command.words[0].word.decode("utf8", errors="surrogateescape")
-        available = shutil.which(name) or (
-            plan is not None
-            and plan.resolve_executable(name, relative_paths) is not None
-        )
-        if (not name or name in AVOID_SET or "=" in name
-                or name in state.functions or name in state.aliases
-                or name.startswith(("$", "%")) or not available):
+        raw_name = command.words[0].word.decode("utf8", errors="surrogateescape")
+        try:
+            parsed_name = shlex.split(raw_name)
+        except ValueError:
+            parsed_name = []
+        name = parsed_name[0] if len(parsed_name) == 1 else ""
+        reason = None
+        if not name or "=" in name:
+            reason = "assignment or empty command"
+        elif name in AVOID_SET:
+            reason = "shell-sensitive or excluded command"
+        elif name in state.functions or name in state.aliases:
+            reason = "shell function or alias"
+        elif any(token in raw_name for token in ("$", "`", "*", "?", "[")) or name.startswith("%"):
+            reason = "dynamic command name"
+        if reason is not None:
+            record_unwrapped(state, node, reason)
             return node
         transformed = copy.deepcopy(node)
         nested = None
@@ -350,7 +363,24 @@ class TransformState:
     functions: set[str] = field(default_factory=set)
     aliases: set[str] = field(default_factory=set)
     modified: bool = False
-    dynamic_aliases: bool = False
+    dynamic_bindings: bool = False
+    unwrapped: list | None = None
+
+
+def record_unwrapped(state, node, reason):
+    if state.unwrapped is None:
+        return
+    pretty = getattr(node, "pretty", None)
+    if pretty is not None:
+        command = pretty().strip()
+    else:
+        with tempfile.NamedTemporaryFile(mode="wb+", suffix=".sh") as temp_file:
+            libbash.ast_to_bash([node], temp_file.name)
+            temp_file.flush()
+            temp_file.seek(0)
+            command = temp_file.read().decode("utf-8", errors="surrogateescape").strip()
+    if command:
+        state.unwrapped.append({"command": command, "reason": reason})
 
 
 class RecursivePlan:
@@ -363,6 +393,7 @@ class RecursivePlan:
         self.container_dir = arguments.recursive_dest
         self.active = set()
         self.outputs = {}
+        self.unwrapped = [] if arguments.unwrapped_path else None
 
     def rootfs_path(self, path):
         if not self.rootfs or not path.startswith("/"):
@@ -737,12 +768,12 @@ def record_aliases(words, state):
         try:
             assignments = shlex.split(word.word.decode("utf8", errors="surrogateescape"))
         except ValueError:
-            state.dynamic_aliases = True
+            state.dynamic_bindings = True
             continue
         for assignment in assignments:
             name, separator, _ = assignment.partition("=")
             if "$" in name or "`" in name:
-                state.dynamic_aliases = True
+                state.dynamic_bindings = True
             elif separator:
                 state.aliases.add(name)
 
@@ -763,6 +794,13 @@ def collect_bash_bindings(nodes):
         elif node.type == BashAST.CommandType.CM_SIMPLE:
             words = node.value.simple_com.words
             record_aliases(words, state)
+            if words:
+                try:
+                    command = shlex.split(words[0].word.decode("utf8", errors="surrogateescape"))
+                except ValueError:
+                    command = []
+                if command and command[0] in ("eval", "source", "."):
+                    state.dynamic_bindings = True
         if node.type == BashAST.CommandType.CM_CASE:
             pending.extend(clause.action for clause in node.value.case_com.clauses)
         else:
@@ -771,6 +809,59 @@ def collect_bash_bindings(nodes):
                 attribute, children = fields
                 command = getattr(node.value, attribute)
                 pending.extend(getattr(command, child) for child in children)
+    return state
+
+
+def dash_literal_word(word):
+    if not all(hasattr(character, "char") for character in word):
+        return None
+    return "".join(chr(character.char) for character in word)
+
+
+def collect_dash_bindings(nodes):
+    state = TransformState()
+    pending = list(nodes)
+    while pending:
+        node = pending.pop()
+        if isinstance(node, list):
+            pending.extend(node)
+            continue
+        if isinstance(node, AST.DefunNode):
+            name = dash_literal_word(node.name)
+            if name:
+                state.functions.add(name)
+        if isinstance(node, AST.CommandNode) and node.arguments:
+            words = [dash_literal_word(word) for word in node.arguments]
+            if words[0] is not None:
+                command_offset = 0
+                command = words[0]
+                if command in ("builtin", "command") and len(words) > 1:
+                    command_offset = 1
+                    command = words[1]
+                if command in ("eval", "source", "."):
+                    state.dynamic_bindings = True
+                if command == "alias":
+                    for assignment in words[command_offset + 1:]:
+                        if assignment is None:
+                            state.dynamic_bindings = True
+                            continue
+                        try:
+                            aliases = shlex.split(assignment)
+                        except ValueError:
+                            state.dynamic_bindings = True
+                            continue
+                        for alias in aliases:
+                            name, separator, _ = alias.partition("=")
+                            if "$" in name or "`" in name:
+                                state.dynamic_bindings = True
+                            elif separator:
+                                state.aliases.add(name)
+        for field_name in DASH_CHILD_FIELDS.get(type(node), ()):
+            child = getattr(node, field_name)
+            if isinstance(child, list):
+                pending.extend(child)
+            elif child is not None:
+                pending.append(child)
     return state
 
 
@@ -824,6 +915,7 @@ def parse_arguments():
     )
     arg_parser.add_argument("--observe-path", help="Observe binary path", default=None)
     arg_parser.add_argument("--status-path", help="Write whether commands were instrumented")
+    arg_parser.add_argument("--unwrapped-path", help="Write JSON details for commands not instrumented")
     arg_parser.add_argument("--rootfs", help="Target rootfs used for script discovery")
     arg_parser.add_argument("--cwd", default="/", help="RUN working directory in the target rootfs")
     arg_parser.add_argument("--target-path", default=os.environ.get("PATH", ""))
@@ -871,7 +963,9 @@ def transform_bash_script(
 ):
     original_ast = libbash.bash_to_ast(arguments.path)
     state = collect_bash_bindings(original_ast)
-    if state.dynamic_aliases and not arguments.identity:
+    if plan is not None:
+        state.unwrapped = plan.unwrapped
+    if state.dynamic_bindings and not arguments.identity:
         return source_bytes, False
     if arguments.identity:
         transformed_ast = original_ast
@@ -906,7 +1000,10 @@ def transform_script_bytes(arguments, source_bytes, plan=None, relative_paths=Tr
             arguments, prefix_words, source_bytes, plan, relative_paths
         )
     original_ast = parse_dash_script(arguments.path)
-    state = TransformState()
+    state = collect_dash_bindings([node for node, *_ in original_ast])
+    state.unwrapped = plan.unwrapped if plan is not None else None
+    if state.dynamic_bindings and not arguments.identity:
+        return source_bytes, False
     transformed = ([node for node, *_ in original_ast] if arguments.identity
                    else transform_ast(
                        original_ast, prefix_words, state, plan, relative_paths
@@ -922,14 +1019,15 @@ def transform_script(arguments):
     source_bytes = Path(arguments.path).read_bytes()
     plan = RecursivePlan(arguments) if arguments.rootfs and arguments.recursive_dir else None
     relative_paths = not re.search(rb"\b(?:cd|pushd|popd)\b", source_bytes)
-    return transform_script_bytes(arguments, source_bytes, plan, relative_paths)
+    output, modified = transform_script_bytes(arguments, source_bytes, plan, relative_paths)
+    return output, modified, plan.unwrapped if plan is not None and plan.unwrapped is not None else []
 
 
 def main():
     arguments = parse_arguments()
     logging.basicConfig(level=logging.DEBUG if arguments.debug else logging.INFO)
     try:
-        output, modified = transform_script(arguments)
+        output, modified, unwrapped = transform_script(arguments)
     except Exception as error:
         print(f"Error transforming {arguments.path}: {error}", file=sys.stderr)
         if arguments.debug:
@@ -943,6 +1041,11 @@ def main():
     if arguments.status_path:
         Path(arguments.status_path).write_text(
             "transformed\n" if modified else "unchanged\n",
+            encoding="utf-8",
+        )
+    if arguments.unwrapped_path:
+        Path(arguments.unwrapped_path).write_text(
+            json.dumps(unwrapped, ensure_ascii=True) + "\n",
             encoding="utf-8",
         )
     if arguments.execute and arguments.output is not None:

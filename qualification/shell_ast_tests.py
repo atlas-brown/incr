@@ -22,8 +22,8 @@ class ShellAstTests(unittest.TestCase):
     def tearDown(self):
         self.fixture.cleanup()
 
-    def invoke(self, command):
-        result = run([str(argument) for argument in command], cwd=self.work, timeout=3)
+    def invoke(self, command, env=None):
+        result = run([str(argument) for argument in command], cwd=self.work, timeout=3, env=env)
         RECORDS.append(result)
         RESULTS.write_text(json.dumps(RECORDS, indent=2) + '\n')
         self.assertFalse(result['timeout'], result)
@@ -52,6 +52,51 @@ class ShellAstTests(unittest.TestCase):
         output = self.work / 'transformed.sh'
         output.write_text(transformed)
         self.assertEqual(self.invoke(['bash', output]), 'cbabadc')
+
+    def test_literal_commands_wrap_without_build_time_path_lookup(self):
+        source = self.work / 'source.sh'
+        source.write_text('go version\n')
+        parser_env = os.environ.copy()
+        parser_env.update({'PATH': '/usr/bin:/bin', 'INCR_SHELL': '/bin/bash'})
+        for parser_flags in ([], ['--bash']):
+            transformed = self.invoke([
+                PYTHON, ROOT / 'src/scripts/insert.py', *parser_flags,
+                '--sys-path', '/usr/bin/env', '--cache-path', '', source,
+            ], env=parser_env)
+            self.assertIn('/usr/bin/env go version', transformed)
+
+    def test_shell_functions_and_aliases_remain_native(self):
+        cases = (
+            ('rev() { printf function; }\nrev\n', []),
+            ("alias rev='printf alias'\nrev\n", []),
+            ('rev() { printf function; }\nrev\n', ['--bash']),
+        )
+        for script, parser_flags in cases:
+            source = self.work / 'shell-binding.sh'
+            source.write_text(script)
+            transformed = self.invoke([
+                PYTHON, ROOT / 'src/scripts/insert.py', *parser_flags,
+                '--sys-path', '/usr/bin/env', '--cache-path', '', source,
+            ])
+            self.assertNotIn('/usr/bin/env', transformed)
+            output = self.work / 'shell-binding-transformed.sh'
+            output.write_text(transformed)
+            self.invoke(['sh' if not parser_flags else 'bash', '-n', output])
+
+    def test_dynamic_shell_bindings_keep_the_script_untransformed(self):
+        cases = (
+            ('. ./functions.sh\ngo version\n', []),
+            ('source ./functions.sh\ngo version\n', ['--bash']),
+            ('eval "go() { :; }"\ngo version\n', ['--bash']),
+        )
+        for script, parser_flags in cases:
+            source = self.work / 'dynamic-bindings.sh'
+            source.write_text(script)
+            transformed = self.invoke([
+                PYTHON, ROOT / 'src/scripts/insert.py', *parser_flags,
+                '--sys-path', '/usr/bin/env', '--cache-path', '', source,
+            ])
+            self.assertEqual(transformed, script)
 
     def test_dash_transform_descends_through_installer_loop(self):
         source = self.work / 'source.sh'
