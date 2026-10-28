@@ -26,7 +26,7 @@ const TIME_FORMAT: &[FormatItem<'_>] = format_description!("[hour]:[minute]:[sec
 
 macro_rules! debug_log {
     ($($arg:tt)*) => {
-        if $crate::config::DEBUG_LOGS {
+        if $crate::config::DEBUG_LOGS || $crate::ops::cache_debug_enabled() {
             let line = format!($($arg)*);
             $crate::ops::log_line(&line);
         }
@@ -64,5 +64,28 @@ pub(crate) fn log_line(line: &str) {
         && let Ok(mut file) = file.lock()
     {
         let _ = file.write_all(line.as_bytes());
+    }
+}
+
+/// Returns true when runtime cache debugging is enabled.
+pub(crate) fn cache_debug_enabled() -> bool {
+    env::var_os("INCR_DEBUG_CACHE").is_some()
+}
+
+/// When cache debugging is on, open this process's debug log under
+/// `<directory>/debug/` so `debug_log!` output lands in the cache directory
+/// (file only -- never stderr). Best-effort; a no-op once initialized.
+pub(crate) fn init_cache_log(directory: &std::path::Path) {
+    if !cache_debug_enabled() {
+        return;
+    }
+    let debug_dir = directory.join("debug");
+    if std::fs::create_dir_all(&debug_dir).is_err() {
+        return;
+    }
+    let stamp = OffsetDateTime::now_utc().unix_timestamp_nanos();
+    let path = debug_dir.join(format!("incr.{}.{}.log", std::process::id(), stamp));
+    if let Ok(file) = OpenOptions::new().append(true).create(true).open(path) {
+        let _ = LOG_FILE.set(Mutex::new(file));
     }
 }

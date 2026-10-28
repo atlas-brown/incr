@@ -139,14 +139,12 @@ pub(crate) fn capture(
                 (
                     path.clone(),
                     trace.initial_dependencies.get(path).cloned().unwrap_or_else(|| {
-                        if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
-                            eprintln!(
-                                "[incr] command cache: dependency report omitted {} (read={}, write={})",
-                                path.display(),
-                                trace.reads.contains(path),
-                                trace.writes.contains(path)
-                            );
-                        }
+                        debug_log!(
+                            "[incr] command cache: dependency report omitted {} (read={}, write={})",
+                            path.display(),
+                            trace.reads.contains(path),
+                            trace.writes.contains(path)
+                        );
                         if path.ancestors().skip(1).any(|parent| {
                             matches!(
                                 trace.initial_dependencies.get(parent),
@@ -164,8 +162,8 @@ pub(crate) fn capture(
     } else {
         dependency::get_read_dependencies(&trace.reads, &trace.writes)?
     };
-    if std::env::var_os("INCR_DEBUG_CACHE").is_some() && !trace.replay_barriers.is_empty() {
-        eprintln!(
+    if !trace.replay_barriers.is_empty() {
+        debug_log!(
             "[incr] command cache: recording replay barriers: {:?}",
             trace.replay_barriers
         );
@@ -194,9 +192,7 @@ pub(crate) fn capture(
                 && let Err(error) =
                     cache.capture_observe_output(&write_set, &replaced_paths, &read_dependencies)
             {
-                if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
-                    eprintln!("[incr] command cache: cannot capture output: {error:#}");
-                }
+                debug_log!("[incr] command cache: cannot capture output: {error:#}");
                 debug_log!("Cannot capture output for reuse: {error:#}");
                 trace.replay_barriers.push("uncapturable-output".to_owned());
             }

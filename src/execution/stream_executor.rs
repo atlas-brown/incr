@@ -35,6 +35,15 @@ enum CacheStatus {
 }
 
 pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
+    debug_log!(
+        "[incr] command cache: observing {} {:?} (observe={}, effect_policy={:?}, assume_text={}, full_tracing={})",
+        command.name,
+        command.arguments,
+        config.observe_command.is_some(),
+        config.effect_policy,
+        config.assume_text,
+        config.full_tracing,
+    );
     let mut candidates = crate::cache::candidates::validate(config, command)?;
     if stdin_is_known_empty()
         && let Some(index) = candidates
@@ -42,12 +51,10 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
             .position(|candidate| candidate.stdin_hash == ops::data::hash_bytes(&[]))
     {
         let candidate = candidates.remove(index);
-        if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
-            eprintln!(
-                "[incr] command cache: {} {:?} replayed without starting command (empty stdin)",
-                command.name, command.arguments
-            );
-        }
+        debug_log!(
+            "[incr] command cache: {} {:?} replayed without starting command (empty stdin)",
+            command.name, command.arguments
+        );
         execution::record::write_outer_dependencies(&candidate.data)?;
         return run::replay(
             config,
@@ -101,13 +108,13 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     }
 
     let cache_status = load_cache_data(config, &cache, child, &runtime, prevalidated)?;
-    if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
+    {
         let result = if matches!(&cache_status, CacheStatus::Valid(_)) {
             "replayed"
         } else {
             "executed"
         };
-        eprintln!(
+        debug_log!(
             "[incr] command cache: {} {:?} {result}",
             command.name, command.arguments
         );
@@ -364,9 +371,7 @@ fn load_cache_data(
             }
         }
         None => {
-            if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
-                eprintln!("[incr] command cache: no saved record");
-            }
+            debug_log!("[incr] command cache: no saved record");
             None
         }
     };

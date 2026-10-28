@@ -13,21 +13,18 @@ use crate::cache::{CacheData, DependencyKey};
 use crate::command::Command;
 use crate::config::{BUFFER_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, INTROSPECT_DIRECTORY};
 use crate::ops;
+use crate::ops::debug_log;
 
 pub(crate) fn check_cache_valid(cache: &CacheCursor<'_>, data: &CacheData) -> Result<bool> {
     if !data.replay_barriers.is_empty() {
-        if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
-            eprintln!(
-                "[incr] command cache: replay barriers: {:?}",
-                data.replay_barriers
-            );
-        }
+        debug_log!(
+            "[incr] command cache: replay barriers: {:?}",
+            data.replay_barriers
+        );
         return Ok(false);
     }
     if !cache.data_outputs_exist() {
-        if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
-            eprintln!("[incr] command cache: cached output stream is missing");
-        }
+        debug_log!("[incr] command cache: cached output stream is missing");
         return Ok(false);
     }
     if !check_read_dependencies(&data.read_dependencies)? {
@@ -139,12 +136,10 @@ fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Re
             // Files can disappear or become unreadable between probes. That is
             // a cache miss, not an error in the user's command.
             if !check_dependency(path, key).unwrap_or(false) {
-                if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
-                    eprintln!(
-                        "[incr] command cache: invalid dependency {} ({key:?})",
-                        path.display()
-                    );
-                }
+                debug_log!(
+                    "[incr] command cache: invalid dependency {} ({key:?})",
+                    path.display()
+                );
                 return Ok(false);
             }
         }
@@ -304,8 +299,8 @@ fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
                 && metadata.gid() == *gid
                 && crate::ops::permissions::effective_access(path)? == *access
                 && current_hash == Some(*entry_hash);
-            if !valid && std::env::var_os("INCR_DEBUG_CACHE").is_some() {
-                eprintln!(
+            if !valid {
+                debug_log!(
                     "[incr] command cache: directory state {} expected (hash {entry_hash}, mode {mode}, uid {uid}, gid {gid}, access {access}); current (hash {current_hash:?}, mode {}, uid {}, gid {})",
                     path.display(),
                     metadata.mode(),

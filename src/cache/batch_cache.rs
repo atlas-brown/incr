@@ -15,6 +15,7 @@ use crate::config::{
     STDERR_FILE, STDOUT_FILE, SUDO_SANDBOX, TRACE_FILE,
 };
 use crate::ops;
+use crate::ops::debug_log;
 
 #[derive(Clone, Debug)]
 pub(crate) struct CacheCursor<'c> {
@@ -167,7 +168,11 @@ impl<'c> CacheCursor<'c> {
     }
 
     pub(crate) fn create_directory(&self) -> Result<()> {
-        let debug_info = if DEBUG { Some(&self.debug_info) } else { None };
+        // Persist debug_info.json for every entry (including barrier-dropped,
+        // stream-only ones) whenever debug mode is on at runtime, so the cache
+        // store is self-describing without a DEBUG-compiled binary.
+        let want_debug = DEBUG || std::env::var_os("INCR_DEBUG_CACHE").is_some();
+        let debug_info = if want_debug { Some(&self.debug_info) } else { None };
         cache::create_directory(&self.directory, debug_info)
     }
 
@@ -262,16 +267,12 @@ impl<'c> CacheCursor<'c> {
         let output_hashes = match self.output_hashes() {
             Ok(output_hashes) => output_hashes,
             Err(error) => {
-                if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
-                    eprintln!("[incr] command cache: saved output streams are unavailable: {error:#}");
-                }
+                debug_log!("[incr] command cache: saved output streams are unavailable: {error:#}");
                 return Ok(None);
             }
         };
         if output_hashes != entry.output_hashes {
-            if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
-                eprintln!("[incr] command cache: saved output streams failed their integrity check");
-            }
+            debug_log!("[incr] command cache: saved output streams failed their integrity check");
             return Ok(None);
         }
         Ok(Some(entry.data))
@@ -292,10 +293,16 @@ impl<'c> CacheCursor<'c> {
     }
 
     pub(crate) fn save_data(&self, data: &CacheData) -> Result<()> {
+        // In debug mode, write a plain-JSON copy of the CacheData beside the
+        // binary record -- for dropped records too, so the cache dir alone shows
+        // the dependencies and barriers that decided the outcome.
+        if ops::cache_debug_enabled() {
+            self.write_debug_data_json(data);
+        }
         // Unsupported effects must run again. In particular, the binary cache's
         // UTF-8 path encoding cannot represent every path in an Observe report.
         if !data.is_reusable() {
-            if std::env::var_os("INCR_DEBUG_CACHE").is_some() {
+            if ops::cache_debug_enabled() {
                 let reason = if !data.replay_barriers.is_empty() {
                     format!("replay barriers: {:?}", data.replay_barriers)
                 } else if let Some((path, dependency)) = data
@@ -307,7 +314,7 @@ impl<'c> CacheCursor<'c> {
                 } else {
                     "filesystem output path is not UTF-8".to_owned()
                 };
-                eprintln!("[incr] command cache: not saving record: {reason}");
+                debug_log!("[incr] command cache: not saving record: {reason}");
             }
             let metadata = self
                 .directory
@@ -329,8 +336,30 @@ impl<'c> CacheCursor<'c> {
             && let Some(directory) = &self.candidate_directory
         {
             super::candidates::record(directory, self.debug_info.stdin_hash);
+            // Record the command identity that produced command.hash, so the
+            // candidate directory shows what is actually hashed into the key.
+            if ops::cache_debug_enabled()
+                && let Ok(file) = fs::File::create(directory.join(crate::config::DEBUG_FILE))
+            {
+                let mut writer = std::io::BufWriter::new(file);
+                if serde_json::to_writer_pretty(&mut writer, &self.debug_info).is_ok() {
+                    use std::io::Write as _;
+                    let _ = writer.flush();
+                }
+            }
         }
         Ok(())
+    }
+
+    /// Debug aid: write the CacheData as pretty JSON next to the binary record.
+    fn write_debug_data_json(&self, data: &CacheData) {
+        if let Ok(file) = fs::File::create(self.directory.join("data.json")) {
+            let mut writer = std::io::BufWriter::new(file);
+            if serde_json::to_writer_pretty(&mut writer, data).is_ok() {
+                use std::io::Write as _;
+                let _ = writer.flush();
+            }
+        }
     }
 }
 

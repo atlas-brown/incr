@@ -140,6 +140,10 @@ fn parse_input() -> Result<Option<Input>> {
         None => home_directory()?.join(DEFAULT_CACHE_PATH),
     };
 
+    // Open this process's cache-debug log under the cache directory when
+    // runtime debugging is on, before any cache diagnostics are emitted.
+    crate::ops::init_cache_log(&cache_directory);
+
     // Cache keys currently use UTF-8 strings. Preserve arbitrary Unix bytes by
     // executing such invocations directly instead of rejecting or corrupting them.
     let utf8_arguments = arguments
