@@ -27,7 +27,8 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
 
     let cache = CacheCursor::from_stdin(config, command, &stdin)?;
     cache.create_directory()?;
-    if let Some(cached_data) = cache.load_data()?
+    if !config.disable_cache
+        && let Some(cached_data) = cache.load_data()?
         && dependency::check_cache_valid(&cache, &cached_data)?
     {
         debug_log!("Cache valid: {} {:?}", command.name, command.arguments);
@@ -37,13 +38,17 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     }
     debug_log!("Cache invalid: {} {:?}", command.name, command.arguments);
 
-    cache.clean()?;
+    if !config.disable_cache {
+        cache.clean()?;
+    }
     let (cache_data, broken_pipe) = match run_command(config, command, &cache, &stdin)? {
         CommandResult::Completed { data, broken_pipe } => (data, broken_pipe),
         CommandResult::BrokenPipe => return Ok(BROKEN_PIPE_CODE),
     };
-    cache.save_data(&cache_data)?;
-    dependency::save_introspection(config, command, &cache_data)?;
+    if !config.disable_cache {
+        cache.save_data(&cache_data)?;
+        dependency::save_introspection(config, command, &cache_data)?;
+    }
     execution::record::write_outer_dependencies(&cache_data)?;
     Ok(if broken_pipe {
         BROKEN_PIPE_CODE

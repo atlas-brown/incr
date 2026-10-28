@@ -225,6 +225,7 @@ mod tests {
             let config = Config {
                 try_command: String::new(),
                 cache_directory: directory.clone(),
+                disable_cache: false,
                 trace_type: TraceType::Nothing,
                 observe_command: None,
                 observe_detach_executable: None,

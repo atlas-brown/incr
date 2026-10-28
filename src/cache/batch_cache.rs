@@ -31,7 +31,7 @@ pub(crate) struct CacheCursor<'c> {
 /// Contention never blocks a live command (which may communicate with its peer).
 #[derive(Debug)]
 struct CacheLease {
-    _lock: fs::File,
+    _lock: Option<fs::File>,
     transient: Option<PathBuf>,
 }
 
@@ -73,6 +73,23 @@ impl<'c> CacheCursor<'c> {
         stdin_hash: u64,
         debug_info: CacheInfo<'c>,
     ) -> Result<Self> {
+        if config.disable_cache {
+            let directory = config
+                .cache_directory
+                .join(format!("uncached_{}", rand::random::<u128>()));
+            return Ok(Self {
+                directory: directory.clone(),
+                try_command: config.try_command.clone(),
+                observe: config.observe_command.is_some(),
+                candidate_directory: None,
+                debug_info,
+                _lease: Arc::new(CacheLease {
+                    _lock: None,
+                    transient: Some(directory),
+                }),
+            });
+        }
+
         let key_data = ops::data::encode_to_bytes(&CacheKey {
             version: 31,
             assume_text: config.assume_text,
@@ -117,7 +134,7 @@ impl<'c> CacheCursor<'c> {
         Ok(Self {
             directory,
             _lease: Arc::new(CacheLease {
-                _lock: lock,
+                _lock: Some(lock),
                 transient,
             }),
             try_command: config.try_command.clone(),

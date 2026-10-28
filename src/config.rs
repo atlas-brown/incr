@@ -76,6 +76,7 @@ pub(crate) const OBSERVE_READ_EXCLUDED_PATHS: &[&str] = &["/dev", "/proc", "/sys
 pub(crate) struct Config {
     pub(crate) try_command: String,
     pub(crate) cache_directory: PathBuf,
+    pub(crate) disable_cache: bool,
     pub(crate) trace_type: TraceType,
     pub(crate) observe_command: Option<String>,
     pub(crate) observe_detach_executable: Option<String>,

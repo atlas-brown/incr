@@ -54,6 +54,9 @@ pub(crate) fn initialize_log_file() {
 }
 
 pub(crate) fn log_line(line: &str) {
+    if cache_debug_enabled() {
+        println!("{line}");
+    }
     let offset = UtcOffset::current_local_offset().unwrap_or(UtcOffset::UTC);
     let timestamp = OffsetDateTime::now_utc()
         .to_offset(offset)

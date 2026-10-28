@@ -913,6 +913,7 @@ def parse_arguments():
         default="/tmp/incr_cache",
         help="Path to the cache directory",
     )
+    arg_parser.add_argument("--no-cache", action="store_true", help="Disable Incr command caching")
     arg_parser.add_argument("--observe-path", help="Observe binary path", default=None)
     arg_parser.add_argument("--status-path", help="Write whether commands were instrumented")
     arg_parser.add_argument("--unwrapped-path", help="Write JSON details for commands not instrumented")
@@ -933,6 +934,8 @@ def command_prefix(arguments):
         prefix.extend(["--try", arguments.try_path])
     if arguments.cache_path:
         prefix.extend(["--cache", arguments.cache_path])
+    if arguments.no_cache:
+        prefix.append("--no-cache")
     if arguments.observe_path:
         prefix.extend(["--observe", arguments.observe_path])
 

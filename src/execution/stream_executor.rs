@@ -44,8 +44,13 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
         config.assume_text,
         config.full_tracing,
     );
-    let mut candidates = crate::cache::candidates::validate(config, command)?;
-    if stdin_is_known_empty()
+    let mut candidates = if config.disable_cache {
+        Vec::new()
+    } else {
+        crate::cache::candidates::validate(config, command)?
+    };
+    if !config.disable_cache
+        && stdin_is_known_empty()
         && let Some(index) = candidates
             .iter()
             .position(|candidate| candidate.stdin_hash == ops::data::hash_bytes(&[]))
@@ -107,9 +112,15 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
         return Ok(ExitCode(exit_code));
     }
 
-    let cache_status = load_cache_data(config, &cache, child, &runtime, prevalidated)?;
+    let cache_status = if config.disable_cache {
+        CacheStatus::Invalid(ExitCode(command::exit_code(child.wait()?)))
+    } else {
+        load_cache_data(config, &cache, child, &runtime, prevalidated)?
+    };
     {
-        let result = if matches!(&cache_status, CacheStatus::Valid(_)) {
+        let result = if config.disable_cache {
+            "executed (cache disabled)"
+        } else if matches!(&cache_status, CacheStatus::Valid(_)) {
             "replayed"
         } else {
             "executed"
@@ -401,8 +412,10 @@ fn save_command_data(
     exit_code: ExitCode,
 ) -> Result<(ExitCode, CacheData)> {
     let cache_data = execution::record::capture(config, &cache, runtime, exit_code.0)?;
-    cache.save_data(&cache_data)?;
-    dependency::save_introspection(config, command, &cache_data)?;
+    if !config.disable_cache {
+        cache.save_data(&cache_data)?;
+        dependency::save_introspection(config, command, &cache_data)?;
+    }
 
     Ok((exit_code, cache_data))
 }

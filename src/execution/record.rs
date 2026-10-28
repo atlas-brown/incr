@@ -188,7 +188,8 @@ pub(crate) fn capture(
             }
         }
         RuntimeType::Observe(_) | RuntimeType::TraceFile(_) if config.observe_command.is_some() => {
-            if trace.replay_barriers.is_empty()
+            if !config.disable_cache
+                && trace.replay_barriers.is_empty()
                 && let Err(error) =
                     cache.capture_observe_output(&write_set, &replaced_paths, &read_dependencies)
             {

@@ -29,6 +29,8 @@ struct Arguments {
     try_command: Option<String>,
     #[arg(short = 'c', long = "cache")]
     cache_directory: Option<String>,
+    #[arg(long = "no-cache")]
+    disable_cache: bool,
     #[arg(long = "observe")]
     observe_command: Option<String>,
     #[arg(long = "observe-detach-executable")]
@@ -106,7 +108,8 @@ fn run() -> Result<ExitCode> {
         return Err(skip_executor::execute(&command));
     }
 
-    let chunk = !config.full_tracing
+    let chunk = !config.disable_cache
+        && !config.full_tracing
         && config.enable_annotations
         && annotation::chunk_mode(&command, config.assume_text).is_some();
     let command_string = command.join_string()?;
@@ -184,6 +187,7 @@ fn parse_input() -> Result<Option<Input>> {
     let config = Config {
         try_command,
         cache_directory,
+        disable_cache: arguments.disable_cache,
         trace_type,
         observe_command: arguments.observe_command,
         observe_detach_executable: arguments.observe_detach_executable,
