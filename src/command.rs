@@ -67,6 +67,20 @@ pub(crate) struct Runtime {
     pub(crate) snapshot_directory: Option<PathBuf>,
 }
 
+impl Runtime {
+    /// Temporary file this run hands the child Observe for its debug output,
+    /// sitting beside the (unique-per-run) trace file. Incr flushes it into its
+    /// own log after the run. None when there is no Observe trace file.
+    pub(crate) fn observe_debug_file(&self) -> Option<PathBuf> {
+        match &self.kind {
+            RuntimeType::TraceFile(file) | RuntimeType::Observe(file) => {
+                Some(file.with_extension("debug.log"))
+            }
+            _ => None,
+        }
+    }
+}
+
 #[derive(Clone, Debug)]
 pub(crate) enum RuntimeType {
     Sandbox(PathBuf),
@@ -329,6 +343,11 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
             child.args(&command.arguments);
         }
         RuntimeType::TraceFile(file) | RuntimeType::Observe(file) if use_observe => {
+            if ops::cache_debug_enabled()
+                && let Some(path) = runtime.observe_debug_file()
+            {
+                child.env("OBSERVE_DEBUG_LOG", path);
+            }
             if let Some(executable) = &config.observe_detach_executable {
                 child.arg("--detach-executable").arg(executable);
             }

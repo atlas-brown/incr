@@ -27,8 +27,10 @@ const TIME_FORMAT: &[FormatItem<'_>] = format_description!("[hour]:[minute]:[sec
 macro_rules! debug_log {
     ($($arg:tt)*) => {
         if $crate::config::DEBUG_LOGS || $crate::ops::cache_debug_enabled() {
-            let line = format!($($arg)*);
-            $crate::ops::log_line(&line);
+            $crate::ops::log_line_located(
+                concat!(file!(), ":", line!()),
+                &format!($($arg)*),
+            );
         }
     };
 }
@@ -54,19 +56,30 @@ pub(crate) fn initialize_log_file() {
 }
 
 pub(crate) fn log_line(line: &str) {
-    if cache_debug_enabled() {
-        println!("{line}");
-    }
     let offset = UtcOffset::current_local_offset().unwrap_or(UtcOffset::UTC);
     let timestamp = OffsetDateTime::now_utc()
         .to_offset(offset)
         .format(&TIME_FORMAT)
         .unwrap();
-    let line = format!("[{timestamp}] {line}\n");
+    // Append the shared `[time] LEVEL ` prefix. `line` already carries its source
+    // location and `[component]` tag (added by log_line_located, or by Observe
+    // before Incr flushes its lines here).
+    let line = format!("[{timestamp}] DEBUG {line}\n");
     if let Some(file) = LOG_FILE.get()
         && let Ok(mut file) = file.lock()
     {
         let _ = file.write_all(line.as_bytes());
+    }
+}
+
+/// Log one of incr's own diagnostics, stamping the emitting source location
+/// (`file:line`, from the `debug_log!` call site) and ensuring an `[incr]`
+/// component tag: `[<file:line>][incr] <message>`.
+pub(crate) fn log_line_located(location: &str, message: &str) {
+    if message.starts_with('[') {
+        log_line(&format!("[{location}]{message}"));
+    } else {
+        log_line(&format!("[{location}][incr] {message}"));
     }
 }
 
@@ -90,5 +103,24 @@ pub(crate) fn init_cache_log(directory: &std::path::Path) {
     let path = debug_dir.join(format!("incr.{}.{}.log", std::process::id(), stamp));
     if let Ok(file) = OpenOptions::new().append(true).create(true).open(path) {
         let _ = LOG_FILE.set(Mutex::new(file));
+    }
+}
+
+/// Fold a child Observe process's debug output into this process's incr log.
+///
+/// Incr hands Observe a temporary file via `OBSERVE_DEBUG_LOG` (keeping Observe's
+/// diagnostics out of the traced command's stderr, which Incr captures into the
+/// command cache), then -- because it brackets Observe's whole lifetime -- calls
+/// this after the run to append those lines to its own per-command log and delete
+/// the temporary file. Best-effort; a no-op when disabled or the file is absent.
+pub(crate) fn flush_observe_debug(path: &std::path::Path) {
+    if !cache_debug_enabled() {
+        return;
+    }
+    if let Ok(contents) = std::fs::read_to_string(path) {
+        for line in contents.lines() {
+            log_line(line);
+        }
+        let _ = std::fs::remove_file(path);
     }
 }

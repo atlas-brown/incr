@@ -69,6 +69,10 @@ pub(crate) fn clean_child_runtime(runtime: &Runtime) -> Result<()> {
         RuntimeType::TraceFile(file) | RuntimeType::Observe(file) => ops::file::remove_file(file)?,
         RuntimeType::Nothing => (),
     }
+    // Drop the Observe debug temp file if the flush path did not already.
+    if let Some(observe_debug) = runtime.observe_debug_file() {
+        ops::file::remove_file(&observe_debug)?;
+    }
     Ok(())
 }
 

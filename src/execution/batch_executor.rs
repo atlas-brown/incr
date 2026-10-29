@@ -80,6 +80,9 @@ fn run_command(
     }
 
     let exit_code = command::exit_code(child.wait()?);
+    if let Some(observe_debug) = runtime.observe_debug_file() {
+        crate::ops::flush_observe_debug(&observe_debug);
+    }
     let Some(outputs) = run::join_stream_threads(None, stdout_thread, stderr_thread)? else {
         run::clean_child_runtime(&runtime)?;
         return Ok(CommandResult::BrokenPipe);

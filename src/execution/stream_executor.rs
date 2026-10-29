@@ -117,6 +117,11 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     } else {
         load_cache_data(config, &cache, child, &runtime, prevalidated)?
     };
+    // Fold the inner Observe run's diagnostics into this command's incr log,
+    // between the opening "observing" line and the verdict below.
+    if let Some(observe_debug) = runtime.observe_debug_file() {
+        crate::ops::flush_observe_debug(&observe_debug);
+    }
     {
         let result = if config.disable_cache {
             "executed (cache disabled)"
