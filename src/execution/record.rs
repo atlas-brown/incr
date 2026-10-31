@@ -3,6 +3,8 @@ use std::fs::{self, OpenOptions};
 use std::io::Write;
 use std::os::fd::AsRawFd;
 use std::os::unix::fs::MetadataExt;
+use std::path::Path;
+use std::sync::atomic::{AtomicU64, Ordering};
 
 use crate::cache::{CacheData, batch_cache::CacheCursor};
 use crate::command::{Runtime, RuntimeType};
@@ -99,16 +101,68 @@ mod tests {
             vec!["unreadable filesystem path".to_owned()]
         );
     }
+
+    #[test]
+    fn writes_outer_dependencies_to_directory() {
+        let temp_dir = std::env::temp_dir().join(format!("incr-test-outer-deps-{}", rand::random::<u128>()));
+        std::fs::create_dir_all(&temp_dir).unwrap();
+        let cache_data = CacheData {
+            exit_code: 0,
+            replay_barriers: Vec::new(),
+            dependency_report_complete: true,
+            read_dependencies: HashMap::from([(
+                PathBuf::from("/workspace/input"),
+                DependencyKey::DoesNotExist,
+            )]),
+            write_outputs: HashSet::new(),
+            compressed_output: false,
+        };
+
+        unsafe {
+            std::env::set_var("INCR_DOCKER_DEPENDENCY_REPORT", &temp_dir);
+        }
+        write_outer_dependencies(&cache_data).unwrap();
+        write_outer_dependencies(&cache_data).unwrap();
+        unsafe {
+            std::env::remove_var("INCR_DOCKER_DEPENDENCY_REPORT");
+        }
+
+        let entries: Vec<_> = std::fs::read_dir(&temp_dir)
+            .unwrap()
+            .map(|e| e.unwrap().path())
+            .collect();
+        assert_eq!(entries.len(), 2);
+        for entry in entries {
+            let content = std::fs::read_to_string(entry).unwrap();
+            let parsed: serde_json::Value = serde_json::from_str(&content).unwrap();
+            assert_eq!(parsed["complete"], true);
+            assert_eq!(parsed["paths"], serde_json::json!(["/workspace/input"]));
+        }
+        let _ = std::fs::remove_dir_all(&temp_dir);
+    }
 }
+
+static REPORT_COUNTER: AtomicU64 = AtomicU64::new(0);
 
 pub(crate) fn write_outer_dependencies(cache_data: &CacheData) -> Result<()> {
     let Some(report_path) = std::env::var_os("INCR_DOCKER_DEPENDENCY_REPORT") else {
         return Ok(());
     };
+    let path = Path::new(&report_path);
     let mut record = serde_json::to_vec(&outer_dependencies(cache_data))?;
-    record.push(b'\n');
 
-    let mut report = OpenOptions::new().create(true).append(true).open(report_path)?;
+    // If report_path is a directory (or ends with a path separator), write lock-free
+    // individual command files in that directory.
+    if path.is_dir() || report_path.to_string_lossy().ends_with('/') {
+        let counter = REPORT_COUNTER.fetch_add(1, Ordering::Relaxed);
+        let filename = format!("{}-{}.json", std::process::id(), counter);
+        let dest = path.join(filename);
+        std::fs::write(dest, &record)?;
+        return Ok(());
+    }
+
+    record.push(b'\n');
+    let mut report = OpenOptions::new().create(true).append(true).open(path)?;
     let fd = report.as_raw_fd();
     if unsafe { libc::flock(fd, libc::LOCK_EX) } != 0 {
         return Err(std::io::Error::last_os_error().into());
