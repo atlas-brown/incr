@@ -233,7 +233,7 @@ impl<'c> CacheCursor<'c> {
     pub(crate) fn commit_output(&self) -> Result<()> {
         let output_directory = self.directory.join(OUTPUT_DIRECTORY);
         if cache::effects::exists(&output_directory) {
-            return cache::effects::replay(&output_directory);
+            return cache::effects::replay_unchecked(&output_directory);
         }
         let commit_directory = self.directory.join(COMMIT_DIRECTORY);
 

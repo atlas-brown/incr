@@ -96,7 +96,8 @@ pub(crate) fn capture(
                 .or_insert_with(|| path.clone());
         }
     }
-    let mut entries = Vec::new();
+    let mut entries = Vec::with_capacity(paths.len());
+    let mut files_to_capture = Vec::new();
     for path in paths {
         let effect = match fs::symlink_metadata(path) {
             Err(error)
@@ -126,10 +127,11 @@ pub(crate) fn capture(
                         target: PathBuf::clone(target),
                     }
                 } else {
-                    let source = format!("file-{}", entries.len());
-                    fs::copy(path, directory.join(&source))?;
+                    let index = entries.len();
+                    let source = format!("file-{index}");
+                    files_to_capture.push((index, path, source.clone()));
                     Effect::File {
-                        hash: crate::ops::data::hash_stream(&mut fs::File::open(directory.join(&source))?)?,
+                        hash: 0,
                         source,
                         metadata: MetadataState::capture(path, &metadata)?,
                         replace: replaced_paths.contains(path),
@@ -142,6 +144,26 @@ pub(crate) fn capture(
             path: path.clone(),
             effect,
         });
+    }
+    let captured_hashes = crate::ops::thread::parallel_process(&files_to_capture, |chunk| {
+        let mut results = Vec::with_capacity(chunk.len());
+        for (index, path, source) in chunk {
+            let destination = directory.join(source);
+            fs::copy(path, &destination)?;
+            let hash = crate::ops::data::hash_stream(&mut fs::File::open(destination)?)?;
+            results.push((*index, hash));
+        }
+        Ok(results)
+    })?;
+    for chunk in captured_hashes {
+        for (index, hash) in chunk {
+            if let Effect::File {
+                hash: entry_hash, ..
+            } = &mut entries[index].effect
+            {
+                *entry_hash = hash;
+            }
+        }
     }
     let manifest = Manifest { version: 5, entries };
     let pending = directory.join("effects.pending");
@@ -157,6 +179,7 @@ fn load_validated(directory: &Path) -> Result<Manifest> {
     }
     let mut seen = HashSet::new();
     let mut regular_files = HashSet::new();
+    let mut files_to_validate = Vec::new();
     for entry in &manifest.entries {
         if !entry.path.is_absolute() || !seen.insert(entry.path.clone()) {
             bail!("invalid or duplicate cached output path");
@@ -168,12 +191,7 @@ fn load_validated(directory: &Path) -> Result<Manifest> {
             ) {
                 bail!("invalid cached file name");
             }
-            let source = directory.join(source);
-            if !fs::symlink_metadata(&source)?.is_file()
-                || crate::ops::data::hash_stream(&mut fs::File::open(source)?)? != *hash
-            {
-                bail!("cached output content is incomplete or corrupt");
-            }
+            files_to_validate.push((source.as_str(), *hash));
         }
         match &entry.effect {
             Effect::File { .. } => {
@@ -192,6 +210,17 @@ fn load_validated(directory: &Path) -> Result<Manifest> {
             _ => (),
         }
     }
+    crate::ops::thread::parallel_process(&files_to_validate, |chunk| {
+        for (source, hash) in chunk {
+            let source = directory.join(source);
+            if !fs::symlink_metadata(&source)?.is_file()
+                || crate::ops::data::hash_stream(&mut fs::File::open(source)?)? != *hash
+            {
+                bail!("cached output content is incomplete or corrupt");
+            }
+        }
+        Ok(())
+    })?;
     Ok(manifest)
 }
 
@@ -202,6 +231,18 @@ pub(crate) fn valid(directory: &Path) -> bool {
 pub(crate) fn replay(directory: &Path) -> Result<()> {
     // Validate every payload before applying even the first deletion.
     let manifest = load_validated(directory)?;
+    replay_manifest(directory, &manifest)
+}
+
+pub(crate) fn replay_unchecked(directory: &Path) -> Result<()> {
+    let manifest: Manifest = serde_json::from_slice(&fs::read(directory.join(MANIFEST))?)?;
+    if manifest.version != 5 {
+        bail!("unsupported filesystem effect version");
+    }
+    replay_manifest(directory, &manifest)
+}
+
+fn replay_manifest(directory: &Path, manifest: &Manifest) -> Result<()> {
     let managed_paths: HashSet<_> = manifest
         .entries
         .iter()
