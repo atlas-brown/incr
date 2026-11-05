@@ -1,0 +1,16 @@
+{
+  "state": "healthy",
+  "checked_unix": 1793815869.8189964,
+  "service": "active",
+  "stage": "paper-file-mod",
+  "validated_so_far": 6,
+  "failures": 0,
+  "current": {
+    "benchmark": "file-mod",
+    "mode": "bash",
+    "repetition": 0,
+    "script": "file-mod-7.sh"
+  },
+  "free_gib": 42.36,
+  "scope": "Initial monitoring only; full campaign still running"
+}

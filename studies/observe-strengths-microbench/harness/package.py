@@ -4,6 +4,7 @@ import argparse
 import fcntl
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import tarfile
@@ -30,7 +31,7 @@ def digest(stream):
 
 def package(root):
     root = root.resolve()
-    study = Path(__file__).resolve().parents[1]
+    study = Path(os.environ.get('INCR_MICRO_STUDY', str(Path(__file__).resolve().parents[1]))).resolve()
     if root.parent != study / "measurements":
         raise RuntimeError("Only owned measurement directories can be packaged")
     lock = (study / ".work/lock").open("a+")

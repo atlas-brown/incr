@@ -1,5 +1,6 @@
 """Owned workspaces, atomic evidence and bounded Linux process supervision."""
 import ctypes
+import fcntl
 import hashlib
 import json
 import os
@@ -16,6 +17,28 @@ ROOT = STUDY.parents[1]
 WORK = STUDY / '.work'
 SCRATCH = WORK / 'runner'
 GIB = 1024 ** 3
+
+
+def measurement_lock():
+    """One lock across studies; a controller may delegate its open descriptor."""
+    path = ROOT / 'qualification/.work/evaluation.lock'
+    path.parent.mkdir(parents=True, exist_ok=True)
+    inherited = os.environ.get('INCR_BENCH_LOCK_FD')
+    if inherited is not None:
+        descriptor = int(inherited)
+        actual = os.fstat(descriptor)
+        expected = path.stat()
+        if (actual.st_dev, actual.st_ino) != (expected.st_dev, expected.st_ino):
+            raise RuntimeError('Invalid delegated measurement lock')
+        stream = os.fdopen(os.dup(descriptor), 'a+')
+    else:
+        stream = path.open('a+')
+    try:
+        fcntl.flock(stream, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError as error:
+        stream.close()
+        raise RuntimeError('Another evaluation is active; measurements never overlap') from error
+    return stream
 SUITE = os.environ.get('INCR_BENCH_SUITE', 'paper')
 if SUITE not in ('paper', 'supplemental'):
     raise ValueError('INCR_BENCH_SUITE must be paper or supplemental')

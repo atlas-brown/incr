@@ -17,12 +17,14 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def audit(root):
+def audit(root, backend_pilot=None):
     config = json.loads((root / "configuration.json").read_text())
     status = json.loads((root / "status.json").read_text())
     if status["state"] != "complete":
         raise RuntimeError("Run is not complete")
     provenance = json.loads((root / "provenance.json").read_text())
+    if provenance.get('effect_policy', 'final') != config.get('effect_policy', 'final'):
+        raise RuntimeError('Policy configuration/provenance mismatch')
     if provenance["annotations"] or config["diagnostic"]:
         raise RuntimeError("Final audit requires unannotated, unprofiled measurements")
     modes = (
@@ -42,6 +44,8 @@ def audit(root):
     instrumentation_warnings = []
     for path in root.glob("samples/*/*/*/*/*.json"):
         value = json.loads(path.read_text())
+        if 'effect_policy' in config and value.get('effect_policy') != config['effect_policy']:
+            raise RuntimeError('Sample policy mismatch: ' + str(path))
         key = tuple(
             value[k] for k in ("scenario", "scale", "repetition", "mode", "phase")
         )
@@ -133,28 +137,52 @@ def audit(root):
         "Resource fields are GNU time user seconds, system seconds, maximum-process RSS KiB, filesystem input/output blocks, voluntary and involuntary context switches. "
         "Cache activity witnesses count new/rewritten/retained metadata entries, not exact logical hit rates.",
     ]
+    reviewed = []
+    if instrumentation_warnings and backend_pilot is not None:
+        pilot = json.loads((backend_pilot / 'profile-audit.json').read_text())
+        pilot_provenance = json.loads((backend_pilot / 'provenance.json').read_text())
+        pilot_config = json.loads((backend_pilot / 'configuration.json').read_text())
+        if (not pilot.get('valid') or not pilot_config.get('diagnostic') or
+                pilot_provenance['effect_policy'] != provenance['effect_policy'] or
+                {k:v['sha256'] for k,v in pilot_provenance['binaries'].items()} !=
+                {k:v['sha256'] for k,v in provenance['binaries'].items()}):
+            raise RuntimeError('Backend pilot is not a matched diagnostic')
+        for warning in instrumentation_warnings:
+            value = json.loads((root / warning).read_text())
+            witnesses = [r for r in pilot['rows'] if r['scenario'] == value['scenario']
+                         and r['mode'] == value['mode'] and r['phase'] == 'cold'
+                         and r['verified_wrappers'] == r['expected_wrappers'] > 0]
+            if not witnesses:
+                raise RuntimeError('No backend witness for ' + warning)
+            reviewed.append(warning)
+    pending = set(instrumentation_warnings) - set(reviewed)
     report = {
-        "valid": not instrumentation_warnings,
+        "valid": not pending,
         "output_validation_passed": True,
         "instrumentation_warnings": instrumentation_warnings,
+        "backend_verified_uncached_samples": reviewed,
+        "backend_pilot": str(backend_pilot) if backend_pilot else None,
         "expected": len(expected),
         "verified": len(samples),
         "repetitions": config["repetitions"],
         "comparisons": comparisons,
     }
     (root / "audit.json").write_text(json.dumps(report, indent=2) + "\n")
-    if instrumentation_warnings:
+    if pending:
         lines[1:1] = ["", "**Performance qualification pending:** zero cache entries in some cold engine samples. All raw-output, native-reference and coverage checks passed, but the instrumentation gate did not. Inspect audit.json; do not certify these timings as fully audited speedups."]
     (root / "REPORT.md").write_text("\n".join(lines) + "\n")
-    if instrumentation_warnings:
+    if reviewed:
+        lines += ['', 'Zero-cache samples remain uncached execution measurements. A separate same-binary, same-policy diagnostic verifies backend coverage; cache counts do not prove reuse.']
+        (root / 'REPORT.md').write_text('\n'.join(lines) + '\n')
+    if pending:
         raise RuntimeError(f"Output validation passed; {len(instrumentation_warnings)} cold samples require instrumentation review")
     print(json.dumps({"verified": len(samples), "valid": True}))
 
 
-def audit_saved(root):
+def audit_saved(root, backend_pilot=None):
     archive = root / "raw-evidence.tar.gz"
     if not archive.exists():
-        return audit(root)
+        return audit(root, backend_pilot)
     catalog = json.loads((root / "raw-catalog.json").read_text())
     if digest(archive) != catalog["archive_sha256"]:
         raise RuntimeError("Evidence archive changed")
@@ -180,13 +208,14 @@ def audit_saved(root):
                 restored[member.name] = digest(path)
         if restored != catalog["members"]:
             raise RuntimeError("Archive member mismatch")
-        audit(target)
+        audit(target, backend_pilot)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("run", type=Path)
     parser.add_argument("--require-full", action="store_true")
+    parser.add_argument('--backend-pilot', type=Path)
     args = parser.parse_args()
     if args.require_full:
         config = json.loads((args.run / "configuration.json").read_text())
@@ -200,4 +229,4 @@ if __name__ == "__main__":
             raise RuntimeError(
                 "Final report requires all scenarios/scales, three repetitions and unprofiled three-mode execution"
             )
-    audit_saved(args.run)
+    audit_saved(args.run, args.backend_pilot)

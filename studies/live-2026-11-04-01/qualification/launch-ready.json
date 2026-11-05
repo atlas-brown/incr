@@ -1,0 +1,12 @@
+{
+  "ready": true,
+  "checked_unix": 1793815774.1576333,
+  "smoke_counts": {
+    "application": 6,
+    "synthetic": 306,
+    "image": 21
+  },
+  "runtime_policy": "live",
+  "implementation_hashes_match": true,
+  "historical_results": "untouched"
+}

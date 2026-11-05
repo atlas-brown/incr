@@ -19,7 +19,7 @@ def stats(values):
 
 def fingerprint(run):
     (config, build, env) = (read(run / name) for name in ('configuration.json', 'frozen-build.json', 'environment.json'))
-    keys = ('suite', 'profile', 'only', 'native_transform', 'assume_directory_access', 'content_validated_inputs', 'annotations', 'manifest_sha256', 'harness_sha256')
+    keys = ('suite', 'profile', 'only', 'native_transform', 'assume_directory_access', 'content_validated_inputs', 'annotations', 'effect_policy', 'manifest_sha256', 'harness_sha256')
     return dict(config={k: config.get(k) for k in keys}, revisions=build['revisions'], frozen_files=build['sha256'], sources=env['source_fingerprints'], baseline_patch=env['original_baseline_patch'], packages=env['packages'], tools=env['tool_versions'], dictionary=env['dictionary_sha256'], inputs={p.name: read(p) for p in sorted((run / 'inputs').glob('*.json'))})
 
 def combine(paths):
@@ -56,7 +56,12 @@ def combine(paths):
                     and math.isfinite(row['elapsed_sec']) and row['elapsed_sec'] > 0,
                     'Invalid timing value')
             reference = read(run / 'references' / row['benchmark'] / f"{row['repetition']}.{row['script']}.json")
-            require(all((row['validation'][k] == reference[k] for k in ('returncode', 'stdout_sha256', 'normalized_stderr_sha256', 'outputs'))), 'Invalid cohort evidence')
+            fields = ('returncode', 'stdout_sha256', 'normalized_stderr_sha256', 'outputs')
+            if 'comparison_policy' in reference:
+                fields = ('returncode', 'stdout_sha256', 'normalized_stderr_sha256', 'comparison_policy', 'comparison_outputs')
+            require(all(row['validation'][k] == reference[k] for k in fields), 'Invalid cohort evidence')
+            if 'effect_policy' in config:
+                require(row.get('effect_policy') == config['effect_policy'], 'Sample policy mismatch')
             key = (row['benchmark'], row['script'], run.name, row['repetition'])
             require(row['mode'] not in by_version[key], 'Invalid cohort evidence')
             by_version[key][row['mode']] = row['elapsed_sec']

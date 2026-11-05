@@ -1,0 +1,8 @@
+{
+  "http_status": 200,
+  "requested_model": "gpt-4o-mini",
+  "returned_model": "gpt-4o-mini-2024-07-18",
+  "prompt_tokens": 10,
+  "completion_tokens": 2,
+  "credentials": "private temporary directory outside repository"
+}

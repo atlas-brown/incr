@@ -17,8 +17,9 @@ import time
 
 from workloads import SCENARIOS, PHASES, setup, edit, program
 
-STUDY = Path(__file__).resolve().parents[1]
-ROOT = STUDY.parents[1]
+SOURCE_STUDY = Path(__file__).resolve().parents[1]
+ROOT = Path(os.environ.get('INCR_REPO_ROOT', str(SOURCE_STUDY.parents[1])))
+STUDY = Path(os.environ.get('INCR_MICRO_STUDY', str(SOURCE_STUDY))).resolve()
 BASELINE = ROOT.parent / "incr-main-qualification"
 WORK = STUDY / ".work"
 PYTHON = ROOT / "qualification/.venv/bin/python"
@@ -27,7 +28,7 @@ from bounded import run
 
 os.environ["INCR_BENCH_STUDY"] = str(STUDY)
 sys.path.insert(0, str(ROOT / "studies/paper-size-benchmarks/harness"))
-from common import supervise, remove_owned
+from common import supervise, remove_owned, measurement_lock
 
 
 def sha(path):
@@ -155,7 +156,7 @@ def summarize(destination):
     return rows
 
 
-def freeze(destination):
+def freeze(destination, effect_policy='final'):
     build = WORK / "build"
     build.mkdir(exist_ok=False)
     provenance = {
@@ -163,7 +164,7 @@ def freeze(destination):
         "binaries": {},
         "annotations": False,
         "transformer": "shared current Python transformer, Bash then dash selected by complete static coverage; transformation untimed",
-        "effect_policy": "final",
+        "effect_policy": effect_policy,
         "directory_access_assumption": True,
         "content_validated_inputs": False,
     }
@@ -253,6 +254,7 @@ def freeze(destination):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-id", required=True)
+    parser.add_argument('--effect-policy', choices=('final', 'live'), default='final')
     parser.add_argument("--scales", default="small,medium,large")
     parser.add_argument("--only", default=",".join(SCENARIOS))
     parser.add_argument("--repetitions", type=int, default=3)
@@ -288,7 +290,8 @@ def main():
         or args.repetitions < 1
     ):
         parser.error("Three positive counts/row sizes and repetitions required")
-    WORK.mkdir(exist_ok=True)
+    WORK.mkdir(parents=True, exist_ok=True)
+    global_lock = measurement_lock()
     lock = (WORK / "lock").open("a+")
     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
     destination = STUDY / "measurements" / args.run_id
@@ -296,7 +299,7 @@ def main():
     build = WORK / "build"
     if build.exists():
         remove_owned(build)
-    build = freeze(destination)
+    build = freeze(destination, args.effect_policy)
     save(destination / "configuration.json", vars(args))
     env = dict(
         os.environ,
@@ -305,7 +308,7 @@ def main():
         LANG="C",
         PYTHONDONTWRITEBYTECODE="1",
         PYTHONHASHSEED="42",
-        INCR_EFFECT_POLICY="final",
+        INCR_EFFECT_POLICY=args.effect_policy,
         INCR_ASSUME_DIRECTORY_ACCESS="true",
     )
     for key in list(env):
@@ -570,6 +573,7 @@ def main():
                                 resource_raw=resource.read_text(),
                                 cache_activity=cache_activity,
                             )
+                            result['effect_policy'] = args.effect_policy
                             save(target / (phase + ".json"), result)
                             print(
                                 "PASS" if valid else "FAIL",
@@ -613,6 +617,7 @@ def main():
             if path.exists():
                 remove_owned(path)
         lock.close()
+        global_lock.close()
 
 
 if __name__ == "__main__":

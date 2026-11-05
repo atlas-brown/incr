@@ -1,0 +1,32 @@
+{
+  "name": "live-2026-11-04-01",
+  "policy": "live",
+  "created": 1793815388.0643516,
+  "expected": {
+    "application": 828,
+    "synthetic": 2754,
+    "image": 63
+  },
+  "service": "live-2026-11-04-01.service",
+  "supplemental": false,
+  "head": "3d3c77613967a6b5dfe44273568395a0f092e38d",
+  "branch": "observe",
+  "binaries": {
+    "/users/jxia3/atlas/incr/target/release/incr": "8b59a772ebb68acb2502bb5d77abf08e3bdb1f367c06ff7a5ac018af74268c6d",
+    "/users/jxia3/atlas/observe/target/release/observe": "04ee77077312fa8fc9fc81a795ee8b12a086c959649aac2714938d5bb195c7fd",
+    "/users/jxia3/atlas/incr-main-qualification/target/release/incr": "2a7f2ed8b34228e04fa410c377b29b1736cbae735b7a8b061008e0778afe94f0"
+  },
+  "implementation_files": {
+    "studies/LIVE_EVALUATION_PLAN.md": "1eaa6772838a7853f0aa84559afb326871f8db2dda8f0b57347b8b3a58d040db",
+    "studies/observe-strengths-microbench/harness/audit.py": "bba1c63770bd69d414769066871b549a8155759f664362725db6f798f01c6c90",
+    "studies/observe-strengths-microbench/harness/package.py": "58c2c2db4c048a719c0beec2e4da362d805ae77c868dce6b884027decd2b13d6",
+    "studies/observe-strengths-microbench/harness/study.py": "41cc1d7d0f75b50fbd225d1211dd49042984145d356e8dcc083f6645362678ef",
+    "studies/paper-size-benchmarks/harness/campaign.py": "256cce09eb13c2535e1e0a732cce780aaff5c55b8b29963b4a06661bab5ed99e",
+    "studies/paper-size-benchmarks/harness/cohort_report.py": "77c5012056785e3ddcba5bca280f033b267603926dde0889340ad32604468b23",
+    "studies/paper-size-benchmarks/harness/common.py": "7cdfb92c94eba4bdacd792bc504233116eb473afd6118a23adb07ea3263144d6",
+    "studies/paper-size-benchmarks/harness/launch.py": "13840c82ad4e7a7feb7582a0c8ed96d31011c9ca215ae7a49d0979221684d81e",
+    "studies/paper-size-benchmarks/harness/monitor.py": "e4dbd637ad2923718e0d1699cf20f0fafc3dd784cf20ce7487d3a692bfbdcd2d",
+    "studies/paper-size-benchmarks/harness/study.py": "91620f7cf7ba1f464c961acab6241675752d70a2c35c84c098688294f0f72fdf",
+    "studies/paper-size-benchmarks/harness/test_live.py": "8def5de1c0005e8a62aa36f836ed74ab5eff40b8a1651d5e6d6cd0221d55fbc0"
+  }
+}

@@ -5,6 +5,7 @@ All mutating/measurement commands share one nonblocking exclusive study lock.
 """
 import argparse
 import csv
+from contextlib import ExitStack
 import fcntl
 import hashlib
 import http.server
@@ -25,7 +26,7 @@ import time
 from datetime import datetime, timezone
 
 from common import (GIB, ROOT, STUDY, WORK, SCRATCH, SUITE, MANIFEST_FILE, manifest_path, allocated_bytes, atomic_json, file_hash,
-                    mounts_under, remove_owned, supervise)
+                    mounts_under, remove_owned, supervise, measurement_lock)
 from prepare import SOURCE, prepare, check_space, validate_models
 from validate import compare
 
@@ -45,14 +46,18 @@ def now():
 
 
 def lock():
+    stack = ExitStack()
+    stack.enter_context(measurement_lock())
     WORK.mkdir(exist_ok=True)
     stream = (WORK / 'study.lock').open('a+')
     try:
         fcntl.flock(stream, fcntl.LOCK_EX | fcntl.LOCK_NB)
     except BlockingIOError:
         stream.close()
+        stack.close()
         raise RuntimeError('Another study command is active; measurements never overlap')
-    return stream
+    stack.enter_context(stream)
+    return stack
 
 
 def selected(names, suite=None):
@@ -93,7 +98,7 @@ def doctor(build=False):
     subprocess.run(['sudo', '-n', 'true'], check=True, timeout=5)
     if revision(ORIGINAL) != MANIFEST['original_revision']:
         raise RuntimeError('Original checkout is not the pinned revision')
-    original_patch = subprocess.check_output(['git', '-C', str(ORIGINAL), 'diff', 'HEAD', '--',
+    original_patch = subprocess.check_output(['git', '-C', str(ORIGINAL), 'diff', '--abbrev=7', 'HEAD', '--',
                                               'src', 'Cargo.toml', 'Cargo.lock'], timeout=15)
     expected_patch = (STUDY / 'reference/original-minimal-fixes.patch').read_bytes()
     if original_patch != expected_patch:
@@ -244,7 +249,7 @@ def fixture(name, data, build, profile):
     return target
 
 
-def environment(name, profile, fixture, build):
+def environment(name, profile, fixture, build, effect_policy='final'):
     # Explicit environment prevents unrelated UI/session changes entering keys.
     env = {key: os.environ[key] for key in ('HOME', 'USER', 'LOGNAME') if key in os.environ}
     env.update(PATH=str(PYTHON.parent) + ':/usr/local/bin:/usr/bin:/bin', LC_ALL='C', LANG='C',
@@ -255,7 +260,7 @@ def environment(name, profile, fixture, build):
                TMPDIR=str(fixture / 'tmp'), RUN_SIZE='min' if profile == 'min' else 'paper',
                mode='study', MODE='study', BENCHMARK_DIR=str(fixture), OUTPUT_DIR=str(fixture / 'outputs'),
                OUT=str(fixture / 'outputs'), INCR_CACHE_DIR=str(SCRATCH / 'cache'),
-               INCR_PYTHON=str(PYTHON), INCR_EFFECT_POLICY='final')
+               INCR_PYTHON=str(PYTHON), INCR_EFFECT_POLICY=effect_policy)
     inp = fixture / 'inputs'
     if name == 'image-annotation':
         env['IN'] = str(inp / 'images')
@@ -356,7 +361,7 @@ def execute_sequence(run, b, mode, repetition, args, build, data, references, mi
             path.write_text(path.read_text().replace('https://atlas-group.cs.brown.edu/data/dpt/dpt.zip', mirror_url))
     initial_inputs = inventory(active / 'inputs')
     initial_sources = inventory(active / 'scripts')
-    env = environment(name, args.profile, active, build)
+    env = environment(name, args.profile, active, build, getattr(args, 'effect_policy', 'final'))
     if getattr(args, 'native_transform', False):
         env['INCR_NATIVE_TRANSFORM'] = '1'
     if getattr(args, 'assume_directory_access', False):
@@ -429,6 +434,7 @@ def execute_sequence(run, b, mode, repetition, args, build, data, references, mi
                         references[key] = json.loads(ref_path.read_text())
                     problems += compare(references[key], validated)
                 record.update(valid=not problems, problems=problems, validation=validated)
+            record['effect_policy'] = getattr(args, 'effect_policy', 'final')
             # Freeze complete invocation evidence before deleting large captures.
             atomic_json(sequence / f'{index:02d}.{script}.json', record)
             record_event(run, {'event': 'invocation', 'benchmark': name, 'mode': mode,
@@ -645,9 +651,9 @@ def run(args):
         config = json.loads((destination / 'configuration.json').read_text())
         if config.get('suite', 'paper') != SUITE or config['manifest_sha256'] != file_hash(MANIFEST_FILE) or config['harness_sha256'] != inventory(HARNESS):
             raise ValueError('Cannot resume with changed harness/manifest; create a new run')
-        for key in ('profile', 'only', 'repetitions', 'modes', 'reserve_gib', 'work_budget_gib', 'native_transform', 'assume_directory_access', 'content_validated_inputs'):
+        for key in ('profile', 'only', 'repetitions', 'modes', 'reserve_gib', 'work_budget_gib', 'native_transform', 'assume_directory_access', 'content_validated_inputs', 'effect_policy'):
             actual = list(args.modes) if key == 'modes' else getattr(args, key)
-            if config.get(key, False) != actual:
+            if config.get(key, 'final' if key == 'effect_policy' else False) != actual:
                 raise ValueError(f'Resume configuration mismatch: {key}')
         build = Path(json.loads((destination / 'frozen-build.json').read_text())['directory'])
         for p, digest in json.loads((destination / 'frozen-build.json').read_text())['sha256'].items():
@@ -668,6 +674,7 @@ def run(args):
                   'assume_directory_access': getattr(args, 'assume_directory_access', False),
                   'content_validated_inputs': getattr(args, 'content_validated_inputs', False), 'reserve_gib': args.reserve_gib,
                   'annotations': False,
+                  'effect_policy': args.effect_policy,
                   'work_budget_gib': args.work_budget_gib, 'started': now(),
                   'manifest_sha256': file_hash(MANIFEST_FILE), 'harness_sha256': inventory(HARNESS)}
         atomic_json(destination / 'configuration.json', config)
@@ -746,6 +753,7 @@ def main():
     execute.add_argument('--profile', choices=('min', 'paper', 'full'), required=True)
     execute.add_argument('--only', default='')
     execute.add_argument('--repetitions', type=int, default=3)
+    execute.add_argument('--effect-policy', choices=('final', 'live'), default='final')
     execute.add_argument('--native-transform', action='store_true', help='Opt into the native pipeline compiler, with Python fallback')
     execute.add_argument('--content-validated-inputs', action='store_true', help='Validate read-only workspace content across identity/ctime changes; metadata-only inputs remain strict')
     execute.add_argument('--assume-directory-access', action='store_true', help='Directory stat/access probes do not depend on entry timestamps')

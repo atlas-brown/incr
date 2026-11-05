@@ -1,2 +1,3 @@
 # Preserve the exact reviewed baseline patch.
 studies/paper-size-benchmarks/reference/original-minimal-fixes.patch -whitespace
+studies/live-*/reference/original-minimal-fixes.patch -whitespace

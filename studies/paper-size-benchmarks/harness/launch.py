@@ -18,6 +18,7 @@ def main():
     parser.add_argument('--only', required=True)
     parser.add_argument('--run-id', required=True)
     parser.add_argument('--repetitions', type=int, default=3)
+    parser.add_argument('--effect-policy', choices=('final', 'live'), default='final')
     parser.add_argument('--modes', type=lambda s: tuple(s.split(',')), default=MODES,
                         help='Bash reference plus measured modes in starting order; alternates each repetition')
     parser.add_argument('--native-transform', action='store_true')
@@ -53,7 +54,7 @@ def main():
                    check=False, timeout=10, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     command = [sys.executable, str(STUDY / 'harness/study.py'), 'run', '--profile', args.profile,
                '--only', args.only, '--run-id', args.run_id, '--repetitions', str(args.repetitions),
-               '--modes', ','.join(args.modes)]
+               '--modes', ','.join(args.modes), '--effect-policy', args.effect_policy]
     if args.native_transform:
         command.append('--native-transform')
     if args.assume_directory_access:

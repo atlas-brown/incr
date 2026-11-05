@@ -3,6 +3,7 @@ import argparse
 from datetime import datetime, timezone
 import json
 import math
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -21,6 +22,11 @@ def check(run):
         for path in sorted(sequence.glob('[0-9][0-9].*.json')):
             row = json.loads(path.read_text())
             rows.append(row)
+            if 'effect_policy' in config:
+                setup = json.loads((sequence / 'setup.json').read_text())
+                if (row.get('effect_policy') != config['effect_policy'] or
+                        setup['environment'].get('INCR_EFFECT_POLICY') != config['effect_policy']):
+                    issues.append('Execution policy differs from configuration: ' + str(path))
             label = f"{row['benchmark']}/{row['mode']}/{row['repetition']}/{row['script']}"
             if not row['valid']:
                 failures.append({'sample': label, 'problems': row['problems'],
@@ -45,7 +51,10 @@ def check(run):
                 issues.append(f'{label}: missing Bash reference')
             else:
                 expected = json.loads(reference.read_text())
-                for field in ('returncode', 'stdout_sha256', 'normalized_stderr_sha256', 'outputs'):
+                fields = ('returncode', 'stdout_sha256', 'normalized_stderr_sha256', 'outputs')
+                if 'comparison_policy' in expected:
+                    fields = ('returncode', 'stdout_sha256', 'normalized_stderr_sha256', 'comparison_policy', 'comparison_outputs')
+                for field in fields:
                     if validation.get(field) != expected.get(field):
                         issues.append(f'{label}: saved {field} differs from Bash reference')
     state = status['state']
@@ -66,7 +75,7 @@ def check(run):
                     or summary.get('invocations') != len(rows)
                     or summary.get('valid_invocations') != sum(row['valid'] for row in rows)):
                 issues.append('Complete status contradicts summary/sample counts')
-    service = subprocess.run(['systemctl', '--user', 'is-active', 'incr-bench-study.service'],
+    service = subprocess.run(['systemctl', '--user', 'is-active', os.environ.get('INCR_BENCH_SERVICE', 'incr-bench-study.service')],
                              capture_output=True, text=True, timeout=10).stdout.strip()
     heartbeat_age = (now - datetime.fromisoformat(status['updated'])).total_seconds()
     if status['state'] == 'running' and (service != 'active' or heartbeat_age > 120):

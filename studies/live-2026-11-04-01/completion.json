@@ -1,0 +1,18 @@
+{
+  "state": "complete",
+  "effect_policy": "live",
+  "application_invocations": 891,
+  "deterministic_application_invocations": 828,
+  "image_api_invocations": 63,
+  "synthetic_invocations": 2754,
+  "output_validation_passed": true,
+  "archive_members_verified": 20498,
+  "archive_sha256": {
+    "applications": "9ddfcf203d73a533418286416dd19a4bec1ce24e2b156fd90ebd074fdc7d9362",
+    "images": "3ab1457a41cda8423ced6f72cbb134174cda1390aa44fe1c97e6664e3332d2f9",
+    "synthetics": "cc6284910a4849f934f34427b19f5e847e165eda6d75e11b28b510f4729de833"
+  },
+  "workspace_cleanup_complete": true,
+  "temporary_credentials_removed": true,
+  "publication_note": "Initial whitespace-check failure preserved in qualification/publication-failure.json; significant patch context bytes preserved through .gitattributes."
+}
