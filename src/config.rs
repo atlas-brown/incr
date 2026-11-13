@@ -80,6 +80,8 @@ pub(crate) struct Config {
     pub(crate) trace_type: TraceType,
     pub(crate) observe_command: Option<String>,
     pub(crate) observe_detach_executable: Option<String>,
+    /// Use the eBPF observation backend (`observe --ebpf`) instead of ptrace.
+    pub(crate) observe_ebpf: bool,
 
     pub(crate) effect_policy: EffectPolicy,
     pub(crate) assume_text: bool,

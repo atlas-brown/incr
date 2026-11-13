@@ -58,13 +58,16 @@ struct ExecutableState {
     mode: u32,
 }
 
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub(crate) struct Runtime {
     pub(crate) kind: RuntimeType,
     pub(crate) stdout_file: PathBuf,
     pub(crate) stderr_file: PathBuf,
     pub(crate) effect_gate: Option<std::sync::Arc<crate::effect_gate::EffectGate>>,
     pub(crate) snapshot_directory: Option<PathBuf>,
+    /// Live eBPF-daemon registration (daemon observe backend only): set at spawn
+    /// time, consumed at trace-parse time to collect the command's dependencies.
+    pub(crate) daemon_session: std::cell::RefCell<Option<observe_core::DaemonSession>>,
 }
 
 impl Runtime {
@@ -305,6 +308,28 @@ where
 
 fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<Child> {
     let use_observe = config.observe_command.is_some();
+    let observed = use_observe
+        && matches!(
+            runtime.kind,
+            RuntimeType::Observe(_) | RuntimeType::TraceFile(_)
+        );
+    let daemon_socket = std::env::var_os("OBSERVE_DAEMON_SOCKET").filter(|_| observed);
+
+    // eBPF backend (default): run under `ebpf-observe --ptrace-prestate`, which
+    // registers with the daemon and snapshots pre-states at file-changing syscalls.
+    let prestate_tracer = daemon_socket
+        .as_ref()
+        .filter(|_| std::env::var_os("INCR_EBPF_PRESTATE").is_none_or(|value| value != "0"))
+        .and_then(|_| std::env::var("OBSERVE_EBPF_BIN").ok());
+
+    // INCR_EBPF_PRESTATE=0: register this process and run the command directly;
+    // pre-write states are reported unknown.
+    if prestate_tracer.is_none()
+        && let Some(socket) = &daemon_socket
+    {
+        return spawn_child_daemon(config, command, runtime, std::path::Path::new(socket));
+    }
+
     let shell_command = match &runtime.kind {
         RuntimeType::Sandbox(_) => &config.try_command,
         RuntimeType::TraceFile(_) => {
@@ -317,7 +342,10 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
         RuntimeType::Observe(_) => config.observe_command.as_ref().unwrap(),
         RuntimeType::Nothing => &command.name,
     };
-    let mut child = ShellCommand::new(shell_command);
+    let mut child = match &prestate_tracer {
+        Some(tracer) => ShellCommand::new(tracer),
+        None => ShellCommand::new(shell_command),
+    };
     if let Some(gate) = &runtime.effect_gate {
         child.arg("--effect-gate").arg(&gate.path);
     }
@@ -352,6 +380,12 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
                 child.arg("--detach-executable").arg(executable);
             }
             child.args(["--json", "--hash", "--dependencies"]);
+            if config.observe_ebpf {
+                child.arg("--ebpf");
+            }
+            if prestate_tracer.is_some() {
+                child.arg("--ptrace-prestate");
+            }
             if std::env::var_os("INCR_DOCKER_DEPENDENCY_REPORT").is_some() {
                 child.arg("--hash-dependencies");
             }
@@ -395,6 +429,43 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
         });
     }
 
+    Ok(child.spawn()?)
+}
+
+/// eBPF daemon backend: spawn the bare command and register this process so the
+/// command inherits the daemon scope. No `observe` wrapper, no extra process.
+fn spawn_child_daemon(
+    config: &Config,
+    command: &Command,
+    runtime: &Runtime,
+    socket: &Path,
+) -> Result<Child> {
+    let mut child = ShellCommand::new(&command.name);
+    child.args(&command.arguments);
+    child
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped());
+    unsafe {
+        child.pre_exec(|| {
+            if libc::prctl(libc::PR_SET_PDEATHSIG, libc::SIGKILL) == -1 {
+                return Err(IoError::last_os_error());
+            }
+            if libc::setpgid(0, 0) == -1 {
+                Err(IoError::last_os_error())
+            } else {
+                Ok(())
+            }
+        });
+    }
+    // Register right before spawning, so the only thing we fork while scoped is
+    // the command itself. incr's own events are dropped by the daemon.
+    let detach = config
+        .observe_detach_executable
+        .as_deref()
+        .map(Path::new);
+    let session = observe_core::register(socket, detach)?;
+    *runtime.daemon_session.borrow_mut() = Some(session);
     Ok(child.spawn()?)
 }
 

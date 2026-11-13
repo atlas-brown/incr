@@ -35,6 +35,9 @@ struct Arguments {
     observe_command: Option<String>,
     #[arg(long = "observe-detach-executable")]
     observe_detach_executable: Option<String>,
+    /// Observe commands with the eBPF backend instead of ptrace.
+    #[arg(long = "ebpf", env = "INCR_OBSERVE_EBPF")]
+    observe_ebpf: bool,
 
     #[arg(
         long = "effect-policy",
@@ -191,6 +194,7 @@ fn parse_input() -> Result<Option<Input>> {
         trace_type,
         observe_command: arguments.observe_command,
         observe_detach_executable: arguments.observe_detach_executable,
+        observe_ebpf: arguments.observe_ebpf,
 
         effect_policy: arguments.effect_policy,
         assume_text: arguments.assume_text,

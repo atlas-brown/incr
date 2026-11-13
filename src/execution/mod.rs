@@ -65,6 +65,22 @@ pub(crate) fn parse_trace(runtime: &Runtime) -> Result<Trace> {
             });
         }
     };
+    // eBPF daemon backend: collect this command's events from the daemon and
+    // write the observe.json the parser below expects, so the rest is unchanged.
+    if let Some(session) = runtime.daemon_session.borrow_mut().take() {
+        let options = observe_core::Options {
+            hash_writes: true,
+            dependencies: true,
+            hash_dependencies: false,
+            snapshot_dir: runtime.snapshot_directory.clone(),
+            detach_executable: None,
+            // Daemon-direct path: no entry-stop tracer, so the collector
+            // reports unknown pre-write states instead of hashing at drain.
+            prestate: false,
+        };
+        let outcome = session.collect(&options, 0)?;
+        observe_core::report::write(&outcome, Some(&trace_file), true)?;
+    }
     let mut trace = if trace_file
         .extension()
         .is_some_and(|extension| extension == "json")

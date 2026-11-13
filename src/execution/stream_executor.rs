@@ -221,6 +221,7 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
             stderr_file,
             effect_gate: None,
             snapshot_directory: None,
+            daemon_session: std::cell::RefCell::new(None),
         });
     }
     if config.trace_type == TraceType::TraceFile {
@@ -235,6 +236,7 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
             stderr_file,
             effect_gate: None,
             snapshot_directory: None,
+            daemon_session: std::cell::RefCell::new(None),
         });
     }
     if config.trace_type == TraceType::Observe {
@@ -245,6 +247,7 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
             stderr_file,
             effect_gate: None,
             snapshot_directory: None,
+            daemon_session: std::cell::RefCell::new(None),
         });
     }
 
@@ -262,6 +265,7 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
         stderr_file,
         effect_gate: None,
         snapshot_directory: None,
+            daemon_session: std::cell::RefCell::new(None),
     })
 }
 

@@ -151,6 +151,7 @@ fn process_chunk(
         stderr_file: config.cache_directory.join(format!("stderr_{identifier}.incr")),
         effect_gate: None,
         snapshot_directory: None,
+        daemon_session: std::cell::RefCell::new(None),
     });
     let runtime = &output.0;
     let ChildContext {
@@ -229,6 +230,7 @@ mod tests {
                 trace_type: TraceType::Nothing,
                 observe_command: None,
                 observe_detach_executable: None,
+                observe_ebpf: false,
                 effect_policy: EffectPolicy::Live,
                 assume_text: false,
                 batch_executor: false,

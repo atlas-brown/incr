@@ -113,5 +113,6 @@ fn create_child_runtime(config: &Config, cache: &CacheCursor<'_>) -> Runtime {
         stderr_file: cache.get_stderr_file(),
         effect_gate: None,
         snapshot_directory: None,
+            daemon_session: std::cell::RefCell::new(None),
     }
 }

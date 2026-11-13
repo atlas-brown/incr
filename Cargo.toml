@@ -17,3 +17,4 @@ shlex = "1.3.0"
 time = { version = "0.3.44", features = ["formatting", "local-offset", "macros"] }
 xxhash-rust = { version = "0.8.15", features = ["std", "xxh3"] }
 zstd = "0.13.3"
+observe-core = { path = "../ebpf-observe/observe" }
