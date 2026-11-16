@@ -10,6 +10,9 @@ use std::path::{Path, PathBuf};
 struct Report {
     dependency_version: u32,
     dependency_report_complete: bool,
+    /// Why the report is incomplete (absent when complete).
+    #[serde(default)]
+    dependency_report_incomplete_reasons: Vec<String>,
     replay_barriers: Vec<String>,
     dependencies: Vec<Dependency>,
     reads: Vec<ReportPath>,
@@ -115,6 +118,7 @@ fn parse_observe_with_mode(path: &Path, docker_dependency_report: bool) -> Resul
     let mut trace = Trace {
         replay_barriers: report.replay_barriers,
         dependency_report_complete: report.dependency_report_complete,
+        dependency_report_incomplete_reasons: report.dependency_report_incomplete_reasons,
         ..Trace::default()
     };
     trace.reads.extend(
@@ -378,6 +382,29 @@ mod tests {
 
         assert!(trace.dependency_report_complete);
         assert_eq!(trace.replay_barriers, vec!["uncapturable-output".to_owned()]);
+    }
+
+    #[test]
+    fn parses_dependency_report_incomplete_reasons() {
+        let path = std::env::temp_dir().join(format!(
+            "incr-observe-report-{}-{}.json",
+            std::process::id(),
+            rand::random::<u64>()
+        ));
+        std::fs::write(
+            &path,
+            r#"{"dependency_version":12,"dependency_report_complete":false,"dependency_report_incomplete_reasons":["path truncated in kernel (2x, e.g. /a)"],"replay_barriers":[],"dependencies":[],"reads":[],"writes":[]}"#,
+        )
+        .unwrap();
+
+        let trace = parse_observe(&path).unwrap();
+        std::fs::remove_file(path).unwrap();
+
+        assert!(!trace.dependency_report_complete);
+        assert_eq!(
+            trace.dependency_report_incomplete_reasons,
+            vec!["path truncated in kernel (2x, e.g. /a)".to_owned()]
+        );
     }
 
     #[test]

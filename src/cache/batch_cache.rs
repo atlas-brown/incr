@@ -91,7 +91,7 @@ impl<'c> CacheCursor<'c> {
         }
 
         let key_data = ops::data::encode_to_bytes(&CacheKey {
-            version: 31,
+            version: 32,
             assume_text: config.assume_text,
             effect_policy: config.effect_policy,
             observe: config.observe_command.is_some(),

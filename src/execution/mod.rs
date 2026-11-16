@@ -48,6 +48,8 @@ pub(crate) fn get_trace_type(
 pub(crate) struct Trace {
     pub(crate) replay_barriers: Vec<String>,
     pub(crate) dependency_report_complete: bool,
+    /// Why the dependency report is incomplete, as Observe reported it.
+    pub(crate) dependency_report_incomplete_reasons: Vec<String>,
     pub(crate) reads: HashSet<PathBuf>,
     pub(crate) writes: HashSet<PathBuf>,
     pub(crate) initial_file_ids: HashMap<PathBuf, (u64, u64)>,

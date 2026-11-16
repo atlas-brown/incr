@@ -23,13 +23,23 @@ struct OuterDependencies {
 fn outer_dependencies(cache_data: &CacheData) -> OuterDependencies {
     let mut paths = Vec::with_capacity(cache_data.read_dependencies.len());
     let mut complete = cache_data.dependency_report_complete;
-    let mut incomplete_reasons = Vec::new();
+    let mut incomplete_reasons = cache_data.incomplete_reasons.clone();
+    let mut non_utf8 = Vec::new();
     for path in cache_data.read_dependencies.keys() {
         if let Some(path) = path.to_str() {
             paths.push(path.to_owned());
         } else {
-            complete = false;
+            non_utf8.push(path);
         }
+    }
+    if let Some(first) = non_utf8.first() {
+        // Not UTF-8: cannot go in the outer report.
+        complete = false;
+        incomplete_reasons.push(format!(
+            "non-UTF-8 read path ({}x, e.g. {:?})",
+            non_utf8.len(),
+            first
+        ));
     }
     if !complete {
         incomplete_reasons.extend(cache_data.replay_barriers.iter().filter_map(|barrier| {
@@ -61,6 +71,7 @@ mod tests {
             exit_code: 0,
             replay_barriers: vec!["asynchronous filesystem operations".to_owned()],
             dependency_report_complete: true,
+            incomplete_reasons: Vec::new(),
             read_dependencies: HashMap::from([(
                 PathBuf::from("/workspace/input"),
                 DependencyKey::Uncacheable,
@@ -86,6 +97,7 @@ mod tests {
             exit_code: 0,
             replay_barriers: vec!["dependency report incomplete: unreadable filesystem path".to_owned()],
             dependency_report_complete: false,
+            incomplete_reasons: vec!["eBPF events dropped or not flushed".to_owned()],
             read_dependencies: HashMap::from([(
                 PathBuf::from("/workspace/input"),
                 DependencyKey::DoesNotExist,
@@ -98,7 +110,10 @@ mod tests {
         assert!(!report.complete);
         assert_eq!(
             report.incomplete_reasons,
-            vec!["unreadable filesystem path".to_owned()]
+            vec![
+                "eBPF events dropped or not flushed".to_owned(),
+                "unreadable filesystem path".to_owned()
+            ]
         );
     }
 
@@ -110,6 +125,7 @@ mod tests {
             exit_code: 0,
             replay_barriers: Vec::new(),
             dependency_report_complete: true,
+            incomplete_reasons: Vec::new(),
             read_dependencies: HashMap::from([(
                 PathBuf::from("/workspace/input"),
                 DependencyKey::DoesNotExist,
@@ -262,6 +278,7 @@ pub(crate) fn capture(
     let cache_data = CacheData {
         replay_barriers: trace.replay_barriers,
         dependency_report_complete: trace.dependency_report_complete,
+        incomplete_reasons: trace.dependency_report_incomplete_reasons,
         exit_code,
         read_dependencies,
         write_outputs: write_set,
