@@ -473,6 +473,9 @@ mod tests {
         fs::write(&path, b"stable input").unwrap();
         let dependency = content_state(&path);
         let original = fs::symlink_metadata(&path).unwrap();
+        // ctime comes from the kernel's coarse clock (one tick, 1-10ms), so
+        // without a pause the replacement can share the original's ctime.
+        std::thread::sleep(std::time::Duration::from_millis(20));
         fs::rename(&path, &replacement).unwrap();
         fs::write(&path, b"stable input").unwrap();
         restore_mtime(&path, &original);
