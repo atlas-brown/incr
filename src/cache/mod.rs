@@ -22,6 +22,18 @@ pub(crate) struct CacheData {
     pub(crate) read_dependencies: HashMap<PathBuf, DependencyKey>,
     pub(crate) write_outputs: HashSet<PathBuf>,
     pub(crate) compressed_output: bool,
+    /// Redirected stdout file state (see `run::restore_stdout_mtime`).
+    #[serde(default)]
+    pub(crate) stdout_file: Option<StdoutFileState>,
+}
+
+/// A redirected stdout file's size and mtime before and after the command.
+#[derive(Clone, Copy, Debug, Decode, Deserialize, Encode, Eq, PartialEq, Serialize)]
+pub(crate) struct StdoutFileState {
+    pub(crate) pre_size: u64,
+    pub(crate) pre_modified: (i64, i64),
+    pub(crate) post_size: u64,
+    pub(crate) post_modified: (i64, i64),
 }
 
 #[derive(Clone, Debug, Decode, Deserialize, Encode, Eq, PartialEq, Serialize)]

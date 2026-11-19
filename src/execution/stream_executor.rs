@@ -91,6 +91,7 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
         }
         stdin_prefix = prefetched.data;
     }
+    let stdout_before = run::stdout_file_stat();
     let mut runtime = create_child_runtime(config)?;
     if config.observe_command.is_some() && !matches!(runtime.kind, RuntimeType::Nothing) {
         runtime.effect_gate = Some(Arc::new(crate::effect_gate::EffectGate::create(
@@ -188,7 +189,9 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
                 command.arguments,
                 stdin_context.hash,
             );
-            let (status, cached_data) = save_command_data(config, command, cache, &runtime, exit_code)?;
+            let stdout_file = run::stdout_file_state(stdout_before, outputs.stdout_length);
+            let (status, cached_data) =
+                save_command_data(config, command, cache, &runtime, exit_code, stdout_file)?;
             execution::record::write_outer_dependencies(&cached_data)?;
             Ok(if outputs.broken_pipe {
                 BROKEN_PIPE_CODE
@@ -504,8 +507,10 @@ fn save_command_data(
     cache: CacheCursor<'_>,
     runtime: &Runtime,
     exit_code: ExitCode,
+    stdout_file: Option<crate::cache::StdoutFileState>,
 ) -> Result<(ExitCode, CacheData)> {
-    let cache_data = execution::record::capture(config, &cache, runtime, exit_code.0)?;
+    let mut cache_data = execution::record::capture(config, &cache, runtime, exit_code.0)?;
+    cache_data.stdout_file = stdout_file;
     if !config.disable_cache {
         cache.save_data(&cache_data)?;
         dependency::save_introspection(config, command, &cache_data)?;

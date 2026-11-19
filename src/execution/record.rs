@@ -78,6 +78,7 @@ mod tests {
             )]),
             write_outputs: HashSet::new(),
             compressed_output: false,
+            stdout_file: None,
         };
 
         assert!(!cache_data.is_reusable());
@@ -104,6 +105,7 @@ mod tests {
             )]),
             write_outputs: HashSet::new(),
             compressed_output: false,
+            stdout_file: None,
         };
 
         let report = outer_dependencies(&cache_data);
@@ -132,6 +134,7 @@ mod tests {
             )]),
             write_outputs: HashSet::new(),
             compressed_output: false,
+            stdout_file: None,
         };
 
         unsafe {
@@ -283,6 +286,7 @@ pub(crate) fn capture(
         read_dependencies,
         write_outputs: write_set,
         compressed_output: config.compress_output,
+        stdout_file: None,
     };
 
     for (source, destination) in [

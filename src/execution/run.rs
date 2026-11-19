@@ -5,7 +5,7 @@ use std::path::Path;
 use std::thread::JoinHandle;
 use zstd::Decoder;
 
-use crate::cache::{CacheData, batch_cache};
+use crate::cache::{CacheData, StdoutFileState, batch_cache};
 use crate::command::{ChildResult, Runtime, RuntimeType};
 use crate::config::{BUFFER_SIZE, Config};
 use crate::ops::stream::TransferOutcome;
@@ -82,6 +82,12 @@ pub(crate) fn replay(
     data: &CacheData,
     forwarded: &OutputMetadata,
 ) -> Result<ExitCode> {
+    // Forwarded bytes already changed the file: don't restore.
+    let stdout_before = if forwarded.stdout_length == 0 {
+        stdout_file_stat()
+    } else {
+        None
+    };
     let stdout = output_data(
         &cache.get_stdout_file(),
         forwarded.stdout_length,
@@ -94,6 +100,11 @@ pub(crate) fn replay(
         data.compressed_output,
         &mut io::stderr().lock(),
     )?;
+    if stdout == TransferOutcome::Completed
+        && let (Some(recorded), Some(before)) = (data.stdout_file, stdout_before)
+    {
+        restore_stdout_mtime(&recorded, before);
+    }
     let broken_pipe = forwarded.broken_pipe
         || stdout == TransferOutcome::BrokenPipe
         || stderr == TransferOutcome::BrokenPipe;
@@ -105,6 +116,53 @@ pub(crate) fn replay(
     } else {
         ExitCode(data.exit_code)
     })
+}
+
+/// Size and mtime of stdout when it is a regular file (a shell redirect).
+pub(crate) fn stdout_file_stat() -> Option<(u64, (i64, i64))> {
+    let mut stat: libc::stat = unsafe { std::mem::zeroed() };
+    if unsafe { libc::fstat(libc::STDOUT_FILENO, &mut stat) } != 0
+        || stat.st_mode & libc::S_IFMT != libc::S_IFREG
+    {
+        return None;
+    }
+    Some((stat.st_size as u64, (stat.st_mtime, stat.st_mtime_nsec)))
+}
+
+/// Kept only when the command alone appended its stdout to the file.
+pub(crate) fn stdout_file_state(
+    before: Option<(u64, (i64, i64))>,
+    stdout_length: usize,
+) -> Option<StdoutFileState> {
+    let (pre_size, pre_modified) = before?;
+    let (post_size, post_modified) = stdout_file_stat()?;
+    (post_size == pre_size + stdout_length as u64).then_some(StdoutFileState {
+        pre_size,
+        pre_modified,
+        post_size,
+        post_modified,
+    })
+}
+
+/// Restore a redirected stdout file's mtime if it was in the recorded state.
+fn restore_stdout_mtime(recorded: &StdoutFileState, (pre_size, pre_modified): (u64, (i64, i64))) {
+    let same_before = pre_size == recorded.pre_size
+        && (pre_modified == recorded.pre_modified
+            || (recorded.pre_size == 0 && recorded.post_size > 0));
+    if !same_before || stdout_file_stat().map(|(size, _)| size) != Some(recorded.post_size) {
+        return;
+    }
+    let times = [
+        libc::timespec {
+            tv_sec: 0,
+            tv_nsec: libc::UTIME_OMIT,
+        },
+        libc::timespec {
+            tv_sec: recorded.post_modified.0,
+            tv_nsec: recorded.post_modified.1 as _,
+        },
+    ];
+    unsafe { libc::futimens(libc::STDOUT_FILENO, times.as_ptr()) };
 }
 
 /// Replays captured data from a file to a destination stream, skipping the first
