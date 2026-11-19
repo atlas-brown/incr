@@ -68,13 +68,37 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
             &run::OutputMetadata::default(),
         );
     }
+    // Prefetch and validate stdin when speculation is off.
+    let mut stdin_prefix = Vec::new();
+    if !config.disable_cache && !candidates.is_empty() && !speculation_allowed() {
+        let prefetched = prefetch_stdin()?;
+        if prefetched.complete {
+            let hash = ops::data::hash_bytes(&prefetched.data);
+            if let Some(index) = candidates.iter().position(|c| c.stdin_hash == hash) {
+                let candidate = candidates.remove(index);
+                debug_log!(
+                    "[incr] command cache: {} {:?} replayed without starting command (stdin read first)",
+                    command.name, command.arguments
+                );
+                execution::record::write_outer_dependencies(&candidate.data)?;
+                return run::replay(
+                    config,
+                    &candidate.cache,
+                    &candidate.data,
+                    &run::OutputMetadata::default(),
+                );
+            }
+        }
+        stdin_prefix = prefetched.data;
+    }
     let mut runtime = create_child_runtime(config)?;
     if config.observe_command.is_some() && !matches!(runtime.kind, RuntimeType::Nothing) {
         runtime.effect_gate = Some(Arc::new(crate::effect_gate::EffectGate::create(
             runtime.stdout_file.with_extension("gate"),
         )?));
     }
-    if !candidates.is_empty() && runtime.effect_gate.is_some() {
+    // Speculation needs snapshots, which the eBPF backend lacks.
+    if !candidates.is_empty() && runtime.effect_gate.is_some() && speculation_allowed() {
         runtime.snapshot_directory = Some(runtime.stdout_file.with_extension("snapshot"));
     }
     let _cleanup = run::TemporaryRuntime(&runtime);
@@ -94,7 +118,8 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     } = command::spawn(config, command, &runtime)?;
 
     let child_stdin = child.stdin.take().unwrap();
-    let stdin_context = capture_stdin(child_stdin, &mut child, &config.cache_directory)?;
+    let stdin_context =
+        capture_stdin(child_stdin, &mut child, &config.cache_directory, &stdin_prefix)?;
     let selected = candidates
         .into_iter()
         .find(|candidate| candidate.stdin_hash == stdin_context.hash);
@@ -172,6 +197,11 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
             })
         }
     }
+}
+
+/// Off under incr-docker.
+fn speculation_allowed() -> bool {
+    std::env::var_os("INCR_DOCKER_DEPENDENCY_REPORT").is_none()
 }
 
 fn stdin_is_known_empty() -> bool {
@@ -269,13 +299,61 @@ fn create_child_runtime(config: &Config) -> Result<Runtime> {
     })
 }
 
+/// `complete`: EOF reached.
+struct PrefetchedStdin {
+    data: Vec<u8>,
+    complete: bool,
+}
+
+/// Past either bound, fall back to streaming.
+const PREFETCH_LIMIT_BYTES: usize = 64 << 20;
+const PREFETCH_IDLE_MS: i32 = 10_000;
+
+fn prefetch_stdin() -> Result<PrefetchedStdin> {
+    let mut process_stdin = io::stdin().lock();
+    let mut data = Vec::new();
+    if process_stdin.is_terminal() {
+        return Ok(PrefetchedStdin { data, complete: false });
+    }
+    let mut chunk = [0; BUFFER_SIZE];
+    loop {
+        if data.len() >= PREFETCH_LIMIT_BYTES {
+            return Ok(PrefetchedStdin { data, complete: false });
+        }
+        let mut pollfd = libc::pollfd {
+            fd: process_stdin.as_raw_fd(),
+            events: libc::POLLIN,
+            revents: 0,
+        };
+        let ready = unsafe { libc::poll(&mut pollfd, 1, PREFETCH_IDLE_MS) };
+        if ready < 0 {
+            let error = io::Error::last_os_error();
+            if error.kind() == ErrorKind::Interrupted {
+                continue;
+            }
+            return Err(error.into());
+        }
+        if ready == 0 {
+            // Idle producer.
+            return Ok(PrefetchedStdin { data, complete: false });
+        }
+        match process_stdin.read(&mut chunk) {
+            Ok(0) => return Ok(PrefetchedStdin { data, complete: true }),
+            Ok(count) => data.extend_from_slice(&chunk[..count]),
+            Err(error) if error.kind() == ErrorKind::Interrupted => continue,
+            Err(error) => return Err(error.into()),
+        }
+    }
+}
+
 fn capture_stdin(
     child_stdin: ChildStdin,
     child: &mut Child,
     directory: &std::path::Path,
+    prefix: &[u8],
 ) -> Result<StdinContext> {
     let mut process_stdin = io::stdin().lock();
-    if process_stdin.is_terminal() {
+    if process_stdin.is_terminal() && prefix.is_empty() {
         return Ok(StdinContext {
             hash: ops::data::hash_bytes(&[]),
             broken_pipe: false,
@@ -297,6 +375,12 @@ fn capture_stdin(
     });
     let mut chunk = [0; BUFFER_SIZE];
     let mut hasher = Xxh3::new();
+    if !prefix.is_empty() {
+        if !sender.send(prefix)? {
+            stdin_broken.store(true, Ordering::Release);
+        }
+        hasher.update(prefix);
+    }
 
     loop {
         if stdin_broken.load(Ordering::Acquire) {
@@ -366,10 +450,11 @@ fn load_cache_data(
             command::reap_children();
             return Ok(CacheStatus::Valid(data));
         }
-        if runtime
-            .effect_gate
-            .as_ref()
-            .is_some_and(|gate| gate.has_live_effects())
+        if runtime.snapshot_directory.is_some()
+            && runtime
+                .effect_gate
+                .as_ref()
+                .is_some_and(|gate| gate.has_live_effects())
         {
             super::speculation::stop_and_restore(config, runtime, &mut child, &data)?;
             return Ok(CacheStatus::Valid(data));
