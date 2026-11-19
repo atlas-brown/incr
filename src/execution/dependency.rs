@@ -1,7 +1,7 @@
 use anyhow::Result;
 use std::collections::{HashMap, HashSet};
 use std::fs::{self, File};
-use std::io::{BufReader, ErrorKind};
+use std::io::ErrorKind;
 use std::os::unix::ffi::OsStringExt;
 use std::os::unix::fs::{MetadataExt, OpenOptionsExt};
 use std::path::{Path, PathBuf};
@@ -11,7 +11,7 @@ use xxhash_rust::xxh3::Xxh3;
 use crate::cache::batch_cache::CacheCursor;
 use crate::cache::{CacheData, DependencyKey};
 use crate::command::Command;
-use crate::config::{BUFFER_SIZE, Config, DYNAMIC_EXCLUDED_PATHS, INTROSPECT_DIRECTORY};
+use crate::config::{Config, DYNAMIC_EXCLUDED_PATHS, INTROSPECT_DIRECTORY};
 use crate::ops;
 use crate::ops::debug_log;
 
@@ -95,6 +95,20 @@ fn capture_dependency(path: &Path, written: bool) -> Result<DependencyKey> {
         if written {
             match get_file_hash(path)? {
                 Some(hash) => DependencyKey::All(vec![state, DependencyKey::Hash(hash)]),
+                None => DependencyKey::Uncacheable,
+            }
+        } else if ops::hash_cache::enabled() {
+            // --hash-dependencies: content + mtime, no inode/ctime.
+            match get_file_hash(path)? {
+                Some(hash) => DependencyKey::ContentState {
+                    modified,
+                    size: metadata.len(),
+                    mode,
+                    uid: metadata.uid(),
+                    gid: metadata.gid(),
+                    access: crate::ops::permissions::effective_access(path)?,
+                    hash,
+                },
                 None => DependencyKey::Uncacheable,
             }
         } else {
@@ -633,11 +647,11 @@ fn get_file_hash(file_path: &Path) -> Result<Option<u64>> {
         Err(error) if error.kind() == ErrorKind::PermissionDenied => return Ok(None),
         Err(error) => return Err(error.into()),
     };
-    if !file.metadata()?.is_file() {
+    let metadata = file.metadata()?;
+    if !metadata.is_file() {
         return Ok(None);
     }
-    let mut file_reader = BufReader::with_capacity(BUFFER_SIZE, file);
-    Ok(Some(ops::data::hash_stream(&mut file_reader)?))
+    Ok(Some(ops::hash_cache::hash_open_file(file_path, file, &metadata)?))
 }
 
 fn get_directory_hash(directory: &Path) -> Result<Option<u64>> {

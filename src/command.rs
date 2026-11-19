@@ -48,6 +48,8 @@ struct CommandKey<'c> {
 #[derive(Clone, Debug, Encode)]
 struct ExecutableState {
     path_bytes: Vec<u8>,
+    // Set with --hash-dependencies (inode/ctime/mtime are then zero).
+    content_hash: Option<u64>,
     // Overlay mounts can assign a different device number to the same executable.
     inode: u64,
     changed_sec: i64,
@@ -208,8 +210,28 @@ fn executable_state(name: &str, environment: &BTreeMap<String, String>) -> Optio
         if !metadata.is_file() {
             continue;
         }
+        if ops::hash_cache::enabled() {
+            let Some(content_hash) = fs::File::open(&path)
+                .ok()
+                .and_then(|file| ops::hash_cache::hash_open_file(&path, file, &metadata).ok())
+            else {
+                continue;
+            };
+            return Some(ExecutableState {
+                path_bytes: path.as_os_str().as_bytes().to_vec(),
+                content_hash: Some(content_hash),
+                inode: 0,
+                changed_sec: 0,
+                changed_nsec: 0,
+                modified_sec: 0,
+                modified_nsec: 0,
+                size: metadata.len(),
+                mode: metadata.mode(),
+            });
+        }
         return Some(ExecutableState {
             path_bytes: path.as_os_str().as_bytes().to_vec(),
+            content_hash: None,
             inode: metadata.ino(),
             changed_sec: metadata.ctime(),
             changed_nsec: metadata.ctime_nsec(),
@@ -386,7 +408,7 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
             if prestate_tracer.is_some() {
                 child.arg("--ptrace-prestate");
             }
-            if std::env::var_os("INCR_DOCKER_DEPENDENCY_REPORT").is_some() {
+            if ops::hash_cache::enabled() {
                 child.arg("--hash-dependencies");
             }
             child.arg("--output").arg(file);

@@ -47,6 +47,18 @@ struct Arguments {
     )]
     effect_policy: crate::config::EffectPolicy,
 
+    /// Identify files and the executable by content hash.
+    #[arg(
+        long = "hash-dependencies",
+        env = "INCR_HASH_DEPENDENCIES",
+        action = clap::ArgAction::Set,
+        value_parser = clap::builder::BoolishValueParser::new(),
+        num_args = 0..=1,
+        default_value = "false",
+        default_missing_value = "true"
+    )]
+    hash_dependencies: bool,
+
     /// Assume stdin is NUL-free ASCII text for line-wise chunk optimizations.
     #[arg(long = "assume-text", env = "INCR_ASSUME_TEXT")]
     assume_text: bool,
@@ -149,6 +161,8 @@ fn parse_input() -> Result<Option<Input>> {
     // Open this process's cache-debug log under the cache directory when
     // runtime debugging is on, before any cache diagnostics are emitted.
     crate::ops::init_cache_log(&cache_directory);
+    // Before command::create (the executable key uses it).
+    crate::ops::hash_cache::init(arguments.hash_dependencies, &cache_directory);
 
     // Cache keys currently use UTF-8 strings. Preserve arbitrary Unix bytes by
     // executing such invocations directly instead of rejecting or corrupting them.

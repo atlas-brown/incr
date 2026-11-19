@@ -1,6 +1,7 @@
 pub(crate) mod chunk;
 pub(crate) mod data;
 pub(crate) mod file;
+pub(crate) mod hash_cache;
 pub(crate) mod permissions;
 pub(crate) mod serialize_bytes;
 pub(crate) mod spool;
