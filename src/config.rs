@@ -1,5 +1,5 @@
 use std::fmt::{Display, Error as FormatError, Formatter};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 pub(crate) const DEFAULT_TRY_PATH: &str = "incr/src/scripts/try.sh";
 pub(crate) const STRACE_COMMAND: &str = "strace";
@@ -125,4 +125,36 @@ pub(crate) enum EffectPolicy {
     Live,
     #[value(name = "final")]
     FinalOutputs,
+}
+
+/// incr-docker's auto-cache dirs (`INCR_DOCKER_CACHE_PATHS`, colon-separated).
+pub(crate) fn docker_cache_paths() -> Vec<PathBuf> {
+    std::env::var_os("INCR_DOCKER_CACHE_PATHS")
+        .map(|paths| {
+            std::env::split_paths(&paths)
+                .filter(|path| path.is_absolute() && path != Path::new("/"))
+                .collect()
+        })
+        .unwrap_or_default()
+}
+
+/// A dependency inside a cache dir, or the absence of a cache dir's ancestor.
+pub(crate) fn is_cache_dependency(path: &Path, absent: bool, cache_paths: &[PathBuf]) -> bool {
+    cache_paths
+        .iter()
+        .any(|root| path.starts_with(root) || (absent && root.starts_with(path)))
+}
+
+#[cfg(test)]
+mod cache_path_tests {
+    use super::*;
+
+    #[test]
+    fn cache_dependencies_are_inside_or_absent_ancestors() {
+        let roots = [PathBuf::from("/root/.cache/uv")];
+        assert!(is_cache_dependency(Path::new("/root/.cache/uv/.tmp1/x.py"), false, &roots));
+        assert!(is_cache_dependency(Path::new("/root/.cache"), true, &roots));
+        assert!(!is_cache_dependency(Path::new("/root/.cache"), false, &roots));
+        assert!(!is_cache_dependency(Path::new("/root/.cache/uvx"), false, &roots));
+    }
 }

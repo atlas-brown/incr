@@ -404,6 +404,9 @@ fn spawn_child(config: &Config, command: &Command, runtime: &Runtime) -> Result<
             child.args(["--json", "--hash", "--dependencies"]);
             if config.observe_ebpf {
                 child.arg("--ebpf");
+                for path in crate::config::docker_cache_paths() {
+                    child.arg("--ignore-cache-dependency").arg(path);
+                }
             }
             if prestate_tracer.is_some() {
                 child.arg("--ptrace-prestate");

@@ -79,8 +79,10 @@ pub(crate) fn parse_trace(runtime: &Runtime) -> Result<Trace> {
             // Daemon-direct path: no entry-stop tracer, so the collector
             // reports unknown pre-write states instead of hashing at drain.
             prestate: false,
+            ignore_cache_dependency: crate::config::docker_cache_paths(),
         };
-        let outcome = session.collect(&options, 0)?;
+        let mut outcome = session.collect(&options, 0)?;
+        outcome.drop_ignored(&options);
         observe_core::report::write(&outcome, Some(&trace_file), true)?;
     }
     let mut trace = if trace_file

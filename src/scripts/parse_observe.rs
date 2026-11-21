@@ -104,6 +104,19 @@ pub(crate) fn parse_observe(path: &Path) -> Result<Trace> {
 }
 
 fn parse_observe_with_mode(path: &Path, docker_dependency_report: bool) -> Result<Trace> {
+    let cache_paths = if docker_dependency_report {
+        crate::config::docker_cache_paths()
+    } else {
+        Vec::new()
+    };
+    parse_observe_with_cache_paths(path, docker_dependency_report, cache_paths)
+}
+
+fn parse_observe_with_cache_paths(
+    path: &Path,
+    docker_dependency_report: bool,
+    cache_paths: Vec<PathBuf>,
+) -> Result<Trace> {
     let report: Report = serde_json::from_slice(&std::fs::read(path)?)
         .with_context(|| format!("decode Observe report {}", path.display()))?;
     if report.dependency_version != 12 {
@@ -114,6 +127,7 @@ fn parse_observe_with_mode(path: &Path, docker_dependency_report: bool) -> Resul
             && !OBSERVE_READ_EXCLUDED_PATHS
                 .iter()
                 .any(|root| path.starts_with(root))
+            && !cache_paths.iter().any(|root| path.starts_with(root))
     };
     let mut trace = Trace {
         replay_barriers: report.replay_barriers,
@@ -134,6 +148,10 @@ fn parse_observe_with_mode(path: &Path, docker_dependency_report: bool) -> Resul
     } in report.dependencies
     {
         if !tracked(&path) {
+            continue;
+        }
+        // Absent cache-dir ancestors reflect the mount, not the build's input.
+        if crate::config::is_cache_dependency(&path, matches!(observed, ObservedDependency::Absent), &cache_paths) {
             continue;
         }
         let key = match observed {
@@ -363,6 +381,27 @@ fn is_docker_volatile_dependency(path: &Path) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn absent_ancestor_of_a_cache_dir_is_not_a_dependency() {
+        let path = std::env::temp_dir().join(format!(
+            "incr-observe-report-{}-{}.json",
+            std::process::id(),
+            rand::random::<u64>()
+        ));
+        std::fs::write(
+            &path,
+            r#"{"dependency_version":12,"dependency_report_complete":true,"replay_barriers":[],"dependencies":[{"path":"/root/.cache","kind":"absent"},{"path":"/root/.config","kind":"absent"},{"path":"/root/.cache/uv/x","kind":"absent"}],"reads":[],"writes":[]}"#,
+        )
+        .unwrap();
+        let trace =
+            parse_observe_with_cache_paths(&path, true, vec![PathBuf::from("/root/.cache/uv")]).unwrap();
+        std::fs::remove_file(path).unwrap();
+        // Only the cache dir's own ancestors and contents are dropped.
+        assert!(!trace.initial_dependencies.contains_key(Path::new("/root/.cache")));
+        assert!(trace.initial_dependencies.contains_key(Path::new("/root/.config")));
+        assert!(!trace.initial_dependencies.contains_key(Path::new("/root/.cache/uv/x")));
+    }
 
     #[test]
     fn parses_dependency_report_completeness() {

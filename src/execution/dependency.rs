@@ -144,7 +144,14 @@ pub(crate) fn filter_dependencies(
 }
 
 fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Result<bool> {
-    let dependencies = dependencies.iter().collect::<Vec<_>>();
+    // Skip cache-dir dependencies, whatever cache paths the record was made with.
+    let cache_paths = crate::config::docker_cache_paths();
+    let dependencies = dependencies
+        .iter()
+        .filter(|(path, key)| {
+            !crate::config::is_cache_dependency(path, **key == DependencyKey::DoesNotExist, &cache_paths)
+        })
+        .collect::<Vec<_>>();
     let results = ops::thread::parallel_process(&dependencies, |chunk| {
         for (path, key) in chunk {
             // Files can disappear or become unreadable between probes. That is
