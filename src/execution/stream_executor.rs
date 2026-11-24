@@ -49,13 +49,17 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     } else {
         crate::cache::candidates::validate(config, command)?
     };
+    let empty_hash = ops::data::hash_bytes(&[]);
     if !config.disable_cache
         && stdin_is_known_empty()
-        && let Some(index) = candidates
+        && let Some(candidate) = match candidates
             .iter()
-            .position(|candidate| candidate.stdin_hash == ops::data::hash_bytes(&[]))
+            .position(|candidate| candidate.stdin_hash == empty_hash)
+        {
+            Some(index) => Some(candidates.remove(index)),
+            None => crate::cache::candidates::lookup(config, command, empty_hash)?,
+        }
     {
-        let candidate = candidates.remove(index);
         debug_log!(
             "[incr] command cache: {} {:?} replayed without starting command (empty stdin)",
             command.name, command.arguments
@@ -70,12 +74,17 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
     }
     // Prefetch and validate stdin when speculation is off.
     let mut stdin_prefix = Vec::new();
-    if !config.disable_cache && !candidates.is_empty() && !speculation_allowed() {
+    if !config.disable_cache
+        && !speculation_allowed()
+        && (!candidates.is_empty() || crate::cache::candidates::has_records(config, command))
+    {
         let prefetched = prefetch_stdin()?;
         if prefetched.complete {
             let hash = ops::data::hash_bytes(&prefetched.data);
-            if let Some(index) = candidates.iter().position(|c| c.stdin_hash == hash) {
-                let candidate = candidates.remove(index);
+            if let Some(candidate) = match candidates.iter().position(|c| c.stdin_hash == hash) {
+                Some(index) => Some(candidates.remove(index)),
+                None => crate::cache::candidates::lookup(config, command, hash)?,
+            } {
                 debug_log!(
                     "[incr] command cache: {} {:?} replayed without starting command (stdin read first)",
                     command.name, command.arguments

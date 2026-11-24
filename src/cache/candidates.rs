@@ -54,6 +54,41 @@ pub(crate) fn validate<'a>(config: &Config, command: &'a Command) -> Result<Vec<
     Ok(candidates)
 }
 
+/// True when any record exists for this command, beyond the recent window.
+pub(crate) fn has_records(config: &Config, command: &Command) -> bool {
+    if config.observe_command.is_none() || config.effect_policy != EffectPolicy::FinalOutputs {
+        return false;
+    }
+    let directory = config
+        .cache_directory
+        .join("candidates")
+        .join(command.hash.to_string());
+    fs::read_dir(directory).is_ok_and(|mut entries| entries.next().is_some())
+}
+
+/// Load and validate the record for one exact stdin hash, outside the recent window.
+pub(crate) fn lookup<'a>(
+    config: &Config,
+    command: &'a Command,
+    stdin_hash: u64,
+) -> Result<Option<Candidate<'a>>> {
+    if !has_records(config, command) {
+        return Ok(None);
+    }
+    let cache = CacheCursor::from_hash(config, command, stdin_hash)?;
+    let Some(data) = cache.load_data()? else {
+        return Ok(None);
+    };
+    if !dependency::check_cache_valid(&cache, &data)? {
+        return Ok(None);
+    }
+    Ok(Some(Candidate {
+        stdin_hash,
+        cache,
+        data,
+    }))
+}
+
 fn recent_entries(directory: &Path) -> Vec<IndexEntry> {
     let Ok(entries) = fs::read_dir(directory) else {
         return Vec::new();
