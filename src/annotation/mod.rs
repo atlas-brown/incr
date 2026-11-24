@@ -10,6 +10,30 @@ pub(crate) fn skip_command(command: &Command, environment: &HashMap<String, Stri
         || environment.contains_key(&format!("BASH_FUNC_{}%%", command.name))
 }
 
+/// Standard tools that never use an inherited fd above 2 (configure's `exec 5>>config.log`).
+// TODO: temporary allowlist; replace by having observe report reads/writes on inherited fds.
+pub(crate) fn ignores_inherited_descriptors(command: &Command) -> bool {
+    const TOOLS: &[&str] = &[
+        "awk", "basename", "cat", "chmod", "cp", "cut", "dirname", "egrep", "expr", "fgrep",
+        "gawk", "grep", "head", "ln", "mawk", "mkdir", "mv", "rm", "rmdir", "sed", "sort",
+        "tail", "touch", "tr", "uname", "uniq", "wc",
+    ];
+    let tool = command.name.rsplit('/').next().unwrap_or_default();
+    command.standard_tool
+        && TOOLS.contains(&tool)
+        && command.arguments.iter().all(|argument| {
+            !argument.contains("/dev/fd")
+                && !argument.contains("/proc/")
+                && !argument.contains("/dev/std")
+                && argument != "-f"
+                && !argument.starts_with("--file")
+                && !(argument.starts_with('-')
+                    && !argument.starts_with("--")
+                    && argument.contains('f')
+                    && matches!(tool, "sed" | "awk" | "gawk" | "mawk" | "grep" | "egrep" | "fgrep"))
+        })
+}
+
 pub(crate) fn check_pure(command: &Command) -> bool {
     if !command.standard_tool {
         return false;

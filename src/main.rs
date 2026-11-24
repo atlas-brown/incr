@@ -117,7 +117,7 @@ fn run() -> Result<ExitCode> {
     if std::io::stdin().is_terminal()
         || std::io::stdout().is_terminal()
         || std::io::stderr().is_terminal()
-        || command.inherited_descriptors
+        || (command.inherited_descriptors && !annotation::ignores_inherited_descriptors(&command))
         || (!config.full_tracing && annotation::skip_command(&command, &environment))
     {
         return Err(skip_executor::execute(&command));
