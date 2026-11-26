@@ -106,7 +106,8 @@ impl CacheData {
     /// Cache-format limitations belong here, not in the trace's effect barriers:
     /// a losslessly traced byte path can still be restored after speculation.
     pub(crate) fn is_reusable(&self) -> bool {
-        self.replay_barriers.is_empty()
+        self.dependency_report_complete
+            && self.replay_barriers.is_empty()
             && self
                 .read_dependencies
                 .iter()
