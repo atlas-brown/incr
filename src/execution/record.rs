@@ -108,6 +108,7 @@ mod tests {
             stdout_file: None,
         };
 
+        assert!(!cache_data.is_reusable());
         let report = outer_dependencies(&cache_data);
         assert!(!report.complete);
         assert_eq!(
