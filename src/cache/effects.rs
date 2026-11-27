@@ -63,6 +63,34 @@ struct Manifest {
     entries: Vec<Entry>,
 }
 
+/// True if every name of every hard-linked output file is a write or a reusable
+/// dependency, so `capture` records the whole link group.
+pub(crate) fn hard_links_recorded(
+    writes: &HashSet<PathBuf>,
+    dependencies: &HashMap<PathBuf, crate::cache::DependencyKey>,
+) -> bool {
+    let recorded_names = writes.iter().chain(
+        dependencies
+            .iter()
+            .filter(|(path, dependency)| !writes.contains(*path) && dependency.is_reusable())
+            .map(|(path, _)| path),
+    );
+    let mut names: HashMap<(u64, u64), u64> = HashMap::new();
+    for path in recorded_names {
+        if let Ok(metadata) = fs::symlink_metadata(path)
+            && metadata.is_file()
+        {
+            *names.entry((metadata.dev(), metadata.ino())).or_default() += 1;
+        }
+    }
+    writes.iter().all(|path| match fs::symlink_metadata(path) {
+        Ok(metadata) if metadata.is_file() && metadata.nlink() > 1 => {
+            names.get(&(metadata.dev(), metadata.ino())) == Some(&metadata.nlink())
+        }
+        _ => true,
+    })
+}
+
 pub(crate) fn capture(
     directory: &Path,
     writes: &HashSet<PathBuf>,

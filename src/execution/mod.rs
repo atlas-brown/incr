@@ -114,7 +114,28 @@ impl Trace {
             });
         }
     }
+
+    /// Under FinalOutputs, drop rename-alias barriers on regular files when the
+    /// captured outputs hold every name of each hard-linked output.
+    pub(crate) fn drop_recorded_alias_barriers(
+        &mut self,
+        policy: crate::config::EffectPolicy,
+        dependencies: &HashMap<PathBuf, crate::cache::DependencyKey>,
+    ) {
+        let is_alias = |reason: &String| {
+            reason.starts_with(RENAME_ALIAS_BARRIER) && reason.contains(" file_type=regular ")
+        };
+        if policy != crate::config::EffectPolicy::FinalOutputs
+            || !self.replay_barriers.iter().any(is_alias)
+            || !crate::cache::effects::hard_links_recorded(&self.writes, dependencies)
+        {
+            return;
+        }
+        self.replay_barriers.retain(|reason| !is_alias(reason));
+    }
 }
+
+const RENAME_ALIAS_BARRIER: &str = "rename source inode cannot be replayed without changing aliases:";
 
 /// Traces name absolute filesystem entries; pseudo descriptors are not paths.
 fn is_tracked_path(path: &Path) -> bool {
@@ -133,5 +154,37 @@ mod tests {
         for path in ["/proc", "/proc/self/fd/4", "pipe:[42]", "relative"] {
             assert!(!is_tracked_path(Path::new(path)), "{path}");
         }
+    }
+
+    #[test]
+    fn recorded_alias_barriers_are_dropped_only_under_final_outputs() {
+        let directory = std::env::temp_dir().join(format!("incr-alias-{}", rand::random::<u128>()));
+        fs::create_dir(&directory).unwrap();
+        let (first, second) = (directory.join("first"), directory.join("second"));
+        fs::write(&first, b"x").unwrap();
+        fs::hard_link(&first, &second).unwrap();
+        let alias =
+            format!("{RENAME_ALIAS_BARRIER} source=\"a\" destination=\"b\" file_type=regular nlink=2");
+        let special =
+            format!("{RENAME_ALIAS_BARRIER} source=\"a\" destination=\"b\" file_type=special nlink=2");
+        let trace = |writes: &[&PathBuf]| Trace {
+            replay_barriers: vec![alias.clone(), special.clone(), "other".to_owned()],
+            writes: writes.iter().map(|path| (*path).clone()).collect(),
+            ..Default::default()
+        };
+        let no_dependencies = HashMap::new();
+
+        let mut both = trace(&[&first, &second]);
+        both.drop_recorded_alias_barriers(crate::config::EffectPolicy::FinalOutputs, &no_dependencies);
+        assert_eq!(both.replay_barriers, vec![special.clone(), "other".to_owned()]);
+
+        let mut one = trace(&[&first]);
+        one.drop_recorded_alias_barriers(crate::config::EffectPolicy::FinalOutputs, &no_dependencies);
+        assert_eq!(one.replay_barriers.len(), 3);
+
+        let mut live = trace(&[&first, &second]);
+        live.drop_recorded_alias_barriers(crate::config::EffectPolicy::Live, &no_dependencies);
+        assert_eq!(live.replay_barriers.len(), 3);
+        fs::remove_dir_all(&directory).unwrap();
     }
 }

@@ -235,6 +235,7 @@ pub(crate) fn capture(
     } else {
         dependency::get_read_dependencies(&trace.reads, &trace.writes)?
     };
+    trace.drop_recorded_alias_barriers(config.effect_policy, &read_dependencies);
     if !trace.replay_barriers.is_empty() {
         debug_log!(
             "[incr] command cache: recording replay barriers: {:?}",

@@ -484,3 +484,65 @@ fn replay_preserves_group_writable_file_ownership() -> Result<()> {
     assert_eq!(restored.mode() & 0o777, 0o460);
     Ok(())
 }
+
+#[test]
+fn dpkg_style_link_group_is_recorded_and_replayed_as_links() -> Result<()> {
+    let fixture = TestDirectory::create()?;
+    let cache = fixture.0.join("cache");
+    let names: Vec<_> = ["bzip2", "bunzip2", "bzcat"]
+        .iter()
+        .map(|name| fixture.0.join(name))
+        .collect();
+    // dpkg: unpack as .dpkg-new, link the other names, rename each into place.
+    let staged: Vec<_> = names.iter().map(|name| name.with_extension("dpkg-new")).collect();
+    fs::write(&staged[0], b"bzip2 binary")?;
+    for name in &staged[1..] {
+        fs::hard_link(&staged[0], name)?;
+    }
+    for (from, to) in staged.iter().zip(&names) {
+        fs::rename(from, to)?;
+    }
+    let writes: HashSet<_> = names.iter().chain(&staged).cloned().collect();
+    assert!(hard_links_recorded(&writes, &HashMap::new()));
+
+    capture(&cache, &writes, &HashSet::new())?;
+    for name in &names {
+        fs::remove_file(name)?;
+    }
+    replay(&cache)?;
+
+    let inode = fs::metadata(&names[0])?.ino();
+    for name in &names {
+        assert_eq!(fs::read(name)?, b"bzip2 binary");
+        assert_eq!(fs::metadata(name)?.ino(), inode);
+        assert_eq!(fs::metadata(name)?.nlink(), 3);
+    }
+    assert!(staged.iter().all(|name| !name.exists()));
+    Ok(())
+}
+
+#[test]
+fn hard_link_outside_the_record_is_not_recorded() -> Result<()> {
+    let fixture = TestDirectory::create()?;
+    let outside = fixture.0.join("outside");
+    let output = fixture.0.join("output");
+    fs::write(&outside, b"shared")?;
+    fs::hard_link(&outside, &output)?;
+    let writes = HashSet::from([output.clone()]);
+    assert!(!hard_links_recorded(&writes, &HashMap::new()));
+    let unreusable = HashMap::from([(outside.clone(), crate::cache::DependencyKey::Uncacheable)]);
+    assert!(!hard_links_recorded(&writes, &unreusable));
+    Ok(())
+}
+
+#[test]
+fn hard_link_to_a_reusable_dependency_is_recorded() -> Result<()> {
+    let fixture = TestDirectory::create()?;
+    let input = fixture.0.join("input");
+    let output = fixture.0.join("output");
+    fs::write(&input, b"shared")?;
+    fs::hard_link(&input, &output)?;
+    let dependencies = HashMap::from([(input.clone(), crate::cache::DependencyKey::DoesNotExist)]);
+    assert!(hard_links_recorded(&HashSet::from([output]), &dependencies));
+    Ok(())
+}
