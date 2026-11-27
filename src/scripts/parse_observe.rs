@@ -184,6 +184,15 @@ fn parse_observe_with_cache_paths(
                 trace.initial_file_ids.insert(path.clone(), (device, inode));
                 let dependency = if let Some(hash) = content_hash {
                     match access {
+                        // Docker mode is content-only, like the RUN-level read-set.
+                        Some(access) if docker_dependency_report => DependencyKey::ContentHashState {
+                            size,
+                            mode,
+                            uid,
+                            gid,
+                            access,
+                            hash,
+                        },
                         Some(access) => DependencyKey::ContentState {
                             modified: modified.into(),
                             size,
@@ -283,7 +292,7 @@ fn parse_observe_with_cache_paths(
             ),
             ObservedDependency::Symlink {
                 target,
-                modified,
+                modified: _,
                 changed_sec: _,
                 changed_nsec: _,
                 mode,
@@ -293,7 +302,6 @@ fn parse_observe_with_cache_paths(
             } if docker_dependency_report => add_extended_attributes(
                 DependencyKey::DockerSymlinkState {
                     target,
-                    modified: modified.into(),
                     mode,
                     uid,
                     gid,
@@ -493,7 +501,7 @@ mod tests {
 
         assert!(matches!(
             trace.initial_dependencies.get(Path::new("/input")),
-            Some(DependencyKey::ContentState { hash: 8, .. })
+            Some(DependencyKey::ContentHashState { hash: 8, .. })
         ));
         assert!(matches!(
             trace.initial_dependencies.get(Path::new("/directory")),
@@ -525,8 +533,7 @@ mod tests {
         assert!(matches!(
             trace.initial_dependencies.get(Path::new("/input")),
             Some(DependencyKey::All(keys))
-                if keys.contains(&DependencyKey::ContentState {
-                    modified: 4,
+                if keys.contains(&DependencyKey::ContentHashState {
                     size: 7,
                     mode: 33188,
                     uid: 1,

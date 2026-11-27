@@ -334,7 +334,6 @@ fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
 
         DependencyKey::DockerSymlinkState {
             target,
-            modified,
             mode,
             uid,
             gid,
@@ -344,7 +343,6 @@ fn check_dependency(path: &Path, key: &DependencyKey) -> Result<bool> {
                 && metadata.mode() == *mode
                 && metadata.uid() == *uid
                 && metadata.gid() == *gid
-                && metadata.modified()?.duration_since(UNIX_EPOCH)?.as_nanos() == *modified
                 && fs::read_link(path)? == *target
         }
         DependencyKey::DoesNotExist => matches!(

@@ -94,7 +94,6 @@ pub(crate) enum DependencyKey {
     },
     DockerSymlinkState {
         target: PathBuf,
-        modified: u128,
         mode: u32,
         uid: u32,
         gid: u32,
