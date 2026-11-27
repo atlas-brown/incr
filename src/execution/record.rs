@@ -201,7 +201,9 @@ pub(crate) fn capture(
     runtime: &Runtime,
     exit_code: i32,
 ) -> Result<CacheData> {
+    let t_parse = std::time::Instant::now();
     let mut trace = execution::parse_trace(runtime)?;
+    debug_log!("[incr] timing: parse_trace {:.3}s", t_parse.elapsed().as_secs_f64());
     trace.apply_effect_policy(config.effect_policy);
     let mut read_dependencies = if config.observe_command.is_some() {
         trace
@@ -262,6 +264,7 @@ pub(crate) fn capture(
             }
         }
         RuntimeType::Observe(_) | RuntimeType::TraceFile(_) if config.observe_command.is_some() => {
+            let t_out = std::time::Instant::now();
             if !config.disable_cache
                 && trace.replay_barriers.is_empty()
                 && let Err(error) =
@@ -272,6 +275,7 @@ pub(crate) fn capture(
                 trace.replay_barriers.push("uncapturable-output".to_owned());
             }
             // Live effects are already applied; capture them without replaying.
+            debug_log!("[incr] timing: capture_observe_output {:.3}s", t_out.elapsed().as_secs_f64());
         }
         _ => {}
     }

@@ -44,11 +44,17 @@ pub(crate) fn execute(config: &Config, command: &Command) -> Result<ExitCode> {
         config.assume_text,
         config.full_tracing,
     );
+    let t_validate = std::time::Instant::now();
     let mut candidates = if config.disable_cache {
         Vec::new()
     } else {
         crate::cache::candidates::validate(config, command)?
     };
+    debug_log!(
+        "[incr] timing: validate {:.3}s ({} candidates)",
+        t_validate.elapsed().as_secs_f64(),
+        candidates.len()
+    );
     let empty_hash = ops::data::hash_bytes(&[]);
     if !config.disable_cache
         && stdin_is_known_empty()
@@ -474,9 +480,19 @@ fn load_cache_data(
         // An unresponsive/unattached tracer remains live; never require a report
         // from a process whose tracing handshake has not completed.
     }
-    let cached_data = match cache.load_data()? {
+    let t_load = std::time::Instant::now();
+    let loaded = cache.load_data()?;
+    let t_check = std::time::Instant::now();
+    let cached_data = match loaded {
         Some(cached_data) => {
-            if dependency::check_cache_valid(cache, &cached_data)?
+            let valid = dependency::check_cache_valid(cache, &cached_data)?;
+            debug_log!(
+                "[incr] timing: load {:.3}s check {:.3}s ({} deps, valid={valid})",
+                (t_check - t_load).as_secs_f64(),
+                t_check.elapsed().as_secs_f64(),
+                cached_data.read_dependencies.len()
+            );
+            if valid
                 && runtime
                     .effect_gate
                     .as_ref()
@@ -503,7 +519,9 @@ fn load_cache_data(
             Ok(CacheStatus::Valid(cached_data))
         }
         None => {
+            let t_wait = std::time::Instant::now();
             let exit_code = command::exit_code(child.wait()?);
+            debug_log!("[incr] timing: child wait {:.3}s", t_wait.elapsed().as_secs_f64());
             cache.clean()?;
             Ok(CacheStatus::Invalid(ExitCode(exit_code)))
         }
@@ -518,12 +536,23 @@ fn save_command_data(
     exit_code: ExitCode,
     stdout_file: Option<crate::cache::StdoutFileState>,
 ) -> Result<(ExitCode, CacheData)> {
+    let t_capture = std::time::Instant::now();
     let mut cache_data = execution::record::capture(config, &cache, runtime, exit_code.0)?;
     cache_data.stdout_file = stdout_file;
+    let t_save = std::time::Instant::now();
     if !config.disable_cache {
         cache.save_data(&cache_data)?;
         dependency::save_introspection(config, command, &cache_data)?;
     }
+    debug_log!(
+        "[incr] timing: capture {:.3}s save {:.3}s ({} deps, {} writes) {} {:?}",
+        (t_save - t_capture).as_secs_f64(),
+        t_save.elapsed().as_secs_f64(),
+        cache_data.read_dependencies.len(),
+        cache_data.write_outputs.len(),
+        command.name,
+        command.arguments
+    );
 
     Ok((exit_code, cache_data))
 }

@@ -5,6 +5,7 @@ use std::io::ErrorKind;
 use std::os::unix::ffi::OsStringExt;
 use std::os::unix::fs::{MetadataExt, OpenOptionsExt};
 use std::path::{Path, PathBuf};
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::UNIX_EPOCH;
 use xxhash_rust::xxh3::Xxh3;
 
@@ -152,11 +153,17 @@ fn check_read_dependencies(dependencies: &HashMap<PathBuf, DependencyKey>) -> Re
             !crate::config::is_cache_dependency(path, **key == DependencyKey::DoesNotExist, &cache_paths)
         })
         .collect::<Vec<_>>();
+    let invalid = AtomicBool::new(false);
     let results = ops::thread::parallel_process(&dependencies, |chunk| {
         for (path, key) in chunk {
+            // One stale dependency decides the record; stop the other chunks too.
+            if invalid.load(Ordering::Relaxed) {
+                return Ok(false);
+            }
             // Files can disappear or become unreadable between probes. That is
             // a cache miss, not an error in the user's command.
             if !check_dependency(path, key).unwrap_or(false) {
+                invalid.store(true, Ordering::Relaxed);
                 debug_log!(
                     "[incr] command cache: invalid dependency {} ({key:?})",
                     path.display()
